@@ -9,6 +9,7 @@
   <meta property="og:title" content="Milonga — Energy That Thinks" />
   <meta property="og:description" content="A yerba mate latte built for clean, focused energy. Lion's Mane · Natural Caffeine · L-Theanine. Join the waitlist." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/poster.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +17,7 @@
 
   <style>
     :root {
-      /* Pulled from the packaging */
+      /* Packaging palette on a cinematic dark stage */
       --gold-1:   #ecc96f;
       --gold-2:   #d6ab50;
       --gold-3:   #b98e38;
@@ -24,302 +25,292 @@
       --forest-1: #2f7a45;
       --forest-2: #1b5130;
       --forest-3: #0e3a20;
-      --ink:      #123320;
-      --line:     rgba(18, 51, 32, 0.14);
-      --maxw:     1180px;
+      --night:    #04100a;   /* deep jungle night */
+      --abyss:    #020805;   /* near black */
+      --mist:     rgba(247,239,224,0.66);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: "Inter", system-ui, sans-serif;
-      color: var(--ink);
-      background: var(--cream);
+      background: var(--abyss);
+      color: var(--cream);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     h1,h2,h3,.display { font-family: "Fredoka", system-ui, sans-serif; font-weight: 600; line-height: 1.05; }
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
     a { color: inherit; }
 
-    /* paper-cut texture overlay */
-    .leaf-tex {
-      background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 1px, transparent 1.4px);
-      background-size: 14px 14px;
+    /* ================= LOADER ================= */
+    #loader {
+      position: fixed; inset: 0; z-index: 100;
+      background: radial-gradient(120% 100% at 50% 0%, var(--night), var(--abyss) 70%);
+      display: grid; place-items: center;
+      transition: opacity .8s ease, visibility .8s;
     }
+    #loader.done { opacity: 0; visibility: hidden; }
+    .loader-inner { text-align: center; }
+    .loader-inner .wordmark {
+      font-family: "Fredoka"; font-weight: 700; font-size: 34px; letter-spacing: 6px;
+      color: var(--gold-1); margin-bottom: 6px;
+    }
+    .loader-inner .sub { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--mist); margin-bottom: 26px; }
+    .loader-bar { width: 180px; height: 2px; background: rgba(247,239,224,0.15); border-radius: 2px; margin: 0 auto; overflow: hidden; }
+    .loader-bar i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold-2), var(--gold-1)); transition: width .25s ease; }
 
-    /* ---------------- NAV ---------------- */
+    /* ================= NAV ================= */
     nav {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(247, 239, 224, 0.82);
-      border-bottom: 1px solid var(--line);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px clamp(20px, 4vw, 48px);
+      transition: background .4s, backdrop-filter .4s;
     }
-    nav .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
-    .logo { display: flex; align-items: center; gap: 10px; font-family: "Fredoka"; font-weight: 700; font-size: 22px; letter-spacing: .5px; color: var(--forest-2); }
-    .logo .mark { width: 30px; height: 30px; }
-    .nav-tag { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--forest-1); font-weight: 600; }
+    nav.scrolled { background: rgba(2,8,5,0.55); backdrop-filter: blur(12px); }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: "Fredoka"; font-weight: 700; font-size: 21px; letter-spacing: 1px; color: var(--gold-1); text-decoration: none; }
+    .logo .mark { width: 28px; height: 28px; }
+    .nav-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mist); font-weight: 500; }
     .nav-cta {
-      background: var(--forest-2); color: var(--cream); text-decoration: none;
-      font-weight: 600; font-size: 14px; padding: 10px 20px; border-radius: 100px;
-      transition: transform .15s, background .2s;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      color: var(--forest-3); text-decoration: none;
+      font-family: "Fredoka"; font-weight: 600; font-size: 14px; padding: 10px 22px; border-radius: 100px;
+      transition: transform .15s, filter .2s;
     }
-    .nav-cta:hover { background: var(--forest-1); transform: translateY(-1px); }
-    @media (max-width: 720px){ .nav-tag { display:none; } }
+    .nav-cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    @media (max-width: 720px){ .nav-tag { display: none; } }
 
-    /* ---------------- HERO ---------------- */
-    .hero {
-      position: relative; overflow: hidden;
+    /* ================= CINEMATIC SCROLL EXPERIENCE ================= */
+    .film { height: 560vh; position: relative; }
+    .film-viewport { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+    #screen { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+    /* soft cinematic vignette + grain over the footage */
+    .veil { position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(120% 80% at 50% -10%, var(--gold-1), var(--gold-2) 55%, var(--gold-3) 100%);
+        radial-gradient(130% 100% at 50% 50%, transparent 55%, rgba(2,8,5,0.55) 100%),
+        linear-gradient(180deg, rgba(2,8,5,0.35), transparent 18% 82%, rgba(2,8,5,0.6));
     }
-    .hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding-top: 70px; padding-bottom: 150px; }
+    .grain { position: absolute; inset: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+      background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.7) 1px, transparent 1.4px);
+      background-size: 5px 5px;
+    }
+
+    /* ---- overlays (acts) ---- */
+    .act {
+      position: absolute; inset: 0; z-index: 5;
+      display: grid; align-content: center;
+      padding: 0 clamp(24px, 6vw, 90px);
+      opacity: 0; visibility: hidden;
+      will-change: opacity, transform;
+    }
+    .act.on { visibility: visible; }
+
+    /* Act I — headline above the tin, lede below it */
+    .act-1 {
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding-top: 10vh; padding-bottom: 13vh;
+    }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 9px;
-      font-family:"Fredoka"; font-weight: 600; font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--forest-3); background: rgba(255,255,255,0.35);
-      border: 1px solid rgba(18,51,32,0.18); border-radius: 100px; padding: 7px 16px; margin-bottom: 22px;
+      font-family: "Fredoka"; font-weight: 500; font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold-1); background: rgba(4,16,10,0.4); backdrop-filter: blur(6px);
+      border: 1px solid rgba(236,201,111,0.35); border-radius: 100px; padding: 8px 18px; margin-bottom: 22px;
     }
-    .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--forest-2); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-    h1 { font-size: clamp(44px, 6.4vw, 78px); color: var(--forest-3); letter-spacing: -.5px; }
-    h1 .u { position: relative; white-space: nowrap; }
-    h1 .u::after { content:""; position:absolute; left:0; right:0; bottom:6px; height:.28em; background: rgba(27,81,48,.2); border-radius: 6px; z-index:-1; }
-    .lede { font-size: 18px; color: #2c4a36; max-width: 30em; margin: 22px 0 30px; }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-1); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .act-1 h1 { font-size: clamp(34px, 4.8vw, 64px); color: var(--cream); letter-spacing: -.5px; text-shadow: 0 4px 40px rgba(2,8,5,0.8); }
+    .act-1 h1 .gold { color: var(--gold-1); }
+    .act-1 .lede { max-width: 36em; color: var(--mist); font-size: clamp(15px, 1.6vw, 18px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
 
-    /* chips */
-    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
-    .chip {
-      display:inline-flex; align-items:center; gap:8px;
-      background: rgba(255,255,255,0.4); border: 1px solid rgba(18,51,32,0.18);
-      color: var(--forest-3); font-weight: 600; font-size: 13.5px; padding: 8px 14px; border-radius: 100px;
+    .scrollhint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: grid; justify-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mist);
     }
-    .chip b { font-family:"Fredoka"; }
+    .scrollhint .line { width: 1px; height: 34px; background: linear-gradient(180deg, var(--gold-1), transparent); animation: drip 1.8s ease-in-out infinite; }
+    @keyframes drip { 0%{transform:scaleY(.2); transform-origin:top} 55%{transform:scaleY(1)} 100%{opacity:0} }
 
-    /* hero form */
-    .signup { max-width: 460px; }
-    .field { display: flex; gap: 8px; background: rgba(255,255,255,0.55); border: 1.5px solid rgba(18,51,32,0.2); border-radius: 100px; padding: 6px 6px 6px 18px; transition: border-color .2s, box-shadow .2s; }
-    .field:focus-within { border-color: var(--forest-2); box-shadow: 0 0 0 4px rgba(27,81,48,0.15); }
-    .field input { flex:1; background: transparent; border: none; outline: none; font-size: 16px; color: var(--ink); font-family: inherit; }
-    .field input::placeholder { color: #5c6f60; }
-    .btn { border:none; cursor:pointer; background: var(--forest-2); color: var(--cream); font-family:"Fredoka"; font-weight:600; font-size:15px; padding: 12px 24px; border-radius: 100px; white-space: nowrap; transition: background .2s, transform .15s; }
-    .btn:hover { background: var(--forest-1); transform: translateY(-1px); }
-    .form-note { font-size: 13px; color: #3a5743; margin-top: 12px; padding-left: 6px; }
-    .success { display:none; background: rgba(255,255,255,0.5); border:1.5px solid var(--forest-2); border-radius: 16px; padding: 16px 20px; max-width: 460px; }
-    .success.show { display:block; animation: fade .4s ease; }
-    .success strong { font-family:"Fredoka"; color: var(--forest-2); }
-    @keyframes fade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+    /* Act II — the three powers, staggered on the left */
+    .act-2 { justify-items: start; max-width: 640px; }
+    .step { margin: 14px 0; opacity: 0; transform: translateY(26px); will-change: opacity, transform; }
+    .step h3 { display: flex; align-items: center; gap: 14px; font-size: clamp(24px, 3vw, 34px); color: var(--cream); text-shadow: 0 3px 30px rgba(2,8,5,0.9); }
+    .step h3 .n { font-family: "Fredoka"; font-weight: 700; color: var(--gold-1); font-size: .72em; }
+    .step p { color: var(--mist); font-size: clamp(14px, 1.5vw, 16.5px); margin-top: 4px; padding-left: 44px; max-width: 30em; text-shadow: 0 2px 18px rgba(2,8,5,0.9); }
+    .step .amt { display: inline-block; font-family: "Fredoka"; font-weight: 600; font-size: 12px; letter-spacing: 2px; color: var(--gold-2); border: 1px solid rgba(236,201,111,0.35); border-radius: 100px; padding: 3px 12px; margin-left: 44px; margin-top: 8px; }
+    @media (max-width: 820px){ .act-2 { max-width: 100%; } .step p, .step .amt { padding-left: 0; margin-left: 0; } }
 
-    /* hero product */
-    .hero-product { display:grid; place-items:center; }
-    .tin-float { animation: bob 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(14,58,32,0.45)); }
-    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
-
-    /* layered tree divider */
-    .trees { position:absolute; left:0; right:0; bottom:-1px; z-index:1; line-height:0; pointer-events:none; }
-    .trees svg { width:100%; height:auto; display:block; }
-
-    /* ---------------- SCROLL SHOWCASE ---------------- */
-    .showcase { position: relative; background: var(--forest-3); color: var(--cream); }
-    .showcase-track { height: 320vh; position: relative; }
-    .showcase-pin { position: sticky; top: 0; height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; overflow: hidden; }
-    .showcase-pin .stage { position: relative; height: 100%; display:grid; place-items:center; }
-    /* canvas for higgsfield frame sequence (used only when frames are present) */
-    #seq { max-height: 78vh; max-width: 100%; display: none; }
-    .stage .tin-scroll { will-change: transform; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.5)); }
-    .showcase .copy { padding: 0 6vw; }
-    .showcase .copy h2 { font-size: clamp(30px, 4vw, 48px); margin-bottom: 18px; color: var(--gold-1); }
-    .step { opacity: .25; transform: translateY(8px); transition: opacity .4s, transform .4s; padding: 14px 0; border-top: 1px solid rgba(247,239,224,0.18); }
-    .step:first-of-type { border-top: none; }
-    .step.active { opacity: 1; transform: none; }
-    .step h3 { font-size: 22px; color: var(--cream); display:flex; align-items:center; gap:12px; }
-    .step h3 .n { font-family:"Fredoka"; color: var(--gold-2); }
-    .step p { color: #cfe0d2; font-size: 15.5px; margin-top: 4px; padding-left: 36px; }
-    .scrollhint { position:absolute; bottom: 26px; left:50%; transform:translateX(-50%); font-size:12px; letter-spacing:2px; text-transform:uppercase; color: rgba(247,239,224,0.6); }
-    @media (max-width: 820px){
-      .showcase-pin { grid-template-columns: 1fr; }
-      .showcase-pin .stage { height: 50vh; }
-      .showcase .copy { padding: 0 24px 24px; }
-      .step p { padding-left: 0; }
+    /* Act III — finale CTA over the water scene (headline above the tin, form below it) */
+    .act-3 {
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding-top: 13vh; padding-bottom: 9vh;
     }
+    .act-3 .cta-bottom { display: grid; justify-items: center; }
+    .act-3 h2 { font-size: clamp(34px, 5.4vw, 64px); color: var(--cream); text-shadow: 0 4px 40px rgba(2,8,5,0.85); }
+    .act-3 h2 .gold { color: var(--gold-1); }
+    .act-3 p { color: var(--mist); max-width: 32em; margin: 14px 0 30px; font-size: clamp(15px, 1.6vw, 17px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
 
-    /* ---------------- BENEFITS ---------------- */
-    .benefits { padding: 100px 0; background: var(--cream); }
-    .section-head { text-align:center; max-width: 38em; margin: 0 auto 56px; }
-    .section-head .kicker { font-family:"Fredoka"; font-weight:600; letter-spacing:3px; text-transform:uppercase; font-size:13px; color: var(--forest-1); }
-    .section-head h2 { font-size: clamp(30px,4vw,46px); color: var(--forest-3); margin: 10px 0 12px; }
-    .section-head p { color:#3a5743; font-size:17px; }
-    .grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-    .card { background:#fff; border:1px solid var(--line); border-radius: 20px; padding: 30px; transition: transform .2s, box-shadow .2s; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(14,58,32,0.1); }
-    .card .ico { width:54px; height:54px; border-radius:14px; display:grid; place-items:center; margin-bottom:18px; background: linear-gradient(135deg, var(--gold-1), var(--gold-3)); }
-    .card h3 { font-size: 21px; color: var(--forest-3); margin-bottom: 8px; }
-    .card p { color:#3a5743; font-size: 15px; }
+    .signup { width: min(480px, 92vw); }
+    .field {
+      display: flex; gap: 8px;
+      background: rgba(4,16,10,0.55); backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(236,201,111,0.4); border-radius: 100px; padding: 6px 6px 6px 20px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .field:focus-within { border-color: var(--gold-1); box-shadow: 0 0 0 4px rgba(236,201,111,0.15), 0 10px 50px rgba(0,0,0,0.4); }
+    .field input { flex: 1; background: transparent; border: none; outline: none; font-size: 16px; color: var(--cream); font-family: inherit; min-width: 0; }
+    .field input::placeholder { color: rgba(247,239,224,0.45); }
+    .btn {
+      border: none; cursor: pointer;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      color: var(--forest-3); font-family: "Fredoka"; font-weight: 600; font-size: 15px;
+      padding: 12px 26px; border-radius: 100px; white-space: nowrap;
+      transition: filter .2s, transform .15s;
+    }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .form-note { font-size: 12.5px; color: var(--mist); margin-top: 12px; }
+    .success {
+      display: none; margin-top: 14px;
+      background: rgba(4,16,10,0.6); backdrop-filter: blur(10px);
+      border: 1.5px solid var(--gold-2); border-radius: 16px; padding: 16px 22px;
+    }
+    .success.show { display: block; animation: fade .4s ease; }
+    .success strong { font-family: "Fredoka"; color: var(--gold-1); }
+    @keyframes fade { from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
 
-    /* ---------------- INGREDIENTS ---------------- */
-    .ingredients { padding: 90px 0; background: var(--forest-2); color: var(--cream); position: relative; }
-    .ing-grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 44px; }
-    .ing { background: rgba(247,239,224,0.06); border:1px solid rgba(247,239,224,0.16); border-radius:18px; padding: 26px; }
-    .ing .amt { font-family:"Fredoka"; font-weight:700; font-size: 34px; color: var(--gold-1); }
-    .ing .nm { font-weight:600; font-size: 17px; margin: 4px 0 6px; }
-    .ing p { color:#cfe0d2; font-size: 14.5px; }
-    .ing-foot { text-align:center; margin-top:38px; font-family:"Fredoka"; letter-spacing:2px; text-transform:uppercase; color: var(--gold-1); font-size: 14px; }
+    /* ================= BELOW THE FILM ================= */
+    .details { background: linear-gradient(180deg, var(--abyss), var(--night) 30%, var(--abyss)); padding: 110px 0 90px; position: relative; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section-head { text-align: center; max-width: 40em; margin: 0 auto 54px; }
+    .kicker { font-family: "Fredoka"; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; font-size: 12px; color: var(--gold-2); }
+    .section-head h2 { font-size: clamp(28px, 4vw, 44px); color: var(--cream); margin: 10px 0 12px; }
+    .section-head p { color: var(--mist); font-size: 16px; }
 
-    /* ---------------- CTA ---------------- */
-    .cta { padding: 100px 0; background:
-        radial-gradient(120% 90% at 50% 0%, var(--gold-1), var(--gold-2) 60%, var(--gold-3)); text-align:center; }
-    .cta h2 { font-size: clamp(32px,5vw,56px); color: var(--forest-3); margin-bottom: 14px; }
-    .cta p { color:#2c4a36; font-size:18px; max-width: 30em; margin: 0 auto 30px; }
-    .cta .signup { margin: 0 auto; }
+    .ing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .ing {
+      background: rgba(247,239,224,0.04);
+      border: 1px solid rgba(236,201,111,0.18); border-radius: 20px; padding: 30px;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .ing:hover { transform: translateY(-4px); border-color: rgba(236,201,111,0.45); background: rgba(247,239,224,0.06); }
+    .ing .amt { font-family: "Fredoka"; font-weight: 700; font-size: 36px; color: var(--gold-1); }
+    .ing .nm { font-weight: 600; font-size: 17px; margin: 4px 0 6px; color: var(--cream); }
+    .ing p { color: var(--mist); font-size: 14.5px; }
+    .ing-foot { text-align: center; margin-top: 36px; font-family: "Fredoka"; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-2); font-size: 13px; }
+    @media (max-width: 820px){ .ing-grid { grid-template-columns: 1fr; } }
 
-    /* ---------------- FOOTER ---------------- */
-    footer { background: var(--forest-3); color: var(--cream); padding: 40px 0; }
-    footer .wrap { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-    .socials { display:flex; gap:20px; }
-    .socials a { color:#cfe0d2; text-decoration:none; font-size:14px; transition:color .2s; }
+    footer { background: var(--abyss); border-top: 1px solid rgba(236,201,111,0.14); padding: 38px 0; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .socials { display: flex; gap: 22px; }
+    .socials a { color: var(--mist); text-decoration: none; font-size: 14px; transition: color .2s; }
     .socials a:hover { color: var(--gold-1); }
-    .copy-sm { color: rgba(247,239,224,0.45); font-size: 13px; }
+    .copy-sm { color: rgba(247,239,224,0.35); font-size: 13px; }
 
-    @media (max-width: 880px){
-      .hero .wrap { grid-template-columns:1fr; padding-bottom:120px; }
-      .hero-product { order:-1; }
-      .grid3, .ing-grid { grid-template-columns:1fr; }
-      .field { flex-direction:column; padding:8px; border-radius:18px; }
-      .field input { padding:10px 12px; }
-      .btn { width:100%; }
+    /* ================= REDUCED MOTION ================= */
+    @media (prefers-reduced-motion: reduce) {
+      .film { height: auto; }
+      .film-viewport { position: relative; height: 100svh; }
+      .act { position: relative; inset: auto; opacity: 1 !important; visibility: visible !important; transform: none !important; padding-top: 12vh; padding-bottom: 8vh; }
+      .act .step { opacity: 1 !important; transform: none !important; }
+      #screen { position: absolute; }
+      .scrollhint { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ============ NAV ============ -->
-  <nav>
-    <div class="wrap">
-      <a class="logo" href="#top">
-        <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <path d="M24 6c-2 6-2 10 0 16 2-6 2-10 0-16z" fill="#1b5130"/>
-          <path d="M24 18c-3 4-4 9-4 16h8c0-7-1-12-4-16z" fill="#2f7a45"/>
-          <path d="M14 20c2 8 4 11 8 14-2-7-4-11-8-14zM34 20c-2 8-4 11-8 14 2-7 4-11 8-14z" fill="#1b5130"/>
-        </svg>
-        Milonga
-      </a>
-      <span class="nav-tag">Energy That Thinks</span>
-      <a class="nav-cta" href="#waitlist">Join the waitlist</a>
+  <!-- ============ LOADER ============ -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="wordmark">MILONGA</div>
+      <div class="sub">Energy That Thinks</div>
+      <div class="loader-bar"><i id="loader-fill"></i></div>
     </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <nav id="nav">
+    <a class="logo" href="#top">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 6c-2 6-2 10 0 16 2-6 2-10 0-16z" fill="#ecc96f"/>
+        <path d="M24 18c-3 4-4 9-4 16h8c0-7-1-12-4-16z" fill="#2f7a45"/>
+        <path d="M14 20c2 8 4 11 8 14-2-7-4-11-8-14zM34 20c-2 8-4 11-8 14 2-7 4-11 8-14z" fill="#ecc96f"/>
+      </svg>
+      Milonga
+    </a>
+    <span class="nav-tag">Energy That Thinks</span>
+    <a class="nav-cta" href="#join">Join the waitlist</a>
   </nav>
 
-  <!-- ============ HERO ============ -->
-  <header class="hero leaf-tex" id="top">
-    <div class="wrap">
-      <div>
-        <span class="eyebrow"><span class="dot"></span> Pre-launch · Batch No. 001</span>
-        <h1>Energy that <span class="u">thinks</span> with you.</h1>
-        <p class="lede">
-          Milonga is a yerba mate latte engineered for clean, calm focus — the lift of mate
-          and Lion's Mane, smoothed out by L‑Theanine. No jitters. No crash. Just clarity.
-        </p>
+  <!-- ============ CINEMATIC SCROLL FILM ============ -->
+  <section class="film" id="top">
+    <div class="film-viewport">
+      <canvas id="screen"></canvas>
+      <div class="veil"></div>
+      <div class="grain"></div>
 
-        <div class="chips">
-          <span class="chip">🍄 <b>Lion's Mane</b></span>
-          <span class="chip">⚡ <b>Natural caffeine</b></span>
-          <span class="chip">🧘 <b>L‑Theanine</b></span>
-          <span class="chip">🌿 <b>Vanilla · 15 servings</b></span>
+      <!-- Act I · The jungle · headline -->
+      <div class="act act-1" id="act1">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Pre-launch · Batch No. 001</span>
+          <h1>Energy that <span class="gold">thinks</span> with you.</h1>
         </div>
+        <p class="lede">Milonga is a yerba mate latte engineered for clean, calm focus —
+          deep in the jungle of your busiest days.</p>
+        <div class="scrollhint"><span class="line"></span> Scroll</div>
+      </div>
 
+      <!-- Act II · The close-up · three powers -->
+      <div class="act act-2" id="act2">
+        <div class="step" data-i="0">
+          <h3><span class="n">01</span> Lift</h3>
+          <p>Natural caffeine from yerba mate — a smooth wave of awake, never a spike.</p>
+          <span class="amt">100&nbsp;MG NATURAL CAFFEINE</span>
+        </div>
+        <div class="step" data-i="1">
+          <h3><span class="n">02</span> Focus</h3>
+          <p>Lion's Mane, the mushroom prized for clarity and deep, sustained concentration.</p>
+          <span class="amt">500&nbsp;MG LION'S MANE</span>
+        </div>
+        <div class="step" data-i="2">
+          <h3><span class="n">03</span> Calm</h3>
+          <p>L-Theanine rounds the edges off the caffeine — focused, but never wired.</p>
+          <span class="amt">200&nbsp;MG L-THEANINE</span>
+        </div>
+      </div>
+
+      <!-- Act III · Still water · CTA -->
+      <div class="act act-3" id="act3">
+        <div class="cta-top">
+          <h2>Be first to the <span class="gold">first batch</span>.</h2>
+        </div>
+        <div class="cta-bottom">
+        <p>Founder pricing, first access to Batch No. 001, and a little something on launch day. One email, no spam.</p>
         <form class="signup" id="waitlist-form" novalidate>
           <div class="field">
             <input type="email" id="email" placeholder="you@email.com" aria-label="Email address" required />
             <button class="btn" type="submit">Get early access</button>
           </div>
-          <p class="form-note">Founder pricing + first dibs on Batch No. 001. One email, no spam.</p>
+          <p class="form-note">Vanilla · 15 servings · launching soon</p>
         </form>
         <div class="success" id="success">
           <strong>You're on the list. 🌱</strong>
           <div>We'll send your early-access invite the moment Milonga launches.</div>
         </div>
-      </div>
-
-      <div class="hero-product">
-        <!-- Built-in tin renders with zero assets. Swap for a Higgsfield/product PNG by
-             replacing this block with: <img src="assets/product.png" alt="Milonga tin"> -->
-        <div class="tin-float" id="hero-tin"></div>
-      </div>
-    </div>
-
-    <!-- layered paper-cut tree divider -->
-    <div class="trees" aria-hidden="true">
-      <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
-        <path d="M0 120 Q120 80 240 110 T480 105 T720 115 T960 100 T1200 112 T1440 100 V180 H0 Z" fill="#2f7a45"/>
-        <path d="M0 145 Q160 115 320 140 T640 138 T960 142 T1280 135 T1440 140 V180 H0 Z" fill="#1b5130"/>
-        <path d="M0 165 Q180 150 360 162 T720 160 T1080 163 T1440 158 V180 H0 Z" fill="#0e3a20"/>
-      </svg>
-    </div>
-  </header>
-
-  <!-- ============ SCROLL SHOWCASE ============ -->
-  <section class="showcase" id="showcase">
-    <div class="showcase-track">
-      <div class="showcase-pin">
-        <div class="stage">
-          <!-- Higgsfield frame sequence draws here when present; otherwise the tin scrolls -->
-          <canvas id="seq" width="800" height="1000"></canvas>
-          <div class="tin-scroll" id="scroll-tin"></div>
-          <div class="scrollhint">↓ Scroll</div>
-        </div>
-        <div class="copy">
-          <h2>One scoop. Three kinds of clean energy.</h2>
-          <div class="step" data-step="0">
-            <h3><span class="n">01</span> Lift</h3>
-            <p>100mg of natural caffeine from yerba mate — a smooth wave of awake, never a spike.</p>
-          </div>
-          <div class="step" data-step="1">
-            <h3><span class="n">02</span> Focus</h3>
-            <p>500mg of Lion's Mane, the mushroom prized for clarity and deep, sustained concentration.</p>
-          </div>
-          <div class="step" data-step="2">
-            <h3><span class="n">03</span> Calm</h3>
-            <p>200mg of L‑Theanine rounds the edges off the caffeine — focused, but never wired.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BENEFITS ============ -->
-  <section class="benefits">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">Why Milonga</span>
-        <h2>Made the slow way, for the fast days.</h2>
-        <p>Real ingredients, honest amounts, and a taste worth slowing down for.</p>
-      </div>
-      <div class="grid3">
-        <div class="card">
-          <div class="ico">🌿</div>
-          <h3>Honestly sourced</h3>
-          <p>Shade-grown yerba mate and functional mushrooms — traceable, clean, chosen for flavor first.</p>
-        </div>
-        <div class="card">
-          <div class="ico">🚫</div>
-          <h3>No crash, no junk</h3>
-          <p>No artificial sweeteners, no fillers, no mystery "energy blend." Just what's on the tin.</p>
-        </div>
-        <div class="card">
-          <div class="ico">☕</div>
-          <h3>A 10-second ritual</h3>
-          <p>One scoop, hot water or milk, stir. A creamy vanilla latte that loves you back.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============ INGREDIENTS ============ -->
-  <section class="ingredients leaf-tex">
+  <section class="details" id="join">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker" style="color:var(--gold-1)">What's inside</span>
-        <h2 style="color:var(--cream)">Every number, on the front of the tin.</h2>
+        <span class="kicker">What's inside</span>
+        <h2>Every number, on the front of the tin.</h2>
+        <p>Real ingredients, honest amounts, and a taste worth slowing down for.</p>
       </div>
       <div class="ing-grid">
         <div class="ing">
@@ -334,7 +325,7 @@
         </div>
         <div class="ing">
           <div class="amt">200<span style="font-size:18px">mg</span></div>
-          <div class="nm">L‑Theanine</div>
+          <div class="nm">L-Theanine</div>
           <p>The calm-focus amino acid in green tea that takes the jitter out of caffeine.</p>
         </div>
       </div>
@@ -342,24 +333,10 @@
     </div>
   </section>
 
-  <!-- ============ CTA ============ -->
-  <section class="cta leaf-tex" id="waitlist">
-    <div class="wrap">
-      <h2>Be first to the first batch.</h2>
-      <p>Waitlist members get founder pricing, first access to Batch No. 001, and a little something on launch day.</p>
-      <form class="signup" id="waitlist-form-2" novalidate>
-        <div class="field">
-          <input type="email" placeholder="you@email.com" aria-label="Email address" required />
-          <button class="btn" type="submit">Reserve my spot</button>
-        </div>
-      </form>
-    </div>
-  </section>
-
   <!-- ============ FOOTER ============ -->
   <footer>
     <div class="wrap">
-      <a class="logo" href="#top" style="color:var(--cream)">
+      <a class="logo" href="#top">
         <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
           <path d="M24 6c-2 6-2 10 0 16 2-6 2-10 0-16z" fill="#ecc96f"/>
           <path d="M24 18c-3 4-4 9-4 16h8c0-7-1-12-4-16z" fill="#2f7a45"/>
@@ -376,145 +353,176 @@
     </div>
   </footer>
 
-  <!-- ============ SVG TIN TEMPLATE (reused in hero + scroll) ============ -->
-  <template id="tin-template">
-    <svg viewBox="0 0 300 380" width="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Milonga Yerba Mate Latte tin">
-      <defs>
-        <linearGradient id="g-body" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#b98e38"/><stop offset=".18" stop-color="#e6c46c"/>
-          <stop offset=".5" stop-color="#f0d489"/><stop offset=".82" stop-color="#d6ab50"/>
-          <stop offset="1" stop-color="#a87f30"/>
-        </linearGradient>
-        <linearGradient id="g-lid" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#a87f30"/><stop offset=".5" stop-color="#f0d489"/><stop offset="1" stop-color="#a87f30"/>
-        </linearGradient>
-      </defs>
-      <!-- lid -->
-      <rect x="46" y="20" width="208" height="44" rx="14" fill="url(#g-lid)"/>
-      <text x="150" y="47" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="13" letter-spacing="2" fill="#1b5130">ENERGY THAT THINKS</text>
-      <!-- body -->
-      <rect x="40" y="66" width="220" height="296" rx="18" fill="url(#g-body)"/>
-      <!-- forest band -->
-      <path d="M40 250 Q90 232 150 246 T260 244 V344 a18 18 0 0 1 -18 18 H58 a18 18 0 0 1 -18 -18 Z" fill="#2f7a45"/>
-      <path d="M40 280 Q100 264 160 278 T260 274 V344 a18 18 0 0 1 -18 18 H58 a18 18 0 0 1 -18 -18 Z" fill="#1b5130"/>
-      <path d="M40 312 Q110 300 170 310 T260 306 V344 a18 18 0 0 1 -18 18 H58 a18 18 0 0 1 -18 -18 Z" fill="#0e3a20"/>
-      <!-- arched YERBA MATE -->
-      <path id="arc" d="M70 150 A95 95 0 0 1 230 150" fill="none"/>
-      <text font-family="Fredoka, sans-serif" font-weight="700" font-size="22" fill="#1b5130" letter-spacing="1">
-        <textPath href="#arc" startOffset="50%" text-anchor="middle">YERBA MATE</textPath>
-      </text>
-      <!-- leaf mark -->
-      <g transform="translate(150 158)">
-        <path d="M0 -16c-2 7-2 12 0 20 2-8 2-13 0-20z" fill="#1b5130"/>
-        <path d="M-12 -8c2 9 5 13 12 17-2-9-5-13-12-17zM12 -8c-2 9-5 13-12 17 2-9 5-13 12-17z" fill="#2f7a45"/>
-      </g>
-      <!-- MILONGA -->
-      <text x="150" y="205" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="30" letter-spacing="1" fill="#1b5130">MILONGA</text>
-      <!-- LATTE pill -->
-      <rect x="118" y="216" width="64" height="22" rx="11" fill="none" stroke="#1b5130" stroke-width="2"/>
-      <text x="150" y="231" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="12" letter-spacing="2" fill="#1b5130">LATTE</text>
-      <!-- footer text -->
-      <text x="150" y="334" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="11" letter-spacing="2" fill="#f7efe0">VANILLA · 15 SERVINGS</text>
-    </svg>
-  </template>
-
   <script>
-    /* ---------- Inject the SVG tin into hero + scroll stage ---------- */
-    const tinSVG = document.getElementById('tin-template').innerHTML;
-    document.getElementById('hero-tin').innerHTML = tinSVG;
-    document.getElementById('scroll-tin').innerHTML = tinSVG;
-
     /* =========================================================
-       SCROLL-SCRUB PRODUCT EFFECT
-       Two modes, auto-selected:
-       (A) FRAME SEQUENCE  — drop Higgsfield-exported frames in
-           assets/frames/0001.jpg ... and set FRAMES.count below.
-           The pinned section scrubs through them on scroll (Apple-style).
-       (B) FALLBACK         — no frames present: the built-in SVG tin
-           rotates / scales / lifts as you scroll. Works with zero assets.
+       MILONGA · CINEMATIC SCROLL FILM
+       The 7s Higgsfield background render is committed as a
+       169-frame WebP sequence (assets/frames/0001.webp …).
+       We scrub it on a <canvas> with an inertial lerp so the
+       motion stays buttery even with coarse scroll inputs.
+       Acts (copy overlays) are keyed to the film's three scenes:
+         Act I   0.00 – 0.30  jungle establishing · headline
+         Act II  0.32 – 0.66  tilted close-up + powder · Lift/Focus/Calm
+         Act III 0.72 – 1.00  still water finale · waitlist CTA
        ========================================================= */
-    const FRAMES = {
-      count: 0,                                   // <-- set to N (e.g. 120) once frames exist
-      path: i => `assets/frames/${String(i).padStart(4,'0')}.jpg`,
-    };
+    const FRAME_COUNT = 169;
+    const framePath = i => `assets/frames/${String(i + 1).padStart(4, "0")}.webp`;
 
-    const track   = document.querySelector('.showcase-track');
-    const canvas  = document.getElementById('seq');
-    const ctx     = canvas.getContext('2d');
-    const scrollTin = document.getElementById('scroll-tin');
-    const steps   = [...document.querySelectorAll('.step')];
+    const canvas = document.getElementById("screen");
+    const ctx    = canvas.getContext("2d");
+    const film   = document.querySelector(".film");
+    const loader = document.getElementById("loader");
+    const loaderFill = document.getElementById("loader-fill");
+    const nav    = document.getElementById("nav");
 
-    let images = [];
-    function preloadFrames() {
-      if (FRAMES.count <= 0) return;
-      canvas.style.display = 'block';
-      scrollTin.style.display = 'none';
-      for (let i = 1; i <= FRAMES.count; i++) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---------- frame preloading (poster first, then sparse, then all) ---------- */
+    const frames  = new Array(FRAME_COUNT).fill(null);
+    const ready   = new Array(FRAME_COUNT).fill(false);
+    let loadedCount = 0;
+
+    function loadFrame(i) {
+      return new Promise(resolve => {
+        if (frames[i]) return resolve();
         const img = new Image();
-        img.src = FRAMES.path(i);
-        images.push(img);
-      }
+        img.onload = () => { ready[i] = true; loadedCount++; updateLoader(); resolve(); };
+        img.onerror = () => resolve();
+        img.src = framePath(i);
+        frames[i] = img;
+      });
     }
-    preloadFrames();
 
-    function progressOf(el) {
-      const rect = el.getBoundingClientRect();
+    function updateLoader() {
+      loaderFill.style.width = Math.round((loadedCount / FRAME_COUNT) * 100) + "%";
+    }
+
+    async function preload() {
+      await loadFrame(0);                       // instant poster
+      draw();                                    // paint frame 1 behind the loader
+      const sparse = [];
+      for (let i = 0; i < FRAME_COUNT; i += 8) sparse.push(loadFrame(i));
+      await Promise.all(sparse);                 // fast skeleton of the film
+      loader.classList.add("done");              // reveal the page
+      for (let i = 0; i < FRAME_COUNT; i++) loadFrame(i);   // fill in the rest
+    }
+
+    /* nearest loaded frame ≤ requested (falls back forward) */
+    function nearestReady(i) {
+      for (let d = 0; d < FRAME_COUNT; d++) {
+        if (ready[i - d]) return i - d;
+        if (ready[i + d]) return i + d;
+      }
+      return 0;
+    }
+
+    /* ---------- canvas cover-draw ---------- */
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width  = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      draw(true);
+    }
+
+    let displayed = -1;
+    function draw(force) {
+      const idx = nearestReady(Math.round(smoothP * (FRAME_COUNT - 1)));
+      const img = frames[idx];
+      if (!img || !ready[idx]) return;
+      if (idx === displayed && !force) return;
+      displayed = idx;
+      const cw = canvas.width, ch = canvas.height;
+      const s  = Math.max(cw / img.width, ch / img.height);
+      const w  = img.width * s, h = img.height * s;
+      ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+    }
+
+    /* ---------- scroll progress with inertial smoothing ---------- */
+    let targetP = 0, smoothP = 0;
+
+    function readScroll() {
+      const rect  = film.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
-      const p = (-rect.top) / total;
-      return Math.min(1, Math.max(0, p));
+      targetP = Math.min(1, Math.max(0, -rect.top / total));
+      nav.classList.toggle("scrolled", window.scrollY > 40);
     }
 
-    function render() {
-      const p = progressOf(track);
+    /* ---------- overlay acts ---------- */
+    const act1 = document.getElementById("act1");
+    const act2 = document.getElementById("act2");
+    const act3 = document.getElementById("act3");
+    const steps = [...document.querySelectorAll(".step")];
 
-      // update active step (3 phases)
-      const phase = Math.min(steps.length - 1, Math.floor(p * steps.length));
-      steps.forEach((s, i) => s.classList.toggle('active', i === phase));
+    const clamp01 = v => Math.min(1, Math.max(0, v));
+    /* fade in over [a,b], fade out over [c,d] */
+    const window01 = (p, a, b, c, d) => clamp01((p - a) / (b - a)) * (1 - clamp01((p - c) / (d - c)));
+    const easeOut  = t => 1 - Math.pow(1 - t, 3);
 
-      if (FRAMES.count > 0) {
-        // (A) frame-sequence scrub
-        const idx = Math.min(FRAMES.count - 1, Math.floor(p * FRAMES.count));
-        const img = images[idx];
-        if (img && img.complete) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        }
-      } else {
-        // (B) fallback: transform the SVG tin
-        const rotY  = (p - 0.5) * 60;          // -30deg .. +30deg
-        const scale = 0.9 + Math.sin(p * Math.PI) * 0.18;
-        const lift  = (0.5 - Math.abs(p - 0.5)) * -30;
-        scrollTin.style.transform =
-          `perspective(1100px) rotateY(${rotY}deg) translateY(${lift}px) scale(${scale})`;
-      }
-      ticking = false;
+    function setAct(el, vis, y = 0) {
+      el.classList.toggle("on", vis > 0.01);
+      el.style.opacity = vis;
+      el.style.transform = `translateY(${y}px)`;
     }
 
-    let ticking = false;
-    function onScroll() {
-      if (!ticking) { ticking = true; requestAnimationFrame(render); }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', render);
-    render();
+    function overlays(p) {
+      /* Act I: on at start, drifts up and fades as the dolly-in begins */
+      const v1 = window01(p, -1, 0, 0.16, 0.30);
+      setAct(act1, v1, -(1 - v1) * 60);
 
-    /* ---------- Waitlist handling ---------- */
-    // Point ENDPOINT at a form backend (Formspree, Mailchimp, ConvertKit...) to capture emails.
+      /* Act II: rides the close-up; steps stagger in, all gone before finale */
+      const v2 = window01(p, 0.30, 0.38, 0.58, 0.68);
+      setAct(act2, v2);
+      steps.forEach((s, i) => {
+        const sp = easeOut(window01(p, 0.32 + i * 0.07, 0.40 + i * 0.07, 0.58, 0.66));
+        s.style.opacity = sp;
+        s.style.transform = `translateY(${(1 - sp) * 26}px)`;
+      });
+
+      /* Act III: settles in with the water scene and stays */
+      const v3 = easeOut(window01(p, 0.72, 0.84, 2, 3));
+      setAct(act3, v3, (1 - v3) * 40);
+    }
+
+    /* ---------- main loop ---------- */
+    function tick() {
+      smoothP += (targetP - smoothP) * 0.14;        // inertial catch-up
+      if (Math.abs(targetP - smoothP) < 0.0004) smoothP = targetP;
+      draw();
+      overlays(smoothP);
+      requestAnimationFrame(tick);
+    }
+
+    /* ---------- boot ---------- */
+    window.addEventListener("scroll", readScroll, { passive: true });
+    window.addEventListener("resize", () => { readScroll(); resize(); });
+
+    if (reduceMotion) {
+      /* static experience: poster frame + all copy visible */
+      loadFrame(0).then(() => { resize(); loader.classList.add("done"); });
+      [act1, act2, act3].forEach(a => { a.classList.add("on"); a.style.opacity = 1; });
+      steps.forEach(s => { s.style.opacity = 1; s.style.transform = "none"; });
+    } else {
+      resize();
+      readScroll();
+      preload();
+      requestAnimationFrame(tick);
+    }
+
+    /* ---------- waitlist ---------- */
+    // Point ENDPOINT at a form backend (Formspree, Mailchimp, ConvertKit…) to capture emails.
     const ENDPOINT = "";
-
     const isValidEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-    async function handleSubmit(e) {
+    document.getElementById("waitlist-form").addEventListener("submit", async e => {
       e.preventDefault();
-      const form  = e.currentTarget;
-      const input = form.querySelector('input[type="email"]');
+      const input = e.currentTarget.querySelector('input[type="email"]');
       const email = input.value.trim();
-      if (!isValidEmail(email)) { input.focus(); input.style.outline = "2px solid #1b5130"; return; }
+      if (!isValidEmail(email)) { input.focus(); input.style.outline = "2px solid #ecc96f"; return; }
       input.style.outline = "";
 
       if (ENDPOINT) {
         try {
-          await fetch(ENDPOINT, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body: JSON.stringify({ email }) });
+          await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify({ email }) });
         } catch (err) { console.warn("Waitlist submit failed:", err); }
       } else {
         const list = JSON.parse(localStorage.getItem("milonga_waitlist") || "[]");
@@ -524,13 +532,7 @@
 
       document.getElementById("success").classList.add("show");
       document.getElementById("waitlist-form").style.display = "none";
-      document.querySelectorAll('form.signup').forEach(f => f.reset());
-      if (form.id === "waitlist-form-2") {
-        form.innerHTML = '<p style="color:var(--forest-3);font-family:Fredoka,sans-serif;font-size:18px;">🌱 You\'re on the list — see you at launch.</p>';
-      }
-    }
-    document.getElementById("waitlist-form").addEventListener("submit", handleSubmit);
-    document.getElementById("waitlist-form-2").addEventListener("submit", handleSubmit);
+    });
   </script>
 </body>
 </html>

@@ -7,5 +7,5 @@ Drop the licensed Gotham woff2 files here with these exact names —
 - `Gotham-Bold.woff2`   (weight 700 — labels, buttons, badges)
 - `Gotham-Book.woff2`   (weight 400 — body text)
 
-Until they exist, the site falls back to Montserrat (Google Fonts),
-which is the closest free substitute.
+All three are committed (converted from the licensed OTFs). Montserrat
+remains as a network-failure fallback only.

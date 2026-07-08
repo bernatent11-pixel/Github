@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Milonga — Energy That Thinks (3D Preview)</title>
+<meta name="description" content="Milonga Yerba Mate Latte — the mate latte that works hot and cold. Interactive 3D hero preview." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --gold-1:#ecc96f; --gold-2:#d6ab50; --gold-3:#b98e38;
+    --cream:#f7efe0;
+    --forest-1:#2f7a45; --forest-2:#1b5130; --forest-3:#0e3a20;
+    --ink:#0b2416;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter",system-ui,sans-serif;
+    background:#07160d; color:var(--cream);
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;line-height:1.02}
+
+  /* fixed 3D canvas layer */
+  #scene{position:fixed;inset:0;z-index:0}
+  #scene canvas{display:block}
+
+  /* soft radial atmosphere behind the tin */
+  .atmos{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60% 55% at 50% 42%, rgba(236,201,111,.14), transparent 70%),
+      radial-gradient(120% 90% at 50% 120%, rgba(15,58,32,.9), #061109 70%);
+  }
+
+  /* content sits above the canvas */
+  .content{position:relative;z-index:2}
+  section{min-height:100vh;display:flex;align-items:center;padding:0 6vw}
+  .wrap{max-width:1180px;margin:0 auto;width:100%}
+
+  /* HERO */
+  .hero{flex-direction:column;justify-content:center;text-align:center;min-height:100vh;position:relative}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:"Fredoka";font-weight:600;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--gold-1);background:rgba(236,201,111,.08);
+    border:1px solid rgba(236,201,111,.28);border-radius:100px;padding:8px 18px;margin-bottom:26px;
+    backdrop-filter:blur(6px);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold-1);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  h1{
+    font-size:clamp(46px,9vw,120px);letter-spacing:-1px;
+    background:linear-gradient(180deg,#fff 0%,var(--gold-1) 60%,var(--gold-2) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 10px 60px rgba(236,201,111,.15);
+  }
+  .lede{font-size:clamp(16px,2vw,20px);color:#cfe0d3;max-width:34em;margin:22px auto 0;line-height:1.6}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .btn{
+    border:none;cursor:pointer;text-decoration:none;
+    font-family:"Fredoka";font-weight:600;font-size:15px;padding:15px 30px;border-radius:100px;
+    transition:transform .18s ease, box-shadow .25s ease, background .2s;
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .btn-primary{background:linear-gradient(180deg,var(--gold-1),var(--gold-2));color:#2a1e06;box-shadow:0 12px 40px rgba(236,201,111,.28)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 50px rgba(236,201,111,.4)}
+  .btn-ghost{background:rgba(255,255,255,.05);color:var(--cream);border:1px solid rgba(255,255,255,.18)}
+  .btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+
+  .scroll-hint{
+    position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(207,224,211,.6);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-hint .mouse{width:22px;height:36px;border:1.5px solid rgba(236,201,111,.5);border-radius:100px;position:relative}
+  .scroll-hint .mouse::after{content:"";position:absolute;top:7px;left:50%;width:3px;height:7px;border-radius:3px;background:var(--gold-1);transform:translateX(-50%);animation:wheel 1.6s infinite}
+  @keyframes wheel{0%{opacity:1;top:7px}70%{opacity:0;top:18px}100%{opacity:0}}
+
+  /* FEATURE SECTIONS (right/left aligned so tin has room) */
+  .feature{align-items:center}
+  .feature .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .feature.right .panel{grid-column:2}
+  .panel{
+    background:rgba(8,24,15,.55);backdrop-filter:blur(10px);
+    border:1px solid rgba(236,201,111,.16);border-radius:22px;padding:40px;
+    opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;
+  }
+  .panel.in{opacity:1;transform:none}
+  .kicker{font-family:"Fredoka";font-weight:600;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-1);margin-bottom:14px}
+  .panel h2{font-size:clamp(28px,4vw,44px);color:#fff;margin-bottom:16px}
+  .panel p{color:#cbdccf;font-size:16.5px;line-height:1.65}
+  .stats{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+  .stat b{font-family:"Fredoka";font-size:30px;color:var(--gold-1);display:block;line-height:1}
+  .stat span{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9db3a4}
+
+  /* WAITLIST */
+  .waitlist{flex-direction:column;text-align:center}
+  .waitlist h2{font-size:clamp(32px,5vw,60px);color:#fff;margin-bottom:14px}
+  .waitlist p{color:#cbdccf;max-width:32em;margin:0 auto 30px;font-size:17px}
+  .field{display:flex;gap:8px;max-width:460px;margin:0 auto;background:rgba(255,255,255,.06);border:1.5px solid rgba(236,201,111,.3);border-radius:100px;padding:6px 6px 6px 20px}
+  .field:focus-within{border-color:var(--gold-1);box-shadow:0 0 0 4px rgba(236,201,111,.15)}
+  .field input{flex:1;background:transparent;border:none;outline:none;font-size:16px;color:var(--cream);font-family:inherit}
+  .field input::placeholder{color:#8fa596}
+  .note{font-size:12.5px;color:#8fa596;margin-top:16px}
+
+  /* loader */
+  #loader{position:fixed;inset:0;z-index:20;background:#07160d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .8s ease}
+  #loader.hide{opacity:0;pointer-events:none}
+  .ring{width:52px;height:52px;border-radius:50%;border:2.5px solid rgba(236,201,111,.18);border-top-color:var(--gold-1);animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #loader .lbl{font-family:"Fredoka";letter-spacing:3px;text-transform:uppercase;font-size:12px;color:var(--gold-1)}
+
+  /* preview badge */
+  .badge{position:fixed;top:16px;left:16px;z-index:15;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(236,201,111,.85);background:rgba(8,24,15,.6);border:1px solid rgba(236,201,111,.25);border-radius:100px;padding:7px 14px;backdrop-filter:blur(8px)}
+
+  @media (max-width:820px){
+    .feature .wrap{grid-template-columns:1fr}
+    .feature.right .panel{grid-column:1}
+    section{padding:0 5vw}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .scroll-hint .mouse::after{animation:none}
+    .eyebrow .dot{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="ring"></div><div class="lbl">Brewing your experience</div></div>
+<div class="badge">3D Preview · motion draft</div>
+
+<div class="atmos"></div>
+<div id="scene"></div>
+
+<main class="content">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span>The Mate Latte · Pre-launch</span>
+      <h1>Energy<br>That Thinks</h1>
+      <p class="lede">The only mate latte that works hot and cold. Yerba mate, Lion's Mane and L‑Theanine in a smooth vanilla base — the daily ritual that replaces your coffee, without the jitters, crash or acid reflux.</p>
+      <div class="cta-row">
+        <a href="#waitlist" class="btn btn-primary">Join the waitlist →</a>
+        <a href="#story" class="btn btn-ghost">See the ritual</a>
+      </div>
+    </div>
+    <div class="scroll-hint"><div class="mouse"></div>Scroll</div>
+  </section>
+
+  <!-- FEATURE 1 -->
+  <section class="feature left" id="story">
+    <div class="wrap">
+      <div class="panel">
+        <div class="kicker">An ancient ritual, reimagined</div>
+        <h2>Hot or cold.<br>Always yours.</h2>
+        <p>A creamy, functional yerba mate latte built for the person who wants more from their morning. Whisk it warm at 6am or shake it over ice at 2pm — same clean, connected feeling, every time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE 2 -->
+  <section class="feature right">
+    <div class="wrap">
+      <div class="panel">
+        <div class="kicker">What's inside every serving</div>
+        <h2>A stack you'd build yourself.</h2>
+        <p>Yerba mate for clean, natural caffeine. Lion's Mane for cognitive support. L‑Theanine for calm, steady focus. Nothing artificial — just the feeling of the upgrade you've been meaning to make.</p>
+        <div class="stats">
+          <div class="stat"><b>500<small>mg</small></b><span>Lion's Mane</span></div>
+          <div class="stat"><b>100<small>mg</small></b><span>Natural Caffeine</span></div>
+          <div class="stat"><b>200<small>mg</small></b><span>L‑Theanine</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section class="waitlist" id="waitlist">
+    <div class="wrap">
+      <h2>Be first to pour.</h2>
+      <p>Tins ship soon. Join the waitlist for early access, launch pricing and a spot in the first drop.</p>
+      <form class="field" onsubmit="event.preventDefault();this.querySelector('input').value='';this.nextElementSibling.textContent='You are on the list — welcome to Milonga.';">
+        <input type="email" placeholder="you@example.com" required aria-label="Email address" />
+        <button class="btn btn-primary" type="submit">Notify me</button>
+      </form>
+      <p class="note">No spam. Just the drop. · Energy That Thinks</p>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="assets/hero-3d.bundle.js"></script>
+</body>
+</html>

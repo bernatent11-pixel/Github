@@ -144,19 +144,32 @@
 
     .shadowed { text-shadow: 0 3px 30px rgba(2,8,5,0.9); }
 
-    /* ---- Act I · what it is + why it exists (LEFT) ---- */
-    .act-1 h1 { font-size: clamp(34px, 3.8vw, 56px); color: var(--cream); letter-spacing: -.5px; text-shadow: 0 4px 40px rgba(2,8,5,0.85); }
-    .act-1 h1 .gold { color: var(--gold-1); }
-    .act-1 .sub { color: var(--cream); font-weight: 700; font-size: clamp(14px, 1.5vw, 17px); margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
-    .act-1 .why { margin-top: 18px; display: grid; gap: 12px; }
-    .act-1 .why p { color: var(--mist); font-size: clamp(13px, 1.25vw, 15px); line-height: 1.65; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
-    .act-1 .why p.kicker-line { color: var(--gold-1); font-weight: 700; }
-    .trust {
-      margin-top: 20px; font-family: var(--font); font-weight: 700;
-      font-size: 11.5px; letter-spacing: 1.6px; text-transform: uppercase; line-height: 2;
-      color: var(--gold-2); text-shadow: 0 2px 14px rgba(2,8,5,0.95);
+    /* ---- shared big title for every scroll ---- */
+    .act-title { font-size: clamp(30px, 3.5vw, 52px); color: var(--cream); letter-spacing: -.5px; line-height: 1.04; text-shadow: 0 4px 40px rgba(2,8,5,0.85); }
+    .act-title .gold { color: var(--gold-1); }
+    .act-title.up { text-transform: uppercase; }
+    .tagline-sub {
+      font-family: var(--font); font-weight: 700; font-size: clamp(11px, 1.1vw, 14px);
+      letter-spacing: 5px; text-transform: uppercase; color: var(--gold-2);
+      margin-top: 10px; text-shadow: 0 2px 20px rgba(2,8,5,0.9);
     }
-    .trust b { color: var(--cream); }
+
+    /* ---- Act I · what it is + why it exists (LEFT) ---- */
+    .act-1 { padding-top: 9vh; padding-bottom: 8vh; }
+    .act-1 .curve svg { height: 62px; }
+    .act-1 .sub { color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
+    .act-1 .story { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); line-height: 1.65; margin-top: 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
+    .sense { list-style: none; margin-top: 16px; display: grid; gap: 7px; }
+    .sense li {
+      font-family: var(--font); font-weight: 900; font-size: clamp(16px, 1.75vw, 23px);
+      letter-spacing: .4px; color: var(--cream); display: flex; align-items: center; gap: 11px;
+      text-shadow: 0 2px 24px rgba(2,8,5,0.9);
+    }
+    .sense li::before {
+      content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-1), var(--leaf));
+      box-shadow: 0 0 10px rgba(236,201,111,0.5);
+    }
 
     .scrollhint {
       position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
@@ -172,17 +185,20 @@
       border: 1px solid rgba(236,201,111,0.14); border-radius: 20px;
       padding: 24px 26px;
     }
-    .act-2 h2 { font-size: clamp(22px, 2.4vw, 34px); color: var(--cream); text-shadow: 0 3px 30px rgba(2,8,5,0.9); }
-    .stack { margin-top: 18px; display: grid; gap: 14px; }
+    .stack { margin-top: 16px; display: grid; gap: 15px; }
     .stack .item { display: grid; gap: 3px; }
-    .stack .amt {
-      font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 2px;
-      color: var(--gold-1); text-transform: uppercase;
+    .ing-name {
+      font-family: var(--font); font-weight: 900; font-size: clamp(16px, 1.7vw, 22px);
+      letter-spacing: .6px; text-transform: uppercase; color: var(--gold-1);
     }
-    .stack .item p { color: var(--mist); font-size: clamp(13px, 1.25vw, 15px); text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
-    .stack .item p b { color: var(--cream); }
-    .payoff { margin-top: 18px; color: var(--cream); font-weight: 700; font-size: clamp(14px, 1.4vw, 16.5px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
-    .payoff .gold { color: var(--gold-1); }
+    .stack .item p { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); }
+    .hotcold { margin-top: 18px; display: flex; align-items: center; gap: 24px; }
+    .hotcold .hc {
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--cream);
+    }
+    .hotcold svg { width: 26px; height: 26px; display: block; }
 
     .curve { margin-top: 14px; background: rgba(4,16,10,0.45); backdrop-filter: blur(6px);
       border: 1px solid rgba(236,201,111,0.22); border-radius: 14px; padding: 12px 14px 8px; }
@@ -190,34 +206,47 @@
     .curve .legend { display: flex; gap: 16px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-top: 4px; }
     .curve .legend .mi { color: var(--gold-1); }
     .curve .legend .co { color: rgba(247,239,224,0.45); }
+    .curve .legend .ma { color: rgba(140,198,63,0.8); }
 
-    .ritual { margin-top: 16px; color: var(--mist); font-size: clamp(13px, 1.25vw, 15px); text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
-    .ritual b { color: var(--cream); }
-
-    /* ---- Act III · comparison + CTA (LEFT) ---- */
+    /* ---- Act III · comparison + CTA (LEFT + centered CTA) ---- */
     .act-3 { padding-top: 10vh; padding-bottom: 5vh; }
-    .act-3 h2 { font-size: clamp(19px, 1.9vw, 27px); color: var(--cream); text-shadow: 0 3px 30px rgba(2,8,5,0.9); }
+    .act-3 .col { align-self: start; margin-top: 4vh; width: min(600px, 48vw); }
     .cmp-wrap {
       margin-top: 14px; background: rgba(4,16,10,0.55); backdrop-filter: blur(10px);
       border: 1px solid rgba(236,201,111,0.25); border-radius: 14px; padding: 6px 10px; overflow-x: auto;
     }
-    table.cmp { width: 100%; border-collapse: collapse; font-size: 11px; }
-    .cmp th, .cmp td { padding: 5px 6px; text-align: center; border-top: 1px solid rgba(247,239,224,0.08); }
-    .cmp thead th { border-top: none; font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); padding-top: 8px; }
-    .cmp thead th.mi { color: var(--gold-1); }
-    .cmp td:first-child, .cmp th:first-child { text-align: left; color: var(--mist); font-size: 11.5px; }
-    .cmp td.mi { color: var(--gold-1); font-weight: 700; background: rgba(236,201,111,0.07); }
-    .cmp td .x { color: rgba(247,239,224,0.35); }
-    .cmp-note { font-size: 10px; color: rgba(247,239,224,0.4); margin: 4px 2px 6px; }
-    .bridge { margin-top: 12px; color: var(--cream); font-weight: 700; font-size: clamp(13px, 1.35vw, 15.5px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
-
-    .cta-block { margin-top: 14px; }
-    .cta-block .cta-eyebrow {
-      font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--gold-2); margin-bottom: 6px;
+    table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .cmp th, .cmp td { padding: 7px 6px; text-align: center; border-top: 1px solid rgba(247,239,224,0.08); }
+    .cmp thead th {
+      border-top: none; font-family: var(--font); font-weight: 700; font-size: 9px;
+      letter-spacing: .8px; text-transform: uppercase; color: var(--mist);
+      padding: 8px 3px 6px; line-height: 1.3; vertical-align: bottom;
     }
-    .cta-block h3 { font-size: clamp(20px, 2.1vw, 29px); color: var(--cream); text-shadow: 0 3px 30px rgba(2,8,5,0.9); }
-    .cta-block .cta-sub { color: var(--mist); font-size: clamp(12.5px, 1.2vw, 14px); margin: 6px 0 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
+    .cmp td.name {
+      text-align: left; font-family: var(--font); font-weight: 700; font-size: 11px;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); white-space: nowrap;
+    }
+    .cmp tr.mi-row td { background: rgba(236,201,111,0.08); }
+    .cmp tr.mi-row td.name { color: var(--gold-1); }
+    .cmp td.y { color: var(--gold-1); font-weight: 700; }
+    .cmp td.n { color: rgba(247,239,224,0.28); }
+    .cmp-note { font-size: 10px; color: rgba(247,239,224,0.4); margin: 4px 2px 6px; }
+    .bridge { margin-top: 12px; max-width: 26em; color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.15vw, 14px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
+
+    /* centered CTA, separated at the bottom of the finale */
+    .cta-center { position: absolute; left: 0; right: 0; bottom: 4vh; display: grid; justify-items: center; z-index: 6; }
+    .cta-inner {
+      width: min(500px, 92vw); text-align: center;
+      background: rgba(2,8,5,0.5); backdrop-filter: blur(10px);
+      border: 1px solid rgba(236,201,111,0.18); border-radius: 20px;
+      padding: 20px 26px 18px;
+    }
+    .cta-inner .cta-eyebrow {
+      font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold-2); margin-bottom: 5px;
+    }
+    .cta-inner h3 { font-size: clamp(20px, 2.1vw, 28px); color: var(--cream); }
+    .cta-inner .cta-sub { color: var(--mist); font-weight: 400; font-size: clamp(12px, 1.1vw, 13.5px); margin: 6px 0 12px; }
 
     .signup { width: 100%; }
     .field {
@@ -314,46 +343,27 @@
       <div class="veil"></div>
       <div class="grain"></div>
 
-      <!-- SCROLL 1 · what it is + why it exists · LEFT -->
+      <!-- SCROLL 1 · what it is + the feeling · LEFT -->
       <div class="act act-left act-1" id="act1">
         <div class="col">
-          <span class="eyebrow"><span class="dot"></span> The Original Mate Latte</span>
-          <h1>Energy That <span class="gold">Thinks</span>.</h1>
-          <p class="sub">The coffee ritual, upgraded. Uplifted, focused, and calm — no jitters, no crash, no regret.</p>
-          <div class="why">
-            <p class="rv">For centuries, Argentina started the day the same way: a gourd of yerba mate, passed around the circle. Present. Intentional. Alive.</p>
-            <p class="rv">We took that ritual and made it yours. A mate latte you whisk in ten seconds — hot or cold — that gives you everything you actually want from your morning cup, and none of what coffee makes you pay for later.</p>
-            <p class="rv kicker-line">Not a coffee substitute. The upgrade coffee was never going to give you.</p>
-          </div>
-          <p class="trust rv"><b>100mg</b> natural caffeine · <b>500mg</b> Lion's Mane · <b>220mg</b> L-Theanine · <b>90</b> cal · organic · low sugar</p>
-        </div>
-        <div class="scrollhint"><span class="line"></span> Scroll</div>
-      </div>
-
-      <!-- SCROLL 2 · ingredients + benefits + ritual · RIGHT -->
-      <div class="act act-right act-2" id="act2">
-        <div class="col">
-          <h2 class="rv">Three ingredients.<br/>One clean morning.</h2>
-          <div class="stack">
-            <div class="item rv">
-              <span class="amt">100mg Natural Caffeine</span>
-              <p>A clean lift from real yerba mate. <b>Awake, not wired.</b></p>
-            </div>
-            <div class="item rv">
-              <span class="amt">220mg L-Theanine</span>
-              <p>The calm that holds the caffeine steady. <b>This is why there's no spike and no crash.</b></p>
-            </div>
-            <div class="item rv">
-              <span class="amt">500mg Lion's Mane</span>
-              <p>The focus that keeps you <b>clear and locked in</b> for hours.</p>
-            </div>
-          </div>
-          <p class="payoff rv"><span class="gold">Uplifted. Focused. Calm.</span> A gradual rise, a steady peak, a soft landing — nothing to recover from.</p>
+          <h1 class="act-title">The Original<br/><span class="gold">Mate Latte</span></h1>
+          <p class="tagline-sub">Energy That Thinks</p>
+          <p class="sub">Your morning ritual, elevated.<br/>Everything your mornings need.</p>
+          <p class="story rv">For centuries, Argentina started the morning with yerba mate, passed around the circle. We made that ritual yours — a mate latte you whisk in ten seconds, hot or cold.</p>
+          <ul class="sense">
+            <li class="rv">Clean, Sustained Energy</li>
+            <li class="rv">Mental Focus</li>
+            <li class="rv">Mood Support</li>
+            <li class="rv">Calm &amp; Present</li>
+            <li class="rv">Antioxidants &amp; Vitamins</li>
+          </ul>
           <div class="curve rv" aria-hidden="true">
             <svg viewBox="0 0 300 74" preserveAspectRatio="none">
               <line x1="0" y1="58" x2="300" y2="58" stroke="rgba(247,239,224,0.15)" stroke-width="1"/>
               <!-- coffee: spike and crash -->
               <path d="M4 56 C30 54 40 12 58 10 C70 9 76 26 92 44 C108 62 150 68 296 66" fill="none" stroke="rgba(247,239,224,0.35)" stroke-width="2" stroke-dasharray="4 4"/>
+              <!-- matcha: gentle but one-note -->
+              <path d="M4 57 C40 54 70 42 130 40 C200 38 250 44 296 48" fill="none" stroke="rgba(140,198,63,0.55)" stroke-width="2" stroke-dasharray="1.5 3.5" stroke-linecap="round"/>
               <!-- milonga: smooth all-day curve -->
               <path d="M4 56 C50 52 70 26 120 22 C190 17 240 22 296 34" fill="none" stroke="url(#gcurve)" stroke-width="2.6" stroke-linecap="round"/>
               <defs>
@@ -362,37 +372,87 @@
                 </linearGradient>
               </defs>
             </svg>
-            <div class="legend"><span class="mi">— Milonga</span><span class="co">- - Coffee</span></div>
+            <div class="legend"><span class="mi">— Milonga</span><span class="co">- - Coffee</span><span class="ma">· · Matcha</span></div>
           </div>
-          <p class="ritual rv"><b>One scoop. Whisk it hot or shake it cold. Sip.</b> Your morning, your way — the way that actually feels like you.</p>
-          <p class="ritual rv">90 calories. All organic. Low sugar. Plus the antioxidants and vitamins that live in real yerba mate. <b>A ritual that gives back more than it takes.</b></p>
+        </div>
+        <div class="scrollhint"><span class="line"></span> Scroll</div>
+      </div>
+
+      <!-- SCROLL 2 · ingredients · RIGHT -->
+      <div class="act act-right act-2" id="act2">
+        <div class="col">
+          <h2 class="act-title rv">Three Ingredients.<br/><span class="gold">Unique Mornings.</span></h2>
+          <div class="stack">
+            <div class="item rv">
+              <span class="ing-name">100mg Yerba Mate</span>
+              <p>A clean, sustained lift — mental clarity, antioxidants, and vitamins.</p>
+            </div>
+            <div class="item rv">
+              <span class="ing-name">500mg Lion's Mane</span>
+              <p>Natural cognitive support: focus, concentration, and memory.</p>
+            </div>
+            <div class="item rv">
+              <span class="ing-name">220mg L-Theanine</span>
+              <p>Balanced calm. Stress-free.</p>
+            </div>
+            <div class="item rv">
+              <span class="ing-name">All Organic</span>
+              <p>All organic ingredients. 90 calories per scoop, low sugar.</p>
+            </div>
+          </div>
+          <div class="hotcold rv" role="img" aria-label="Drink it hot or cold">
+            <span class="hc">
+              <svg viewBox="0 0 32 32" fill="none" stroke="#ecc96f" stroke-width="1.8" stroke-linecap="round">
+                <path d="M7 13 h15 v9 a6 6 0 0 1 -6 6 h-3 a6 6 0 0 1 -6 -6 z"/>
+                <path d="M22 15 h2.5 a3.5 3.5 0 0 1 0 7 H22"/>
+                <path d="M11 4 c0 2 2 2.6 2 4.6 M16 4 c0 2 2 2.6 2 4.6"/>
+              </svg>
+              Hot
+            </span>
+            <span class="hc">
+              <svg viewBox="0 0 32 32" fill="none" stroke="#ecc96f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 8 h14 l-2 19 a2 2 0 0 1 -2 1.8 h-6 a2 2 0 0 1 -2 -1.8 z"/>
+                <path d="M9.7 15 h12.6"/>
+                <path d="M13 18.5 l2 2.5 M18 18.5 l-2 2.5 M15.5 22.5 l1.5 2"/>
+                <path d="M20 4 l-3.5 4"/>
+              </svg>
+              Cold
+            </span>
+          </div>
         </div>
       </div>
 
-      <!-- SCROLL 3 · comparison + CTA · LEFT -->
+      <!-- SCROLL 3 · comparison + centered CTA · LEFT -->
       <div class="act act-left act-3" id="act3">
         <div class="col">
-          <h2 class="rv">Coffee wires you. Matcha's one-note. This is the whole ritual.</h2>
+          <h2 class="act-title up rv">Elevate Your<br/><span class="gold">Morning Ritual</span></h2>
           <div class="cmp-wrap rv">
             <table class="cmp">
               <thead>
-                <tr><th></th><th class="mi">Milonga</th><th>Coffee</th><th>Matcha</th></tr>
+                <tr>
+                  <th></th>
+                  <th>Sustained<br/>energy</th>
+                  <th>No<br/>jitters</th>
+                  <th>Focus &amp;<br/>memory</th>
+                  <th>Mood<br/>support</th>
+                  <th>Antiox. &amp;<br/>vitamins</th>
+                  <th>Low cal<br/>&amp; sugar</th>
+                  <th>Creamy<br/>taste</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td>Sustained energy, no crash</td><td class="mi">✓</td><td>Spike + crash</td><td>Moderate</td></tr>
-                <tr><td>No jitters</td><td class="mi">✓ L-Theanine</td><td><span class="x">✗</span></td><td>Low</td></tr>
-                <tr><td>Focus active</td><td class="mi">500mg Lion's Mane</td><td><span class="x">✗</span></td><td><span class="x">✗</span></td></tr>
-                <tr><td>Calm active</td><td class="mi">220mg L-Theanine</td><td><span class="x">✗</span></td><td>Natural, undosed</td></tr>
-                <tr><td>Antioxidants + vitamins</td><td class="mi">✓</td><td>Minimal</td><td>✓</td></tr>
-                <tr><td>Low cal / low sugar</td><td class="mi">90 cal</td><td>✓*</td><td>✓*</td></tr>
-                <tr><td>A ritual you crave</td><td class="mi">Vanilla, creamy</td><td>Bitter</td><td>Grassy</td></tr>
+                <tr class="mi-row"><td class="name">Milonga</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+                <tr><td class="name">Coffee</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓*</td><td class="n">✗</td></tr>
+                <tr><td class="name">Matcha</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓*</td><td class="n">✗</td></tr>
               </tbody>
             </table>
             <div class="cmp-note">*unsweetened</div>
           </div>
-          <p class="bridge rv">Everything you were chasing across three different drinks. One scoop.</p>
+          <p class="bridge rv">Everything you were chasing across three drinks. One scoop.</p>
+        </div>
 
-          <div class="cta-block rv" id="join">
+        <div class="cta-center">
+          <div class="cta-inner rv" id="join">
             <div class="cta-eyebrow">The Mate Latte drops soon.</div>
             <h3>Be first in the circle.</h3>
             <p class="cta-sub">Join the list for early access and a founding-member price when it launches.</p>

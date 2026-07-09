@@ -144,10 +144,13 @@
 
     .shadowed { text-shadow: 0 3px 30px rgba(2,8,5,0.9); }
 
-    /* ---- shared big title for every scroll ---- */
-    .act-title { font-size: clamp(30px, 3.5vw, 52px); color: var(--cream); letter-spacing: -.5px; line-height: 1.04; text-shadow: 0 4px 40px rgba(2,8,5,0.85); }
+    /* ---- shared big title for every scroll (always caps) ---- */
+    .act-title {
+      font-size: clamp(26px, 3vw, 44px); color: var(--cream);
+      letter-spacing: .5px; line-height: 1.08; text-transform: uppercase;
+      text-shadow: 0 4px 40px rgba(2,8,5,0.85);
+    }
     .act-title .gold { color: var(--gold-1); }
-    .act-title.up { text-transform: uppercase; }
     .tagline-sub {
       font-family: var(--font); font-weight: 700; font-size: clamp(11px, 1.1vw, 14px);
       letter-spacing: 5px; text-transform: uppercase; color: var(--gold-2);
@@ -159,16 +162,20 @@
     .act-1 .curve svg { height: 62px; }
     .act-1 .sub { color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
     .act-1 .story { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); line-height: 1.65; margin-top: 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
-    .sense { list-style: none; margin-top: 16px; display: grid; gap: 7px; }
+    .sense { list-style: none; margin-top: 16px; display: grid; gap: 9px; }
     .sense li {
-      font-family: var(--font); font-weight: 900; font-size: clamp(16px, 1.75vw, 23px);
-      letter-spacing: .4px; color: var(--cream); display: flex; align-items: center; gap: 11px;
-      text-shadow: 0 2px 24px rgba(2,8,5,0.9);
+      font-family: var(--font); font-weight: 900; font-size: clamp(17px, 1.85vw, 25px);
+      letter-spacing: 1.2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 13px;
+      background: linear-gradient(92deg, var(--cream) 30%, var(--gold-1) 85%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      filter: drop-shadow(0 3px 14px rgba(2,8,5,0.9));
     }
     .sense li::before {
-      content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold-1), var(--leaf));
-      box-shadow: 0 0 10px rgba(236,201,111,0.5);
+      content: ""; flex: none; width: 20px; height: 3px; border-radius: 3px;
+      background: linear-gradient(90deg, var(--leaf), var(--gold-1));
+      box-shadow: 0 0 12px rgba(236,201,111,0.55);
     }
 
     .scrollhint {
@@ -192,13 +199,18 @@
       letter-spacing: .6px; text-transform: uppercase; color: var(--gold-1);
     }
     .stack .item p { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); }
-    .hotcold { margin-top: 18px; display: flex; align-items: center; gap: 24px; }
+    .hc-title {
+      margin-top: 20px; font-family: var(--font); font-weight: 900;
+      font-size: clamp(14px, 1.4vw, 18px); letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--cream); text-shadow: 0 2px 20px rgba(2,8,5,0.9);
+    }
+    .hotcold { margin-top: 10px; display: flex; align-items: center; gap: 30px; }
     .hotcold .hc {
-      display: flex; align-items: center; gap: 9px;
-      font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 2.5px;
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font); font-weight: 700; font-size: 13px; letter-spacing: 3px;
       text-transform: uppercase; color: var(--cream);
     }
-    .hotcold svg { width: 26px; height: 26px; display: block; }
+    .hotcold svg { width: 42px; height: 42px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); }
 
     .curve { margin-top: 14px; background: rgba(4,16,10,0.45); backdrop-filter: blur(6px);
       border: 1px solid rgba(236,201,111,0.22); border-radius: 14px; padding: 12px 14px 8px; }
@@ -207,6 +219,7 @@
     .curve .legend .mi { color: var(--gold-1); }
     .curve .legend .co { color: rgba(247,239,224,0.45); }
     .curve .legend .ma { color: rgba(140,198,63,0.8); }
+    .curve .legend .mu { color: rgba(176,138,86,0.85); }
 
     /* ---- Act III · comparison + CTA (LEFT + centered CTA) ---- */
     .act-3 { padding-top: 10vh; padding-bottom: 5vh; }
@@ -233,14 +246,24 @@
     .cmp-note { font-size: 10px; color: rgba(247,239,224,0.4); margin: 4px 2px 6px; }
     .bridge { margin-top: 12px; max-width: 26em; color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.15vw, 14px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
 
-    /* centered CTA, separated at the bottom of the finale */
-    .cta-center { position: absolute; left: 0; right: 0; bottom: 4vh; display: grid; justify-items: center; z-index: 6; }
+    /* CTA panel on the right side of the finale */
+    .cta-right {
+      position: absolute; right: clamp(24px, 4.5vw, 72px); top: 50%;
+      transform: translateY(-50%); width: min(420px, 36vw); z-index: 6;
+    }
     .cta-inner {
-      width: min(500px, 92vw); text-align: center;
+      width: 100%; text-align: center;
       background: rgba(2,8,5,0.5); backdrop-filter: blur(10px);
       border: 1px solid rgba(236,201,111,0.18); border-radius: 20px;
-      padding: 20px 26px 18px;
+      padding: 22px 26px 20px;
     }
+    .offer-pill {
+      display: inline-block; font-family: var(--font); font-weight: 700;
+      font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--forest-3); background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      border-radius: 100px; padding: 6px 15px; margin-bottom: 12px;
+    }
+    .gold-strong { color: var(--gold-1); font-weight: 700; }
     .cta-inner .cta-eyebrow {
       font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 3px;
       text-transform: uppercase; color: var(--gold-2); margin-bottom: 5px;
@@ -287,10 +310,11 @@
     /* ================= RESPONSIVE ================= */
     @media (max-width: 860px) {
       .act { padding: 10vh 22px; align-content: end; padding-bottom: 14vh; }
-      .act .col { width: 100%; }
-      .act-1 .why p { font-size: 13px; }
+      .act .col, .act-3 .col { width: 100%; }
       .curve { display: none; }  /* keep mobile overlay lean */
-      .cmp th, .cmp td { padding: 5px 6px; }
+      .cmp th, .cmp td { padding: 5px 4px; }
+      .cta-right { position: static; transform: none; width: 100%; margin-top: 16px; }
+      .act-3 { align-content: start; overflow-y: auto; }
     }
 
     /* ================= REDUCED MOTION ================= */
@@ -349,13 +373,13 @@
           <h1 class="act-title">The Original<br/><span class="gold">Mate Latte</span></h1>
           <p class="tagline-sub">Energy That Thinks</p>
           <p class="sub">Your morning ritual, elevated.<br/>Everything your mornings need.</p>
-          <p class="story rv">For centuries, Argentina started the morning with yerba mate, passed around the circle. We made that ritual yours — a mate latte you whisk in ten seconds, hot or cold.</p>
+          <p class="story rv">We reimagined a ritual built on presence, intention, and connection for the way we live today — mate, finally in latte form. Ready in ten seconds, hot or cold, with everything your morning needs and none of what other alternatives make you pay for later.</p>
           <ul class="sense">
-            <li class="rv">Clean, Sustained Energy</li>
-            <li class="rv">Mental Focus</li>
-            <li class="rv">Mood Support</li>
-            <li class="rv">Calm &amp; Present</li>
-            <li class="rv">Antioxidants &amp; Vitamins</li>
+            <li class="rv" data-fx="slide">Clean, Sustained Energy</li>
+            <li class="rv" data-fx="slide">Mental Focus</li>
+            <li class="rv" data-fx="slide">Mood Support</li>
+            <li class="rv" data-fx="slide">Calm &amp; Present</li>
+            <li class="rv" data-fx="slide">Antioxidants &amp; Vitamins</li>
           </ul>
           <div class="curve rv" aria-hidden="true">
             <svg viewBox="0 0 300 74" preserveAspectRatio="none">
@@ -364,6 +388,8 @@
               <path d="M4 56 C30 54 40 12 58 10 C70 9 76 26 92 44 C108 62 150 68 296 66" fill="none" stroke="rgba(247,239,224,0.35)" stroke-width="2" stroke-dasharray="4 4"/>
               <!-- matcha: gentle but one-note -->
               <path d="M4 57 C40 54 70 42 130 40 C200 38 250 44 296 48" fill="none" stroke="rgba(140,198,63,0.55)" stroke-width="2" stroke-dasharray="1.5 3.5" stroke-linecap="round"/>
+              <!-- mushroom coffee: barely lifts -->
+              <path d="M4 57 C40 56 80 50 130 49 C200 48 250 51 296 53" fill="none" stroke="rgba(176,138,86,0.55)" stroke-width="2" stroke-dasharray="7 3" stroke-linecap="round"/>
               <!-- milonga: smooth all-day curve -->
               <path d="M4 56 C50 52 70 26 120 22 C190 17 240 22 296 34" fill="none" stroke="url(#gcurve)" stroke-width="2.6" stroke-linecap="round"/>
               <defs>
@@ -372,7 +398,7 @@
                 </linearGradient>
               </defs>
             </svg>
-            <div class="legend"><span class="mi">— Milonga</span><span class="co">- - Coffee</span><span class="ma">· · Matcha</span></div>
+            <div class="legend"><span class="mi">— Milonga</span><span class="co">- - Coffee</span><span class="ma">· · Matcha</span><span class="mu">-·- Mushroom coffee</span></div>
           </div>
         </div>
         <div class="scrollhint"><span class="line"></span> Scroll</div>
@@ -381,7 +407,8 @@
       <!-- SCROLL 2 · ingredients · RIGHT -->
       <div class="act act-right act-2" id="act2">
         <div class="col">
-          <h2 class="act-title rv">Three Ingredients.<br/><span class="gold">Unique Mornings.</span></h2>
+          <h2 class="act-title rv">Three Ingredients.</h2>
+          <p class="tagline-sub rv">Unique Mornings.</p>
           <div class="stack">
             <div class="item rv">
               <span class="ing-name">100mg Yerba Mate</span>
@@ -400,6 +427,7 @@
               <p>All organic ingredients. 90 calories per scoop, low sugar.</p>
             </div>
           </div>
+          <p class="hc-title rv">Enjoy it&hellip;</p>
           <div class="hotcold rv" role="img" aria-label="Drink it hot or cold">
             <span class="hc">
               <svg viewBox="0 0 32 32" fill="none" stroke="#ecc96f" stroke-width="1.8" stroke-linecap="round">
@@ -444,28 +472,28 @@
                 <tr class="mi-row"><td class="name">Milonga</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
                 <tr><td class="name">Coffee</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓*</td><td class="n">✗</td></tr>
                 <tr><td class="name">Matcha</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓*</td><td class="n">✗</td></tr>
+                <tr><td class="name">Mushroom Coffee</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="n">✗</td></tr>
               </tbody>
             </table>
             <div class="cmp-note">*unsweetened</div>
           </div>
-          <p class="bridge rv">Everything you were chasing across three drinks. One scoop.</p>
         </div>
 
-        <div class="cta-center">
+        <div class="cta-right">
           <div class="cta-inner rv" id="join">
-            <div class="cta-eyebrow">The Mate Latte drops soon.</div>
+            <span class="offer-pill">First drop · 1,000 units only</span>
             <h3>Be first in the circle.</h3>
-            <p class="cta-sub">Join the list for early access and a founding-member price when it launches.</p>
+            <p class="cta-sub">Join the list and get <span class="gold-strong">20% off your first order</span> when the Mate Latte drops.</p>
             <form class="signup" id="waitlist-form" novalidate>
               <div class="field">
                 <input type="email" id="email" placeholder="your email" aria-label="Email address" required />
                 <button class="btn" type="submit">Save My Spot</button>
               </div>
-              <p class="form-note">No noise. Just the drop.</p>
+              <p class="form-note">Only 1,000 tins in Batch No. 001. No noise — just the drop.</p>
             </form>
             <div class="success" id="success">
               <strong>You're in the circle. 🌱</strong>
-              <div>We'll send your early-access invite the moment the Mate Latte drops.</div>
+              <div>Your 20% founding-member code arrives the moment the Mate Latte drops.</div>
             </div>
           </div>
         </div>
@@ -607,7 +635,14 @@
           const s  = a.rvStart + i * a.rvStep;
           const sp = easeOut(window01(p, s, s + a.rvDur, a.win[2], a.win[3]));
           el.style.opacity = sp;
-          el.style.transform = `translateY(${(1 - sp) * 18}px)`;
+          if (el.dataset.fx === "slide") {
+            /* benefit lines sweep in from the left with a focus-pull blur */
+            el.style.transform = `translateX(${(1 - sp) * -44}px) translateY(${(1 - sp) * 6}px)`;
+            el.style.filter = `blur(${(1 - sp) * 6}px) drop-shadow(0 3px 14px rgba(2,8,5,0.9))`;
+            el.style.letterSpacing = `${1.2 + (1 - sp) * 6}px`;
+          } else {
+            el.style.transform = `translateY(${(1 - sp) * 18}px)`;
+          }
         });
       }
     }

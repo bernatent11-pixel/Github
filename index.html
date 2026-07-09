@@ -88,11 +88,12 @@
       transition: background .4s, backdrop-filter .4s;
     }
     nav.scrolled { background: rgba(2,8,5,0.55); backdrop-filter: blur(12px); }
-    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo .mark { width: 42px; height: 42px; display: block; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo .mark-full { height: 78px; width: auto; display: block; filter: drop-shadow(0 2px 10px rgba(2,8,5,0.6)); }
+    .logo .mark { width: 34px; height: 34px; display: block; }
     .logo .word {
-      font-family: var(--font); font-weight: 900; font-size: 20px;
-      letter-spacing: 3px; color: var(--gold-1);
+      font-family: var(--font); font-weight: 900; font-size: 16px;
+      letter-spacing: 3px; color: var(--gold-1); margin-left: 10px;
     }
     .nav-cta {
       background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
@@ -158,7 +159,8 @@
     }
 
     /* ---- Act I · what it is + why it exists (LEFT) ---- */
-    .act-1 { padding-top: 9vh; padding-bottom: 8vh; }
+    .act-1 { padding-top: 13vh; padding-bottom: 7vh; }
+    .act-1 .col { margin-top: 2vh; }
     .act-1 .curve svg { height: 62px; }
     .act-1 .sub { color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
     .act-1 .story { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); line-height: 1.65; margin-top: 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
@@ -173,9 +175,26 @@
       filter: drop-shadow(0 3px 14px rgba(2,8,5,0.9));
     }
     .sense li::before {
-      content: ""; flex: none; width: 20px; height: 3px; border-radius: 3px;
-      background: linear-gradient(90deg, var(--leaf), var(--gold-1));
-      box-shadow: 0 0 12px rgba(236,201,111,0.55);
+      content: ""; flex: none; width: 24px; height: 24px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 104'%3E%3Ccircle cx='50' cy='26' r='15' fill='%23d6ab50'/%3E%3Ccircle cx='35' cy='33' r='10' fill='%23d6ab50'/%3E%3Ccircle cx='65' cy='33' r='10' fill='%23d6ab50'/%3E%3Ccircle cx='41' cy='21' r='9' fill='%23d6ab50'/%3E%3Ccircle cx='59' cy='21' r='9' fill='%23d6ab50'/%3E%3Cpath d='M38 44 q0 -8 5 -8 t5 8 v10 q0 2 2 2 t2 -2 v-14 q0 -8 5 -8 t5 8 v14 q0 2 2 2 t2 -2 v-10 q0 -8 5 -8 t5 8 v22 l6 -7 q4 -5 8 -1 t0 9 l-13 16 q-5 6 -13 6 h-14 q-12 0 -12 -13 z' fill='%23ecc96f'/%3E%3C/svg%3E") no-repeat center / contain;
+      filter: drop-shadow(0 0 8px rgba(236,201,111,0.4));
+    }
+
+    /* load-in sweep: the whole Act I column is readable before any scrolling;
+       the sweep plays once as the loader lifts */
+    @keyframes sweepIn {
+      from { opacity: 0; transform: translateX(-44px); filter: blur(6px); }
+      to   { opacity: 1; transform: none; filter: none; }
+    }
+    body.ready .act-1 .story { animation: sweepIn .6s ease-out .1s backwards; }
+    body.ready .sense li:nth-child(1) { animation: sweepIn .6s ease-out .30s backwards; }
+    body.ready .sense li:nth-child(2) { animation: sweepIn .6s ease-out .42s backwards; }
+    body.ready .sense li:nth-child(3) { animation: sweepIn .6s ease-out .54s backwards; }
+    body.ready .sense li:nth-child(4) { animation: sweepIn .6s ease-out .66s backwards; }
+    body.ready .sense li:nth-child(5) { animation: sweepIn .6s ease-out .78s backwards; }
+    body.ready .act-1 .curve { animation: sweepIn .6s ease-out .95s backwards; }
+    @media (prefers-reduced-motion: reduce) {
+      body.ready .act-1 .story, body.ready .sense li, body.ready .act-1 .curve { animation: none; }
     }
 
     .scrollhint {
@@ -342,20 +361,30 @@
   <!-- ============ NAV ============ -->
   <nav id="nav">
     <a class="logo" href="#top" aria-label="Milonga — Yerba Mate">
-      <!-- hand-tree brand mark -->
-      <svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <!-- canopy -->
-        <circle cx="50" cy="26" r="15" fill="var(--leaf)"/>
-        <circle cx="35" cy="33" r="10" fill="var(--leaf)"/>
-        <circle cx="65" cy="33" r="10" fill="var(--leaf)"/>
-        <circle cx="41" cy="21" r="9"  fill="var(--leaf)"/>
-        <circle cx="59" cy="21" r="9"  fill="var(--leaf)"/>
-        <!-- hand -->
-        <path d="M38 44 q0 -8 5 -8 t5 8 v10 q0 2 2 2 t2 -2 v-14 q0 -8 5 -8 t5 8 v14 q0 2 2 2 t2 -2 v-10 q0 -8 5 -8 t5 8 v22 l6 -7 q4 -5 8 -1 t0 9 l-13 16 q-5 6 -13 6 h-14 q-12 0 -12 -13 z" fill="#3f8a4d"/>
-        <!-- roots -->
-        <path d="M50 88 v-26 m0 8 l-7 -9 m7 9 l7 -9 m-7 17 l-9 -7 m9 7 l9 -7" stroke="var(--cream)" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+      <!-- full lockup: arched MILONGA (gourd accent on the O) over the hand-tree mark -->
+      <svg class="mark-full" viewBox="0 0 132 118" fill="none" aria-hidden="true">
+        <defs>
+          <path id="logo-arc" d="M 16 58 A 54 54 0 0 1 116 58" fill="none"/>
+        </defs>
+        <!-- mate gourd accent above the O -->
+        <g stroke="#4e9a58" stroke-width="2.4" stroke-linecap="round">
+          <path d="M63 13 q1 -6 5 -9"/>
+        </g>
+        <path d="M60 14 q3 -3 6 0 q1 4 -3 5 q-4 -1 -3 -5 z" fill="#4e9a58"/>
+        <text font-family="Gotham, Montserrat, system-ui, sans-serif" font-weight="900" font-size="21.5" letter-spacing="3" fill="#4e9a58">
+          <textPath href="#logo-arc" startOffset="50%" text-anchor="middle">MILONGA</textPath>
+        </text>
+        <!-- hand-tree mark -->
+        <g transform="translate(33 40) scale(0.66)">
+          <circle cx="50" cy="26" r="15" fill="var(--leaf)"/>
+          <circle cx="35" cy="33" r="10" fill="var(--leaf)"/>
+          <circle cx="65" cy="33" r="10" fill="var(--leaf)"/>
+          <circle cx="41" cy="21" r="9"  fill="var(--leaf)"/>
+          <circle cx="59" cy="21" r="9"  fill="var(--leaf)"/>
+          <path d="M38 44 q0 -8 5 -8 t5 8 v10 q0 2 2 2 t2 -2 v-14 q0 -8 5 -8 t5 8 v14 q0 2 2 2 t2 -2 v-10 q0 -8 5 -8 t5 8 v22 l6 -7 q4 -5 8 -1 t0 9 l-13 16 q-5 6 -13 6 h-14 q-12 0 -12 -13 z" fill="#3f8a4d"/>
+          <path d="M50 88 v-26 m0 8 l-7 -9 m7 9 l7 -9 m-7 17 l-9 -7 m9 7 l9 -7" stroke="var(--cream)" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+        </g>
       </svg>
-      <span class="word">MILONGA</span>
     </a>
     <a class="nav-cta" href="#join" id="nav-join">Join the waitlist</a>
   </nav>
@@ -407,7 +436,7 @@
       <!-- SCROLL 2 · ingredients · RIGHT -->
       <div class="act act-right act-2" id="act2">
         <div class="col">
-          <h2 class="act-title rv">Three Ingredients.</h2>
+          <h2 class="act-title rv">Three <span class="gold">Ingredients.</span></h2>
           <p class="tagline-sub rv">Unique Mornings.</p>
           <div class="stack">
             <div class="item rv">
@@ -470,12 +499,11 @@
               </thead>
               <tbody>
                 <tr class="mi-row"><td class="name">Milonga</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-                <tr><td class="name">Coffee</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓*</td><td class="n">✗</td></tr>
-                <tr><td class="name">Matcha</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓*</td><td class="n">✗</td></tr>
+                <tr><td class="name">Coffee</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="n">✗</td></tr>
+                <tr><td class="name">Matcha</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓</td><td class="n">✗</td></tr>
                 <tr><td class="name">Mushroom Coffee</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="y">✓</td><td class="n">✗</td></tr>
               </tbody>
             </table>
-            <div class="cmp-note">*unsweetened</div>
           </div>
         </div>
 
@@ -573,6 +601,7 @@
       for (let i = 0; i < FRAME_COUNT; i += 8) sparse.push(loadFrame(i));
       await Promise.all(sparse);
       loader.classList.add("done");
+      document.body.classList.add("ready");   // triggers the Act I sweep-in
       for (let i = 0; i < FRAME_COUNT; i++) loadFrame(i);
     }
     function nearestReady(i) {
@@ -620,7 +649,7 @@
     /* win: [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd]
        rvStart/rvStep/rvDur: stagger of .rv children inside the act */
     const ACTS = [
-      { el: document.getElementById("act1"), win: [-1,   0,    0.24, 0.32], rvStart: 0.035, rvStep: 0.042, rvDur: 0.055, exitY: -50 },
+      { el: document.getElementById("act1"), win: [-1,   0,    0.24, 0.32], rvStart: -0.5, rvStep: 0.01, rvDur: 0.05, exitY: -50 },
       { el: document.getElementById("act2"), win: [0.34, 0.41, 0.62, 0.68], rvStart: 0.36,  rvStep: 0.030, rvDur: 0.050, exitY: 0   },
       { el: document.getElementById("act3"), win: [0.71, 0.79, 2,    3   ], rvStart: 0.72,  rvStep: 0.026, rvDur: 0.050, exitY: 0   },
     ].map(a => ({ ...a, rv: [...a.el.querySelectorAll(".rv")] }));
@@ -656,6 +685,18 @@
       requestAnimationFrame(tick);
     }
 
+    /* ---------- align the offer panel's bottom with the table's bottom ---------- */
+    function alignCTA() {
+      const cta  = document.querySelector(".cta-right");
+      const wrap = document.querySelector(".cmp-wrap");
+      if (!cta || !wrap) return;
+      if (window.innerWidth <= 860) { cta.style.top = ""; cta.style.transform = ""; return; }
+      const tableBottom = wrap.offsetTop + wrap.offsetHeight;   // both offset from .act-3
+      cta.style.top = Math.max(0, tableBottom - cta.offsetHeight) + "px";
+      cta.style.transform = "none";
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignCTA);
+
     /* ---------- nav CTA: glide to the finale ---------- */
     document.getElementById("nav-join").addEventListener("click", e => {
       if (reduceMotion) return; // default anchor behavior
@@ -666,7 +707,8 @@
 
     /* ---------- boot ---------- */
     window.addEventListener("scroll", readScroll, { passive: true });
-    window.addEventListener("resize", () => { readScroll(); resize(); });
+    window.addEventListener("resize", () => { readScroll(); resize(); alignCTA(); });
+    alignCTA();
 
     if (reduceMotion) {
       loadFrame(0).then(() => { resize(); loader.classList.add("done"); });

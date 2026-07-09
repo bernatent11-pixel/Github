@@ -180,22 +180,6 @@
       filter: drop-shadow(0 0 8px rgba(236,201,111,0.4));
     }
 
-    /* load-in sweep: the whole Act I column is readable before any scrolling;
-       the sweep plays once as the loader lifts */
-    @keyframes sweepIn {
-      from { opacity: 0; transform: translateX(-44px); filter: blur(6px); }
-      to   { opacity: 1; transform: none; filter: none; }
-    }
-    body.ready .act-1 .story { animation: sweepIn .6s ease-out .1s backwards; }
-    body.ready .sense li:nth-child(1) { animation: sweepIn .6s ease-out .30s backwards; }
-    body.ready .sense li:nth-child(2) { animation: sweepIn .6s ease-out .42s backwards; }
-    body.ready .sense li:nth-child(3) { animation: sweepIn .6s ease-out .54s backwards; }
-    body.ready .sense li:nth-child(4) { animation: sweepIn .6s ease-out .66s backwards; }
-    body.ready .sense li:nth-child(5) { animation: sweepIn .6s ease-out .78s backwards; }
-    body.ready .act-1 .curve { animation: sweepIn .6s ease-out .95s backwards; }
-    @media (prefers-reduced-motion: reduce) {
-      body.ready .act-1 .story, body.ready .sense li, body.ready .act-1 .curve { animation: none; }
-    }
 
     .scrollhint {
       position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
@@ -509,15 +493,15 @@
 
         <div class="cta-right">
           <div class="cta-inner rv" id="join">
-            <span class="offer-pill">First drop · 1,000 units only</span>
-            <h3>Be first in the circle.</h3>
-            <p class="cta-sub">Join the list and get <span class="gold-strong">20% off your first order</span> when the Mate Latte drops.</p>
+            <span class="offer-pill">The Mate Latte drops soon</span>
+            <h3>Unlock <span class="gold-strong">20% Off</span> Your First Order.</h3>
+            <p class="cta-sub">Secure your spot — only <span class="gold-strong">1,000 spots</span> for the first drop.</p>
             <form class="signup" id="waitlist-form" novalidate>
               <div class="field">
                 <input type="email" id="email" placeholder="your email" aria-label="Email address" required />
                 <button class="btn" type="submit">Save My Spot</button>
               </div>
-              <p class="form-note">Only 1,000 tins in Batch No. 001. No noise — just the drop.</p>
+              <p class="form-note">No noise. Just the drop.</p>
             </form>
             <div class="success" id="success">
               <strong>You're in the circle. 🌱</strong>
@@ -601,7 +585,7 @@
       for (let i = 0; i < FRAME_COUNT; i += 8) sparse.push(loadFrame(i));
       await Promise.all(sparse);
       loader.classList.add("done");
-      document.body.classList.add("ready");   // triggers the Act I sweep-in
+      alignCTA();
       for (let i = 0; i < FRAME_COUNT; i++) loadFrame(i);
     }
     function nearestReady(i) {
@@ -649,7 +633,7 @@
     /* win: [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd]
        rvStart/rvStep/rvDur: stagger of .rv children inside the act */
     const ACTS = [
-      { el: document.getElementById("act1"), win: [-1,   0,    0.24, 0.32], rvStart: -0.5, rvStep: 0.01, rvDur: 0.05, exitY: -50 },
+      { el: document.getElementById("act1"), win: [-1,   0,    0.24, 0.32], rvStart: 0.015, rvStep: 0.022, rvDur: 0.045, exitY: -50 },
       { el: document.getElementById("act2"), win: [0.34, 0.41, 0.62, 0.68], rvStart: 0.36,  rvStep: 0.030, rvDur: 0.050, exitY: 0   },
       { el: document.getElementById("act3"), win: [0.71, 0.79, 2,    3   ], rvStart: 0.72,  rvStep: 0.026, rvDur: 0.050, exitY: 0   },
     ].map(a => ({ ...a, rv: [...a.el.querySelectorAll(".rv")] }));

@@ -94,13 +94,10 @@
       position: absolute; left: 50%; top: 8px; transform: translateX(-50%);
       display: block;
     }
-    nav .logo .badge {
-      display: grid; place-items: center;
-      width: 108px; height: 108px; border-radius: 50%;
-      background: #f7efe0;
-      filter: drop-shadow(0 0 16px rgba(247,239,224,0.45)) drop-shadow(0 2px 10px rgba(2,8,5,0.75));
+    nav .logo .logo-img {
+      height: 100px; width: auto; display: block;
+      filter: drop-shadow(0 2px 12px rgba(2,8,5,0.85)) drop-shadow(0 0 22px rgba(236,201,111,0.25));
     }
-    nav .logo .badge img { width: 80%; height: auto; display: block; }
     .logo .mark { width: 34px; height: 34px; display: block; }
     .logo .word {
       font-family: var(--font); font-weight: 900; font-size: 16px;
@@ -314,7 +311,7 @@
     @media (max-width: 860px) {
       .act { padding: 10vh 22px; align-content: end; padding-bottom: 14vh; }
       .act .col, .act-3 .col { width: 100%; }
-      .logo .mark-full { height: 62px; }
+      nav .logo .logo-img { height: 64px; }
       .cmp th, .cmp td { padding: 5px 4px; }
       .cta-right { position: static; transform: none; width: 100%; margin-top: 16px; }
       .act-3 { align-content: start; overflow-y: auto; }
@@ -345,9 +342,8 @@
   <!-- ============ NAV ============ -->
   <nav id="nav">
     <a class="logo" href="#top" aria-label="Milonga — Yerba Mate">
-      <!-- the real brand logo (assets/logo.png) on a cream badge so its
-           greens read exactly as designed over the dark film -->
-      <span class="badge"><img src="assets/logo.png" alt="" /></span>
+      <!-- gold edition of the real brand logo, straight on the film -->
+      <img class="logo-img" src="assets/logo-gold.png" alt="" />
     </a>
     <a class="nav-cta" href="#join" id="nav-join">Join the waitlist</a>
   </nav>

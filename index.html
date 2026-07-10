@@ -641,8 +641,8 @@
     document.getElementById("nav-join").addEventListener("click", e => {
       if (reduceMotion) return; // default anchor behavior
       e.preventDefault();
-      const total = film.offsetHeight - window.innerHeight;
-      window.scrollTo({ top: film.offsetTop + total * 0.86, behavior: "smooth" });
+      // glide to the bottom of the film — finale scene with the offer + email form
+      window.scrollTo({ top: film.offsetTop + film.offsetHeight - window.innerHeight, behavior: "smooth" });
     });
 
     /* ---------- boot ---------- */

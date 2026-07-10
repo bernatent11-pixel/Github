@@ -17,8 +17,7 @@
   <link rel="preload" href="assets/fonts/Gotham-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Fredoka is used ONLY for the logo wordmark (matches the brand logo's rounded lettering) -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Fredoka:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
 
   <style>
     /* ---- GOTHAM (licensed webfonts, committed to assets/fonts/) ----
@@ -95,10 +94,13 @@
       position: absolute; left: 50%; top: 8px; transform: translateX(-50%);
       display: block;
     }
-    .logo .mark-full {
-      height: 106px; width: auto; display: block;
+    nav .logo .badge {
+      display: grid; place-items: center;
+      width: 108px; height: 108px; border-radius: 50%;
+      background: #f7efe0;
       filter: drop-shadow(0 0 16px rgba(247,239,224,0.45)) drop-shadow(0 2px 10px rgba(2,8,5,0.75));
     }
+    nav .logo .badge img { width: 80%; height: auto; display: block; }
     .logo .mark { width: 34px; height: 34px; display: block; }
     .logo .word {
       font-family: var(--font); font-weight: 900; font-size: 16px;
@@ -182,8 +184,8 @@
       filter: drop-shadow(0 3px 14px rgba(2,8,5,0.9));
     }
     .sense li::before {
-      content: ""; flex: none; width: 24px; height: 24px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 104'%3E%3Ccircle cx='50' cy='26' r='15' fill='%23d6ab50'/%3E%3Ccircle cx='35' cy='33' r='10' fill='%23d6ab50'/%3E%3Ccircle cx='65' cy='33' r='10' fill='%23d6ab50'/%3E%3Ccircle cx='41' cy='21' r='9' fill='%23d6ab50'/%3E%3Ccircle cx='59' cy='21' r='9' fill='%23d6ab50'/%3E%3Cpath d='M38 44 q0 -8 5 -8 t5 8 v10 q0 2 2 2 t2 -2 v-14 q0 -8 5 -8 t5 8 v14 q0 2 2 2 t2 -2 v-10 q0 -8 5 -8 t5 8 v22 l6 -7 q4 -5 8 -1 t0 9 l-13 16 q-5 6 -13 6 h-14 q-12 0 -12 -13 z' fill='%23ecc96f'/%3E%3C/svg%3E") no-repeat center / contain;
+      content: ""; flex: none; width: 21px; height: 26px;
+      background: url("assets/hand-gold.png") no-repeat center / contain;
       filter: drop-shadow(0 0 8px rgba(236,201,111,0.4));
     }
 
@@ -343,36 +345,9 @@
   <!-- ============ NAV ============ -->
   <nav id="nav">
     <a class="logo" href="#top" aria-label="Milonga — Yerba Mate">
-      <!-- full lockup, centered in the header: arched MILONGA (gourd + bombilla
-           accent on the Ó) over the hand-tree mark. Swap for assets/logo.png
-           (the real file) whenever it lands in the repo. -->
-      <svg class="mark-full" viewBox="0 0 150 150" fill="none" aria-hidden="true">
-        <!-- cream badge disc so the green logo reads exactly as designed -->
-        <circle cx="75" cy="76" r="73" fill="#f7efe0"/>
-        <!-- arched MILONGA: letters placed individually on the arc -->
-        <g font-family="Fredoka, 'Baloo 2', 'Comic Sans MS', sans-serif" font-weight="600" font-size="27" fill="#2e7d46" text-anchor="middle">
-          <text x="18.4" y="63.9" transform="rotate(-54 18.4 63.9)">M</text>
-          <text x="33.9" y="48.4" transform="rotate(-36 33.9 48.4)">I</text>
-          <text x="53.4" y="38.4" transform="rotate(-18 53.4 38.4)">L</text>
-          <text x="75"   y="35"   transform="rotate(0 75 35)">O</text>
-          <text x="96.6" y="38.4" transform="rotate(18 96.6 38.4)">N</text>
-          <text x="116.1" y="48.4" transform="rotate(36 116.1 48.4)">G</text>
-          <text x="131.6" y="63.9" transform="rotate(54 131.6 63.9)">A</text>
-        </g>
-        <!-- mate gourd + bombilla accent above the O -->
-        <path d="M79 9 q2 -5 6 -7 M85 2 l3 -1" stroke="#2e7d46" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-        <path d="M73 10 q4 -4 9 0 q2 6 -4.5 7 Q71 16 73 10 z" fill="#2e7d46"/>
-        <!-- hand-tree mark -->
-        <g transform="translate(37.5 66) scale(0.75)">
-          <circle cx="50" cy="26" r="15" fill="var(--leaf)"/>
-          <circle cx="35" cy="33" r="10" fill="var(--leaf)"/>
-          <circle cx="65" cy="33" r="10" fill="var(--leaf)"/>
-          <circle cx="41" cy="21" r="9"  fill="var(--leaf)"/>
-          <circle cx="59" cy="21" r="9"  fill="var(--leaf)"/>
-          <path d="M38 44 q0 -8 5 -8 t5 8 v10 q0 2 2 2 t2 -2 v-14 q0 -8 5 -8 t5 8 v14 q0 2 2 2 t2 -2 v-10 q0 -8 5 -8 t5 8 v22 l6 -7 q4 -5 8 -1 t0 9 l-13 16 q-5 6 -13 6 h-14 q-12 0 -12 -13 z" fill="#2e7d46"/>
-          <path d="M50 88 v-26 m0 8 l-7 -9 m7 9 l7 -9 m-7 17 l-9 -7 m9 7 l9 -7" stroke="#f7efe0" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
-        </g>
-      </svg>
+      <!-- the real brand logo (assets/logo.png) on a cream badge so its
+           greens read exactly as designed over the dark film -->
+      <span class="badge"><img src="assets/logo.png" alt="" /></span>
     </a>
     <a class="nav-cta" href="#join" id="nav-join">Join the waitlist</a>
   </nav>

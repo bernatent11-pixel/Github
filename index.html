@@ -508,7 +508,7 @@
     const framePath = i => `assets/frames/${String(i + 1).padStart(4, "0")}.webp`;
 
     const canvas = document.getElementById("screen");
-    const ctx    = canvas.getContext("2d");
+    const ctx    = canvas.getContext("2d", { alpha: false });
     const film   = document.querySelector(".film");
     const loader = document.getElementById("loader");
     const loaderFill = document.getElementById("loader-fill");
@@ -525,7 +525,10 @@
       return new Promise(resolve => {
         if (frames[i]) return resolve();
         const img = new Image();
-        img.onload = () => { ready[i] = true; loadedCount++; updateLoader(); resolve(); };
+        img.onload = () => {
+          const done = () => { ready[i] = true; loadedCount++; updateLoader(); resolve(); };
+          if (img.decode) img.decode().then(done, done); else done();   // pre-decode off the hot path
+        };
         img.onerror = () => resolve();
         img.src = framePath(i);
         frames[i] = img;
@@ -618,7 +621,7 @@
 
     /* ---------- main loop ---------- */
     function tick() {
-      smoothP += (targetP - smoothP) * 0.14;
+      smoothP += (targetP - smoothP) * 0.22;
       if (Math.abs(targetP - smoothP) < 0.0004) smoothP = targetP;
       draw();
       overlays(smoothP);
@@ -637,12 +640,81 @@
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignCTA);
 
+    /* ---------- snap navigation: one gesture = one act ----------
+       The film has three stations (act I, II, III) at 0%, 50%, 100%
+       of the track. A wheel gesture glides the scroll position to the
+       next station; the canvas scrubs the footage along the way. */
+    const SNAPS = [0, 0.5, 1];
+    let snapping = false, lastSnapEnd = 0, acc = 0, accT = 0;
+
+    const filmSpan = () => film.offsetHeight - window.innerHeight;
+    const pNow = () => {
+      const t = filmSpan();
+      return t > 0 ? Math.min(1, Math.max(0, (window.scrollY - film.offsetTop) / t)) : 0;
+    };
+    const easeInOut = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    function snapTo(i) {
+      i = Math.max(0, Math.min(SNAPS.length - 1, i));
+      const from = window.scrollY;
+      const to   = film.offsetTop + SNAPS[i] * filmSpan();
+      if (Math.abs(to - from) < 2) return;
+      snapping = true;
+      const dist = Math.abs(to - from) / Math.max(1, filmSpan());
+      const D    = 850 + 650 * dist;                 // adjacent act ≈ 1.2s, full run ≈ 1.5s
+      const t0   = performance.now();
+      (function step(now) {
+        const k = Math.min(1, (now - t0) / D);
+        window.scrollTo(0, from + (to - from) * easeInOut(k));
+        if (k < 1) requestAnimationFrame(step);
+        else { snapping = false; lastSnapEnd = performance.now(); }
+      })(t0);
+    }
+
+    function onWheel(e) {
+      if (reduceMotion) return;
+      const inFilm = window.scrollY < film.offsetTop + filmSpan() + window.innerHeight * 0.6;
+      if (!inFilm) return;                                    // deep in the footer: native scroll
+      const p = pNow();
+      if (snapping) { e.preventDefault(); return; }           // swallow momentum during a glide
+      if (performance.now() - lastSnapEnd < 400) { e.preventDefault(); return; }
+
+      const now = performance.now();
+      if (now - accT > 200 || Math.sign(e.deltaY) !== Math.sign(acc)) acc = 0;
+      accT = now; acc += e.deltaY;
+
+      if (acc > 0) {                                          // scrolling down
+        if (p >= 0.999) return;                               // release to footer natively
+        e.preventDefault();
+        if (acc > 50) { acc = 0; snapTo(Math.ceil(p * 2 + 0.001)); }
+      } else {                                                // scrolling up
+        if (window.scrollY > film.offsetTop + filmSpan() + 2) { e.preventDefault(); snapTo(2); acc = 0; return; }
+        if (p <= 0.001) return;                               // at the very top: nothing above
+        e.preventDefault();
+        if (acc < -50) { acc = 0; snapTo(Math.floor(p * 2 - 0.001)); }
+      }
+    }
+    window.addEventListener("wheel", onWheel, { passive: false });
+
+    window.addEventListener("keydown", e => {
+      if (reduceMotion || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+      const inFilm = window.scrollY < film.offsetTop + filmSpan() + window.innerHeight * 0.6;
+      if (!inFilm || snapping) return;
+      const p = pNow();
+      if (["ArrowDown", "PageDown", " "].includes(e.key)) {
+        if (p >= 0.999) return;
+        e.preventDefault(); snapTo(Math.ceil(p * 2 + 0.001));
+      } else if (["ArrowUp", "PageUp"].includes(e.key)) {
+        if (p <= 0.001) return;
+        e.preventDefault(); snapTo(Math.floor(p * 2 - 0.001));
+      }
+    });
+
     /* ---------- nav CTA: glide to the finale ---------- */
     document.getElementById("nav-join").addEventListener("click", e => {
       if (reduceMotion) return; // default anchor behavior
       e.preventDefault();
-      // glide to the bottom of the film — finale scene with the offer + email form
-      window.scrollTo({ top: film.offsetTop + film.offsetHeight - window.innerHeight, behavior: "smooth" });
+      snapTo(2);
     });
 
     /* ---------- boot ---------- */

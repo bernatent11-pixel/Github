@@ -553,15 +553,38 @@
     function updateLoader() {
       loaderFill.style.width = Math.round((loadedCount / FRAME_COUNT) * 100) + "%";
     }
+    /* Priority loader: frames closest to the current scroll position are
+       fetched first, so scrubbing catches up right where the viewer is. */
+    let active = 0;
+    const MAX_PARALLEL = 6;
+    function nextWanted() {
+      const center = Math.round(targetP * (FRAME_COUNT - 1));
+      let best = -1, bestD = Infinity;
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        if (frames[i]) continue;                 // already requested
+        const d = Math.abs(i - center);
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      return best;
+    }
+    function pump() {
+      while (active < MAX_PARALLEL) {
+        const i = nextWanted();
+        if (i < 0) return;
+        active++;
+        loadFrame(i).then(() => { active--; pump(); });
+      }
+    }
+
     async function preload() {
       await loadFrame(0);
       draw(true);
       const sparse = [];
-      for (let i = 0; i < FRAME_COUNT; i += 8) sparse.push(loadFrame(i));
+      for (let i = 0; i < FRAME_COUNT; i += 5) sparse.push(loadFrame(i));   // denser skeleton before reveal
       await Promise.all(sparse);
       loader.classList.add("done");
       alignCTA();
-      for (let i = 0; i < FRAME_COUNT; i++) loadFrame(i);
+      pump();                                    // fill the rest, nearest-to-viewer first
     }
     function nearestReady(i) {
       for (let d = 0; d < FRAME_COUNT; d++) {
@@ -573,7 +596,7 @@
 
     /* ---------- canvas cover-draw ---------- */
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);   // plenty sharp for footage, much cheaper to draw
       canvas.width  = canvas.clientWidth * dpr;
       canvas.height = canvas.clientHeight * dpr;
       draw(true);

@@ -167,8 +167,11 @@
     }
 
     /* ---- Act I · what it is + why it exists (LEFT) ---- */
-    .act-1 { padding-top: 11vh; padding-bottom: 7vh; }
-    .act-1 .hero-capture { margin-top: 18px; width: min(430px, 100%); }
+    .act-1 { padding-top: 10vh; padding-bottom: 6vh; }
+    .act-1 .hero-capture { margin-top: 16px; width: min(440px, 100%); }
+    .act-1 .hero-capture .cta-inner { padding: 16px 20px 16px; }
+    .act-1 .hero-capture h3 { font-size: clamp(17px, 1.6vw, 22px); margin: 4px 0 10px; }
+    .act-1 .hero-capture .offer-pill { margin-bottom: 6px; padding: 5px 13px; font-size: 10px; }
     .act-1 .sub { color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
     .act-1 .story { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); line-height: 1.65; margin-top: 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
     .sense { list-style: none; margin-top: 16px; display: grid; gap: 9px; }
@@ -371,16 +374,19 @@
             <li class="rv" data-fx="slide">Antioxidant-Rich</li>
           </ul>
           <div class="hero-capture rv">
-            <form class="signup" novalidate>
-              <div class="field">
-                <input type="email" placeholder="your email" aria-label="Email address" required />
-                <button class="btn" type="submit">Save My Spot</button>
+            <div class="cta-inner">
+              <span class="offer-pill">The Mate Latte drops soon</span>
+              <h3>Unlock <span class="gold-strong">20% Off</span> Your First Order.</h3>
+              <form class="signup" novalidate>
+                <div class="field">
+                  <input type="email" placeholder="your email" aria-label="Email address" required />
+                  <button class="btn" type="submit">Save My Spot</button>
+                </div>
+              </form>
+              <div class="success">
+                <strong>You're in the circle. 🌱</strong>
+                <div>Your 20% code arrives the moment the Mate Latte drops.</div>
               </div>
-              <p class="form-note">No noise. Just the drop.</p>
-            </form>
-            <div class="success">
-              <strong>You're in the circle. 🌱</strong>
-              <div>Your 20% code arrives the moment the Mate Latte drops.</div>
             </div>
           </div>
         </div>
@@ -468,7 +474,6 @@
                 <input type="email" placeholder="your email" aria-label="Email address" required />
                 <button class="btn" type="submit">Save My Spot</button>
               </div>
-              <p class="form-note">No noise. Just the drop.</p>
             </form>
             <div class="success">
               <strong>You're in the circle. 🌱</strong>

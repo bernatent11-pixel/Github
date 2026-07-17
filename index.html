@@ -205,6 +205,19 @@
       border: 1px solid rgba(236,201,111,0.14); border-radius: 20px;
       padding: 24px 26px;
     }
+    /* left-side ritual story on scroll 2 */
+    .act-2 .col-left {
+      position: absolute; left: clamp(24px, 4.5vw, 72px); top: 50%;
+      transform: translateY(-50%); width: min(400px, 30vw); z-index: 6;
+    }
+    .act-title.sm { font-size: clamp(20px, 2vw, 30px); }
+    .ritual-story {
+      background: rgba(2,8,5,0.42); backdrop-filter: blur(9px);
+      border: 1px solid rgba(236,201,111,0.14); border-radius: 20px;
+      padding: 22px 24px;
+    }
+    .ritual-story p { margin-top: 12px; color: var(--mist); font-weight: 400; font-size: clamp(12px, 1.1vw, 13.5px); line-height: 1.75; }
+
     .stack { margin-top: 16px; display: grid; gap: 15px; }
     .stack .item { display: grid; gap: 3px; }
     .ing-name {
@@ -345,6 +358,7 @@
       nav .logo .logo-img { height: 64px; }
       .cmp th, .cmp td { padding: 5px 4px; }
       .cta-right { position: static; transform: none; width: 100%; margin-top: 16px; }
+      .act-2 .col-left { display: none; }   /* keep the mobile overlay lean */
       .act-3 { align-content: start; overflow-y: auto; }
     }
 
@@ -420,8 +434,14 @@
         <div class="scrollhint"><span class="line"></span> Scroll</div>
       </div>
 
-      <!-- SCROLL 2 · ingredients · RIGHT -->
+      <!-- SCROLL 2 · ritual story LEFT · ingredients RIGHT -->
       <div class="act act-right act-2" id="act2">
+        <div class="col-left">
+          <div class="ritual-story rv">
+            <h3 class="act-title sm">The <span class="gold">Mate Latte</span></h3>
+            <p>In Argentina, mate is never rushed and never solo. One gourd moves around the circle, passed from hand to hand, each person taking their cup before offering it to the next. It asks you to stop, to stay, to be fully where you are with the people beside you. Sharing mate is a small daily act of presence, a way of saying I am here with you, on purpose. That is the spirit we pour into every scoop.</p>
+          </div>
+        </div>
         <div class="col">
           <h2 class="act-title rv">Three <span class="gold">Actives.</span></h2>
           <p class="tagline-sub rv">The Ones That Do The Work.</p>

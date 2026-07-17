@@ -322,11 +322,13 @@
     .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; }
     .faq-item.open .faq-a { grid-template-rows: 1fr; }
     .faq-a-inner { overflow: hidden; }
-    .faq-a-inner p {
+    .faq-card {
       margin: 12px 8px 4px; padding: 18px 22px;
       background: rgba(247,239,224,0.05); border: 1px solid rgba(236,201,111,0.18);
-      border-radius: 20px; color: var(--mist); font-size: 14px; line-height: 1.75;
+      border-radius: 20px;
     }
+    .faq-card p { color: var(--mist); font-size: 14px; line-height: 1.75; margin: 0 0 12px; }
+    .faq-card p:last-child { margin-bottom: 0; }
 
     /* ================= FOOTER ================= */
     footer { background: var(--abyss); border-top: 1px solid rgba(236,201,111,0.14); padding: 34px 0; }
@@ -521,7 +523,9 @@
             <span>What is Milonga Mate Latte?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Mate is a loose leaf tea from South America that gives you clean, sustained energy for hours, no jitters and no crash. It is the daily fuel of South American footballers and athletes, the cup they reach for every single day. We blend organic yerba mate with 500mg of Lion's Mane and 200mg of L theanine for real focus and calm, then make it creamy enough to drink like a latte. One scoop, whisk into milk, done.</p></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>Milonga's Mate Latte is your new daily clean energy ritual. A unique blend of organic yerba mate, Lion's Mane, and L-theanine. The result is a rich, creamy vanilla Mate Latte that's easy to make and even easier to love. Just whisk one scoop and elevate your daily rituals.</p>
+          </div></div></div>
         </div>
 
         <div class="faq-item">
@@ -529,15 +533,21 @@
             <span>Is this coffee?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>No, and that is the whole point. There is not a single coffee bean in it. Mate Latte is built on yerba mate, the plant South America has run on for centuries, from Argentina to Uruguay to Paraguay. Same warm morning ritual, same real energy, without the jitters or the 2pm cliff that coffee gives you.</p></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>No, and that's exactly why people love it.</p>
+            <p>Milonga's Mate Latte contains zero coffee. Instead, it gets its energy from organic yerba mate, one of the healthiest caffeine sources in the world. You get the same comforting morning ritual with smoother, longer-lasting energy, focus, and balanced calm, without the jitters, anxiety, or afternoon crash that coffee often brings.</p>
+          </div></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q" type="button" aria-expanded="false">
-            <span>How much caffeine is in it?</span>
+            <span>How much caffeine does it contain?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>100mg of natural caffeine per serving, a little more than a cup of coffee, but it comes from the mate plant, not a synthetic source. Balanced with 200mg of L theanine and 500mg of Lion's Mane, it lands smooth and focused and holds for hours. Real energy, zero wired feeling.</p></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>Each serving contains 100mg of naturally occurring caffeine from organic yerba mate.</p>
+            <p>Unlike coffee and other alternatives, our formula pairs that natural caffeine with 200mg of L-theanine and 500mg of Lion's Mane to deliver smooth, sustained energy, sharper focus, and a calm, balanced feeling, without the wired sensation.</p>
+          </div></div></div>
         </div>
 
         <div class="faq-item">
@@ -545,23 +555,42 @@
             <span>What does it taste like?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Super creamy, rich vanilla, and honestly delicious. It tastes like a treat, not like a health drink. No earthy or grassy aftertaste, none of the bitterness people expect from mate. If you love a vanilla latte, this is your new everyday cup.</p></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>Think of your favorite vanilla latte, but without disrupting feelings or compromising your health.</p>
+            <p>Milonga Mate Latte is smooth, creamy, and naturally delicious with a rich vanilla flavor. There's no earthy or grassy taste and none of the bitterness people often associate with yerba mate. It feels like an indulgent café drink, not a typical health beverage.</p>
+          </div></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q" type="button" aria-expanded="false">
-            <span>How do I make it? Hot or iced?</span>
+            <span>How do I prepare it? Can I drink it hot or iced?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>However you like it. Hot with water or milk, or iced. One scoop, whisk, done.</p></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>Both.</p>
+            <p>Simply mix one scoop with hot or cold milk (or water, if you prefer), whisk or shake until smooth, and enjoy. Whether you love a cozy morning latte or a refreshing iced drink, Milonga Mate Latte fits your routine.</p>
+          </div></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q" type="button" aria-expanded="false">
-            <span>Does it have sugar? How many calories?</span>
+            <span>Does it contain sugar? How many calories are in each serving?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Barely any sugar, under 3g, and about 90 calories per scoop of powder. Your latte's total lands wherever the milk you choose takes it. Made for people who actually read the label and want their energy clean.</p></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>Each serving contains less than 3g of sugar and approximately 90 calories.</p>
+            <p>The final nutrition depends on the milk you choose, making it easy to customize to your lifestyle. We kept the ingredient list simple and clean, so you get delicious flavor without unnecessary sugars or fillers.</p>
+          </div></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">
+            <span>How will I feel?</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
+            <p>You'll feel uplifted, focused, and calm. Thanks to the combination of organic yerba mate, Lion's Mane, and L-theanine, without the jitters or crash of coffee. Enjoy it first thing in the morning, before work or studying, before a workout, or anytime you need a clean boost to power through your day.</p>
+          </div></div></div>
         </div>
 
       </div>

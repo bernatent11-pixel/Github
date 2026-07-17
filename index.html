@@ -353,13 +353,68 @@
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 860px) {
-      .act { padding: 10vh 22px; align-content: end; padding-bottom: 14vh; }
+      nav { padding: 8px 16px; flex-direction: column; align-items: center; gap: 6px; }
+      nav .logo { position: static; transform: none; }
+      nav .logo .logo-img { height: 54px; }
+      .nav-cta { font-size: 12px; padding: 7px 14px; }
+
+      .act { padding: 9vh 18px 6vh; align-content: end; }
       .act .col, .act-3 .col { width: 100%; }
-      nav .logo .logo-img { height: 64px; }
-      .cmp th, .cmp td { padding: 5px 4px; }
-      .cta-right { position: static; transform: none; width: 100%; margin-top: 16px; }
+      .act-title { font-size: clamp(22px, 6.4vw, 30px); }
+      .tagline-sub { font-size: 11px; letter-spacing: 3.5px; }
+
+      /* Act 1: compact stack so everything fits above the fold */
+      .act-1 { padding-bottom: 8vh; }
+      .act-1 .sub { font-size: 12.5px; margin-top: 10px; }
+      .act-1 .story { font-size: 11.5px; margin-top: 8px; line-height: 1.6; }
+      .sense { margin-top: 10px; gap: 5px; }
+      .sense li { font-size: 14.5px; gap: 9px; letter-spacing: .8px; }
+      .sense li::before { width: 16px; height: 20px; }
+      .act-1 .hero-capture { margin-top: 12px; width: 100%; }
+      .act-1 .hero-capture .cta-inner { padding: 12px 14px; }
+      .act-1 .hero-capture h3 { font-size: 15px; margin: 2px 0 8px; }
+      .act-1 .hero-capture .offer-pill { font-size: 9px; padding: 4px 11px; }
+      .field { padding: 4px 4px 4px 14px; }
+      .field input { font-size: 14px; }
+      .btn { font-size: 13px; padding: 10px 16px; }
+      .scrollhint { display: none; }
+
+      /* Act 2: single readable panel */
       .act-2 .col-left { display: none; }   /* keep the mobile overlay lean */
-      .act-3 { align-content: start; overflow-y: auto; }
+      .act-2 .col { padding: 16px 18px; }
+      .stack { margin-top: 10px; gap: 10px; }
+      .ing-name { font-size: 15px; }
+      .stack .item p { font-size: 11.5px; }
+      .hc-title { margin-top: 12px; font-size: 13px; }
+      .hotcold { gap: 18px; }
+      .hotcold svg { width: 30px; height: 30px; }
+      .hotcold .hc { font-size: 11px; letter-spacing: 2px; }
+
+      /* Act 3: table + offer stacked */
+      .act-3 { align-content: start; overflow-y: auto; padding-top: 12vh; }
+      .act-3 .col { margin-top: 0; }
+      .cmp th, .cmp td { padding: 5px 4px; }
+      table.cmp { font-size: 12px; }
+      .cmp td.name { font-size: 10px; letter-spacing: 1px; white-space: normal; }
+      .cta-right { position: static; transform: none; width: 100%; margin-top: 14px; }
+      .cta-inner { padding: 16px 16px 14px; }
+      .cta-inner h3 { font-size: 19px; }
+      .cta-inner .cta-sub { font-size: 12px; }
+
+      /* FAQ + footer */
+      .faqs { padding: 60px 0 70px; }
+      .faq-title { margin-bottom: 28px; }
+      .faq-q { padding: 13px 18px; font-size: 13px; border-radius: 24px; }
+      .faq-card { padding: 14px 16px; margin: 10px 2px 2px; }
+      .faq-card p { font-size: 13px; }
+      footer .wrap { flex-direction: column; text-align: center; gap: 12px; }
+    }
+
+    /* very small phones */
+    @media (max-width: 400px) {
+      .act-title { font-size: 21px; }
+      .sense li { font-size: 13px; }
+      .act-1 .story { display: none; }   /* headline, benefits, and capture take priority */
     }
 
     /* ================= REDUCED MOTION ================= */
@@ -653,7 +708,9 @@
        Each .rv block reveals in sequence inside its act window.
        ========================================================= */
     const FRAME_COUNT = 145;
-    const framePath = i => `assets/frames/${String(i + 1).padStart(4, "0")}.webp`;
+    /* phones get an 820px frame set (about a third of the data); larger screens the 1600px set */
+    const FRAME_DIR = Math.min(screen.width, screen.height, window.innerWidth) <= 700 ? "assets/frames-sm" : "assets/frames";
+    const framePath = i => `${FRAME_DIR}/${String(i + 1).padStart(4, "0")}.webp`;
 
     const canvas = document.getElementById("screen");
     const ctx    = canvas.getContext("2d", { alpha: false });

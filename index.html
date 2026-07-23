@@ -292,14 +292,20 @@
       letter-spacing: .8px; text-transform: uppercase; color: var(--mist);
       padding: 8px 3px 6px; line-height: 1.3; vertical-align: bottom;
     }
-    .cmp td.name {
-      text-align: left; font-family: var(--font); font-weight: 700; font-size: 11px;
-      letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); white-space: nowrap;
-    }
-    .cmp tr.mi-row td { background: rgba(236,201,111,0.08); }
-    .cmp tr.mi-row td.name { color: var(--gold-1); }
-    .cmp td.y { color: var(--gold-1); font-weight: 700; }
-    .cmp td.n { color: rgba(247,239,224,0.28); }
+    /* rich comparison layout: features as rows, drinks as columns */
+    .cmp2 thead th { font-size: 10px; letter-spacing: 1.2px; }
+    .cmp2 thead th.mi-col { color: var(--gold-1); font-size: 11px; }
+    .cmp2 td { vertical-align: top; padding: 9px 7px; }
+    .cmp2 td.feat { text-align: left; width: 26%; }
+    .cmp2 td.feat b { display: block; font-family: var(--font); font-weight: 700; font-size: 12px; color: var(--cream); line-height: 1.3; }
+    .cmp2 td.feat span { display: block; font-size: 9.5px; color: var(--mist); line-height: 1.35; margin-top: 1px; }
+    .cmp2 td.mi { background: rgba(236,201,111,0.08); }
+    .cmp2 .mark { display: block; font-family: var(--font); font-weight: 700; font-size: 13px; line-height: 1.2; }
+    .cmp2 .mark.y { color: var(--gold-1); }
+    .cmp2 .mark.n { color: rgba(247,239,224,0.28); }
+    .cmp2 .mark.v { color: #d98b3d; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; padding-top: 2px; }
+    .cmp2 .d { display: block; font-size: 9.5px; color: var(--mist); line-height: 1.35; margin-top: 2px; }
+    .cmp2 td.mi .d { color: var(--gold-1); }
     .cmp-note { font-size: 10px; color: rgba(247,239,224,0.4); margin: 4px 2px 6px; }
     .bridge { margin-top: 12px; max-width: 26em; color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.15vw, 14px); text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
 
@@ -477,7 +483,8 @@
       .act-3 .col { margin-top: 0; }
       .cmp th, .cmp td { padding: 5px 4px; }
       table.cmp { font-size: 12px; }
-      .cmp td.name { font-size: 10px; letter-spacing: 1px; white-space: normal; }
+      .cmp2 .d, .cmp2 td.feat span { display: none; }   /* marks only on small screens */
+      .cmp2 td.feat b { font-size: 11px; }
       .cta-right { position: static; transform: none; width: 100%; margin-top: 14px; }
       .cta-inner { padding: 16px 16px 14px; }
       .cta-inner h3 { font-size: 19px; }
@@ -670,21 +677,66 @@
         <div class="col">
           <h2 class="act-title up rv">Elevate Your<br/><span class="gold">Morning Ritual</span></h2>
           <div class="cmp-wrap rv">
-            <table class="cmp">
+            <table class="cmp cmp2">
               <thead>
                 <tr>
                   <th></th>
-                  <th>Sustained<br/>energy</th>
-                  <th>No<br/>jitters</th>
-                  <th>Focus &amp;<br/>memory</th>
-                  <th>Creamy<br/>taste</th>
+                  <th class="mi-col">Mate Latte</th>
+                  <th>Matcha</th>
+                  <th>Coffee</th>
+                  <th>Mushroom<br/>Coffee</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="mi-row"><td class="name">Milonga</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-                <tr><td class="name">Coffee</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td></tr>
-                <tr><td class="name">Matcha</td><td class="y">✓</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td></tr>
-                <tr><td class="name">Mushroom Coffee</td><td class="n">✗</td><td class="y">✓</td><td class="y">✓</td><td class="n">✗</td></tr>
+                <tr>
+                  <td class="feat"><b>Smooth caffeine</b><span>No jitters or crash</span></td>
+                  <td class="mi"><span class="mark y">✓</span><span class="d">100mg from yerba mate</span></td>
+                  <td><span class="mark y">✓</span><span class="d">~70mg</span></td>
+                  <td><span class="mark n">✗</span><span class="d">Spikes + crashes</span></td>
+                  <td><span class="mark v">Varies</span><span class="d">Still coffee-based</span></td>
+                </tr>
+                <tr>
+                  <td class="feat"><b>L-theanine</b><span>Calm focus, no anxiety</span></td>
+                  <td class="mi"><span class="mark y">✓</span><span class="d">200mg added</span></td>
+                  <td><span class="mark v">Trace</span><span class="d">~25mg natural</span></td>
+                  <td><span class="mark n">✗</span></td>
+                  <td><span class="mark n">✗</span><span class="d">Most brands omit</span></td>
+                </tr>
+                <tr>
+                  <td class="feat"><b>Lion's mane</b><span>Cognitive support</span></td>
+                  <td class="mi"><span class="mark y">✓</span><span class="d">500mg clinical dose</span></td>
+                  <td><span class="mark n">✗</span></td>
+                  <td><span class="mark n">✗</span></td>
+                  <td><span class="mark y">✓</span><span class="d">Varies by brand</span></td>
+                </tr>
+                <tr>
+                  <td class="feat"><b>MCT oil</b><span>Sustained energy</span></td>
+                  <td class="mi"><span class="mark y">✓</span></td>
+                  <td><span class="mark n">✗</span></td>
+                  <td><span class="mark n">✗</span></td>
+                  <td><span class="mark v">Some</span><span class="d">Select brands</span></td>
+                </tr>
+                <tr>
+                  <td class="feat"><b>Dairy-free latte</b><span>Just add water</span></td>
+                  <td class="mi"><span class="mark y">✓</span><span class="d">Oat + coconut built in</span></td>
+                  <td><span class="mark n">✗</span><span class="d">Needs milk/creamer</span></td>
+                  <td><span class="mark n">✗</span><span class="d">Needs creamer</span></td>
+                  <td><span class="mark n">✗</span><span class="d">Needs creamer</span></td>
+                </tr>
+                <tr>
+                  <td class="feat"><b>Low sugar</b><span>No artificial sweeteners</span></td>
+                  <td class="mi"><span class="mark y">✓</span><span class="d">3g from honey + coconut</span></td>
+                  <td><span class="mark v">Varies</span><span class="d">Often sweetened mixes</span></td>
+                  <td><span class="mark v">Varies</span><span class="d">Depends on prep</span></td>
+                  <td><span class="mark y">✓</span><span class="d">Most are low sugar</span></td>
+                </tr>
+                <tr>
+                  <td class="feat"><b>Under 100 calories</b></td>
+                  <td class="mi"><span class="mark y">✓</span><span class="d">90 cal per serving</span></td>
+                  <td><span class="mark y">✓</span><span class="d">Plain matcha ~5 cal</span></td>
+                  <td><span class="mark y">✓</span><span class="d">Black coffee ~2 cal</span></td>
+                  <td><span class="mark y">✓</span><span class="d">Most under 50 cal</span></td>
+                </tr>
               </tbody>
             </table>
           </div>

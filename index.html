@@ -167,11 +167,14 @@
     }
 
     /* ---- Act I · what it is + why it exists (LEFT) ---- */
-    .act-1 { padding-top: 10vh; padding-bottom: 6vh; }
-    .act-1 .hero-capture { margin-top: 16px; width: min(440px, 100%); }
-    .act-1 .hero-capture .cta-inner { padding: 16px 20px 16px; }
-    .act-1 .hero-capture h3 { font-size: clamp(17px, 1.6vw, 22px); margin: 4px 0 10px; }
-    .act-1 .hero-capture .offer-pill { margin-bottom: 6px; padding: 5px 13px; font-size: 10px; }
+    .act-1 { align-content: start; padding-top: 17vh; padding-bottom: 6vh; }
+    /* right column: title outside the box, aligned with the left title */
+    .hero-right {
+      position: absolute; right: clamp(24px, 4.5vw, 72px); top: 17vh;
+      width: min(430px, 34vw); z-index: 6;
+    }
+    .hero-right .act-title { margin-bottom: 18px; }
+    .hero-right .cta-inner { padding: 18px 20px; }
     .act-1 .sub { color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
     .act-1 .story { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); line-height: 1.65; margin-top: 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
     .sense { list-style: none; margin-top: 16px; display: grid; gap: 9px; }
@@ -288,8 +291,18 @@
       position: relative; display: grid; gap: 3px; justify-items: center; align-content: start;
       border: 1px solid rgba(236,201,111,0.25); border-radius: 16px;
       padding: 14px 10px; background: rgba(247,239,224,0.04);
+      transition: transform .35s cubic-bezier(.2,.7,.3,1), border-color .35s ease,
+                  background .35s ease, box-shadow .35s ease;
+      will-change: transform;
+    }
+    .opt:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--gold-1);
+      background: rgba(236,201,111,0.12);
+      box-shadow: 0 16px 40px rgba(2,8,5,0.55), 0 0 26px rgba(236,201,111,0.18);
     }
     .opt.featured { border-color: var(--gold-1); background: rgba(236,201,111,0.08); }
+    .opt.featured:hover { background: rgba(236,201,111,0.14); }
     .opt-badge {
       position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
       background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--forest-3);
@@ -391,10 +404,10 @@
       .sense { margin-top: 10px; gap: 5px; }
       .sense li { font-size: 14.5px; gap: 9px; letter-spacing: .8px; }
       .sense li::before { width: 16px; height: 20px; }
-      .act-1 .hero-capture { margin-top: 12px; width: 100%; }
-      .act-1 .hero-capture .cta-inner { padding: 12px 14px; }
-      .act-1 .hero-capture h3 { font-size: 15px; margin: 2px 0 8px; }
-      .act-1 .hero-capture .offer-pill { font-size: 9px; padding: 4px 11px; }
+      .act-1 { align-content: end; padding-top: 9vh; }
+      .hero-right { position: static; width: 100%; margin-top: 12px; }
+      .hero-right .act-title { display: none; }   /* keep mobile compact; card follows the benefits */
+      .hero-right .cta-inner { padding: 12px 12px; }
       .field { padding: 4px 4px 4px 14px; }
       .field input { font-size: 14px; }
       .btn { font-size: 13px; padding: 10px 16px; }
@@ -480,8 +493,7 @@
         <div class="col">
           <h1 class="act-title">The Original<br/><span class="gold">Mate Latte</span></h1>
           <p class="tagline-sub">Energy That Thinks</p>
-          <p class="sub">Yerba Mate. Lion's Mane. L-theanine.<br/>Clean, focused energy with no crash.</p>
-          <p class="story rv">The Argentine mate ritual, finally in latte form. Ready in 30 seconds, hot or iced. Everything your morning needs, none of what other drinks make you pay for later.</p>
+          <p class="sub">Yerba Mate. Lion's Mane. L-theanine.</p>
           <ul class="sense">
             <li class="rv" data-fx="slide">Clean, Sustained Energy</li>
             <li class="rv" data-fx="slide">Mental Focus</li>
@@ -489,25 +501,25 @@
             <li class="rv" data-fx="slide">No Synthetic Sweeteners</li>
             <li class="rv" data-fx="slide">Antioxidant-Rich</li>
           </ul>
-          <div class="hero-capture rv">
-            <div class="cta-inner buy-card">
-              <h3>Start Your <span class="gold-strong">Ritual</span>.</h3>
-              <div class="buy-options">
-                <div class="opt">
-                  <div class="opt-name">One-Time</div>
-                  <div class="opt-price">$35.99</div>
-                  <div class="opt-meta">15 servings</div>
-                  <div class="opt-anchor">Less than $2.40 per latte</div>
-                  <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
-                </div>
-                <div class="opt featured">
-                  <span class="opt-badge">Save 15%</span>
-                  <div class="opt-name">Subscribe &amp; Save</div>
-                  <div class="opt-price">$30.59<span class="permo">/mo</span></div>
-                  <div class="opt-meta">15 servings monthly · cancel anytime</div>
-                  <div class="opt-anchor">About $2 per latte</div>
-                  <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
-                </div>
+        </div>
+        <div class="hero-right">
+          <h2 class="act-title">Elevate Your<br/><span class="gold">Mornings</span></h2>
+          <div class="cta-inner buy-card rv">
+            <div class="buy-options">
+              <div class="opt">
+                <div class="opt-name">One-Time</div>
+                <div class="opt-price">$35.99</div>
+                <div class="opt-meta">15 servings</div>
+                <div class="opt-anchor">Less than $2.40 per latte</div>
+                <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
+              </div>
+              <div class="opt featured">
+                <span class="opt-badge">Save 15%</span>
+                <div class="opt-name">Subscribe &amp; Save</div>
+                <div class="opt-price">$30.59<span class="permo">/mo</span></div>
+                <div class="opt-meta">15 servings monthly · cancel anytime</div>
+                <div class="opt-anchor">About $2 per latte</div>
+                <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
               </div>
             </div>
           </div>

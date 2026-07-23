@@ -97,7 +97,10 @@
     nav .logo .logo-img {
       height: 100px; width: auto; display: block;
       filter: drop-shadow(0 2px 12px rgba(2,8,5,0.85)) drop-shadow(0 0 22px rgba(236,201,111,0.25));
+      transition: height .4s cubic-bezier(.2,.7,.3,1);
     }
+    /* once scrolling starts the logo stays pinned but compact, out of the design's way */
+    nav.scrolled .logo .logo-img { height: 54px; }
     .logo .mark { width: 34px; height: 34px; display: block; }
     .logo .word {
       font-family: var(--font); font-weight: 900; font-size: 16px;
@@ -443,57 +446,64 @@
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 860px) {
-      nav { padding: 8px 16px; flex-direction: column; align-items: center; gap: 6px; }
+      nav { padding: 6px 16px; justify-content: center; }
       nav .logo { position: static; transform: none; }
-      nav .logo .logo-img { height: 54px; }
-      .nav-cta { font-size: 12px; padding: 7px 14px; }
+      nav .logo .logo-img { height: 58px; }
+      nav.scrolled .logo .logo-img { height: 42px; }
 
-      .act { padding: 9vh 18px 6vh; align-content: end; }
+      /* every act keeps BOTH desktop sections, stacked, scrollable if tall */
+      .act { padding: 78px 18px 5vh; align-content: start; overflow-y: auto; }
       .act .col, .act-3 .col { width: 100%; }
-      .act-title { font-size: clamp(22px, 6.4vw, 30px); }
+      .act-title { font-size: clamp(21px, 6vw, 28px); }
       .tagline-sub { font-size: 11px; letter-spacing: 3.5px; }
 
-      /* Act 1: compact stack so everything fits above the fold */
-      .act-1 { padding-bottom: 8vh; }
-      .act-1 .sub { font-size: 12.5px; margin-top: 10px; }
+      /* Act 1: brand block, then the purchase block, desktop order */
+      .act-1 { padding-top: 78px; }
+      .act-1 .sub { font-size: 12.5px; margin-top: 8px; }
       .act-1 .story { font-size: 11.5px; margin-top: 8px; line-height: 1.6; }
-      .sense { margin-top: 10px; gap: 5px; }
-      .sense li { font-size: 14.5px; gap: 9px; letter-spacing: .8px; }
-      .sense li::before { width: 16px; height: 20px; }
-      .act-1 { align-content: end; padding-top: 9vh; }
-      .hero-right { position: static; width: 100%; margin-top: 12px; }
-      .hero-right .act-title { display: none; }   /* keep mobile compact; card follows the benefits */
+      .sense { margin-top: 8px; gap: 4px; }
+      .sense li { font-size: 14px; gap: 9px; letter-spacing: .8px; }
+      .sense li::before { width: 15px; height: 19px; }
+      .proof { margin-top: 10px; padding: 7px 14px 7px 10px; }
+      .proof .txt { font-size: 9.5px; letter-spacing: 1.2px; }
+      .hero-right { position: static; width: 100%; margin-top: 14px; }
+      .hero-right .act-title { font-size: 20px; margin-bottom: 8px; }
       .hero-right .cta-inner { padding: 12px 12px; }
-      .field { padding: 4px 4px 4px 14px; }
-      .field input { font-size: 14px; }
+      .qty-row { margin-top: 8px; gap: 6px; }
+      .qty { font-size: 9.5px; padding: 6px 10px; }
       .btn { font-size: 13px; padding: 10px 16px; }
       .scrollhint { display: none; }
 
-      /* Act 2: single readable panel */
-      .act-2 .col-right { display: none; }   /* keep the mobile overlay lean */
-      .act-2 .col { padding: 16px 18px; }
-      .stack { margin-top: 10px; gap: 10px; }
-      .ing-name { font-size: 15px; }
-      .stack .item p { font-size: 11.5px; }
-      .hc-title { margin-top: 12px; font-size: 13px; }
-      .hotcold { gap: 18px; }
-      .hotcold svg { width: 30px; height: 30px; }
-      .hotcold .hc { font-size: 11px; letter-spacing: 2px; }
+      /* Act 2: actives card, then the how-to card below it */
+      .act-2 .col { padding: 14px 16px; }
+      .stack { margin-top: 8px; gap: 8px; }
+      .ing-name { font-size: 14px; }
+      .stack .item p { font-size: 11px; }
+      .act-2 .col-right { position: static; transform: none; width: 100%; margin-top: 12px; }
+      .steps-card { padding: 14px 16px; }
+      .steps-card .act-title { font-size: 19px; }
+      .steps { margin-top: 10px; }
+      .step-i svg { width: 34px; height: 34px; }
+      .step-i .lbl { font-size: 9.5px; letter-spacing: 1.5px; }
+      .step-arrow { font-size: 15px; padding-bottom: 16px; }
+      .hc-title { margin-top: 10px; font-size: 12px; }
+      .hotcold { gap: 16px; }
+      .hotcold svg { width: 26px; height: 26px; }
+      .hotcold .hc { font-size: 10px; letter-spacing: 1.6px; }
 
-      /* Act 3: table + offer stacked */
-      .act-3 { align-content: start; overflow-y: auto; padding-top: 12vh; }
+      /* Act 3: title + table, then urgency title + offer, desktop order */
+      .act-3 { padding-top: 78px; }
       .act-3 .col { margin-top: 0; }
       .cmp th, .cmp td { padding: 5px 4px; }
       table.cmp { font-size: 12px; }
       .cmp2 .d, .cmp2 td.feat span { display: none; }   /* marks only on small screens */
       .cmp2 td.feat b { font-size: 11px; }
-      .cta-right { position: static; transform: none; width: 100%; margin-top: 14px; }
-      .cta-inner { padding: 16px 16px 14px; }
-      .cta-inner h3 { font-size: 19px; }
-      .cta-inner .cta-sub { font-size: 12px; }
+      .cta-right { position: static; transform: none; width: 100%; margin-top: 16px; }
+      .cta-right .cta-title { font-size: 20px; margin-bottom: 10px; }
+      .cta-inner { padding: 14px 14px 12px; }
 
       /* FAQ + footer */
-      .faqs { padding: 60px 0 70px; }
+      .faqs { padding: 100px 0 70px; }
       .faq-title { margin-bottom: 28px; }
       .faq-q { padding: 13px 18px; font-size: 13px; border-radius: 24px; }
       .faq-card { padding: 14px 16px; margin: 10px 2px 2px; }

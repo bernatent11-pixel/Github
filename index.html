@@ -369,6 +369,8 @@
     }
     .qty:hover { transform: translateY(-2px); border-color: var(--gold-1); }
     .qty.active { background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--forest-3); border-color: transparent; }
+    .cta-right .cta-title { margin-bottom: 18px; text-align: left; }
+    .cta-inner > .qty-row:first-child { margin-top: 2px; }
     .cta-inner .cta-eyebrow {
       font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 3px;
       text-transform: uppercase; color: var(--gold-2); margin-bottom: 5px;
@@ -743,9 +745,8 @@
         </div>
 
         <div class="cta-right">
+          <h2 class="act-title cta-title">Get Yours Before<br/><span class="gold">It Runs Out</span></h2>
           <div class="cta-inner buy-card rv">
-            <span class="offer-pill">The Original Mate Latte</span>
-            <h3>Elevate Your <span class="gold-strong">Mornings</span>.</h3>
             <div class="qty-row" role="group" aria-label="Quantity">
               <button class="qty active" type="button" data-qty="1">Buy 1</button>
               <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>

@@ -1039,14 +1039,13 @@
       requestAnimationFrame(tick);
     }
 
-    /* ---------- align the offer panel's bottom with the table's bottom ---------- */
+    /* ---------- level the offer panel with the left column's top ---------- */
     function alignCTA() {
-      const cta  = document.querySelector(".cta-right");
-      const wrap = document.querySelector(".cmp-wrap");
-      if (!cta || !wrap) return;
+      const cta = document.querySelector(".cta-right");
+      const col = document.querySelector(".act-3 .col");
+      if (!cta || !col) return;
       if (window.innerWidth <= 860) { cta.style.top = ""; cta.style.transform = ""; return; }
-      const tableBottom = wrap.offsetTop + wrap.offsetHeight;   // both offset from .act-3
-      cta.style.top = Math.max(0, tableBottom - cta.offsetHeight) + "px";
+      cta.style.top = col.offsetTop + "px";   // both offset from .act-3 — titles share the same level
       cta.style.transform = "none";
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignCTA);

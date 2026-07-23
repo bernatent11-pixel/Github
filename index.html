@@ -1070,6 +1070,15 @@
       }));
     });
 
+    /* ---------- FAQ accordion ---------- */
+    document.querySelectorAll(".faq-q").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const item = btn.parentElement;
+        const open = item.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open);
+      });
+    });
+
     /* ---------- boot ---------- */
     window.addEventListener("scroll", readScroll, { passive: true });
     window.addEventListener("resize", () => { readScroll(); resize(); alignCTA(); });

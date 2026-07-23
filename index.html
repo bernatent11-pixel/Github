@@ -177,19 +177,23 @@
     .hero-right .cta-inner { padding: 18px 20px; }
     .act-1 .sub { color: var(--cream); font-weight: 400; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; margin-top: 14px; text-shadow: 0 2px 20px rgba(2,8,5,0.9); }
     .act-1 .story { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); line-height: 1.65; margin-top: 12px; text-shadow: 0 2px 18px rgba(2,8,5,0.95); }
-    /* social proof counter */
-    .proof { display: flex; align-items: center; gap: 11px; margin-top: 12px; }
+    /* social proof pill (gold button style, with urgency) */
+    .proof {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      border-radius: 100px; padding: 9px 18px 9px 12px;
+      box-shadow: 0 6px 24px rgba(2,8,5,0.5), 0 0 18px rgba(236,201,111,0.2);
+    }
     .proof .avs { display: flex; }
     .proof .avs span {
-      width: 21px; height: 21px; border-radius: 50%; border: 2px solid rgba(2,8,5,0.9); margin-left: -7px;
-      background: linear-gradient(135deg, var(--gold-1), var(--gold-3));
+      width: 21px; height: 21px; border-radius: 50%; border: 2px solid rgba(14,58,32,0.5); margin-left: -7px;
+      background: linear-gradient(135deg, var(--cream), var(--gold-3));
     }
     .proof .avs span:first-child { margin-left: 0; background: linear-gradient(135deg, var(--leaf), #3f8a4d); }
-    .proof .avs span:nth-child(2) { background: linear-gradient(135deg, var(--cream), var(--gold-2)); }
+    .proof .avs span:nth-child(2) { background: linear-gradient(135deg, var(--forest-1), var(--forest-3)); }
     .proof .txt {
       font-family: var(--font); font-weight: 700; font-size: 11px;
-      letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-2);
-      text-shadow: 0 2px 14px rgba(2,8,5,0.9);
+      letter-spacing: 1.6px; text-transform: uppercase; color: var(--forest-3);
     }
 
     .sense { list-style: none; margin-top: 16px; display: grid; gap: 9px; }
@@ -201,6 +205,11 @@
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       filter: drop-shadow(0 3px 14px rgba(2,8,5,0.9));
+      transition: transform .3s cubic-bezier(.2,.7,.3,1), filter .3s ease;
+    }
+    .sense li:hover {
+      transform: translateX(8px) scale(1.03);
+      filter: drop-shadow(0 3px 14px rgba(2,8,5,0.9)) drop-shadow(0 0 14px rgba(236,201,111,0.45));
     }
     .sense li::before {
       content: ""; flex: none; width: 21px; height: 26px;
@@ -234,8 +243,10 @@
       padding: 24px 26px;
     }
     .steps { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 18px; }
-    .step-i { display: grid; justify-items: center; gap: 9px; flex: 1; }
-    .step-i svg { width: 52px; height: 52px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); }
+    .step-i { display: grid; justify-items: center; gap: 9px; flex: 1; transition: transform .3s cubic-bezier(.2,.7,.3,1); }
+    .step-i:hover { transform: translateY(-5px) scale(1.1); }
+    .step-i svg { width: 52px; height: 52px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); transition: filter .3s ease; }
+    .step-i:hover svg { filter: drop-shadow(0 0 18px rgba(236,201,111,0.6)); }
     .step-i .lbl { font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cream); }
     .step-arrow { color: var(--gold-2); font-size: 20px; font-weight: 700; flex: none; padding-bottom: 22px; }
 
@@ -245,7 +256,12 @@
       font-family: var(--font); font-weight: 900; font-size: clamp(16px, 1.7vw, 22px);
       letter-spacing: .6px; text-transform: uppercase; color: var(--gold-1);
     }
-    .stack .item p { color: var(--mist); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); }
+    .stack .item p { color: var(--cream); font-weight: 400; font-size: clamp(11.5px, 1.05vw, 13px); }
+    .stack .item {
+      border-radius: 12px; padding: 6px 10px; margin: -6px -10px;
+      transition: background .3s ease, transform .3s cubic-bezier(.2,.7,.3,1);
+    }
+    .stack .item:hover { background: rgba(236,201,111,0.09); transform: translateX(6px); }
     .hc-title {
       margin-top: 20px; font-family: var(--font); font-weight: 900;
       font-size: clamp(14px, 1.4vw, 18px); letter-spacing: 2.5px; text-transform: uppercase;
@@ -256,8 +272,11 @@
       display: flex; align-items: center; gap: 12px;
       font-family: var(--font); font-weight: 700; font-size: 13px; letter-spacing: 3px;
       text-transform: uppercase; color: var(--cream);
+      transition: transform .3s cubic-bezier(.2,.7,.3,1);
     }
-    .hotcold svg { width: 42px; height: 42px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); }
+    .hotcold .hc:hover { transform: translateY(-4px) scale(1.08); }
+    .hotcold svg { width: 42px; height: 42px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); transition: filter .3s ease; }
+    .hotcold .hc:hover svg { filter: drop-shadow(0 0 18px rgba(236,201,111,0.6)); }
 
     /* ---- Act III · comparison + CTA (LEFT + centered CTA) ---- */
     .act-3 { padding-top: 10vh; padding-bottom: 5vh; }
@@ -333,6 +352,17 @@
     .opt-meta { font-size: 10.5px; color: var(--mist); text-align: center; }
     .opt-anchor { font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: .4px; color: var(--gold-2); text-align: center; }
     .buy-btn { display: block; width: 100%; margin-top: 8px; text-align: center; text-decoration: none; padding: 10px 6px; font-size: 13px; }
+
+    /* quantity selector pills */
+    .qty-row { display: flex; gap: 8px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+    .qty {
+      font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--gold-1); background: transparent; border: 1px solid rgba(236,201,111,0.45);
+      border-radius: 100px; padding: 7px 13px; cursor: pointer; white-space: nowrap;
+      transition: background .25s ease, color .25s ease, transform .2s ease, border-color .25s ease;
+    }
+    .qty:hover { transform: translateY(-2px); border-color: var(--gold-1); }
+    .qty.active { background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--forest-3); border-color: transparent; }
     .cta-inner .cta-eyebrow {
       font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 3px;
       text-transform: uppercase; color: var(--gold-2); margin-bottom: 5px;
@@ -512,10 +542,6 @@
           <h1 class="act-title">The Original<br/><span class="gold">Mate Latte</span></h1>
           <p class="tagline-sub">Energy That Thinks</p>
           <p class="sub">Yerba Mate. Lion's Mane. L-theanine.</p>
-          <div class="proof rv" aria-label="500+ people signed up">
-            <span class="avs"><span></span><span></span><span></span></span>
-            <span class="txt">500+ people signed up</span>
-          </div>
           <ul class="sense">
             <li class="rv" data-fx="slide">Clean, Sustained Energy</li>
             <li class="rv" data-fx="slide">Mental Focus</li>
@@ -523,10 +549,19 @@
             <li class="rv" data-fx="slide">No Synthetic Sweeteners</li>
             <li class="rv" data-fx="slide">Antioxidant-Rich</li>
           </ul>
+          <div class="proof rv" aria-label="500+ people signed up, first batch won't last">
+            <span class="avs"><span></span><span></span><span></span></span>
+            <span class="txt">500+ people signed up · First batch won't last</span>
+          </div>
         </div>
         <div class="hero-right">
           <h2 class="act-title">Elevate Your<br/><span class="gold">Mornings</span></h2>
           <div class="cta-inner buy-card rv">
+            <div class="qty-row" role="group" aria-label="Quantity">
+              <button class="qty active" type="button" data-qty="1">Buy 1</button>
+              <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>
+              <button class="qty" type="button" data-qty="3">Buy 3 &middot; Save 15%</button>
+            </div>
             <div class="buy-options">
               <div class="opt">
                 <div class="opt-name">One-Time</div>
@@ -659,6 +694,11 @@
           <div class="cta-inner buy-card rv">
             <span class="offer-pill">The Original Mate Latte</span>
             <h3>Elevate Your <span class="gold-strong">Mornings</span>.</h3>
+            <div class="qty-row" role="group" aria-label="Quantity">
+              <button class="qty active" type="button" data-qty="1">Buy 1</button>
+              <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>
+              <button class="qty" type="button" data-qty="3">Buy 3 &middot; Save 15%</button>
+            </div>
             <div class="buy-options">
               <div class="opt">
                 <div class="opt-name">One-Time</div>
@@ -968,6 +1008,14 @@
       const url = CHECKOUT[a.dataset.checkout];
       if (url) a.href = url;
       else a.addEventListener("click", e => e.preventDefault());
+    });
+
+    /* quantity pills: visual selection now; per-quantity prices/links plug in later */
+    document.querySelectorAll(".qty-row").forEach(row => {
+      row.querySelectorAll(".qty").forEach(btn => btn.addEventListener("click", () => {
+        row.querySelectorAll(".qty").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      }));
     });
 
     /* ---------- boot ---------- */

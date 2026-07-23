@@ -253,6 +253,12 @@
     .step-i .lbl { font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cream); }
     .step-arrow { color: var(--gold-2); font-size: 20px; font-weight: 700; flex: none; padding-bottom: 22px; }
 
+    .steps-note {
+      margin-top: 12px; font-family: var(--font); font-weight: 700;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-2);
+      text-align: center;
+    }
+
     .stack { margin-top: 16px; display: grid; gap: 15px; }
     .stack .item { display: grid; gap: 3px; }
     .ing-name {
@@ -560,12 +566,9 @@
         <div class="col">
           <h1 class="act-title">The Original<br/><span class="gold">Mate Latte</span></h1>
           <p class="tagline-sub">Energy That Thinks</p>
-          <p class="sub">Yerba Mate. Lion's Mane. L-theanine.</p>
           <ul class="sense">
             <li class="rv" data-fx="slide">Clean, Sustained Energy</li>
-            <li class="rv" data-fx="slide">Mental Focus</li>
-            <li class="rv" data-fx="slide">Calm, No Jitters</li>
-            <li class="rv" data-fx="slide">No Synthetic Sweeteners</li>
+            <li class="rv" data-fx="slide">Focus &amp; Calm, No Jitters</li>
             <li class="rv" data-fx="slide">Antioxidant-Rich</li>
           </ul>
           <div class="proof rv" aria-label="500+ people signed up, first batch won't last">
@@ -576,11 +579,6 @@
         <div class="hero-right">
           <h2 class="act-title">Elevate Your<br/><span class="gold">Mornings</span></h2>
           <div class="cta-inner buy-card rv">
-            <div class="qty-row" role="group" aria-label="Quantity">
-              <button class="qty active" type="button" data-qty="1">Buy 1</button>
-              <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>
-              <button class="qty" type="button" data-qty="3">Buy 3 &middot; Save 15%</button>
-            </div>
             <div class="buy-options">
               <div class="opt">
                 <div class="opt-name">One-Time</div>
@@ -603,84 +601,54 @@
         <div class="scrollhint"><span class="line"></span> Scroll</div>
       </div>
 
-      <!-- SCROLL 2 · actives LEFT · how-to RIGHT -->
+      <!-- SCROLL 2 · actives + ritual, one card · LEFT -->
       <div class="act act-left act-2" id="act2">
         <div class="col">
           <h2 class="act-title rv">Three <span class="gold">Actives.</span></h2>
-          <p class="tagline-sub rv">The Ones That Do The Work.</p>
           <div class="stack">
             <div class="item rv">
               <span class="ing-name">100mg Yerba Mate</span>
-              <p>Clean, sustained energy. Mental clarity and antioxidants.</p>
+              <p>Clean, sustained energy.</p>
             </div>
             <div class="item rv">
               <span class="ing-name">500mg Lion's Mane</span>
-              <p>Natural cognitive support: focus, concentration, and memory.</p>
+              <p>Focus and memory.</p>
             </div>
             <div class="item rv">
               <span class="ing-name">200mg L-Theanine</span>
-              <p>Balanced calm. No jitters.</p>
-            </div>
-            <div class="item rv">
-              <span class="ing-name">Clean Ingredients</span>
-              <p>No synthetic sweeteners. Just clean, functional ingredients.</p>
+              <p>Balanced calm.</p>
             </div>
           </div>
-        </div>
-
-        <div class="col-right">
-          <div class="steps-card rv">
-            <h2 class="act-title">Ready In <span class="gold">30 Seconds.</span></h2>
-            <div class="steps" role="img" aria-label="Scoop, whisk, enjoy">
-              <div class="step-i">
-                <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M8 26 a8 6 0 0 0 16 0 a8 6 0 0 0 -16 0 z"/>
-                  <path d="M22 22 L33 8"/>
-                  <path d="M11 24 q5 -3 10 0" opacity=".6"/>
-                </svg>
-                <span class="lbl">Scoop</span>
-              </div>
-              <span class="step-arrow">→</span>
-              <div class="step-i">
-                <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 4 v10"/>
-                  <path d="M20 14 c-6 3 -8 9 -8 14 a8 8 0 0 0 16 0 c0 -5 -2 -11 -8 -14 z"/>
-                  <path d="M16 18 c-2 4 -2 12 0 16 M24 18 c2 4 2 12 0 16 M20 16 v20"/>
-                </svg>
-                <span class="lbl">Whisk</span>
-              </div>
-              <span class="step-arrow">→</span>
-              <div class="step-i">
-                <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 16 h18 v8 a9 9 0 0 1 -18 0 z"/>
-                  <path d="M27 18 h3 a4 4 0 0 1 0 8 h-3"/>
-                  <path d="M14 10 c0 2 1.5 2.2 1.5 4 M20 8 c0 2 1.5 2.2 1.5 4"/>
-                  <path d="M33 6 l1.2 2.6 L37 10 l-2.8 1.4 L33 14 l-1.2 -2.6 L29 10 l2.8 -1.4 z" stroke-width="1.4"/>
-                </svg>
-                <span class="lbl">Enjoy</span>
-              </div>
-            </div>
-          <p class="hc-title rv">Enjoy it&hellip;</p>
-          <div class="hotcold rv" role="img" aria-label="Drink it hot or cold">
-            <span class="hc">
-              <svg viewBox="0 0 32 32" fill="none" stroke="#ecc96f" stroke-width="1.8" stroke-linecap="round">
-                <path d="M7 13 h15 v9 a6 6 0 0 1 -6 6 h-3 a6 6 0 0 1 -6 -6 z"/>
-                <path d="M22 15 h2.5 a3.5 3.5 0 0 1 0 7 H22"/>
-                <path d="M11 4 c0 2 2 2.6 2 4.6 M16 4 c0 2 2 2.6 2 4.6"/>
+          <div class="steps rv" role="img" aria-label="Scoop, whisk, enjoy">
+            <div class="step-i">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 26 a8 6 0 0 0 16 0 a8 6 0 0 0 -16 0 z"/>
+                <path d="M22 22 L33 8"/>
+                <path d="M11 24 q5 -3 10 0" opacity=".6"/>
               </svg>
-              Hot
-            </span>
-            <span class="hc">
-              <svg viewBox="0 0 32 32" fill="none" stroke="#ecc96f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 8 h14 l-2 19 a2 2 0 0 1 -2 1.8 h-6 a2 2 0 0 1 -2 -1.8 z"/>
-                <path d="M9.7 15 h12.6"/>
-                <path d="M13 18.5 l2 2.5 M18 18.5 l-2 2.5 M15.5 22.5 l1.5 2"/>
-                <path d="M20 4 l-3.5 4"/>
+              <span class="lbl">Scoop</span>
+            </div>
+            <span class="step-arrow">→</span>
+            <div class="step-i">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 4 v10"/>
+                <path d="M20 14 c-6 3 -8 9 -8 14 a8 8 0 0 0 16 0 c0 -5 -2 -11 -8 -14 z"/>
+                <path d="M16 18 c-2 4 -2 12 0 16 M24 18 c2 4 2 12 0 16 M20 16 v20"/>
               </svg>
-              Cold
-            </span>
+              <span class="lbl">Whisk</span>
+            </div>
+            <span class="step-arrow">→</span>
+            <div class="step-i">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 16 h18 v8 a9 9 0 0 1 -18 0 z"/>
+                <path d="M27 18 h3 a4 4 0 0 1 0 8 h-3"/>
+                <path d="M14 10 c0 2 1.5 2.2 1.5 4 M20 8 c0 2 1.5 2.2 1.5 4"/>
+                <path d="M33 6 l1.2 2.6 L37 10 l-2.8 1.4 L33 14 l-1.2 -2.6 L29 10 l2.8 -1.4 z" stroke-width="1.4"/>
+              </svg>
+              <span class="lbl">Enjoy</span>
+            </div>
           </div>
-          </div>
+          <p class="steps-note rv">Ready in 30 seconds · Hot or iced</p>
         </div>
       </div>
 
@@ -722,32 +690,11 @@
                   <td><span class="mark y">✓</span><span class="d">Varies by brand</span></td>
                 </tr>
                 <tr>
-                  <td class="feat"><b>MCT oil</b><span>Sustained energy</span></td>
-                  <td class="mi"><span class="mark y">✓</span></td>
-                  <td><span class="mark n">✗</span></td>
-                  <td><span class="mark n">✗</span></td>
-                  <td><span class="mark v">Some</span><span class="d">Select brands</span></td>
-                </tr>
-                <tr>
                   <td class="feat"><b>Dairy-free latte</b><span>Just add water</span></td>
                   <td class="mi"><span class="mark y">✓</span><span class="d">Oat + coconut built in</span></td>
                   <td><span class="mark n">✗</span><span class="d">Needs milk/creamer</span></td>
                   <td><span class="mark n">✗</span><span class="d">Needs creamer</span></td>
                   <td><span class="mark n">✗</span><span class="d">Needs creamer</span></td>
-                </tr>
-                <tr>
-                  <td class="feat"><b>Low sugar</b><span>No artificial sweeteners</span></td>
-                  <td class="mi"><span class="mark y">✓</span><span class="d">3g from honey + coconut</span></td>
-                  <td><span class="mark v">Varies</span><span class="d">Often sweetened mixes</span></td>
-                  <td><span class="mark v">Varies</span><span class="d">Depends on prep</span></td>
-                  <td><span class="mark y">✓</span><span class="d">Most are low sugar</span></td>
-                </tr>
-                <tr>
-                  <td class="feat"><b>Under 100 calories</b></td>
-                  <td class="mi"><span class="mark y">✓</span><span class="d">90 cal per serving</span></td>
-                  <td><span class="mark y">✓</span><span class="d">Plain matcha ~5 cal</span></td>
-                  <td><span class="mark y">✓</span><span class="d">Black coffee ~2 cal</span></td>
-                  <td><span class="mark y">✓</span><span class="d">Most under 50 cal</span></td>
                 </tr>
               </tbody>
             </table>
@@ -825,44 +772,12 @@
 
         <div class="faq-item">
           <button class="faq-q" type="button" aria-expanded="false">
-            <span>What does it taste like?</span>
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
-            <p>Think of your favorite vanilla latte, but without disrupting feelings or compromising your health.</p>
-            <p>Milonga Mate Latte is smooth, creamy, and naturally delicious with a rich vanilla flavor. There's no earthy or grassy taste and none of the bitterness people often associate with yerba mate. It feels like an indulgent café drink, not a typical health beverage.</p>
-          </div></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" type="button" aria-expanded="false">
             <span>How do I prepare it? Can I drink it hot or iced?</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
             <p>Both.</p>
             <p>Simply mix one scoop with hot or cold milk (or water, if you prefer), whisk or shake until smooth, and enjoy. Whether you love a cozy morning latte or a refreshing iced drink, Milonga Mate Latte fits your routine.</p>
-          </div></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" type="button" aria-expanded="false">
-            <span>Does it contain sugar? How many calories are in each serving?</span>
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
-            <p>Each serving contains less than 3g of sugar and approximately 90 calories.</p>
-            <p>The final nutrition depends on the milk you choose, making it easy to customize to your lifestyle. We kept the ingredient list simple and clean, so you get delicious flavor without unnecessary sugars or fillers.</p>
-          </div></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" type="button" aria-expanded="false">
-            <span>How will I feel?</span>
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><div class="faq-card">
-            <p>You'll feel uplifted, focused, and calm. Thanks to the combination of organic yerba mate, Lion's Mane, and L-theanine, without the jitters or crash of coffee. Enjoy it first thing in the morning, before work or studying, before a workout, or anytime you need a clean boost to power through your day.</p>
           </div></div></div>
         </div>
 

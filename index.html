@@ -219,24 +219,23 @@
 
     /* ---- Act II · ingredients + ritual (RIGHT) ---- */
     .act-2 .col {
-      background: rgba(2,8,5,0.42); backdrop-filter: blur(9px);
+      background: rgba(2,8,5,0.64); backdrop-filter: blur(9px);
       border: 1px solid rgba(236,201,111,0.14); border-radius: 20px;
       padding: 24px 26px;
     }
     /* right-side how-to card on scroll 2 */
     .act-2 .col-right {
       position: absolute; right: clamp(24px, 4.5vw, 72px); top: 50%;
-      transform: translateY(-50%); width: min(420px, 32vw); z-index: 6;
+      transform: translateY(-50%); width: min(480px, 42vw); z-index: 6;
     }
-    .act-title.sm2 { font-size: clamp(19px, 1.9vw, 27px); }
     .steps-card {
-      background: rgba(2,8,5,0.42); backdrop-filter: blur(9px);
+      background: rgba(2,8,5,0.64); backdrop-filter: blur(9px);
       border: 1px solid rgba(236,201,111,0.14); border-radius: 20px;
-      padding: 22px 24px;
+      padding: 24px 26px;
     }
-    .steps { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 16px; }
-    .step-i { display: grid; justify-items: center; gap: 8px; flex: 1; }
-    .step-i svg { width: 44px; height: 44px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); }
+    .steps { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 18px; }
+    .step-i { display: grid; justify-items: center; gap: 9px; flex: 1; }
+    .step-i svg { width: 52px; height: 52px; display: block; filter: drop-shadow(0 0 10px rgba(236,201,111,0.25)); }
     .step-i .lbl { font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cream); }
     .step-arrow { color: var(--gold-2); font-size: 20px; font-weight: 700; flex: none; padding-bottom: 22px; }
 
@@ -264,7 +263,7 @@
     .act-3 { padding-top: 10vh; padding-bottom: 5vh; }
     .act-3 .col { align-self: start; margin-top: 4vh; width: min(600px, 48vw); }
     .cmp-wrap {
-      margin-top: 14px; background: rgba(4,16,10,0.55); backdrop-filter: blur(10px);
+      margin-top: 14px; background: rgba(2,8,5,0.68); backdrop-filter: blur(10px);
       border: 1px solid rgba(236,201,111,0.25); border-radius: 14px; padding: 6px 10px; overflow-x: auto;
     }
     table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -292,7 +291,7 @@
     }
     .cta-inner {
       width: 100%; text-align: center;
-      background: rgba(2,8,5,0.5); backdrop-filter: blur(10px);
+      background: rgba(2,8,5,0.68); backdrop-filter: blur(10px);
       border: 1px solid rgba(236,201,111,0.18); border-radius: 20px;
       padding: 22px 26px 20px;
     }
@@ -577,7 +576,7 @@
 
         <div class="col-right">
           <div class="steps-card rv">
-            <h2 class="act-title sm2">Ready In <span class="gold">30 Seconds.</span></h2>
+            <h2 class="act-title">Ready In <span class="gold">30 Seconds.</span></h2>
             <div class="steps" role="img" aria-label="Scoop, whisk, enjoy">
               <div class="step-i">
                 <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">

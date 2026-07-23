@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
-  <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. Join the waitlist." />
+  <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $35.99 for 15 servings, or subscribe and save 15%." />
 
   <meta property="og:title" content="Milonga, The Mate Latte" />
-  <meta property="og:description" content="Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. Join the waitlist for 20% off your first order." />
+  <meta property="og:description" content="Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $35.99 for 15 servings, or subscribe and save 15%." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/poster.jpg" />
 
@@ -281,6 +281,27 @@
       border-radius: 100px; padding: 6px 15px; margin-bottom: 12px;
     }
     .gold-strong { color: var(--gold-1); font-weight: 700; }
+
+    /* ---- purchase options ---- */
+    .buy-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .opt {
+      position: relative; display: grid; gap: 3px; justify-items: center; align-content: start;
+      border: 1px solid rgba(236,201,111,0.25); border-radius: 16px;
+      padding: 14px 10px; background: rgba(247,239,224,0.04);
+    }
+    .opt.featured { border-color: var(--gold-1); background: rgba(236,201,111,0.08); }
+    .opt-badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--forest-3);
+      font-family: var(--font); font-weight: 700; font-size: 9px; letter-spacing: 2px;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+    }
+    .opt-name { font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--cream); }
+    .opt-price { font-family: var(--font); font-weight: 900; font-size: clamp(20px, 1.9vw, 26px); color: var(--gold-1); line-height: 1.1; }
+    .opt-price .permo { font-size: 12px; font-weight: 700; color: var(--mist); }
+    .opt-meta { font-size: 10.5px; color: var(--mist); text-align: center; }
+    .opt-anchor { font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: .4px; color: var(--gold-2); text-align: center; }
+    .buy-btn { display: block; width: 100%; margin-top: 8px; text-align: center; text-decoration: none; padding: 10px 6px; font-size: 13px; }
     .cta-inner .cta-eyebrow {
       font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: 3px;
       text-transform: uppercase; color: var(--gold-2); margin-bottom: 5px;
@@ -441,11 +462,10 @@
 
   <!-- ============ NAV ============ -->
   <nav id="nav">
-    <a class="logo" href="#top" aria-label="Milonga, Yerba Mate">
+    <span class="logo" aria-label="Milonga, Yerba Mate">
       <!-- gold edition of the real brand logo, straight on the film -->
-      <img class="logo-img" src="assets/logo-gold.png" alt="" />
-    </a>
-    <a class="nav-cta" href="#join" id="nav-join">Unlock Launch Savings</a>
+      <img class="logo-img" src="assets/logo-gold.png" alt="Milonga" />
+    </span>
   </nav>
 
   <!-- ============ CINEMATIC SCROLL FILM ============ -->
@@ -470,18 +490,24 @@
             <li class="rv" data-fx="slide">Antioxidant-Rich</li>
           </ul>
           <div class="hero-capture rv">
-            <div class="cta-inner">
-              <span class="offer-pill">The Mate Latte drops soon</span>
-              <h3>Unlock <span class="gold-strong">20% Off</span> Your First Order.</h3>
-              <form class="signup" novalidate>
-                <div class="field">
-                  <input type="email" placeholder="your email" aria-label="Email address" required />
-                  <button class="btn" type="submit">Save My Spot</button>
+            <div class="cta-inner buy-card">
+              <h3>Start Your <span class="gold-strong">Ritual</span>.</h3>
+              <div class="buy-options">
+                <div class="opt">
+                  <div class="opt-name">One-Time</div>
+                  <div class="opt-price">$35.99</div>
+                  <div class="opt-meta">15 servings</div>
+                  <div class="opt-anchor">Less than $2.40 per latte</div>
+                  <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
                 </div>
-              </form>
-              <div class="success">
-                <strong>You're in the circle. 🌱</strong>
-                <div>Your 20% code arrives the moment the Mate Latte drops.</div>
+                <div class="opt featured">
+                  <span class="opt-badge">Save 15%</span>
+                  <div class="opt-name">Subscribe &amp; Save</div>
+                  <div class="opt-price">$30.59<span class="permo">/mo</span></div>
+                  <div class="opt-meta">15 servings monthly · cancel anytime</div>
+                  <div class="opt-anchor">About $2 per latte</div>
+                  <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
+                </div>
               </div>
             </div>
           </div>
@@ -567,19 +593,25 @@
         </div>
 
         <div class="cta-right">
-          <div class="cta-inner rv" id="join">
-            <span class="offer-pill">The Mate Latte drops soon</span>
-            <h3>Unlock <span class="gold-strong">20% Off</span> Your First Order.</h3>
-            <p class="cta-sub">The first batch is small. <span class="gold-strong">The list gets first access.</span></p>
-            <form class="signup" novalidate>
-              <div class="field">
-                <input type="email" placeholder="your email" aria-label="Email address" required />
-                <button class="btn" type="submit">Save My Spot</button>
+          <div class="cta-inner buy-card rv">
+            <span class="offer-pill">The Original Mate Latte</span>
+            <h3>Elevate Your <span class="gold-strong">Mornings</span>.</h3>
+            <div class="buy-options">
+              <div class="opt">
+                <div class="opt-name">One-Time</div>
+                <div class="opt-price">$35.99</div>
+                <div class="opt-meta">15 servings</div>
+                <div class="opt-anchor">Less than $2.40 per latte</div>
+                <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
               </div>
-            </form>
-            <div class="success">
-              <strong>You're in the circle. 🌱</strong>
-              <div>Your 20% code arrives the moment the Mate Latte drops.</div>
+              <div class="opt featured">
+                <span class="opt-badge">Save 15%</span>
+                <div class="opt-name">Subscribe &amp; Save</div>
+                <div class="opt-price">$30.59<span class="permo">/mo</span></div>
+                <div class="opt-meta">15 servings monthly · cancel anytime</div>
+                <div class="opt-anchor">About $2 per latte</div>
+                <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
+              </div>
             </div>
           </div>
         </div>
@@ -675,7 +707,7 @@
   <!-- ============ FOOTER ============ -->
   <footer>
     <div class="wrap">
-      <a class="logo" href="#top">
+      <span class="logo">
         <svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:34px;height:34px">
           <circle cx="50" cy="26" r="15" fill="var(--leaf)"/>
           <circle cx="35" cy="33" r="10" fill="var(--leaf)"/>
@@ -686,12 +718,7 @@
           <path d="M50 88 v-26 m0 8 l-7 -9 m7 9 l7 -9 m-7 17 l-9 -7 m9 7 l9 -7" stroke="var(--cream)" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
         </svg>
         <span class="word" style="font-size:16px">MILONGA</span>
-      </a>
-      <div class="socials">
-        <a href="#">Instagram</a>
-        <a href="#">TikTok</a>
-        <a href="mailto:hello@milonga.life">Contact</a>
-      </div>
+      </span>
       <div class="copy-sm">© 2026 Milonga Life Corp · milonga.life · Energy That Thinks</div>
     </div>
   </footer>
@@ -868,12 +895,16 @@
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignCTA);
 
-    /* ---------- nav CTA: glide to the finale ---------- */
-    document.getElementById("nav-join").addEventListener("click", e => {
-      if (reduceMotion) return; // default anchor behavior
-      e.preventDefault();
-      // glide to the bottom of the film — finale scene with the offer + email form
-      window.scrollTo({ top: film.offsetTop + film.offsetHeight - window.innerHeight, behavior: "smooth" });
+    /* ---------- checkout links ----------
+       Paste the Shopify checkout / product URLs here to go live:
+         onetime   — the $35.99 one-time purchase
+         subscribe — the $30.59/month Subscribe & Save plan
+       Until filled, the buttons are inert. */
+    const CHECKOUT = { onetime: "", subscribe: "" };
+    document.querySelectorAll("[data-checkout]").forEach(a => {
+      const url = CHECKOUT[a.dataset.checkout];
+      if (url) a.href = url;
+      else a.addEventListener("click", e => e.preventDefault());
     });
 
     /* ---------- boot ---------- */
@@ -891,65 +922,6 @@
       requestAnimationFrame(tick);
     }
 
-    /* ---------- waitlist → Klaviyo ---------- */
-    // Fill both IDs to go live:
-    //   companyId — Klaviyo account → Settings → Organization → Public API Key (site ID, 6 chars)
-    //   listId    — the "Mate Latte Waitlist" list → its ID from the list settings/URL
-    // Until then, submissions fall back to the visitor's localStorage.
-    const KLAVIYO = { companyId: "", listId: "" };
-
-    const isValidEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-    async function subscribeToKlaviyo(email) {
-      const res = await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO.companyId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "revision": "2024-10-15" },
-        body: JSON.stringify({
-          data: {
-            type: "subscription",
-            attributes: {
-              custom_source: "Mate Latte Pre-launch Landing",
-              profile: { data: { type: "profile", attributes: { email } } }
-            },
-            relationships: { list: { data: { type: "list", id: KLAVIYO.listId } } }
-          }
-        })
-      });
-      if (!res.ok) throw new Error(`Klaviyo responded ${res.status}`);
-    }
-
-    /* ---------- FAQ accordion ---------- */
-    document.querySelectorAll(".faq-q").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const item = btn.parentElement;
-        const open = item.classList.toggle("open");
-        btn.setAttribute("aria-expanded", open);
-      });
-    });
-
-    document.querySelectorAll("form.signup").forEach(form => {
-      form.addEventListener("submit", async e => {
-        e.preventDefault();
-        const input = form.querySelector('input[type="email"]');
-        const email = input.value.trim();
-        if (!isValidEmail(email)) { input.focus(); input.style.outline = "2px solid #ecc96f"; return; }
-        input.style.outline = "";
-
-        if (KLAVIYO.companyId && KLAVIYO.listId) {
-          try {
-            await subscribeToKlaviyo(email);
-          } catch (err) { console.warn("Waitlist submit failed:", err); }
-        } else {
-          const list = JSON.parse(localStorage.getItem("milonga_waitlist") || "[]");
-          list.push({ email, at: new Date().toISOString() });
-          localStorage.setItem("milonga_waitlist", JSON.stringify(list));
-        }
-
-        const success = form.parentElement.querySelector(".success");
-        if (success) success.classList.add("show");
-        form.style.display = "none";
-      });
-    });
   </script>
 </body>
 </html>

@@ -63,40 +63,21 @@
     h1,h2,h3 { font-family: var(--font); font-weight: 900; line-height: 1.08; }
     a { color: inherit; }
 
-    /* ================= PACKAGING BACKDROP ================= */
-    /* the pouch's gold: warm base with the hand-drawn swirl doodles */
+    /* ================= DARK GREEN BACKDROP ================= */
     .bg {
       position: fixed; inset: 0; z-index: -2;
-      background-color: #D8A64E;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23E1B463' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M18 30 q14 -14 26 0 q10 12 -4 18'/%3E%3Cpath d='M80 14 q18 6 8 22 q-8 13 6 18'/%3E%3Cpath d='M150 26 q-4 -16 14 -14 q16 2 10 18 q-5 12 -18 8'/%3E%3Cpath d='M196 60 q16 8 4 22'/%3E%3Cpath d='M30 84 q-16 10 -2 24 q12 11 26 0'/%3E%3Cpath d='M96 72 q22 -8 26 12 q3 17 -14 18'/%3E%3Cpath d='M170 96 q-10 18 10 24'/%3E%3Cpath d='M56 140 q6 -20 24 -10 q16 9 4 24'/%3E%3Cpath d='M130 142 q18 -2 16 16 q-2 16 -20 12'/%3E%3Cpath d='M12 182 q16 -10 26 4 q8 12 -6 20'/%3E%3Cpath d='M88 196 q10 -16 26 -6'/%3E%3Cpath d='M168 180 q20 4 12 22'/%3E%3Cpath d='M204 140 q-14 6 -8 20'/%3E%3C/g%3E%3Cg fill='none' stroke='%23CC9B45' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M52 52 q10 -10 20 -2'/%3E%3Cpath d='M128 44 q-8 12 4 18'/%3E%3Cpath d='M8 128 q10 -12 22 -4'/%3E%3Cpath d='M196 104 q-12 2 -10 16'/%3E%3Cpath d='M110 108 q-12 10 0 20'/%3E%3Cpath d='M62 216 q8 -12 22 -8'/%3E%3Cpath d='M148 210 q4 -14 18 -12'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 220px 220px;
+      background: radial-gradient(120% 88% at 50% 0%, #12572f 0%, #0b3c22 48%, #052816 100%);
     }
     .bg-tint {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: radial-gradient(120% 90% at 50% 0%, rgba(255,240,205,0.25), transparent 55%);
+      background:
+        radial-gradient(80% 50% at 50% 0%, rgba(236,201,111,0.10), transparent 60%),
+        linear-gradient(180deg, transparent 60%, rgba(2,14,8,0.5));
     }
 
-    /* ---- text recolors while over the gold (packaging: dark green on gold) ---- */
-    .zone-gold .act-title { color: #123320; text-shadow: 0 2px 14px rgba(120,80,10,0.25); }
-    .zone-gold .act-title .gold { color: #2f7a45; }
-    .zone-gold .tagline-sub { color: #1b5130; text-shadow: none; }
-    .zone-gold .sense li {
-      background: none; -webkit-text-fill-color: #123320; color: #123320;
-      filter: drop-shadow(0 2px 8px rgba(120,80,10,0.25));
-    }
-    .zone-gold .sense li:hover { filter: drop-shadow(0 2px 8px rgba(120,80,10,0.25)) drop-shadow(0 0 12px rgba(247,239,224,0.5)); }
-    .zone-gold .sense li::before { background-image: url("assets/hand-green.png"); filter: none; }
-    .zone-gold .proof {
-      background: linear-gradient(135deg, var(--forest-1), var(--forest-3));
-      box-shadow: 0 8px 26px rgba(110,70,10,0.4);
-    }
-    .zone-gold .proof .txt { color: var(--cream); }
-    .zone-gold .proof .avs span { border-color: rgba(247,239,224,0.55); }
-    .zone-gold .proof .avs span:nth-child(2) { background: linear-gradient(135deg, var(--gold-1), var(--gold-3)); }
-
-    /* ---- the pouch's forest band: layered treeline, then deep green ---- */
-    .treeline { display: block; width: 100%; height: clamp(170px, 24vw, 320px); margin-bottom: -1px; }
-    .zone-forest { background: linear-gradient(180deg, #1C4A2D 0%, #143B23 45%, #0B2A17 100%); }
+    /* treeline divider retired with the packaging look */
+    .treeline { display: none; }
+    .zone-forest { background: transparent; }
     .grain {
       position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .05; mix-blend-mode: overlay;
       background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.7) 1px, transparent 1.4px);
@@ -109,18 +90,11 @@
       display: flex; justify-content: center; padding: 8px 16px;
     }
     .logo { display: flex; align-items: center; }
-    nav .logo { position: relative; }
     nav .logo .logo-img {
       height: 96px; width: auto; display: block;
-      filter: drop-shadow(0 2px 10px rgba(90,60,10,0.4));
-      transition: height .4s cubic-bezier(.2,.7,.3,1), opacity .4s ease;
-    }
-    nav .logo .logo-goldv {
-      position: absolute; left: 50%; top: 0; transform: translateX(-50%); opacity: 0;
       filter: drop-shadow(0 2px 12px rgba(2,8,5,0.85)) drop-shadow(0 0 22px rgba(236,201,111,0.25));
+      transition: height .4s cubic-bezier(.2,.7,.3,1);
     }
-    nav.forest .logo-green { opacity: 0; }
-    nav.forest .logo-goldv { opacity: 1; }
     nav.scrolled .logo .logo-img { height: 50px; }
     .logo .mark { width: 34px; height: 34px; display: block; }
     .logo .word {
@@ -149,18 +123,26 @@
     }
 
     /* ================= HERO ================= */
-    .hero { padding: 128px 0 70px; }
+    .hero { padding: 120px 0 70px; }
+    .hero .wrapc { width: min(1120px, 100% - 32px); }
     .hero-grid {
-      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(16px, 3vw, 40px);
-      align-items: center; margin-top: 26px; text-align: left;
+      display: grid; grid-template-columns: 1.25fr 0.75fr; gap: clamp(10px, 2vw, 32px);
+      align-items: center; margin-top: 20px; text-align: left;
     }
-    /* product render with the surrounding effects; edges fade into the green
-       (swap src for the transparent-background PNG when it lands) */
+    /* product render with the surrounding effects, big and centered.
+       A warm glow sits behind it for presence; edges of the video frame
+       fade into the green. (Swap src for the transparent PNG when it lands.) */
+    .hero-media { position: relative; display: grid; place-items: center; }
+    .hero-media::before {
+      content: ""; position: absolute; width: 82%; aspect-ratio: 1; border-radius: 50%;
+      background: radial-gradient(circle, rgba(236,201,111,0.28), rgba(140,198,63,0.10) 45%, transparent 70%);
+      filter: blur(6px);
+    }
     .hero-shot {
-      display: block; width: 100%;
-      -webkit-mask-image: radial-gradient(ellipse 72% 72% at 50% 50%, #000 52%, transparent 76%);
-      mask-image: radial-gradient(ellipse 72% 72% at 50% 50%, #000 52%, transparent 76%);
-      filter: drop-shadow(0 20px 50px rgba(1,40,20,0.6));
+      position: relative; display: block; width: min(560px, 118%); margin: 0 -9%;
+      -webkit-mask-image: radial-gradient(ellipse 66% 68% at 50% 50%, #000 46%, transparent 72%);
+      mask-image: radial-gradient(ellipse 66% 68% at 50% 50%, #000 46%, transparent 72%);
+      filter: drop-shadow(0 26px 60px rgba(1,30,15,0.7));
     }
 
     .sense { list-style: none; display: grid; gap: 12px; justify-items: start; }
@@ -394,8 +376,7 @@
   <!-- ============ NAV: logo only ============ -->
   <nav id="nav">
     <span class="logo" aria-label="Milonga, Yerba Mate">
-      <img class="logo-img logo-green" src="assets/logo.png" alt="Milonga" />
-      <img class="logo-img logo-goldv" src="assets/logo-gold.png" alt="" aria-hidden="true" />
+      <img class="logo-img" src="assets/logo-gold.png" alt="Milonga" />
     </span>
   </nav>
 
@@ -408,7 +389,9 @@
       <p class="tagline-sub fx">Energy That Thinks</p>
 
       <div class="hero-grid fx">
-        <img class="hero-shot" src="assets/hero-product.jpg" alt="Milonga Mate Latte pouch with a golden latte swirl" />
+        <div class="hero-media">
+          <img class="hero-shot" src="assets/hero-product.jpg" alt="Milonga Mate Latte pouch with a golden latte swirl" />
+        </div>
         <ul class="sense">
           <li>Clean, Sustained Energy</li>
           <li>Mental Focus</li>
@@ -685,17 +668,9 @@
   <script>
     /* ---------- pinned logo: shrinks on scroll, swaps green/gold per zone ---------- */
     const nav = document.getElementById("nav");
-    const treeline = document.querySelector(".treeline");
-    function navState() {
+    window.addEventListener("scroll", () => {
       nav.classList.toggle("scrolled", window.scrollY > 40);
-      if (treeline) {
-        const r = treeline.getBoundingClientRect();   // SVG has no offsetTop
-        nav.classList.toggle("forest", r.top + r.height * 0.5 < 80);
-      }
-    }
-    window.addEventListener("scroll", navState, { passive: true });
-    window.addEventListener("resize", navState);
-    navState();
+    }, { passive: true });
 
     /* ---------- content reveals on scroll (background stays still) ---------- */
     const io = new IntersectionObserver(entries => {

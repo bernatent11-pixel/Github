@@ -63,18 +63,17 @@
     h1,h2,h3 { font-family: var(--font); font-weight: 900; line-height: 1.08; }
     a { color: inherit; }
 
-    /* ================= STILL BRANDED BACKDROP ================= */
+    /* ================= STILL BRAND-GREEN BACKDROP (#016F3B) ================= */
     .bg {
       position: fixed; inset: 0; z-index: -2;
-      background: url("assets/poster.jpg") center / cover no-repeat;
-      filter: blur(16px) brightness(0.4) saturate(1.1);
-      transform: scale(1.12);
+      background:
+        radial-gradient(110% 80% at 50% 0%, #028049 0%, #016F3B 48%, #01522b 100%);
     }
     .bg-tint {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background:
-        radial-gradient(90% 60% at 50% 0%, rgba(236,201,111,0.10), transparent 60%),
-        linear-gradient(180deg, rgba(2,8,5,0.35), rgba(2,8,5,0.72));
+        radial-gradient(80% 50% at 50% 0%, rgba(236,201,111,0.12), transparent 60%),
+        linear-gradient(180deg, transparent 55%, rgba(1,45,24,0.55));
     }
     .grain {
       position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .05; mix-blend-mode: overlay;
@@ -122,13 +121,20 @@
 
     /* ================= HERO ================= */
     .hero { padding: 128px 0 70px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(16px, 3vw, 40px);
+      align-items: center; margin-top: 26px; text-align: left;
+    }
+    /* product render with the surrounding effects; edges fade into the green
+       (swap src for the transparent-background PNG when it lands) */
     .hero-shot {
-      display: block; width: min(680px, 100%); margin: 30px auto 0;
-      border-radius: 24px; border: 1px solid rgba(236,201,111,0.22);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 40px rgba(236,201,111,0.08);
+      display: block; width: 100%;
+      -webkit-mask-image: radial-gradient(ellipse 72% 72% at 50% 50%, #000 52%, transparent 76%);
+      mask-image: radial-gradient(ellipse 72% 72% at 50% 50%, #000 52%, transparent 76%);
+      filter: drop-shadow(0 20px 50px rgba(1,40,20,0.6));
     }
 
-    .sense { list-style: none; margin-top: 30px; display: grid; gap: 10px; justify-items: center; }
+    .sense { list-style: none; display: grid; gap: 12px; justify-items: start; }
     .sense li {
       font-family: var(--font); font-weight: 900; font-size: clamp(17px, 2.4vw, 24px);
       letter-spacing: 1.2px; text-transform: uppercase;
@@ -272,6 +278,11 @@
     .opt-name { font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--cream); }
     .opt-price { font-family: var(--font); font-weight: 900; font-size: clamp(22px, 3vw, 28px); color: var(--gold-1); line-height: 1.1; }
     .opt-price .permo { font-size: 12px; font-weight: 700; color: var(--mist); }
+    .opt-price .was {
+      display: inline-block; margin-right: 7px; vertical-align: 3px;
+      font-size: 13px; font-weight: 700; color: var(--mist);
+      text-decoration: line-through; text-decoration-color: rgba(247,239,224,0.55);
+    }
     .opt-meta { font-size: 10.5px; color: var(--mist); }
     .opt-anchor { font-family: var(--font); font-weight: 700; font-size: 10.5px; letter-spacing: .4px; color: var(--gold-2); }
     .btn {
@@ -321,6 +332,9 @@
       nav.scrolled .logo .logo-img { height: 42px; }
       .hero { padding: 96px 0 50px; }
       .act-title { font-size: clamp(26px, 8vw, 34px); }
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-grid .sense { justify-items: center; }
+      .hero-shot { width: min(420px, 100%); margin: 0 auto; }
       .sense li { font-size: 15px; gap: 10px; }
       .sense li::before { width: 17px; height: 21px; }
       .proof { padding: 8px 14px 8px 10px; }
@@ -361,13 +375,16 @@
       <h1 class="act-title fx">The Original<br/><span class="gold">Mate Latte</span></h1>
       <p class="tagline-sub fx">Energy That Thinks</p>
 
-      <img class="hero-shot fx" src="assets/poster.jpg" alt="Milonga Mate Latte pouch in the jungle" />
-
-      <ul class="sense fx">
-        <li>Clean, Sustained Energy</li>
-        <li>Focus &amp; Calm, No Jitters</li>
-        <li>Antioxidant-Rich</li>
-      </ul>
+      <div class="hero-grid fx">
+        <img class="hero-shot" src="assets/hero-product.jpg" alt="Milonga Mate Latte pouch with a golden latte swirl" />
+        <ul class="sense">
+          <li>Clean, Sustained Energy</li>
+          <li>Mental Focus</li>
+          <li>Calm, No Jitters</li>
+          <li>No Synthetic Sweeteners</li>
+          <li>Antioxidant-Rich</li>
+        </ul>
+      </div>
 
       <div class="proof fx" aria-label="500+ people signed up, first batch won't last">
         <span class="avs"><span></span><span></span><span></span></span>
@@ -375,6 +392,11 @@
       </div>
 
       <div class="buy-card fx">
+        <div class="qty-row" role="group" aria-label="Quantity">
+          <button class="qty active" type="button" data-qty="1">Buy 1</button>
+          <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>
+          <button class="qty" type="button" data-qty="3">Buy 3 &middot; Save 15%</button>
+        </div>
         <div class="buy-options">
           <div class="opt">
             <div class="opt-name">One-Time</div>
@@ -622,12 +644,46 @@
       else a.addEventListener("click", e => e.preventDefault());
     });
 
-    /* quantity pills: visual selection now; per-quantity prices/links plug in later */
-    document.querySelectorAll(".qty-row").forEach(row => {
-      row.querySelectorAll(".qty").forEach(btn => btn.addEventListener("click", () => {
-        row.querySelectorAll(".qty").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-      }));
+    /* ---------- pricing: $27.99 base, qty discounts stack with the sub discount ---------- */
+    const PRICING = {
+      base: 27.99,
+      sub: 0.15,                       // Subscribe & Save
+      qty: { 1: 0, 2: 0.10, 3: 0.15 } // Buy 2 / Buy 3
+    };
+    const fmt = n => "$" + n.toFixed(2);
+
+    function renderCard(card, q) {
+      const qd = PRICING.qty[q] || 0;
+      card.querySelectorAll(".opt").forEach(opt => {
+        const isSub = opt.classList.contains("featured");
+        const discount = qd + (isSub ? PRICING.sub : 0);   // discounts add up
+        const price = PRICING.base * (1 - discount);
+        const priceEl  = opt.querySelector(".opt-price");
+        const metaEl   = opt.querySelector(".opt-meta");
+        const anchorEl = opt.querySelector(".opt-anchor");
+        const crossed = discount > 0;
+        priceEl.innerHTML =
+          (crossed ? `<span class="was">${fmt(PRICING.base)}</span>` : "") +
+          fmt(price) + (isSub ? `<span class="permo">/mo</span>` : "");
+        if (metaEl) {
+          metaEl.textContent = isSub
+            ? (q === 1 ? "15 servings monthly · cancel anytime" : `${q} bags monthly · ${q * 15} servings`)
+            : (q === 1 ? "15 servings" : `${q} bags · ${q * 15} servings`);
+        }
+        if (anchorEl) anchorEl.textContent = fmt(price / 15) + " per latte";
+      });
+    }
+
+    document.querySelectorAll(".buy-card").forEach(card => {
+      const row = card.querySelector(".qty-row");
+      if (row) {
+        row.querySelectorAll(".qty").forEach(btn => btn.addEventListener("click", () => {
+          row.querySelectorAll(".qty").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderCard(card, parseInt(btn.dataset.qty, 10));
+        }));
+      }
+      renderCard(card, 1);
     });
 
     /* ---------- FAQ accordion ---------- */

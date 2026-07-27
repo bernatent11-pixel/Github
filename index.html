@@ -132,11 +132,14 @@
        with zero code change. ---- */
     .split {
       width: 100%; max-width: 1500px; margin: 22px auto 0;
-      display: grid; align-items: center; gap: clamp(6px, 2vw, 40px);
+      display: grid; align-items: center; gap: 0;
       padding: 0 clamp(20px, 4vw, 60px); text-align: left; position: relative; z-index: 1;
     }
-    .split.img-left  { grid-template-columns: 1.12fr 0.88fr; }
-    .split.img-right { grid-template-columns: 0.88fr 1.12fr; }
+    .split.img-left  { grid-template-columns: 1.05fr 0.95fr; }
+    .split.img-right { grid-template-columns: 0.95fr 1.05fr; }
+    /* small nudge of the copy toward the image */
+    .split.img-left  .sense    { margin-left: clamp(-40px, -2.5vw, -8px); position: relative; z-index: 2; }
+    .split.img-right .ing-copy { margin-right: clamp(-40px, -2.5vw, -8px); position: relative; z-index: 2; }
     .side-media { position: relative; display: grid; place-items: center; min-width: 0; }
     .side-media::before {
       content: ""; position: absolute; inset: 8% 12%; border-radius: 50%;
@@ -148,8 +151,8 @@
       position: relative; display: block;
       filter: drop-shadow(0 24px 46px rgba(1,18,9,0.55));
     }
-    .side-img.from-left  { width: calc(100% + 17vw); margin-left: -15vw; }
-    .side-img.from-right { width: calc(100% + 22vw); margin-right: -13vw; }
+    .side-img.from-left  { width: calc(100% + 11vw); margin-left: -11vw; }
+    .side-img.from-right { width: calc(100% + 13vw); margin-right: -13vw; }
 
     .sense { list-style: none; display: grid; gap: 12px; justify-items: start; }
     .sense li {
@@ -233,14 +236,20 @@
     .ing-big {
       font-family: var(--font); font-weight: 900; font-size: clamp(17px, 2.4vw, 24px);
       letter-spacing: 1px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 13px;
       background: linear-gradient(92deg, var(--cream) 30%, var(--gold-1) 85%);
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       filter: drop-shadow(0 3px 14px rgba(2,8,5,0.6));
       transition: filter .3s ease;
     }
+    .ing-big::before {
+      content: ""; flex: none; width: 22px; height: 27px;
+      background: url("assets/hand-gold.png") no-repeat center / contain;
+      filter: drop-shadow(0 0 8px rgba(236,201,111,0.4));
+    }
     .ing-row:hover .ing-big { filter: drop-shadow(0 3px 14px rgba(2,8,5,0.6)) drop-shadow(0 0 14px rgba(236,201,111,0.45)); }
-    .ing-sub { color: var(--cream); font-weight: 400; font-size: clamp(13px, 1.6vw, 15px); }
+    .ing-sub { color: var(--cream); font-weight: 400; font-size: clamp(13px, 1.6vw, 15px); padding-left: 35px; }
     .ing-copy .steps { justify-content: flex-start; margin-top: 26px; }
     .ing-copy .steps-note { text-align: left; margin-top: 16px; }
 
@@ -373,6 +382,7 @@
       .act-title { font-size: clamp(26px, 8vw, 34px); }
       /* split stacks: image on top (still big, bleeding off its edge), copy below centered */
       .split { grid-template-columns: 1fr !important; gap: 10px; padding: 0 20px; text-align: center; }
+      .split.img-left .sense, .split.img-right .ing-copy { margin: 0 !important; }
       .split .sense, .split .ing-list { justify-items: center; }
       .split .sense { justify-items: center; }
       .ing-copy { text-align: center; }
@@ -769,9 +779,9 @@
 
     /* ---------- pricing: $27.99 base, qty discounts stack with the sub discount ---------- */
     const PRICING = {
-      base: 27.99,
-      sub: 0.15,                       // Subscribe & Save
-      qty: { 1: 0, 2: 0.10, 3: 0.15 } // Buy 2 / Buy 3
+      base: 27.99,                     // one bag
+      sub: 0.15,                       // Subscribe & Save, adds on top
+      qty: { 1: 0, 2: 0.10, 3: 0.15 }  // Buy 2 = 10% off, Buy 3 = 15% off
     };
     const fmt = n => "$" + n.toFixed(2);
 
@@ -779,21 +789,23 @@
       const qd = PRICING.qty[q] || 0;
       card.querySelectorAll(".opt").forEach(opt => {
         const isSub = opt.classList.contains("featured");
-        const discount = qd + (isSub ? PRICING.sub : 0);   // discounts add up
-        const price = PRICING.base * (1 - discount);
+        const discount = qd + (isSub ? PRICING.sub : 0);   // discounts stack
+        const gross = PRICING.base * q;                     // full price for the quantity
+        const price = gross * (1 - discount);
         const priceEl  = opt.querySelector(".opt-price");
         const metaEl   = opt.querySelector(".opt-meta");
         const anchorEl = opt.querySelector(".opt-anchor");
         const crossed = discount > 0;
         priceEl.innerHTML =
-          (crossed ? `<span class="was">${fmt(PRICING.base)}</span>` : "") +
+          (crossed ? `<span class="was">${fmt(gross)}</span>` : "") +
           fmt(price) + (isSub ? `<span class="permo">/mo</span>` : "");
         if (metaEl) {
+          const bags = q === 1 ? "" : `${q} bags · `;
           metaEl.textContent = isSub
-            ? (q === 1 ? "15 servings monthly · cancel anytime" : `${q} bags monthly · ${q * 15} servings`)
-            : (q === 1 ? "15 servings" : `${q} bags · ${q * 15} servings`);
+            ? `${bags}${q * 15} servings monthly · cancel anytime`
+            : `${bags}${q * 15} servings`;
         }
-        if (anchorEl) anchorEl.textContent = fmt(price / 15) + " per latte";
+        if (anchorEl) anchorEl.textContent = fmt(price / (q * 15)) + " per latte";
       });
     }
 

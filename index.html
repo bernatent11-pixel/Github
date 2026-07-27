@@ -135,10 +135,11 @@
       display: grid; align-items: center; gap: 0;
       padding: 0 clamp(20px, 4vw, 60px); text-align: left; position: relative; z-index: 1;
     }
-    .split.img-left  { grid-template-columns: 1.05fr 0.95fr; }
+    .split.img-left  { grid-template-columns: 0.9fr 1.1fr; }
     .split.img-right { grid-template-columns: 0.95fr 1.05fr; }
-    /* small nudge of the copy toward the image */
-    .split.img-left  .sense    { margin-left: clamp(-40px, -2.5vw, -8px); position: relative; z-index: 2; }
+    /* panel 1: push the benefits right so they clear the pouch (spacing like panel 2) */
+    .split.img-left  .sense    { margin-left: clamp(24px, 4vw, 70px); position: relative; z-index: 2; }
+    /* panel 2: small nudge of the copy toward the image */
     .split.img-right .ing-copy { margin-right: clamp(-40px, -2.5vw, -8px); position: relative; z-index: 2; }
     .side-media { position: relative; display: grid; place-items: center; min-width: 0; }
     .side-media::before {
@@ -151,7 +152,7 @@
       position: relative; display: block;
       filter: drop-shadow(0 24px 46px rgba(1,18,9,0.55));
     }
-    .side-img.from-left  { width: calc(100% + 11vw); margin-left: -11vw; }
+    .side-img.from-left  { width: calc(100% + 7vw); margin-left: -9vw; }
     .side-img.from-right { width: calc(100% + 13vw); margin-right: -13vw; }
 
     .sense { list-style: none; display: grid; gap: 12px; justify-items: start; }

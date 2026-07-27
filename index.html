@@ -226,25 +226,27 @@
       font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-2);
     }
 
-    /* panel 2 ingredient list — big, left-aligned, hero-benefit scale */
+    /* panel 2 ingredient list — big, left-aligned, hero-benefit scale (no bullets) */
     .ing-list { display: grid; gap: 18px; margin-top: 24px; }
-    .ing-row { display: grid; gap: 3px; }
+    .ing-row { display: grid; gap: 3px; transition: transform .3s cubic-bezier(.2,.7,.3,1); }
+    .ing-row:hover { transform: translateX(8px); }
     .ing-big {
       font-family: var(--font); font-weight: 900; font-size: clamp(17px, 2.4vw, 24px);
       letter-spacing: 1px; text-transform: uppercase;
-      display: flex; align-items: center; gap: 13px;
       background: linear-gradient(92deg, var(--cream) 30%, var(--gold-1) 85%);
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       filter: drop-shadow(0 3px 14px rgba(2,8,5,0.6));
+      transition: filter .3s ease;
     }
-    .ing-big::before {
-      content: ""; flex: none; width: 22px; height: 27px;
-      background: url("assets/hand-gold.png") no-repeat center / contain;
-      filter: drop-shadow(0 0 8px rgba(236,201,111,0.4));
-    }
-    .ing-sub { color: var(--cream); font-weight: 400; font-size: clamp(13px, 1.6vw, 15px); padding-left: 35px; }
-    .ing-copy .steps-note { text-align: left; margin-top: 22px; }
+    .ing-row:hover .ing-big { filter: drop-shadow(0 3px 14px rgba(2,8,5,0.6)) drop-shadow(0 0 14px rgba(236,201,111,0.45)); }
+    .ing-sub { color: var(--cream); font-weight: 400; font-size: clamp(13px, 1.6vw, 15px); }
+    .ing-copy .steps { justify-content: flex-start; margin-top: 26px; }
+    .ing-copy .steps-note { text-align: left; margin-top: 16px; }
+
+    /* hot / iced inline icons sized to the text */
+    .hi-word { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+    .hi-word svg { width: 1.15em; height: 1.15em; vertical-align: -0.2em; }
 
     /* ================= COMPARISON TABLE ================= */
     .cmp-wrap {
@@ -488,7 +490,40 @@
             <span class="ing-sub">Balanced calm.</span>
           </div>
         </div>
-        <p class="steps-note">Ready in 30 seconds · Hot or iced</p>
+        <div class="steps" role="img" aria-label="Scoop, whisk, enjoy">
+          <div class="step-i">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 26 a8 6 0 0 0 16 0 a8 6 0 0 0 -16 0 z"/>
+              <path d="M22 22 L33 8"/>
+              <path d="M11 24 q5 -3 10 0" opacity=".6"/>
+            </svg>
+            <span class="lbl">Scoop</span>
+          </div>
+          <span class="step-arrow">→</span>
+          <div class="step-i">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 4 v10"/>
+              <path d="M20 14 c-6 3 -8 9 -8 14 a8 8 0 0 0 16 0 c0 -5 -2 -11 -8 -14 z"/>
+              <path d="M16 18 c-2 4 -2 12 0 16 M24 18 c2 4 2 12 0 16 M20 16 v20"/>
+            </svg>
+            <span class="lbl">Whisk</span>
+          </div>
+          <span class="step-arrow">→</span>
+          <div class="step-i">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 16 h18 v8 a9 9 0 0 1 -18 0 z"/>
+              <path d="M27 18 h3 a4 4 0 0 1 0 8 h-3"/>
+              <path d="M14 10 c0 2 1.5 2.2 1.5 4 M20 8 c0 2 1.5 2.2 1.5 4"/>
+              <path d="M33 6 l1.2 2.6 L37 10 l-2.8 1.4 L33 14 l-1.2 -2.6 L29 10 l2.8 -1.4 z" stroke-width="1.4"/>
+            </svg>
+            <span class="lbl">Enjoy</span>
+          </div>
+        </div>
+        <p class="steps-note">Ready in 30 seconds ·
+          <span class="hi-word"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13 h15 v9 a6 6 0 0 1 -6 6 h-3 a6 6 0 0 1 -6 -6 z"/><path d="M22 15 h2.5 a3.5 3.5 0 0 1 0 7 H22"/><path d="M11 4 c0 2 2 2.6 2 4.6 M16 4 c0 2 2 2.6 2 4.6"/></svg>Hot</span>
+          or
+          <span class="hi-word"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8 h14 l-2 19 a2 2 0 0 1 -2 1.8 h-6 a2 2 0 0 1 -2 -1.8 z"/><path d="M9.7 15 h12.6"/><path d="M13 18.5 l2 2.5 M18 18.5 l-2 2.5 M15.5 22.5 l1.5 2"/><path d="M20 4 l-3.5 4"/></svg>Iced</span>
+        </p>
       </div>
       <div class="side-media fx">
         <img class="side-img from-right" src="assets/hand-scoop.png" alt="Scooping Milonga Mate Latte powder into a glass" />

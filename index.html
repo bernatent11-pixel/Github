@@ -254,9 +254,12 @@
     .ing-copy .steps { justify-content: flex-start; margin-top: 26px; }
     .ing-copy .steps-note { text-align: left; margin-top: 16px; }
 
-    /* hot / iced inline icons sized to the text */
-    .hi-word { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-    .hi-word svg { width: 1.15em; height: 1.15em; vertical-align: -0.2em; }
+    /* enjoy branches into hot / iced */
+    .branch { display: grid; gap: 12px; margin-left: 2px; }
+    .branch-row { display: flex; align-items: center; gap: 9px; }
+    .branch-arrow { color: var(--gold-2); font-size: 19px; font-weight: 700; line-height: 1; }
+    .step-i.mini svg { width: 34px; height: 34px; }
+    .step-i.mini .lbl { font-size: 10px; }
 
     /* ================= COMPARISON TABLE ================= */
     .cmp-wrap {
@@ -529,12 +532,32 @@
             </svg>
             <span class="lbl">Enjoy</span>
           </div>
+          <div class="branch">
+            <div class="branch-row">
+              <span class="branch-arrow up">&#8599;</span>
+              <div class="step-i mini">
+                <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 17 h17 v10 a7 7 0 0 1 -7 7 h-3 a7 7 0 0 1 -7 -7 z"/>
+                  <path d="M27 19 h3 a4 4 0 0 1 0 8 h-3"/>
+                  <path d="M14 6 c0 2.4 2 3 2 5.4 M20 5 c0 2.4 2 3 2 5.4 M26 6 c0 2.4 2 3 2 5.4"/>
+                </svg>
+                <span class="lbl">Hot</span>
+              </div>
+            </div>
+            <div class="branch-row">
+              <span class="branch-arrow down">&#8600;</span>
+              <div class="step-i mini">
+                <svg viewBox="0 0 40 40" fill="none" stroke="#ecc96f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 11 h16 l-2 22 a2 2 0 0 1 -2 1.8 h-8 a2 2 0 0 1 -2 -1.8 z"/>
+                  <path d="M12.6 19 h14.8"/>
+                  <path d="M16 23 l3 3 M23 23 l-3 3 M19.5 28 l2 2.4"/>
+                </svg>
+                <span class="lbl">Iced</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="steps-note">Ready in 30 seconds ·
-          <span class="hi-word"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13 h15 v9 a6 6 0 0 1 -6 6 h-3 a6 6 0 0 1 -6 -6 z"/><path d="M22 15 h2.5 a3.5 3.5 0 0 1 0 7 H22"/><path d="M11 4 c0 2 2 2.6 2 4.6 M16 4 c0 2 2 2.6 2 4.6"/></svg>Hot</span>
-          or
-          <span class="hi-word"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8 h14 l-2 19 a2 2 0 0 1 -2 1.8 h-6 a2 2 0 0 1 -2 -1.8 z"/><path d="M9.7 15 h12.6"/><path d="M13 18.5 l2 2.5 M18 18.5 l-2 2.5 M15.5 22.5 l1.5 2"/><path d="M20 4 l-3.5 4"/></svg>Iced</span>
-        </p>
+        <p class="steps-note">Ready in 30 seconds</p>
       </div>
       <div class="side-media fx">
         <img class="side-img from-right" src="assets/hand-pour.png" alt="Scooping Milonga Mate Latte powder into a glass" />

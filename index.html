@@ -128,14 +128,14 @@
     /* ---- full-bleed split: a big side image whose hand runs off the
        screen edge, text on the other side. Used by hero + panel 2.
        Images use the exact target filenames so real transparent PNG
-       uploads (assets/hand-holdingg.png, assets/hand-pour.png) slot in
+       uploads (assets/threebags.png, assets/hand-pour.png) slot in
        with zero code change. ---- */
     .split {
       width: 100%; max-width: 1500px; margin: 22px auto 0;
       display: grid; align-items: center; gap: 0;
       padding: 0 clamp(20px, 4vw, 60px); text-align: left; position: relative; z-index: 1;
     }
-    .split.img-left  { grid-template-columns: 0.9fr 1.1fr; }
+    .split.img-left  { grid-template-columns: 1fr 1fr; }
     .split.img-right { grid-template-columns: 0.95fr 1.05fr; }
     /* panel 1: push the benefits right so they clear the pouch (spacing like panel 2) */
     .split.img-left  .hero-benefits { margin-left: clamp(24px, 4vw, 70px); position: relative; z-index: 2; }
@@ -154,7 +154,8 @@
       position: relative; display: block;
       filter: drop-shadow(0 24px 46px rgba(1,18,9,0.55));
     }
-    .side-img.from-left  { width: calc(100% + 7vw); margin-left: -9vw; }
+    /* panel 1 is now a centered trio product shot (no edge bleed) */
+    .side-img.from-left  { width: 100%; margin-left: 0; }
     .side-img.from-right { width: calc(100% + 13vw); margin-right: -13vw; }
 
     .sense { list-style: none; display: grid; gap: 12px; justify-items: start; }
@@ -390,7 +391,7 @@
       .split { grid-template-columns: 1fr !important; gap: 32px; padding: 0 20px; text-align: center; }
       .split.img-left .hero-benefits, .split.img-right .ing-copy { margin: 0 !important; }
       .side-media { order: -1; }
-      .side-img.from-left  { width: calc(100% + 16vw); margin: 0 -8vw; }
+      .side-img.from-left  { width: min(100%, 460px); margin: 0 auto; }
       .side-img.from-right { width: calc(100% + 14vw); margin: 0 -14vw 0 0; }  /* shift right, cropped */
       /* lists: left-aligned items inside a centered block so the bullets line up */
       .hero-benefits { text-align: center; }
@@ -445,7 +446,7 @@
 
     <div class="split img-left fx">
       <div class="side-media">
-        <img class="side-img from-left" src="assets/hand-holdingg.png" alt="Hand holding the Milonga Mate Latte pouch" />
+        <img class="side-img from-left" src="assets/threebags.png" alt="Three bags of Milonga Mate Latte" />
       </div>
       <div class="hero-benefits">
         <h2 class="act-title sm">Elevate Your<br/><span class="gold">Morning Ritual</span></h2>

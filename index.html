@@ -138,7 +138,9 @@
     .split.img-left  { grid-template-columns: 0.9fr 1.1fr; }
     .split.img-right { grid-template-columns: 0.95fr 1.05fr; }
     /* panel 1: push the benefits right so they clear the pouch (spacing like panel 2) */
-    .split.img-left  .sense    { margin-left: clamp(24px, 4vw, 70px); position: relative; z-index: 2; }
+    .split.img-left  .hero-benefits { margin-left: clamp(24px, 4vw, 70px); position: relative; z-index: 2; }
+    .act-title.sm { font-size: clamp(23px, 3.2vw, 38px); }
+    .hero-benefits .sense { margin-top: 22px; }
     /* panel 2: small nudge of the copy toward the image */
     .split.img-right .ing-copy { margin-right: clamp(-40px, -2.5vw, -8px); position: relative; z-index: 2; }
     .side-media { position: relative; display: grid; place-items: center; min-width: 0; }
@@ -384,19 +386,22 @@
       nav.scrolled .logo .logo-img { height: 42px; }
       .hero { padding: 96px 0 50px; }
       .act-title { font-size: clamp(26px, 8vw, 34px); }
-      /* split stacks: image on top (still big, bleeding off its edge), copy below centered */
-      .split { grid-template-columns: 1fr !important; gap: 10px; padding: 0 20px; text-align: center; }
-      .split.img-left .sense, .split.img-right .ing-copy { margin: 0 !important; }
-      .split .sense, .split .ing-list { justify-items: center; }
-      .split .sense { justify-items: center; }
-      .ing-copy { text-align: center; }
-      .ing-big { justify-content: center; font-size: 17px; }
-      .ing-sub { padding-left: 0; }
-      .ing-copy .steps-note { text-align: center; }
+      /* split stacks: image on top, copy below with clear breathing room */
+      .split { grid-template-columns: 1fr !important; gap: 32px; padding: 0 20px; text-align: center; }
+      .split.img-left .hero-benefits, .split.img-right .ing-copy { margin: 0 !important; }
       .side-media { order: -1; }
-      .side-img.from-left, .side-img.from-right { width: calc(100% + 18vw); margin: 0 -9vw; }
-      .sense li { font-size: 15px; gap: 10px; justify-content: center; }
+      .side-img.from-left  { width: calc(100% + 16vw); margin: 0 -8vw; }
+      .side-img.from-right { width: calc(100% + 14vw); margin: 0 -14vw 0 0; }  /* shift right, cropped */
+      /* lists: left-aligned items inside a centered block so the bullets line up */
+      .hero-benefits { text-align: center; }
+      .split .sense  { justify-items: start; width: fit-content; margin: 22px auto 0; }
+      .sense li { font-size: 15px; gap: 10px; justify-content: flex-start; }
       .sense li::before { width: 17px; height: 21px; }
+      .ing-copy { text-align: center; }
+      .ing-list { width: fit-content; margin: 22px auto 0; }
+      .ing-big { justify-content: flex-start; font-size: 17px; }
+      .ing-copy .steps { justify-content: center; }
+      .ing-copy .steps-note { text-align: center; }
       .proof { padding: 8px 14px 8px 10px; }
       .proof .txt { font-size: 9.5px; letter-spacing: 1.1px; }
       .glass { padding: 20px 16px; }
@@ -442,13 +447,17 @@
       <div class="side-media">
         <img class="side-img from-left" src="assets/hand-holdingg.png" alt="Hand holding the Milonga Mate Latte pouch" />
       </div>
-      <ul class="sense">
-        <li>Clean, Sustained Energy</li>
-        <li>Mental Focus</li>
-        <li>Calm, No Jitters</li>
-        <li>No Synthetic Sweeteners</li>
-        <li>Antioxidant-Rich</li>
-      </ul>
+      <div class="hero-benefits">
+        <h2 class="act-title sm">Elevate Your<br/><span class="gold">Morning Ritual</span></h2>
+        <p class="tagline-sub">Everything Your Mornings Need</p>
+        <ul class="sense">
+          <li>Clean, Sustained Energy</li>
+          <li>Mental Focus</li>
+          <li>Calm, No Jitters</li>
+          <li>No Synthetic Sweeteners</li>
+          <li>Antioxidant-Rich</li>
+        </ul>
+      </div>
     </div>
 
     <div class="wrapc">
@@ -597,7 +606,8 @@
   <!-- ============ COMPARISON + PURCHASE ============ -->
   <section class="block">
     <div class="wrapc">
-      <h2 class="act-title fx">Elevate Your<br/><span class="gold">Morning Ritual</span></h2>
+      <h2 class="act-title fx">Why Upgrade To<br/><span class="gold">The Mate Latte?</span></h2>
+      <p class="tagline-sub fx">Is That Even A Question?</p>
       <div class="cmp-wrap fx">
         <table class="cmp">
           <thead>

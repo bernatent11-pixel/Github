@@ -823,32 +823,41 @@
     }, { threshold: 0.15 });
     document.querySelectorAll(".fx").forEach(el => io.observe(el));
 
-    /* ---------- Shopify checkout links ----------
-       Each button builds a Shopify "cart permalink":
-         https://milonga.life/cart/<variantId>:1
-       which drops the item in the cart and sends the customer straight to
-       Shopify's secure checkout. The one-time quantities map to the three
-       "The Original Mate Latte" variants (bundle pricing baked in), so the
-       cart line is always :1 of the chosen bundle variant.
-
-       subscribe stays empty until a Shopify subscription selling plan exists
-       — fill each quantity in once it's set up and it goes live automatically. */
+    /* ---------- Shopify checkout ----------
+       Each button posts to Shopify's /cart/add endpoint and jumps straight to
+       checkout (return_to=/checkout). We POST rather than use a cart permalink
+       because Shopify cart permalinks CANNOT carry a selling_plan — so a
+       subscription link built as /cart/ID:1?selling_plan=… silently drops the
+       plan and checks out as a one-time purchase. The form POST attaches the
+       Appstle selling plan reliably, so Subscribe & Save creates a real
+       recurring subscription with the 15% plan discount.
+         onetime   → id + quantity
+         subscribe → id + quantity + selling_plan (Appstle "Mate Mornings Club") */
     const SHOP = "https://milonga.life";
     const SELLING_PLAN = "8837562678";   // Appstle "Mate Mornings Club" — monthly, 15% off
     const VARIANTS = { 1: "54302750212406", 2: "54302750245174", 3: "54302750277942" };
-    const checkoutURL = (kind, q) => {
+    function goToCheckout(kind, q) {
       const id = VARIANTS[q];
-      if (!id) return "";
-      return kind === "subscribe"
-        ? `${SHOP}/cart/${id}:1?selling_plan=${SELLING_PLAN}`
-        : `${SHOP}/cart/${id}:1`;
-    };
+      if (!id) return;
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = SHOP + "/cart/add";
+      const field = (name, value) => {
+        const i = document.createElement("input");
+        i.type = "hidden"; i.name = name; i.value = value;
+        form.appendChild(i);
+      };
+      field("id", id);
+      field("quantity", "1");
+      if (kind === "subscribe") field("selling_plan", SELLING_PLAN);
+      field("return_to", "/checkout");
+      document.body.appendChild(form);
+      form.submit();
+    }
     function wireButtons(card, q) {
       card.querySelectorAll("[data-checkout]").forEach(a => {
-        const url = checkoutURL(a.dataset.checkout, q);
-        a.onclick = null;
-        if (url) { a.href = url; a.classList.remove("is-off"); }
-        else { a.href = "#"; a.classList.add("is-off"); a.onclick = e => e.preventDefault(); }
+        a.href = "#";
+        a.onclick = e => { e.preventDefault(); goToCheckout(a.dataset.checkout, q); };
       });
     }
 

@@ -157,6 +157,17 @@
     /* panel 1 is now a centered trio product shot (no edge bleed) */
     .side-img.from-left  { width: 100%; margin-left: 0; }
     .side-img.from-right { width: calc(100% + 13vw); margin-right: -13vw; }
+    /* gold "per scoop" callout, floated in the gap between the bag and the hand */
+    .scoop-badge {
+      position: absolute; z-index: 3; top: 9%; left: 43%;
+      transform: rotate(-6deg);
+      background: linear-gradient(145deg, #f6da8a 0%, #e7bd60 55%, #d8a748 100%);
+      color: #0c3b22; text-align: center; line-height: 1.1;
+      padding: 15px 30px; border-radius: 999px;
+      box-shadow: 0 14px 34px rgba(1,18,9,0.55), inset 0 0 0 2px rgba(255,255,255,0.3);
+    }
+    .scoop-badge .sb-big { display: block; font-weight: 900; font-size: clamp(15px, 1.55vw, 21px); letter-spacing: .4px; }
+    .scoop-badge .sb-sm  { display: block; font-weight: 700; font-size: clamp(10px, 1vw, 13px); letter-spacing: 2.5px; margin-top: 3px; opacity: .82; }
 
     .sense { list-style: none; display: grid; gap: 12px; justify-items: start; }
     .sense li {
@@ -503,7 +514,7 @@
         <div class="ing-list">
           <div class="ing-row">
             <span class="ing-big">100mg Yerba Mate</span>
-            <span class="ing-sub">Clean, sustained energy.</span>
+            <span class="ing-sub">Clean, sustained energy &amp; rich antioxidants.</span>
           </div>
           <div class="ing-row">
             <span class="ing-big">500mg Lion's Mane</span>
@@ -571,6 +582,10 @@
       </div>
       <div class="side-media fx">
         <img class="side-img from-right" src="assets/hand-pour.png" alt="Scooping Milonga Mate Latte powder into a glass" />
+        <div class="scoop-badge">
+          <span class="sb-big">90 CAL, 3G SUGAR</span>
+          <span class="sb-sm">PER SCOOP</span>
+        </div>
       </div>
     </div>
   </section>

@@ -823,17 +823,33 @@
     }, { threshold: 0.15 });
     document.querySelectorAll(".fx").forEach(el => io.observe(el));
 
-    /* ---------- checkout links ----------
-       Paste the Shopify checkout / product URLs here to go live:
-         onetime   — the $35.99 one-time purchase
-         subscribe — the $30.59/month Subscribe & Save plan
-       Until filled, the buttons are inert. */
-    const CHECKOUT = { onetime: "", subscribe: "" };
-    document.querySelectorAll("[data-checkout]").forEach(a => {
-      const url = CHECKOUT[a.dataset.checkout];
-      if (url) a.href = url;
-      else a.addEventListener("click", e => e.preventDefault());
-    });
+    /* ---------- Shopify checkout links ----------
+       Each button builds a Shopify "cart permalink":
+         https://milonga.life/cart/<variantId>:1
+       which drops the item in the cart and sends the customer straight to
+       Shopify's secure checkout. The one-time quantities map to the three
+       "The Original Mate Latte" variants (bundle pricing baked in), so the
+       cart line is always :1 of the chosen bundle variant.
+
+       subscribe stays empty until a Shopify subscription selling plan exists
+       — fill each quantity in once it's set up and it goes live automatically. */
+    const SHOP = "https://milonga.life";
+    const VARIANTS = {
+      onetime:   { 1: "54302750212406", 2: "54302750245174", 3: "54302750277942" },
+      subscribe: { 1: "", 2: "", 3: "" }
+    };
+    const checkoutURL = (kind, q) => {
+      const id = (VARIANTS[kind] || {})[q];
+      return id ? `${SHOP}/cart/${id}:1` : "";
+    };
+    function wireButtons(card, q) {
+      card.querySelectorAll("[data-checkout]").forEach(a => {
+        const url = checkoutURL(a.dataset.checkout, q);
+        a.onclick = null;
+        if (url) { a.href = url; a.classList.remove("is-off"); }
+        else { a.href = "#"; a.classList.add("is-off"); a.onclick = e => e.preventDefault(); }
+      });
+    }
 
     /* ---------- pricing: $27.99 base, qty discounts stack with the sub discount ---------- */
     const PRICING = {
@@ -865,6 +881,7 @@
         }
         if (anchorEl) anchorEl.textContent = fmt(price / (q * 15)) + " per latte";
       });
+      wireButtons(card, q);
     }
 
     document.querySelectorAll(".buy-card").forEach(card => {

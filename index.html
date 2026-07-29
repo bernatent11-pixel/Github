@@ -824,21 +824,48 @@
     document.querySelectorAll(".fx").forEach(el => io.observe(el));
 
     /* ---------- Shopify checkout ----------
-       Each button posts to Shopify's /cart/add endpoint and jumps straight to
-       checkout (return_to=/checkout). We POST rather than use a cart permalink
-       because Shopify cart permalinks CANNOT carry a selling_plan — so a
-       subscription link built as /cart/ID:1?selling_plan=… silently drops the
-       plan and checks out as a one-time purchase. The form POST attaches the
-       Appstle selling plan reliably, so Subscribe & Save creates a real
-       recurring subscription with the 15% plan discount.
-         onetime   → id + quantity
-         subscribe → id + quantity + selling_plan (Appstle "Mate Mornings Club") */
+       PRIMARY path — Storefront API cartCreate: builds the cart server-side with
+       the exact variant (+ selling plan for subscriptions) and returns a direct
+       checkoutUrl. This is the reliable way to start a subscription from an
+       external site, because Shopify cart PERMALINKS cannot carry a selling_plan
+       and a cross-origin /cart/add can be flaky. Requires a public Storefront API
+       access token (safe to expose — read-only storefront scope). Paste it below.
+
+       FALLBACK path — if no token is set yet, POST to /cart/add so the buttons
+       still work (one-time reliably; subscribe best-effort). Fill the token and
+       every Subscribe & Save reliably creates a recurring subscription. */
     const SHOP = "https://milonga.life";
-    const SELLING_PLAN = "8837562678";   // Appstle "Mate Mornings Club" — monthly, 15% off
+    const STOREFRONT_TOKEN = "";          // ← paste the Storefront API access token here
+    const API_VERSION = "2025-01";
+    const SELLING_PLAN = "8837562678";    // Appstle "Mate Mornings Club" — monthly, 15% off
     const VARIANTS = { 1: "54302750212406", 2: "54302750245174", 3: "54302750277942" };
-    function goToCheckout(kind, q) {
+
+    async function goToCheckout(kind, q) {
       const id = VARIANTS[q];
       if (!id) return;
+      // PRIMARY: Storefront API — creates cart + subscription, returns checkout URL
+      if (STOREFRONT_TOKEN) {
+        const line = { merchandiseId: "gid://shopify/ProductVariant/" + id, quantity: 1 };
+        if (kind === "subscribe") line.sellingPlanId = "gid://shopify/SellingPlan/" + SELLING_PLAN;
+        try {
+          const res = await fetch(SHOP + "/api/" + API_VERSION + "/graphql.json", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Shopify-Storefront-Access-Token": STOREFRONT_TOKEN
+            },
+            body: JSON.stringify({
+              query: "mutation($lines:[CartLineInput!]!){cartCreate(input:{lines:$lines}){cart{checkoutUrl}userErrors{message}}}",
+              variables: { lines: [line] }
+            })
+          });
+          const json = await res.json();
+          const url = json && json.data && json.data.cartCreate && json.data.cartCreate.cart
+            ? json.data.cartCreate.cart.checkoutUrl : null;
+          if (url) { window.location.href = url; return; }
+        } catch (e) { /* fall through to /cart/add */ }
+      }
+      // FALLBACK: form POST to /cart/add
       const form = document.createElement("form");
       form.method = "POST";
       form.action = SHOP + "/cart/add";

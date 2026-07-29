@@ -164,8 +164,23 @@
       background: linear-gradient(145deg, #f6da8a 0%, #e7bd60 55%, #d8a748 100%);
       color: #0c3b22; text-align: center; line-height: 1.1;
       padding: 15px 30px; border-radius: 999px;
-      border: 4px solid #0b3c22;
-      box-shadow: 0 14px 34px rgba(1,18,9,0.55);
+      box-shadow:
+        0 16px 38px rgba(1,18,9,0.55),
+        0 0 26px rgba(236,201,111,0.55),
+        inset 0 2px 3px rgba(255,255,255,0.55),
+        inset 0 -3px 6px rgba(150,105,30,0.45);
+      overflow: hidden;
+    }
+    /* moving sheen so the badge catches the light */
+    .scoop-badge::after {
+      content: ""; position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.65), transparent);
+      transform: skewX(-18deg);
+      animation: sb-sheen 4.2s ease-in-out infinite;
+    }
+    @keyframes sb-sheen {
+      0%, 62% { left: -60%; }
+      100% { left: 130%; }
     }
     .scoop-badge .sb-big { display: block; font-weight: 900; font-size: clamp(15px, 1.55vw, 21px); letter-spacing: .4px; }
     .scoop-badge .sb-sm  { display: block; font-weight: 700; font-size: clamp(10px, 1vw, 13px); letter-spacing: 2.5px; margin-top: 3px; opacity: .82; }

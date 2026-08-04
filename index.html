@@ -349,8 +349,18 @@
       background: rgba(236,201,111,0.12);
       box-shadow: 0 16px 40px rgba(2,8,5,0.55), 0 0 26px rgba(236,201,111,0.18);
     }
-    .opt.featured { border-color: var(--gold-1); background: rgba(236,201,111,0.08); }
-    .opt.featured:hover { background: rgba(236,201,111,0.14); }
+    /* Subscribe & Save is the default choice: stronger frame + glow */
+    .opt.featured {
+      border-color: var(--gold-1); border-width: 2px; background: rgba(236,201,111,0.10);
+      box-shadow: 0 12px 34px rgba(2,8,5,0.5), 0 0 24px rgba(236,201,111,0.18);
+    }
+    .opt.featured:hover { background: rgba(236,201,111,0.16); }
+    /* One-Time is the secondary option: outline button so the eye goes to Subscribe */
+    .opt:not(.featured) .buy-btn {
+      background: none; color: var(--gold-1);
+      box-shadow: inset 0 0 0 1.5px var(--gold-2);
+    }
+    .opt:not(.featured) .buy-btn:hover { background: rgba(236,201,111,0.12); filter: none; }
     .opt-badge {
       position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
       background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--forest-3);
@@ -507,7 +517,7 @@
             <div class="opt-name">One-Time</div>
             <div class="opt-price">$29.99</div>
             <div class="opt-meta">15 servings</div>
-            <div class="opt-anchor">$2.00 per latte</div>
+            <div class="opt-anchor">$2.00 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
           </div>
           <div class="opt featured">
@@ -515,7 +525,7 @@
             <div class="opt-name">Subscribe &amp; Save</div>
             <div class="opt-price">$25.49<span class="permo">/mo</span></div>
             <div class="opt-meta">15 servings monthly · cancel anytime</div>
-            <div class="opt-anchor">$1.70 per latte</div>
+            <div class="opt-anchor">$1.70 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
           </div>
         </div>
@@ -602,7 +612,7 @@
         <img class="side-img from-right" src="assets/hand-pour.png" alt="Scooping Milonga Mate Latte powder into a glass" />
         <div class="scoop-badge">
           <span class="sb-big">90 CAL, 3G SUGAR</span>
-          <span class="sb-sm">PER SCOOP</span>
+          <span class="sb-sm">PER SERVING</span>
         </div>
       </div>
     </div>
@@ -698,7 +708,7 @@
             <div class="opt-name">One-Time</div>
             <div class="opt-price">$29.99</div>
             <div class="opt-meta">15 servings</div>
-            <div class="opt-anchor">$2.00 per latte</div>
+            <div class="opt-anchor">$2.00 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
           </div>
           <div class="opt featured">
@@ -706,7 +716,7 @@
             <div class="opt-name">Subscribe &amp; Save</div>
             <div class="opt-price">$25.49<span class="permo">/mo</span></div>
             <div class="opt-meta">15 servings monthly · cancel anytime</div>
-            <div class="opt-anchor">$1.70 per latte</div>
+            <div class="opt-anchor">$1.70 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
           </div>
         </div>
@@ -922,7 +932,7 @@
             ? `${bags}${q * 15} servings monthly · cancel anytime`
             : `${bags}${q * 15} servings`;
         }
-        if (anchorEl) anchorEl.textContent = fmt(price / (q * 15)) + " per latte";
+        if (anchorEl) anchorEl.textContent = fmt(price / (q * 15)) + " per serving";
       });
       wireButtons(card, q);
     }

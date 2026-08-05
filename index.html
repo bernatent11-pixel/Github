@@ -333,7 +333,7 @@
     .qty:hover { transform: translateY(-2px); border-color: var(--gold-1); }
     .qty.active { background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--forest-3); border-color: transparent; }
 
-    .buy-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .buy-options { display: grid; grid-template-columns: 1fr 1.18fr; gap: 14px; margin-top: 16px; align-items: center; }
     .qty-row + .buy-options { margin-top: 16px; }
     .opt {
       position: relative; display: grid; gap: 3px; justify-items: center; align-content: start;
@@ -349,12 +349,14 @@
       background: rgba(236,201,111,0.12);
       box-shadow: 0 16px 40px rgba(2,8,5,0.55), 0 0 26px rgba(236,201,111,0.18);
     }
-    /* Subscribe & Save is the default choice: stronger frame + glow */
+    /* Subscribe & Save is the default choice: bigger, stronger frame + glow */
     .opt.featured {
       border-color: var(--gold-1); border-width: 2px; background: rgba(236,201,111,0.10);
       box-shadow: 0 12px 34px rgba(2,8,5,0.5), 0 0 24px rgba(236,201,111,0.18);
+      padding: 20px 12px; transform: scale(1.05); transform-origin: center; z-index: 2;
     }
-    .opt.featured:hover { background: rgba(236,201,111,0.16); }
+    .opt.featured .opt-price { font-size: clamp(24px, 3.3vw, 31px); }
+    .opt.featured:hover { background: rgba(236,201,111,0.16); transform: scale(1.07) translateY(-4px); }
     /* One-Time is the secondary option: outline button so the eye goes to Subscribe */
     .opt:not(.featured) .buy-btn {
       background: none; color: var(--gold-1);
@@ -451,7 +453,9 @@
       .cmp .d, .cmp td.feat span { display: none; }   /* marks only on small screens */
       .cmp td.feat b { font-size: 11px; }
       .cmp thead th { font-size: 9px; }
-      .buy-options { gap: 8px; }
+      .buy-options { gap: 8px; grid-template-columns: 1fr 1.12fr; }
+      .opt.featured { transform: none; padding: 14px 8px; }
+      .opt.featured:hover { transform: translateY(-4px); }
       .opt { padding: 12px 8px; }
       .qty { font-size: 9.5px; padding: 6px 10px; }
       .faq-q { padding: 13px 18px; border-radius: 24px; }
@@ -485,7 +489,7 @@
 
     <div class="split img-left fx">
       <div class="side-media">
-        <img class="side-img from-left" src="assets/threebags.png" alt="Three bags of Milonga Mate Latte" />
+        <img class="side-img from-left" src="assets/mate-bouquet.png" alt="Milonga Mate Latte bag with vanilla, mate leaves and powder" />
       </div>
       <div class="hero-benefits">
         <h2 class="act-title sm">Elevate Your<br/><span class="gold">Morning Ritual</span></h2>

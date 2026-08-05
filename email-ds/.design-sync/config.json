@@ -1,0 +1,14 @@
+{
+  "pkg": "@milonga/email-ds",
+  "globalName": "MilongaEmailDS",
+  "shape": "package",
+  "buildCmd": "npm run build",
+  "cssEntry": "dist/tokens.css",
+  "extraFonts": ["dist/fonts.css"],
+  "docsDir": "docs",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "ComparisonTable": { "cardMode": "column" },
+    "Stats": { "cardMode": "column" }
+  }
+}

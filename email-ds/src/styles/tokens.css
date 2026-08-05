@@ -1,0 +1,35 @@
+/* Milonga email design tokens as CSS custom properties.
+   Shipped as the design-sync cssEntry so designs built with the DS can
+   reference the brand palette directly via var(--milonga-*). */
+:root {
+  --milonga-forest: #004D27;
+  --milonga-forest-deep: #00351B;
+  --milonga-leaf: #057441;
+  --milonga-gold: #E3BC62;
+  --milonga-gold-soft: #EFD9A0;
+  --milonga-beige: #F0EFDF;
+  --milonga-cream: #FBF8EF;
+  --milonga-white: #FFFFFF;
+  --milonga-ink: #12331F;
+  --milonga-ink-soft: #3B5344;
+
+  --milonga-font: "Gotham", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --milonga-radius-sm: 8px;
+  --milonga-radius-md: 14px;
+  --milonga-radius-lg: 22px;
+  --milonga-radius-pill: 999px;
+
+  --milonga-email-width: 600px;
+}
+
+/* Sensible defaults for anything rendered inside a Milonga email surface. */
+.milonga-email,
+.milonga-email * {
+  font-family: var(--milonga-font);
+  box-sizing: border-box;
+}
+.milonga-email {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

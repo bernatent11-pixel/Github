@@ -1,0 +1,33 @@
+{
+  "name": "@milonga/email-ds",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Milonga email design system — on-brand React email blocks and blueprints",
+  "type": "module",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js"
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs && tsc -p tsconfig.build.json",
+    "assets": "node scripts/make-logos.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.23.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.4",
+    "typescript": "^5.5.4"
+  }
+}

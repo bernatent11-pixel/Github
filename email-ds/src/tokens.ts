@@ -17,6 +17,7 @@ export const colors = {
   beige: '#F0EFDF',
   cream: '#FBF8EF',
   white: '#FFFFFF',
+  black: '#000000',
   ink: '#12331F',
   inkSoft: '#3B5344',
   line: 'rgba(0, 77, 39, 0.14)',

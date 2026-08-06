@@ -23,8 +23,10 @@ export interface OnBg {
   titleAccent: string;
   /** Body copy color. */
   body: string;
-  /** Eyebrow, small caps, icon accents. */
+  /** Eyebrow, small caps, emphasis figures. */
   accent: string;
+  /** Icon glyph color — set per background, independent of `accent`. */
+  icon: string;
   /** Hairline rules and card borders. */
   rule: string;
   /** Subtle panel fill for grouping content on this background. */
@@ -70,8 +72,9 @@ export const onBg: Record<EmailBg, OnBg> = {
     logo: 'gold',
     title: colors.beige,
     titleAccent: colors.gold,
-    body: colors.beige,
+    body: colors.white,
     accent: colors.gold,
+    icon: colors.gold,
     rule: 'rgba(227, 188, 98, 0.28)',
     panel: 'rgba(255, 255, 255, 0.06)',
     btnBg: colors.gold,
@@ -93,8 +96,9 @@ export const onBg: Record<EmailBg, OnBg> = {
     logo: 'beige',
     title: colors.beige,
     titleAccent: colors.white,
-    body: colors.forest,
+    body: colors.white,
     accent: colors.leaf,
+    icon: colors.beige,
     rule: 'rgba(0, 77, 39, 0.22)',
     panel: 'rgba(255, 255, 255, 0.20)',
     btnBg: colors.forest,
@@ -116,8 +120,9 @@ export const onBg: Record<EmailBg, OnBg> = {
     logo: 'green',
     title: colors.forest,
     titleAccent: colors.forest,
-    body: colors.ink,
+    body: colors.black,
     accent: colors.leaf,
+    icon: colors.forest,
     rule: 'rgba(0, 77, 39, 0.16)',
     panel: 'rgba(0, 77, 39, 0.04)',
     btnBg: colors.forest,

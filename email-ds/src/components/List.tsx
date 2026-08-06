@@ -20,9 +20,9 @@ export function List({ items, marker = 'leaf', bg = 'forest' }: ListProps) {
         <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 11, padding: '7px 0' }}>
           <span style={{ flex: '0 0 auto', marginTop: 2 }}>
             {marker === 'dot' ? (
-              <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 999, background: t.accent, marginTop: 5 }} />
+              <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 999, background: t.icon, marginTop: 5 }} />
             ) : (
-              <Icon name={marker} size={16} color={t.accent} />
+              <Icon name={marker} size={16} color={t.icon} />
             )}
           </span>
           <span style={{ fontWeight: 400, fontSize: 13, lineHeight: 1.6, color: t.body }}>

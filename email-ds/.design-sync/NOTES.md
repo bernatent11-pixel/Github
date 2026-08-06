@@ -56,7 +56,14 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
      e.g. forest → gold → forest. Put `SectionBreak` at each seam (`hard` or
      `fade`). Every block inside a switched section must be passed that section's
      `bg`. EducationalEmail ships this via its `accentBg` prop.
-  3. **Gold is no longer all-dark-green**: gold's accent is now leaf `#057441`
+  3. **Body + icon colors (user-specified)**: body text is WHITE on forest and
+     gold, BLACK on beige. Icons use a dedicated `icon` token (separate from
+     `accent`, added so icons could change without dragging eyebrows/figures to
+     low contrast): gold on forest, beige on gold, dark green on beige.
+     Caveat flagged to the user: beige icons on gold (the ComparisonTable
+     checkmarks especially) are very low contrast — they asked for it, but if
+     legibility complaints come back, that is the first thing to revisit.
+  4. **Gold is no longer all-dark-green**: gold's accent is now leaf `#057441`
      (eyebrows, icons, title tails) with `forestDeep` for primary type.
 - **Footer**: hairline, primary lockup (84px), uppercase social links, the
   `MILONGA YERBA MATE` brand line, then unsubscribe / view in browser. No

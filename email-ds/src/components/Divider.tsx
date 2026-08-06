@@ -25,7 +25,7 @@ export function Divider({ variant = 'line', bg = 'forest', gap = 24 }: DividerPr
     return (
       <div style={{ display: 'flex', justifyContent: 'center', gap: 8, padding: `${gap}px 0` }}>
         {[0, 1, 2].map((i) => (
-          <span key={i} style={{ width: 6, height: 6, borderRadius: 999, background: t.accent, display: 'inline-block' }} />
+          <span key={i} style={{ width: 6, height: 6, borderRadius: 999, background: t.icon, display: 'inline-block' }} />
         ))}
       </div>
     );

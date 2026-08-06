@@ -46,7 +46,7 @@ export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGrid
           }}
         >
           <div style={{ marginBottom: 12 }}>
-            <Icon name={b.icon} size={22} color={t.accent} />
+            <Icon name={b.icon} size={22} color={t.icon} />
           </div>
           <div
             style={{

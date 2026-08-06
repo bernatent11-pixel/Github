@@ -34,7 +34,7 @@ export function IngredientList({ items, bg = 'forest' }: IngredientListProps) {
           }}
         >
           <span style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center' }}>
-            <Icon name="leaf" size={18} color={t.accent} />
+            <Icon name="leaf" size={18} color={t.icon} />
           </span>
           <span style={{ flex: '1 1 auto', minWidth: 0 }}>
             <span style={{ fontWeight: 900, fontSize: 12.5, color: t.title, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{it.name}</span>

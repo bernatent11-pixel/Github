@@ -39,7 +39,7 @@ export function ComparisonTable({ columns, rows, highlight = 1, style = 'rows', 
 
   const renderCell = (v: Cell, hl: boolean) => {
     if (typeof v === 'boolean') {
-      return <Icon name={v ? 'check' : 'cross'} size={17} color={v ? (hl ? t.accent : t.body) : t.rule} />;
+      return <Icon name={v ? 'check' : 'cross'} size={17} color={v ? (hl ? t.icon : t.body) : t.rule} />;
     }
     return <span style={{ fontWeight: 700, fontSize: 12.5, color: hl ? t.accent : t.body }}>{v}</span>;
   };

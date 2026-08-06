@@ -33,7 +33,7 @@ export function Callout({ text, attribution, variant = 'highlight', bg = 'forest
       {variant === 'quote' ? (
         <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'center', gap: 3 }}>
           {[0, 1, 2, 3, 4].map((i) => (
-            <Icon key={i} name="star" size={16} color={t.accent} />
+            <Icon key={i} name="star" size={16} color={t.icon} />
           ))}
         </div>
       ) : null}

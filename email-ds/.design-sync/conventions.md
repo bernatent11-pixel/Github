@@ -38,14 +38,14 @@ const bg = 'forest'; // 'forest' | 'gold' | 'beige' — choose once per email
 ```
 
 **Never hard-code a color.** Every component reads the `onBg` contrast map and
-picks its own logo tone, title, body, accent, rule, button fill and depth. Pass
-`bg` and the colors are correct by construction:
+picks its own logo tone, title, body, accent, icon, rule, button fill and depth.
+Pass `bg` and the colors are correct by construction:
 
 | `bg` | Logo | Title (1st half / 2nd half) | Body | Accent | Button |
 |---|---|---|---|---|---|
-| `forest` (#004D27) | gold | beige / **gold** | beige | gold | gold face, forest label |
-| `gold` (#E3BC62) | cream | **beige** (white tail) | forest | leaf green | forest face, beige label |
-| `beige` (#F0EFDF) | brand green | **dark green** throughout | ink | leaf green | forest face, beige label |
+| `forest` (#004D27) | gold | beige / **gold** | white | gold | gold face, forest label |
+| `gold` (#E3BC62) | cream | **beige** (white tail) | white | leaf green | forest face, beige label |
+| `beige` (#F0EFDF) | brand green | **dark green** throughout | black | leaf green | forest face, beige label |
 
 For your own layout glue only, read `window.MilongaEmailDS.colors`
 (`colors.forest`, `.gold`, `.leaf`, `.beige`, `.white`, `.ink`) or the
@@ -82,6 +82,9 @@ the `Section` its own `bg` and put a `SectionBreak` at each seam:
 
 Every block inside a switched section must get that section's `bg` so its
 colors follow. Use it for emphasis — once or twice per email, not every block.
+
+**Icons** have their own token per background, separate from `accent`: gold on
+dark green, beige on gold, dark green on beige.
 
 **3. On gold, lean on the brighter green.** Gold emails use leaf green
 (`#057441`) for eyebrows, icons and accents, and forest green for body copy and

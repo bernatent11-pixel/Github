@@ -5,6 +5,13 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
 5 groups (Foundations, Layout, Blocks, Data, Blueprints). Brand: forest
 `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`, white. Font: Gotham.
 
+## Email structure (user's rule — applies to EVERY email)
+Three acts, always in this order:
+1. **HEADER** — loud, a statement, curiosity and interest. No price.
+2. **BODY** — value, information, education. No price.
+3. **CTA** — price, offer, call to action, urgency.
+The blueprints and `emails/*` all follow it; keep new ones in line.
+
 ## Product facts
 - **`.design-sync/brand/milonga-product.md` is the source of truth** for the
   product, pricing, audience, positioning and claim limits. Never invent specs;

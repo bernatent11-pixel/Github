@@ -1,5 +1,9 @@
-// Campaign: Mate Latte launch — "It's here"
-// Facts are from .design-sync/brand/milonga-product.md. Do not edit specs here.
+// Campaign: Mate Latte launch.
+// Structure — the house rule, in order:
+//   ACT 1 HEADER : loud, a statement, curiosity. No price.
+//   ACT 2 BODY   : value, information, education. No price.
+//   ACT 3 CTA    : price, offer, call to action, urgency.
+// Facts come from .design-sync/brand/milonga-product.md.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
@@ -11,20 +15,21 @@ const SOCIAL = [
 
 function LaunchMateLatte({ shopHref = '#' }) {
   return h(M.EmailShell, { bg: 'gold', textured: true },
-    h(M.Header, { bg: 'gold' }),
 
-    // ---- the announcement ----
+    // ═══ ACT 1 · HEADER — loud, statement, curiosity ═══
+    h(M.Header, { bg: 'gold' }),
     h(M.Hero, {
       bg: 'gold',
       eyebrow: 'It’s here',
-      title: 'Meet the Mate Latte',
-      titleAccentPart: 'Mate Latte',
-      body: 'Yerba mate, Lion’s Mane and L-Theanine in a creamy vanilla latte. Pour, stir, and it’s ready in 30 seconds — hot or iced.',
+      title: 'Energy that thinks. Now in a latte.',
+      titleAccentPart: 'Now in a latte.',
+      titleSize: 40,
+      body: 'One scoop. Thirty seconds. The coffee alternative that finally tastes like something you’d order.',
       image: { kind: 'product', cutout: true },
       cta: { label: 'Shop the Mate Latte', href: shopHref },
     }),
 
-    // ---- the three, with the real doses ----
+    // ═══ ACT 2 · BODY — value, information, education ═══
     h(M.Section, { bg: 'gold', pad: 'md', rule: true, align: 'center' },
       h(M.SectionHeading, {
         bg: 'gold',
@@ -42,10 +47,8 @@ function LaunchMateLatte({ shopHref = '#' }) {
       ]})
     ),
 
-    // ---- scene: gold hands off to dark green ----
     h(M.ForestScene, { from: 'gold', to: 'forest' }),
 
-    // ---- why it exists ----
     h(M.Section, { bg: 'forest', pad: 'lg' },
       h(M.SectionHeading, {
         bg: 'forest',
@@ -68,7 +71,6 @@ function LaunchMateLatte({ shopHref = '#' }) {
       })
     ),
 
-    // ---- the felt difference ----
     h(M.Section, { bg: 'forest', pad: 'md', rule: true },
       h(M.SectionHeading, { bg: 'forest', eyebrow: 'The difference you feel', title: 'Lift without the crash' }),
       h('div', { style: { height: 22 } }),
@@ -82,22 +84,17 @@ function LaunchMateLatte({ shopHref = '#' }) {
       })
     ),
 
-    // ---- the product ----
     h(M.Section, { bg: 'forest', pad: 'md', rule: true },
-      h(M.SectionHeading, { bg: 'forest', eyebrow: 'The drop', title: 'Mate Latte · Vanilla' }),
-      h('div', { style: { height: 20 } }),
-      h(M.ProductCard, {
-        bg: 'forest',
-        name: 'Mate Latte',
-        variant: 'Vanilla · 15 servings',
-        description: 'Oat milk and coconut make it creamy. Honey and real monk fruit make it sweet. 90 calories and 3g of sugar a scoop.',
-        specs: ['Organic', 'Gluten & dairy-free', 'No artificial sweeteners'],
-        price: '$29.99',
-        cta: { label: 'Add to cart', href: shopHref },
-      })
+      h(M.SectionHeading, { bg: 'forest', eyebrow: 'What’s in the bag', title: 'Nothing you’d rather leave out' }),
+      h('div', { style: { height: 18 } }),
+      h(M.BenefitsGrid, { bg: 'forest', columns: 2, items: [
+        { icon: 'yerba-mate', title: 'Organic yerba mate', text: 'Whole-leaf extract — the base of the whole thing.' },
+        { icon: 'no-cane-sugar', title: 'No cane sugar', text: 'Sweetened with honey and real monk fruit.' },
+        { icon: 'gluten-dairy-free', title: 'Gluten & dairy-free', text: 'Creamy from oat milk and coconut, not milk.' },
+        { icon: 'l-theanine', title: '90 calories', text: 'And 3g of sugar a scoop. No artificial sweeteners.' },
+      ]})
     ),
 
-    // ---- how to make it ----
     h(M.Section, { bg: 'forest', pad: 'md', rule: true },
       h(M.SectionHeading, { bg: 'forest', eyebrow: 'Hot or iced', title: 'Ready in 30 seconds', align: 'center' }),
       h('div', { style: { height: 24 } }),
@@ -108,8 +105,22 @@ function LaunchMateLatte({ shopHref = '#' }) {
       ]})
     ),
 
-    // ---- the offer ----
-    h(M.Section, { bg: 'forest', pad: 'md', rule: true, align: 'center' },
+    // ═══ ACT 3 · CTA — price, offer, urgency ═══
+    h(M.Section, { bg: 'forest', pad: 'lg', rule: true },
+      h(M.SectionHeading, { bg: 'forest', eyebrow: 'Start here', title: 'Mate Latte · Vanilla', align: 'center' }),
+      h('div', { style: { height: 20 } }),
+      h(M.ProductCard, {
+        bg: 'forest',
+        name: 'Mate Latte',
+        variant: 'Vanilla · 15 servings',
+        description: 'Oat milk and coconut make it creamy. Honey and real monk fruit make it sweet.',
+        specs: ['Organic', 'Gluten & dairy-free', 'No artificial sweeteners'],
+        price: '$29.99',
+        cta: { label: 'Add to cart', href: shopHref },
+      })
+    ),
+
+    h(M.Section, { bg: 'forest', pad: 'md', align: 'center' },
       h(M.SectionHeading, { bg: 'forest', eyebrow: 'Stock up', title: 'The more you take, the less you pay', align: 'center' }),
       h('div', { style: { height: 22 } }),
       h(M.Stats, { bg: 'forest', items: [

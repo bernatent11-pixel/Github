@@ -7,6 +7,21 @@ cannabis, or weed.**
 Everything is exported on `window.MilongaEmailDS` — e.g.
 `const { EmailShell, Header, Hero, Section, Footer } = window.MilongaEmailDS`.
 
+## Every email is three acts — in this order, always
+
+| Act | Job | What goes in it |
+|---|---|---|
+| **1 · HEADER** | Be **loud**. Make a statement, create curiosity and interest. | Logo, a short punchy eyebrow, the biggest headline in the email, one line of intriguing copy, the product image. **No price, no offer.** |
+| **2 · BODY** | Deliver **value, information, education**. Earn the click. | Ingredients and doses, benefits, comparisons, charts, how-to steps, the story. Teach something. **Still no price.** |
+| **3 · CTA** | **Price, offer, call to action, urgency.** | The product card with the price, bundle tiers, subscription offer, the closing button, any deadline or scarcity. |
+
+The reader should be *hooked* by the end of act 1, *convinced* by the end of act
+2, and *given a reason to buy now* in act 3. Never lead with the price and never
+bury the education under the offer.
+
+A soft CTA in act 1 is fine (it catches the already-convinced), but the real
+offer always lives in act 3.
+
 ## The core rule: flat brand backgrounds, never white
 
 A Milonga email is built on the brand colors — dark green, gold or beige.

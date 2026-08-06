@@ -49,6 +49,7 @@ export function BarChart({ data, max, bg = 'forest' }: BarChartProps) {
                 borderRadius: radius.pill,
                 background: t.panel,
                 overflow: 'hidden',
+                boxShadow: `inset 0 1px 3px ${t.accentWash}`,
               }}
             >
               <div
@@ -56,9 +57,12 @@ export function BarChart({ data, max, bg = 'forest' }: BarChartProps) {
                   width: `${pct}%`,
                   height: '100%',
                   borderRadius: radius.pill,
-                  // Comparison bars stay quiet so the Milonga bar wins.
-                  background: d.highlight ? t.accent : t.body,
-                  opacity: d.highlight ? 1 : 0.45,
+                  // The Milonga bar gets a gradient face + shadow so it has
+                  // volume; comparison bars stay quiet and flat.
+                  background: d.highlight ? t.accentGradient : t.body,
+                  backgroundColor: d.highlight ? t.accent : t.body,
+                  opacity: d.highlight ? 1 : 0.4,
+                  boxShadow: d.highlight ? t.shadow : 'none',
                 }}
               />
             </div>

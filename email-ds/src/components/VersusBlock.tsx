@@ -28,9 +28,13 @@ export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
 
   const side = (s: VersusSide, win: boolean) => (
     <div
+      className={win ? 'milonga-lift' : undefined}
       style={{
+        background: win ? t.elevated : 'transparent',
         border: `1px solid ${t.rule}`,
+        borderTopColor: win ? t.sheen : t.rule,
         borderRadius: 14,
+        boxShadow: win ? t.shadow : 'none',
         padding: '18px 16px 20px',
         opacity: win ? 1 : 0.72,
       }}

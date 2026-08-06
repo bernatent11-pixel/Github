@@ -31,9 +31,18 @@ const SIZES: Record<ButtonSize, React.CSSProperties> = {
  */
 export function Button({ label, href = '#', bg = 'forest', variant = 'solid', size = 'lg', fullWidth = false }: ButtonProps) {
   const t = onBg[bg];
+  // Solid buttons are raised: a gradient face, a light top rim and a drop
+  // shadow, so the CTA reads as a physical button rather than a flat patch.
   const look: React.CSSProperties =
     variant === 'solid'
-      ? { background: t.btnBg, color: t.btnText, border: `2px solid ${t.btnBg}` }
+      ? {
+          background: t.btnGradient,
+          backgroundColor: t.btnBg,
+          color: t.btnText,
+          border: `1px solid ${t.btnBg}`,
+          borderTopColor: t.sheen,
+          boxShadow: t.btnShadow,
+        }
       : { background: 'transparent', color: t.outline, border: `2px solid ${t.outline}` };
 
   return (

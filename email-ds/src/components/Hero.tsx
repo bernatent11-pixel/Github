@@ -58,6 +58,7 @@ export function Hero({ bg = 'forest', eyebrow, title, body, image, cta, titleSiz
             letterSpacing: '-0.015em',
             margin: 0,
             color: t.title,
+            textShadow: t.textShadow,
           }}
         >
           {title}

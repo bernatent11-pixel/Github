@@ -9,44 +9,37 @@
  body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:20px}
  .lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#3B5344;margin:0 0 8px}
  .row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
- .pad{padding:22px 26px}
+ .pad{padding:26px 28px}
 </style></head><body><div id="root"></div>
 <script>
 const M=window.MilongaEmailDS,h=React.createElement,FILL=M.bgFill;
-const COLS=['','Milonga','Coffee','Energy drink'];
-const ROWS=[['Clean caffeine',true,true,false],['No sugar crash',true,false,false],["Lion's Mane focus",true,false,false],['Added sugar','None','None','High']];
-const wrap=(bg,el)=>h('div',{style:{background:FILL[bg]},className:'pad'},el);
+const wrap=(bg,el)=>h('div',{style:{background:FILL[bg]},className:'pad milonga-email'},el);
 const card=(label,el)=>h('div',null,h('div',{className:'lbl'},label),el);
-
-const tbl=(style,bg)=>card(style+' — '+bg, wrap(bg,h(M.ComparisonTable,{bg,columns:COLS,rows:ROWS,highlight:1,style})));
-
-const versus=(bg)=>card('Versus block — '+bg, wrap(bg,h(M.VersusBlock,{bg,
-  left:{label:'Coffee at 3pm',points:['Spike, then crash','Jitters and anxiety','Acidic on an empty stomach']},
-  right:{label:'Milonga at 3pm',points:['Steady, even lift','Calm focus, no jitters','Smooth vanilla latte']}})));
-
-const steps=(bg)=>card('Steps — '+bg, wrap(bg,h(M.Steps,{bg,items:[
-  {title:'One scoop',text:'Add a scoop of Milonga to your cup.'},
-  {title:'Add hot water or milk',text:'Stir for 10 seconds until smooth.'},
-  {title:'Sip and focus',text:'Clean energy for the next four hours.'}]})));
-
-const curve=(bg)=>card('Energy curve — '+bg, wrap(bg,h(M.EnergyCurve,{bg,
-  xLabels:['8am','11am','2pm','5pm','8pm'],
-  series:[{label:'Coffee',points:[20,95,40,18,10]},{label:'Milonga',points:[22,70,72,60,32],highlight:true}]})));
-
-const bar=(bg)=>card('Bar chart — '+bg, wrap(bg,h(M.BarChart,{bg,max:220,data:[
-  {label:'Milonga',value:100,suffix:'mg',highlight:true},{label:'Drip coffee',value:165,suffix:'mg'},{label:'Energy drink',value:200,suffix:'mg'}]})));
+const BG=['forest','gold','beige'];
+const BEN=[{icon:'bolt',title:'Clean caffeine',text:'100mg from yerba mate — no coffee spike.'},
+ {icon:'brain',title:"Lion's Mane",text:'300mg for focus and clarity.'}];
+const set=(name,fn)=>h('div',{className:'row'},BG.map(bg=>card(name+' — '+bg,wrap(bg,fn(bg)))));
 
 ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment,null,
- h('div',{className:'row'}, tbl('rows','gold'), tbl('lane','gold'), tbl('grid','gold')),
+ set('Buttons + stats',bg=>h('div',null,
+   h(M.Button,{bg,label:'Shop the launch',size:'lg'}),
+   h('div',{style:{height:18}}),
+   h(M.Stats,{bg,items:[{value:'100mg',label:'Caffeine'},{value:'300mg',label:"Lion's Mane"},{value:'15',label:'Servings'}]}))),
  h('div',{style:{height:20}}),
- h('div',{className:'row'}, tbl('rows','forest'), tbl('lane','forest'), tbl('grid','beige')),
- h('div',{style:{height:26}}),
- h('div',{className:'row'}, versus('forest'), versus('gold'), versus('beige')),
- h('div',{style:{height:26}}),
- h('div',{className:'row'}, steps('forest'), steps('gold'), steps('beige')),
- h('div',{style:{height:26}}),
- h('div',{className:'row'}, curve('forest'), curve('gold'), curve('beige')),
- h('div',{style:{height:26}}),
- h('div',{className:'row'}, bar('forest'), bar('gold'), bar('beige'))
+ set('Raised benefit cards',bg=>h(M.BenefitsGrid,{bg,columns:2,items:BEN})),
+ h('div',{style:{height:20}}),
+ set('Bar chart',bg=>h(M.BarChart,{bg,max:220,data:[{label:'Milonga',value:100,suffix:'mg',highlight:true},{label:'Drip coffee',value:165,suffix:'mg'},{label:'Energy drink',value:200,suffix:'mg'}]})),
+ h('div',{style:{height:20}}),
+ set('Energy curve',bg=>h(M.EnergyCurve,{bg,xLabels:['8am','11am','2pm','5pm','8pm'],
+   series:[{label:'Coffee',points:[20,95,40,18,10]},{label:'Milonga',points:[22,70,72,60,32],highlight:true}]})),
+ h('div',{style:{height:20}}),
+ set('Steps — numerals',bg=>h(M.Steps,{bg,items:[{title:'One scoop',text:'Add a scoop to your cup.'},{title:'Add hot water',text:'Stir for 10 seconds.'}]})),
+ h('div',{style:{height:20}}),
+ set('Steps — discs',bg=>h(M.Steps,{bg,variant:'discs',items:[{title:'One scoop',text:'Add a scoop to your cup.'},{title:'Add water',text:'Stir 10 seconds.'},{title:'Sip',text:'Four hours of focus.'}]})),
+ h('div',{style:{height:20}}),
+ set('Versus + panel',bg=>h('div',null,
+   h(M.VersusBlock,{bg,left:{label:'Coffee at 3pm',points:['Spike, then crash','Jitters']},right:{label:'Milonga at 3pm',points:['Steady lift','Calm focus']}}),
+   h('div',{style:{height:16}}),
+   h(M.Panel,{bg},h(M.IngredientList,{bg,items:[{name:"Lion's Mane",amount:'300mg',note:'Focus & clarity'},{name:'L-Theanine',amount:'300mg',note:'Calm, no jitters'}]}))))
 ));
 </script></body></html>

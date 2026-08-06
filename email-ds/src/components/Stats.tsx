@@ -27,7 +27,19 @@ export function Stats({ items, bg = 'forest' }: StatsProps) {
             borderLeft: i > 0 ? `1px solid ${t.rule}` : 'none',
           }}
         >
-          <div style={{ fontWeight: 900, fontSize: 26, letterSpacing: '-0.01em', color: t.accent }}>
+          <div
+            style={{
+              fontWeight: 900,
+              fontSize: 28,
+              letterSpacing: '-0.01em',
+              color: t.accent,
+              backgroundImage: t.numberGradient,
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: t.textShadow,
+            }}
+          >
             {s.value}
           </div>
           <div

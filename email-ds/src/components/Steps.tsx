@@ -9,47 +9,85 @@ export interface Step {
 
 export interface StepsProps {
   items: Step[];
-  /** `numbered` shows 1-2-3 discs; `ruled` is a plain hairline sequence. */
-  variant?: 'numbered' | 'ruled';
+  /**
+   * `numerals` — oversized 01/02/03 beside each step (editorial, the default).
+   * `discs` — filled accent discs in a row across the email (compact, punchy).
+   */
+  variant?: 'numerals' | 'discs';
   bg?: EmailBg;
 }
 
 /** A 1-2-3 sequence — how to prepare, a ritual, an onboarding flow. */
-export function Steps({ items, variant = 'numbered', bg = 'forest' }: StepsProps) {
+export function Steps({ items, variant = 'numerals', bg = 'forest' }: StepsProps) {
   const t = onBg[bg];
+
+  if (variant === 'discs') {
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${items.length}, 1fr)`,
+          gap: 18,
+          textAlign: 'center',
+          fontFamily: fontStack,
+        }}
+      >
+        {items.map((s, i) => (
+          <div key={i}>
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 999,
+                background: t.accentGradient,
+                backgroundColor: t.accent,
+                boxShadow: t.shadow,
+                color: t.btnText,
+                fontWeight: 900,
+                fontSize: 16,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 14px',
+              }}
+            >
+              {i + 1}
+            </div>
+            <div style={{ fontWeight: 900, fontSize: 15, color: t.title, marginBottom: 6, lineHeight: 1.25 }}>
+              {s.title}
+            </div>
+            {s.text ? (
+              <div style={{ fontSize: 13, lineHeight: 1.55, color: t.body }}>{s.text}</div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div style={{ fontFamily: fontStack }}>
       {items.map((s, i) => (
-        <div
-          key={i}
-          style={{
-            display: 'flex',
-            gap: 14,
-            alignItems: 'flex-start',
-            padding: '14px 0',
-            borderTop: i ? `1px solid ${t.rule}` : 'none',
-          }}
-        >
+        <div key={i} style={{ display: 'flex', gap: 18, alignItems: 'flex-start', padding: '14px 0' }}>
           <span
             style={{
               flex: '0 0 auto',
-              width: 28,
-              height: 28,
-              borderRadius: 999,
-              border: `1.5px solid ${t.accent}`,
-              color: t.accent,
+              minWidth: 48,
+              fontSize: 38,
               fontWeight: 900,
-              fontSize: 13,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              visibility: variant === 'numbered' ? 'visible' : 'hidden',
+              lineHeight: 0.9,
+              color: t.accent,
+              opacity: 0.65,
+              backgroundImage: t.numberGradient,
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
           >
-            {i + 1}
+            {String(i + 1).padStart(2, '0')}
           </span>
           <span>
-            <span style={{ display: 'block', fontWeight: 700, fontSize: 15, color: t.title, marginBottom: 3 }}>
+            <span style={{ display: 'block', fontWeight: 900, fontSize: 16, color: t.title, marginBottom: 4 }}>
               {s.title}
             </span>
             {s.text ? (

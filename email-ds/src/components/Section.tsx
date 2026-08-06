@@ -32,21 +32,40 @@ export function Section({ bg = 'forest', pad = 'md', align = 'left', rule = fals
 
 export interface PanelProps {
   bg?: EmailBg;
-  /** `outlined` draws a thin brand border to group content; `open` is bare. */
-  variant?: 'open' | 'outlined';
+  /**
+   * `raised` lifts the block off the background with a soft fill, a top sheen
+   * and a drop shadow (the default — gives content volume).
+   * `outlined` is a flat hairline border. `open` is bare.
+   */
+  variant?: 'raised' | 'outlined' | 'open';
   pad?: number;
   children?: React.ReactNode;
 }
 
 /**
- * Groups related content (benefits, ingredients, a comparison) inside a thin
- * brand-colored outline — structure without breaking the flat background.
+ * Groups related content (benefits, ingredients, a comparison). `raised` gives
+ * the group real depth against the flat email color so the layout never reads
+ * dead flat; `outlined` is the quieter hairline treatment.
  */
-export function Panel({ bg = 'forest', variant = 'outlined', pad = 18, children }: PanelProps) {
+export function Panel({ bg = 'forest', variant = 'raised', pad = 18, children }: PanelProps) {
   const t = onBg[bg];
   if (variant === 'open') return <div>{children}</div>;
+  if (variant === 'outlined') {
+    return <div style={{ border: `1px solid ${t.rule}`, borderRadius: 14, padding: pad }}>{children}</div>;
+  }
   return (
-    <div style={{ border: `1px solid ${t.rule}`, borderRadius: 14, padding: pad }}>{children}</div>
+    <div
+      style={{
+        background: t.elevated,
+        border: `1px solid ${t.rule}`,
+        borderTopColor: t.sheen,
+        borderRadius: 14,
+        boxShadow: t.shadow,
+        padding: pad,
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -91,6 +110,7 @@ export function SectionHeading({ bg = 'forest', eyebrow, title, intro, align = '
           letterSpacing: '-0.01em',
           margin: 0,
           color: t.title,
+          textShadow: t.textShadow,
         }}
       >
         {title}

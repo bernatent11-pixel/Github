@@ -44,8 +44,33 @@ export function EnergyCurve({ series, xLabels = [], height = 130, bg = 'forest' 
   return (
     <div style={{ fontFamily: fontStack }}>
       <svg viewBox={`0 0 ${W} ${height}`} width="100%" height={height} style={{ display: 'block', overflow: 'visible' }}>
+        <defs>
+          {/* Area wash under the Milonga line — gives the curve volume. */}
+          <linearGradient id={`ec-fill-${bg}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={t.accent} stopOpacity={0.34} />
+            <stop offset="100%" stopColor={t.accent} stopOpacity={0} />
+          </linearGradient>
+          {/* Soft glow so the line lifts off the flat background. */}
+          <filter id={`ec-glow-${bg}`} x="-20%" y="-40%" width="140%" height="180%">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor={t.accent} floodOpacity="0.35" />
+          </filter>
+        </defs>
+
         {/* baseline */}
         <line x1={0} y1={height} x2={W} y2={height} stroke={t.rule} strokeWidth={1} />
+
+        {/* filled area beneath the highlighted series */}
+        {series
+          .filter((s) => s.highlight)
+          .map((s, i) => (
+            <path
+              key={`fill-${i}`}
+              d={`${pathFor(s.points, W, height)} L ${W} ${height} L 0 ${height} Z`}
+              fill={`url(#ec-fill-${bg})`}
+              stroke="none"
+            />
+          ))}
+
         {series.map((s, i) => (
           <path
             key={i}
@@ -54,8 +79,9 @@ export function EnergyCurve({ series, xLabels = [], height = 130, bg = 'forest' 
             stroke={s.highlight ? t.accent : t.body}
             strokeWidth={s.highlight ? 3 : 2}
             strokeDasharray={s.highlight ? undefined : '5 5'}
-            strokeOpacity={s.highlight ? 1 : 0.55}
+            strokeOpacity={s.highlight ? 1 : 0.5}
             strokeLinecap="round"
+            filter={s.highlight ? `url(#ec-glow-${bg})` : undefined}
           />
         ))}
       </svg>

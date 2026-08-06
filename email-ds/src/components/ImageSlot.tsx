@@ -62,7 +62,9 @@ export function ImageSlot({
     overflow: 'hidden',
     // A cutout sits directly on the email color; a photo gets a bed that is a
     // subtle tint OF the background, never a contrasting block.
-    background: cutout ? 'transparent' : t.panel,
+    background: cutout ? 'transparent' : t.elevated,
+    // Photos sit slightly above the flat color; cutouts stay weightless.
+    boxShadow: cutout || !src ? 'none' : t.shadow,
   };
 
   return (

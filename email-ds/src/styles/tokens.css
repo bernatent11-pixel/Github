@@ -23,6 +23,20 @@
   --milonga-email-width: 600px;
 }
 
+/* Interactive lift — applies where CSS hover is supported (web preview,
+   Claude Design). Email clients ignore it and keep the static depth. */
+@media (hover: hover) {
+  .milonga-email a[href],
+  .milonga-email .milonga-lift {
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  }
+  .milonga-email a[href]:hover,
+  .milonga-email .milonga-lift:hover {
+    transform: translateY(-2px);
+    filter: saturate(1.06) brightness(1.03);
+  }
+}
+
 /* Sensible defaults for anything rendered inside a Milonga email surface. */
 .milonga-email,
 .milonga-email * {

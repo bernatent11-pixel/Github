@@ -35,9 +35,13 @@ export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGrid
       {items.map((b, i) => (
         <div
           key={i}
+          className="milonga-lift"
           style={{
+            background: t.elevated,
             border: `1px solid ${t.rule}`,
+            borderTopColor: t.sheen,
             borderRadius: 14,
+            boxShadow: t.shadow,
             padding: '18px 18px 20px',
           }}
         >

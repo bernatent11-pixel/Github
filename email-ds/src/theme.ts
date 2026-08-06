@@ -32,6 +32,29 @@ export interface OnBg {
   btnText: string;
   /** Secondary (outline) button stroke + label. */
   outline: string;
+  /**
+   * Depth tokens — blocks, charts and graphs sit slightly ABOVE the flat
+   * background instead of lying dead flat on it.
+   */
+  /** Raised surface fill for a block that should read as lifted. */
+  elevated: string;
+  /** Soft drop shadow beneath a raised block. */
+  shadow: string;
+  /** Stronger shadow for the most prominent block on screen. */
+  shadowLg: string;
+  /** Top highlight edge — the light catching the upper rim of a raised block. */
+  sheen: string;
+  /** Gradient for accent fills (bars, discs) so they read as volume, not paint. */
+  accentGradient: string;
+  /** Translucent accent for area fills under charts. */
+  accentWash: string;
+  /** Soft shadow under headlines and big numerals so type has weight. */
+  textShadow: string;
+  /** Gradient for oversized numerals and stat figures. */
+  numberGradient: string;
+  /** Raised-button fill (gradient) and the shadow under it. */
+  btnGradient: string;
+  btnShadow: string;
 }
 
 /**
@@ -51,6 +74,16 @@ export const onBg: Record<EmailBg, OnBg> = {
     btnBg: colors.gold,
     btnText: colors.forest,
     outline: colors.gold,
+    elevated: 'rgba(255, 255, 255, 0.07)',
+    shadow: '0 6px 18px rgba(0, 26, 13, 0.38)',
+    shadowLg: '0 14px 34px rgba(0, 26, 13, 0.48)',
+    sheen: 'rgba(255, 255, 255, 0.14)',
+    accentGradient: `linear-gradient(180deg, ${colors.goldSoft} 0%, ${colors.gold} 55%, #C9A24E 100%)`,
+    accentWash: 'rgba(227, 188, 98, 0.20)',
+    textShadow: '0 2px 10px rgba(0, 26, 13, 0.45)',
+    numberGradient: `linear-gradient(180deg, ${colors.goldSoft} 0%, ${colors.gold} 60%, #BE9743 100%)`,
+    btnGradient: `linear-gradient(180deg, ${colors.goldSoft} 0%, ${colors.gold} 52%, #CDA54E 100%)`,
+    btnShadow: '0 8px 20px rgba(0, 26, 13, 0.42)',
   },
   // Gold email — cream logo, deep green type, forest buttons.
   gold: {
@@ -63,6 +96,16 @@ export const onBg: Record<EmailBg, OnBg> = {
     btnBg: colors.forest,
     btnText: colors.beige,
     outline: colors.forest,
+    elevated: 'rgba(255, 250, 235, 0.26)',
+    shadow: '0 6px 18px rgba(120, 86, 20, 0.22)',
+    shadowLg: '0 14px 34px rgba(120, 86, 20, 0.30)',
+    sheen: 'rgba(255, 255, 255, 0.42)',
+    accentGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 70%, ${colors.forestDeep} 100%)`,
+    accentWash: 'rgba(0, 77, 39, 0.16)',
+    textShadow: '0 2px 10px rgba(120, 86, 20, 0.22)',
+    numberGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 65%, ${colors.forestDeep} 100%)`,
+    btnGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 60%, ${colors.forestDeep} 100%)`,
+    btnShadow: '0 8px 20px rgba(120, 86, 20, 0.30)',
   },
   // Beige email — brand green logo, forest titles, forest buttons.
   beige: {
@@ -75,5 +118,15 @@ export const onBg: Record<EmailBg, OnBg> = {
     btnBg: colors.forest,
     btnText: colors.beige,
     outline: colors.forest,
+    elevated: 'rgba(252, 250, 242, 0.72)',
+    shadow: '0 6px 18px rgba(0, 77, 39, 0.12)',
+    shadowLg: '0 14px 34px rgba(0, 77, 39, 0.18)',
+    sheen: 'rgba(255, 255, 255, 0.75)',
+    accentGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 70%, ${colors.forestDeep} 100%)`,
+    accentWash: 'rgba(0, 77, 39, 0.12)',
+    textShadow: '0 2px 10px rgba(0, 77, 39, 0.10)',
+    numberGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 65%, ${colors.forestDeep} 100%)`,
+    btnGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 60%, ${colors.forestDeep} 100%)`,
+    btnShadow: '0 8px 20px rgba(0, 77, 39, 0.18)',
   },
 };

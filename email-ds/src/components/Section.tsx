@@ -78,7 +78,9 @@ export interface SectionHeadingProps {
   /** Small caps kicker above the title. */
   eyebrow?: string;
   title: string;
-  /** Optional intro paragraph under the title. */
+  /** Short subtitle under the title — set in caps and the accent colour. */
+  subtitle?: string;
+  /** Optional intro paragraph under the title (regular case, body colour). */
   intro?: string;
   align?: 'left' | 'center';
   /** Title size in px. */
@@ -94,9 +96,10 @@ export function SectionHeading({
   bg = 'forest',
   eyebrow,
   title,
+  subtitle,
   intro,
   align = 'left',
-  size = 24,
+  size = 28,
   titleAccentPart,
   flatTitle = false,
 }: SectionHeadingProps) {
@@ -133,6 +136,21 @@ export function SectionHeading({
       >
         <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} />
       </h2>
+      {subtitle ? (
+        <div
+          style={{
+            fontFamily: fontStack,
+            fontWeight: 700,
+            fontSize: 12,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: t.accent,
+            margin: '12px 0 0',
+          }}
+        >
+          {subtitle}
+        </div>
+      ) : null}
       {intro ? (
         <p style={{ fontFamily: fontStack, fontWeight: 400, fontSize: 13.5, lineHeight: 1.7, margin: '12px 0 0', color: t.body }}>
           {intro}

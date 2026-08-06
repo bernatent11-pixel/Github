@@ -116,7 +116,7 @@ export interface IconRowProps {
  * A row of brand icons. Use the exported groups so the marks stay together the
  * way the brand intends: INGREDIENTS (primary), FREE_FROM (extra), SERVE.
  */
-export function IconRow({ marks = INGREDIENTS, bg = 'forest', ink, size = 46, labels = true }: IconRowProps) {
+export function IconRow({ marks = INGREDIENTS, bg = 'forest', ink, size = 56, labels = true }: IconRowProps) {
   const t = onBg[bg];
   return (
     <div style={{ display: 'flex', justifyContent: 'center', gap: 26, flexWrap: 'wrap', textAlign: 'center' }}>

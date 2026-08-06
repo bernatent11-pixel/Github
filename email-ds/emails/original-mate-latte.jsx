@@ -23,7 +23,7 @@ function OriginalMateLatte({ shopHref = '#' }) {
       titleAccentPart: 'Mate Latte',
       titleSize: 40,
       eyebrow: 'Energy that thinks',
-      body: 'Our new launch: a yerba mate latte in powder. One scoop of yerba mate, Lion’s Mane and L-Theanine turns into a creamy vanilla latte — hot or iced.',
+      body: 'Meet Milonga’s Mate Latte, a clean coffee alternative crafted with organic yerba mate, Lion’s Mane and L-Theanine to deliver smooth, long-lasting energy and focus without the crash. With only 90 calories, 3g of sugar and a rich, creamy taste, it’s the perfect way to elevate your morning ritual.',
       image: { kind: 'product', cutout: true },
       cta: { label: 'Shop the Mate Latte', href: shopHref },
     }),
@@ -35,7 +35,7 @@ function OriginalMateLatte({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg,
         title: 'Elevate your morning ritual',
-        intro: 'Everything your mornings need',
+        subtitle: 'Everything your mornings need',
         align: 'center',
       }),
       h('div', { style: { height: 24 } }),
@@ -53,10 +53,10 @@ function OriginalMateLatte({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg,
         title: 'Three main ingredients',
-        intro: 'One unique experience',
+        subtitle: 'One unique experience',
       }),
       h('div', { style: { height: 22 } }),
-      h(M.BenefitList, { bg, badgeSize: 42, size: 18, twoTone: false, items: [
+      h(M.BenefitList, { bg, badgeSize: 52, size: 19, twoTone: false, items: [
         { mark: 'yerba-mate', title: '100mg Yerba Mate', text: 'Clean, sustained energy & rich antioxidants.' },
         { mark: 'lions-mane', title: '500mg Lion’s Mane', text: 'Focus and memory.' },
         { mark: 'l-theanine', title: '200mg L-Theanine', text: 'Balanced calm.' },
@@ -73,7 +73,7 @@ function OriginalMateLatte({ shopHref = '#' }) {
     h(M.Section, { bg, pad: 'md', rule: true, align: 'center' },
       h(M.SectionHeading, { bg, eyebrow: 'Ready in 30 seconds', title: 'Hot or iced', align: 'center' }),
       h('div', { style: { height: 22 } }),
-      h(M.IconRow, { bg, marks: M.SERVE, size: 50 })
+      h(M.IconRow, { bg, marks: M.SERVE, size: 58 })
     ),
 
     // Why upgrade
@@ -81,7 +81,7 @@ function OriginalMateLatte({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg,
         title: 'Why upgrade to the Mate Latte?',
-        intro: 'Is that even a question?',
+        subtitle: 'Is that even a question?',
         align: 'center',
       }),
       h('div', { style: { height: 22 } }),

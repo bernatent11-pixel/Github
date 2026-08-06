@@ -31,8 +31,8 @@ export interface BenefitListProps {
 export function BenefitList({
   items,
   bg = 'forest',
-  badgeSize = 38,
-  size = 17,
+  badgeSize = 46,
+  size = 18,
   twoTone = true,
 }: BenefitListProps) {
   const t = onBg[bg];

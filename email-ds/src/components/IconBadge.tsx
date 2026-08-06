@@ -19,7 +19,7 @@ export interface IconBadgeProps {
  * a gold disc carries a dark green icon, a dark green disc carries a gold one.
  * Used to lead benefit and ingredient rows.
  */
-export function IconBadge({ mark, bg = 'forest', size = 38, fill, ink }: IconBadgeProps) {
+export function IconBadge({ mark, bg = 'forest', size = 46, fill, ink }: IconBadgeProps) {
   const t = onBg[bg];
   // The disc takes the accent colour; the glyph takes what reads on top of it.
   const disc = fill ?? t.icon;
@@ -38,7 +38,7 @@ export function IconBadge({ mark, bg = 'forest', size = 38, fill, ink }: IconBad
         flex: '0 0 auto',
       }}
     >
-      <BrandIcon mark={mark} ink={glyph} size={Math.round(size * 0.56)} />
+      <BrandIcon mark={mark} ink={glyph} size={Math.round(size * 0.6)} />
     </span>
   );
 }

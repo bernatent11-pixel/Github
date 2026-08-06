@@ -4,6 +4,13 @@
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
+// Campaign art. Real product cutouts (transparent PNGs) — they sit straight on
+// the flat background. Swap these paths for hosted URLs when the email ships.
+const IMG = {
+  botanical: '../public/product/pouch-botanical.png',
+  handPour: '../public/product/pouch-hand-pour.png',
+};
+
 const SOCIAL = [
   { label: 'Instagram', href: '#' },
   { label: 'TikTok', href: '#' },
@@ -24,7 +31,7 @@ function OriginalMateLatte({ shopHref = '#' }) {
       titleSize: 40,
       eyebrow: 'Energy that thinks',
       body: 'Meet Milonga’s Mate Latte, a clean coffee alternative crafted with organic yerba mate, Lion’s Mane and L-Theanine to deliver smooth, long-lasting energy and focus without the crash. With only 90 calories, 3g of sugar and a rich, creamy taste, it’s the perfect way to elevate your morning ritual.',
-      image: { kind: 'product', cutout: true },
+      image: { src: IMG.botanical, alt: 'Milonga Mate Latte with vanilla and yerba mate', cutout: true },
       cta: { label: 'Shop the Mate Latte', href: shopHref },
     }),
 
@@ -62,7 +69,7 @@ function OriginalMateLatte({ shopHref = '#' }) {
         { mark: 'l-theanine', title: '200mg L-Theanine', text: 'Balanced calm.' },
       ]}),
       h('div', { style: { height: 24 } }),
-      h(M.ImageSlot, { bg, kind: 'studio', ratio: 'landscape' }),
+      h(M.ImageSlot, { bg, src: IMG.handPour, alt: 'A scoop of Milonga poured into a glass', cutout: true, ratio: 'wide' }),
       h('div', { style: { height: 18, textAlign: 'center' } }),
       h('div', { style: { textAlign: 'center' } },
         h(M.Button, { bg, label: '90 cal · 3g sugar per serving', href: shopHref, variant: 'outline', size: 'sm' })

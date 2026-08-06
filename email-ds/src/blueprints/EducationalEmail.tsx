@@ -48,9 +48,9 @@ export function EducationalEmail({
           columns={2}
           items={[
             { icon: 'yerba-mate', title: 'Clean caffeine', text: '100mg from yerba mate — energy without the coffee spike.' },
-            { icon: 'lions-mane', title: "Lion's Mane", text: '300mg to support focus, memory and mental clarity.' },
-            { icon: 'l-theanine', title: 'No crash', text: 'L-Theanine smooths the curve for hours of steady calm.' },
-            { icon: 'no-cane-sugar', title: 'No cane sugar', text: 'Sweetened with erythritol — nothing to spike you.' },
+            { icon: 'lions-mane', title: "Lion's Mane", text: '500mg for cognitive support — focus and mental clarity.' },
+            { icon: 'l-theanine', title: 'No crash', text: '200mg of L-Theanine keeps the energy balanced and calm.' },
+            { icon: 'no-cane-sugar', title: 'No cane sugar', text: 'Sweetened with honey and real monk fruit.' },
           ]}
         />
       </Section>
@@ -62,9 +62,9 @@ export function EducationalEmail({
           <IngredientList
             bg={bg}
             items={[
-              { icon: 'lions-mane', name: "Lion's Mane", amount: '300mg', note: 'Focus & clarity' },
+              { icon: 'lions-mane', name: "Lion's Mane", amount: '500mg', note: 'Cognitive support' },
               { icon: 'yerba-mate', name: 'Natural caffeine', amount: '100mg', note: 'From yerba mate' },
-              { icon: 'l-theanine', name: 'L-Theanine', amount: '300mg', note: 'Calm, no jitters' },
+              { icon: 'l-theanine', name: 'L-Theanine', amount: '200mg', note: 'Balanced and calm' },
             ]}
           />
         </Panel>

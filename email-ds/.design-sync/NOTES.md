@@ -5,6 +5,14 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
 5 groups (Foundations, Layout, Blocks, Data, Blueprints). Brand: forest
 `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`, white. Font: Gotham.
 
+## Product facts
+- **`.design-sync/brand/milonga-product.md` is the source of truth** for the
+  product, pricing, audience, positioning and claim limits. Never invent specs;
+  read that file. Real doses are 100mg caffeine / **500mg** Lion's Mane /
+  **200mg** L-Theanine, 15 servings, $29.99, sweetened with honey + monk fruit
+  (the "no cane sugar / erythritol" icon is a FREE-FROM claim, not the
+  sweetener). No social proof exists yet — don't fabricate reviews or counts.
+
 ## Compliance
 - **Never** reference THC, CBD, cannabis, or weed in any content or preview.
 

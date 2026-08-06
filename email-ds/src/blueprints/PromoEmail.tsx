@@ -50,8 +50,8 @@ export function PromoEmail({
           bg={bg}
           items={[
             { value: '100mg', label: 'Natural caffeine' },
-            { value: '300mg', label: "Lion's Mane" },
-            { value: '15', label: 'Servings' },
+            { value: '500mg', label: "Lion's Mane" },
+            { value: '200mg', label: 'L-Theanine' },
           ]}
         />
       </Section>

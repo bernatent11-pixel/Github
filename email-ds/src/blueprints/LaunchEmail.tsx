@@ -24,7 +24,7 @@ export interface LaunchEmailProps {
  * a "why it's different" comparison and an urgency band to convert.
  */
 export function LaunchEmail({ bg = 'gold',
-  textured = false, title = 'Meet Milonga Vanilla Latte', ctaHref = '#' }: LaunchEmailProps) {
+  textured = false, title = 'Meet the Mate Latte', ctaHref = '#' }: LaunchEmailProps) {
   return (
     <EmailShell bg={bg} textured={textured}>
       <Header bg={bg} />
@@ -32,7 +32,7 @@ export function LaunchEmail({ bg = 'gold',
         bg={bg}
         eyebrow="New · Launch day"
         title={title}
-        body="Clean, focused energy in a smooth vanilla latte. Yerba mate, Lion's Mane and L-Theanine — nothing you can't pronounce."
+        body="Yerba mate, Lion's Mane and L-Theanine in a creamy vanilla latte. Ready in 30 seconds — hot or iced."
         image={{ kind: 'product', cutout: true }}
         cta={{ label: 'Shop now', href: ctaHref }}
       />
@@ -40,11 +40,11 @@ export function LaunchEmail({ bg = 'gold',
       <Section bg={bg} pad="md" rule>
         <ProductCard
           bg={bg}
-          name="Vanilla Latte"
-          variant="Yerba Mate Latte"
-          description="Our first flavor: creamy vanilla, whole-leaf yerba mate, and functional mushrooms for all-day clarity."
-          specs={['100mg caffeine', "300mg Lion's Mane", '15 servings']}
-          price="$29"
+          name="Mate Latte"
+          variant="Vanilla · 15 servings"
+          description="Oat milk and coconut make it creamy. Honey and real monk fruit make it sweet. 90 calories and 3g of sugar a scoop."
+          specs={['Organic', 'Gluten & dairy-free', 'No artificial sweeteners']}
+          price="$29.99"
           cta={{ label: 'Add to cart', href: ctaHref }}
         />
       </Section>
@@ -67,7 +67,7 @@ export function LaunchEmail({ bg = 'gold',
       </Section>
 
       <Section bg={bg} pad="md">
-        <Callout bg={bg} text="Launch stock is limited — first batch ships this week." attribution="Free shipping over $35" />
+        <Callout bg={bg} text="Subscribe and take another 15% off" attribution="Cancel any time" />
       </Section>
 
       <Section bg={bg} pad="sm" align="center">

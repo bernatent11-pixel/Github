@@ -119,11 +119,10 @@ export const onBg: Record<EmailBg, OnBg> = {
   beige: {
     logo: 'green',
     title: colors.forest,
-    // Leaf green, so a beige-background title still reads as two greens rather
-    // than one flat block — the titles stay dark green either way.
-    titleAccent: colors.leaf,
+    // On beige everything typographic is the one dark green — no leaf, no gold.
+    titleAccent: colors.forest,
     body: colors.black,
-    accent: colors.leaf,
+    accent: colors.forest,
     icon: colors.forest,
     rule: 'rgba(0, 77, 39, 0.16)',
     panel: 'rgba(0, 77, 39, 0.04)',

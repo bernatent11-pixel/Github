@@ -4,7 +4,7 @@ import { EmailBg, onBg } from '../theme';
 import { useSurface } from '../surface';
 import { Button } from './Button';
 import { ImageSlot, ImageSlotProps } from './ImageSlot';
-import { TwoToneTitle } from './TwoToneTitle';
+import { TwoToneTitle, fitTitleSize } from './TwoToneTitle';
 
 export interface HeroProps {
   /** The email's flat background color. */
@@ -72,11 +72,13 @@ export function Hero({
         ) : null}
         <h1
           style={{
-            fontSize: titleSize,
+            fontSize: fitTitleSize(title, titleSize),
             fontWeight: 900,
             lineHeight: 1.14,
             textTransform: 'uppercase',
             letterSpacing: '0.015em',
+            // Split long headlines into rows of even width, not a line + a stub.
+            textWrap: 'balance',
             margin: 0,
             color: t.title,
             textShadow: t.textShadow,

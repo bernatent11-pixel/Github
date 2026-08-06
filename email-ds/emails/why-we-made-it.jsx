@@ -6,8 +6,7 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  // TODO: swap in public/product/hand-holding.png once the cutout is uploaded.
-  handHolding: undefined,
+  handHolding: '../public/product/hand-holding.png',
   handPour: '../public/product/pouch-hand-pour.png',
   botanical: '../public/product/pouch-botanical.png',
 };
@@ -31,7 +30,6 @@ function WhyWeMadeIt({ shopHref = '#' }) {
       eyebrow: 'Why we made it',
       title: 'Your first choice of the day shapes every one that follows',
       titleAccentPart: 'shapes every one that follows',
-      titleAccentColor: M.colors.gold,
       titleSize: 34,
       body: 'Every morning came down to the same trade: enough caffeine to actually wake up, or few enough jitters to think straight. Never both. We wanted a third option — so we made one.',
     }),
@@ -47,6 +45,7 @@ function WhyWeMadeIt({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg,
         title: 'Morning spike vs morning flow',
+        size: 25,
         flatTitle: true,
         subtitle: 'It was never the coffee’s fault',
         align: 'center',
@@ -109,22 +108,10 @@ function WhyWeMadeIt({ shopHref = '#' }) {
           title: 'Light by design',
           text: 'Antioxidant-rich, 90 calories and 3g of sugar a serving. Better mornings shouldn’t cost you anything you’d rather not drink.',
         },
-      ]})
-    ),
-
-    // The purpose, said plainly.
-    h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
-      h(M.Divider, { bg, variant: 'mark', gap: 4 }),
-      h('div', { style: { height: 14 } }),
-      h(M.SectionHeading, {
-        bg,
-        title: 'Named after a dance',
-        align: 'center',
-        size: 24,
-      }),
-      h('div', { style: { height: 14 } }),
-      h('p', { style: { fontSize: 13.5, lineHeight: 1.75, margin: 0 } },
-        'La milonga is the dance our grandparents met on — live music, late nights, nobody leaving early. We did not set out to sell a powder. We set out to give the morning back the feeling of that room: awake, warm, unhurried, in good company. That is the whole purpose of this product, and every choice inside the bag answers to it.'
+      ]}),
+      h('div', { style: { height: 26 } }),
+      h('p', { style: { fontSize: 13.5, lineHeight: 1.75, margin: 0, textAlign: 'center' } },
+        'Milonga is named after the dance our grandparents met on — live music, late nights, nobody leaving early. We did not set out to sell a powder. We set out to give the morning back the feeling of that room: awake, warm, unhurried, in good company. Every choice inside the bag answers to it.'
       )
     ),
 
@@ -165,16 +152,6 @@ function WhyWeMadeIt({ shopHref = '#' }) {
           { label: 'Buy 2', price: '$53.98', detail: '30 servings', unit: '$1.80 / serving', badge: 'Save 10%', href: shopHref },
           { label: 'Buy 3', price: '$76.47', detail: '45 servings', unit: '$1.70 / serving', badge: 'Save 15%', featured: true, href: shopHref },
         ],
-        subscribe: {
-          label: 'Subscribe & Save',
-          was: '$29.99',
-          price: '$25.49',
-          suffix: '/mo',
-          detail: '15 servings every month · cancel anytime',
-          unit: '$1.70 per serving',
-          badge: 'Best value · Save 15%',
-          cta: { label: 'Subscribe & Save', href: shopHref },
-        },
       })
     ),
 

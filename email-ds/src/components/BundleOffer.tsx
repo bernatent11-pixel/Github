@@ -122,7 +122,7 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe }: BundleOf
             <div style={{ height: 13 }} />
             <Button
               bg={bg}
-              label="Buy"
+              label="Buy now"
               href={tier.href}
               size="sm"
               variant={tier.featured ? 'solid' : 'outline'}

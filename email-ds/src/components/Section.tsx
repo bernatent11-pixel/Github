@@ -2,7 +2,7 @@ import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
 import { useSurface, useBlockFill } from '../surface';
-import { TwoToneTitle } from './TwoToneTitle';
+import { TwoToneTitle, fitTitleSize } from './TwoToneTitle';
 
 export interface SectionProps {
   /** The email's flat background color. */
@@ -128,10 +128,12 @@ export function SectionHeading({
         style={{
           fontFamily: fontStack,
           fontWeight: 900,
-          fontSize: size,
+          fontSize: fitTitleSize(title, size),
           lineHeight: 1.2,
           textTransform: 'uppercase',
           letterSpacing: '0.02em',
+          // Split long headlines into rows of even width, not a line + a stub.
+          textWrap: 'balance',
           margin: 0,
           color: t.title,
           textShadow: t.textShadow,

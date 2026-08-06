@@ -35,6 +35,25 @@ export function splitTitle(title: string, accentPart?: string): [string, string]
   return [words.slice(0, cut).join(' ') + ' ', words.slice(cut).join(' ')];
 }
 
+/**
+ * Pick a type size that makes a headline sit evenly in the column.
+ *
+ * A title that ALMOST fits on one line is shrunk a point or two so it fits on
+ * one; anything longer is sized so it fills two balanced rows instead of a
+ * long line plus a stub. Pair it with `textWrap: 'balance'` for the split.
+ */
+export function fitTitleSize(title: string, base: number, columnWidth = 528): number {
+  // Average advance per character for uppercase Gotham Black, as a share of em.
+  const PER_CHAR = 0.72;
+  const len = title.trim().length;
+  if (!len) return base;
+  const oneLine = columnWidth / (len * PER_CHAR);
+  if (base <= oneLine) return base; // already fits on one line
+  if (oneLine >= base * 0.84) return Math.floor(oneLine * 10) / 10; // nearly — pull it onto one
+  const twoLines = (columnWidth * 2) / (len * PER_CHAR);
+  return Math.max(base * 0.7, Math.min(base, Math.floor(twoLines * 10) / 10));
+}
+
 /** Inline two-tone headline text — use inside an existing h1/h2/h3. */
 export function TwoToneTitle({ title, accentPart, bg = 'forest', flat = false, accentColor }: TwoToneTitleProps) {
   const t = onBg[bg];

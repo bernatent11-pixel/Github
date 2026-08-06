@@ -2,7 +2,9 @@
 // Usage: node scripts/shoot.mjs [out.png] [width]
 import { chromium } from 'playwright';
 const out = process.argv[2] ?? '/tmp/refine.png';
-const width = Number(process.argv[3] ?? 1180);
+// Default to the email's own width so previews are edge-to-edge — no page
+// background showing as gutters beside the email.
+const width = Number(process.argv[3] ?? 600);
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 2 });
 const errs = [];

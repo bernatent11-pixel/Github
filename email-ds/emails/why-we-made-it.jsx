@@ -6,7 +6,10 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
+  // TODO: swap in public/product/hand-holding.png once the cutout is uploaded.
+  handHolding: undefined,
   handPour: '../public/product/pouch-hand-pour.png',
+  botanical: '../public/product/pouch-botanical.png',
 };
 
 const SOCIAL = [
@@ -26,12 +29,16 @@ function WhyWeMadeIt({ shopHref = '#' }) {
     h(M.Hero, {
       bg,
       eyebrow: 'Why we made it',
-      title: 'Energy shouldn’t cost you your afternoon',
-      titleAccentPart: 'your afternoon',
-      titleSize: 36,
+      title: 'Your first choice of the day shapes every one that follows',
+      titleAccentPart: 'shapes every one that follows',
+      titleAccentColor: M.colors.gold,
+      titleSize: 34,
       body: 'Every morning came down to the same trade: enough caffeine to actually wake up, or few enough jitters to think straight. Never both. We wanted a third option — so we made one.',
     }),
-    h(M.Divider, { bg, variant: 'mark', gap: 10 }),
+
+    // The cutout enters from the left edge, outside any Section padding.
+    h(M.BleedImage, { bg, src: IMG.handHolding, side: 'left', width: 0.74, overhang: 22,
+      alt: 'A hand holding the Milonga Mate Latte' }),
 
     // ═══ ACT 2 · BODY ═══
 
@@ -39,7 +46,8 @@ function WhyWeMadeIt({ shopHref = '#' }) {
     h(M.Section, { bg, pad: 'lg' },
       h(M.SectionHeading, {
         bg,
-        title: 'The trade-off nobody asked for',
+        title: 'Morning spike vs morning flow',
+        flatTitle: true,
         subtitle: 'It was never the coffee’s fault',
         align: 'center',
       }),
@@ -47,80 +55,93 @@ function WhyWeMadeIt({ shopHref = '#' }) {
       h(M.VersusBlock, {
         bg,
         left: {
-          label: 'The old routine',
+          label: 'The old way',
           icon: 'clock',
           points: [
-            'A big hit of caffeine, all at once',
-            'Jitters somewhere around cup two',
-            'Flat by 2pm',
-            'So you make another',
+            'Big caffeine spike',
+            'Anxiety',
+            'Crashed by 2pm',
+            'Repeat cycle',
           ],
         },
         right: {
           label: 'The Milonga way',
           icon: 'leaf',
           points: [
-            '100mg of caffeine, from yerba mate',
-            '200mg of L-Theanine alongside it',
-            'Even through the afternoon',
-            'One cup does the morning',
+            'Smooth, clean energy',
+            'Mental clarity & focus',
+            'Balanced & calm',
+            'Mind and body in sync',
+            'Sustained for the whole day',
           ],
         },
       })
     ),
 
-    // The same story as a picture.
+    // Four reasons — the education block.
     h(M.Section, { bg, pad: 'lg', rule: true },
       h(M.SectionHeading, {
         bg,
-        eyebrow: 'The whole point',
-        title: 'What smooth looks like',
+        title: 'Why we made it?',
+        flatTitle: true,
+        subtitle: 'Four things we refused to compromise',
         align: 'center',
       }),
-      h('div', { style: { height: 22 } }),
-      h(M.EnergyCurve, {
-        bg,
-        height: 190,
-        xLabels: ['8am', '10am', '12pm', '2pm', '4pm', '6pm'],
-        series: [
-          { label: 'Coffee', points: [10, 88, 96, 52, 20, 11] },
-          { label: 'Mate Latte', highlight: true, points: [12, 56, 70, 72, 66, 50] },
-        ],
-      }),
-      h('div', { style: { height: 12 } }),
-      h('div', {
-        style: {
-          fontSize: 10.5, lineHeight: 1.6, textAlign: 'center', opacity: 0.65,
+      h('div', { style: { height: 24 } }),
+      h(M.BenefitsGrid, { bg, columns: 2, items: [
+        {
+          icon: 'yerba-mate',
+          title: 'Clean, sustained energy',
+          text: 'Coffee gives you the whole hit at once — jitters, a crash by mid-afternoon, and another cup to fix it. Yerba mate releases its caffeine gently, so the morning holds instead of spiking.',
         },
-      }, 'Illustrative — how the ritual is meant to feel, not a measurement.')
+        {
+          icon: 'lions-mane',
+          title: 'A functional formula',
+          text: '100mg of natural caffeine — more than matcha, more than most mushroom coffees — plus 500mg of Lion’s Mane and 200mg of L-Theanine. No artificial sweeteners, no dairy.',
+        },
+        {
+          icon: 'hot',
+          title: 'Creamy vanilla taste',
+          text: 'Most coffee alternatives ask you to put up with the flavour. Ours is a real vanilla latte — oat and coconut already in the bag, creamy hot or over ice.',
+        },
+        {
+          icon: 'gluten-dairy-free',
+          title: 'Light by design',
+          text: 'Antioxidant-rich, 90 calories and 3g of sugar a serving. Better mornings shouldn’t cost you anything you’d rather not drink.',
+        },
+      ]})
     ),
 
-    // Why "Milonga".
-    h(M.Section, { bg, pad: 'lg', rule: true },
-      h(M.TextImage, {
+    // The purpose, said plainly.
+    h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
+      h(M.Divider, { bg, variant: 'mark', gap: 4 }),
+      h('div', { style: { height: 14 } }),
+      h(M.SectionHeading, {
         bg,
-        layout: 'side',
-        imageSide: 'right',
-        eyebrow: 'About the name',
         title: 'Named after a dance',
-        text: 'La milonga is the dance our grandparents met on — live music, late nights, everyone still going long after the band should have stopped. That is the energy we wanted in a cup: awake, warm, and in no rush to end.',
-        image: { src: IMG.handPour, alt: 'A scoop of Milonga poured into a glass', cutout: true },
-      })
+        align: 'center',
+        size: 24,
+      }),
+      h('div', { style: { height: 14 } }),
+      h('p', { style: { fontSize: 13.5, lineHeight: 1.75, margin: 0 } },
+        'La milonga is the dance our grandparents met on — live music, late nights, nobody leaving early. We did not set out to sell a powder. We set out to give the morning back the feeling of that room: awake, warm, unhurried, in good company. That is the whole purpose of this product, and every choice inside the bag answers to it.'
+      )
     ),
 
-    // Three ingredients, one line each — the answer to the problem above.
+    // The ritual.
     h(M.Section, { bg, pad: 'lg', rule: true },
       h(M.SectionHeading, {
         bg,
-        title: 'So we built it backwards',
-        subtitle: 'Start with the feeling, then the formula',
+        title: 'A ritual worth enjoying… in 30 seconds',
+        titleAccentPart: 'in 30 seconds',
         align: 'center',
+        size: 26,
       }),
-      h('div', { style: { height: 22 } }),
-      h(M.BenefitList, { bg, badgeSize: 52, size: 18, twoTone: false, items: [
-        { mark: 'yerba-mate', title: 'Yerba mate for the lift', text: '100mg of caffeine, the way South America has taken it for centuries.' },
-        { mark: 'l-theanine', title: 'L-Theanine to steady it', text: '200mg, so the lift arrives calm instead of sharp.' },
-        { mark: 'lions-mane', title: 'Lion’s Mane for the head', text: '500mg, a full dose — not a pinch for the label.' },
+      h('div', { style: { height: 26 } }),
+      h(M.Steps, { bg, variant: 'discs', items: [
+        { title: 'Pour', text: 'One scoop into your glass or mug.', icons: ['scoop'] },
+        { title: 'Whisk', text: 'Add water or milk and stir it smooth.', icons: ['whisk'] },
+        { title: 'Enjoy hot or iced', text: 'However the morning is going.', icons: ['hot', 'iced'] },
       ]})
     ),
 
@@ -132,32 +153,28 @@ function WhyWeMadeIt({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg: close,
         title: 'Start tomorrow morning',
-        subtitle: 'One scoop · 30 seconds · hot or iced',
+        subtitle: 'The more you take, the less you pay',
         align: 'center',
       }),
-      h('div', { style: { height: 24 } }),
-      h(M.PriceBlock, {
+      h('div', { style: { height: 22 } }),
+      h(M.BundleOffer, {
         bg: close,
-        options: [
-          {
-            label: 'One-time',
-            price: '$29.99',
-            detail: '15 servings',
-            unit: '$2.00 per serving',
-            cta: { label: 'Buy now', href: shopHref },
-          },
-          {
-            label: 'Subscribe & Save',
-            was: '$29.99',
-            price: '$25.49',
-            suffix: '/mo',
-            detail: '15 servings monthly · cancel anytime',
-            unit: '$1.70 per serving',
-            badge: 'Save 15%',
-            featured: true,
-            cta: { label: 'Subscribe & Save', href: shopHref },
-          },
+        image: { src: IMG.botanical, alt: 'The Milonga Mate Latte pouch' },
+        tiers: [
+          { label: 'Buy 1', price: '$29.99', detail: '15 servings', unit: '$2.00 / serving', href: shopHref },
+          { label: 'Buy 2', price: '$53.98', detail: '30 servings', unit: '$1.80 / serving', badge: 'Save 10%', href: shopHref },
+          { label: 'Buy 3', price: '$76.47', detail: '45 servings', unit: '$1.70 / serving', badge: 'Save 15%', featured: true, href: shopHref },
         ],
+        subscribe: {
+          label: 'Subscribe & Save',
+          was: '$29.99',
+          price: '$25.49',
+          suffix: '/mo',
+          detail: '15 servings every month · cancel anytime',
+          unit: '$1.70 per serving',
+          badge: 'Best value · Save 15%',
+          cta: { label: 'Subscribe & Save', href: shopHref },
+        },
       })
     ),
 

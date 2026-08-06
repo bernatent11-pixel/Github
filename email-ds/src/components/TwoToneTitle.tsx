@@ -12,6 +12,9 @@ export interface TwoToneTitleProps {
   bg?: EmailBg;
   /** Render as one flat color instead (rare — the mix is the house style). */
   flat?: boolean;
+  /** Override the accent half's colour when the campaign calls for a
+   *  different brand colour than the background's default pairing. */
+  accentColor?: string;
 }
 
 /**
@@ -33,14 +36,14 @@ export function splitTitle(title: string, accentPart?: string): [string, string]
 }
 
 /** Inline two-tone headline text — use inside an existing h1/h2/h3. */
-export function TwoToneTitle({ title, accentPart, bg = 'forest', flat = false }: TwoToneTitleProps) {
+export function TwoToneTitle({ title, accentPart, bg = 'forest', flat = false, accentColor }: TwoToneTitleProps) {
   const t = onBg[bg];
   if (flat) return <>{title}</>;
   const [head, tail] = splitTitle(title, accentPart);
   return (
     <>
       {head ? <span style={{ color: t.title }}>{head}</span> : null}
-      {tail ? <span style={{ color: t.titleAccent }}>{tail}</span> : null}
+      {tail ? <span style={{ color: accentColor ?? t.titleAccent }}>{tail}</span> : null}
     </>
   );
 }

@@ -1,10 +1,17 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
+import { AnyIconName } from './AnyIcon';
+import { IconBadge } from './IconBadge';
 
 export interface Step {
   title: string;
   text?: string;
+  /**
+   * Show icons in the disc instead of the step number (`discs` variant). Pass
+   * more than one when a step needs two marks, e.g. hot AND iced.
+   */
+  icons?: AnyIconName[];
 }
 
 export interface StepsProps {
@@ -34,25 +41,33 @@ export function Steps({ items, variant = 'numerals', bg = 'forest' }: StepsProps
       >
         {items.map((s, i) => (
           <div key={i}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 999,
-                background: t.accentGradient,
-                backgroundColor: t.accent,
-                boxShadow: t.shadow,
-                color: t.btnText,
-                fontWeight: 900,
-                fontSize: 16,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 14px',
-              }}
-            >
-              {i + 1}
-            </div>
+            {s.icons && s.icons.length ? (
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 14 }}>
+                {s.icons.map((n) => (
+                  <IconBadge key={n} mark={n} bg={bg} size={44} />
+                ))}
+              </div>
+            ) : (
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 999,
+                  background: t.accentGradient,
+                  backgroundColor: t.accent,
+                  boxShadow: t.shadow,
+                  color: t.btnText,
+                  fontWeight: 900,
+                  fontSize: 16,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 14px',
+                }}
+              >
+                {i + 1}
+              </div>
+            )}
             <div style={{ fontWeight: 900, fontSize: 12.5, color: t.title, marginBottom: 6, lineHeight: 1.3, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               {s.title}
             </div>

@@ -27,6 +27,8 @@ export interface HeroProps {
   titleAccentPart?: string;
   /** Render the headline in one flat color instead of two-tone. */
   flatTitle?: boolean;
+  /** Override the accent half's colour. */
+  titleAccentColor?: string;
 }
 
 /**
@@ -43,6 +45,7 @@ export function Hero({
   titleSize = 34,
   titleAccentPart,
   flatTitle = false,
+  titleAccentColor,
 }: HeroProps) {
   const t = onBg[bg];
   const surface = useSurface(bg);
@@ -79,7 +82,7 @@ export function Hero({
             textShadow: t.textShadow,
           }}
         >
-          <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} />
+          <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} accentColor={titleAccentColor} />
         </h1>
         {body ? (
           <p style={{ fontSize: 13.5, lineHeight: 1.65, margin: '14px auto 0', maxWidth: 400, color: t.body }}>

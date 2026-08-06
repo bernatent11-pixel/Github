@@ -10,7 +10,9 @@ export type IconName =
   | 'seed'
   | 'check'
   | 'cross'
-  | 'star';
+  | 'star'
+  | 'scoop'
+  | 'whisk';
 
 export interface IconProps {
   /** Which glyph to draw. */
@@ -44,6 +46,30 @@ const PATHS: Record<IconName, React.ReactNode> = {
     <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" />
   ),
   star: <path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.9 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3Z" />,
+  // Step 1 — a measuring spoon tipped over, powder falling out of it.
+  scoop: (
+    <>
+      <path d="M6.6 4.6a3.6 3.6 0 0 1 5.1 0 3.6 3.6 0 0 1 0 5.1l-2.5 2.5-5.1-5.1Z" />
+      <path d="M11.3 9.1 20 17.8" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+      <circle cx="8" cy="16" r="1" />
+      <circle cx="11" cy="19" r="1" />
+      <circle cx="6" cy="20" r="1" />
+    </>
+  ),
+  // Step 2 — a spoon stirring inside a glass.
+  whisk: (
+    <>
+      <path
+        d="M6 4h12l-1.4 15.2A2 2 0 0 1 14.6 21H9.4a2 2 0 0 1-2-1.8Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinejoin="round"
+      />
+      <path d="M14.4 7.3a1.9 1.9 0 0 1 2.7 2.7l-.1.1-3.5 3.5-2.7-2.7Z" />
+      <path d="M10.9 10.8 8.2 17" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+    </>
+  ),
 };
 
 /** A small brand glyph set used for benefits, comparisons and accents. */

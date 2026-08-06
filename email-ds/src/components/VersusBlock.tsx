@@ -33,7 +33,9 @@ export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
     <div
       className={win ? 'milonga-lift' : undefined}
       style={{
-        background: win ? fill : 'transparent',
+        // The losing side still gets a panel wash so it reads as a block, not
+        // as empty background — it's the contrast that carries the point.
+        background: win ? fill : t.panel,
         // The Milonga side is outlined in the accent so it wins on any
         // background, not just the dark ones where the fill does the work.
         border: win ? `1.5px solid ${t.outline}` : `1px solid ${t.rule}`,
@@ -41,7 +43,7 @@ export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
         borderRadius: 14,
         boxShadow: win ? t.shadow : 'none',
         padding: '18px 16px 20px',
-        opacity: win ? 1 : 0.72,
+        opacity: win ? 1 : 0.88,
       }}
     >
       <div style={{ marginBottom: 10 }}>

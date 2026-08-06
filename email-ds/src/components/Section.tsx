@@ -89,6 +89,8 @@ export interface SectionHeadingProps {
   titleAccentPart?: string;
   /** Render the title in one flat color instead of two-tone. */
   flatTitle?: boolean;
+  /** Override the accent half's colour. */
+  titleAccentColor?: string;
 }
 
 /** Eyebrow + title + intro, set in Gotham, colored for the email background. */
@@ -102,6 +104,7 @@ export function SectionHeading({
   size = 28,
   titleAccentPart,
   flatTitle = false,
+  titleAccentColor,
 }: SectionHeadingProps) {
   const t = onBg[bg];
   return (
@@ -134,7 +137,7 @@ export function SectionHeading({
           textShadow: t.textShadow,
         }}
       >
-        <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} />
+        <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} accentColor={titleAccentColor} />
       </h2>
       {subtitle ? (
         <div

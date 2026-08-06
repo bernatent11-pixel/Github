@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { EmailBg, onBg } from '../theme';
-import { BrandIcon, BrandMark, BrandInk } from './BrandIcon';
+import { BrandIcon, BrandInk } from './BrandIcon';
+import { AnyIconName, isBrandMark } from './AnyIcon';
+import { Icon } from './Icon';
+import { colors } from '../tokens';
 
 export interface IconBadgeProps {
-  mark: BrandMark;
+  /** A Milonga brand mark (preferred) or one of the generic glyphs. */
+  mark: AnyIconName;
   /** The email background — sets the disc colour. */
   bg?: EmailBg;
   /** Disc diameter in px. */
@@ -24,6 +28,7 @@ export function IconBadge({ mark, bg = 'forest', size = 46, fill, ink }: IconBad
   // The disc takes the accent colour; the glyph takes what reads on top of it.
   const disc = fill ?? t.icon;
   const glyph: BrandInk = ink ?? (bg === 'beige' ? 'cream' : bg === 'gold' ? 'forest' : 'forest');
+  const glyphHex = glyph === 'cream' ? colors.beige : glyph === 'gold' ? colors.gold : glyph === 'leaf' ? colors.leaf : colors.forest;
   return (
     <span
       style={{
@@ -38,7 +43,11 @@ export function IconBadge({ mark, bg = 'forest', size = 46, fill, ink }: IconBad
         flex: '0 0 auto',
       }}
     >
-      <BrandIcon mark={mark} ink={glyph} size={Math.round(size * 0.6)} />
+      {isBrandMark(mark) ? (
+        <BrandIcon mark={mark} ink={glyph} size={Math.round(size * 0.6)} />
+      ) : (
+        <Icon name={mark} size={Math.round(size * 0.5)} color={glyphHex} />
+      )}
     </span>
   );
 }

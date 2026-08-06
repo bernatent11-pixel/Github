@@ -70,7 +70,7 @@ export function EducationalEmail({
         />
       </Section>
       <Section tone="white" pad="md" align="center">
-        <Button label="Try Milonga" href={ctaHref} variant="gold" size="lg" />
+        <Button label="Try Milonga" href={ctaHref} bg="beige" size="lg" />
       </Section>
       <Footer social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }]} />
     </EmailShell>

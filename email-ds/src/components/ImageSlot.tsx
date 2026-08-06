@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { colors, fontStack, radius } from '../tokens';
+import { EmailBg, onBg } from '../theme';
 import markGreen from '../../public/logo/mark-green.png';
 import markGold from '../../public/logo/mark-gold.png';
 
@@ -13,10 +14,15 @@ export interface ImageSlotProps {
   /** Placeholder label / intent when there's no src yet. */
   kind?: ImageKind;
   ratio?: ImageRatio;
-  /** Placeholder backdrop. */
-  tone?: 'beige' | 'forest' | 'cream';
-  /** Rounded corners. */
-  rounded?: boolean;
+  /** The email's flat background — the placeholder styles itself to match. */
+  bg?: EmailBg;
+  /**
+   * A transparent product cutout (no background of its own). Cutouts run the
+   * full email width with square corners and are scaled to fit their box
+   * exactly, so they sit directly on the flat email color. Regular photos
+   * (cutout=false) are inset with rounded corners.
+   */
+  cutout?: boolean;
   /** Caption shown beneath the image. */
   caption?: string;
 }
@@ -29,21 +35,24 @@ const KIND_LABEL: Record<ImageKind, string> = {
 };
 
 /**
- * An image block with a first-class on-brand placeholder. Drop a `src` in later
- * (product / lifestyle / studio) and the placeholder is replaced 1:1.
+ * An image block with a first-class on-brand placeholder.
+ *
+ * Two treatments: a regular photo is inset with rounded corners; a `cutout`
+ * (transparent PNG) spans the full email width with square corners and is
+ * fitted, never cropped — so it reads as part of the flat background.
  */
 export function ImageSlot({
   src,
   alt = '',
   kind = 'product',
   ratio = 'landscape',
-  tone = 'beige',
-  rounded = true,
+  bg = 'forest',
+  cutout = false,
   caption,
 }: ImageSlotProps) {
-  const br = rounded ? radius.md : 0;
-  const bg = tone === 'forest' ? colors.forest : tone === 'cream' ? colors.cream : colors.beige;
-  const isDark = tone === 'forest';
+  const t = onBg[bg];
+  const onDark = bg === 'forest';
+  const br = cutout ? 0 : radius.md;
 
   const frame: React.CSSProperties = {
     position: 'relative',
@@ -51,14 +60,25 @@ export function ImageSlot({
     aspectRatio: String(RATIO[ratio]),
     borderRadius: br,
     overflow: 'hidden',
-    background: bg,
+    // A cutout sits directly on the email color; a photo gets a neutral bed.
+    background: cutout ? 'transparent' : onDark ? colors.forestDeep : colors.cream,
   };
 
   return (
     <figure style={{ margin: 0 }}>
       <div style={frame}>
         {src ? (
-          <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img
+            src={src}
+            alt={alt}
+            style={{
+              width: '100%',
+              height: '100%',
+              // Cutouts fit entirely inside their box; photos fill it.
+              objectFit: cutout ? 'contain' : 'cover',
+              display: 'block',
+            }}
+          />
         ) : (
           <div
             style={{
@@ -69,27 +89,27 @@ export function ImageSlot({
               alignItems: 'center',
               justifyContent: 'center',
               gap: 12,
-              border: `1.5px dashed ${isDark ? colors.lineOnDark : colors.line}`,
+              border: `1.5px dashed ${t.rule}`,
               borderRadius: br,
             }}
           >
             <img
-              src={isDark ? markGold : markGreen}
+              src={onDark ? markGold : markGreen}
               alt=""
               height={44}
-              style={{ height: 44, width: 'auto', opacity: 0.55 }}
+              style={{ height: 44, width: 'auto', opacity: 0.5 }}
             />
             <span
               style={{
                 fontFamily: fontStack,
                 fontWeight: 700,
-                fontSize: 12,
-                letterSpacing: '0.14em',
+                fontSize: 11.5,
+                letterSpacing: '0.16em',
                 textTransform: 'uppercase',
-                color: isDark ? colors.gold : colors.leaf,
+                color: t.accent,
               }}
             >
-              {KIND_LABEL[kind]}
+              {cutout ? `${KIND_LABEL[kind]} · cutout` : KIND_LABEL[kind]}
             </span>
           </div>
         )}
@@ -100,7 +120,8 @@ export function ImageSlot({
             fontFamily: fontStack,
             fontWeight: 500,
             fontSize: 12.5,
-            color: colors.inkSoft,
+            color: t.body,
+            opacity: 0.85,
             margin: '10px 2px 0',
             textAlign: 'center',
           }}

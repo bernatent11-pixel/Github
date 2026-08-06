@@ -25,7 +25,7 @@ export function StorytellingEmail({ title = 'From the fields of the Southern Con
     <EmailShell bg="forest">
       <Header bg="forest" />
       <Hero
-        tone="beige"
+        bg="forest"
         eyebrow="The Milonga story"
         title={title}
         body="Milonga began with a ritual — sharing mate, passing the gourd, staying present. We bottled that feeling into a modern latte."
@@ -60,7 +60,7 @@ export function StorytellingEmail({ title = 'From the fields of the Southern Con
       </Section>
       <Divider variant="mark" />
       <Section tone="white" pad="md" align="center">
-        <Button label="Meet the blend" href={ctaHref} variant="gold" size="lg" />
+        <Button label="Meet the blend" href={ctaHref} bg="forest" size="lg" />
       </Section>
       <Footer social={[{ label: 'Instagram', href: '#' }, { label: 'Our story', href: '#' }]} />
     </EmailShell>

@@ -39,7 +39,7 @@ export function ProductCard({
       }}
     >
       <div style={{ background: colors.beige, padding: 18 }}>
-        <ImageSlot src={imageSrc} alt={imageAlt} kind="product" ratio="square" tone="cream" />
+        <ImageSlot src={imageSrc} alt={imageAlt} kind="product" ratio="square" bg="beige" />
       </div>
       <div style={{ padding: '20px 22px 24px' }}>
         {variant ? (
@@ -74,7 +74,7 @@ export function ProductCard({
         ) : null}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginTop: 20 }}>
           {price ? <span style={{ fontWeight: 900, fontSize: 20, color: colors.forest }}>{price}</span> : <span />}
-          {cta ? <Button label={cta.label} href={cta.href} variant="gold" size="sm" /> : null}
+          {cta ? <Button label={cta.label} href={cta.href} bg="beige" size="sm" /> : null}
         </div>
       </div>
     </div>

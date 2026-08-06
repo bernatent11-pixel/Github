@@ -24,7 +24,7 @@ export function LaunchEmail({ title = 'Meet Milonga Vanilla Latte', ctaHref = '#
     <EmailShell bg="gold">
       <Header bg="gold" />
       <Hero
-        tone="gold"
+        bg="gold"
         eyebrow="New · Launch day"
         title={title}
         body="Clean, focused energy in a smooth vanilla latte. Yerba mate, Lion's Mane and L-Theanine — nothing you can't pronounce."
@@ -59,7 +59,7 @@ export function LaunchEmail({ title = 'Meet Milonga Vanilla Latte', ctaHref = '#
         <Callout tone="forest" text="Launch stock is limited — first batch ships this week." attribution="Free shipping over $35" />
       </Section>
       <Section tone="white" pad="sm" align="center">
-        <Button label="Get your first tin" href={ctaHref} variant="gold" size="lg" />
+        <Button label="Get your first tin" href={ctaHref} bg="gold" size="lg" />
       </Section>
       <Divider variant="dots" gap={6} />
       <Footer social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }]} />

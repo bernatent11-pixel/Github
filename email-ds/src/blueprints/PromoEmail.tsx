@@ -33,7 +33,7 @@ export function PromoEmail({
     <EmailShell bg="forest">
       <Header bg="forest" />
       <Hero
-        tone="forest"
+        bg="forest"
         eyebrow="Limited time"
         title={title}
         body={offer}
@@ -53,7 +53,7 @@ export function PromoEmail({
         <Callout tone="gold" text={`${code} — 20% off`} attribution="Auto-applies at checkout" />
       </div>
       <Section tone="white" pad="md" align="center">
-        <Button label="Claim your 20%" href={ctaHref} variant="forest" size="lg" />
+        <Button label="Claim your 20%" href={ctaHref} bg="forest" size="lg" />
       </Section>
       <Divider variant="dots" gap={4} />
       <Footer

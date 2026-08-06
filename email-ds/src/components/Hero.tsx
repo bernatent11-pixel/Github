@@ -1,62 +1,83 @@
 import * as React from 'react';
-import { colors, fontStack } from '../tokens';
+import { fontStack } from '../tokens';
+import { EmailBg, bgFill, onBg } from '../theme';
 import { Button } from './Button';
 import { ImageSlot, ImageSlotProps } from './ImageSlot';
 
 export interface HeroProps {
-  /** Small gold kicker above the headline. */
+  /** The email's flat background color. */
+  bg?: EmailBg;
+  /** Small caps kicker above the headline. */
   eyebrow?: string;
   title: string;
   /** Supporting sentence under the headline. */
   body?: string;
+  /**
+   * Hero image, rendered BETWEEN the body copy and the CTA. Omit it for a
+   * purely typographic hero. Pass `cutout` for a transparent product PNG —
+   * it runs full width with square corners instead of being inset.
+   */
+  image?: Omit<ImageSlotProps, 'bg'>;
   cta?: { label: string; href: string };
-  /** Hero image (product / lifestyle / studio). Renders a placeholder until set. */
-  image?: ImageSlotProps;
-  /** forest = dark hero with gold headline · gold = gold hero · beige = light hero. */
-  tone?: 'forest' | 'gold' | 'beige';
+  /** Headline size in px (34 is the brand standard). */
+  titleSize?: number;
 }
 
-const TONE = {
-  forest: { bg: colors.forest, title: colors.white, body: colors.beige, eyebrow: colors.gold, btn: 'gold' as const },
-  gold: { bg: colors.gold, title: colors.forest, body: colors.forestDeep, eyebrow: colors.forest, btn: 'forest' as const },
-  beige: { bg: colors.beige, title: colors.forest, body: colors.inkSoft, eyebrow: colors.leaf, btn: 'gold' as const },
-};
+/**
+ * The opening statement of every Milonga email: eyebrow, big Gotham headline,
+ * one line of copy, the image, then the CTA — all on the flat email color.
+ */
+export function Hero({ bg = 'forest', eyebrow, title, body, image, cta, titleSize = 34 }: HeroProps) {
+  const t = onBg[bg];
+  // A cutout runs edge to edge, so it escapes the block's horizontal padding.
+  const PAD_X = 30;
+  const isCutout = !!image?.cutout;
 
-/** The opening statement: eyebrow, big Gotham headline, one line of copy, a CTA, and a hero image. */
-export function Hero({ eyebrow, title, body, cta, image, tone = 'forest' }: HeroProps) {
-  const t = TONE[tone];
   return (
-    <div style={{ background: t.bg, padding: '44px 34px', fontFamily: fontStack, textAlign: 'center' }}>
-      {eyebrow ? (
-        <div
+    <div style={{ background: bgFill[bg], fontFamily: fontStack, textAlign: 'center', padding: `12px 0 36px` }}>
+      <div style={{ padding: `0 ${PAD_X}px` }}>
+        {eyebrow ? (
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: t.accent,
+              marginBottom: 14,
+            }}
+          >
+            {eyebrow}
+          </div>
+        ) : null}
+        <h1
           style={{
-            fontWeight: 700,
-            fontSize: 12,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: t.eyebrow,
-            marginBottom: 14,
+            fontSize: titleSize,
+            fontWeight: 900,
+            lineHeight: 1.08,
+            letterSpacing: '-0.015em',
+            margin: 0,
+            color: t.title,
           }}
         >
-          {eyebrow}
-        </div>
-      ) : null}
-      <h1 style={{ fontWeight: 900, fontSize: 34, lineHeight: 1.08, letterSpacing: '-0.015em', margin: 0, color: t.title }}>
-        {title}
-      </h1>
-      {body ? (
-        <p style={{ fontWeight: 400, fontSize: 16, lineHeight: 1.6, margin: '16px auto 0', maxWidth: 440, color: t.body }}>
-          {body}
-        </p>
-      ) : null}
-      {cta ? (
-        <div style={{ marginTop: 26 }}>
-          <Button label={cta.label} href={cta.href} variant={t.btn} size="lg" />
-        </div>
-      ) : null}
+          {title}
+        </h1>
+        {body ? (
+          <p style={{ fontSize: 15.5, lineHeight: 1.6, margin: '14px auto 0', maxWidth: 400, color: t.body }}>
+            {body}
+          </p>
+        ) : null}
+      </div>
+
       {image ? (
-        <div style={{ marginTop: 32 }}>
-          <ImageSlot ratio="wide" tone={tone === 'forest' ? 'forest' : 'beige'} {...image} />
+        <div style={{ margin: '28px 0 0', padding: isCutout ? 0 : `0 ${PAD_X}px` }}>
+          <ImageSlot bg={bg} ratio={isCutout ? 'landscape' : 'wide'} {...image} />
+        </div>
+      ) : null}
+
+      {cta ? (
+        <div style={{ marginTop: image ? 28 : 26, padding: `0 ${PAD_X}px` }}>
+          <Button label={cta.label} href={cta.href} bg={bg} size="lg" />
         </div>
       ) : null}
     </div>

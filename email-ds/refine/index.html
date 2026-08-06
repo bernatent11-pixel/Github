@@ -6,45 +6,22 @@
 <script src="../ds-bundle/_vendor/react-dom.js"></script>
 <script src="../ds-bundle/_ds_bundle.js"></script>
 <style>
- body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:18px}
+ body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:20px}
  .lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#3B5344;margin:0 0 8px}
- .row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+ .row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+ .pad{padding:30px 28px}
+ h2{font-size:30px;font-weight:900;line-height:1.15;margin:0;text-transform:uppercase;letter-spacing:.015em}
+ .sub{font-size:13px;margin:12px 0 0;line-height:1.6}
 </style></head><body><div id="root"></div>
 <script>
-const M=window.MilongaEmailDS,h=React.createElement;
+const M=window.MilongaEmailDS,h=React.createElement,C=M.colors;
 const card=(l,e)=>h('div',null,h('div',{className:'lbl'},l),e);
-
-// A hand-built mixed-background email: dark green -> gold -> dark green
-function Mixed(){
- const S=[{label:'Instagram',href:'#'},{label:'TikTok',href:'#'},{label:'Shop',href:'#'}];
- return h(M.EmailShell,{bg:'forest'},
-  h(M.Header,{bg:'forest'}),
-  h(M.Hero,{bg:'forest',eyebrow:'Limited time',title:'Your focus, 20% sharper',
-    body:'Take 20% off your first tin of Milonga Yerba Mate Latte.',
-    image:{kind:'lifestyle'},cta:{label:'Shop the launch',href:'#'}}),
-  h(M.SectionBreak,{from:'forest',to:'gold'}),
-  h(M.Section,{bg:'gold',pad:'lg'},
-    h(M.SectionHeading,{bg:'gold',eyebrow:'Why it works',title:'Clean energy, all day'}),
-    h('div',{style:{height:18}}),
-    h(M.BenefitsGrid,{bg:'gold',columns:2,items:[
-      {icon:'bolt',title:'Clean caffeine',text:'100mg from yerba mate — no coffee spike.'},
-      {icon:'brain',title:"Lion's Mane",text:'300mg for focus and clarity.'}]}),
-    h('div',{style:{height:20}}),
-    h(M.Stats,{bg:'gold',items:[{value:'100mg',label:'Caffeine'},{value:'300mg',label:"Lion's Mane"},{value:'15',label:'Servings'}]})),
-  h(M.SectionBreak,{from:'gold',to:'forest'}),
-  h(M.Section,{bg:'forest',pad:'md'},
-    h(M.SectionHeading,{bg:'forest',title:'What is inside every serving'}),
-    h('div',{style:{height:14}}),
-    h(M.Panel,{bg:'forest'},h(M.IngredientList,{bg:'forest',items:[
-      {name:"Lion's Mane",amount:'300mg',note:'Focus & clarity'},
-      {name:'L-Theanine',amount:'300mg',note:'Calm, no jitters'}]}))),
-  h(M.Section,{bg:'forest',pad:'sm',align:'center'},h(M.Button,{bg:'forest',label:'Claim your 20%',size:'lg'})),
-  h(M.Footer,{bg:'forest',social:S}));
-}
-
+const gold={background:C.gold};
+function T({title,body,shadow}){return h('div',{className:'pad milonga-email',style:gold},
+ h('h2',{style:{color:title,textShadow:shadow}},'Meet Milonga Vanilla Latte'),
+ h('p',{className:'sub',style:{color:C.forest}},'Clean, focused energy in a smooth vanilla latte.'));}
 ReactDOM.createRoot(document.getElementById('root')).render(h('div',{className:'row'},
- card('MIXED bg — green→gold→green',h(Mixed)),
- card('Educational — beige + forest band',h(M.EducationalEmail,{bg:'beige',accentBg:'forest'})),
- card('Launch — gold (recolored)',h(M.LaunchEmail,{bg:'gold'})),
- card('Promo — dark green (2-tone titles)',h(M.PromoEmail,{bg:'forest'}))));
+ card('1 — Beige title (current)',h(T,{title:C.beige,shadow:'0 2px 12px rgba(90,62,10,.45)'})),
+ card('2 — Beige + stronger shadow',h(T,{title:C.beige,shadow:'0 2px 6px rgba(0,53,27,.55), 0 4px 22px rgba(0,53,27,.35)'})),
+ card('3 — White title',h(T,{title:C.white,shadow:'0 2px 10px rgba(90,62,10,.4)'}))));
 </script></body></html>

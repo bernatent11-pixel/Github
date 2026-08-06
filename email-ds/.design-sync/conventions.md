@@ -44,8 +44,8 @@ picks its own logo tone, title, body, accent, rule, button fill and depth. Pass
 | `bg` | Logo | Title (1st half / 2nd half) | Body | Accent | Button |
 |---|---|---|---|---|---|
 | `forest` (#004D27) | gold | beige / **gold** | beige | gold | gold face, forest label |
-| `gold` (#E3BC62) | cream | deep green / **leaf green** | forest | leaf green | forest face, beige label |
-| `beige` (#F0EFDF) | brand green | forest / **leaf green** | ink | leaf green | forest face, beige label |
+| `gold` (#E3BC62) | cream | **beige** (white tail) | forest | leaf green | forest face, beige label |
+| `beige` (#F0EFDF) | brand green | **dark green** throughout | ink | leaf green | forest face, beige label |
 
 For your own layout glue only, read `window.MilongaEmailDS.colors`
 (`colors.forest`, `.gold`, `.leaf`, `.beige`, `.white`, `.ink`) or the
@@ -55,9 +55,9 @@ For your own layout glue only, read `window.MilongaEmailDS.colors`
 
 Three rules keep every email lively:
 
-**1. Titles are two-tone.** Headlines split across two brand colors
-automatically — on dark green that's half beige, half gold; on gold and beige
-the second half picks up the brighter leaf green. `Hero`, `SectionHeading` and
+**1. Titles are two-tone on dark green.** Headlines split across two brand
+colors automatically — on dark green that's half beige, half gold. On gold,
+titles are beige; on beige, titles are dark green throughout. `Hero`, `SectionHeading` and
 `TextImage` do this for you: just pass a normal title. To choose the split
 yourself, pass the trailing words as `titleAccentPart` (or `accentPart` on
 `TwoToneTitle`); pass `flatTitle` for the rare one-color headline.

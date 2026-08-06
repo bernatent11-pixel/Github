@@ -46,8 +46,11 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
   this was tuned down twice.
 - **Color mixing (added after the first pass — the user asked for less flatness)**:
   1. **Two-tone titles**: `TwoToneTitle` splits every headline across two brand
-     colors. On forest that is beige + gold (the user's explicit ask); on gold
-     and beige the tail takes leaf green. Hero/SectionHeading/TextImage apply it
+     colors. On forest that is beige + gold (the user's explicit ask). The user
+     then fixed the other two: **gold bg -> beige titles**, **beige bg -> dark
+     green titles throughout** (both halves the same, so the split is a no-op
+     there). Beige-on-gold is a low-contrast pairing (~1.6:1) carried by caps +
+     Gotham Black + a deepened text shadow — don't "fix" it to green. Hero/SectionHeading/TextImage apply it
      automatically; `titleAccentPart` overrides the split, `flatTitle` disables.
   2. **Mixed backgrounds**: a Section may carry its own `bg`, so an email can go
      e.g. forest → gold → forest. Put `SectionBreak` at each seam (`hard` or

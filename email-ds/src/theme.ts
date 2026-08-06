@@ -91,8 +91,8 @@ export const onBg: Record<EmailBg, OnBg> = {
   // Gold email — cream logo, deep green type, forest buttons.
   gold: {
     logo: 'beige',
-    title: colors.forestDeep,
-    titleAccent: colors.leaf,
+    title: colors.beige,
+    titleAccent: colors.white,
     body: colors.forest,
     accent: colors.leaf,
     rule: 'rgba(0, 77, 39, 0.22)',
@@ -106,7 +106,7 @@ export const onBg: Record<EmailBg, OnBg> = {
     sheen: 'rgba(255, 255, 255, 0.42)',
     accentGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 70%, ${colors.forestDeep} 100%)`,
     accentWash: 'rgba(0, 77, 39, 0.16)',
-    textShadow: '0 2px 10px rgba(120, 86, 20, 0.22)',
+    textShadow: '0 2px 12px rgba(90, 62, 10, 0.45)',
     numberGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 65%, ${colors.forestDeep} 100%)`,
     btnGradient: `linear-gradient(180deg, ${colors.leaf} 0%, ${colors.forest} 60%, ${colors.forestDeep} 100%)`,
     btnShadow: '0 8px 20px rgba(120, 86, 20, 0.30)',
@@ -115,7 +115,7 @@ export const onBg: Record<EmailBg, OnBg> = {
   beige: {
     logo: 'green',
     title: colors.forest,
-    titleAccent: colors.leaf,
+    titleAccent: colors.forest,
     body: colors.ink,
     accent: colors.leaf,
     rule: 'rgba(0, 77, 39, 0.16)',

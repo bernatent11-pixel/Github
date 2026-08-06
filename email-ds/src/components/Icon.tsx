@@ -30,7 +30,8 @@ const PATHS: Record<IconName, React.ReactNode> = {
   ),
   clock: (
     <>
-      <circle cx="12" cy="12" r="9" />
+      {/* the dial is a ring, not a disc — the svg fills by default */}
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth={2} />
       <path d="M12 7v5l3 2" strokeWidth={2} fill="none" stroke="currentColor" />
     </>
   ),

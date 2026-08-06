@@ -34,7 +34,9 @@ export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
       className={win ? 'milonga-lift' : undefined}
       style={{
         background: win ? fill : 'transparent',
-        border: `1px solid ${t.rule}`,
+        // The Milonga side is outlined in the accent so it wins on any
+        // background, not just the dark ones where the fill does the work.
+        border: win ? `1.5px solid ${t.outline}` : `1px solid ${t.rule}`,
         borderTopColor: win ? t.sheen : t.rule,
         borderRadius: 14,
         boxShadow: win ? t.shadow : 'none',

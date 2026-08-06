@@ -2,6 +2,7 @@ import * as React from 'react';
 import { emailWidth, fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
 import { bgStyle } from '../textures';
+import { SurfaceContext } from '../surface';
 
 export interface EmailShellProps {
   /**
@@ -13,7 +14,10 @@ export interface EmailShellProps {
   bg?: EmailBg;
   /** Column width in px (email standard is ~600). */
   width?: number;
-  /** Use the brand paper grain instead of a flat fill (gold and dark green only). */
+  /**
+   * Paint the brand paper grain across the WHOLE email instead of a flat fill
+   * (gold and dark green only — beige has no texture art).
+   */
   textured?: boolean;
   children?: React.ReactNode;
 }
@@ -24,6 +28,7 @@ export interface EmailShellProps {
  */
 export function EmailShell({ bg = 'forest', width = emailWidth, textured = false, children }: EmailShellProps) {
   return (
+    <SurfaceContext.Provider value={{ bg, textured }}>
     <div
       className="milonga-email"
       style={{
@@ -36,5 +41,6 @@ export function EmailShell({ bg = 'forest', width = emailWidth, textured = false
     >
       <div style={{ maxWidth: width, margin: '0 auto' }}>{children}</div>
     </div>
+    </SurfaceContext.Provider>
   );
 }

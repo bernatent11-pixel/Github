@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
-import { EmailBg, bgFill, onBg } from '../theme';
+import { EmailBg, onBg } from '../theme';
+import { useSurface } from '../surface';
 import { ImageSlot, ImageSlotProps } from './ImageSlot';
 import { Button } from './Button';
 import { TwoToneTitle } from './TwoToneTitle';
@@ -35,6 +36,7 @@ export function TextImage({
   cta,
 }: TextImageProps) {
   const t = onBg[bg];
+  const surface = useSurface(bg);
   const side = layout === 'side';
 
   const copy = (
@@ -80,7 +82,7 @@ export function TextImage({
   const art = image ? <ImageSlot bg={bg} ratio={side ? 'square' : 'wide'} {...image} /> : null;
 
   return (
-    <div style={{ background: bgFill[bg], fontFamily: fontStack, padding: '0 30px' }}>
+    <div style={{ ...surface, fontFamily: fontStack, padding: '0 30px' }}>
       {side ? (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, alignItems: 'center' }}>
           {imageSide === 'left' ? (

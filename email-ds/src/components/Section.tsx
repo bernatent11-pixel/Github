@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
-import { bgStyle } from '../textures';
+import { useSurface } from '../surface';
 import { TwoToneTitle } from './TwoToneTitle';
 
 export interface SectionProps {
@@ -13,8 +13,6 @@ export interface SectionProps {
   align?: 'left' | 'center';
   /** Draw a hairline rule above the section — the default way to separate blocks. */
   rule?: boolean;
-  /** Use the brand paper grain instead of a flat fill (gold and dark green only). */
-  textured?: boolean;
   children?: React.ReactNode;
 }
 
@@ -24,10 +22,11 @@ const PAD = { sm: 18, md: 28, lg: 40 };
  * A content band on the flat email color. Sections are separated by space and
  * an optional hairline — never by a differently-colored card.
  */
-export function Section({ bg = 'forest', pad = 'md', align = 'left', rule = false, textured = false, children }: SectionProps) {
+export function Section({ bg = 'forest', pad = 'md', align = 'left', rule = false, children }: SectionProps) {
   const t = onBg[bg];
+  const surface = useSurface(bg);
   return (
-    <div style={{ ...bgStyle(bg, bgFill[bg], textured), fontFamily: fontStack, padding: `0 30px` }}>
+    <div style={{ ...surface, fontFamily: fontStack, padding: `0 30px` }}>
       {rule ? <div style={{ height: 1, background: t.rule }} /> : null}
       <div style={{ padding: `${PAD[pad]}px 0`, textAlign: align, color: t.body }}>{children}</div>
     </div>

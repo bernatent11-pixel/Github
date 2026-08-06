@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { EmailBg, bgFill, onBg } from '../theme';
+import { EmailBg, onBg } from '../theme';
+import { useSurface } from '../surface';
 import { Logo, LogoVariant } from './Logo';
 
 export interface HeaderProps {
@@ -22,10 +23,11 @@ export interface HeaderProps {
  */
 export function Header({ bg = 'forest', logo = 'primary', size = 92, tagline, padBottom = 30 }: HeaderProps) {
   const t = onBg[bg];
+  const surface = useSurface(bg);
   return (
     <div
       style={{
-        background: bgFill[bg],
+        ...surface,
         padding: `34px 28px ${padBottom}px`,
         textAlign: 'center',
       }}

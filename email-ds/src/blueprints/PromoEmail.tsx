@@ -12,6 +12,8 @@ import { Footer } from '../components/Footer';
 export interface PromoEmailProps {
   /** The one flat background color for the whole email. */
   bg?: EmailBg;
+  /** Paint the brand paper grain across the whole email (gold / dark green). */
+  textured?: boolean;
   title?: string;
   /** Discount / offer line. */
   offer?: string;
@@ -25,13 +27,14 @@ export interface PromoEmailProps {
  */
 export function PromoEmail({
   bg = 'forest',
+  textured = false,
   title = 'Your focus, 20% sharper',
   offer = 'Take 20% off your first tin of Milonga Yerba Mate Latte.',
   code = 'FOCUS20',
   ctaHref = '#',
 }: PromoEmailProps) {
   return (
-    <EmailShell bg={bg}>
+    <EmailShell bg={bg} textured={textured}>
       <Header bg={bg} />
       <Hero
         bg={bg}

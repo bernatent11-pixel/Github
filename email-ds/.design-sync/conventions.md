@@ -111,11 +111,24 @@ deliberately soft, tonal pairing carried by the caps and Gotham Black weight.
   shadows, area washes) so nothing reads dead flat. That is built in — don't
   flatten it, and don't add your own shadows.
 
-## Brand icons and badges — use the real art
+## Brand icons — use the real art
 
-The icon and badge art is the brand's own. Use `BrandIcon` / `IconRow` (icon +
-label, no fill) or `BrandBadge` / `BadgeRow` (finished pill with the label baked
-in). Both pick their ink/fill from the email background.
+Wherever a block shows an icon, prefer the brand's own art. Any component that
+takes an icon accepts a **brand mark** (`'yerba-mate'`, `'lions-mane'`,
+`'l-theanine'`, `'no-cane-sugar'`, `'gluten-dairy-free'`, `'hot'`, `'iced'`) as
+well as the generic glyphs (`'bolt'`, `'check'`, …) — pass a brand mark when one
+fits the meaning, and fall back to a glyph only when it doesn't:
+
+```jsx
+<BenefitsGrid bg={bg} items={[
+  { icon: 'yerba-mate', title: 'Clean caffeine', text: '100mg from yerba mate.' },
+  { icon: 'lions-mane', title: "Lion's Mane",    text: '300mg for focus and clarity.' },
+]} />
+<IngredientList bg={bg} items={[{ icon: 'lions-mane', name: "Lion's Mane", amount: '300mg' }]} />
+```
+
+`IconRow` shows a labelled row of them on their own. The ink is picked from the
+background automatically.
 
 **Keep the marks in their groups — never mix them:**
 
@@ -127,21 +140,22 @@ in). Both pick their ink/fill from the email background.
 
 ```jsx
 <IconRow bg={bg} marks={INGREDIENTS} size={54} />
-<BadgeRow bg={bg} marks={FREE_FROM} />
-<BadgeRow bg={bg} marks={SERVE} />
+<IconRow bg={bg} marks={FREE_FROM} />
+<IconRow bg={bg} marks={SERVE} />
 ```
 
 ## Separators, scenes and texture
 
-- **`Divider variant="brand"`** (the default) is the brand rule with a diamond
-  centrepiece — the standard separator between sections.
+- **`Divider`** — `line` (hairline, the default), `mark` (the centred hand mark)
+  or `dots`. Sections are usually separated by `<Section rule>` instead.
 - **`ForestScene`** is the illustrated canopy: put it at the end of a beige or
   gold section, with a dark green section directly below. The art is colour-
   matched to the forest green, so the background change reads as a landscape
   rather than a hard edge. Use it once per email at most.
-- **Texture**: pass `textured` to `EmailShell` or `Section` for the brand paper
-  grain (gold and dark green only — beige has no texture art). Same brand
-  colour, just more tactile; use it for a whole email, not for single blocks.
+- **Texture**: pass `textured` to `EmailShell` (or to a blueprint) and the brand
+  paper grain covers the WHOLE email — it is an alternative to the flat fill, not
+  a per-section treatment. Gold and dark green only; beige has no texture art and
+  stays flat. The grain never changes the colour.
 
 ## Images
 

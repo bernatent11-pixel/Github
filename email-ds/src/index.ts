@@ -6,10 +6,10 @@ export type { EmailBg, OnBg } from './theme';
 // Foundations
 export { Icon } from './components/Icon';
 export type { IconName, IconProps } from './components/Icon';
+export { AnyIcon, isBrandMark } from './components/AnyIcon';
+export type { AnyIconProps, AnyIconName } from './components/AnyIcon';
 export { BrandIcon, IconRow, INGREDIENTS, FREE_FROM, SERVE, MARK_LABEL, inkFor } from './components/BrandIcon';
 export type { BrandIconProps, IconRowProps, BrandMark, BrandInk } from './components/BrandIcon';
-export { BrandBadge, BadgeRow, fillFor } from './components/BrandBadge';
-export type { BrandBadgeProps, BadgeRowProps, BadgeFill } from './components/BrandBadge';
 export { ForestScene } from './components/ForestScene';
 export type { ForestSceneProps } from './components/ForestScene';
 export { textureTile, bgStyle } from './textures';

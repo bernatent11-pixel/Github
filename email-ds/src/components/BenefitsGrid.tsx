@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
-import { Icon, IconName } from './Icon';
+import { AnyIcon, AnyIconName } from './AnyIcon';
 
 export interface Benefit {
-  icon: IconName;
+  /** A Milonga brand mark (preferred) or a generic glyph. */
+  icon: AnyIconName;
   title: string;
   text: string;
 }
@@ -46,7 +47,7 @@ export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGrid
           }}
         >
           <div style={{ marginBottom: 12 }}>
-            <Icon name={b.icon} size={22} color={t.icon} />
+            <AnyIcon name={b.icon} bg={bg} size={30} />
           </div>
           <div
             style={{

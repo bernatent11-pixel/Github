@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
-import { Icon, IconName } from './Icon';
+import { Icon } from './Icon';
+import { AnyIcon, AnyIconName } from './AnyIcon';
 
 export interface VersusSide {
   /** Column label, e.g. "Coffee at 3pm". */
   label: string;
   /** Short lines describing this side. */
   points: string[];
-  icon?: IconName;
+  icon?: AnyIconName;
 }
 
 export interface VersusBlockProps {
@@ -40,7 +41,11 @@ export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
       }}
     >
       <div style={{ marginBottom: 10 }}>
-        <Icon name={s.icon ?? (win ? 'check' : 'cross')} size={20} color={win ? t.icon : t.body} />
+        {s.icon ? (
+          <AnyIcon name={s.icon} bg={bg} size={26} />
+        ) : (
+          <Icon name={win ? 'check' : 'cross'} size={20} color={win ? t.icon : t.body} />
+        )}
       </div>
       <div style={{ fontWeight: 900, fontSize: 12.5, color: win ? t.accent : t.title, marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
       {s.points.map((p, i) => (

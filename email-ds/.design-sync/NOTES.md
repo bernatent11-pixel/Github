@@ -76,6 +76,16 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
   colour, not by eye — icons 30/44/51/58 start the gold/leaf/forest/cream runs,
   badges 37/65/72 start gold/cream/forest, and 79-81 are the leaf-green
   ingredient badges (leaf exists ONLY for the three ingredients).
+- **User feedback after the first asset pass (important):** the badge/pill assets
+  and the divider assets were REJECTED — deleted from the repo, don't reintroduce
+  them. Dividers stay as the original line/mark/dots. Keep only: the
+  background-less icons, the two textures, and the forest canopy.
+- Textures are a WHOLE-EMAIL background, never per-section. `src/surface.tsx`
+  provides a context from EmailShell; a block whose `bg` matches the shell paints
+  nothing so the shell's grain shows through, while a block that switches colour
+  paints its own. Without that, sections painted flat over the texture.
+- `AnyIcon` accepts a brand mark or a generic glyph, so BenefitsGrid,
+  IngredientList and VersusBlock can use the real art wherever it fits meaning.
 - Seven marks in fixed order: yerba-mate, lions-mane, l-theanine, no-cane-sugar,
   gluten-dairy-free, hot, iced. Grouping rules from the user: the 3 ingredients
   always together and first; free-from pair together as an extra; hot/iced

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
-import { EmailBg, bgFill, onBg } from '../theme';
+import { EmailBg, onBg } from '../theme';
+import { useSurface } from '../surface';
 import { Logo } from './Logo';
 
 export interface FooterProps {
@@ -36,8 +37,9 @@ export function Footer({
   tagline,
 }: FooterProps) {
   const t = onBg[bg];
+  const surface = useSurface(bg);
   return (
-    <div style={{ background: bgFill[bg], fontFamily: fontStack, padding: '0 30px 34px' }}>
+    <div style={{ ...surface, fontFamily: fontStack, padding: '0 30px 34px' }}>
       <div style={{ height: 1, background: t.rule, marginBottom: 30 }} />
       <div style={{ textAlign: 'center' }}>
         <Logo variant="primary" tone={t.logo} height={size} />

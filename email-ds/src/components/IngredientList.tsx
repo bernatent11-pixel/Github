@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
-import { Icon } from './Icon';
+import { AnyIcon, AnyIconName } from './AnyIcon';
 
 export interface Ingredient {
   name: string;
+  /** Brand mark for this row — e.g. 'lions-mane'. */
+  icon?: AnyIconName;
   /** Dose or amount, e.g. "300mg". */
   amount?: string;
   /** One-line function, e.g. "Focus & clarity". */
@@ -34,7 +36,7 @@ export function IngredientList({ items, bg = 'forest' }: IngredientListProps) {
           }}
         >
           <span style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center' }}>
-            <Icon name="leaf" size={18} color={t.icon} />
+            <AnyIcon name={it.icon ?? 'yerba-mate'} bg={bg} size={26} />
           </span>
           <span style={{ flex: '1 1 auto', minWidth: 0 }}>
             <span style={{ fontWeight: 900, fontSize: 12.5, color: t.title, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{it.name}</span>

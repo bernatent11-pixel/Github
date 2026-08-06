@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
-import { EmailBg, bgFill, onBg } from '../theme';
+import { EmailBg, onBg } from '../theme';
+import { useSurface } from '../surface';
 import { Button } from './Button';
 import { ImageSlot, ImageSlotProps } from './ImageSlot';
 import { TwoToneTitle } from './TwoToneTitle';
@@ -44,12 +45,13 @@ export function Hero({
   flatTitle = false,
 }: HeroProps) {
   const t = onBg[bg];
+  const surface = useSurface(bg);
   // A cutout runs edge to edge, so it escapes the block's horizontal padding.
   const PAD_X = 30;
   const isCutout = !!image?.cutout;
 
   return (
-    <div style={{ background: bgFill[bg], fontFamily: fontStack, textAlign: 'center', padding: `12px 0 36px` }}>
+    <div style={{ ...surface, fontFamily: fontStack, textAlign: 'center', padding: `12px 0 36px` }}>
       <div style={{ padding: `0 ${PAD_X}px` }}>
         {eyebrow ? (
           <div

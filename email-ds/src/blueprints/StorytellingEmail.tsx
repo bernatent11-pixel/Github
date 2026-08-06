@@ -14,6 +14,8 @@ import { Footer } from '../components/Footer';
 export interface StorytellingEmailProps {
   /** The one flat background color for the whole email. */
   bg?: EmailBg;
+  /** Paint the brand paper grain across the whole email (gold / dark green). */
+  textured?: boolean;
   title?: string;
   ctaHref?: string;
 }
@@ -24,11 +26,12 @@ export interface StorytellingEmailProps {
  */
 export function StorytellingEmail({
   bg = 'forest',
+  textured = false,
   title = 'From the fields of the Southern Cone',
   ctaHref = '#',
 }: StorytellingEmailProps) {
   return (
-    <EmailShell bg={bg}>
+    <EmailShell bg={bg} textured={textured}>
       <Header bg={bg} />
       <Hero
         bg={bg}

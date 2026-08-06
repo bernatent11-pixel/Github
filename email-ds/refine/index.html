@@ -6,30 +6,16 @@
 <script src="../ds-bundle/_vendor/react-dom.js"></script>
 <script src="../ds-bundle/_ds_bundle.js"></script>
 <style>
- body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:20px}
+ body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:18px}
  .lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#3B5344;margin:0 0 8px}
- .row{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:start}
+ .row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
 </style></head><body><div id="root"></div>
 <script>
 const M=window.MilongaEmailDS,h=React.createElement;
 const card=(l,e)=>h('div',null,h('div',{className:'lbl'},l),e);
-const S=[{label:'Instagram',href:'#'},{label:'TikTok',href:'#'},{label:'Shop',href:'#'}];
-function Scene({from}){
- return h(M.EmailShell,{bg:from},
-  h(M.Header,{bg:from}),
-  h(M.Hero,{bg:from,eyebrow:'The Milonga story',title:'From the fields of the Southern Cone',
-    body:'Milonga began with a ritual — sharing mate, passing the gourd, staying present.'}),
-  h(M.Section,{bg:from,pad:'md',align:'center'},h(M.IconRow,{bg:from,marks:M.INGREDIENTS,size:50})),
-  h(M.ForestScene,{from,to:'forest',height:150}),
-  h(M.Section,{bg:'forest',pad:'lg',align:'center'},
-    h(M.SectionHeading,{bg:'forest',eyebrow:'Our roots',title:'Whole-leaf, small batch',align:'center'}),
-    h('div',{style:{height:16}}),
-    h(M.BadgeRow,{bg:'forest',marks:M.FREE_FROM,size:34})),
-  h(M.Section,{bg:'forest',pad:'sm',align:'center'},h(M.Button,{bg:'forest',label:'Meet the blend',size:'lg'})),
-  h(M.Footer,{bg:'forest',social:S}));
-}
-ReactDOM.createRoot(document.getElementById('root')).render(
- h('div',{className:'row'},
-  card('Beige → forest scene',h(Scene,{from:'beige'})),
-  card('Gold → forest scene',h(Scene,{from:'gold'}))));
+ReactDOM.createRoot(document.getElementById('root')).render(h('div',{className:'row'},
+ card('Educational — beige (brand icons)',h(M.EducationalEmail,{bg:'beige',accentBg:'forest'})),
+ card('Educational — TEXTURED dark green',h(M.EducationalEmail,{bg:'forest',accentBg:'gold',textured:true})),
+ card('Launch — TEXTURED gold',h(M.LaunchEmail,{bg:'gold',textured:true})),
+ card('Promo — TEXTURED dark green',h(M.PromoEmail,{bg:'forest',textured:true}))));
 </script></body></html>

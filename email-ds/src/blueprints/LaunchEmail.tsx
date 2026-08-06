@@ -13,6 +13,8 @@ import { Footer } from '../components/Footer';
 export interface LaunchEmailProps {
   /** The one flat background color for the whole email. */
   bg?: EmailBg;
+  /** Paint the brand paper grain across the whole email (gold / dark green). */
+  textured?: boolean;
   title?: string;
   ctaHref?: string;
 }
@@ -21,9 +23,10 @@ export interface LaunchEmailProps {
  * Product-launch blueprint — announces a drop: a bold hero, the product card,
  * a "why it's different" comparison and an urgency band to convert.
  */
-export function LaunchEmail({ bg = 'gold', title = 'Meet Milonga Vanilla Latte', ctaHref = '#' }: LaunchEmailProps) {
+export function LaunchEmail({ bg = 'gold',
+  textured = false, title = 'Meet Milonga Vanilla Latte', ctaHref = '#' }: LaunchEmailProps) {
   return (
-    <EmailShell bg={bg}>
+    <EmailShell bg={bg} textured={textured}>
       <Header bg={bg} />
       <Hero
         bg={bg}

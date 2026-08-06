@@ -14,6 +14,8 @@ import { Footer } from '../components/Footer';
 export interface EducationalEmailProps {
   /** The one flat background color for the whole email. */
   bg?: EmailBg;
+  /** Paint the brand paper grain across the whole email (gold / dark green). */
+  textured?: boolean;
   /** Background for the emphasis band (the head-to-head comparison). */
   accentBg?: EmailBg;
   title?: string;
@@ -27,13 +29,14 @@ export interface EducationalEmailProps {
  */
 export function EducationalEmail({
   bg = 'beige',
+  textured = false,
   accentBg = 'forest',
   title = 'Why yerba mate beats the 3pm crash',
   intro = "Coffee spikes and drops you. Milonga pairs natural caffeine with L-Theanine and Lion's Mane for calm, sustained focus — no jitters, no crash.",
   ctaHref = '#',
 }: EducationalEmailProps) {
   return (
-    <EmailShell bg={bg}>
+    <EmailShell bg={bg} textured={textured}>
       <Header bg={bg} />
       <Hero bg={bg} eyebrow="The science" title={title} body={intro} image={{ kind: 'studio' }} />
 
@@ -44,10 +47,10 @@ export function EducationalEmail({
           bg={bg}
           columns={2}
           items={[
-            { icon: 'bolt', title: 'Clean caffeine', text: '100mg from yerba mate — energy without the coffee spike.' },
-            { icon: 'brain', title: "Lion's Mane", text: '300mg to support focus, memory and mental clarity.' },
-            { icon: 'clock', title: 'No crash', text: 'L-Theanine smooths the curve for hours of steady calm.' },
-            { icon: 'leaf', title: 'Whole-leaf', text: 'Real yerba mate, naturally rich in antioxidants.' },
+            { icon: 'yerba-mate', title: 'Clean caffeine', text: '100mg from yerba mate — energy without the coffee spike.' },
+            { icon: 'lions-mane', title: "Lion's Mane", text: '300mg to support focus, memory and mental clarity.' },
+            { icon: 'l-theanine', title: 'No crash', text: 'L-Theanine smooths the curve for hours of steady calm.' },
+            { icon: 'no-cane-sugar', title: 'No cane sugar', text: 'Sweetened with erythritol — nothing to spike you.' },
           ]}
         />
       </Section>
@@ -59,9 +62,9 @@ export function EducationalEmail({
           <IngredientList
             bg={bg}
             items={[
-              { name: "Lion's Mane", amount: '300mg', note: 'Focus & clarity' },
-              { name: 'Natural caffeine', amount: '100mg', note: 'From yerba mate' },
-              { name: 'L-Theanine', amount: '300mg', note: 'Calm, no jitters' },
+              { icon: 'lions-mane', name: "Lion's Mane", amount: '300mg', note: 'Focus & clarity' },
+              { icon: 'yerba-mate', name: 'Natural caffeine', amount: '100mg', note: 'From yerba mate' },
+              { icon: 'l-theanine', name: 'L-Theanine', amount: '300mg', note: 'Calm, no jitters' },
             ]}
           />
         </Panel>

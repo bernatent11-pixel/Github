@@ -19,6 +19,9 @@ export interface FooterProps {
   size?: number;
   /** Optional uppercase tagline under the logo. Off by default. */
   tagline?: string;
+  /** Hairline above the sign-off. On by default; turn it off in emails that
+   *  carry no rules at all. */
+  rule?: boolean;
 }
 
 /**
@@ -35,12 +38,13 @@ export function Footer({
   browserHref = '#',
   size = 84,
   tagline,
+  rule = true,
 }: FooterProps) {
   const t = onBg[bg];
   const surface = useSurface(bg);
   return (
     <div style={{ ...surface, fontFamily: fontStack, padding: '0 30px 34px' }}>
-      <div style={{ height: 1, background: t.rule, marginBottom: 30 }} />
+      {rule ? <div style={{ height: 1, background: t.rule, marginBottom: 30 }} /> : <div style={{ height: 30 }} />}
       <div style={{ textAlign: 'center' }}>
         <Logo variant="primary" tone={t.logo} height={size} />
 

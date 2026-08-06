@@ -40,7 +40,7 @@ function WhatsInside({ shopHref = '#' }) {
     // ═══ ACT 2 · BODY ═══
 
     // The three that do the work.
-    h(M.Section, { bg, pad: 'lg', rule: true },
+    h(M.Section, { bg, pad: 'lg' },
       h(M.SectionHeading, {
         bg,
         title: 'The ingredients behind the feeling',
@@ -56,7 +56,7 @@ function WhatsInside({ shopHref = '#' }) {
     ),
 
     // What makes it a latte.
-    h(M.Section, { bg, pad: 'lg', rule: true },
+    h(M.Section, { bg, pad: 'lg' },
       h(M.SectionHeading, {
         bg,
         title: 'What makes it creamy',
@@ -72,7 +72,7 @@ function WhatsInside({ shopHref = '#' }) {
     ),
 
     // How it's sweetened.
-    h(M.Section, { bg, pad: 'lg', rule: true },
+    h(M.Section, { bg, pad: 'lg' },
       h(M.SectionHeading, {
         bg,
         title: 'Sweetened with honey and monk fruit',
@@ -88,7 +88,7 @@ function WhatsInside({ shopHref = '#' }) {
     ),
 
     // The whole list, in the open.
-    h(M.Section, { bg, pad: 'lg', rule: true },
+    h(M.Section, { bg, pad: 'lg' },
       h(M.SectionHeading, {
         bg,
         title: 'The full list',
@@ -129,6 +129,6 @@ function WhatsInside({ shopHref = '#' }) {
       h(M.Button, { bg, label: 'Try it now', href: shopHref, size: 'lg' })
     ),
 
-    h(M.Footer, { bg, social: SOCIAL })
+    h(M.Footer, { bg, social: SOCIAL, rule: false })
   );
 }

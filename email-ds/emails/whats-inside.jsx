@@ -6,9 +6,9 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  floating: '../public/product/pouch-floating.png',
+  handFloat: '../public/product/pouch-hand-float.png',
   icedBotanical: '../public/product/pouch-iced-botanical.png',
-  latteGlass: '../public/product/latte-glass-gold.png',
+  handPour: '../public/product/pouch-hand-pour-big.png',
 };
 
 const SOCIAL = [
@@ -31,7 +31,7 @@ function WhatsInside({ shopHref = '#' }) {
       titleAccentPart: 'Nothing to hide.',
       titleSize: 36,
       body: 'Most coffee alternatives keep the interesting part in small print. Ours fits in one paragraph — so here it is, line by line, with what each thing is actually doing in your cup.',
-      image: { src: IMG.floating, alt: 'The Milonga Mate Latte pouch in a swirl of powder', cutout: true },
+      image: { src: IMG.handFloat, alt: 'A hand holding the Milonga Mate Latte pouch', cutout: true },
     }),
 
     // ═══ ACT 2 · BODY ═══
@@ -112,28 +112,12 @@ function WhatsInside({ shopHref = '#' }) {
       )
     ),
 
-    // The numbers.
-    h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
-      h(M.Stats, { bg, items: [
-        { value: '90', label: 'Calories' },
-        { value: '3g', label: 'Sugar' },
-      ]}),
-      h('div', { style: { height: 20 } }),
-      h('div', { style: {
-        fontSize: 26, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.16em',
-        color: M.onBg[bg].accent,
-      } }, 'Per serving')
-    ),
-
     // ═══ ACT 3 · CTA ═══
+    // One uninterrupted block: the pour, the fact, the ask. No rules between.
     h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
-      h(M.SectionHeading, {
-        bg,
-        title: 'Now taste the list',
-        align: 'center',
-      }),
-      h('div', { style: { height: 24 } }),
-      h(M.ImageSlot, { bg, src: IMG.latteGlass, alt: 'The Mate Latte poured over ice next to the pouch', ratio: 'wide' }),
+      h(M.ImageSlot, { bg, src: IMG.handPour, alt: 'A scoop of Milonga poured into a glass', cutout: true, ratio: 'wide' }),
+      h('div', { style: { height: 22 } }),
+      h(M.Badge, { bg, label: '90 cal, 3g sugar', sub: 'Per serving' }),
       h('div', { style: { height: 26 } }),
       h(M.Button, { bg, label: 'Try it now', href: shopHref, size: 'lg' })
     ),

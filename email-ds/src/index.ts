@@ -10,6 +10,8 @@ export { IconBadge } from './components/IconBadge';
 export type { IconBadgeProps } from './components/IconBadge';
 export { BenefitList } from './components/BenefitList';
 export type { BenefitListProps, BenefitLine } from './components/BenefitList';
+export { Badge } from './components/Badge';
+export type { BadgeProps } from './components/Badge';
 export { BleedImage } from './components/BleedImage';
 export type { BleedImageProps } from './components/BleedImage';
 export { BundleOffer } from './components/BundleOffer';

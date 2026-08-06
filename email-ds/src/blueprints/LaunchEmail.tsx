@@ -71,7 +71,7 @@ export function LaunchEmail({ bg = 'gold', title = 'Meet Milonga Vanilla Latte',
         <Button label="Get your first tin" href={ctaHref} bg={bg} size="lg" />
       </Section>
 
-      <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }]} />
+      <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }, { label: 'Shop', href: '#' }]} />
     </EmailShell>
   );
 }

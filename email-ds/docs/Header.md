@@ -4,4 +4,4 @@ category: Layout
 
 # Header
 
-The email masthead: centered logo, optional tagline ("Energy That Thinks"), on a forest (dark) or beige (light) bar.
+The masthead: the flat email background with the Milonga logo centered at 92px. The logo tone is picked automatically for contrast.

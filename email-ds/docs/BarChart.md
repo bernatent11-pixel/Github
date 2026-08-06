@@ -4,4 +4,4 @@ category: Data
 
 # BarChart
 
-A minimal horizontal bar chart for at-a-glance comparisons (caffeine, focus). Highlight the Milonga bar in gold.
+A horizontal bar chart for at-a-glance comparisons. The highlighted Milonga bar gets a gradient face; comparison bars stay muted.

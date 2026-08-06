@@ -4,4 +4,4 @@ category: Layout
 
 # SectionHeading
 
-Eyebrow + title + intro set in Gotham with the brand rhythm. Use `onDark` on forest surfaces.
+Eyebrow + uppercase title + intro, colored automatically for the email background.

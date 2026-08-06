@@ -1,86 +1,93 @@
 # Milonga Email Design System — how to build with it
 
-This library builds **on-brand Milonga marketing emails** out of ready-made React
-blocks. Milonga is a functional yerba mate latte; the voice is clean, focused,
-warm. **Never mention THC, CBD, cannabis, or weed.**
+This library builds **on-brand Milonga marketing emails**. Milonga is a functional
+yerba mate latte; the voice is clean, focused, warm. **Never mention THC, CBD,
+cannabis, or weed.**
 
-Every component is exported on `window.MilongaEmailDS`. Import by name, e.g.
-`const { EmailShell, Hero, Button } = window.MilongaEmailDS`.
+Everything is exported on `window.MilongaEmailDS` — e.g.
+`const { EmailShell, Header, Hero, Section, Footer } = window.MilongaEmailDS`.
 
-## Composition model — wrap, then stack
+## The one rule: one flat background per email
 
-An email is always: **`EmailShell` → `Header` → content blocks → `Footer`.**
-`EmailShell` paints the page backdrop and centers a ~600px column; put everything
-inside it. Between header and footer, stack blocks — usually each inside a
-`Section` (a padded band with a brand surface) or a self-padding block like
-`Hero`, `ProductCard`, `Callout`, `Divider`.
+A Milonga email is **a single flat color end to end** — dark green, gold, or
+beige. There are no white cards and no alternating section colors. Pick the
+color once on `EmailShell` and pass the same `bg` to every block:
 
 ```jsx
-const { EmailShell, Header, Section, SectionHeading, BenefitsGrid, Button, Footer } = window.MilongaEmailDS;
+const { EmailShell, Header, Hero, Section, SectionHeading, BenefitsGrid, Button, Footer } = window.MilongaEmailDS;
+const bg = 'forest'; // 'forest' | 'gold' | 'beige' — choose once per email
 
-<EmailShell page="beige" surface="white">
-  <Header tone="dark" tagline="Energy That Thinks" />
-  <Section tone="white" pad="lg">
-    <SectionHeading eyebrow="The science" title="Why yerba mate beats the 3pm crash"
-      intro="Clean caffeine, Lion's Mane and L-Theanine for calm, sustained focus." />
-  </Section>
-  <Section tone="white" pad="md">
-    <BenefitsGrid columns={2} items={[
+<EmailShell bg={bg}>
+  <Header bg={bg} />
+  <Hero bg={bg} eyebrow="The science" title="Why yerba mate beats the 3pm crash"
+        body="Clean caffeine, Lion's Mane and L-Theanine for calm, sustained focus."
+        image={{ kind: 'lifestyle' }} cta={{ label: 'Try Milonga', href: '#' }} />
+  <Section bg={bg} pad="md" rule>
+    <SectionHeading bg={bg} title="What makes it different" />
+    <div style={{ height: 18 }} />
+    <BenefitsGrid bg={bg} columns={2} items={[
       { icon: 'bolt',  title: 'Clean caffeine', text: '100mg from yerba mate — no coffee spike.' },
-      { icon: 'brain', title: "Lion's Mane",    text: '300mg to support focus and clarity.' },
+      { icon: 'brain', title: "Lion's Mane",    text: '300mg for focus and clarity.' },
     ]} />
   </Section>
-  <Section tone="white" pad="md" align="center">
-    <Button label="Try Milonga" href="#" variant="gold" size="lg" />
+  <Section bg={bg} pad="md" align="center">
+    <Button label="Shop the launch" href="#" bg={bg} size="lg" />
   </Section>
-  <Footer social={[{ label: 'Instagram', href: '#' }]} />
+  <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }, { label: 'Shop', href: '#' }]} />
 </EmailShell>
 ```
 
-**Fastest path:** the four **blueprints** — `PromoEmail`, `EducationalEmail`,
-`StorytellingEmail`, `LaunchEmail` — are complete, on-brand emails with sensible
-defaults. Render one and adjust props (`title`, `offer`, `code`, `ctaHref`, …)
-rather than assembling from scratch when a campaign fits one of those shapes.
+**Never hard-code a color.** Every component reads the `onBg` contrast map and
+picks its own logo tone, title, body, accent, rule, button fill and depth. Pass
+`bg` and the colors are correct by construction:
 
-## Styling idiom — props and tokens, NOT utility classes
+| `bg` | Logo | Titles | Body | Accent | Button |
+|---|---|---|---|---|---|
+| `forest` (#004D27) | gold | white | beige | gold | gold face, forest label |
+| `gold` (#E3BC62) | cream | forest | deep green | forest | forest face, beige label |
+| `beige` (#F0EFDF) | brand green | forest | ink | leaf | forest face, beige label |
 
-There are **no utility CSS classes** in this system. You style in two ways only:
+For your own layout glue only, read `window.MilongaEmailDS.colors`
+(`colors.forest`, `.gold`, `.leaf`, `.beige`, `.white`, `.ink`) or the
+`--milonga-*` CSS variables. Never invent hexes.
 
-1. **Component props** carry the design language. Pick the brand surface/treatment
-   with `tone` / `variant` / `size` / `onDark`, never ad-hoc colors:
-   - Surfaces (`tone`): `white`, `beige`, `cream`, `forest`, `gold`, `leaf`.
-   - `Button` `variant`: `gold` (default, gold-on-forest), `forest`, `leaf`,
-     `outline`, `outlineOnDark`. `size`: `sm` | `md` | `lg`.
-   - On a dark (forest) surface, pass `onDark` (BenefitsGrid, IngredientList,
-     BarChart, List, Stats, SectionHeading) so text/markers flip to light.
-2. **For your own layout glue only** (a spacer, a wrapper div), use the brand
-   palette via CSS variables or the exported `colors` object — never invent hexes:
+## Typography
 
-   `var(--milonga-forest)` `#004D27` · `var(--milonga-gold)` `#E3BC62` ·
-   `var(--milonga-leaf)` `#057441` · `var(--milonga-beige)` `#F0EFDF` ·
-   `var(--milonga-cream)` · `var(--milonga-white)` · `var(--milonga-ink)` (body
-   text) · `var(--milonga-ink-soft)`. Radii: `var(--milonga-radius-sm|md|lg|pill)`.
-   The same values are on `window.MilongaEmailDS.colors` (`colors.forest`, …).
+- **All titles and all buttons are UPPERCASE.** The components already apply
+  `text-transform` — pass normal sentence-case strings and they render in caps.
+- Quotes (`Callout variant="quote"`) stay sentence case.
+- Body copy is deliberately small against the caps headlines — don't enlarge it.
+- Type is **Gotham** (400/500/700/900), bundled, with a Montserrat → Helvetica
+  fallback because most email clients strip web fonts.
 
-**Type is Gotham** (weights 400/500/700/900), shipped with the bundle; the
-email-safe fallback stack is Montserrat → Helvetica → Arial (most email clients
-strip web fonts, so real sends fall back — that's expected). Don't set
-`font-family` yourself; the components already do.
+## Structure and depth
+
+- Separate blocks with **space and hairlines** — `<Section bg={bg} rule>` — not
+  with colored bands.
+- Group related content in a **`Panel`** (raised by default: soft fill, lit top
+  edge, shadow) or set `variant="outlined"` for a quieter hairline box.
+- Blocks, charts, buttons, numerals and photos all carry **depth** (gradients,
+  shadows, area washes) so nothing reads dead flat. That is built in — don't
+  flatten it, and don't add your own shadows.
 
 ## Images
 
-Use `ImageSlot` (or the `image`/`imageSrc` props on `Hero` / `ProductCard`). With
-no `src` it renders an on-brand placeholder labelled by `kind`
-(`product` | `lifestyle` | `studio`) — leave those in for art the team drops in
-later. Set `ratio` (`square` | `landscape` | `portrait` | `wide`).
+Use `ImageSlot`, or the `image` / `imageSrc` props on `Hero`, `TextImage` and
+`ProductCard`. With no `src` you get an on-brand placeholder labelled by `kind`
+(`product` | `lifestyle` | `studio`) — leave those in for art added later.
+
+- A **regular photo** is inset with rounded corners.
+- A **`cutout`** (transparent product PNG) runs the full email width with square
+  corners and is fitted, never cropped, so it sits directly on the flat color.
 
 ## Where the truth lives
 
-- Per-component API + examples: `components/<group>/<Name>/<Name>.prompt.md` and
-  `<Name>.d.ts`. Groups: **Foundations, Layout, Blocks, Data, Blueprints.**
-- Brand tokens: the `--milonga-*` custom properties (in the `styles.css` closure)
-  and the `colors` export. Fonts ship under `fonts/` (Gotham + Montserrat).
-- Data blocks for info-dense emails: `BenefitsGrid`, `IngredientList`,
-  `ComparisonTable` (Milonga column auto-highlighted), `BarChart` (highlight the
-  Milonga bar), `Stats`. Reach for these instead of prose when comparing or
-  listing.
+- Per-component API and examples: `components/<group>/<Name>/<Name>.prompt.md`
+  and `<Name>.d.ts`. Groups: **Foundations, Layout, Blocks, Data, Blueprints**.
+- **Blueprints** are complete, on-brand emails — `PromoEmail`,
+  `EducationalEmail`, `StorytellingEmail`, `LaunchEmail`. Each takes a single
+  `bg` plus text overrides. Start from one of these when the campaign fits.
+- For info-dense emails reach for the **Data** blocks instead of prose:
+  `BenefitsGrid`, `IngredientList`, `ComparisonTable` (styles: `rows` default,
+  `lane`, `grid`), `BarChart`, `Stats`, `VersusBlock`, `Steps`
+  (`numerals` | `discs`) and `EnergyCurve`.

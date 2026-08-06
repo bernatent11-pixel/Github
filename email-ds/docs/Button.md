@@ -4,4 +4,4 @@ category: Blocks
 
 # Button
 
-The call-to-action. Gold-on-forest is the Milonga default. Variants: gold, forest, leaf, outline, outlineOnDark. Sizes: sm, md, lg.
+The call to action — always uppercase, raised with a gradient face and shadow. Colors derive from the email background. `solid` or `outline`; sm / md / lg.

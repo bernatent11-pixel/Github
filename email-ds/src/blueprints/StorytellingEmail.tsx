@@ -82,7 +82,7 @@ export function StorytellingEmail({
         <Button label="Meet the blend" href={ctaHref} bg={bg} size="lg" />
       </Section>
 
-      <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'Our story', href: '#' }]} />
+      <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }, { label: 'Shop', href: '#' }]} />
     </EmailShell>
   );
 }

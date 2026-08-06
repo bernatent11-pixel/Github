@@ -4,4 +4,4 @@ category: Blocks
 
 # ImageSlot
 
-An image block with a first-class on-brand placeholder (product / lifestyle / studio). Drop a `src` in later and the placeholder is replaced 1:1.
+An image block with an on-brand placeholder (product / lifestyle / studio). A regular photo is inset with rounded corners; a `cutout` (transparent PNG) runs full width with square corners, fitted not cropped.

@@ -4,4 +4,4 @@ category: Blocks
 
 # Hero
 
-The opening statement: eyebrow, big Gotham headline, a line of copy, a CTA, and a hero image slot. Tones: forest, gold, beige.
+The opening statement: eyebrow, uppercase headline, a line of copy, the image, then the CTA. Omit the image for a typographic hero.

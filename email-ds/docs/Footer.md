@@ -4,4 +4,4 @@ category: Layout
 
 # Footer
 
-The closing block: logo, tagline, social links, address and unsubscribe. Forest (dark) or beige (light).
+The sign-off: hairline, Milonga lockup, uppercase social links, the MILONGA YERBA MATE brand line, then unsubscribe / view in browser.

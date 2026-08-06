@@ -18,6 +18,36 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
 - Fonts: `public/fonts/Gotham-*.otf` were **user-provided** (from a free-download site — license is gray; the user owns using their brand font). `public/fonts/Montserrat.woff2` (one variable file, SIL OFL) is the email-safe fallback, fetched by `scripts/fetch-montserrat.mjs` from Google Fonts (needs network). `src/styles/fonts.css` + `src/styles/montserrat.css` are concatenated into `dist/fonts.css` at build and shipped via `cfg.extraFonts`.
 - Docs/groups: `scripts/gen-docs.mjs` writes `docs/<Name>.md` (frontmatter `category` → DS pane group + a human blurb → `.prompt.md`).
 
+## Design direction (locked with the user, step by step)
+- **One flat background per email** — `forest` / `gold` / `beige`. No white cards,
+  no alternating bands. `src/theme.ts` (`onBg`) is the single contrast map: it
+  decides logo tone, title/body/accent colors, rules, button fills and all depth
+  tokens per background. Components take `bg` and never hard-code colors.
+- **Header**: flat bg + centered logo at 92px, no tagline. Gold logo on dark
+  green, cream on gold, brand green on beige (the cream-on-gold choice was the
+  user's — the dark green logo read muddy on gold).
+- **Hero**: eyebrow -> uppercase headline (34px) -> body -> image -> CTA. Omit
+  the image for a typographic hero.
+- **Images**: a regular photo is inset + rounded; a `cutout` (transparent PNG)
+  runs full width, square corners, `object-fit: contain` so it fits exactly.
+- **Body**: open hairlines as the default rhythm, `Panel` for grouping.
+  TextImage supports `stacked` and `side`.
+- **Tables**: `rows` is the default style; `lane` when Milonga should visually
+  win; `grid` for dense data.
+- **Steps**: ships both `numerals` (oversized 01/02/03) and `discs`.
+- **Typography**: ALL titles and ALL buttons are uppercase (components apply
+  `text-transform`; pass sentence case). Quotes stay sentence case. Body copy is
+  deliberately a step smaller than the first design pass.
+- **Depth**: everything (blocks, charts, buttons, numerals, photos) carries
+  elevation/gradients/shadows so nothing reads flat. Hover lift is CSS-only and
+  applies where supported; email clients keep the static depth.
+- **Beige gotcha**: raised fills must stay a WARM tint of the beige. Anything
+  near-white re-introduces the white-card look the user explicitly rejected —
+  this was tuned down twice.
+- **Footer**: hairline, primary lockup (84px), uppercase social links, the
+  `MILONGA YERBA MATE` brand line, then unsubscribe / view in browser. No
+  "YERBA MATE" kicker and no tagline — the user removed both.
+
 ## Styling model
 - Components are **self-styling via inline styles** (CSS-in-JS-ish) plus a `:root`
   token stylesheet (`src/styles/tokens.css` → shipped `cssEntry`). No utility

@@ -4,11 +4,29 @@
   "shape": "package",
   "buildCmd": "npm run build",
   "cssEntry": "dist/tokens.css",
-  "extraFonts": ["dist/fonts.css"],
+  "extraFonts": [
+    "dist/fonts.css"
+  ],
   "docsDir": "docs",
   "readmeHeader": ".design-sync/conventions.md",
   "overrides": {
-    "ComparisonTable": { "cardMode": "column" },
-    "Stats": { "cardMode": "column" }
+    "ComparisonTable": {
+      "cardMode": "column"
+    },
+    "Stats": {
+      "cardMode": "column"
+    },
+    "PromoEmail": {
+      "cardMode": "column"
+    },
+    "EducationalEmail": {
+      "cardMode": "column"
+    },
+    "StorytellingEmail": {
+      "cardMode": "column"
+    },
+    "LaunchEmail": {
+      "cardMode": "column"
+    }
   }
 }

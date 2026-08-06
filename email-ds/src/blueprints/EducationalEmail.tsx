@@ -81,7 +81,7 @@ export function EducationalEmail({
         <Button label="Try Milonga" href={ctaHref} bg={bg} size="lg" />
       </Section>
 
-      <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }]} />
+      <Footer bg={bg} social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }, { label: 'Shop', href: '#' }]} />
     </EmailShell>
   );
 }

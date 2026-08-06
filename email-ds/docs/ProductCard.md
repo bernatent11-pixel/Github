@@ -4,4 +4,4 @@ category: Blocks
 
 # ProductCard
 
-A single product feature card: image, name, spec chips, price and CTA.
+A product feature block: image (cutout by default), uppercase name, spec chips, price and CTA — outlined so the flat color carries through.

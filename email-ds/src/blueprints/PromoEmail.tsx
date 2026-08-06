@@ -63,11 +63,7 @@ export function PromoEmail({
 
       <Footer
         bg={bg}
-        social={[
-          { label: 'Instagram', href: '#' },
-          { label: 'TikTok', href: '#' },
-        ]}
-        address="Milonga · Clean, focused energy · Made with yerba mate"
+        social={[{ label: 'Instagram', href: '#' }, { label: 'TikTok', href: '#' }, { label: 'Shop', href: '#' }]}
       />
     </EmailShell>
   );

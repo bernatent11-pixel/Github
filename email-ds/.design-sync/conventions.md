@@ -111,6 +111,38 @@ deliberately soft, tonal pairing carried by the caps and Gotham Black weight.
   shadows, area washes) so nothing reads dead flat. That is built in — don't
   flatten it, and don't add your own shadows.
 
+## Brand icons and badges — use the real art
+
+The icon and badge art is the brand's own. Use `BrandIcon` / `IconRow` (icon +
+label, no fill) or `BrandBadge` / `BadgeRow` (finished pill with the label baked
+in). Both pick their ink/fill from the email background.
+
+**Keep the marks in their groups — never mix them:**
+
+| Group | Marks | Use |
+|---|---|---|
+| `INGREDIENTS` | yerba-mate, lions-mane, l-theanine | The three functional ingredients. **Always together, and the priority.** |
+| `FREE_FROM` | no-cane-sugar, gluten-dairy-free | Always together. A secondary "extra", never above the ingredients. |
+| `SERVE` | hot, iced | Always together. Says you can make it either way. |
+
+```jsx
+<IconRow bg={bg} marks={INGREDIENTS} size={54} />
+<BadgeRow bg={bg} marks={FREE_FROM} />
+<BadgeRow bg={bg} marks={SERVE} />
+```
+
+## Separators, scenes and texture
+
+- **`Divider variant="brand"`** (the default) is the brand rule with a diamond
+  centrepiece — the standard separator between sections.
+- **`ForestScene`** is the illustrated canopy: put it at the end of a beige or
+  gold section, with a dark green section directly below. The art is colour-
+  matched to the forest green, so the background change reads as a landscape
+  rather than a hard edge. Use it once per email at most.
+- **Texture**: pass `textured` to `EmailShell` or `Section` for the brand paper
+  grain (gold and dark green only — beige has no texture art). Same brand
+  colour, just more tactile; use it for a whole email, not for single blocks.
+
 ## Images
 
 Use `ImageSlot`, or the `image` / `imageSrc` props on `Hero`, `TextImage` and

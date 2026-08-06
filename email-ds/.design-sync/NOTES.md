@@ -69,6 +69,25 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
   `MILONGA YERBA MATE` brand line, then unsubscribe / view in browser. No
   "YERBA MATE" kicker and no tagline — the user removed both.
 
+## Brand assets (uploaded by the user, organised by scripts/organize-assets.mjs)
+- Raw uploads land at the repo root as `Assets-NN.png|jpg`; the script copies them
+  into `public/brand/{icons,badges,dividers,scene,textures}` under real names.
+  Re-run it if new assets arrive. Colourway mapping was verified by sampling ink
+  colour, not by eye — icons 30/44/51/58 start the gold/leaf/forest/cream runs,
+  badges 37/65/72 start gold/cream/forest, and 79-81 are the leaf-green
+  ingredient badges (leaf exists ONLY for the three ingredients).
+- Seven marks in fixed order: yerba-mate, lions-mane, l-theanine, no-cane-sugar,
+  gluten-dairy-free, hot, iced. Grouping rules from the user: the 3 ingredients
+  always together and first; free-from pair together as an extra; hot/iced
+  together.
+- `scripts/make-textures.mjs` crops the grain tiles and shifts each one so its
+  MEAN equals the brand hex exactly — the first attempt used `background-blend-
+  mode: multiply` over the colour and came out near-black/orange. Don't blend;
+  the tile is already the right colour.
+- `scripts/make-scene.mjs` crops the treeline band (48%-86% of the artwork) out
+  of the canopy illustration and shifts its colours so the solid base matches
+  `#004D27`, letting `ForestScene` butt straight against a forest section.
+
 ## Styling model
 - Components are **self-styling via inline styles** (CSS-in-JS-ish) plus a `:root`
   token stylesheet (`src/styles/tokens.css` → shipped `cssEntry`). No utility

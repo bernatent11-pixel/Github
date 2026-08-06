@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { emailWidth, fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
+import { bgStyle } from '../textures';
 
 export interface EmailShellProps {
   /**
@@ -12,6 +13,8 @@ export interface EmailShellProps {
   bg?: EmailBg;
   /** Column width in px (email standard is ~600). */
   width?: number;
+  /** Use the brand paper grain instead of a flat fill (gold and dark green only). */
+  textured?: boolean;
   children?: React.ReactNode;
 }
 
@@ -19,13 +22,13 @@ export interface EmailShellProps {
  * The outer email frame: paints the base color full-bleed and centers the
  * content column. Sections may override the color for a band of the email.
  */
-export function EmailShell({ bg = 'forest', width = emailWidth, children }: EmailShellProps) {
+export function EmailShell({ bg = 'forest', width = emailWidth, textured = false, children }: EmailShellProps) {
   return (
     <div
       className="milonga-email"
       style={{
         fontFamily: fontStack,
-        background: bgFill[bg],
+        ...bgStyle(bg, bgFill[bg], textured),
         color: onBg[bg].body,
         width: '100%',
         paddingBottom: 1,

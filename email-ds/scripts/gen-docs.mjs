@@ -8,6 +8,11 @@ const D = {
   Logo: ['Foundations', 'The Milonga mark. Variants: `mark` (hand only), `primary` (MILONGA + hand — the standard), `full` (adds a YERBA MATE line). Tones: gold, green, beige, white.'],
   Icon: ['Foundations', 'The brand glyph set (leaf, bolt, brain, clock, heart, seed, check, cross, star) used in benefits, comparisons and list markers. Size and color are props.'],
   Divider: ['Foundations', 'A section break: `line` (hairline), `mark` (centered hand mark) or `dots` (three accent dots).'],
+  BrandIcon: ['Foundations', 'The real Milonga icon art in four inks. Seven marks: yerba-mate, lions-mane, l-theanine (the three ingredients — always shown together), no-cane-sugar + gluten-dairy-free (an extra pair), and hot + iced (how to serve it). Ink is picked from the background.'],
+  IconRow: ['Foundations', 'A row of brand icons with labels. Use the exported groups so marks stay together: INGREDIENTS (primary), FREE_FROM (extra), SERVE (hot/iced).'],
+  BrandBadge: ['Blocks', 'A finished brand pill — icon and label on a filled background. The fill is picked to contrast with the email background.'],
+  BadgeRow: ['Blocks', 'A row of brand pills. Same grouping rules as IconRow: the three ingredients together first, then free-from, then hot/iced.'],
+  ForestScene: ['Layout', 'The illustrated tree canopy. Sits on a beige or gold section and resolves into the dark green section below, so a background change reads as a scene rather than a hard edge.'],
   // Layout
   EmailShell: ['Layout', 'The outer frame. A Milonga email is ONE flat color end to end — pass `bg` (forest / gold / beige) and every block inside inherits it.'],
   Section: ['Layout', 'A padded content band on the flat email color, optionally preceded by a hairline `rule`. The building block between header and footer.'],

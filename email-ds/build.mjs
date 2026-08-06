@@ -14,7 +14,7 @@ await esbuild.build({
   target: ['es2020'],
   jsx: 'automatic',
   external: ['react', 'react-dom', 'react/jsx-runtime'],
-  loader: { '.png': 'dataurl', '.otf': 'dataurl' },
+  loader: { '.png': 'dataurl', '.jpg': 'dataurl', '.otf': 'dataurl' },
   logLevel: 'info',
 });
 

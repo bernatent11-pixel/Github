@@ -11,6 +11,9 @@ const D = {
   BrandIcon: ['Foundations', 'The real Milonga icon art in four inks. Seven marks: yerba-mate, lions-mane, l-theanine (the three ingredients — always shown together), no-cane-sugar + gluten-dairy-free (an extra pair), and hot + iced (how to serve it). Ink is picked from the background.'],
   IconRow: ['Foundations', 'A row of brand icons with labels. Use the exported groups so marks stay together: INGREDIENTS (primary), FREE_FROM (extra), SERVE (hot/iced).'],
   ForestScene: ['Layout', 'The illustrated tree canopy. Sits on a beige or gold section and resolves into the dark green section below, so a background change reads as a scene rather than a hard edge.'],
+  IconBadge: ['Foundations', 'A brand mark inside a filled disc, glyph in the opposite colour — a gold disc carries a dark green icon. Leads benefit and ingredient rows.'],
+  BenefitList: ['Blocks', 'A vertical run of benefits, each led by a brand mark in a filled disc. Titles are two-tone by default; add `text` for a regular-weight line underneath.'],
+  PriceBlock: ['Blocks', 'The sales block: an optional bundle selector, then the purchase options side by side with their per-serving maths. The featured option is outlined in the accent colour and carries the solid button.'],
   // Layout
   EmailShell: ['Layout', 'The outer frame. A Milonga email is ONE flat color end to end — pass `bg` (forest / gold / beige) and every block inside inherits it.'],
   Section: ['Layout', 'A padded content band on the flat email color, optionally preceded by a hairline `rule`. The building block between header and footer.'],

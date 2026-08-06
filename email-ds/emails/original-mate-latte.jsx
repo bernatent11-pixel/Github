@@ -1,0 +1,162 @@
+// Campaign: "The Original Mate Latte" — the landing page, turned into an email.
+// ACT 1 header (loud) · ACT 2 body (education) · ACT 3 CTA (price/offer).
+// Specs from .design-sync/brand/milonga-product.md.
+const M = window.MilongaEmailDS;
+const h = React.createElement;
+
+const SOCIAL = [
+  { label: 'Instagram', href: '#' },
+  { label: 'TikTok', href: '#' },
+  { label: 'Shop', href: '#' },
+];
+
+function OriginalMateLatte({ shopHref = '#' }) {
+  const bg = 'forest';
+
+  return h(M.EmailShell, { bg, textured: true },
+
+    // ═══ ACT 1 · HEADER ═══
+    h(M.Header, { bg }),
+    h(M.Hero, {
+      bg,
+      title: 'The Original Mate Latte',
+      titleAccentPart: 'Mate Latte',
+      titleSize: 40,
+      eyebrow: 'Energy that thinks',
+      body: 'Our new launch: a yerba mate latte in powder. One scoop of yerba mate, Lion’s Mane and L-Theanine turns into a creamy vanilla latte — hot or iced.',
+      image: { kind: 'product', cutout: true },
+      cta: { label: 'Shop the Mate Latte', href: shopHref },
+    }),
+
+    // ═══ ACT 2 · BODY ═══
+
+    // Elevate your morning ritual
+    h(M.Section, { bg, pad: 'lg', rule: true },
+      h(M.SectionHeading, {
+        bg,
+        title: 'Elevate your morning ritual',
+        intro: 'Everything your mornings need',
+        align: 'center',
+      }),
+      h('div', { style: { height: 24 } }),
+      h(M.BenefitList, { bg, items: [
+        { mark: 'yerba-mate', title: 'Clean, sustained energy' },
+        { mark: 'lions-mane', title: 'Mental focus' },
+        { mark: 'l-theanine', title: 'Calm, no jitters' },
+        { mark: 'no-cane-sugar', title: 'No synthetic sweeteners' },
+        { mark: 'gluten-dairy-free', title: 'Antioxidant-rich' },
+      ]})
+    ),
+
+    // Three main ingredients
+    h(M.Section, { bg, pad: 'lg', rule: true },
+      h(M.SectionHeading, {
+        bg,
+        title: 'Three main ingredients',
+        intro: 'One unique experience',
+      }),
+      h('div', { style: { height: 22 } }),
+      h(M.BenefitList, { bg, badgeSize: 42, size: 18, twoTone: false, items: [
+        { mark: 'yerba-mate', title: '100mg Yerba Mate', text: 'Clean, sustained energy & rich antioxidants.' },
+        { mark: 'lions-mane', title: '500mg Lion’s Mane', text: 'Focus and memory.' },
+        { mark: 'l-theanine', title: '200mg L-Theanine', text: 'Balanced calm.' },
+      ]}),
+      h('div', { style: { height: 24 } }),
+      h(M.ImageSlot, { bg, kind: 'studio', ratio: 'landscape' }),
+      h('div', { style: { height: 18, textAlign: 'center' } }),
+      h('div', { style: { textAlign: 'center' } },
+        h(M.Button, { bg, label: '90 cal · 3g sugar per serving', href: shopHref, variant: 'outline', size: 'sm' })
+      )
+    ),
+
+    // Hot or iced, in 30 seconds
+    h(M.Section, { bg, pad: 'md', rule: true, align: 'center' },
+      h(M.SectionHeading, { bg, eyebrow: 'Ready in 30 seconds', title: 'Hot or iced', align: 'center' }),
+      h('div', { style: { height: 22 } }),
+      h(M.IconRow, { bg, marks: M.SERVE, size: 50 })
+    ),
+
+    // Why upgrade
+    h(M.Section, { bg, pad: 'lg', rule: true },
+      h(M.SectionHeading, {
+        bg,
+        title: 'Why upgrade to the Mate Latte?',
+        intro: 'Is that even a question?',
+        align: 'center',
+      }),
+      h('div', { style: { height: 22 } }),
+      h(M.ComparisonTable, {
+        bg,
+        style: 'lane',
+        highlight: 1,
+        columns: ['', 'Mate Latte', 'Matcha', 'Coffee', 'Mushroom coffee'],
+        rows: [
+          { label: 'Smooth caffeine', note: 'No jitters or crash', cells: [
+            { v: true, note: '100mg from yerba mate' },
+            { v: true, note: '~70mg' },
+            { v: false, note: 'Spikes + crashes' },
+            { v: 'Varies', note: 'Still coffee-based' },
+          ]},
+          { label: 'L-Theanine', note: 'Calm focus, no anxiety', cells: [
+            { v: true, note: '200mg added' },
+            { v: 'Trace', note: '~25mg natural' },
+            false,
+            { v: false, note: 'Most brands omit' },
+          ]},
+          { label: 'Lion’s Mane', note: 'Cognitive support', cells: [
+            { v: true, note: '500mg full dose' },
+            false,
+            false,
+            { v: true, note: 'Varies by brand' },
+          ]},
+          { label: 'Dairy-free latte', note: 'Just add water', cells: [
+            { v: true, note: 'Oat + coconut built in' },
+            { v: false, note: 'Needs milk/creamer' },
+            { v: false, note: 'Needs creamer' },
+            { v: false, note: 'Needs creamer' },
+          ]},
+        ],
+      })
+    ),
+
+    // ═══ ACT 3 · CTA ═══
+    h(M.Section, { bg, pad: 'lg', rule: true },
+      h(M.SectionHeading, {
+        bg,
+        title: 'Get yours before it runs out',
+        align: 'center',
+      }),
+      h('div', { style: { height: 24 } }),
+      h(M.PriceBlock, {
+        bg,
+        tabs: [
+          { label: 'Buy 1', active: true, href: shopHref },
+          { label: 'Buy 2 · Save 10%', href: shopHref },
+          { label: 'Buy 3 · Save 15%', href: shopHref },
+        ],
+        options: [
+          {
+            label: 'One-time',
+            price: '$29.99',
+            detail: '15 servings',
+            unit: '$2.00 per serving',
+            cta: { label: 'Buy now', href: shopHref },
+          },
+          {
+            label: 'Subscribe & Save',
+            was: '$29.99',
+            price: '$25.49',
+            suffix: '/mo',
+            detail: '15 servings monthly · cancel anytime',
+            unit: '$1.70 per serving',
+            badge: 'Save 15%',
+            featured: true,
+            cta: { label: 'Subscribe & Save', href: shopHref },
+          },
+        ],
+      })
+    ),
+
+    h(M.Footer, { bg, social: SOCIAL })
+  );
+}

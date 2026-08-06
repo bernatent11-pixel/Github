@@ -56,7 +56,9 @@ export function BarChart({ data, max, bg = 'forest' }: BarChartProps) {
                   width: `${pct}%`,
                   height: '100%',
                   borderRadius: radius.pill,
-                  background: d.highlight ? t.accent : t.title,
+                  // Comparison bars stay quiet so the Milonga bar wins.
+                  background: d.highlight ? t.accent : t.body,
+                  opacity: d.highlight ? 1 : 0.45,
                 }}
               />
             </div>

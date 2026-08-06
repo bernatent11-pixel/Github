@@ -1,30 +1,52 @@
 <!doctype html>
-<html>
-<head>
-<meta charset="utf-8" />
+<html><head><meta charset="utf-8" />
 <link rel="stylesheet" href="../ds-bundle/styles.css" />
 <link rel="stylesheet" href="../ds-bundle/_ds_bundle.css" />
 <script src="../ds-bundle/_vendor/react.js"></script>
 <script src="../ds-bundle/_vendor/react-dom.js"></script>
 <script src="../ds-bundle/_ds_bundle.js"></script>
 <style>
-  body { margin:0; background:#d9d7cc; font-family:"Gotham",Montserrat,Arial,sans-serif; padding:20px; }
-  .lbl { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#3B5344; margin:0 0 10px; }
-  .row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:start; }
-</style>
-</head>
-<body><div id="root"></div>
+ body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:20px}
+ .lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#3B5344;margin:0 0 8px}
+ .row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+ .pad{padding:22px 26px}
+</style></head><body><div id="root"></div>
 <script>
-const M = window.MilongaEmailDS, h = React.createElement;
+const M=window.MilongaEmailDS,h=React.createElement,FILL=M.bgFill;
+const COLS=['','Milonga','Coffee','Energy drink'];
+const ROWS=[['Clean caffeine',true,true,false],['No sugar crash',true,false,false],["Lion's Mane focus",true,false,false],['Added sugar','None','None','High']];
+const wrap=(bg,el)=>h('div',{style:{background:FILL[bg]},className:'pad'},el);
 const card=(label,el)=>h('div',null,h('div',{className:'lbl'},label),el);
-ReactDOM.createRoot(document.getElementById('root')).render(
-  h('div',{className:'row'},
-    card('Promo — dark green', h(M.PromoEmail,{bg:'forest'})),
-    card('Educational — beige', h(M.EducationalEmail,{bg:'beige'})),
-    card('Launch — gold', h(M.LaunchEmail,{bg:'gold'})),
-    card('Story — dark green', h(M.StorytellingEmail,{bg:'forest'}))
-  )
-);
-</script>
-</body>
-</html>
+
+const tbl=(style,bg)=>card(style+' — '+bg, wrap(bg,h(M.ComparisonTable,{bg,columns:COLS,rows:ROWS,highlight:1,style})));
+
+const versus=(bg)=>card('Versus block — '+bg, wrap(bg,h(M.VersusBlock,{bg,
+  left:{label:'Coffee at 3pm',points:['Spike, then crash','Jitters and anxiety','Acidic on an empty stomach']},
+  right:{label:'Milonga at 3pm',points:['Steady, even lift','Calm focus, no jitters','Smooth vanilla latte']}})));
+
+const steps=(bg)=>card('Steps — '+bg, wrap(bg,h(M.Steps,{bg,items:[
+  {title:'One scoop',text:'Add a scoop of Milonga to your cup.'},
+  {title:'Add hot water or milk',text:'Stir for 10 seconds until smooth.'},
+  {title:'Sip and focus',text:'Clean energy for the next four hours.'}]})));
+
+const curve=(bg)=>card('Energy curve — '+bg, wrap(bg,h(M.EnergyCurve,{bg,
+  xLabels:['8am','11am','2pm','5pm','8pm'],
+  series:[{label:'Coffee',points:[20,95,40,18,10]},{label:'Milonga',points:[22,70,72,60,32],highlight:true}]})));
+
+const bar=(bg)=>card('Bar chart — '+bg, wrap(bg,h(M.BarChart,{bg,max:220,data:[
+  {label:'Milonga',value:100,suffix:'mg',highlight:true},{label:'Drip coffee',value:165,suffix:'mg'},{label:'Energy drink',value:200,suffix:'mg'}]})));
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment,null,
+ h('div',{className:'row'}, tbl('rows','gold'), tbl('lane','gold'), tbl('grid','gold')),
+ h('div',{style:{height:20}}),
+ h('div',{className:'row'}, tbl('rows','forest'), tbl('lane','forest'), tbl('grid','beige')),
+ h('div',{style:{height:26}}),
+ h('div',{className:'row'}, versus('forest'), versus('gold'), versus('beige')),
+ h('div',{style:{height:26}}),
+ h('div',{className:'row'}, steps('forest'), steps('gold'), steps('beige')),
+ h('div',{style:{height:26}}),
+ h('div',{className:'row'}, curve('forest'), curve('gold'), curve('beige')),
+ h('div',{style:{height:26}}),
+ h('div',{className:'row'}, bar('forest'), bar('gold'), bar('beige'))
+));
+</script></body></html>

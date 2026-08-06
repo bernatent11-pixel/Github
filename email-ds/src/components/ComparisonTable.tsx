@@ -13,6 +13,12 @@ export interface ComparisonTableProps {
   rows: Array<[string, ...Cell[]]>;
   /** Index of the column to highlight as Milonga (default 1). */
   highlight?: number;
+  /**
+   * `rows` = horizontal hairlines only (lightest) ·
+   * `lane` = no grid, the Milonga column sits in an outlined lane ·
+   * `grid` = lines on both axes (densest).
+   */
+  style?: 'rows' | 'lane' | 'grid';
   /** The email's flat background color. */
   bg?: EmailBg;
 }
@@ -21,8 +27,15 @@ export interface ComparisonTableProps {
  * A "Milonga vs. the rest" table. Outlined, never filled — the Milonga column
  * is marked with the accent color so it reads without a solid block.
  */
-export function ComparisonTable({ columns, rows, highlight = 1, bg = 'forest' }: ComparisonTableProps) {
+export function ComparisonTable({ columns, rows, highlight = 1, style = 'rows', bg = 'forest' }: ComparisonTableProps) {
   const t = onBg[bg];
+  const grid = style === 'grid';
+  const lane = style === 'lane';
+  /** In `lane` style the Milonga column is bounded by a soft outline. */
+  const laneEdge = (i: number): React.CSSProperties =>
+    lane && i === highlight
+      ? { borderLeft: `1px solid ${t.rule}`, borderRight: `1px solid ${t.rule}` }
+      : {};
 
   const renderCell = (v: Cell, hl: boolean) => {
     if (typeof v === 'boolean') {
@@ -37,8 +50,8 @@ export function ComparisonTable({ columns, rows, highlight = 1, bg = 'forest' }:
         width: '100%',
         borderCollapse: 'collapse',
         fontFamily: fontStack,
-        border: `1px solid ${t.rule}`,
-        borderRadius: 14,
+        border: grid ? `1px solid ${t.rule}` : 'none',
+        borderRadius: grid ? 14 : 0,
       }}
     >
       <thead>
@@ -53,6 +66,8 @@ export function ComparisonTable({ columns, rows, highlight = 1, bg = 'forest' }:
                 fontSize: 12.5,
                 color: i === highlight ? t.accent : t.title,
                 borderBottom: `1px solid ${t.rule}`,
+                ...(lane && i === highlight ? { borderTop: `1px solid ${t.rule}` } : {}),
+                ...laneEdge(i),
               }}
             >
               {c}
@@ -83,7 +98,11 @@ export function ComparisonTable({ columns, rows, highlight = 1, bg = 'forest' }:
                     textAlign: 'center',
                     padding: '12px 12px',
                     borderTop: r ? `1px solid ${t.rule}` : 'none',
-                    borderLeft: `1px solid ${t.rule}`,
+                    ...(grid ? { borderLeft: `1px solid ${t.rule}` } : {}),
+                    ...laneEdge(c + 1),
+                    ...(lane && c + 1 === highlight && r === rows.length - 1
+                      ? { borderBottom: `1px solid ${t.rule}` }
+                      : {}),
                   }}
                 >
                   {renderCell(v, c + 1 === highlight)}

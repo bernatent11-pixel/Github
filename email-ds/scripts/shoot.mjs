@@ -7,7 +7,7 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 2 });
 const errs = [];
 page.on('pageerror', (e) => errs.push(String(e)));
-await page.goto('file:///home/user/Github/email-ds/ds-bundle/_refine.html');
+await page.goto('file:///home/user/Github/email-ds/refine/index.html');
 await page.waitForTimeout(1200);
 await page.screenshot({ path: out, fullPage: true });
 await browser.close();

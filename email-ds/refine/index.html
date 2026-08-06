@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../ds-bundle/styles.css" />
+<link rel="stylesheet" href="../ds-bundle/_ds_bundle.css" />
+<script src="../ds-bundle/_vendor/react.js"></script>
+<script src="../ds-bundle/_vendor/react-dom.js"></script>
+<script src="../ds-bundle/_ds_bundle.js"></script>
+<style>
+  body { margin:0; background:#d9d7cc; font-family:"Gotham",Montserrat,Arial,sans-serif; padding:22px; }
+  h3 { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#3B5344; margin:0 0 10px; }
+  .row { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start; }
+  .cap { font-size:11px; color:#5b6b5f; margin:8px 2px 0; letter-spacing:.05em; }
+</style>
+</head>
+<body><div id="root"></div>
+<script>
+const M = window.MilongaEmailDS, h = React.createElement;
+const ON = M.onBg, FILL = M.bgFill;
+
+const EYEBROW='Limited time', TITLE='Your focus, 20% sharper',
+      BODY='Take 20% off your first tin of Milonga Yerba Mate Latte.';
+
+function Eyebrow({t}){ return h('div',{style:{fontSize:11,fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',color:t.accent,marginBottom:14}},EYEBROW); }
+function Title({t}){ return h('h1',{style:{fontSize:34,fontWeight:900,lineHeight:1.08,letterSpacing:'-.015em',margin:0,color:t.title}},TITLE); }
+function Body({t}){ return h('p',{style:{fontSize:15.5,lineHeight:1.6,margin:'14px auto 0',maxWidth:400,color:t.body}},BODY); }
+function Cta({t}){ return h('a',{href:'#',style:{display:'inline-block',marginTop:24,background:t.btnBg,color:t.btnText,fontSize:15,fontWeight:700,padding:'15px 34px',borderRadius:999,textDecoration:'none'}},'Shop the launch'); }
+function Img({bg,ratio}){ return h(M.ImageSlot,{kind:'lifestyle',ratio:ratio||'wide',tone:bg==='forest'?'forest':'beige'}); }
+
+function HeroA({bg}){ const t=ON[bg]; return h('div',{style:{background:FILL[bg],padding:'12px 30px 34px',textAlign:'center'}},
+  h(Eyebrow,{t}),h(Title,{t}),h(Body,{t}),h(Cta,{t}),
+  h('div',{style:{marginTop:30}},h(Img,{bg}))
+);}
+function HeroB({bg}){ const t=ON[bg]; return h('div',{style:{background:FILL[bg],padding:'12px 30px 34px',textAlign:'center'}},
+  h('div',{style:{marginBottom:30}},h(Img,{bg})),
+  h(Eyebrow,{t}),h(Title,{t}),h(Body,{t}),h(Cta,{t})
+);}
+function HeroC({bg}){ const t=ON[bg]; return h('div',{style:{background:FILL[bg],padding:'22px 30px 46px',textAlign:'center'}},
+  h(Eyebrow,{t}),h(Title,{t}),h(Body,{t}),h(Cta,{t})
+);}
+
+const col=(Comp,label,bg)=>h('div',null,
+  h('h3',null,label),
+  h('div',{style:{background:FILL[bg]}}, h(M.Header,{bg:bg,size:92}), h(Comp,{bg})),
+  h('div',{className:'cap'}, bg==='forest'?'Dark green':bg==='gold'?'Gold':'Beige')
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment,null,
+  h('div',{className:'row'},
+    col(HeroA,'A — text, then image','forest'),
+    col(HeroB,'B — image, then text','forest'),
+    col(HeroC,'C — typographic only','forest')),
+  h('div',{style:{height:26}}),
+  h('div',{className:'row'},
+    col(HeroA,'A — on gold','gold'),
+    col(HeroB,'B — on gold','gold'),
+    col(HeroC,'C — on beige','beige'))
+));
+</script>
+</body>
+</html>

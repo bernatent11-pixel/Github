@@ -5,17 +5,11 @@
 <script src="../ds-bundle/_vendor/react.js"></script>
 <script src="../ds-bundle/_vendor/react-dom.js"></script>
 <script src="../ds-bundle/_ds_bundle.js"></script>
-<style>
- body{margin:0;background:#d9d7cc;font-family:"Gotham",Montserrat,Arial,sans-serif;padding:18px}
- .lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#3B5344;margin:0 0 8px}
- .row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
-</style></head><body><div id="root"></div>
+<style>body{margin:0;background:#d9d7cc;padding:0}</style>
+</head><body><div id="root"></div>
+<script src="../emails/launch-vanilla-latte.jsx"></script>
 <script>
-const M=window.MilongaEmailDS,h=React.createElement;
-const card=(l,e)=>h('div',null,h('div',{className:'lbl'},l),e);
-ReactDOM.createRoot(document.getElementById('root')).render(h('div',{className:'row'},
- card('Educational — beige (brand icons)',h(M.EducationalEmail,{bg:'beige',accentBg:'forest'})),
- card('Educational — TEXTURED dark green',h(M.EducationalEmail,{bg:'forest',accentBg:'gold',textured:true})),
- card('Launch — TEXTURED gold',h(M.LaunchEmail,{bg:'gold',textured:true})),
- card('Promo — TEXTURED dark green',h(M.PromoEmail,{bg:'forest',textured:true}))));
+ReactDOM.createRoot(document.getElementById('root')).render(
+  React.createElement('div',{style:{width:600,margin:'0 auto'}}, React.createElement(LaunchVanillaLatte))
+);
 </script></body></html>

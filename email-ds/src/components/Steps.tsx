@@ -53,11 +53,11 @@ export function Steps({ items, variant = 'numerals', bg = 'forest' }: StepsProps
             >
               {i + 1}
             </div>
-            <div style={{ fontWeight: 900, fontSize: 15, color: t.title, marginBottom: 6, lineHeight: 1.25 }}>
+            <div style={{ fontWeight: 900, fontSize: 12.5, color: t.title, marginBottom: 6, lineHeight: 1.3, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               {s.title}
             </div>
             {s.text ? (
-              <div style={{ fontSize: 13, lineHeight: 1.55, color: t.body }}>{s.text}</div>
+              <div style={{ fontSize: 12.5, lineHeight: 1.6, color: t.body }}>{s.text}</div>
             ) : null}
           </div>
         ))}
@@ -87,11 +87,11 @@ export function Steps({ items, variant = 'numerals', bg = 'forest' }: StepsProps
             {String(i + 1).padStart(2, '0')}
           </span>
           <span>
-            <span style={{ display: 'block', fontWeight: 900, fontSize: 16, color: t.title, marginBottom: 4 }}>
+            <span style={{ display: 'block', fontWeight: 900, fontSize: 13.5, color: t.title, marginBottom: 5, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               {s.title}
             </span>
             {s.text ? (
-              <span style={{ display: 'block', fontSize: 13.5, lineHeight: 1.55, color: t.body }}>{s.text}</span>
+              <span style={{ display: 'block', fontSize: 12.5, lineHeight: 1.6, color: t.body }}>{s.text}</span>
             ) : null}
           </span>
         </div>

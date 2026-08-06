@@ -84,7 +84,7 @@ export function ComparisonTable({ columns, rows, highlight = 1, style = 'rows', 
                 style={{
                   padding: '12px 12px',
                   fontWeight: 500,
-                  fontSize: 13,
+                  fontSize: 12.5,
                   color: t.body,
                   borderTop: r ? `1px solid ${t.rule}` : 'none',
                 }}

@@ -25,7 +25,7 @@ export function List({ items, marker = 'leaf', bg = 'forest' }: ListProps) {
               <Icon name={marker} size={16} color={t.accent} />
             )}
           </span>
-          <span style={{ fontWeight: 400, fontSize: 14.5, lineHeight: 1.55, color: t.body }}>
+          <span style={{ fontWeight: 400, fontSize: 13, lineHeight: 1.6, color: t.body }}>
             {it}
           </span>
         </li>

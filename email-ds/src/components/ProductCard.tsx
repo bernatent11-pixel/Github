@@ -47,9 +47,9 @@ export function ProductCard({
             {variant}
           </div>
         ) : null}
-        <div style={{ fontWeight: 900, fontSize: 20, color: t.title, lineHeight: 1.15 }}>{name}</div>
+        <div style={{ fontWeight: 900, fontSize: 17, color: t.title, lineHeight: 1.2, textTransform: 'uppercase', letterSpacing: '0.03em' }}>{name}</div>
         {description ? (
-          <p style={{ fontWeight: 400, fontSize: 14, lineHeight: 1.55, color: t.body, margin: '10px 0 0' }}>
+          <p style={{ fontWeight: 400, fontSize: 13, lineHeight: 1.65, color: t.body, margin: '10px 0 0' }}>
             {description}
           </p>
         ) : null}

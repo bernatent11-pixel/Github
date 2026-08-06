@@ -54,8 +54,9 @@ export function Hero({ bg = 'forest', eyebrow, title, body, image, cta, titleSiz
           style={{
             fontSize: titleSize,
             fontWeight: 900,
-            lineHeight: 1.08,
-            letterSpacing: '-0.015em',
+            lineHeight: 1.14,
+            textTransform: 'uppercase',
+            letterSpacing: '0.015em',
             margin: 0,
             color: t.title,
             textShadow: t.textShadow,
@@ -64,7 +65,7 @@ export function Hero({ bg = 'forest', eyebrow, title, body, image, cta, titleSiz
           {title}
         </h1>
         {body ? (
-          <p style={{ fontSize: 15.5, lineHeight: 1.6, margin: '14px auto 0', maxWidth: 400, color: t.body }}>
+          <p style={{ fontSize: 13.5, lineHeight: 1.65, margin: '14px auto 0', maxWidth: 400, color: t.body }}>
             {body}
           </p>
         ) : null}

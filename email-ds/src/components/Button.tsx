@@ -20,9 +20,9 @@ export interface ButtonProps {
 }
 
 const SIZES: Record<ButtonSize, React.CSSProperties> = {
-  sm: { fontSize: 13, padding: '11px 22px' },
-  md: { fontSize: 15, padding: '14px 30px' },
-  lg: { fontSize: 15.5, padding: '16px 36px' },
+  sm: { fontSize: 11.5, padding: '11px 22px' },
+  md: { fontSize: 12.5, padding: '14px 30px' },
+  lg: { fontSize: 13.5, padding: '17px 38px' },
 };
 
 /**
@@ -54,7 +54,9 @@ export function Button({ label, href = '#', bg = 'forest', variant = 'solid', si
         textDecoration: 'none',
         fontFamily: fontStack,
         fontWeight: 700,
-        letterSpacing: '0.01em',
+        // Milonga buttons are always uppercase.
+        textTransform: 'uppercase',
+        letterSpacing: '0.09em',
         borderRadius: radius.pill,
         lineHeight: 1.1,
         ...SIZES[size],

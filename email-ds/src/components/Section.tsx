@@ -106,8 +106,9 @@ export function SectionHeading({ bg = 'forest', eyebrow, title, intro, align = '
           fontFamily: fontStack,
           fontWeight: 900,
           fontSize: size,
-          lineHeight: 1.14,
-          letterSpacing: '-0.01em',
+          lineHeight: 1.2,
+          textTransform: 'uppercase',
+          letterSpacing: '0.02em',
           margin: 0,
           color: t.title,
           textShadow: t.textShadow,
@@ -116,7 +117,7 @@ export function SectionHeading({ bg = 'forest', eyebrow, title, intro, align = '
         {title}
       </h2>
       {intro ? (
-        <p style={{ fontFamily: fontStack, fontWeight: 400, fontSize: 15, lineHeight: 1.65, margin: '12px 0 0', color: t.body }}>
+        <p style={{ fontFamily: fontStack, fontWeight: 400, fontSize: 13.5, lineHeight: 1.7, margin: '12px 0 0', color: t.body }}>
           {intro}
         </p>
       ) : null}

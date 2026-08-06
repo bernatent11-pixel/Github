@@ -52,11 +52,21 @@ export function TextImage({
           {eyebrow}
         </div>
       ) : null}
-      <h3 style={{ fontSize: side ? 20 : 24, fontWeight: 900, lineHeight: 1.15, margin: 0, color: t.title }}>
+      <h3
+        style={{
+          fontSize: side ? 17 : 21,
+          fontWeight: 900,
+          lineHeight: 1.22,
+          margin: 0,
+          color: t.title,
+          textTransform: 'uppercase',
+          letterSpacing: '0.02em',
+        }}
+      >
         {title}
       </h3>
       {text ? (
-        <p style={{ fontSize: side ? 13.5 : 15, lineHeight: 1.65, margin: '10px 0 0', color: t.body }}>{text}</p>
+        <p style={{ fontSize: side ? 12.5 : 13.5, lineHeight: 1.7, margin: '10px 0 0', color: t.body }}>{text}</p>
       ) : null}
       {cta ? (
         <div style={{ marginTop: 16 }}>

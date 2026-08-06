@@ -40,9 +40,11 @@ export function Callout({ text, attribution, variant = 'highlight', bg = 'forest
       <p
         style={{
           fontWeight: variant === 'quote' ? 500 : 900,
-          fontSize: variant === 'quote' ? 18 : 22,
-          lineHeight: 1.35,
-          letterSpacing: '-0.01em',
+          fontSize: variant === 'quote' ? 15.5 : 18,
+          lineHeight: variant === 'quote' ? 1.5 : 1.3,
+          ...(variant === 'quote'
+            ? { letterSpacing: '0' }
+            : { textTransform: 'uppercase' as const, letterSpacing: '0.03em' }),
           margin: 0,
           color: t.title,
         }}

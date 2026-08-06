@@ -37,9 +37,9 @@ export function IngredientList({ items, bg = 'forest' }: IngredientListProps) {
             <Icon name="leaf" size={18} color={t.accent} />
           </span>
           <span style={{ flex: '1 1 auto', minWidth: 0 }}>
-            <span style={{ fontWeight: 700, fontSize: 14.5, color: t.title }}>{it.name}</span>
+            <span style={{ fontWeight: 900, fontSize: 12.5, color: t.title, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{it.name}</span>
             {it.note ? (
-              <span style={{ display: 'block', fontWeight: 400, fontSize: 12.5, color: t.body, marginTop: 2 }}>
+              <span style={{ display: 'block', fontWeight: 400, fontSize: 12, color: t.body, marginTop: 3 }}>
                 {it.note}
               </span>
             ) : null}

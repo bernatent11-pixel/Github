@@ -42,9 +42,9 @@ export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
       <div style={{ marginBottom: 10 }}>
         <Icon name={s.icon ?? (win ? 'check' : 'cross')} size={20} color={win ? t.accent : t.body} />
       </div>
-      <div style={{ fontWeight: 900, fontSize: 15, color: win ? t.accent : t.title, marginBottom: 10 }}>{s.label}</div>
+      <div style={{ fontWeight: 900, fontSize: 12.5, color: win ? t.accent : t.title, marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
       {s.points.map((p, i) => (
-        <div key={i} style={{ fontSize: 13, lineHeight: 1.5, color: t.body, padding: '4px 0' }}>
+        <div key={i} style={{ fontSize: 12.5, lineHeight: 1.55, color: t.body, padding: '4px 0' }}>
           {p}
         </div>
       ))}

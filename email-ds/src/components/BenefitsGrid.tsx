@@ -50,15 +50,17 @@ export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGrid
           </div>
           <div
             style={{
-              fontWeight: 700,
-              fontSize: 15,
+              fontWeight: 900,
+              fontSize: 12.5,
               color: t.title,
-              marginBottom: 5,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: 6,
             }}
           >
             {b.title}
           </div>
-          <div style={{ fontWeight: 400, fontSize: 13.5, lineHeight: 1.55, color: t.body }}>
+          <div style={{ fontWeight: 400, fontSize: 12.5, lineHeight: 1.6, color: t.body }}>
             {b.text}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { colors, fontStack, radius } from '../tokens';
 import { EmailBg, onBg } from '../theme';
+import { useBlockFill } from '../surface';
 import markGreen from '../../public/logo/mark-green.png';
 import markGold from '../../public/logo/mark-gold.png';
 
@@ -51,6 +52,7 @@ export function ImageSlot({
   caption,
 }: ImageSlotProps) {
   const t = onBg[bg];
+  const bed = useBlockFill(bg, t.elevated);
   const onDark = bg === 'forest';
   const br = cutout ? 0 : radius.md;
 
@@ -62,7 +64,7 @@ export function ImageSlot({
     overflow: 'hidden',
     // A cutout sits directly on the email color; a photo gets a bed that is a
     // subtle tint OF the background, never a contrasting block.
-    background: cutout ? 'transparent' : t.elevated,
+    background: cutout ? 'transparent' : bed,
     // Photos sit slightly above the flat color; cutouts stay weightless.
     boxShadow: cutout || !src ? 'none' : t.shadow,
   };

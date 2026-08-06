@@ -156,6 +156,10 @@ background automatically.
   paper grain covers the WHOLE email — it is an alternative to the flat fill, not
   a per-section treatment. Gold and dark green only; beige has no texture art and
   stays flat. The grain never changes the colour.
+- On a **textured** email, rounded blocks (panels, benefit cards, the product
+  card, quote bands, photo beds) fill with the **plain** brand colour instead of
+  the translucent lift, so they read as clean shapes cut out of the grain. That
+  switch is automatic — don't set block backgrounds by hand.
 
 ## Images
 

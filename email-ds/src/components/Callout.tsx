@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
+import { useBlockFill } from '../surface';
 import { Icon } from './Icon';
 
 export interface CalloutProps {
@@ -20,9 +21,11 @@ export interface CalloutProps {
  */
 export function Callout({ text, attribution, variant = 'highlight', bg = 'forest' }: CalloutProps) {
   const t = onBg[bg];
+  const fill = useBlockFill(bg, 'transparent');
   return (
     <div
       style={{
+        background: fill,
         border: `1px solid ${t.rule}`,
         borderRadius: 14,
         padding: '28px 30px',

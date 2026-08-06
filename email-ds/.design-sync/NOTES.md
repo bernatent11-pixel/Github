@@ -84,6 +84,9 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
   provides a context from EmailShell; a block whose `bg` matches the shell paints
   nothing so the shell's grain shows through, while a block that switches colour
   paints its own. Without that, sections painted flat over the texture.
+- `useBlockFill` (surface.tsx): on a textured email every rounded block fills
+  with the PLAIN brand colour rather than the translucent `elevated` lift — the
+  user asked for this so blocks stay visible against the grain.
 - `AnyIcon` accepts a brand mark or a generic glyph, so BenefitsGrid,
   IngredientList and VersusBlock can use the real art wherever it fits meaning.
 - Seven marks in fixed order: yerba-mate, lions-mane, l-theanine, no-cane-sugar,

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
+import { useBlockFill } from '../surface';
 import { AnyIcon, AnyIconName } from './AnyIcon';
 
 export interface Benefit {
@@ -24,6 +25,7 @@ export interface BenefitsGridProps {
  */
 export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGridProps) {
   const t = onBg[bg];
+  const fill = useBlockFill(bg, t.elevated);
   return (
     <div
       style={{
@@ -38,7 +40,7 @@ export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGrid
           key={i}
           className="milonga-lift"
           style={{
-            background: t.elevated,
+            background: fill,
             border: `1px solid ${t.rule}`,
             borderTopColor: t.sheen,
             borderRadius: 14,

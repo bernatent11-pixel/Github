@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
+import { useBlockFill } from '../surface';
 import { Button } from './Button';
 import { ImageSlot } from './ImageSlot';
 
@@ -38,8 +39,9 @@ export function ProductCard({
   bg = 'forest',
 }: ProductCardProps) {
   const t = onBg[bg];
+  const fill = useBlockFill(bg, 'transparent');
   return (
-    <div style={{ fontFamily: fontStack, border: `1px solid ${t.rule}`, borderRadius: 14, overflow: 'hidden' }}>
+    <div style={{ fontFamily: fontStack, background: fill, border: `1px solid ${t.rule}`, borderRadius: 14, overflow: 'hidden' }}>
       <ImageSlot src={imageSrc} alt={imageAlt} kind="product" ratio="landscape" bg={bg} cutout={cutout} />
       <div style={{ padding: '18px 20px 22px' }}>
         {variant ? (

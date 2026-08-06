@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
-import { useSurface } from '../surface';
+import { useSurface, useBlockFill } from '../surface';
 import { TwoToneTitle } from './TwoToneTitle';
 
 export interface SectionProps {
@@ -52,6 +52,7 @@ export interface PanelProps {
  */
 export function Panel({ bg = 'forest', variant = 'raised', pad = 18, children }: PanelProps) {
   const t = onBg[bg];
+  const fill = useBlockFill(bg, t.elevated);
   if (variant === 'open') return <div>{children}</div>;
   if (variant === 'outlined') {
     return <div style={{ border: `1px solid ${t.rule}`, borderRadius: 14, padding: pad }}>{children}</div>;
@@ -59,7 +60,7 @@ export function Panel({ bg = 'forest', variant = 'raised', pad = 18, children }:
   return (
     <div
       style={{
-        background: t.elevated,
+        background: fill,
         border: `1px solid ${t.rule}`,
         borderTopColor: t.sheen,
         borderRadius: 14,

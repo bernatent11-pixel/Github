@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
+import { useBlockFill } from '../surface';
 import { Icon } from './Icon';
 import { AnyIcon, AnyIconName } from './AnyIcon';
 
@@ -26,12 +27,13 @@ export interface VersusBlockProps {
  */
 export function VersusBlock({ left, right, bg = 'forest' }: VersusBlockProps) {
   const t = onBg[bg];
+  const fill = useBlockFill(bg, t.elevated);
 
   const side = (s: VersusSide, win: boolean) => (
     <div
       className={win ? 'milonga-lift' : undefined}
       style={{
-        background: win ? t.elevated : 'transparent',
+        background: win ? fill : 'transparent',
         border: `1px solid ${t.rule}`,
         borderTopColor: win ? t.sheen : t.rule,
         borderRadius: 14,

@@ -25,3 +25,15 @@ export function useSurface(bg: EmailBg): React.CSSProperties {
   if (ctx && ctx.bg === bg) return {};
   return bgStyle(bg, bgFill[bg], ctx?.textured);
 }
+
+/**
+ * The fill for a rounded block (panel, benefit card, product card, quote band).
+ *
+ * On a textured email the block is filled with the PLAIN brand colour, so it
+ * reads as a clean shape cut out of the grain. On a flat email it keeps the
+ * subtle translucent lift instead.
+ */
+export function useBlockFill(bg: EmailBg, elevated: string): string {
+  const ctx = React.useContext(SurfaceContext);
+  return ctx?.textured ? bgFill[bg] : elevated;
+}

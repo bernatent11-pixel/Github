@@ -6,8 +6,9 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  botanical: '../public/product/pouch-botanical.png',
-  handPour: '../public/product/pouch-hand-pour.png',
+  floating: '../public/product/pouch-floating.png',
+  icedBotanical: '../public/product/pouch-iced-botanical.png',
+  latteGlass: '../public/product/latte-glass-gold.png',
 };
 
 const SOCIAL = [
@@ -26,11 +27,11 @@ function WhatsInside({ shopHref = '#' }) {
     h(M.Hero, {
       bg,
       eyebrow: 'Read the back of the bag',
-      title: 'Thirteen ingredients. Nothing to hide.',
+      title: 'Functional ingredients. Nothing to hide.',
       titleAccentPart: 'Nothing to hide.',
       titleSize: 36,
       body: 'Most coffee alternatives keep the interesting part in small print. Ours fits in one paragraph — so here it is, line by line, with what each thing is actually doing in your cup.',
-      image: { src: IMG.botanical, alt: 'The Milonga Mate Latte pouch with vanilla and yerba mate', cutout: true },
+      image: { src: IMG.floating, alt: 'The Milonga Mate Latte pouch in a swirl of powder', cutout: true },
     }),
 
     // ═══ ACT 2 · BODY ═══
@@ -39,15 +40,15 @@ function WhatsInside({ shopHref = '#' }) {
     h(M.Section, { bg, pad: 'lg', rule: true },
       h(M.SectionHeading, {
         bg,
-        title: 'The three that do the work',
-        subtitle: 'Every scoop, every time',
+        title: 'The ingredients behind the feeling',
+        subtitle: 'Selected with purpose',
         align: 'center',
       }),
       h('div', { style: { height: 24 } }),
       h(M.BenefitList, { bg, badgeSize: 54, size: 19, twoTone: false, items: [
-        { mark: 'yerba-mate', title: '100mg natural caffeine', text: 'From organic yerba mate extract — clean, sustained energy without the spike.' },
-        { mark: 'lions-mane', title: "500mg Lion’s Mane", text: 'A full dose of the mushroom extract, for focus and mental clarity.' },
-        { mark: 'l-theanine', title: '200mg L-Theanine', text: 'The amino acid that smooths the caffeine out and keeps it calm.' },
+        { mark: 'yerba-mate', title: '100mg natural caffeine', text: 'From organic yerba mate — the leaf South America has been drinking for centuries. It releases its caffeine slowly instead of all at once, so the lift arrives and stays, antioxidants included.' },
+        { mark: 'lions-mane', title: "500mg Lion’s Mane", text: 'A full 500mg of the mushroom extract, not the pinch most brands put on the label to earn the name. It is here for focus and mental clarity through a long morning.' },
+        { mark: 'l-theanine', title: '200mg L-Theanine', text: 'The amino acid found in tea leaves, added at 200mg. It is what takes the edge off caffeine — the same energy, arriving calm and even instead of sharp.' },
       ]})
     ),
 
@@ -64,7 +65,7 @@ function WhatsInside({ shopHref = '#' }) {
         'Four things do it, and none of them is milk: oat milk powder, coconut milk powder, coconut cream powder and MCT oil powder from coconut. That is why it froths into a real latte on water alone — no barista, no carton in the fridge.'
       ),
       h('div', { style: { height: 22 } }),
-      h(M.ImageSlot, { bg, src: IMG.handPour, alt: 'A scoop of Milonga poured into a glass', cutout: true, ratio: 'wide' })
+      h(M.ImageSlot, { bg, src: IMG.icedBotanical, alt: 'The Mate Latte served over ice, with vanilla and yerba mate', cutout: true, ratio: 'wide' })
     ),
 
     // How it's sweetened.
@@ -88,7 +89,7 @@ function WhatsInside({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg,
         title: 'The full list',
-        subtitle: 'Exactly what is on the bag',
+        subtitle: 'What’s really inside the Mate Latte?',
         align: 'center',
       }),
       h('div', { style: { height: 22 } }),
@@ -108,45 +109,33 @@ function WhatsInside({ shopHref = '#' }) {
           'L-Theanine',
           'Pink Himalayan salt',
         ]})
-      ),
-      h('div', { style: { height: 22 } }),
-      h('p', { style: { fontSize: 12.5, lineHeight: 1.7, margin: 0, textAlign: 'center' } },
-        'Organic ingredients. No artificial sweeteners, no cane sugar, no erythritol. Gluten-free and dairy-free.'
       )
     ),
 
     // The numbers.
-    h(M.Section, { bg, pad: 'lg', rule: true },
-      h(M.SectionHeading, {
-        bg,
-        title: 'What that adds up to',
-        align: 'center',
-      }),
-      h('div', { style: { height: 24 } }),
+    h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
       h(M.Stats, { bg, items: [
-        { value: '90', label: 'Calories per serving' },
-        { value: '3g', label: 'Sugar per serving' },
-        { value: '15', label: 'Servings per bag' },
-      ]})
+        { value: '90', label: 'Calories' },
+        { value: '3g', label: 'Sugar' },
+      ]}),
+      h('div', { style: { height: 20 } }),
+      h('div', { style: {
+        fontSize: 26, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.16em',
+        color: M.onBg[bg].accent,
+      } }, 'Per serving')
     ),
 
     // ═══ ACT 3 · CTA ═══
-    h(M.Section, { bg, pad: 'lg', rule: true },
+    h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
       h(M.SectionHeading, {
         bg,
         title: 'Now taste the list',
-        subtitle: 'The more you take, the less you pay',
         align: 'center',
       }),
       h('div', { style: { height: 24 } }),
-      h(M.BundleOffer, {
-        bg,
-        tiers: [
-          { label: 'Buy 1', price: '$29.99', detail: '15 servings', unit: '$2.00 / serving', href: shopHref },
-          { label: 'Buy 2', price: '$53.98', detail: '30 servings', unit: '$1.80 / serving', badge: 'Save 10%', href: shopHref },
-          { label: 'Buy 3', price: '$76.47', detail: '45 servings', unit: '$1.70 / serving', badge: 'Save 15%', featured: true, href: shopHref },
-        ],
-      })
+      h(M.ImageSlot, { bg, src: IMG.latteGlass, alt: 'The Mate Latte poured over ice next to the pouch', ratio: 'wide' }),
+      h('div', { style: { height: 26 } }),
+      h(M.Button, { bg, label: 'Try it now', href: shopHref, size: 'lg' })
     ),
 
     h(M.Footer, { bg, social: SOCIAL })

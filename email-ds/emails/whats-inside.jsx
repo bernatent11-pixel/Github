@@ -6,7 +6,7 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  handFloat: '../public/product/pouch-hand-float.png',
+  handHolding: '../public/product/hand-holding.png',
   icedBotanical: '../public/product/pouch-iced-botanical.png',
   handPour: '../public/product/pouch-hand-pour-big.png',
 };
@@ -31,8 +31,11 @@ function WhatsInside({ shopHref = '#' }) {
       titleAccentPart: 'Nothing to hide.',
       titleSize: 36,
       body: 'Most coffee alternatives keep the interesting part in small print. Ours fits in one paragraph — so here it is, line by line, with what each thing is actually doing in your cup.',
-      image: { src: IMG.handFloat, alt: 'A hand holding the Milonga Mate Latte pouch', cutout: true },
     }),
+
+    // The pouch comes in from the left edge, outside any Section padding.
+    h(M.BleedImage, { bg, src: IMG.handHolding, side: 'left', width: 0.82, overhang: 26,
+      alt: 'A hand holding the Milonga Mate Latte pouch' }),
 
     // ═══ ACT 2 · BODY ═══
 
@@ -114,11 +117,15 @@ function WhatsInside({ shopHref = '#' }) {
 
     // ═══ ACT 3 · CTA ═══
     // One uninterrupted block: the pour, the fact, the ask. No rules between.
-    h(M.Section, { bg, pad: 'lg', rule: true, align: 'center' },
-      h(M.ImageSlot, { bg, src: IMG.handPour, alt: 'A scoop of Milonga poured into a glass', cutout: true, ratio: 'wide' }),
-      h('div', { style: { height: 22 } }),
-      h(M.Badge, { bg, label: '90 cal, 3g sugar', sub: 'Per serving' }),
-      h('div', { style: { height: 26 } }),
+    // The pour comes in from the right, with the fact stamped between the
+    // bag and the hand — the way it reads on the landing page.
+    h(M.BleedImage, {
+      bg, src: IMG.handPour, side: 'right', width: 0.94, overhang: 20,
+      alt: 'A scoop of Milonga poured into a glass',
+      overlayAt: { top: '9%', left: '40%' },
+      overlay: h(M.Badge, { bg, label: '90 cal, 3g sugar', sub: 'Per serving' }),
+    }),
+    h(M.Section, { bg, pad: 'lg', align: 'center' },
       h(M.Button, { bg, label: 'Try it now', href: shopHref, size: 'lg' })
     ),
 

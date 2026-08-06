@@ -13,6 +13,10 @@ export interface BleedImageProps {
   width?: number;
   /** How far the art runs past the edge, in px. */
   overhang?: number;
+  /** Something laid over the art — a Badge stamped onto the photo. */
+  overlay?: React.ReactNode;
+  /** Where the overlay sits, as percentages of the art. */
+  overlayAt?: { top?: string; left?: string; right?: string };
   bg?: EmailBg;
 }
 
@@ -28,6 +32,8 @@ export function BleedImage({
   side = 'left',
   width = 0.72,
   overhang = 18,
+  overlay,
+  overlayAt,
   bg = 'forest',
 }: BleedImageProps) {
   const surface = useSurface(bg);
@@ -36,6 +42,7 @@ export function BleedImage({
     <div style={{ ...surface, lineHeight: 0, fontSize: 0, overflow: 'hidden' }}>
       <div
         style={{
+          position: 'relative',
           width: pct,
           marginLeft: side === 'left' ? -overhang : 'auto',
           marginRight: side === 'right' ? -overhang : 'auto',
@@ -46,6 +53,20 @@ export function BleedImage({
         ) : (
           <ImageSlot bg={bg} kind="product" ratio="wide" alt={alt} />
         )}
+        {overlay ? (
+          <div
+            style={{
+              position: 'absolute',
+              top: overlayAt?.top ?? '12%',
+              left: overlayAt?.left,
+              right: overlayAt?.right,
+              lineHeight: 'normal',
+              fontSize: 'medium',
+            }}
+          >
+            {overlay}
+          </div>
+        ) : null}
       </div>
     </div>
   );

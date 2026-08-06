@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { colors, fontStack, radius } from '../tokens';
+import { fontStack } from '../tokens';
+import { EmailBg, onBg } from '../theme';
 import { Icon } from './Icon';
 
 export interface CalloutProps {
@@ -9,23 +10,21 @@ export interface CalloutProps {
   attribution?: string;
   /** quote = testimonial styling · highlight = key-message band. */
   variant?: 'quote' | 'highlight';
-  tone?: 'forest' | 'gold' | 'beige';
+  /** The email's flat background color. */
+  bg?: EmailBg;
 }
 
-const TONE = {
-  forest: { bg: colors.forest, text: colors.white, accent: colors.gold, sub: colors.beige },
-  gold: { bg: colors.gold, text: colors.forest, accent: colors.forest, sub: colors.forestDeep },
-  beige: { bg: colors.beige, text: colors.forest, accent: colors.leaf, sub: colors.inkSoft },
-};
-
-/** A highlighted band for a key message or a customer quote. */
-export function Callout({ text, attribution, variant = 'highlight', tone = 'forest' }: CalloutProps) {
-  const t = TONE[tone];
+/**
+ * An outlined band for a key message or a customer quote — a thin brand rule
+ * around the type, never a filled block, so the flat email color carries through.
+ */
+export function Callout({ text, attribution, variant = 'highlight', bg = 'forest' }: CalloutProps) {
+  const t = onBg[bg];
   return (
     <div
       style={{
-        background: t.bg,
-        borderRadius: radius.lg,
+        border: `1px solid ${t.rule}`,
+        borderRadius: 14,
         padding: '28px 30px',
         fontFamily: fontStack,
         textAlign: 'center',
@@ -45,13 +44,22 @@ export function Callout({ text, attribution, variant = 'highlight', tone = 'fore
           lineHeight: 1.35,
           letterSpacing: '-0.01em',
           margin: 0,
-          color: t.text,
+          color: t.title,
         }}
       >
         {variant === 'quote' ? `“${text}”` : text}
       </p>
       {attribution ? (
-        <div style={{ marginTop: 14, fontWeight: 700, fontSize: 12.5, letterSpacing: '0.08em', textTransform: 'uppercase', color: t.accent }}>
+        <div
+          style={{
+            marginTop: 14,
+            fontWeight: 700,
+            fontSize: 12.5,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: t.accent,
+          }}
+        >
           {attribution}
         </div>
       ) : null}

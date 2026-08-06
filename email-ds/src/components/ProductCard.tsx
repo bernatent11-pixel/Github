@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { colors, fontStack, radius } from '../tokens';
+import { fontStack } from '../tokens';
+import { EmailBg, onBg } from '../theme';
 import { Button } from './Button';
 import { ImageSlot } from './ImageSlot';
 
@@ -12,12 +13,18 @@ export interface ProductCardProps {
   specs?: string[];
   price?: string;
   cta?: { label: string; href: string };
-  /** Product image. Renders an on-brand placeholder until a `src` is provided. */
+  /** Product image — pass `cutout` art for a transparent PNG. */
   imageSrc?: string;
   imageAlt?: string;
+  cutout?: boolean;
+  /** The email's flat background color. */
+  bg?: EmailBg;
 }
 
-/** A single product feature card: image, name, specs, price, CTA. */
+/**
+ * A product feature block: image, name, spec chips, price and CTA — outlined,
+ * so the flat email color carries through.
+ */
 export function ProductCard({
   name,
   variant,
@@ -27,29 +34,22 @@ export function ProductCard({
   cta,
   imageSrc,
   imageAlt,
+  cutout = true,
+  bg = 'forest',
 }: ProductCardProps) {
+  const t = onBg[bg];
   return (
-    <div
-      style={{
-        fontFamily: fontStack,
-        background: colors.white,
-        border: `1px solid ${colors.line}`,
-        borderRadius: radius.lg,
-        overflow: 'hidden',
-      }}
-    >
-      <div style={{ background: colors.beige, padding: 18 }}>
-        <ImageSlot src={imageSrc} alt={imageAlt} kind="product" ratio="square" bg="beige" />
-      </div>
-      <div style={{ padding: '20px 22px 24px' }}>
+    <div style={{ fontFamily: fontStack, border: `1px solid ${t.rule}`, borderRadius: 14, overflow: 'hidden' }}>
+      <ImageSlot src={imageSrc} alt={imageAlt} kind="product" ratio="landscape" bg={bg} cutout={cutout} />
+      <div style={{ padding: '18px 20px 22px' }}>
         {variant ? (
-          <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.leaf, marginBottom: 6 }}>
+          <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: t.accent, marginBottom: 6 }}>
             {variant}
           </div>
         ) : null}
-        <div style={{ fontWeight: 900, fontSize: 20, color: colors.forest, lineHeight: 1.15 }}>{name}</div>
+        <div style={{ fontWeight: 900, fontSize: 20, color: t.title, lineHeight: 1.15 }}>{name}</div>
         {description ? (
-          <p style={{ fontWeight: 400, fontSize: 14, lineHeight: 1.55, color: colors.inkSoft, margin: '10px 0 0' }}>
+          <p style={{ fontWeight: 400, fontSize: 14, lineHeight: 1.55, color: t.body, margin: '10px 0 0' }}>
             {description}
           </p>
         ) : null}
@@ -61,9 +61,9 @@ export function ProductCard({
                 style={{
                   fontWeight: 700,
                   fontSize: 11.5,
-                  color: colors.forest,
-                  background: colors.beige,
-                  borderRadius: radius.pill,
+                  color: t.accent,
+                  border: `1px solid ${t.rule}`,
+                  borderRadius: 999,
                   padding: '6px 12px',
                 }}
               >
@@ -73,8 +73,8 @@ export function ProductCard({
           </div>
         ) : null}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginTop: 20 }}>
-          {price ? <span style={{ fontWeight: 900, fontSize: 20, color: colors.forest }}>{price}</span> : <span />}
-          {cta ? <Button label={cta.label} href={cta.href} bg="beige" size="sm" /> : null}
+          {price ? <span style={{ fontWeight: 900, fontSize: 20, color: t.title }}>{price}</span> : <span />}
+          {cta ? <Button label={cta.label} href={cta.href} bg={bg} size="sm" /> : null}
         </div>
       </div>
     </div>

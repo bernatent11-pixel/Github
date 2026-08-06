@@ -60,8 +60,9 @@ export function ImageSlot({
     aspectRatio: String(RATIO[ratio]),
     borderRadius: br,
     overflow: 'hidden',
-    // A cutout sits directly on the email color; a photo gets a neutral bed.
-    background: cutout ? 'transparent' : onDark ? colors.forestDeep : colors.cream,
+    // A cutout sits directly on the email color; a photo gets a bed that is a
+    // subtle tint OF the background, never a contrasting block.
+    background: cutout ? 'transparent' : t.panel,
   };
 
   return (

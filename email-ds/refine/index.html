@@ -8,45 +8,23 @@
 <script src="../ds-bundle/_vendor/react-dom.js"></script>
 <script src="../ds-bundle/_ds_bundle.js"></script>
 <style>
-  body { margin:0; background:#d9d7cc; font-family:"Gotham",Montserrat,Arial,sans-serif; padding:22px; }
-  h3 { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#3B5344; margin:0 0 10px; }
-  .row { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start; }
-  .cap { font-size:11px; color:#5b6b5f; margin:8px 2px 0; letter-spacing:.05em; }
+  body { margin:0; background:#d9d7cc; font-family:"Gotham",Montserrat,Arial,sans-serif; padding:20px; }
+  .lbl { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#3B5344; margin:0 0 10px; }
+  .row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:start; }
 </style>
 </head>
 <body><div id="root"></div>
 <script>
-const M = window.MilongaEmailDS, h = React.createElement, FILL = M.bgFill;
-
-const copy = {
-  eyebrow:'Limited time',
-  title:'Your focus, 20% sharper',
-  body:'Take 20% off your first tin of Milonga Yerba Mate Latte.',
-  cta:{label:'Shop the launch',href:'#'},
-};
-
-const email = (bg, image) => h('div',{style:{background:FILL[bg]}},
-  h(M.Header,{bg, size:92}),
-  h(M.Hero,{bg, ...copy, image})
-);
-
-const col=(label,bg,image)=>h('div',null,
-  h('h3',null,label),
-  email(bg,image),
-  h('div',{className:'cap'}, bg==='forest'?'Dark green':bg==='gold'?'Gold':'Beige')
-);
-
-ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment,null,
+const M = window.MilongaEmailDS, h = React.createElement;
+const card=(label,el)=>h('div',null,h('div',{className:'lbl'},label),el);
+ReactDOM.createRoot(document.getElementById('root')).render(
   h('div',{className:'row'},
-    col('Regular photo — inset, rounded','forest',{kind:'lifestyle'}),
-    col('Cutout — full width, square','forest',{kind:'product',cutout:true}),
-    col('No image (option C)','forest',undefined)),
-  h('div',{style:{height:26}}),
-  h('div',{className:'row'},
-    col('Photo on gold','gold',{kind:'lifestyle'}),
-    col('Cutout on gold','gold',{kind:'product',cutout:true}),
-    col('Cutout on beige','beige',{kind:'product',cutout:true}))
-));
+    card('Promo — dark green', h(M.PromoEmail,{bg:'forest'})),
+    card('Educational — beige', h(M.EducationalEmail,{bg:'beige'})),
+    card('Launch — gold', h(M.LaunchEmail,{bg:'gold'})),
+    card('Story — dark green', h(M.StorytellingEmail,{bg:'forest'}))
+  )
+);
 </script>
 </body>
 </html>

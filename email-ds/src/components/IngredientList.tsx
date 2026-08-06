@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { colors, fontStack, radius } from '../tokens';
+import { fontStack } from '../tokens';
+import { EmailBg, onBg } from '../theme';
 import { Icon } from './Icon';
 
 export interface Ingredient {
@@ -12,11 +13,13 @@ export interface Ingredient {
 
 export interface IngredientListProps {
   items: Ingredient[];
-  onDark?: boolean;
+  /** The email's flat background color. */
+  bg?: EmailBg;
 }
 
 /** A functional-ingredient readout: name · dose · what it does, one row each. */
-export function IngredientList({ items, onDark = false }: IngredientListProps) {
+export function IngredientList({ items, bg = 'forest' }: IngredientListProps) {
+  const t = onBg[bg];
   return (
     <div style={{ fontFamily: fontStack }}>
       {items.map((it, i) => (
@@ -25,31 +28,18 @@ export function IngredientList({ items, onDark = false }: IngredientListProps) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 14,
+            gap: 12,
             padding: '13px 2px',
-            borderBottom: i < items.length - 1 ? `1px solid ${onDark ? colors.lineOnDark : colors.line}` : 'none',
+            borderBottom: i < items.length - 1 ? `1px solid ${t.rule}` : 'none',
           }}
         >
-          <span
-            style={{
-              flex: '0 0 auto',
-              width: 30,
-              height: 30,
-              borderRadius: radius.pill,
-              background: onDark ? colors.forestDeep : colors.beige,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Icon name="leaf" size={17} color={onDark ? colors.gold : colors.leaf} />
+          <span style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center' }}>
+            <Icon name="leaf" size={18} color={t.accent} />
           </span>
           <span style={{ flex: '1 1 auto', minWidth: 0 }}>
-            <span style={{ fontWeight: 700, fontSize: 14.5, color: onDark ? colors.white : colors.forest }}>
-              {it.name}
-            </span>
+            <span style={{ fontWeight: 700, fontSize: 14.5, color: t.title }}>{it.name}</span>
             {it.note ? (
-              <span style={{ display: 'block', fontWeight: 400, fontSize: 12.5, color: onDark ? colors.beige : colors.inkSoft, marginTop: 2 }}>
+              <span style={{ display: 'block', fontWeight: 400, fontSize: 12.5, color: t.body, marginTop: 2 }}>
                 {it.note}
               </span>
             ) : null}
@@ -60,7 +50,7 @@ export function IngredientList({ items, onDark = false }: IngredientListProps) {
                 flex: '0 0 auto',
                 fontWeight: 700,
                 fontSize: 13,
-                color: onDark ? colors.gold : colors.leaf,
+                color: t.accent,
                 fontVariantNumeric: 'tabular-nums',
               }}
             >

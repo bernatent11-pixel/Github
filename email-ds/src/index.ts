@@ -12,8 +12,8 @@ export type { LogoProps, LogoTone, LogoVariant } from './components/Logo';
 // Layout
 export { EmailShell } from './components/EmailShell';
 export type { EmailShellProps } from './components/EmailShell';
-export { Section, SectionHeading, SURFACE_BG, onSurface } from './components/Section';
-export type { SectionProps, SectionHeadingProps, SurfaceTone } from './components/Section';
+export { Section, SectionHeading, Panel } from './components/Section';
+export type { SectionProps, SectionHeadingProps, PanelProps } from './components/Section';
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 
@@ -26,6 +26,8 @@ export { Button } from './components/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './components/Button';
 export { ImageSlot } from './components/ImageSlot';
 export type { ImageSlotProps, ImageKind, ImageRatio } from './components/ImageSlot';
+export { TextImage } from './components/TextImage';
+export type { TextImageProps } from './components/TextImage';
 export { ProductCard } from './components/ProductCard';
 export type { ProductCardProps } from './components/ProductCard';
 export { BenefitsGrid } from './components/BenefitsGrid';

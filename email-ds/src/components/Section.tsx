@@ -1,81 +1,82 @@
 import * as React from 'react';
-import { colors, fontStack } from '../tokens';
-
-export type SurfaceTone = 'white' | 'beige' | 'forest' | 'gold' | 'leaf' | 'cream';
+import { fontStack } from '../tokens';
+import { EmailBg, bgFill, onBg } from '../theme';
 
 export interface SectionProps {
-  /** Background fill for the block. */
-  tone?: SurfaceTone;
+  /** The email's flat background color. */
+  bg?: EmailBg;
   /** Vertical rhythm. */
   pad?: 'sm' | 'md' | 'lg';
   /** Horizontal alignment of contents. */
   align?: 'left' | 'center';
+  /** Draw a hairline rule above the section — the default way to separate blocks. */
+  rule?: boolean;
   children?: React.ReactNode;
 }
 
-export const SURFACE_BG: Record<SurfaceTone, string> = {
-  white: colors.white,
-  beige: colors.beige,
-  forest: colors.forest,
-  gold: colors.gold,
-  leaf: colors.leaf,
-  cream: colors.cream,
-};
+const PAD = { sm: 18, md: 28, lg: 40 };
 
-/** Foreground text color that reads on a given surface. */
-export const onSurface: Record<SurfaceTone, string> = {
-  white: colors.ink,
-  beige: colors.ink,
-  cream: colors.ink,
-  forest: colors.beige,
-  gold: colors.forest,
-  leaf: colors.white,
-};
-
-const PAD = { sm: '24px 28px', md: '36px 34px', lg: '48px 38px' };
-
-/** A padded content band with a brand surface — the building block of every email. */
-export function Section({ tone = 'white', pad = 'md', align = 'left', children }: SectionProps) {
+/**
+ * A content band on the flat email color. Sections are separated by space and
+ * an optional hairline — never by a differently-colored card.
+ */
+export function Section({ bg = 'forest', pad = 'md', align = 'left', rule = false, children }: SectionProps) {
+  const t = onBg[bg];
   return (
-    <div
-      style={{
-        background: SURFACE_BG[tone],
-        color: onSurface[tone],
-        padding: PAD[pad],
-        fontFamily: fontStack,
-        textAlign: align,
-      }}
-    >
-      {children}
+    <div style={{ background: bgFill[bg], fontFamily: fontStack, padding: `0 30px` }}>
+      {rule ? <div style={{ height: 1, background: t.rule }} /> : null}
+      <div style={{ padding: `${PAD[pad]}px 0`, textAlign: align, color: t.body }}>{children}</div>
     </div>
   );
 }
 
+export interface PanelProps {
+  bg?: EmailBg;
+  /** `outlined` draws a thin brand border to group content; `open` is bare. */
+  variant?: 'open' | 'outlined';
+  pad?: number;
+  children?: React.ReactNode;
+}
+
+/**
+ * Groups related content (benefits, ingredients, a comparison) inside a thin
+ * brand-colored outline — structure without breaking the flat background.
+ */
+export function Panel({ bg = 'forest', variant = 'outlined', pad = 18, children }: PanelProps) {
+  const t = onBg[bg];
+  if (variant === 'open') return <div>{children}</div>;
+  return (
+    <div style={{ border: `1px solid ${t.rule}`, borderRadius: 14, padding: pad }}>{children}</div>
+  );
+}
+
 export interface SectionHeadingProps {
-  /** Small gold kicker above the title. */
+  bg?: EmailBg;
+  /** Small caps kicker above the title. */
   eyebrow?: string;
   title: string;
   /** Optional intro paragraph under the title. */
   intro?: string;
   align?: 'left' | 'center';
-  /** Set when placed on a dark (forest) surface so text flips to light. */
-  onDark?: boolean;
+  /** Title size in px. */
+  size?: number;
 }
 
-/** Eyebrow + title + intro, set in Gotham with the brand rhythm. */
-export function SectionHeading({ eyebrow, title, intro, align = 'left', onDark = false }: SectionHeadingProps) {
+/** Eyebrow + title + intro, set in Gotham, colored for the email background. */
+export function SectionHeading({ bg = 'forest', eyebrow, title, intro, align = 'left', size = 24 }: SectionHeadingProps) {
+  const t = onBg[bg];
   return (
-    <div style={{ textAlign: align, marginBottom: 4 }}>
+    <div style={{ textAlign: align }}>
       {eyebrow ? (
         <div
           style={{
             fontFamily: fontStack,
             fontWeight: 700,
-            fontSize: 12,
+            fontSize: 11,
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
-            color: onDark ? colors.gold : colors.leaf,
-            marginBottom: 10,
+            color: t.accent,
+            marginBottom: 9,
           }}
         >
           {eyebrow}
@@ -85,26 +86,17 @@ export function SectionHeading({ eyebrow, title, intro, align = 'left', onDark =
         style={{
           fontFamily: fontStack,
           fontWeight: 900,
-          fontSize: 27,
-          lineHeight: 1.12,
+          fontSize: size,
+          lineHeight: 1.14,
           letterSpacing: '-0.01em',
           margin: 0,
-          color: onDark ? colors.white : colors.forest,
+          color: t.title,
         }}
       >
         {title}
       </h2>
       {intro ? (
-        <p
-          style={{
-            fontFamily: fontStack,
-            fontWeight: 400,
-            fontSize: 15,
-            lineHeight: 1.6,
-            margin: '12px 0 0',
-            color: onDark ? colors.beige : colors.inkSoft,
-          }}
-        >
+        <p style={{ fontFamily: fontStack, fontWeight: 400, fontSize: 15, lineHeight: 1.65, margin: '12px 0 0', color: t.body }}>
           {intro}
         </p>
       ) : null}

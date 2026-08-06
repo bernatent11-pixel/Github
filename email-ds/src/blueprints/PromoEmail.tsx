@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { colors } from '../tokens';
+import { EmailBg } from '../theme';
 import { EmailShell } from '../components/EmailShell';
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
 import { Section } from '../components/Section';
 import { Stats } from '../components/Stats';
 import { Callout } from '../components/Callout';
-import { Divider } from '../components/Divider';
 import { Button } from '../components/Button';
 import { Footer } from '../components/Footer';
 
 export interface PromoEmailProps {
-  /** Promo headline. */
+  /** The one flat background color for the whole email. */
+  bg?: EmailBg;
   title?: string;
   /** Discount / offer line. */
   offer?: string;
@@ -20,28 +20,31 @@ export interface PromoEmailProps {
 }
 
 /**
- * Promotion blueprint — a full offer-driven email: masthead, hero offer, proof
- * stats, a highlighted code band and a closing CTA. Swap in product/lifestyle art.
+ * Promotion blueprint — an offer-driven email: masthead, hero offer, proof
+ * stats, the code band and a closing CTA.
  */
 export function PromoEmail({
+  bg = 'forest',
   title = 'Your focus, 20% sharper',
   offer = 'Take 20% off your first tin of Milonga Yerba Mate Latte.',
   code = 'FOCUS20',
   ctaHref = '#',
 }: PromoEmailProps) {
   return (
-    <EmailShell bg="forest">
-      <Header bg="forest" />
+    <EmailShell bg={bg}>
+      <Header bg={bg} />
       <Hero
-        bg="forest"
+        bg={bg}
         eyebrow="Limited time"
         title={title}
         body={offer}
+        image={{ kind: 'lifestyle' }}
         cta={{ label: 'Shop the launch', href: ctaHref }}
-        image={{ kind: 'lifestyle', ratio: 'wide' }}
       />
-      <Section tone="white" pad="md" align="center">
+
+      <Section bg={bg} pad="md" rule>
         <Stats
+          bg={bg}
           items={[
             { value: '100mg', label: 'Natural caffeine' },
             { value: '300mg', label: "Lion's Mane" },
@@ -49,14 +52,17 @@ export function PromoEmail({
           ]}
         />
       </Section>
-      <div style={{ background: colors.white, padding: '0 30px' }}>
-        <Callout tone="gold" text={`${code} — 20% off`} attribution="Auto-applies at checkout" />
-      </div>
-      <Section tone="white" pad="md" align="center">
-        <Button label="Claim your 20%" href={ctaHref} bg="forest" size="lg" />
+
+      <Section bg={bg} pad="md">
+        <Callout bg={bg} text={`${code} — 20% off`} attribution="Auto-applies at checkout" />
       </Section>
-      <Divider variant="dots" gap={4} />
+
+      <Section bg={bg} pad="sm" align="center">
+        <Button label="Claim your 20%" href={ctaHref} bg={bg} size="lg" />
+      </Section>
+
       <Footer
+        bg={bg}
         social={[
           { label: 'Instagram', href: '#' },
           { label: 'TikTok', href: '#' },

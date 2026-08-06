@@ -1,52 +1,74 @@
 import * as React from 'react';
-import { colors, fontStack } from '../tokens';
+import { fontStack } from '../tokens';
+import { EmailBg, bgFill, onBg } from '../theme';
 import { Logo } from './Logo';
 
 export interface FooterProps {
+  /** The email's flat background color — the footer shares it. */
+  bg?: EmailBg;
   tagline?: string;
   /** Social links, e.g. [{label:'Instagram', href:'#'}]. */
   social?: Array<{ label: string; href: string }>;
   /** Legal / mailing address line. */
   address?: string;
   unsubscribeHref?: string;
-  /** dark = forest footer (default) · light = beige footer. */
-  tone?: 'dark' | 'light';
+  /** Logo height in px. */
+  size?: number;
 }
 
-/** The closing block: logo, tagline, social, address and unsubscribe. */
+/**
+ * The closing block, on the same flat color as the rest of the email: a hairline,
+ * the logo, the tagline, social links, address and unsubscribe.
+ */
 export function Footer({
+  bg = 'forest',
   tagline = 'Energy That Thinks',
   social = [],
   address = 'Milonga · Yerba Mate Latte',
   unsubscribeHref = '#',
-  tone = 'dark',
+  size = 58,
 }: FooterProps) {
-  const dark = tone === 'dark';
-  const sub = dark ? colors.beige : colors.inkSoft;
+  const t = onBg[bg];
   return (
-    <div style={{ background: dark ? colors.forestDeep : colors.beige, padding: '34px 30px 30px', textAlign: 'center', fontFamily: fontStack }}>
-      <Logo variant="primary" tone={dark ? 'gold' : 'green'} height={58} />
-      {tagline ? (
-        <div style={{ marginTop: 12, fontWeight: 500, fontSize: 11, letterSpacing: '0.24em', textTransform: 'uppercase', color: dark ? colors.gold : colors.leaf }}>
-          {tagline}
+    <div style={{ background: bgFill[bg], fontFamily: fontStack, padding: '0 30px 34px' }}>
+      <div style={{ height: 1, background: t.rule, marginBottom: 30 }} />
+      <div style={{ textAlign: 'center' }}>
+        <Logo variant="primary" tone={t.logo} height={size} />
+        {tagline ? (
+          <div
+            style={{
+              marginTop: 12,
+              fontWeight: 500,
+              fontSize: 10.5,
+              letterSpacing: '0.26em',
+              textTransform: 'uppercase',
+              color: t.accent,
+            }}
+          >
+            {tagline}
+          </div>
+        ) : null}
+        {social.length ? (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 20, margin: '20px 0 0' }}>
+            {social.map((s, i) => (
+              <a
+                key={i}
+                href={s.href}
+                style={{ fontWeight: 700, fontSize: 12.5, letterSpacing: '0.04em', color: t.title, textDecoration: 'none' }}
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
+        <div style={{ marginTop: 20, fontWeight: 400, fontSize: 11.5, lineHeight: 1.7, color: t.body, opacity: 0.85 }}>
+          {address}
+          <br />
+          <a href={unsubscribeHref} style={{ color: 'inherit', textDecoration: 'underline' }}>
+            Unsubscribe
+          </a>{' '}
+          · View in browser
         </div>
-      ) : null}
-      {social.length ? (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 20, margin: '20px 0 0' }}>
-          {social.map((s, i) => (
-            <a key={i} href={s.href} style={{ fontWeight: 700, fontSize: 12.5, letterSpacing: '0.04em', color: dark ? colors.beige : colors.forest, textDecoration: 'none' }}>
-              {s.label}
-            </a>
-          ))}
-        </div>
-      ) : null}
-      <div style={{ marginTop: 22, fontWeight: 400, fontSize: 12, lineHeight: 1.7, color: sub }}>
-        {address}
-        <br />
-        <a href={unsubscribeHref} style={{ color: sub, textDecoration: 'underline' }}>
-          Unsubscribe
-        </a>{' '}
-        · View in browser
       </div>
     </div>
   );

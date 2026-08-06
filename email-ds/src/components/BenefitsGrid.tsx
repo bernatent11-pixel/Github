@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { colors, fontStack, radius } from '../tokens';
+import { fontStack } from '../tokens';
+import { EmailBg, onBg } from '../theme';
 import { Icon, IconName } from './Icon';
 
 export interface Benefit {
@@ -12,12 +13,16 @@ export interface BenefitsGridProps {
   items: Benefit[];
   /** 1 or 2 columns. */
   columns?: 1 | 2;
-  /** Render on a forest surface (flips text light). */
-  onDark?: boolean;
+  /** The email's flat background color. */
+  bg?: EmailBg;
 }
 
-/** A grid of icon + title + copy benefit cards — the core "why it's good" block. */
-export function BenefitsGrid({ items, columns = 2, onDark = false }: BenefitsGridProps) {
+/**
+ * A grid of icon + title + copy benefit cards — the core "why it's good" block.
+ * Cards are outlined, never filled, so the flat email color shows through.
+ */
+export function BenefitsGrid({ items, columns = 2, bg = 'forest' }: BenefitsGridProps) {
+  const t = onBg[bg];
   return (
     <div
       style={{
@@ -31,37 +36,25 @@ export function BenefitsGrid({ items, columns = 2, onDark = false }: BenefitsGri
         <div
           key={i}
           style={{
-            background: onDark ? colors.forestDeep : colors.cream,
-            border: `1px solid ${onDark ? colors.lineOnDark : colors.line}`,
-            borderRadius: radius.md,
+            border: `1px solid ${t.rule}`,
+            borderRadius: 14,
             padding: '18px 18px 20px',
           }}
         >
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: radius.pill,
-              background: onDark ? colors.gold : colors.forest,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 12,
-            }}
-          >
-            <Icon name={b.icon} size={21} color={onDark ? colors.forest : colors.gold} />
+          <div style={{ marginBottom: 12 }}>
+            <Icon name={b.icon} size={22} color={t.accent} />
           </div>
           <div
             style={{
               fontWeight: 700,
               fontSize: 15,
-              color: onDark ? colors.white : colors.forest,
+              color: t.title,
               marginBottom: 5,
             }}
           >
             {b.title}
           </div>
-          <div style={{ fontWeight: 400, fontSize: 13.5, lineHeight: 1.55, color: onDark ? colors.beige : colors.inkSoft }}>
+          <div style={{ fontWeight: 400, fontSize: 13.5, lineHeight: 1.55, color: t.body }}>
             {b.text}
           </div>
         </div>

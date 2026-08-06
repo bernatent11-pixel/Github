@@ -1,7 +1,7 @@
 // Campaign: "What's inside" — the ingredients email. Educational: read the
 // back of the bag with us, line by line.
 // ACT 1 header (loud) · ACT 2 body (education) · ACT 3 CTA (price/offer).
-// Gold, textured end to end. Every spec from .design-sync/brand/milonga-product.md.
+// Dark green, textured end to end. Every spec from .design-sync/brand/milonga-product.md.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
@@ -17,7 +17,7 @@ const SOCIAL = [
 ];
 
 function WhatsInside({ shopHref = '#' }) {
-  const bg = 'gold';
+  const bg = 'forest';
 
   return h(M.EmailShell, { bg, textured: true },
 

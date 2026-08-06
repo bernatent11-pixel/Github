@@ -84,8 +84,9 @@ Every block inside a switched section must get that section's `bg` so its
 colors follow. Use it for emphasis — once or twice per email, not every block.
 
 **3. On gold, lean on the brighter green.** Gold emails use leaf green
-(`#057441`) for eyebrows, icons, accents and the second half of titles, with
-deep green for the primary type — not dark green on everything.
+(`#057441`) for eyebrows, icons and accents, and forest green for body copy and
+buttons — not dark green on everything. Titles there are beige, which is a
+deliberately soft, tonal pairing carried by the caps and Gotham Black weight.
 
 ## Typography
 

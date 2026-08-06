@@ -44,6 +44,17 @@ shape: **package**. React + TypeScript, esbuild bundle. 23 components across
 - **Beige gotcha**: raised fills must stay a WARM tint of the beige. Anything
   near-white re-introduces the white-card look the user explicitly rejected —
   this was tuned down twice.
+- **Color mixing (added after the first pass — the user asked for less flatness)**:
+  1. **Two-tone titles**: `TwoToneTitle` splits every headline across two brand
+     colors. On forest that is beige + gold (the user's explicit ask); on gold
+     and beige the tail takes leaf green. Hero/SectionHeading/TextImage apply it
+     automatically; `titleAccentPart` overrides the split, `flatTitle` disables.
+  2. **Mixed backgrounds**: a Section may carry its own `bg`, so an email can go
+     e.g. forest → gold → forest. Put `SectionBreak` at each seam (`hard` or
+     `fade`). Every block inside a switched section must be passed that section's
+     `bg`. EducationalEmail ships this via its `accentBg` prop.
+  3. **Gold is no longer all-dark-green**: gold's accent is now leaf `#057441`
+     (eyebrows, icons, title tails) with `forestDeep` for primary type.
 - **Footer**: hairline, primary lockup (84px), uppercase social links, the
   `MILONGA YERBA MATE` brand line, then unsubscribe / view in browser. No
   "YERBA MATE" kicker and no tagline — the user removed both.

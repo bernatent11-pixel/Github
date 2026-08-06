@@ -4,8 +4,10 @@ import { EmailBg, bgFill, onBg } from '../theme';
 
 export interface EmailShellProps {
   /**
-   * The ONE flat background color for the whole email — dark green, gold or
-   * beige. Every block inside inherits it; there are no white cards.
+   * The email's base background — dark green, gold or beige. Every block
+   * inherits it unless a Section is given its own `bg`: an email may switch
+   * color once or twice for emphasis (put a `SectionBreak` at the seam).
+   * There are never white cards.
    */
   bg?: EmailBg;
   /** Column width in px (email standard is ~600). */
@@ -14,8 +16,8 @@ export interface EmailShellProps {
 }
 
 /**
- * The outer email frame. Milonga emails are a single flat color end to end:
- * this paints that color full-bleed and centers the content column on it.
+ * The outer email frame: paints the base color full-bleed and centers the
+ * content column. Sections may override the color for a band of the email.
  */
 export function EmailShell({ bg = 'forest', width = emailWidth, children }: EmailShellProps) {
   return (

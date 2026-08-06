@@ -32,6 +32,8 @@ const D = {
   Steps: ['Data', 'A 1-2-3 sequence. `numerals` shows oversized 01/02/03 (editorial, default); `discs` is a row of accent discs across the email.'],
   EnergyCurve: ['Data', 'The "no crash" story as a picture: energy over time. The Milonga line is solid in the accent color with a filled area wash; comparisons are dashed and muted.'],
   Panel: ['Layout', 'Groups related content. `raised` (default) lifts the block off the background with a soft fill, a lit top edge and a shadow; `outlined` is a flat hairline border.'],
+  TwoToneTitle: ['Foundations', 'Splits a headline into two brand colors so titles are never one flat block — half beige / half gold on dark green, green-on-green elsewhere. Hero, SectionHeading and TextImage use it automatically; pass `accentPart` to choose the split.'],
+  SectionBreak: ['Layout', 'The seam between two differently-colored sections. An email may switch background once or twice for emphasis — `hard` for a clean edge, `fade` to blend the colors.'],
   // Blueprints
   PromoEmail: ['Blueprints', 'Full promotion email: masthead, hero offer, proof stats, a highlighted code band and a closing CTA. Swap in product/lifestyle art.'],
   EducationalEmail: ['Blueprints', 'Full educational email: hero image, benefits, an ingredient readout and a comparison chart. The "value" email.'],

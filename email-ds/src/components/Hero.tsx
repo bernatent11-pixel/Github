@@ -3,6 +3,7 @@ import { fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
 import { Button } from './Button';
 import { ImageSlot, ImageSlotProps } from './ImageSlot';
+import { TwoToneTitle } from './TwoToneTitle';
 
 export interface HeroProps {
   /** The email's flat background color. */
@@ -21,13 +22,27 @@ export interface HeroProps {
   cta?: { label: string; href: string };
   /** Headline size in px (34 is the brand standard). */
   titleSize?: number;
+  /** Trailing words to render in the accent color. Defaults to half the headline. */
+  titleAccentPart?: string;
+  /** Render the headline in one flat color instead of two-tone. */
+  flatTitle?: boolean;
 }
 
 /**
  * The opening statement of every Milonga email: eyebrow, big Gotham headline,
  * one line of copy, the image, then the CTA — all on the flat email color.
  */
-export function Hero({ bg = 'forest', eyebrow, title, body, image, cta, titleSize = 34 }: HeroProps) {
+export function Hero({
+  bg = 'forest',
+  eyebrow,
+  title,
+  body,
+  image,
+  cta,
+  titleSize = 34,
+  titleAccentPart,
+  flatTitle = false,
+}: HeroProps) {
   const t = onBg[bg];
   // A cutout runs edge to edge, so it escapes the block's horizontal padding.
   const PAD_X = 30;
@@ -62,7 +77,7 @@ export function Hero({ bg = 'forest', eyebrow, title, body, image, cta, titleSiz
             textShadow: t.textShadow,
           }}
         >
-          {title}
+          <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} />
         </h1>
         {body ? (
           <p style={{ fontSize: 13.5, lineHeight: 1.65, margin: '14px auto 0', maxWidth: 400, color: t.body }}>

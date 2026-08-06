@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
+import { TwoToneTitle } from './TwoToneTitle';
 
 export interface SectionProps {
   /** The email's flat background color. */
@@ -79,10 +80,23 @@ export interface SectionHeadingProps {
   align?: 'left' | 'center';
   /** Title size in px. */
   size?: number;
+  /** Trailing words to render in the accent color. Defaults to half the title. */
+  titleAccentPart?: string;
+  /** Render the title in one flat color instead of two-tone. */
+  flatTitle?: boolean;
 }
 
 /** Eyebrow + title + intro, set in Gotham, colored for the email background. */
-export function SectionHeading({ bg = 'forest', eyebrow, title, intro, align = 'left', size = 24 }: SectionHeadingProps) {
+export function SectionHeading({
+  bg = 'forest',
+  eyebrow,
+  title,
+  intro,
+  align = 'left',
+  size = 24,
+  titleAccentPart,
+  flatTitle = false,
+}: SectionHeadingProps) {
   const t = onBg[bg];
   return (
     <div style={{ textAlign: align }}>
@@ -114,7 +128,7 @@ export function SectionHeading({ bg = 'forest', eyebrow, title, intro, align = '
           textShadow: t.textShadow,
         }}
       >
-        {title}
+        <TwoToneTitle title={title} accentPart={titleAccentPart} bg={bg} flat={flatTitle} />
       </h2>
       {intro ? (
         <p style={{ fontFamily: fontStack, fontWeight: 400, fontSize: 13.5, lineHeight: 1.7, margin: '12px 0 0', color: t.body }}>

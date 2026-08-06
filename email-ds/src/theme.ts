@@ -17,8 +17,10 @@ export const bgFill: Record<EmailBg, string> = {
 export interface OnBg {
   /** Logo treatment that reads cleanly on this background. */
   logo: LogoTone;
-  /** Headline / title color. */
+  /** Headline / title color — the FIRST half of a two-tone title. */
   title: string;
+  /** The SECOND half of a two-tone title, so headlines are never one flat color. */
+  titleAccent: string;
   /** Body copy color. */
   body: string;
   /** Eyebrow, small caps, icon accents. */
@@ -66,7 +68,8 @@ export const onBg: Record<EmailBg, OnBg> = {
   // Dark green email — gold logo, white titles, beige copy, gold buttons.
   forest: {
     logo: 'gold',
-    title: colors.white,
+    title: colors.beige,
+    titleAccent: colors.gold,
     body: colors.beige,
     accent: colors.gold,
     rule: 'rgba(227, 188, 98, 0.28)',
@@ -88,9 +91,10 @@ export const onBg: Record<EmailBg, OnBg> = {
   // Gold email — cream logo, deep green type, forest buttons.
   gold: {
     logo: 'beige',
-    title: colors.forest,
-    body: colors.forestDeep,
-    accent: colors.forest,
+    title: colors.forestDeep,
+    titleAccent: colors.leaf,
+    body: colors.forest,
+    accent: colors.leaf,
     rule: 'rgba(0, 77, 39, 0.22)',
     panel: 'rgba(255, 255, 255, 0.20)',
     btnBg: colors.forest,
@@ -111,6 +115,7 @@ export const onBg: Record<EmailBg, OnBg> = {
   beige: {
     logo: 'green',
     title: colors.forest,
+    titleAccent: colors.leaf,
     body: colors.ink,
     accent: colors.leaf,
     rule: 'rgba(0, 77, 39, 0.16)',

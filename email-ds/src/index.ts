@@ -14,6 +14,10 @@ export { EmailShell } from './components/EmailShell';
 export type { EmailShellProps } from './components/EmailShell';
 export { Section, SectionHeading, Panel } from './components/Section';
 export type { SectionProps, SectionHeadingProps, PanelProps } from './components/Section';
+export { SectionBreak } from './components/SectionBreak';
+export type { SectionBreakProps } from './components/SectionBreak';
+export { TwoToneTitle, splitTitle } from './components/TwoToneTitle';
+export type { TwoToneTitleProps } from './components/TwoToneTitle';
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 

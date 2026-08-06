@@ -7,11 +7,11 @@ cannabis, or weed.**
 Everything is exported on `window.MilongaEmailDS` — e.g.
 `const { EmailShell, Header, Hero, Section, Footer } = window.MilongaEmailDS`.
 
-## The one rule: one flat background per email
+## The core rule: flat brand backgrounds, never white
 
-A Milonga email is **a single flat color end to end** — dark green, gold, or
-beige. There are no white cards and no alternating section colors. Pick the
-color once on `EmailShell` and pass the same `bg` to every block:
+A Milonga email is built on the brand colors — dark green, gold or beige.
+**There are never white cards.** Pick a base color on `EmailShell` and pass
+that `bg` to every block:
 
 ```jsx
 const { EmailShell, Header, Hero, Section, SectionHeading, BenefitsGrid, Button, Footer } = window.MilongaEmailDS;
@@ -41,15 +41,51 @@ const bg = 'forest'; // 'forest' | 'gold' | 'beige' — choose once per email
 picks its own logo tone, title, body, accent, rule, button fill and depth. Pass
 `bg` and the colors are correct by construction:
 
-| `bg` | Logo | Titles | Body | Accent | Button |
+| `bg` | Logo | Title (1st half / 2nd half) | Body | Accent | Button |
 |---|---|---|---|---|---|
-| `forest` (#004D27) | gold | white | beige | gold | gold face, forest label |
-| `gold` (#E3BC62) | cream | forest | deep green | forest | forest face, beige label |
-| `beige` (#F0EFDF) | brand green | forest | ink | leaf | forest face, beige label |
+| `forest` (#004D27) | gold | beige / **gold** | beige | gold | gold face, forest label |
+| `gold` (#E3BC62) | cream | deep green / **leaf green** | forest | leaf green | forest face, beige label |
+| `beige` (#F0EFDF) | brand green | forest / **leaf green** | ink | leaf green | forest face, beige label |
 
 For your own layout glue only, read `window.MilongaEmailDS.colors`
 (`colors.forest`, `.gold`, `.leaf`, `.beige`, `.white`, `.ink`) or the
 `--milonga-*` CSS variables. Never invent hexes.
+
+## Mix the colors — nothing should read flat
+
+Three rules keep every email lively:
+
+**1. Titles are two-tone.** Headlines split across two brand colors
+automatically — on dark green that's half beige, half gold; on gold and beige
+the second half picks up the brighter leaf green. `Hero`, `SectionHeading` and
+`TextImage` do this for you: just pass a normal title. To choose the split
+yourself, pass the trailing words as `titleAccentPart` (or `accentPart` on
+`TwoToneTitle`); pass `flatTitle` for the rare one-color headline.
+
+```jsx
+<Hero bg="forest" title="Your focus, 20% sharper" titleAccentPart="20% sharper" … />
+```
+
+**2. An email may change background mid-way.** Switching color for one band
+gives the email rhythm — start dark green, drop a gold section, come back. Give
+the `Section` its own `bg` and put a `SectionBreak` at each seam:
+
+```jsx
+<Section bg="forest" pad="md">…</Section>
+<SectionBreak from="forest" to="gold" />
+<Section bg="gold" pad="lg">
+  <SectionHeading bg="gold" title="Why it works" />
+  <BenefitsGrid bg="gold" columns={2} items={…} />
+</Section>
+<SectionBreak from="gold" to="forest" />
+```
+
+Every block inside a switched section must get that section's `bg` so its
+colors follow. Use it for emphasis — once or twice per email, not every block.
+
+**3. On gold, lean on the brighter green.** Gold emails use leaf green
+(`#057441`) for eyebrows, icons, accents and the second half of titles, with
+deep green for the primary type — not dark green on everything.
 
 ## Typography
 
@@ -62,8 +98,9 @@ For your own layout glue only, read `window.MilongaEmailDS.colors`
 
 ## Structure and depth
 
-- Separate blocks with **space and hairlines** — `<Section bg={bg} rule>` — not
-  with colored bands.
+- Separate most blocks with **space and hairlines** — `<Section bg={bg} rule>`.
+  A full background switch (above) is the stronger move: save it for one or two
+  moments per email.
 - Group related content in a **`Panel`** (raised by default: soft fill, lit top
   edge, shadow) or set `variant="outlined"` for a quieter hairline box.
 - Blocks, charts, buttons, numerals and photos all carry **depth** (gradients,

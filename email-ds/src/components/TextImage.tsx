@@ -3,6 +3,7 @@ import { fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
 import { ImageSlot, ImageSlotProps } from './ImageSlot';
 import { Button } from './Button';
+import { TwoToneTitle } from './TwoToneTitle';
 
 export interface TextImageProps {
   bg?: EmailBg;
@@ -63,7 +64,7 @@ export function TextImage({
           letterSpacing: '0.02em',
         }}
       >
-        {title}
+        <TwoToneTitle title={title} bg={bg} />
       </h3>
       {text ? (
         <p style={{ fontSize: side ? 12.5 : 13.5, lineHeight: 1.7, margin: '10px 0 0', color: t.body }}>{text}</p>

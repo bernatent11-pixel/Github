@@ -4,6 +4,7 @@ import { EmailShell } from '../components/EmailShell';
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
 import { Section, SectionHeading, Panel } from '../components/Section';
+import { SectionBreak } from '../components/SectionBreak';
 import { BenefitsGrid } from '../components/BenefitsGrid';
 import { IngredientList } from '../components/IngredientList';
 import { BarChart } from '../components/BarChart';
@@ -13,6 +14,8 @@ import { Footer } from '../components/Footer';
 export interface EducationalEmailProps {
   /** The one flat background color for the whole email. */
   bg?: EmailBg;
+  /** Background for the emphasis band (the head-to-head comparison). */
+  accentBg?: EmailBg;
   title?: string;
   intro?: string;
   ctaHref?: string;
@@ -24,6 +27,7 @@ export interface EducationalEmailProps {
  */
 export function EducationalEmail({
   bg = 'beige',
+  accentBg = 'forest',
   title = 'Why yerba mate beats the 3pm crash',
   intro = "Coffee spikes and drops you. Milonga pairs natural caffeine with L-Theanine and Lion's Mane for calm, sustained focus — no jitters, no crash.",
   ctaHref = '#',
@@ -63,11 +67,13 @@ export function EducationalEmail({
         </Panel>
       </Section>
 
-      <Section bg={bg} pad="md" rule>
-        <SectionHeading bg={bg} eyebrow="Head to head" title="Caffeine, without the spike" />
+      {/* The comparison band switches color for emphasis. */}
+      <SectionBreak from={bg} to={accentBg} />
+      <Section bg={accentBg} pad="lg">
+        <SectionHeading bg={accentBg} eyebrow="Head to head" title="Caffeine, without the spike" />
         <div style={{ height: 18 }} />
         <BarChart
-          bg={bg}
+          bg={accentBg}
           max={220}
           data={[
             { label: 'Milonga', value: 100, suffix: 'mg', highlight: true },
@@ -76,6 +82,7 @@ export function EducationalEmail({
           ]}
         />
       </Section>
+      <SectionBreak from={accentBg} to={bg} />
 
       <Section bg={bg} pad="md" align="center">
         <Button label="Try Milonga" href={ctaHref} bg={bg} size="lg" />

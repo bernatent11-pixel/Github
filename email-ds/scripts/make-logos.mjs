@@ -1,6 +1,7 @@
 // Generate Milonga logo assets in the new brand palette from the green source.
 // Recolors the two source greens to a target palette, drops the white ground to
-// transparency, and crops the hand mark out of the full lockup.
+// transparency, saves a trimmed lockup, and crops the hand mark out of the
+// UNTRIMMED art (whose geometry is stable at 1080x1080).
 import sharp from 'sharp';
 import { mkdirSync } from 'node:fs';
 
@@ -12,7 +13,8 @@ const clamp = (n) => (n < 0 ? 0 : n > 255 ? 255 : n);
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
 // Tint the source: white -> transparent, dark green -> `dark`, light green -> `light`.
-async function tint(dark, light, outfile) {
+// Returns the UNTRIMMED rgba buffer + dims so the mark crop stays geometry-stable.
+async function tint(dark, light) {
   const [dr, dg, db] = hex(dark);
   const [lr, lg, lb] = hex(light);
   const { data, info } = await sharp(SRC).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -32,26 +34,27 @@ async function tint(dark, light, outfile) {
     out[o + 2] = useLight ? lb : db;
     out[o + 3] = cov;
   }
-  await sharp(out, { raw: { width, height, channels: 4 } }).png().toFile(`${OUT}/${outfile}`);
-  return { width, height };
+  return { buf: out, width, height };
 }
 
-// Crop the hand mark (crown + hand) out of a tinted full lockup, then trim.
-async function crop(infile, outfile) {
-  const meta = await sharp(`${OUT}/${infile}`).metadata();
-  // Centered box around the crown+hand mark, excluding the arced wordmark that
-  // dips into the top corners.
-  const left = Math.round(meta.width * 0.305);
-  const width = Math.round(meta.width * 0.39);
-  const top = Math.round(meta.height * 0.385);
-  const h = Math.round(meta.height * 0.47);
-  const extracted = await sharp(`${OUT}/${infile}`)
-    .extract({ left, top, width, height: h })
-    .png()
-    .toBuffer();
+const raw = ({ buf, width, height }) => sharp(buf, { raw: { width, height, channels: 4 } });
+
+/** Save the full lockup, trimmed so a rendered `height` maps to the real artwork. */
+async function saveLockup(t, outfile) {
+  const png = await raw(t).png().toBuffer();
+  await sharp(png).trim({ threshold: 1 }).png().toFile(`${OUT}/${outfile}`);
+}
+
+/** Crop the crown+hand mark out of the untrimmed art, excluding the arced wordmark. */
+async function saveMark(t, outfile) {
+  const left = Math.round(t.width * 0.305);
+  const width = Math.round(t.width * 0.39);
+  const top = Math.round(t.height * 0.385);
+  const h = Math.round(t.height * 0.47);
+  const png = await raw(t).png().toBuffer();
+  const extracted = await sharp(png).extract({ left, top, width, height: h }).png().toBuffer();
   const trimmed = await sharp(extracted).trim({ threshold: 1 }).png().toBuffer();
-  // Erase stray arc-tip specks that survive in the top corners (crown is centered,
-  // so the outer thirds of the top band are always safe to clear).
+  // Erase stray arc-tip specks in the extreme top corners (crown is centered).
   const { data, info } = await sharp(trimmed).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: w, height: hh, channels } = info;
   const topBand = Math.round(hh * 0.07);
@@ -64,16 +67,17 @@ async function crop(infile, outfile) {
   await sharp(cleaned).trim({ threshold: 1 }).png().toFile(`${OUT}/${outfile}`);
 }
 
-// Full lockups (hand + MILONGA) in each brand treatment.
-await tint('#E3BC62', '#EFD9A0', 'lockup-milonga-gold.png');   // gold, two-tone
-await tint('#004D27', '#057441', 'lockup-milonga-green.png');  // brand greens
-await tint('#F0EFDF', '#F0EFDF', 'lockup-milonga-beige.png');  // for dark backgrounds
-await tint('#FFFFFF', '#FFFFFF', 'lockup-milonga-white.png');
+const TREATMENTS = [
+  ['#E3BC62', '#EFD9A0', 'gold'],   // gold two-tone — for dark green backgrounds
+  ['#004D27', '#057441', 'green'],  // brand greens — for beige backgrounds
+  ['#F0EFDF', '#F0EFDF', 'beige'],  // cream — for gold and dark backgrounds
+  ['#FFFFFF', '#FFFFFF', 'white'],
+];
 
-// Hand-only marks, cropped from each treatment.
-await crop('lockup-milonga-gold.png', 'mark-gold.png');
-await crop('lockup-milonga-green.png', 'mark-green.png');
-await crop('lockup-milonga-beige.png', 'mark-beige.png');
-await crop('lockup-milonga-white.png', 'mark-white.png');
+for (const [dark, light, name] of TREATMENTS) {
+  const t = await tint(dark, light);
+  await saveLockup(t, `lockup-milonga-${name}.png`);
+  await saveMark(t, `mark-${name}.png`);
+}
 
 console.log('logos: wrote lockup-* and mark-* to', OUT);

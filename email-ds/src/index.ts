@@ -1,5 +1,7 @@
 // Milonga email design system — public API.
 export * from './tokens';
+export { bgFill, onBg } from './theme';
+export type { EmailBg, OnBg } from './theme';
 
 // Foundations
 export { Icon } from './components/Icon';

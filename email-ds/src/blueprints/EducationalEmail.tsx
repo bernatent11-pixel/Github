@@ -26,8 +26,8 @@ export function EducationalEmail({
   ctaHref = '#',
 }: EducationalEmailProps) {
   return (
-    <EmailShell page="beige" surface="white">
-      <Header tone="light" tagline="Energy That Thinks" />
+    <EmailShell bg="beige">
+      <Header bg="beige" />
       <Section tone="white" pad="lg">
         <SectionHeading eyebrow="The science" title={title} intro={intro} />
       </Section>

@@ -1,65 +1,49 @@
 import * as React from 'react';
-import { colors, fontStack } from '../tokens';
+import { EmailBg, bgFill, onBg } from '../theme';
 import { Logo, LogoVariant } from './Logo';
 
 export interface HeaderProps {
-  /** Dark = forest bar with gold logo · light = beige bar with green logo. */
-  tone?: 'dark' | 'light';
-  /** Which logo lockup to show in the bar. */
+  /** The email's flat background color. Every block in an email shares this. */
+  bg?: EmailBg;
+  /** Logo lockup: `primary` (hand + MILONGA) is the Milonga standard. */
   logo?: LogoVariant;
-  /** Small uppercase tagline shown under the logo (e.g. brand promise). */
+  /** Logo height in px. 92 is the brand standard ("medium"). */
+  size?: number;
+  /** Optional uppercase tagline under the logo. Off by default — it lives in the footer. */
   tagline?: string;
-  /** Optional right-aligned utility link (e.g. "Shop"). */
-  link?: { label: string; href: string };
+  /** Extra space below the header before the first content block. */
+  padBottom?: number;
 }
 
-/** The email masthead: centered logo, optional tagline, on a brand bar. */
-export function Header({ tone = 'dark', logo = 'primary', tagline = 'Energy That Thinks', link }: HeaderProps) {
-  const dark = tone === 'dark';
+/**
+ * The email masthead: the flat email background with the Milonga logo centered.
+ * The logo tone is chosen automatically for contrast against `bg`
+ * (gold logo on dark green, cream on gold, brand green on beige).
+ */
+export function Header({ bg = 'forest', logo = 'primary', size = 92, tagline, padBottom = 30 }: HeaderProps) {
+  const t = onBg[bg];
   return (
     <div
       style={{
-        background: dark ? colors.forest : colors.beige,
-        padding: '24px 28px 22px',
+        background: bgFill[bg],
+        padding: `34px 28px ${padBottom}px`,
         textAlign: 'center',
-        fontFamily: fontStack,
-        position: 'relative',
       }}
     >
-      <Logo variant={logo} tone={dark ? 'gold' : 'green'} height={logo === 'mark' ? 46 : 66} />
+      <Logo variant={logo} tone={t.logo} height={size} />
       {tagline ? (
         <div
           style={{
-            marginTop: 12,
-            fontFamily: fontStack,
+            marginTop: 14,
+            fontSize: 10.5,
             fontWeight: 500,
-            fontSize: 11,
-            letterSpacing: '0.26em',
+            letterSpacing: '0.28em',
             textTransform: 'uppercase',
-            color: dark ? colors.gold : colors.leaf,
+            color: t.accent,
           }}
         >
           {tagline}
         </div>
-      ) : null}
-      {link ? (
-        <a
-          href={link.href}
-          style={{
-            position: 'absolute',
-            right: 28,
-            top: 28,
-            fontFamily: fontStack,
-            fontWeight: 700,
-            fontSize: 12,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            textDecoration: 'none',
-            color: dark ? colors.gold : colors.forest,
-          }}
-        >
-          {link.label}
-        </a>
       ) : null}
     </div>
   );

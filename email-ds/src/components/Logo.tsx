@@ -38,10 +38,10 @@ const TEXT: Record<LogoTone, string> = {
  */
 export function Logo({ variant = 'primary', tone = 'gold', height = 72, alt = 'Milonga' }: LogoProps) {
   if (variant === 'mark') {
-    return <img src={MARK[tone]} alt={alt} height={height} style={{ display: 'block', height, width: 'auto' }} />;
+    return <img src={MARK[tone]} alt={alt} height={height} style={{ display: 'inline-block', height, width: 'auto' }} />;
   }
   const lockup = (
-    <img src={LOCKUP[tone]} alt={alt} height={height} style={{ display: 'block', height, width: 'auto' }} />
+    <img src={LOCKUP[tone]} alt={alt} height={height} style={{ display: 'inline-block', height, width: 'auto' }} />
   );
   if (variant === 'primary') return lockup;
   return (

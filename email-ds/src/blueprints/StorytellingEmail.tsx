@@ -22,8 +22,8 @@ export interface StorytellingEmailProps {
  */
 export function StorytellingEmail({ title = 'From the fields of the Southern Cone', ctaHref = '#' }: StorytellingEmailProps) {
   return (
-    <EmailShell page="forest" surface="white">
-      <Header tone="dark" tagline="Our roots" />
+    <EmailShell bg="forest">
+      <Header bg="forest" />
       <Hero
         tone="beige"
         eyebrow="The Milonga story"

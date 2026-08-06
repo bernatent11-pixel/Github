@@ -30,8 +30,8 @@ export function PromoEmail({
   ctaHref = '#',
 }: PromoEmailProps) {
   return (
-    <EmailShell page="beige" surface="white">
-      <Header tone="dark" tagline="Energy That Thinks" />
+    <EmailShell bg="forest">
+      <Header bg="forest" />
       <Hero
         tone="forest"
         eyebrow="Limited time"

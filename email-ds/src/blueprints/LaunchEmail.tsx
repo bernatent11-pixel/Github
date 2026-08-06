@@ -21,8 +21,8 @@ export interface LaunchEmailProps {
  */
 export function LaunchEmail({ title = 'Meet Milonga Vanilla Latte', ctaHref = '#' }: LaunchEmailProps) {
   return (
-    <EmailShell page="beige" surface="white">
-      <Header tone="dark" tagline="Now available" />
+    <EmailShell bg="gold">
+      <Header bg="gold" />
       <Hero
         tone="gold"
         eyebrow="New · Launch day"

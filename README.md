@@ -9,22 +9,30 @@ It's just one file — open `index.html` in any browser. No build step, no
 dependencies. Deploy by dropping it on Netlify, Vercel, GitHub Pages, Cloudflare
 Pages, or any static host.
 
-## Business-card page
+## Hosting
 
-The QR code on Milonga business cards points to:
+This site is served by GitHub Pages on a custom subdomain, deliberately
+**outside** Shopify so the pages can be designed freely:
 
-```
-https://milonga.life/link
-```
+| URL | File |
+| --- | --- |
+| `https://preparematelatte.milonga.life/` | `index.html` (mate latte landing page) |
+| `https://preparematelatte.milonga.life/link` | `link/index.html` (business-card page) |
 
-That page does **not** live in this repo — it's a Shopify page on the live
-store (handle `link`, so `/pages/link`), with a Shopify URL redirect from
-`/link` to shorten it. It's currently a branded holding page ("Something's
-brewing"); edit it in Shopify admin under **Online Store → Pages → Milonga**
-when the real landing page is designed.
+The subdomain comes from the root `CNAME` file. DNS lives in **GoDaddy** under
+`milonga.life`: a `CNAME` record with host `preparematelatte` pointing to
+`bernatent11-pixel.github.io`. The apex `milonga.life` still points at Shopify
+and is untouched.
 
-**Never change the page handle or delete the `/link` redirect** — that URL is
-printed on business cards.
+## Business-card page (`/link/`)
+
+`link/index.html` is the destination for the QR code printed on Milonga
+business cards. It's currently a branded holding page ("Something's brewing")
+so a scan never lands on a 404. Replace its contents with the real landing
+page when it's designed.
+
+**Never rename or move the `link/` folder, and never change the `CNAME`
+file** — that URL is printed on business cards.
 
 ## Connect the waitlist (important)
 

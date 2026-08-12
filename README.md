@@ -9,6 +9,20 @@ It's just one file — open `index.html` in any browser. No build step, no
 dependencies. Deploy by dropping it on Netlify, Vercel, GitHub Pages, Cloudflare
 Pages, or any static host.
 
+## Business-card page (`/link/`)
+
+`link/index.html` is the destination for the QR code printed on Milonga
+business cards:
+
+```
+https://bernatent11-pixel.github.io/Github/link/
+```
+
+It's currently a branded holding page ("Something's brewing") so a scan never
+lands on a 404. Replace its contents with the real landing page when it's
+designed — but **never rename or move the `link/` folder**, since the URL is
+baked into printed cards.
+
 ## Connect the waitlist (important)
 
 By default the email form stores submissions in the browser's `localStorage`

@@ -9,19 +9,22 @@ It's just one file — open `index.html` in any browser. No build step, no
 dependencies. Deploy by dropping it on Netlify, Vercel, GitHub Pages, Cloudflare
 Pages, or any static host.
 
-## Business-card page (`/link/`)
+## Business-card page
 
-`link/index.html` is the destination for the QR code printed on Milonga
-business cards:
+The QR code on Milonga business cards points to:
 
 ```
-https://bernatent11-pixel.github.io/Github/link/
+https://milonga.life/link
 ```
 
-It's currently a branded holding page ("Something's brewing") so a scan never
-lands on a 404. Replace its contents with the real landing page when it's
-designed — but **never rename or move the `link/` folder**, since the URL is
-baked into printed cards.
+That page does **not** live in this repo — it's a Shopify page on the live
+store (handle `link`, so `/pages/link`), with a Shopify URL redirect from
+`/link` to shorten it. It's currently a branded holding page ("Something's
+brewing"); edit it in Shopify admin under **Online Store → Pages → Milonga**
+when the real landing page is designed.
+
+**Never change the page handle or delete the `/link` redirect** — that URL is
+printed on business cards.
 
 ## Connect the waitlist (important)
 

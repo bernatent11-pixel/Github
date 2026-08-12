@@ -412,6 +412,40 @@
     .pt-lbl { font-family: var(--font); font-weight: 700; font-size: 9px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--mist); }
     .pt-sep { font-family: var(--font); font-weight: 900; font-size: clamp(20px, 3.4vw, 32px); color: var(--gold-2); line-height: 1.4; opacity: .6; }
 
+    /* ===== email signup ===== */
+    .signup {
+      width: min(560px, 100%); margin: 30px auto 0; text-align: center;
+      background: rgba(2,8,5,0.68); backdrop-filter: blur(10px);
+      border: 1px solid rgba(236,201,111,0.18); border-radius: 22px;
+      padding: 24px 24px 22px;
+    }
+    .signup-head {
+      font-family: var(--font); font-weight: 900; text-transform: uppercase;
+      font-size: clamp(15px, 2vw, 19px); letter-spacing: 1.6px; color: var(--gold-1);
+    }
+    .signup-sub { font-size: 12.5px; color: var(--mist); margin-top: 6px; }
+    .signup-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .signup-input {
+      flex: 1 1 220px; min-width: 0;
+      font-family: var(--font); font-size: 14px; color: var(--cream);
+      background: rgba(247,239,224,0.06); border: 1px solid rgba(236,201,111,0.35);
+      border-radius: 100px; padding: 12px 18px; outline: none;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .signup-input::placeholder { color: rgba(247,239,224,0.5); }
+    .signup-input:focus { border-color: var(--gold-1); background: rgba(247,239,224,0.09); }
+    .signup-input:disabled { opacity: .6; }
+    .signup-btn { flex: 0 0 auto; padding: 12px 26px; font-size: 13px; }
+    .signup-btn[disabled] { cursor: default; }
+    .signup-btn.done {
+      background: linear-gradient(135deg, var(--forest-1), var(--forest-2));
+      color: var(--cream); filter: none;
+    }
+    .signup-btn.done:hover { transform: none; filter: none; }
+    .signup-msg { font-size: 11.5px; color: var(--mist); margin-top: 10px; min-height: 14px; }
+    .signup-msg.err { color: #e9a06f; }
+    .signup-msg.ok  { color: var(--gold-1); }
+
     /* ================= FAQ ================= */
     .faqs { padding: 60px 0 90px; position: relative; z-index: 1; }
     .wrap-faq { max-width: 780px; margin: 0 auto; padding: 0 20px; }
@@ -532,6 +566,19 @@
       <div class="proof fx" aria-label="500+ people signed up, first batch won't last">
         <span class="avs"><span></span><span></span><span></span></span>
         <span class="txt">500+ people signed up · First batch won't last</span>
+      </div>
+
+      <div class="promo-timer fx" role="timer" aria-label="Promotion countdown" style="margin-top:34px">
+        <span class="pt-label">⏳ Offer Ends In</span>
+        <div class="pt-clock">
+          <span class="pt-unit"><span class="pt-num" data-d>00</span><span class="pt-lbl">Days</span></span>
+          <span class="pt-sep">:</span>
+          <span class="pt-unit"><span class="pt-num" data-h>00</span><span class="pt-lbl">Hrs</span></span>
+          <span class="pt-sep">:</span>
+          <span class="pt-unit"><span class="pt-num" data-m>00</span><span class="pt-lbl">Min</span></span>
+          <span class="pt-sep">:</span>
+          <span class="pt-unit"><span class="pt-num" data-s>00</span><span class="pt-lbl">Sec</span></span>
+        </div>
       </div>
 
       <div class="buy-card fx">
@@ -725,7 +772,7 @@
       </div>
 
       <div class="promo-timer fx" role="timer" aria-label="Promotion countdown" style="margin-top:60px">
-        <span class="pt-label">⏳ August Offer Ends In</span>
+        <span class="pt-label">⏳ Offer Ends In</span>
         <div class="pt-clock" id="promoClock">
           <span class="pt-unit"><span class="pt-num" data-d>00</span><span class="pt-lbl">Days</span></span>
           <span class="pt-sep">:</span>
@@ -760,6 +807,17 @@
           </div>
         </div>
       </div>
+
+      <form class="signup fx" id="notifyForm" novalidate>
+        <div class="signup-head">Never Miss a Drop</div>
+        <p class="signup-sub">Be first to hear about future offers, deals, news &amp; updates.</p>
+        <div class="signup-row">
+          <input class="signup-input" id="notifyEmail" type="email" name="email" required
+                 autocomplete="email" placeholder="Enter your email" aria-label="Email address" />
+          <button class="btn signup-btn" id="notifyBtn" type="submit">Notify Me</button>
+        </div>
+        <p class="signup-msg" id="notifyMsg" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
@@ -999,23 +1057,81 @@
 
     /* ---------- promo countdown → end of August (store time, EDT) ---------- */
     (function () {
-      const clock = document.getElementById("promoClock");
-      if (!clock) return;
+      const clocks = Array.from(document.querySelectorAll(".pt-clock")).map(clock => ({
+        d: clock.querySelector("[data-d]"), h: clock.querySelector("[data-h]"),
+        m: clock.querySelector("[data-m]"), s: clock.querySelector("[data-s]")
+      }));
+      if (!clocks.length) return;
       const target = new Date("2026-08-31T23:59:59-04:00").getTime();
-      const el = { d: clock.querySelector("[data-d]"), h: clock.querySelector("[data-h]"),
-                   m: clock.querySelector("[data-m]"), s: clock.querySelector("[data-s]") };
       const pad = n => String(n).padStart(2, "0");
       function tick() {
         let diff = target - Date.now();
         if (diff < 0) diff = 0;
-        el.d.textContent = pad(Math.floor(diff / 86400000));
-        el.h.textContent = pad(Math.floor(diff % 86400000 / 3600000));
-        el.m.textContent = pad(Math.floor(diff % 3600000 / 60000));
-        el.s.textContent = pad(Math.floor(diff % 60000 / 1000));
+        const d = pad(Math.floor(diff / 86400000));
+        const h = pad(Math.floor(diff % 86400000 / 3600000));
+        const m = pad(Math.floor(diff % 3600000 / 60000));
+        const s = pad(Math.floor(diff % 60000 / 1000));
+        clocks.forEach(el => { el.d.textContent = d; el.h.textContent = h; el.m.textContent = m; el.s.textContent = s; });
         if (diff === 0 && window.__promoTimer) clearInterval(window.__promoTimer);
       }
       tick();
       window.__promoTimer = setInterval(tick, 1000);
+    })();
+
+    /* ---------- newsletter signup → Klaviyo "Newsletter Subscribers List!" ---------- */
+    (function () {
+      const form = document.getElementById("notifyForm");
+      if (!form) return;
+      const input = document.getElementById("notifyEmail");
+      const btn   = document.getElementById("notifyBtn");
+      const msg   = document.getElementById("notifyMsg");
+      const KLAVIYO_COMPANY_ID = "TwvSnK";   // Milonga public API key (site ID)
+      const KLAVIYO_LIST_ID    = "XCBbqf";   // Newsletter Subscribers List!
+      const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      let done = false;
+      form.addEventListener("submit", async e => {
+        e.preventDefault();
+        if (done) return;
+        const email = (input.value || "").trim();
+        msg.className = "signup-msg";
+        if (!emailOk(email)) { msg.textContent = "Please enter a valid email."; msg.classList.add("err"); return; }
+        btn.disabled = true;
+        btn.textContent = "Joining…";
+        try {
+          const res = await fetch("https://a.klaviyo.com/client/subscriptions/?company_id=" + KLAVIYO_COMPANY_ID, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "revision": "2024-10-15" },
+            body: JSON.stringify({
+              data: {
+                type: "subscription",
+                attributes: {
+                  profile: { data: { type: "profile", attributes: {
+                    email: email,
+                    subscriptions: { email: { marketing: { consent: "SUBSCRIBED" } } }
+                  } } }
+                },
+                relationships: { list: { data: { type: "list", id: KLAVIYO_LIST_ID } } }
+              }
+            })
+          });
+          if (res.ok || res.status === 202) {
+            done = true;
+            btn.textContent = "Thank You!";
+            btn.classList.add("done");
+            btn.disabled = true;
+            input.disabled = true;
+            msg.textContent = "You're on the list — we'll keep you posted.";
+            msg.classList.add("ok");
+          } else {
+            throw new Error("status " + res.status);
+          }
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = "Notify Me";
+          msg.textContent = "Something went wrong. Please try again.";
+          msg.classList.add("err");
+        }
+      });
     })();
   </script>
 </body>

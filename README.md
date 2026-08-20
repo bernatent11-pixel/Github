@@ -34,6 +34,21 @@ page when it's designed.
 **Never rename or move the `link/` folder, and never change the `CNAME`
 file** — that URL is printed on business cards.
 
+## If the site 404s
+
+Two different 404s are possible, with different causes:
+
+1. **"There isn't a GitHub Pages site here"** — GitHub doesn't know the domain.
+   The root `CNAME` file is missing from the branch Pages publishes from
+   (Settings → Pages → Source). DNS pointing at GitHub is not enough on its
+   own: a repo has to claim the hostname with a `CNAME` file **on the published
+   branch**. Merge the branch carrying `CNAME`, or restore the file if deleted.
+2. **The branded "This page wandered off" page** — the domain works, but that
+   path doesn't exist. Check the path against the table above.
+
+`404.html` at the repo root is served for any unmatched path, so a stale or
+mistyped URL always lands on something branded rather than a bare GitHub error.
+
 ## Connect the waitlist (important)
 
 By default the email form stores submissions in the browser's `localStorage`

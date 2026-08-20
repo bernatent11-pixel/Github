@@ -9,6 +9,46 @@ It's just one file — open `index.html` in any browser. No build step, no
 dependencies. Deploy by dropping it on Netlify, Vercel, GitHub Pages, Cloudflare
 Pages, or any static host.
 
+## Hosting
+
+This site is served by GitHub Pages on a custom subdomain, deliberately
+**outside** Shopify so the pages can be designed freely:
+
+| URL | File |
+| --- | --- |
+| `https://preparematelatte.milonga.life/` | `index.html` (mate latte landing page) |
+| `https://preparematelatte.milonga.life/link` | `link/index.html` (business-card page) |
+
+The subdomain comes from the root `CNAME` file. DNS lives in **GoDaddy** under
+`milonga.life`: a `CNAME` record with host `preparematelatte` pointing to
+`bernatent11-pixel.github.io`. The apex `milonga.life` still points at Shopify
+and is untouched.
+
+## Business-card page (`/link/`)
+
+`link/index.html` is the destination for the QR code printed on Milonga
+business cards. It's currently a branded holding page ("Something's brewing")
+so a scan never lands on a 404. Replace its contents with the real landing
+page when it's designed.
+
+**Never rename or move the `link/` folder, and never change the `CNAME`
+file** — that URL is printed on business cards.
+
+## If the site 404s
+
+Two different 404s are possible, with different causes:
+
+1. **"There isn't a GitHub Pages site here"** — GitHub doesn't know the domain.
+   The root `CNAME` file is missing from the branch Pages publishes from
+   (Settings → Pages → Source). DNS pointing at GitHub is not enough on its
+   own: a repo has to claim the hostname with a `CNAME` file **on the published
+   branch**. Merge the branch carrying `CNAME`, or restore the file if deleted.
+2. **The branded "This page wandered off" page** — the domain works, but that
+   path doesn't exist. Check the path against the table above.
+
+`404.html` at the repo root is served for any unmatched path, so a stale or
+mistyped URL always lands on something branded rather than a bare GitHub error.
+
 ## Connect the waitlist (important)
 
 By default the email form stores submissions in the browser's `localStorage`

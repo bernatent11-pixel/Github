@@ -3,6 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       ANALYTICS — Google Tag Manager (central) → GA4 + Meta Pixel
+       Funnel:  Page View → Add to Cart → Begin Checkout → Purchase
+       Architecture:  page  →  dataLayer  →  GTM  →  { GA4, Meta Pixel }
+       All IDs live in ONE place (window.MILONGA_ANALYTICS) below.
+       GA4 + Meta Pixel are configured as TAGS INSIDE the GTM container
+       (not as gtag.js / fbq snippets here) so neither loads twice.
+       Exact GTM tag/trigger setup is documented at the bottom of the
+       main <script> block ("GTM CONTAINER SETUP").
+       ============================================================ -->
+  <script>
+    window.MILONGA_ANALYTICS = {
+      GTM_CONTAINER_ID:   "",                 /* ← REQUIRED to go live: paste "GTM-XXXXXXX". Empty = loader stays off. */
+      GA4_MEASUREMENT_ID: "G-M18RQG49P9",     /* configured inside GTM as the GA4 Configuration tag */
+      META_PIXEL_ID:      "1200071501228566"  /* configured inside GTM as the Meta Pixel base tag */
+    };
+    window.dataLayer = window.dataLayer || [];
+  </script>
+  <!-- Google Tag Manager (guarded — only loads once a real container ID is set) -->
+  <script>(function(w,d,s,l,i){
+    if(!i){ return; }  /* no container ID yet → do NOT request an invalid GTM container */
+    w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer',window.MILONGA_ANALYTICS.GTM_CONTAINER_ID);</script>
+  <!-- End Google Tag Manager -->
+
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
   <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
 
@@ -523,6 +552,13 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) — enable the no-JavaScript fallback by
+       uncommenting this block and replacing GTM-XXXXXXX with the real container
+       ID. Left commented so no invalid container is requested before the ID
+       is provided. (This page needs JS for checkout, so this is a minor path.)
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  -->
 
   <!-- still branded backdrop: blurred jungle key art, never moves -->
   <div class="bg" aria-hidden="true"></div>
@@ -949,6 +985,62 @@
     const SELLING_PLAN = "8837562678";    // Appstle "Mate Mornings Club" — monthly, 15% off
     const VARIANTS = { 1: "54302750212406", 2: "54302750245174", 3: "54302750277942" };
 
+    /* ---------- analytics: structured dataLayer ecommerce (GTM → GA4 + Meta) ----------
+       One push per funnel stage, built from REAL dynamic selection data:
+         item_id  = the actual Shopify variant ID for the chosen quantity bundle
+         value    = the exact price shown & charged for that plan + quantity
+         quantity = 1 (each bundle variant is one line item)
+       GTM turns these dataLayer events into GA4 (add_to_cart / begin_checkout /
+       purchase) and Meta Pixel (AddToCart / InitiateCheckout / Purchase). */
+    const PRODUCT_NAME = "Milonga Mate Latte";
+
+    // exact price for a plan ("onetime"/"subscribe") + quantity bundle (mirrors renderCard)
+    function priceForItem(kind, q) {
+      const qd = PRICING.qty[q] || 0;
+      const unit = round2(PRICING.base * q * (1 - qd));       // one-time price for the bundle
+      return kind === "subscribe" ? round2(unit * (1 - PRICING.sub)) : unit;
+    }
+
+    // GA4/Meta-shaped ecommerce object for the current selection
+    function ecommerceFor(kind, q) {
+      const value = priceForItem(kind, q);
+      return {
+        currency: "USD",
+        value: value,
+        items: [{
+          item_id: VARIANTS[q],                               // real Shopify variant ID
+          item_name: PRODUCT_NAME,
+          item_variant: (kind === "subscribe" ? "Subscribe & Save" : "One-Time") + " · " + q + "-pack",
+          item_category: kind === "subscribe" ? "subscription" : "one-time",
+          price: value,
+          quantity: 1
+        }]
+      };
+    }
+
+    // push one ecommerce event, clearing the previous ecommerce object first (GA4 best practice)
+    function trackEcommerce(event, kind, q) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ ecommerce: null });
+      window.dataLayer.push({ event: event, ecommerce: ecommerceFor(kind, q) });
+    }
+
+    // Give GTM/pixel tags a brief window to send their beacons before we leave the
+    // page. Uses GTM's eventCallback when GTM is loaded; always has a short timer
+    // fallback so the redirect is never blocked (covers the GTM-not-yet-set case).
+    function flushThenNavigate(go) {
+      let done = false;
+      const run = () => { if (done) return; done = true; go(); };
+      const cid = window.MILONGA_ANALYTICS && window.MILONGA_ANALYTICS.GTM_CONTAINER_ID;
+      const gtmReady = !!(cid && window.google_tag_manager && window.google_tag_manager[cid]);
+      if (gtmReady) {
+        window.dataLayer.push({ event: "checkout_redirect", eventCallback: run, eventTimeout: 1200 });
+        setTimeout(run, 1200);            // ceiling if the callback never returns
+      } else {
+        setTimeout(run, 350);             // no GTM yet → tiny delay, then go
+      }
+    }
+
     async function goToCheckout(kind, q) {
       const id = VARIANTS[q];
       if (!id) return;
@@ -971,10 +1063,17 @@
           const json = await res.json();
           const url = json && json.data && json.data.cartCreate && json.data.cartCreate.cart
             ? json.data.cartCreate.cart.checkoutUrl : null;
-          if (url) { window.location.href = url; return; }
+          if (url) {
+            // cart CREATED (add succeeded) → track add_to_cart, then begin_checkout, then go
+            trackEcommerce("add_to_cart", kind, q);
+            trackEcommerce("begin_checkout", kind, q);
+            flushThenNavigate(() => { window.location.href = url; });
+            return;
+          }
         } catch (e) { /* fall through to /cart/add */ }
       }
-      // FALLBACK: form POST to /cart/add
+      // FALLBACK: form POST to /cart/add (this submit IS the add-to-cart op and
+      // navigates straight to checkout, so add_to_cart + begin_checkout fire together)
       const form = document.createElement("form");
       form.method = "POST";
       form.action = SHOP + "/cart/add";
@@ -988,7 +1087,9 @@
       if (kind === "subscribe") field("selling_plan", SELLING_PLAN);
       field("return_to", "/checkout");
       document.body.appendChild(form);
-      form.submit();
+      trackEcommerce("add_to_cart", kind, q);
+      trackEcommerce("begin_checkout", kind, q);
+      flushThenNavigate(() => { form.submit(); });
     }
     function wireButtons(card, q) {
       card.querySelectorAll("[data-checkout]").forEach(a => {
@@ -1116,6 +1217,9 @@
           });
           if (res.ok || res.status === 202) {
             done = true;
+            // newsletter opt-in succeeded → lead conversion (GTM → GA4 generate_lead / Meta Lead)
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: "generate_lead", lead_source: "newsletter_signup", currency: "USD", value: 0 });
             btn.textContent = "Thank You!";
             btn.classList.add("done");
             btn.disabled = true;
@@ -1133,6 +1237,88 @@
         }
       });
     })();
+
+    /* ================================================================
+       GTM CONTAINER SETUP  (do this once inside tagmanager.google.com)
+       ----------------------------------------------------------------
+       This page emits a structured dataLayer. GTM turns those events
+       into GA4 + Meta Pixel tags. Create the following in the container
+       whose ID you paste into MILONGA_ANALYTICS.GTM_CONTAINER_ID above.
+
+       1) VARIABLES  (Built-In → enable; plus Data Layer Variables)
+          - DLV - ecommerce                → "ecommerce"
+          - DLV - ecommerce.value          → "ecommerce.value"
+          - DLV - ecommerce.currency       → "ecommerce.currency"
+          - DLV - ecommerce.items          → "ecommerce.items"
+          - DLV - ecommerce.transaction_id → "ecommerce.transaction_id"
+
+       2) GA4 CONFIGURATION TAG
+          - Tag type: "Google Tag" (GA4)  Tag ID: G-M18RQG49P9
+          - Trigger: Initialization - All Pages
+          - Fires page_view automatically → do NOT add a manual page_view.
+
+       3) GA4 EVENT TAGS  (Tag type: GA4 Event; Config tag: the one above)
+          - add_to_cart     → Trigger: Custom Event = "add_to_cart"
+          - begin_checkout  → Trigger: Custom Event = "begin_checkout"
+          - purchase        → Trigger: Custom Event = "purchase"
+          - generate_lead   → Trigger: Custom Event = "generate_lead"
+          In each, set Event Parameters from the DLVs (value, currency,
+          items, and for purchase also transaction_id). Enable
+          "Send Ecommerce data" → Data source: Data Layer.
+
+       4) META PIXEL  (via a Community Template "Facebook Pixel" or
+          Custom HTML tags). Pixel ID: 1200071501228566
+          - Base + PageView → Trigger: All Pages (fires PageView once).
+          - AddToCart       → Custom Event "add_to_cart"
+          - InitiateCheckout→ Custom Event "begin_checkout"
+          - Purchase        → Custom Event "purchase"  (pass eventID =
+            transaction_id for Meta's own dedup with the Conversions API)
+          Map content_ids from items[].item_id, content_type "product",
+          value + currency from the dataLayer.
+
+       ================================================================
+       PURCHASE  (stage 4)  — IMPLEMENTED ON SHOPIFY, NOT HERE
+       ----------------------------------------------------------------
+       After checkout the customer is on Shopify's Thank-You / order-
+       status page (milonga.life), which this repo does not control, so
+       the purchase event cannot live in this file. Implement it on
+       Shopify with REAL order data and per-order dedup. Preferred:
+       Shopify → Settings → Customer events → add a Custom Pixel that
+       subscribes to "checkout_completed" and pushes:
+
+         analytics.subscribe("checkout_completed", (event) => {
+           const c = event.data.checkout;
+           const items = c.lineItems.map(li => ({
+             item_id: String(li.variant.id),
+             item_name: li.title,
+             price: li.variant.price.amount,
+             quantity: li.quantity
+           }));
+           window.dataLayer = window.dataLayer || [];
+           window.dataLayer.push({ ecommerce: null });
+           window.dataLayer.push({
+             event: "purchase",
+             ecommerce: {
+               transaction_id: c.order.id,           // unique order id
+               currency: c.totalPrice.currencyCode,  // "USD"
+               value: c.totalPrice.amount,           // actual order total
+               items: items
+             }
+           });
+         });
+
+       DEDUPE (no duplicate purchase on refresh): the Shopify
+       "checkout_completed" event fires once per completed checkout, so
+       it does not re-fire on Thank-You-page refresh. As a belt-and-
+       suspenders guard, also gate on the order id:
+         try {
+           const k = "milonga_purchase_" + c.order.id;
+           if (localStorage.getItem(k)) return;      // already tracked
+           localStorage.setItem(k, "1");
+         } catch (e) {}
+       For Meta, pass eventID = order id so the Pixel Purchase and any
+       server-side Conversions-API Purchase deduplicate to one.
+       ================================================================ */
   </script>
 </body>
 </html>

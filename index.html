@@ -5,32 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============================================================
-       ANALYTICS — Google Tag Manager (central) → GA4 + Meta Pixel
+       ANALYTICS — GA4 + Meta Pixel wired directly (no GTM)
        Funnel:  Page View → Add to Cart → Begin Checkout → Purchase
-       Architecture:  page  →  dataLayer  →  GTM  →  { GA4, Meta Pixel }
-       All IDs live in ONE place (window.MILONGA_ANALYTICS) below.
-       GA4 + Meta Pixel are configured as TAGS INSIDE the GTM container
-       (not as gtag.js / fbq snippets here) so neither loads twice.
-       Exact GTM tag/trigger setup is documented at the bottom of the
-       main <script> block ("GTM CONTAINER SETUP").
+       All IDs live in ONE place (window.MILONGA_ANALYTICS). GA4 and the
+       Meta Pixel are each loaded exactly ONCE here; ecommerce events are
+       sent from the checkout code (see trackEcommerce) so there are no
+       duplicates. Purchase is tracked on Shopify's Thank-You page — see
+       the "PURCHASE" note at the bottom of the main <script> block.
        ============================================================ -->
   <script>
     window.MILONGA_ANALYTICS = {
-      GTM_CONTAINER_ID:   "",                 /* ← REQUIRED to go live: paste "GTM-XXXXXXX". Empty = loader stays off. */
-      GA4_MEASUREMENT_ID: "G-M18RQG49P9",     /* configured inside GTM as the GA4 Configuration tag */
-      META_PIXEL_ID:      "1200071501228566"  /* configured inside GTM as the Meta Pixel base tag */
+      GA4_MEASUREMENT_ID: "G-M18RQG49P9",     /* Google Analytics 4 */
+      META_PIXEL_ID:      "1200071501228566"  /* Meta / Facebook Pixel */
     };
+    /* ---- Google Analytics 4 (gtag.js) ---- */
     window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    /* ---- Meta Pixel base ---- */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    /* ---- init both once, from the single-source IDs ---- */
+    (function (cfg) {
+      var g = document.createElement('script'); g.async = true;
+      g.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.GA4_MEASUREMENT_ID;
+      document.head.appendChild(g);
+      gtag('js', new Date());
+      gtag('config', cfg.GA4_MEASUREMENT_ID);   /* fires page_view automatically */
+      fbq('init', cfg.META_PIXEL_ID);
+      fbq('track', 'PageView');                 /* single PageView on load */
+    })(window.MILONGA_ANALYTICS);
   </script>
-  <!-- Google Tag Manager (guarded — only loads once a real container ID is set) -->
-  <script>(function(w,d,s,l,i){
-    if(!i){ return; }  /* no container ID yet → do NOT request an invalid GTM container */
-    w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-    f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer',window.MILONGA_ANALYTICS.GTM_CONTAINER_ID);</script>
-  <!-- End Google Tag Manager -->
+  <!-- End Analytics -->
 
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
   <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
@@ -552,13 +560,9 @@
   </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) — enable the no-JavaScript fallback by
-       uncommenting this block and replacing GTM-XXXXXXX with the real container
-       ID. Left commented so no invalid container is requested before the ID
-       is provided. (This page needs JS for checkout, so this is a minor path.)
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  -->
+  <!-- Meta Pixel (noscript fallback) -->
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1200071501228566&ev=PageView&noscript=1" alt="" /></noscript>
 
   <!-- still branded backdrop: blurred jungle key art, never moves -->
   <div class="bg" aria-hidden="true"></div>
@@ -1018,27 +1022,35 @@
       };
     }
 
-    // push one ecommerce event, clearing the previous ecommerce object first (GA4 best practice)
+    // fire ONE funnel event to GA4 + Meta Pixel from the same selection data.
+    // event = "add_to_cart" | "begin_checkout"
     function trackEcommerce(event, kind, q) {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ ecommerce: null });
-      window.dataLayer.push({ event: event, ecommerce: ecommerceFor(kind, q) });
+      const ec = ecommerceFor(kind, q);
+      const item = ec.items[0];
+      // GA4 (standard ecommerce event: same name, items array, value, currency)
+      if (window.gtag) {
+        gtag("event", event, { currency: ec.currency, value: ec.value, items: ec.items });
+      }
+      // Meta Pixel (map GA4 name → Meta name)
+      if (window.fbq) {
+        const metaEvent = event === "begin_checkout" ? "InitiateCheckout" : "AddToCart";
+        fbq("track", metaEvent, {
+          content_ids: [item.item_id],
+          content_type: "product",
+          contents: [{ id: item.item_id, quantity: item.quantity }],
+          value: ec.value,
+          currency: ec.currency
+        });
+      }
     }
 
-    // Give GTM/pixel tags a brief window to send their beacons before we leave the
-    // page. Uses GTM's eventCallback when GTM is loaded; always has a short timer
-    // fallback so the redirect is never blocked (covers the GTM-not-yet-set case).
+    // Give GA4 (sendBeacon) and the Meta Pixel a brief window to send their
+    // beacons before we leave the page for Shopify checkout. Short fixed delay,
+    // guarded so the redirect is never blocked.
     function flushThenNavigate(go) {
       let done = false;
       const run = () => { if (done) return; done = true; go(); };
-      const cid = window.MILONGA_ANALYTICS && window.MILONGA_ANALYTICS.GTM_CONTAINER_ID;
-      const gtmReady = !!(cid && window.google_tag_manager && window.google_tag_manager[cid]);
-      if (gtmReady) {
-        window.dataLayer.push({ event: "checkout_redirect", eventCallback: run, eventTimeout: 1200 });
-        setTimeout(run, 1200);            // ceiling if the callback never returns
-      } else {
-        setTimeout(run, 350);             // no GTM yet → tiny delay, then go
-      }
+      setTimeout(run, 300);
     }
 
     async function goToCheckout(kind, q) {
@@ -1217,9 +1229,9 @@
           });
           if (res.ok || res.status === 202) {
             done = true;
-            // newsletter opt-in succeeded → lead conversion (GTM → GA4 generate_lead / Meta Lead)
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({ event: "generate_lead", lead_source: "newsletter_signup", currency: "USD", value: 0 });
+            // newsletter opt-in succeeded → lead conversion (GA4 generate_lead + Meta Lead)
+            if (window.gtag) gtag("event", "generate_lead", { currency: "USD", value: 0, lead_source: "newsletter_signup" });
+            if (window.fbq) fbq("track", "Lead", { content_name: "newsletter_signup" });
             btn.textContent = "Thank You!";
             btn.classList.add("done");
             btn.disabled = true;
@@ -1239,85 +1251,63 @@
     })();
 
     /* ================================================================
-       GTM CONTAINER SETUP  (do this once inside tagmanager.google.com)
+       WHAT THIS PAGE TRACKS (GA4 G-M18RQG49P9 + Meta Pixel 1200071501228566)
        ----------------------------------------------------------------
-       This page emits a structured dataLayer. GTM turns those events
-       into GA4 + Meta Pixel tags. Create the following in the container
-       whose ID you paste into MILONGA_ANALYTICS.GTM_CONTAINER_ID above.
-
-       1) VARIABLES  (Built-In → enable; plus Data Layer Variables)
-          - DLV - ecommerce                → "ecommerce"
-          - DLV - ecommerce.value          → "ecommerce.value"
-          - DLV - ecommerce.currency       → "ecommerce.currency"
-          - DLV - ecommerce.items          → "ecommerce.items"
-          - DLV - ecommerce.transaction_id → "ecommerce.transaction_id"
-
-       2) GA4 CONFIGURATION TAG
-          - Tag type: "Google Tag" (GA4)  Tag ID: G-M18RQG49P9
-          - Trigger: Initialization - All Pages
-          - Fires page_view automatically → do NOT add a manual page_view.
-
-       3) GA4 EVENT TAGS  (Tag type: GA4 Event; Config tag: the one above)
-          - add_to_cart     → Trigger: Custom Event = "add_to_cart"
-          - begin_checkout  → Trigger: Custom Event = "begin_checkout"
-          - purchase        → Trigger: Custom Event = "purchase"
-          - generate_lead   → Trigger: Custom Event = "generate_lead"
-          In each, set Event Parameters from the DLVs (value, currency,
-          items, and for purchase also transaction_id). Enable
-          "Send Ecommerce data" → Data source: Data Layer.
-
-       4) META PIXEL  (via a Community Template "Facebook Pixel" or
-          Custom HTML tags). Pixel ID: 1200071501228566
-          - Base + PageView → Trigger: All Pages (fires PageView once).
-          - AddToCart       → Custom Event "add_to_cart"
-          - InitiateCheckout→ Custom Event "begin_checkout"
-          - Purchase        → Custom Event "purchase"  (pass eventID =
-            transaction_id for Meta's own dedup with the Conversions API)
-          Map content_ids from items[].item_id, content_type "product",
-          value + currency from the dataLayer.
+         page_view / PageView   → on load (GA4 config + fbq PageView)
+         add_to_cart / AddToCart→ after the Shopify add succeeds
+         begin_checkout /
+           InitiateCheckout     → on redirect into Shopify checkout
+         generate_lead / Lead   → on newsletter opt-in success
+       Each ecommerce event carries the real selected variant id, exact
+       price, quantity and USD currency. No duplicates (each pixel loads
+       once; each event fires once per action).
 
        ================================================================
        PURCHASE  (stage 4)  — IMPLEMENTED ON SHOPIFY, NOT HERE
        ----------------------------------------------------------------
        After checkout the customer is on Shopify's Thank-You / order-
        status page (milonga.life), which this repo does not control, so
-       the purchase event cannot live in this file. Implement it on
-       Shopify with REAL order data and per-order dedup. Preferred:
-       Shopify → Settings → Customer events → add a Custom Pixel that
-       subscribes to "checkout_completed" and pushes:
+       Purchase must be tracked there. Add it in Shopify → Settings →
+       Customer events → Add custom pixel, initialising GA4 + Meta INSIDE
+       the pixel (the sandbox does not inherit this page's gtag/fbq) and
+       firing once per order with real data and order-id dedup:
 
+         // --- inside the Shopify custom pixel ---
+         // (load gtag.js for G-M18RQG49P9 and the fbq base for
+         //  1200071501228566 here first, then:)
          analytics.subscribe("checkout_completed", (event) => {
            const c = event.data.checkout;
+           const orderId = String(c.order.id);
+           try {                                   // dedup: one purchase per order
+             const k = "milonga_purchase_" + orderId;
+             if (localStorage.getItem(k)) return;  // already tracked (e.g. refresh)
+             localStorage.setItem(k, "1");
+           } catch (e) {}
            const items = c.lineItems.map(li => ({
-             item_id: String(li.variant.id),
+             item_id: String(li.variant.id),       // real variant id
              item_name: li.title,
-             price: li.variant.price.amount,
-             quantity: li.quantity
+             price: li.variant.price.amount,        // real price
+             quantity: li.quantity                  // real quantity
            }));
-           window.dataLayer = window.dataLayer || [];
-           window.dataLayer.push({ ecommerce: null });
-           window.dataLayer.push({
-             event: "purchase",
-             ecommerce: {
-               transaction_id: c.order.id,           // unique order id
-               currency: c.totalPrice.currencyCode,  // "USD"
-               value: c.totalPrice.amount,           // actual order total
-               items: items
-             }
+           gtag("event", "purchase", {
+             transaction_id: orderId,               // unique order id
+             value: c.totalPrice.amount,            // actual order total
+             currency: c.totalPrice.currencyCode,   // "USD"
+             items: items
            });
+           fbq("track", "Purchase", {
+             content_ids: items.map(i => i.item_id),
+             content_type: "product",
+             value: c.totalPrice.amount,
+             currency: c.totalPrice.currencyCode
+           }, { eventID: orderId });                // Meta dedup key = order id
          });
 
-       DEDUPE (no duplicate purchase on refresh): the Shopify
-       "checkout_completed" event fires once per completed checkout, so
-       it does not re-fire on Thank-You-page refresh. As a belt-and-
-       suspenders guard, also gate on the order id:
-         try {
-           const k = "milonga_purchase_" + c.order.id;
-           if (localStorage.getItem(k)) return;      // already tracked
-           localStorage.setItem(k, "1");
-         } catch (e) {}
-       For Meta, pass eventID = order id so the Pixel Purchase and any
-       server-side Conversions-API Purchase deduplicate to one.
+       The Shopify "checkout_completed" event fires once per completed
+       checkout and does not re-fire on a Thank-You-page refresh; the
+       localStorage guard is a second safety net. Passing eventID = order
+       id lets the Pixel Purchase and any server-side Conversions-API
+       Purchase deduplicate to a single conversion.
        ================================================================ */
   </script>
 </body>

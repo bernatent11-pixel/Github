@@ -1,0 +1,21 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",     "x": 0,    "y": 0,   "w": 1050, "h": 600, "title": "Front A — Split band", "print": "fixed" },
+    { "file": "Back.dc.html",     "x": 1180, "y": 0,   "w": 1050, "h": 600, "title": "Back A — Review offer", "print": "fixed" },
+    { "file": "FrontAlt.dc.html", "x": 0,    "y": 920, "w": 1050, "h": 600, "title": "Front B — Full green", "print": "fixed" },
+    { "file": "BackAlt.dc.html",  "x": 1180, "y": 920, "w": 1050, "h": 600, "title": "Back B — Contact", "print": "fixed" }
+  ],
+  "annotations": [
+    { "id": "pair-a", "x": 0, "y": -230, "w": 1050,
+      "text": "DIRECTION A — Split band\nThe QR gets its own cream field, so it is dark-on-light and can never fail a scanner. Structured and brand-forward. Tradeoff: the hard vertical split is a strong, committed layout — less \"poster\", more \"card\"." },
+    { "id": "pair-b", "x": 1180, "y": -230, "w": 1050,
+      "text": "Back A keeps the review offer but flips the hierarchy: 15% OFF is the hook, \"leave a review\" is the instruction. The green strip carries the contact line the old card had nowhere for." },
+    { "id": "pair-b2", "x": 0, "y": 760, "w": 1050,
+      "text": "DIRECTION B — Full green\nOne uninterrupted green field, QR as a soft cream tile bottom-right. Moodier and closer to the original card. Tradeoff: smaller QR (0.59in vs 0.86in) and it sits nearer the trim edge." },
+    { "id": "pair-b3", "x": 1180, "y": 760, "w": 1050,
+      "text": "Back B is the alternative back if you would rather the card carry contact details than the review offer. Mix and match: any front works with either back." },
+    { "id": "specs", "x": 2410, "y": 0, "w": 460,
+      "text": "PRINT SPEC\n1050 x 600 px = 3.5 x 2 in at 300 dpi (trim size).\nAll live copy sits inside a 72 px (0.24 in) safe margin.\nAsk the printer for 0.125 in bleed — add 38 px of the background colour on every side when you export, so the green and cream fields run off the edge cleanly.\n\nType is Montserrat here as a stand-in. Swap to real Gotham for print: Black for the caps line, Bold Italic for the punchline, Medium for the URL and contact line.\n\nThe front QR resolves to preparematelatte.milonga.life/link. The back QR is a PLACEHOLDER pointing at /review - regenerate it against your real review destination before you print." }
+  ],
+  "launch": { "view": "canvas" }
+}

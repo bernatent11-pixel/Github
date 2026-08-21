@@ -4,41 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ============================================================
-       ANALYTICS — GA4 + Meta Pixel wired directly (no GTM)
-       Funnel:  Page View → Add to Cart → Begin Checkout → Purchase
-       All IDs live in ONE place (window.MILONGA_ANALYTICS). GA4 and the
-       Meta Pixel are each loaded exactly ONCE here; ecommerce events are
-       sent from the checkout code (see trackEcommerce) so there are no
-       duplicates. Purchase is tracked on Shopify's Thank-You page — see
-       the "PURCHASE" note at the bottom of the main <script> block.
-       ============================================================ -->
+  <!-- ANALYTICS — GA4 (Measurement ID) + Meta Pixel, wired directly (no GTM).
+       Base tags load once here; add_to_cart / begin_checkout events are sent
+       with REAL variant id + price from the checkout code (see trackEcommerce).
+       Purchase fires on Shopify's Thank-You page (custom pixel), not here. -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M18RQG49P9"></script>
   <script>
-    window.MILONGA_ANALYTICS = {
-      GA4_MEASUREMENT_ID: "G-M18RQG49P9",     /* Google Analytics 4 */
-      META_PIXEL_ID:      "1200071501228566"  /* Meta / Facebook Pixel */
-    };
-    /* ---- Google Analytics 4 (gtag.js) ---- */
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    /* ---- Meta Pixel base ---- */
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    /* ---- init both once, from the single-source IDs ---- */
-    (function (cfg) {
-      var g = document.createElement('script'); g.async = true;
-      g.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.GA4_MEASUREMENT_ID;
-      document.head.appendChild(g);
-      gtag('js', new Date());
-      gtag('config', cfg.GA4_MEASUREMENT_ID);   /* fires page_view automatically */
-      fbq('init', cfg.META_PIXEL_ID);
-      fbq('track', 'PageView');                 /* single PageView on load */
-    })(window.MILONGA_ANALYTICS);
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M18RQG49P9');
   </script>
-  <!-- End Analytics -->
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1200071501228566');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
 
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
   <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
@@ -989,13 +982,13 @@
     const SELLING_PLAN = "8837562678";    // Appstle "Mate Mornings Club" — monthly, 15% off
     const VARIANTS = { 1: "54302750212406", 2: "54302750245174", 3: "54302750277942" };
 
-    /* ---------- analytics: structured dataLayer ecommerce (GTM → GA4 + Meta) ----------
-       One push per funnel stage, built from REAL dynamic selection data:
+    /* ---------- analytics: ecommerce events → GA4 + Meta Pixel (direct) ----------
+       One event per funnel stage, built from REAL dynamic selection data:
          item_id  = the actual Shopify variant ID for the chosen quantity bundle
          value    = the exact price shown & charged for that plan + quantity
          quantity = 1 (each bundle variant is one line item)
-       GTM turns these dataLayer events into GA4 (add_to_cart / begin_checkout /
-       purchase) and Meta Pixel (AddToCart / InitiateCheckout / Purchase). */
+       add_to_cart / AddToCart and begin_checkout / InitiateCheckout are sent
+       directly to gtag() + fbq() (see trackEcommerce below). */
     const PRODUCT_NAME = "Milonga Mate Latte";
 
     // exact price for a plan ("onetime"/"subscribe") + quantity bundle (mirrors renderCard)

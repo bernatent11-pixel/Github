@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milonga — Page not found</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!--
+    GitHub Pages serves this file for any path on this site that doesn't exist.
+    It exists so a mistyped or stale URL — including a QR code scanned from an
+    old business card — lands on something branded with a way forward, instead
+    of GitHub's default 404. Keep it at the repo root.
+  -->
+  <style>
+    :root {
+      --gold-1:   #ecc96f;
+      --gold-2:   #d6ab50;
+      --gold-3:   #b98e38;
+      --cream:    #f7efe0;
+      --forest-1: #2f7a45;
+      --forest-2: #1b5130;
+      --forest-3: #0e3a20;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--forest-3);
+      background: radial-gradient(120% 90% at 50% 0%, var(--gold-1), var(--gold-2) 55%, var(--gold-3) 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 1px, transparent 1.4px);
+      background-size: 14px 14px;
+      pointer-events: none;
+    }
+
+    main { position: relative; text-align: center; }
+
+    .logo {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: "Fredoka", system-ui, sans-serif; font-weight: 700;
+      font-size: clamp(30px, 8vw, 46px); letter-spacing: .5px; line-height: 1;
+      color: var(--forest-2);
+    }
+    .logo .mark { width: 1em; height: 1em; flex: none; }
+
+    .tag { margin-top: 18px; font-family: "Fredoka", system-ui, sans-serif; font-weight: 600; font-size: clamp(15px, 3.6vw, 18px); }
+    .sub  { margin-top: 10px; font-size: 15px; color: #2c4a36; }
+
+    .cta {
+      display: inline-block; margin-top: 28px;
+      background: var(--forest-2); color: var(--cream); text-decoration: none;
+      font-family: "Fredoka", system-ui, sans-serif; font-weight: 600; font-size: 15px;
+      padding: 12px 26px; border-radius: 100px;
+      transition: background .2s, transform .15s;
+    }
+    .cta:hover { background: var(--forest-1); transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="logo">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 6c-2 6-2 10 0 16 2-6 2-10 0-16z" fill="#1b5130"/>
+        <path d="M24 18c-3 4-4 9-4 16h8c0-7-1-12-4-16z" fill="#2f7a45"/>
+        <path d="M14 20c2 8 4 11 8 14-2-7-4-11-8-14zM34 20c-2 8-4 11-8 14 2-7 4-11 8-14z" fill="#1b5130"/>
+      </svg>
+      Milonga
+    </span>
+
+    <p class="tag">This page wandered off.</p>
+    <p class="sub">The link may be mistyped or out of date.</p>
+
+    <a class="cta" href="/">Take me home</a>
+  </main>
+</body>
+</html>

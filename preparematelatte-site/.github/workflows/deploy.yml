@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+# Deploys whatever is on the default branch. Pages is enabled by the workflow
+# itself (configure-pages `enablement: true`), so there is no manual Settings
+# step to forget and no "which branch does Pages serve?" ambiguity — the answer
+# is always: this one.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; queue them instead of cancelling a live publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify the custom domain is claimed
+        # A missing or altered CNAME is what silently 404s a custom domain:
+        # DNS points at GitHub, but no repo claims the hostname. Fail loudly
+        # here rather than discovering it by scanning a printed QR code.
+        run: |
+          expected="preparematelatte.milonga.life"
+          if [ ! -f CNAME ]; then
+            echo "::error::CNAME file is missing. $expected would 404."
+            exit 1
+          fi
+          actual="$(tr -d '[:space:]' < CNAME)"
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::CNAME is '$actual', expected '$expected'. Refusing to deploy."
+            exit 1
+          fi
+          echo "CNAME OK: $actual"
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

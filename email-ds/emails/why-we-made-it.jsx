@@ -149,8 +149,8 @@ function WhyWeMadeIt({ shopHref = '#' }) {
         image: { src: IMG.botanical, alt: 'The Milonga Mate Latte pouch' },
         tiers: [
           { label: 'Buy 1', price: '$29.99', detail: '15 servings', unit: '$2.00 / serving', href: shopHref },
-          { label: 'Buy 2', price: '$53.98', detail: '30 servings', unit: '$1.80 / serving', badge: 'Save 10%', href: shopHref },
-          { label: 'Buy 3', price: '$76.47', detail: '45 servings', unit: '$1.70 / serving', badge: 'Save 15%', featured: true, href: shopHref },
+          { label: 'Buy 2', was: '$59.98', price: '$53.98', detail: '30 servings', unit: '$1.80 / serving', badge: 'Save 10%', href: shopHref },
+          { label: 'Buy 3', was: '$89.97', price: '$76.47', detail: '45 servings', unit: '$1.70 / serving', badge: 'Save 15%', featured: true, href: shopHref },
         ],
       })
     ),

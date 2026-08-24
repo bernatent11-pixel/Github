@@ -9,6 +9,8 @@ export interface BundleTier {
   label: string;
   /** Total price for the tier, e.g. "$53.98". */
   price: string;
+  /** Undiscounted total, struck through above the price — e.g. "$59.98". */
+  was?: string;
   /** What you get, e.g. "30 servings". */
   detail?: string;
   /** Unit economics, e.g. "$1.80 per serving". */
@@ -111,6 +113,21 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe }: BundleOf
               }}
             >
               {tier.label}
+            </div>
+            {/* Tiers without a was-price reserve its height so the big
+                numbers stay on one line across the row. */}
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: t.body,
+                opacity: tier.was ? 0.6 : 0,
+                textDecoration: 'line-through',
+                lineHeight: 1.2,
+                marginBottom: 3,
+              }}
+            >
+              {tier.was ?? tier.price}
             </div>
             <div style={{ fontSize: 22, fontWeight: 900, color: t.accent, lineHeight: 1.05, marginBottom: 7 }}>
               {tier.price}

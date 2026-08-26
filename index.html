@@ -28,6 +28,24 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
+
+  /* Attribution safety net — write first-party _fbp/_fbc on .milonga.life
+     BEFORE and INDEPENDENT of Meta's script. If connect.facebook.net is blocked
+     (incognito, mobile cellular, content blockers, Safari ITP) fbevents.js never
+     runs and never writes _fbc — so the purchase on milonga.life can't be tied
+     to the ad. Setting these ourselves guarantees the click is captured, and the
+     checkout pixel on milonga.life reads them via the shared .milonga.life domain. */
+  (function () {
+    try {
+      var DOMAIN = '.milonga.life', MAXAGE = 7776000, now = Date.now(); // 90 days
+      function get(n){ var m = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)'); return m ? m.pop() : ''; }
+      function set(n, v){ document.cookie = n + '=' + v + '; domain=' + DOMAIN + '; path=/; max-age=' + MAXAGE + '; SameSite=Lax; Secure'; }
+      if (!get('_fbp')) set('_fbp', 'fb.1.' + now + '.' + Math.floor(Math.random() * 1e10));
+      var fbclid = new URLSearchParams(location.search).get('fbclid');
+      if (fbclid) set('_fbc', 'fb.1.' + now + '.' + fbclid); // refresh on each new ad click
+    } catch (e) {}
+  })();
+
   fbq('init', '1200071501228566');
   fbq('track', 'PageView');
   </script>
@@ -1046,6 +1064,27 @@
       setTimeout(run, 300);
     }
 
+    // carry ad/UTM click ids through to Shopify checkout so attribution survives
+    const TRACKING_KEYS = ["fbclid","gclid","wbraid","gbraid","ttclid","msclkid",
+                           "utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+    function withTrackingParams(targetUrl) {         // for a full checkout URL
+      try {
+        const cur = new URLSearchParams(location.search);
+        const u = new URL(targetUrl, location.origin);
+        TRACKING_KEYS.forEach(k => { const v = cur.get(k); if (v && !u.searchParams.has(k)) u.searchParams.set(k, v); });
+        return u.toString();
+      } catch (e) { return targetUrl; }
+    }
+    function checkoutReturnTo() {                     // relative return_to for /cart/add
+      let rt = "/checkout";
+      try {
+        const cur = new URLSearchParams(location.search), q = new URLSearchParams();
+        TRACKING_KEYS.forEach(k => { const v = cur.get(k); if (v) q.set(k, v); });
+        const qs = q.toString(); if (qs) rt += "?" + qs;
+      } catch (e) {}
+      return rt;
+    }
+
     async function goToCheckout(kind, q) {
       const id = VARIANTS[q];
       if (!id) return;
@@ -1072,7 +1111,7 @@
             // cart CREATED (add succeeded) → track add_to_cart, then begin_checkout, then go
             trackEcommerce("add_to_cart", kind, q);
             trackEcommerce("begin_checkout", kind, q);
-            flushThenNavigate(() => { window.location.href = url; });
+            flushThenNavigate(() => { window.location.href = withTrackingParams(url); });
             return;
           }
         } catch (e) { /* fall through to /cart/add */ }
@@ -1090,7 +1129,7 @@
       field("id", id);
       field("quantity", "1");
       if (kind === "subscribe") field("selling_plan", SELLING_PLAN);
-      field("return_to", "/checkout");
+      field("return_to", checkoutReturnTo());
       document.body.appendChild(form);
       trackEcommerce("add_to_cart", kind, q);
       trackEcommerce("begin_checkout", kind, q);
@@ -1151,6 +1190,20 @@
       }
       renderCard(card, 1);
     });
+
+    /* ---------- ViewContent / view_item: product view on load (for Meta
+                  optimization + retargeting, and GA4) ---------- */
+    (function () {
+      const vc = ecommerceFor("onetime", 1);   // the product, default single bag
+      if (window.fbq) fbq("track", "ViewContent", {
+        content_ids: [vc.items[0].item_id],
+        content_type: "product",
+        content_name: PRODUCT_NAME,
+        value: vc.value,
+        currency: vc.currency
+      });
+      if (window.gtag) gtag("event", "view_item", { currency: vc.currency, value: vc.value, items: vc.items });
+    })();
 
     /* ---------- FAQ accordion ---------- */
     document.querySelectorAll(".faq-q").forEach(btn => {

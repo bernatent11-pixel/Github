@@ -494,6 +494,33 @@
     .signup-msg.err { color: #e9a06f; }
     .signup-msg.ok  { color: var(--gold-1); }
 
+    /* ================= REVIEWS (auto marquee) ================= */
+    .reviews { padding: 56px 0 78px; position: relative; z-index: 1; overflow: hidden; }
+    .wrap-reviews { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .reviews-title { text-align: center; margin-bottom: 34px; }
+    .rev-marquee {
+      overflow: hidden; width: 100%; touch-action: pan-y; cursor: grab;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .rev-marquee.paused { cursor: grabbing; }
+    .rev-track { display: flex; width: max-content; animation: rev-scroll 46s linear infinite; will-change: transform; }
+    .rev-marquee.paused .rev-track { animation-play-state: paused; }
+    .rev-group { display: flex; gap: 18px; margin-right: 18px; }
+    @keyframes rev-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .rev-track { animation: none; } }
+    .rev-card {
+      flex: 0 0 auto; width: clamp(258px, 80vw, 326px); box-sizing: border-box;
+      background: linear-gradient(150deg, var(--gold-1), var(--gold-2));
+      border-radius: 22px; padding: 24px 22px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 13px;
+      box-shadow: 0 14px 34px rgba(2,8,5,0.42), inset 0 0 0 1px rgba(255,255,255,0.18);
+    }
+    .rev-stars { color: var(--forest-3); font-size: 18px; letter-spacing: 3px; line-height: 1; user-select: none; }
+    .rev-text { margin: 0; color: var(--forest-3); text-align: center; font-size: 14.5px; line-height: 1.55; font-weight: 500; }
+    .rev-name { margin-top: auto; padding-top: 4px; color: var(--forest-3); font-family: var(--font); font-weight: 900; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; }
+    .reviews-btn { display: inline-block; margin-top: 30px; padding: 13px 32px; font-size: 13px; text-decoration: none; text-align: center; }
+
     /* ================= FAQ ================= */
     .faqs { padding: 60px 0 90px; position: relative; z-index: 1; }
     .wrap-faq { max-width: 780px; margin: 0 auto; padding: 0 20px; }
@@ -741,6 +768,95 @@
           <span class="sb-sm">PER SERVING</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="reviews" id="reviews">
+    <div class="wrap-reviews">
+      <h2 class="act-title reviews-title fx">What People <span class="gold">Are Saying</span></h2>
+    </div>
+
+    <!-- Auto marquee, moves left continuously. Press & hold (mouse or finger)
+         to pause; release to resume.
+         TO EDIT: replace each rev-text + rev-name with a real review. The cards
+         live in TWO identical groups (data-rev-group) so the loop is seamless —
+         make the SAME edits in both groups, and keep the same number of cards. -->
+    <div class="rev-marquee" id="revMarquee" aria-label="Customer reviews">
+      <div class="rev-track">
+
+        <div class="rev-group" data-rev-group>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #1 goes here — short and specific reads best.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 1</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #2 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 2</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #3 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 3</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #4 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 4</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #5 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 5</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #6 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 6</figcaption>
+          </figure>
+        </div>
+
+        <div class="rev-group" data-rev-group aria-hidden="true">
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #1 goes here — short and specific reads best.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 1</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #2 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 2</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #3 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 3</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #4 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 4</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #5 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 5</figcaption>
+          </figure>
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote class="rev-text">Real customer review #6 goes here — replace with a real quote.</blockquote>
+            <figcaption class="rev-name">Reviewer Name 6</figcaption>
+          </figure>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wrap-reviews" style="text-align:center">
+      <!-- TODO: set href to your reviews page (Shopify product reviews, Judge.me, etc.) -->
+      <a class="btn reviews-btn fx" href="#" id="seeAllReviews">See All Reviews</a>
     </div>
   </section>
 
@@ -1213,6 +1329,22 @@
         btn.setAttribute("aria-expanded", open);
       });
     });
+
+    /* ---------- reviews marquee: press & hold to pause, release to resume ---------- */
+    (function () {
+      const m = document.getElementById("revMarquee");
+      if (!m) return;
+      const pause = () => m.classList.add("paused");
+      const play  = () => m.classList.remove("paused");
+      m.addEventListener("pointerdown", pause);
+      m.addEventListener("pointerup", play);
+      m.addEventListener("pointerleave", play);
+      m.addEventListener("pointercancel", play);   // e.g. when a touch turns into a page scroll
+      window.addEventListener("pointerup", play);   // releasing anywhere resumes
+      // don't let the "See All Reviews" placeholder link jump to the top
+      const btn = document.getElementById("seeAllReviews");
+      if (btn) btn.addEventListener("click", e => { if (btn.getAttribute("href") === "#") e.preventDefault(); });
+    })();
 
     /* ---------- promo countdown → end of August (store time, EDT) ---------- */
     (function () {

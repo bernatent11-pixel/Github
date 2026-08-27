@@ -87,34 +87,6 @@ function WhatsInside({ shopHref = '#' }) {
       h(M.IconRow, { bg, marks: M.FREE_FROM, size: 60 })
     ),
 
-    // The whole list, in the open.
-    h(M.Section, { bg, pad: 'lg' },
-      h(M.SectionHeading, {
-        bg,
-        title: 'The full list',
-        subtitle: 'What’s really inside the Mate Latte?',
-        align: 'center',
-      }),
-      h('div', { style: { height: 22 } }),
-      h(M.Panel, { bg, pad: 22 },
-        h(M.List, { bg, marker: 'leaf', items: [
-          'Oat milk powder',
-          'Coconut milk powder',
-          'Coconut cream powder',
-          'Honey powder',
-          'Coconut sugar',
-          'Acacia fiber',
-          'Yerba mate extract',
-          'MCT oil powder (from coconut)',
-          'Vanilla flavour',
-          "Lion’s Mane mushroom extract",
-          'Monk fruit extract',
-          'L-Theanine',
-          'Pink Himalayan salt',
-        ]})
-      )
-    ),
-
     // ═══ ACT 3 · CTA ═══
     // One uninterrupted block: the pour, the fact, the ask. No rules between.
     // The pour comes in from the right, with the fact stamped between the

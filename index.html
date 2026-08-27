@@ -494,31 +494,38 @@
     .signup-msg.err { color: #e9a06f; }
     .signup-msg.ok  { color: var(--gold-1); }
 
-    /* ================= REVIEWS (auto marquee) ================= */
+    /* ================= REVIEWS (auto-scroll + drag/swipe carousel) ================= */
     .reviews { padding: 56px 0 78px; position: relative; z-index: 1; overflow: hidden; }
     .wrap-reviews { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .reviews-title { text-align: center; margin-bottom: 34px; }
-    .rev-marquee {
-      overflow: hidden; width: 100%; touch-action: pan-y; cursor: grab;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-              mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    .rev-viewport {
+      overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; -ms-overflow-style: none; cursor: grab; user-select: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
     }
-    .rev-marquee.paused { cursor: grabbing; }
-    .rev-track { display: flex; width: max-content; animation: rev-scroll 46s linear infinite; will-change: transform; }
-    .rev-marquee.paused .rev-track { animation-play-state: paused; }
+    .rev-viewport::-webkit-scrollbar { display: none; }
+    .rev-viewport.grabbing { cursor: grabbing; }
+    .rev-track { display: flex; width: max-content; }
     .rev-group { display: flex; gap: 18px; margin-right: 18px; }
-    @keyframes rev-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) { .rev-track { animation: none; } }
     .rev-card {
-      flex: 0 0 auto; width: clamp(258px, 80vw, 326px); box-sizing: border-box;
+      flex: 0 0 auto; width: clamp(260px, 82vw, 330px); min-height: 264px; box-sizing: border-box;
       background: linear-gradient(150deg, var(--gold-1), var(--gold-2));
-      border-radius: 22px; padding: 24px 22px 20px;
-      display: flex; flex-direction: column; align-items: center; gap: 13px;
+      border-radius: 22px; padding: 22px 22px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 11px;
       box-shadow: 0 14px 34px rgba(2,8,5,0.42), inset 0 0 0 1px rgba(255,255,255,0.18);
     }
-    .rev-stars { color: var(--forest-3); font-size: 18px; letter-spacing: 3px; line-height: 1; user-select: none; }
-    .rev-text { margin: 0; color: var(--forest-3); text-align: center; font-size: 14.5px; line-height: 1.55; font-weight: 500; }
-    .rev-name { margin-top: auto; padding-top: 4px; color: var(--forest-3); font-family: var(--font); font-weight: 900; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; }
+    .rev-stars { color: var(--forest-3); font-size: 17px; letter-spacing: 3px; line-height: 1; user-select: none; }
+    .rev-title {
+      margin: 0; color: var(--forest-3); text-align: center; font-weight: 900; font-size: 14.5px; line-height: 1.25;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .rev-text {
+      margin: 0; color: var(--forest-3); text-align: center; font-size: 13.5px; line-height: 1.5; font-weight: 500;
+      display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .rev-name { margin-top: auto; padding-top: 6px; color: var(--forest-3); font-family: var(--font); font-weight: 900; font-size: 12px; letter-spacing: 1.1px; text-transform: uppercase; text-align: center; }
+    .rev-date { display: block; margin-top: 3px; font-weight: 700; font-size: 10px; letter-spacing: .4px; text-transform: none; opacity: .68; }
     .reviews-btn { display: inline-block; margin-top: 30px; padding: 13px 32px; font-size: 13px; text-decoration: none; text-align: center; }
 
     /* ================= FAQ ================= */
@@ -777,80 +784,71 @@
       <h2 class="act-title reviews-title fx">What People <span class="gold">Are Saying</span></h2>
     </div>
 
-    <!-- Auto marquee, moves left continuously. Press & hold (mouse or finger)
-         to pause; release to resume.
-         TO EDIT: replace each rev-text + rev-name with a real review. The cards
-         live in TWO identical groups (data-rev-group) so the loop is seamless —
-         make the SAME edits in both groups, and keep the same number of cards. -->
-    <div class="rev-marquee" id="revMarquee" aria-label="Customer reviews">
+    <!-- Auto-scrolling drag/swipe carousel. Cards scroll sideways on their own,
+         and you can grab (mouse) or swipe (touch) to scroll through them.
+         TO EDIT: change rev-title / rev-text / rev-name / rev-date in a card.
+         Maintain only THIS one group — the script clones it for the seamless loop. -->
+    <div class="rev-viewport" id="revViewport" aria-label="Customer reviews">
       <div class="rev-track">
-
         <div class="rev-group" data-rev-group>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #1 goes here — short and specific reads best.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 1</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #2 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 2</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #3 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 3</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #4 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 4</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #5 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 5</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #6 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 6</figcaption>
-          </figure>
-        </div>
 
-        <div class="rev-group" data-rev-group aria-hidden="true">
           <figure class="rev-card">
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #1 goes here — short and specific reads best.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 1</figcaption>
+            <p class="rev-title">I'm speechless with the mate latte</p>
+            <blockquote class="rev-text">The taste was what sold me first. It's creamy, lightly sweet, and has a really nice vanilla flavor without tasting like an overly sugary coffee drink. It only has 90 calories and less than 3g of sugar per scoop. That's crazy! The energy and focus is a bonus. I feel awake and productive, especially during busy mornings. Compared with other functional coffees I've tried, this one is much easier to drink consistently.</blockquote>
+            <figcaption class="rev-name">Bryant<span class="rev-date">08/27/2026</span></figcaption>
           </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #2 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 2</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #3 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 3</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #4 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 4</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #5 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 5</figcaption>
-          </figure>
-          <figure class="rev-card">
-            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-            <blockquote class="rev-text">Real customer review #6 goes here — replace with a real quote.</blockquote>
-            <figcaption class="rev-name">Reviewer Name 6</figcaption>
-          </figure>
-        </div>
 
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">My new go to to start my mornings</p>
+            <blockquote class="rev-text">The energy is probably my favorite part. It feels really smooth and gradual rather than that sudden coffee rush. I can tell I'm more awake and ready to work, but I don't get that overly wired feeling I sometimes get from coffee.</blockquote>
+            <figcaption class="rev-name">Alvaro Garcia<span class="rev-date">08/27/2026</span></figcaption>
+          </figure>
+
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">So gooood!</p>
+            <blockquote class="rev-text">The biggest thing I noticed is how I feel afterward. With coffee, I sometimes feel like I need another one a few hours later. With the Mate Latte, I feel like I get a steady boost that carries me through what I'm doing without constantly thinking about my next caffeine fix.</blockquote>
+            <figcaption class="rev-name">Manuela Jurado<span class="rev-date">08/27/2026</span></figcaption>
+          </figure>
+
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">The best coffee alternative</p>
+            <blockquote class="rev-text">I've tried matcha a bunch of times, but I could never get into the grassy taste. Mate Latte is much more my style. You get the benefits of yerba mate, but with a creamy vanilla flavor that actually makes me excited to drink it.</blockquote>
+            <figcaption class="rev-name">Samantha<span class="rev-date">08/27/2026</span></figcaption>
+          </figure>
+
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">New morning ritual</p>
+            <blockquote class="rev-text">I've been really enjoying the Mate Latte. It has a smooth, creamy taste without feeling too heavy, and it gives me a nice boost of energy without the jitters I usually get from coffee. It's become an easy choice when I want something that tastes good and keeps me focused throughout the day. Definitely worth trying if you're looking for a different way to get your caffeine.</blockquote>
+            <figcaption class="rev-name">Bernat Subira<span class="rev-date">08/19/2026</span></figcaption>
+          </figure>
+
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">Amazing!</p>
+            <blockquote class="rev-text">I've been drinking coffee for years, and as I've gotten older, I've been trying to find healthier alternatives that don't give me the jitters or stain my teeth. Mate has been a great alternative, although I'm not the biggest fan of the earthy taste of the leaf. This Mate Latte, though, is different. Not only is it the perfect substitute without making me jittery, but it also tastes so yummy! I usually drink it with water or almond milk because it genuinely doesn't need anything else. I'm so glad I found a healthier alternative that I actually enjoy drinking :)</blockquote>
+            <figcaption class="rev-name">Priscilla</figcaption>
+          </figure>
+
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">New daily addiction</p>
+            <blockquote class="rev-text">I've been drinking yerba mate for years, and this is easily one of my favorite ways to have it. The flavor is smooth, creamy, and balanced without being overly sweet, and you can still taste the mate without it being too bitter or overpowering. It's become one of those things I genuinely look forward to having in the morning or as an afternoon pick-me-up. Super easy to make, tastes great, and feels like a much better alternative to reaching for another coffee. I'll definitely be keeping this stocked!</blockquote>
+            <figcaption class="rev-name">M.L.<span class="rev-date">08/18/2026</span></figcaption>
+          </figure>
+
+          <figure class="rev-card">
+            <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+            <p class="rev-title">New Caffeine Staple</p>
+            <blockquote class="rev-text">Never thought I'd trade in my coffee addiction for a matte latte, but this has officially made it into the rotation. Great flavor and the perfect caffeine boost. I drink mine iced with coconut milk and love it.</blockquote>
+            <figcaption class="rev-name">Katya</figcaption>
+          </figure>
+
+        </div>
       </div>
     </div>
 
@@ -1330,18 +1328,58 @@
       });
     });
 
-    /* ---------- reviews marquee: press & hold to pause, release to resume ---------- */
+    /* ---------- reviews: auto-scroll + drag/swipe carousel ---------- */
     (function () {
-      const m = document.getElementById("revMarquee");
-      if (!m) return;
-      const pause = () => m.classList.add("paused");
-      const play  = () => m.classList.remove("paused");
-      m.addEventListener("pointerdown", pause);
-      m.addEventListener("pointerup", play);
-      m.addEventListener("pointerleave", play);
-      m.addEventListener("pointercancel", play);   // e.g. when a touch turns into a page scroll
-      window.addEventListener("pointerup", play);   // releasing anywhere resumes
-      // don't let the "See All Reviews" placeholder link jump to the top
+      const vp = document.getElementById("revViewport");
+      if (!vp) return;
+      const track = vp.querySelector(".rev-track");
+      const group = track && track.querySelector(".rev-group");
+      // clone the one group so the strip can loop seamlessly
+      if (group) { const clone = group.cloneNode(true); clone.setAttribute("aria-hidden", "true"); track.appendChild(clone); }
+
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const SPEED = 0.6;                       // px/frame auto-scroll
+      let paused = reduce, resumeT;
+      const half = () => track.scrollWidth / 2;
+      function wrap() {
+        const h = half();
+        if (h > 0) {
+          if (vp.scrollLeft >= h) vp.scrollLeft -= h;      // loop forward
+          else if (vp.scrollLeft <= 0) vp.scrollLeft += h; // loop backward
+        }
+      }
+      function tick() { if (!paused) vp.scrollLeft += SPEED; wrap(); requestAnimationFrame(tick); }
+      requestAnimationFrame(() => { vp.scrollLeft = 1; requestAnimationFrame(tick); });
+
+      const pause = () => { paused = true; };
+      const resumeSoon = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { if (!reduce) paused = false; }, 1400); };
+
+      // touch: native swipe scrolls the strip; just pause auto-advance while touching
+      vp.addEventListener("touchstart", pause, { passive: true });
+      vp.addEventListener("touchend", resumeSoon, { passive: true });
+      vp.addEventListener("wheel", () => { pause(); resumeSoon(); }, { passive: true });
+
+      // desktop: click-drag to scroll (mouse only — touch already scrolls natively)
+      let dragging = false, startX = 0, startLeft = 0;
+      vp.addEventListener("pointerdown", e => {
+        pause();
+        if (e.pointerType === "mouse") {
+          dragging = true; startX = e.clientX; startLeft = vp.scrollLeft;
+          vp.classList.add("grabbing");
+          try { vp.setPointerCapture(e.pointerId); } catch (_) {}
+        }
+      });
+      vp.addEventListener("pointermove", e => {
+        if (!dragging) return;
+        e.preventDefault();
+        vp.scrollLeft = startLeft - (e.clientX - startX); wrap();
+      });
+      function endDrag() { dragging = false; vp.classList.remove("grabbing"); resumeSoon(); }
+      vp.addEventListener("pointerup", endDrag);
+      vp.addEventListener("pointercancel", endDrag);
+      vp.addEventListener("pointerleave", () => { if (dragging) endDrag(); });
+
+      // placeholder "See All Reviews" link shouldn't jump to the top
       const btn = document.getElementById("seeAllReviews");
       if (btn) btn.addEventListener("click", e => { if (btn.getAttribute("href") === "#") e.preventDefault(); });
     })();

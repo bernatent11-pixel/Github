@@ -530,7 +530,6 @@
       display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
     }
     .rev-name { margin-top: auto; padding-top: 6px; color: var(--forest-3); font-family: var(--font); font-weight: 900; font-size: 12px; letter-spacing: 1.1px; text-transform: uppercase; text-align: center; }
-    .rev-date { display: block; margin-top: 3px; font-weight: 700; font-size: 10px; letter-spacing: .4px; text-transform: none; opacity: .68; }
     .reviews-btn { display: inline-block; margin-top: 30px; padding: 13px 32px; font-size: 13px; text-decoration: none; text-align: center; }
 
     /* ================= FAQ ================= */
@@ -606,6 +605,25 @@
       .faq-q { padding: 13px 18px; border-radius: 24px; }
       .faq-card { padding: 14px 16px; }
       .faq-card p { font-size: 13px; }
+    }
+
+    /* ===== desktop refinements ===== */
+    @media (min-width: 768px) {
+      /* reviews slideshow: inset from the screen edges (full-bleed only on mobile) */
+      .reviews { padding-inline: clamp(28px, 5vw, 96px); }
+
+      /* Why Upgrade table: wider + larger type so it reads clearly on desktop */
+      .wrapc-wide { width: min(1000px, 100% - 40px); }
+      .cmp-wrap { padding: 14px 22px; }
+      table.cmp { font-size: 16px; }
+      .cmp th, .cmp td { padding: 14px 12px; }
+      .cmp thead th { font-size: 12px; }
+      .cmp thead th.mi-col { font-size: 13.5px; }
+      .cmp td.feat b { font-size: 15.5px; }
+      .cmp td.feat span { font-size: 12px; }
+      .cmp .mark { font-size: 16px; }
+      .cmp .mark.v { font-size: 13px; }
+      .cmp .d { font-size: 12px; }
     }
   </style>
 </head>
@@ -791,7 +809,7 @@
 
     <!-- Auto-scrolling drag/swipe carousel. Cards scroll sideways on their own,
          and you can grab (mouse) or swipe (touch) to scroll through them.
-         TO EDIT: change rev-title / rev-text / rev-name / rev-date in a card.
+         TO EDIT: change rev-title / rev-text / rev-name in a card.
          Maintain only THIS one group — the script clones it for the seamless loop. -->
     <div class="rev-viewport" id="revViewport" aria-label="Customer reviews">
       <div class="rev-track">
@@ -801,35 +819,35 @@
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
             <p class="rev-title">I'm speechless with the mate latte</p>
             <blockquote class="rev-text">The taste was what sold me first. It's creamy, lightly sweet, and has a really nice vanilla flavor without tasting like an overly sugary coffee drink. It only has 90 calories and less than 3g of sugar per scoop. That's crazy! The energy and focus is a bonus. I feel awake and productive, especially during busy mornings. Compared with other functional coffees I've tried, this one is much easier to drink consistently.</blockquote>
-            <figcaption class="rev-name">Bryant<span class="rev-date">08/27/2026</span></figcaption>
+            <figcaption class="rev-name">Bryant</figcaption>
           </figure>
 
           <figure class="rev-card">
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
             <p class="rev-title">My new go to to start my mornings</p>
             <blockquote class="rev-text">The energy is probably my favorite part. It feels really smooth and gradual rather than that sudden coffee rush. I can tell I'm more awake and ready to work, but I don't get that overly wired feeling I sometimes get from coffee.</blockquote>
-            <figcaption class="rev-name">Alvaro Garcia<span class="rev-date">08/27/2026</span></figcaption>
+            <figcaption class="rev-name">Alvaro Garcia</figcaption>
           </figure>
 
           <figure class="rev-card">
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
             <p class="rev-title">So gooood!</p>
             <blockquote class="rev-text">The biggest thing I noticed is how I feel afterward. With coffee, I sometimes feel like I need another one a few hours later. With the Mate Latte, I feel like I get a steady boost that carries me through what I'm doing without constantly thinking about my next caffeine fix.</blockquote>
-            <figcaption class="rev-name">Manuela Jurado<span class="rev-date">08/27/2026</span></figcaption>
+            <figcaption class="rev-name">Manuela Jurado</figcaption>
           </figure>
 
           <figure class="rev-card">
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
             <p class="rev-title">The best coffee alternative</p>
             <blockquote class="rev-text">I've tried matcha a bunch of times, but I could never get into the grassy taste. Mate Latte is much more my style. You get the benefits of yerba mate, but with a creamy vanilla flavor that actually makes me excited to drink it.</blockquote>
-            <figcaption class="rev-name">Samantha<span class="rev-date">08/27/2026</span></figcaption>
+            <figcaption class="rev-name">Samantha</figcaption>
           </figure>
 
           <figure class="rev-card">
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
             <p class="rev-title">New morning ritual</p>
             <blockquote class="rev-text">I've been really enjoying the Mate Latte. It has a smooth, creamy taste without feeling too heavy, and it gives me a nice boost of energy without the jitters I usually get from coffee. It's become an easy choice when I want something that tastes good and keeps me focused throughout the day. Definitely worth trying if you're looking for a different way to get your caffeine.</blockquote>
-            <figcaption class="rev-name">Bernat Subira<span class="rev-date">08/19/2026</span></figcaption>
+            <figcaption class="rev-name">Bernat Subira</figcaption>
           </figure>
 
           <figure class="rev-card">
@@ -843,7 +861,7 @@
             <span class="rev-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
             <p class="rev-title">New daily addiction</p>
             <blockquote class="rev-text">I've been drinking yerba mate for years, and this is easily one of my favorite ways to have it. The flavor is smooth, creamy, and balanced without being overly sweet, and you can still taste the mate without it being too bitter or overpowering. It's become one of those things I genuinely look forward to having in the morning or as an afternoon pick-me-up. Super easy to make, tastes great, and feels like a much better alternative to reaching for another coffee. I'll definitely be keeping this stocked!</blockquote>
-            <figcaption class="rev-name">M.L.<span class="rev-date">08/18/2026</span></figcaption>
+            <figcaption class="rev-name">M.L.</figcaption>
           </figure>
 
           <figure class="rev-card">
@@ -893,7 +911,7 @@
 
   <!-- ============ COMPARISON + PURCHASE ============ -->
   <section class="block">
-    <div class="wrapc">
+    <div class="wrapc wrapc-wide">
       <h2 class="act-title fx">Why Upgrade To<br/><span class="gold">The Mate Latte?</span></h2>
       <p class="tagline-sub fx">Is That Even A Question?</p>
       <div class="cmp-wrap fx">

@@ -70,19 +70,22 @@
       var fbclid = new URLSearchParams(location.search).get('fbclid');
       var fbc = read('_fbc');
       var note = '';
-      if (!fbclid) note = '<br><b style="color:#ecc96f">→ No fbclid in the URL.</b> Add <b>?fbclid=test123</b> to the address to test _fbc.';
-      else if (fbc !== '(none)' && fbc.indexOf(fbclid) !== -1) note = '<br><b style="color:#8fd694">✓ _fbc captured this click — attribution works.</b>';
+      if (fbc !== '(none)') note = '<br><b style="color:#8fd694">✓ _fbc is set on .milonga.life — the attribution cookie works.</b>';
+      else if (!fbclid) note = '<br><b style="color:#ecc96f">→ No fbclid in the URL</b> (Safari Private strips it). Tap the button to write a test _fbc.';
       box.innerHTML =
         '<b style="color:#ecc96f">Meta Pixel debug</b> &nbsp;(remove ?debug=fbc to hide)<br>' +
         'Meta script (fbevents.js) loaded: <b>' + loaded + '</b><br>' +
         'fbclid in URL: <b>' + (fbclid || '(none)') + '</b><br>' +
         '_fbc cookie: <b>' + fbc + '</b><br>' +
         '_fbp cookie: <b>' + read('_fbp') + '</b>' + note;
-      if (!fbclid) {
+      if (fbc === '(none)') {
         var b = document.createElement('button');
-        b.textContent = 'Tap to run the _fbc test →';
+        b.textContent = 'Tap to write a test _fbc →';
         b.style.cssText = 'margin-top:10px;width:100%;padding:11px;border:0;border-radius:8px;background:#ecc96f;color:#0e3a20;font:700 13px system-ui,-apple-system,sans-serif;cursor:pointer';
-        b.addEventListener('click', function(){ location.href = location.pathname + '?fbclid=test123&debug=fbc'; });
+        b.addEventListener('click', function(){
+          try { document.cookie = '_fbc=fb.1.' + Date.now() + '.test123; domain=.milonga.life; path=/; max-age=7776000; SameSite=Lax; Secure'; } catch (e) {}
+          render();
+        });
         box.appendChild(b);
       }
     }

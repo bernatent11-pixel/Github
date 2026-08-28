@@ -858,8 +858,7 @@
     </div>
 
     <div class="wrap-reviews" style="text-align:center">
-      <!-- TODO: set href to your reviews page (Shopify product reviews, Judge.me, etc.) -->
-      <a class="btn reviews-btn fx" href="#" id="seeAllReviews">See All Reviews</a>
+      <a class="btn reviews-btn fx" href="https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750212406" id="seeAllReviews">See All Reviews</a>
     </div>
   </section>
 
@@ -1373,9 +1372,14 @@
       vp.addEventListener("pointercancel", endDrag);
       vp.addEventListener("pointerleave", () => { if (dragging) endDrag(); });
 
-      // placeholder "See All Reviews" link shouldn't jump to the top
+      // "See All Reviews" → product page, carrying fbclid/UTMs through
       const btn = document.getElementById("seeAllReviews");
-      if (btn) btn.addEventListener("click", e => { if (btn.getAttribute("href") === "#") e.preventDefault(); });
+      if (btn) btn.addEventListener("click", e => {
+        const href = btn.getAttribute("href");
+        if (!href || href === "#") { e.preventDefault(); return; }
+        e.preventDefault();
+        window.location.href = withTrackingParams(href);
+      });
     })();
 
     /* ---------- promo countdown → end of August (store time, EDT) ---------- */

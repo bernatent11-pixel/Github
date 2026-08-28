@@ -15,7 +15,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-M18RQG49P9');
+    gtag('config', 'G-M18RQG49P9');   /* fires page_view automatically */
+    /* product view, on initial load (independent of the rest of the page) */
+    gtag('event', 'view_item', { currency: 'USD', value: 29.99, items: [{ item_id: '54302750212406', item_name: 'Milonga Mate Latte', price: 29.99, quantity: 1 }] });
   </script>
 
   <!-- Meta Pixel Code -->
@@ -48,6 +50,9 @@
 
   fbq('init', '1200071501228566');
   fbq('track', 'PageView');
+  /* ViewContent on initial load — fired here (not deeper in the page) so it
+     always fires even if a later script errors. Single product landing page. */
+  fbq('track', 'ViewContent', { content_ids: ['54302750212406'], content_type: 'product', content_name: 'Milonga Mate Latte', value: 29.99, currency: 'USD' });
   </script>
   <!-- End Meta Pixel Code -->
 
@@ -1305,19 +1310,8 @@
       renderCard(card, 1);
     });
 
-    /* ---------- ViewContent / view_item: product view on load (for Meta
-                  optimization + retargeting, and GA4) ---------- */
-    (function () {
-      const vc = ecommerceFor("onetime", 1);   // the product, default single bag
-      if (window.fbq) fbq("track", "ViewContent", {
-        content_ids: [vc.items[0].item_id],
-        content_type: "product",
-        content_name: PRODUCT_NAME,
-        value: vc.value,
-        currency: vc.currency
-      });
-      if (window.gtag) gtag("event", "view_item", { currency: vc.currency, value: vc.value, items: vc.items });
-    })();
+    /* ViewContent / view_item now fire in <head> on initial load (see the Meta
+       Pixel + GA4 blocks) so they are not skipped if a later script errors. */
 
     /* ---------- FAQ accordion ---------- */
     document.querySelectorAll(".faq-q").forEach(btn => {

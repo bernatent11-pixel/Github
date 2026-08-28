@@ -78,6 +78,13 @@
         'fbclid in URL: <b>' + (fbclid || '(none)') + '</b><br>' +
         '_fbc cookie: <b>' + fbc + '</b><br>' +
         '_fbp cookie: <b>' + read('_fbp') + '</b>' + note;
+      if (!fbclid) {
+        var b = document.createElement('button');
+        b.textContent = 'Tap to run the _fbc test →';
+        b.style.cssText = 'margin-top:10px;width:100%;padding:11px;border:0;border-radius:8px;background:#ecc96f;color:#0e3a20;font:700 13px system-ui,-apple-system,sans-serif;cursor:pointer';
+        b.addEventListener('click', function(){ location.href = location.pathname + '?fbclid=test123&debug=fbc'; });
+        box.appendChild(b);
+      }
     }
     function mount(){ if (document.body && !box.parentNode) document.body.appendChild(box); render(); }
     if (document.readyState !== 'loading') mount(); else document.addEventListener('DOMContentLoaded', mount);

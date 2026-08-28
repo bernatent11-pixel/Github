@@ -56,6 +56,30 @@
   </script>
   <!-- End Meta Pixel Code -->
 
+  <!-- On-screen pixel debug readout for MANUAL testing (phones included).
+       Invisible to normal visitors — only shows when the URL has ?debug=fbc
+       e.g.  https://matelatte.milonga.life/?fbclid=test123&debug=fbc -->
+  <script>
+  (function () {
+    if (!/[?&]debug=fbc(\b|=)/.test(location.search)) return;
+    function read(n){ var m = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)'); return m ? m.pop() : '(none)'; }
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;background:#0e3a20;color:#f7efe0;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;padding:12px 14px;border:1px solid #ecc96f;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);word-break:break-all;max-height:45vh;overflow:auto';
+    function render(){
+      var loaded = (window.fbq && window.fbq.callMethod) ? 'YES' : 'NO — blocked or still loading';
+      box.innerHTML =
+        '<b style="color:#ecc96f">Meta Pixel debug</b> &nbsp;(remove ?debug=fbc to hide)<br>' +
+        'Meta script (fbevents.js) loaded: <b>' + loaded + '</b><br>' +
+        'fbclid in URL: <b>' + (new URLSearchParams(location.search).get('fbclid') || '(none)') + '</b><br>' +
+        '_fbc cookie: <b>' + read('_fbc') + '</b><br>' +
+        '_fbp cookie: <b>' + read('_fbp') + '</b>';
+    }
+    function mount(){ if (document.body && !box.parentNode) document.body.appendChild(box); render(); }
+    if (document.readyState !== 'loading') mount(); else document.addEventListener('DOMContentLoaded', mount);
+    setTimeout(render, 1500); setTimeout(render, 4000);
+  })();
+  </script>
+
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
   <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
 

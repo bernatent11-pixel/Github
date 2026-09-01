@@ -38,8 +38,8 @@ function FounderNote({ shopHref = '#' }) {
       h(M.Prose, { bg, text: 'Hey,' }),
       h(M.Prose, { bg, text: 'This is Shadi, founder of Milonga. **How’s everything going? :)**' }),
       h(M.Prose, { bg, text: 'I wanted to share something we’ve been working on behind the scenes for a while.' }),
-      h(M.Prose, { bg, text: 'If you place **your next Milonga order before September 8th**, we’re going to include **FREE samples of our brand-new Mate Latte in your order.**' }),
-      h(M.Prose, { bg, text: '**The Mate Latte is our take on the classic latte, but powered by yerba mate.** It’s creamy, smooth, and made to give you that **focused energy without the anxious feeling or afternoon crash.** And the best part? You can make it in about **30 seconds, either hot or iced. Just mix, pour, and you’re ready to go.**' }),
+      h(M.Prose, { bg, text: 'If you place **your next Milonga order before September 15th**, we’re going to include **FREE samples of our brand-new Mate Latte in your order.**' }),
+      h(M.Prose, { bg, text: '**The Mate Latte is our take on the classic latte, but powered by yerba mate.** It’s creamy, vanilla flavored, smooth, and made to give you that **focused energy without the anxious feeling or afternoon crash.** And the best part? You can make it in about **30 seconds, either hot or iced. Just mix, pour, and you’re ready to go.**' }),
 
       // The samples themselves, centred on the sheet, offer stamped beside them.
       h('div', { style: { height: 6 } }),
@@ -57,7 +57,7 @@ function FounderNote({ shopHref = '#' }) {
 
       // The part that has to land — set a size up from the rest.
       h(M.Prose, { bg, size: 16, text: 'We’re just getting started with Mate Latte, and I’d love for you to be one of the first to try it.' }),
-      h(M.Prose, { bg, size: 16, text: '**It’s a limited run, so grab your next order before September 8th and let us know what you think.**' }),
+      h(M.Prose, { bg, size: 16, text: '**It’s a limited run, so grab your next order before September 15th and let us know what you think.**' }),
 
       // Sign-off.
       h('div', { style: { height: 10 } }),

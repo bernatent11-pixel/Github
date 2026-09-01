@@ -42,6 +42,8 @@ export interface PanelProps {
    */
   variant?: 'raised' | 'outlined' | 'open';
   pad?: number;
+  /** Corner radius in px. Raise it for a sheet-of-paper feel. */
+  radius?: number;
   children?: React.ReactNode;
 }
 
@@ -50,12 +52,12 @@ export interface PanelProps {
  * the group real depth against the flat email color so the layout never reads
  * dead flat; `outlined` is the quieter hairline treatment.
  */
-export function Panel({ bg = 'forest', variant = 'raised', pad = 18, children }: PanelProps) {
+export function Panel({ bg = 'forest', variant = 'raised', pad = 18, radius = 14, children }: PanelProps) {
   const t = onBg[bg];
   const fill = useBlockFill(bg, t.elevated);
   if (variant === 'open') return <div>{children}</div>;
   if (variant === 'outlined') {
-    return <div style={{ border: `1px solid ${t.rule}`, borderRadius: 14, padding: pad }}>{children}</div>;
+    return <div style={{ border: `1px solid ${t.rule}`, borderRadius: radius, padding: pad }}>{children}</div>;
   }
   return (
     <div
@@ -63,7 +65,7 @@ export function Panel({ bg = 'forest', variant = 'raised', pad = 18, children }:
         background: fill,
         border: `1px solid ${t.rule}`,
         borderTopColor: t.sheen,
-        borderRadius: 14,
+        borderRadius: radius,
         boxShadow: t.shadow,
         padding: pad,
       }}

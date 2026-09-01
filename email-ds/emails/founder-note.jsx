@@ -28,8 +28,8 @@ function FounderNote({ shopHref = '#' }) {
       h(M.SectionHeading, {
         bg,
         eyebrow: 'A note from the founder',
-        title: 'I made you something',
-        titleAccentPart: 'something',
+        title: 'Your next order comes with something extra',
+        titleAccentPart: 'something extra',
         align: 'center',
         size: 34,
       })
@@ -79,7 +79,12 @@ function FounderNote({ shopHref = '#' }) {
 
     // ═══ ACT 3 · THE ASK ═══
     h(M.Section, { bg, pad: 'lg', align: 'center' },
-      h(M.Button, { bg, label: 'Shop now', href: shopHref, size: 'lg' })
+      h(M.Button, { bg, label: 'Shop now', href: shopHref, size: 'lg' }),
+      // Same small-caps line as the eyebrow up top, closing the loop.
+      h('div', { style: {
+        fontFamily: M.fontStack, fontWeight: 700, fontSize: 11, letterSpacing: '0.18em',
+        textTransform: 'uppercase', color: M.onBg[bg].accent, marginTop: 16,
+      } }, 'Get free samples')
     ),
 
     h(M.Footer, { bg, social: SOCIAL, rule: false })

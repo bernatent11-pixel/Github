@@ -13,6 +13,7 @@ const D = {
   ForestScene: ['Layout', 'The illustrated tree canopy. Sits on a beige or gold section and resolves into the dark green section below, so a background change reads as a scene rather than a hard edge.'],
   IconBadge: ['Foundations', 'A brand mark inside a filled disc, glyph in the opposite colour — a gold disc carries a dark green icon. Leads benefit and ingredient rows.'],
   BenefitList: ['Blocks', 'A vertical run of benefits, each led by a brand mark in a filled disc. Titles are two-tone by default; add `text` for a regular-weight line underneath.'],
+  Paper: ['Layout', 'A sheet of cream paper laid on the email — for a letter or a note, anything that should read as written rather than designed. Carries a fibre grain, a warm gradient across the sheet, a lit top edge and a two-part shadow.'],
   Prose: ['Blocks', 'A paragraph where chosen phrases carry the weight — wrap them in **double asterisks** and they are set bold in the accent colour. Use it for letters and long-form sections; the emphasis is what a skimmer takes away.'],
   Badge: ['Blocks', 'A filled pill that states a fact — calories, a dosage, a claim. It looks like a button but never links: use it to stamp a number under a photo or close a section. Two lines: `label` in caps, optional smaller `sub`.'],
   BleedImage: ['Blocks', 'A transparent product cutout that enters from the left or right edge of the email, running past the margin instead of sitting centred in a box. Place it directly in the shell, not inside a Section.'],

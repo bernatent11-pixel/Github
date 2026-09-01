@@ -10,6 +10,8 @@ export { IconBadge } from './components/IconBadge';
 export type { IconBadgeProps } from './components/IconBadge';
 export { BenefitList } from './components/BenefitList';
 export type { BenefitListProps, BenefitLine } from './components/BenefitList';
+export { Paper } from './components/Paper';
+export type { PaperProps } from './components/Paper';
 export { Prose, splitEmphasis } from './components/Prose';
 export type { ProseProps } from './components/Prose';
 export { Badge } from './components/Badge';

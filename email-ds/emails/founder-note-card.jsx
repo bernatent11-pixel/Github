@@ -40,7 +40,7 @@ function FounderNoteCard({ shopHref = '#' }) {
     // wrote, not as another band of the email. Copy is black on cream, with
     // the emphasis in dark green; the badge stays gold.
     h(M.Section, { bg, pad: 'md' },
-      h(M.Panel, { bg: note_bg, pad: 26, radius: 22 },
+      h(M.Paper, { on: bg, pad: 28, radius: 6 },
         h(M.Prose, { bg: note_bg, text: 'Hey,' }),
         h(M.Prose, { bg: note_bg, text: 'This is Shadi, founder of Milonga. **How’s everything going? :)**' }),
         h(M.Prose, { bg: note_bg, text: 'I wanted to share something we’ve been working on behind the scenes for a while.' }),

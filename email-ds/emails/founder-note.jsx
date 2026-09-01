@@ -6,8 +6,7 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  // TODO: swap in public/product/latte-sticks.png once the sachet shot is uploaded.
-  sticks: undefined,
+  sticks: '../public/product/latte-sticks.png',
 };
 
 const SOCIAL = [
@@ -44,13 +43,19 @@ function FounderNote({ shopHref = '#' }) {
       h(M.Prose, { bg, text: '**The Mate Latte is our take on the classic latte, but powered by yerba mate.** It’s creamy, smooth, and made to give you that **focused energy without the anxious feeling or afternoon crash.** And the best part? You can make it in about **30 seconds, either hot or iced. Just mix, pour, and you’re ready to go.**' })
     ),
 
-    // The samples themselves, with the offer stamped beside them.
-    h(M.BleedImage, {
-      bg, src: IMG.sticks, side: 'left', width: 0.78, overhang: 22,
-      alt: 'Three Milonga Mate Latte vanilla sample sticks',
-      overlayAt: { top: '16%', right: '-14%' },
-      overlay: h(M.Badge, { bg, label: 'Free sample', sub: 'Mate Latte' }),
-    }),
+    // The samples themselves, centred, with the offer stamped beside them.
+    h(M.Section, { bg, pad: 'sm', align: 'center' },
+      h('div', { style: { position: 'relative', width: '82%', margin: '0 auto' } },
+        h('img', {
+          src: IMG.sticks,
+          alt: 'Three Milonga Mate Latte vanilla sample sticks',
+          style: { display: 'block', width: '100%', height: 'auto', border: 0 },
+        }),
+        h('div', { style: { position: 'absolute', top: '-2%', right: '-7%' } },
+          h(M.Badge, { bg, label: 'Free sample', sub: 'Mate Latte' })
+        )
+      )
+    ),
 
     // The part that has to land — set a size up from the rest.
     h(M.Section, { bg, pad: 'md' },

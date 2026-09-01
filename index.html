@@ -1400,14 +1400,14 @@
       });
     })();
 
-    /* ---------- promo countdown → end of August (store time, EDT) ---------- */
+    /* ---------- promo countdown → fixed deadline, 10 days out (store time, EDT) ---------- */
     (function () {
       const clocks = Array.from(document.querySelectorAll(".pt-clock")).map(clock => ({
         d: clock.querySelector("[data-d]"), h: clock.querySelector("[data-h]"),
         m: clock.querySelector("[data-m]"), s: clock.querySelector("[data-s]")
       }));
       if (!clocks.length) return;
-      const target = new Date("2026-08-31T23:59:59-04:00").getTime();
+      const target = new Date("2026-09-11T23:59:59-04:00").getTime();
       const pad = n => String(n).padStart(2, "0");
       function tick() {
         let diff = target - Date.now();

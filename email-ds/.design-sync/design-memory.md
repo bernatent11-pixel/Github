@@ -36,10 +36,29 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09 | Images | A gold pill badge can be stamped onto a product image to state a fact (e.g. "90 CAL, 3G SUGAR / PER SERVING") | Bernat |
 | 2026-09 | Export | Campaigns ship to Klaviyo as **two stacked images**, cut at a flat row so the seam is invisible | Bernat |
 | 2026-09-08 | Letters | A founder note can sit on a cream sheet with paper grain, a lit top edge and a layered shadow — squared-off corners, because paper has no soft radius | Bernat |
+| 2026-09-08 | Type | **Two-line headline** — a statement in Gotham Black, then the turn beneath it in Bold Italic ("CLARITY, / on tap."). The contrast is weight and slant, not colour, so it holds anywhere. Both lines must be short enough not to wrap | Ported from the previous Milonga email system |
+| 2026-09-08 | Blocks | **Spec pill cluster** — a wrapped row of small outlined pills, one fact each, placed high in the email under the product shot. The whole formula readable in two seconds, before anyone has decided to read | Ported |
+| 2026-09-08 | Blocks | Ingredient rows have a quiet variant: **ring icons and the dose in the title** ("LION'S MANE · 500MG"), rows separated by hairlines. Use it when the copy is doing the work; filled discs when the row should shout | Ported |
+| 2026-09-08 | Type | Sizes come from a **documented type scale** and spacing from an **8px grid** — pick the nearest step rather than a number that looked right | Ported |
+| 2026-09-08 | Export | Review every design under a **fake inbox row** showing the subject line and preview text. A design judged alone always looks better than it performs | Ported |
 
 ---
 
 ## Log
+
+**2026-09-08 — ported from the previous Milonga email system.** Bernat sent the old design
+system (the cannabis/Lion's Mane can line) and asked for anything that fits. Taken: the two-line
+Black + Bold Italic headline — the signature move of that system and the reason he called those
+emails "simple but clean"; the spec pill cluster; the ring-icon ingredient row with the dose in
+the title; the documented type scale and 8px grid; and the inbox-preview chrome for reviewing.
+
+**Deliberately not taken.** The yellow five-star review card — Milonga has no reviews yet and the
+standing rule is not to invent any; it can be built in an afternoon once real ones exist. The old
+palette (deep green #0E4E2A, cream #F2EFE7, citrus yellow #FBC747) — the new product's branding is
+the brand now, so our #004D27 / #F0EFDF / #E3BC62 stand. The cannabis-line ingredient icons and
+the jungle-band artwork, which we already cover with the forest canopy. An FDA compliance
+paragraph was added to Footer as an **optional** prop only: whether an email needs one is a legal
+question, not a design one.
 
 **2026-09-08 — paper treatment for letters.** Bernat asked for a cream rectangle behind the
 founder-note copy "so it looks like a personal note", then for it to actually look like paper.

@@ -22,6 +22,12 @@ export interface FooterProps {
   /** Hairline above the sign-off. On by default; turn it off in emails that
    *  carry no rules at all. */
   rule?: boolean;
+  /**
+   * A small legal / compliance paragraph under everything else, set at the
+   * quietest size in the system. Whether an email needs one is a legal
+   * question, not a design one — pass the exact approved wording.
+   */
+  compliance?: string;
 }
 
 /**
@@ -39,6 +45,7 @@ export function Footer({
   size = 84,
   tagline,
   rule = true,
+  compliance,
 }: FooterProps) {
   const t = onBg[bg];
   const surface = useSurface(bg);
@@ -114,6 +121,11 @@ export function Footer({
             View in browser
           </a>
         </div>
+        {compliance ? (
+          <div style={{ marginTop: 16, fontWeight: 400, fontSize: 9.5, lineHeight: 1.6, color: t.body, opacity: 0.55 }}>
+            {compliance}
+          </div>
+        ) : null}
       </div>
     </div>
   );

@@ -1,0 +1,5 @@
+
+# Packaged skills are build artifacts — regenerate from .claude/skills/ with
+# skill-creator scripts/package_skill.py. A checked-in .skill goes stale and can
+# be installed over a newer source, silently reverting remembered design rules.
+*.skill

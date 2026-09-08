@@ -1,20 +1,7 @@
-# The Milonga email visual system
+# Milonga — Email Design System
 
-The stable part of the design language. Anything in the **design memory** that contradicts this
-file wins — memory is newer and came from Bernat directly.
-
-**Contents**
-1. Colour and the contrast map
-2. Backgrounds
-3. Structure — the three acts
-4. Typography
-5. Depth
-6. Icons and brand marks
-7. Images
-7b. Blocks worth knowing
-8. The component library
-9. Email-client reality
-10. Review it the way it will be seen
+*Single-file reference. Paste this wherever the design system needs to be known.*
+*Canonical version: the `email-design` skill. Snapshot taken 2026-09-08.*
 
 ---
 
@@ -244,3 +231,134 @@ Preview every design under a **fake inbox row** carrying the subject line and pr
 the first thing anyone actually sees is one line in a crowded list. Reviewing the two together
 catches the common failure — a subject and a preheader that say the same thing, or an empty
 preheader that the client fills with "View in browser".
+
+---
+
+# The remembered rules
+
+These are the decisions Bernat has asked the system to keep. **They override everything above** —
+they are newer and came from him directly. In the live system they live in
+`/Email Marketing Agent/design-system/design-memory.md` and grow every time he says
+"remember that".
+
+## Active rules
+
+| Date | Area | Rule | From |
+|---|---|---|---|
+| 2026-08 | Background | One flat background per email — dark green, gold or beige. Every block inherits it. Never white cards | Bernat |
+| 2026-08 | Background | A deliberate colour transition is allowed once or twice, and should read as a scene (the forest canopy), not a hard edge | Bernat |
+| 2026-08 | Background | Textured backgrounds cover the **whole** email, never a single section | Bernat |
+| 2026-08 | Background | On a textured email, rounded blocks take a plain solid brand fill so they stay visible against the grain | Bernat |
+| 2026-08 | Type | Titles and buttons are always CAPS. Body copy is smaller | Bernat |
+| 2026-08 | Type | Secondary titles are bigger; subtitles are CAPS in the accent colour | Bernat |
+| 2026-08 | Colour | Dark green bg → beige/gold two-tone titles, white body, gold icons | Bernat |
+| 2026-08 | Colour | Gold bg → beige titles, white body, beige icons | Bernat |
+| 2026-08 | Depth | Nothing reads flat — blocks, charts, numbers, titles, images and buttons all carry volume | Bernat |
+| 2026-08 | Icons | Use the background-less brand icon set. Marks travel in their fixed groups and are not split | Bernat |
+| 2026-08 | Icons | Icons run bigger than feels necessary, usually in a filled disc with the glyph in the opposite colour | Bernat |
+| 2026-09-02 | Colour | **Beige bg → dark green type only.** No leaf green, no gold — titles, eyebrows and subtitles all one dark green | Bernat |
+| 2026-09 | Type | Long titles auto-fit — one that almost fits a line drops a point or two to fit it; longer ones fill two rows of **even width**, never a long line plus a stub | Bernat |
+| 2026-09 | Structure | Every email runs three acts: header (loud, curiosity) → body (value, education) → CTA (price, offer, urgency) | Bernat |
+| 2026-09 | Images | Cutouts enter from the left or right edge and run past the margin. Alternating edges down an email gives it rhythm | Bernat |
+| 2026-09 | Images | A gold pill badge can be stamped onto a product image to state a fact (e.g. "90 CAL, 3G SUGAR / PER SERVING") | Bernat |
+| 2026-09 | Export | Campaigns ship to Klaviyo as **two stacked images**, cut at a flat row so the seam is invisible | Bernat |
+| 2026-09-08 | Letters | A founder note can sit on a cream sheet with paper grain, a lit top edge and a layered shadow — squared-off corners, because paper has no soft radius | Bernat |
+| 2026-09-08 | Type | **Two-line headline** — a statement in Gotham Black, then the turn beneath it in Bold Italic ("CLARITY, / on tap."). The contrast is weight and slant, not colour, so it holds anywhere. Both lines must be short enough not to wrap | Ported from the previous Milonga email system |
+| 2026-09-08 | Blocks | **Spec pill cluster** — a wrapped row of small outlined pills, one fact each, placed high in the email under the product shot. The whole formula readable in two seconds, before anyone has decided to read | Ported |
+| 2026-09-08 | Blocks | Ingredient rows have a quiet variant: **ring icons and the dose in the title** ("LION'S MANE · 500MG"), rows separated by hairlines. Use it when the copy is doing the work; filled discs when the row should shout | Ported |
+| 2026-09-08 | Type | Sizes come from a **documented type scale** and spacing from an **8px grid** — pick the nearest step rather than a number that looked right | Ported |
+| 2026-09-08 | Export | Review every design under a **fake inbox row** showing the subject line and preview text. A design judged alone always looks better than it performs | Ported |
+
+---
+
+# Where a finished design goes
+
+## 1. Work out the month and week — don't invent them
+
+The design's filename must match the copy's. The copy already exists at:
+
+```
+/Email Marketing Agent/campaigns/copies/[Month]/YYYY-MM-week-N.docx
+```
+
+**Take the month and week number from that file**, or from the build record's send date if the
+document isn't there yet. Never recompute the week independently — if the copy says week 2 and the
+design says week 3, the correlation this whole convention exists for is broken, and nobody notices
+until the report can't match them.
+
+`[Month]` is the full month name of the **send month**, e.g. `September`.
+
+---
+
+## 2. Where the design goes
+
+```
+/Email Marketing Agent/campaigns/designs/[Month]/YYYY-MM-week-N/
+```
+
+Exactly mirroring `campaigns/copies/[Month]/YYYY-MM-week-N.docx` — same month folder, same week
+name. One folder per week, holding every campaign designed for that week.
+
+Inside it, one folder per campaign, **named identically to its build record**:
+
+```
+designs/September/2026-09-week-2/
+└── 2026-09-15-founder-note-free-samples/
+    ├── 2026-09-15-founder-note-free-samples-full.png    Full design, one image
+    ├── 2026-09-15-founder-note-free-samples-1.jpg       Klaviyo slice, top
+    ├── 2026-09-15-founder-note-free-samples-2.jpg       Klaviyo slice, bottom
+    └── 2026-09-15-founder-note-free-samples.jsx         Source, so it can be edited later
+```
+
+**If the month or week folder doesn't exist, create it.** Don't ask, don't save elsewhere.
+
+**A revision edits that campaign's existing folder in place** — same names. A second design for the
+same campaign is a revision, not a new folder.
+
+---
+
+## 3. Export
+
+**Full design:** render at 600px CSS width with a device pixel ratio of 2, giving a 1200px-wide
+PNG. That's retina for a 600px email.
+
+**Klaviyo slices:** two stacked images, via the bundled script:
+
+```bash
+node scripts/split-for-klaviyo.mjs <render.png> <out-prefix> jpeg
+```
+
+It finds the flattest row in the middle band and cuts there. **Why flatness rather than an even
+split:** a row crossing a card or photo can never be uniform (dark background, light card, dark
+background), so if a client rounds heights by a pixel, a hairline shows. The flattest row is
+naturally in open background, where a seam disappears. Uneven halves are worth an invisible join.
+
+Re-stitch the two slices and look at the seam before shipping them. If it's visible, cut elsewhere.
+
+**In Klaviyo:** two image blocks stacked, both 100% width, no padding or spacing between them.
+
+---
+
+## 4. Fill the AS BUILT section of the build record
+
+Open `/Email Marketing Agent/campaigns/YYYY-MM-DD-campaign-name.md` and complete the **AS BUILT**
+section that `email-copy-and-design` left empty:
+
+- Final subject line and preview text
+- Sections as built
+- CTA label and destination
+- **Every piece of copy baked into images, transcribed verbatim**
+- Screenshot — the path from step 2
+- Klaviyo campaign ID and template ID
+- What changed from the brief, and why
+
+**The transcription is the whole point.** `email-performance-report` reads build records to explain
+why a campaign performed — subject line to open rate, design and copy and CTA to click rate. When
+the copy lives inside a PNG, the report is blind to it: it can tell you an email underperformed but
+never that the headline was the reason. Ten minutes of transcription is what makes the next month's
+analysis possible.
+
+Note **what changed from the brief and why** honestly. "Dropped the third section, the email ran
+too long" is the kind of thing that explains a result later.
+
+---

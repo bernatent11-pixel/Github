@@ -3,10 +3,14 @@
 Everything Bernat has asked the design system to remember. **Read this before designing anything;
 it overrides the skill's reference files, because it is newer and came from him directly.**
 
-- **Active rules** is what gets applied. Keep it tight and non-contradictory
-- **Log** is why — what prompted a rule, and what it replaced
-- When a new rule contradicts an old one, **strike the old row and note the supersede in the log**.
-  Do not leave both standing
+- **Active rules** is what gets applied. Every row here is live — nothing struck, nothing stale.
+  Rules are **append-only, so the last row is the newest**
+- **Log** is why — what prompted a rule, what it replaced, and anything still to be pinned down
+- When a new rule contradicts an old one, **delete the old row, add the new one, and quote the old
+  text in the log**. Most collisions are partial: carry the unchanged parts forward verbatim
+- **Area** is one of `Background · Colour · Type · Depth · Icons · Images · Buttons · Structure ·
+  Export · Letters`. Dates on new rules are full ISO. The seeded rules below predate this file and
+  carry the month only
 
 ---
 
@@ -22,10 +26,10 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-08 | Type | Secondary titles are bigger; subtitles are CAPS in the accent colour | Bernat |
 | 2026-08 | Colour | Dark green bg → beige/gold two-tone titles, white body, gold icons | Bernat |
 | 2026-08 | Colour | Gold bg → beige titles, white body, beige icons | Bernat |
-| 2026-09-02 | Colour | **Beige bg → dark green type only.** No leaf green, no gold — titles, eyebrows and subtitles all one dark green | Bernat |
 | 2026-08 | Depth | Nothing reads flat — blocks, charts, numbers, titles, images and buttons all carry volume | Bernat |
 | 2026-08 | Icons | Use the background-less brand icon set. Marks travel in their fixed groups and are not split | Bernat |
 | 2026-08 | Icons | Icons run bigger than feels necessary, usually in a filled disc with the glyph in the opposite colour | Bernat |
+| 2026-09-02 | Colour | **Beige bg → dark green type only.** No leaf green, no gold — titles, eyebrows and subtitles all one dark green | Bernat |
 | 2026-09 | Type | Long titles auto-fit — one that almost fits a line drops a point or two to fit it; longer ones fill two rows of **even width**, never a long line plus a stub | Bernat |
 | 2026-09 | Structure | Every email runs three acts: header (loud, curiosity) → body (value, education) → CTA (price, offer, urgency) | Bernat |
 | 2026-09 | Images | Cutouts enter from the left or right edge and run past the margin. Alternating edges down an email gives it rhythm | Bernat |

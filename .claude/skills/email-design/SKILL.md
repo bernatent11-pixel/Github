@@ -29,12 +29,12 @@ language has a dated history. Details in `references/saving-and-handoff.md`.
 1. **Read the design memory.** If it does not exist, create it from
    `assets/design-memory-template.md` and say so — a fresh memory is not an error, it is day one.
 2. **Read `references/design-system.md`.**
-3. **State what you loaded** in one line: how many active rules are in memory and the most recent
-   one. It tells Bernat the system is actually carrying what he taught it, rather than starting
-   from scratch each time.
+3. **State what you loaded** in one line: how many active rules are in memory, and the newest —
+   which is simply the last row of the table. It tells Bernat the system is carrying what he taught
+   it, rather than starting from scratch each time.
 
-> Design system loaded — 14 remembered rules, most recent: *"beige backgrounds take dark green
-> type only, no leaf green, no gold" (2026-09-02)*.
+> Design system loaded — 18 remembered rules, newest: *"a founder note can sit on a cream sheet
+> with paper grain and squared-off corners" (2026-09-08)*.
 
 **When memory and this file disagree, memory wins.** The memory is newer by definition, and it is
 what Bernat actually asked for.
@@ -50,31 +50,68 @@ what Bernat actually asked for.
 - "always make the last paragraph bigger"
 - "I don't like how X looks, do Y instead" — *said about the system, not this one email*
 
-The distinction that matters: **is this a rule, or a fix to this campaign?** "Make this headline
-smaller" is a fix. "Long headlines should always fit two even rows" is a rule. When it is genuinely
-ambiguous, ask in one line — a wrong guess either pollutes the memory with one-off tweaks or loses
-a rule that should have stuck.
+### Triage it first — three outcomes, not two
+
+| It is | Looks like | Do |
+|---|---|---|
+| **A fix** | "Make *this* headline smaller" | Just do it. Nothing goes in memory |
+| **A rule** | "Long headlines should always fit two even rows" | Store it |
+| **An underspecified rule** | "Gold buttons should be more rounded" | Store it, and pin the number |
+
+**The third one is the common case and the easy one to fluff.** "More rounded", "bigger", "warmer"
+are real instructions with no measurable target. Store the intent, add an `Open:` note in the log
+saying what still needs deciding, and **pin it on the next design that touches it** — propose a
+concrete value, get it confirmed, then write the number into the rule. A rule that can't be checked
+against a render doesn't hold: the next session picks a radius by eye, the one after picks a
+different one, and the memory quietly stops meaning anything.
+
+When it's genuinely ambiguous whether something is a rule or a fix, ask in one line. A wrong guess
+either pollutes the memory with one-off tweaks or loses a rule that should have stuck.
 
 ### How to write a remembered rule
 
-Append to the **Active rules** table in the memory file:
+Append to the **Active rules** table. **Rules are append-only and applied in order, so the last row
+is the newest** — that's what makes "most recent rule" answerable without parsing dates.
 
 ```
-| 2026-09-08 | Titles | Long headlines auto-fit to two rows of even width, never a long line plus a stub | Bernat, on the founder note |
+| 2026-09-08 | Type | Long headlines fit two rows of even width, never a long line plus a stub | Bernat, on the founder note |
 ```
 
-Then add the reasoning to the **Log** below it — what prompted it, what it replaced. The rule table
-is what gets applied; the log is what explains it in six months.
+- **Date:** full ISO (`YYYY-MM-DD`) for anything you add
+- **Area:** one of `Background · Colour · Type · Depth · Icons · Images · Buttons · Structure ·
+  Export · Letters`. Add a new one only when nothing fits, and say so in the log — an area
+  vocabulary that grows per rule can't be filtered
 
-**When a new rule contradicts an old one, supersede it — don't stack.** Strike the old row, note in
-the log which rule replaced it and why. A memory full of contradictions is worse than no memory,
-because the next session has to guess which one is live. This is the single most important
-maintenance rule in the file.
+Then write the reasoning into the **Log**. The table is what gets applied; the log is what explains
+it in six months.
 
-**Confirm what you stored, in the words you stored it:**
+### Superseding — replace the row, don't strike it
 
-> Remembered — *"Gold on beige is too low-contrast for body copy; use dark green"*. That's rule 15,
-> and it supersedes rule 6 which allowed gold accents on beige.
+**When a new rule contradicts an old one, delete the old row and add the new one**, then record in
+the log what was replaced, quoting the old rule's text. Keep the Active table a clean list of what
+is live: a struck-through row is still a row someone has to read and decide about, and it makes
+"how many active rules" meaningless.
+
+**Most collisions are partial, not total.** An old row often bundles several decisions — title,
+body, icon colour — and Bernat changes one. Carry the survivors forward **verbatim** into the new
+row and say in the log which parts didn't move. Retyping them from memory is where a decision
+silently disappears.
+
+**Also flag when a rule now contradicts `references/design-system.md`.** Memory wins, but the
+reference is then knowingly stale, and saying so in the log is what lets someone fix the underlying
+component library later.
+
+### Confirm, then persist
+
+Confirm in the words you stored, one line per rule:
+
+> Remembered — *"Dark green backgrounds take beige body copy, never white."* Replaces the earlier
+> dark-green rule, which set body to white; titles and icons on it are unchanged.
+
+**Then mirror and commit the memory if the Github repo is present** — see step 5 of
+`references/saving-and-handoff.md`. Do this on any turn that changes memory, even one where nothing
+was designed. Those turns are exactly the ones where the dated history is the only artifact
+produced.
 
 ---
 
@@ -125,7 +162,7 @@ see **Remembering** above.
    copy document's month and week exactly
 3. **Fill the AS BUILT section** of the matching build record — including every word of copy baked
    into images, transcribed verbatim
-4. **Mirror and commit the memory** if the repo is present
+4. **Mirror and commit the memory** if the repo is present and it changed this session
 
 **Step 3 is the one that is easy to skip and expensive to lose.** The performance report reads
 build records to explain *why* a campaign performed. Copy that lives inside a PNG is invisible to

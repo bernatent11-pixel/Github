@@ -1,14 +1,19 @@
-// Campaign: "Three ingredients, one clear morning" — the ingredient education
-// email. One section per ingredient, then the section that explains why the
-// three together are the actual product.
+// Campaign: "Everything your mornings need" — the ingredient education email.
+// The flat-lay photo is the hero and its cream carries on as the email's
+// background, so the picture never looks pasted onto a different colour.
 // ACT 1 header (loud) · ACT 2 body (education) · ACT 3 CTA (offer, urgency).
-// Dark green, textured end to end. Specs from .design-sync/brand/milonga-product.md.
+// Specs from .design-sync/brand/milonga-product.md.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  botanical: '../public/product/pouch-botanical.png',
+  // TODO: swap for the real flat-lay when it lands. Same aspect, same crop.
+  flatlay: '../public/product/flatlay-ingredients.png',
   handPour: '../public/product/pouch-hand-pour-big.png',
+  // TODO: the three ingredient photographs go here.
+  mate: undefined,
+  lionsMane: undefined,
+  theanine: undefined,
 };
 
 const SOCIAL = [
@@ -17,98 +22,157 @@ const SOCIAL = [
   { label: 'Shop', href: '#' },
 ];
 
-// One ingredient: the mark in a disc, the dose, the two-line title, the story.
-function Ingredient({ bg, mark, dose, line1, line2, text, rule }) {
-  return h(M.Section, { bg, pad: 'lg', rule },
-    h('div', { style: { textAlign: 'center' } },
-      h(M.IconBadge, { mark, bg, size: 76 })
+const GOLD = '#E3BC62';
+const FOREST = '#004D27';
+
+// A callout pinned over the hero: a hairline arrow running back to the pouch,
+// then the mark and its dose. Positions are percentages of the photo, so they
+// travel with it when the real one is dropped in.
+function Callout({ bg, mark, label, at, from }) {
+  return h('div', { style: { position: 'absolute', ...at } },
+    h('svg', {
+      width: from.w, height: from.h, viewBox: `0 0 ${from.w} ${from.h}`,
+      style: { position: 'absolute', ...from.at, overflow: 'visible' },
+    },
+      h('path', {
+        d: from.d, fill: 'none', stroke: FOREST, strokeWidth: 1.4,
+        strokeLinecap: 'round', opacity: 0.75,
+      }),
+      h('circle', { cx: from.tip[0], cy: from.tip[1], r: 3, fill: FOREST, opacity: 0.75 })
     ),
-    h('div', { style: { height: 18 } }),
-    h('div', { style: {
-      fontFamily: M.fontStack, fontWeight: 700, fontSize: 12, letterSpacing: '0.2em',
-      textTransform: 'uppercase', color: M.onBg[bg].accent, textAlign: 'center',
-    } }, dose),
-    h('div', { style: { height: 10 } }),
-    h(M.Headline, { bg, line1, line2, size: 30, align: 'center' }),
-    h('div', { style: { height: 16 } }),
-    h('p', { style: {
-      fontFamily: M.fontStack, fontSize: 14, lineHeight: 1.75, margin: '0 auto',
-      maxWidth: 430, textAlign: 'center', color: M.onBg[bg].body,
-    } }, text)
+    h('div', { style: { display: 'flex', alignItems: 'center', gap: 9 } },
+      h(M.IconBadge, { mark, bg, size: 42 }),
+      h('span', { style: {
+        fontFamily: M.fontStack, fontWeight: 900, fontSize: 11.5, letterSpacing: '0.08em',
+        textTransform: 'uppercase', color: FOREST, lineHeight: 1.25, whiteSpace: 'nowrap',
+      } }, label)
+    )
+  );
+}
+
+// One ingredient: photograph on the left, the case for it on the right.
+function Ingredient({ bg, src, dose, line1, line2, bullets }) {
+  return h(M.Section, { bg, pad: 'lg' },
+    h('div', { style: { display: 'flex', gap: 20, alignItems: 'flex-start' } },
+      h('div', { style: { flex: '0 0 34%', width: '34%' } },
+        h(M.ImageSlot, { bg, src, kind: 'product', ratio: 'square', alt: line1 })
+      ),
+      h('div', { style: { flex: 1 } },
+        h('div', { style: { marginBottom: 10 } },
+          h(M.SpecPills, { bg, items: [dose], variant: 'gold', align: 'left', size: 10.5 })
+        ),
+        h(M.Headline, { bg, line1, line2, size: 22, align: 'left' }),
+        h('div', { style: { height: 14 } }),
+        h(M.List, { bg, marker: 'leaf', items: bullets })
+      )
+    )
   );
 }
 
 function ThreeIngredients({ shopHref = '#' }) {
-  const bg = 'forest';
+  // The email is cream because the hero photograph is — the picture ends and
+  // the page keeps going in the same colour.
+  const bg = 'beige';
 
-  return h(M.EmailShell, { bg, textured: true },
+  return h(M.EmailShell, { bg },
 
-    // ═══ ACT 1 · HEADER ═══
-    h(M.Header, { bg }),
-    h(M.Section, { bg, pad: 'md', align: 'center' },
-      h('div', { style: {
-        fontFamily: M.fontStack, fontWeight: 700, fontSize: 12, letterSpacing: '0.2em',
-        textTransform: 'uppercase', color: M.onBg[bg].accent,
-      } }, 'What’s in the cup'),
-      h('div', { style: { height: 14 } }),
-      h(M.Headline, { bg, line1: 'Three ingredients,', line2: 'one clear morning.', size: 40, align: 'center' }),
+    // ═══ ACT 1 · HEADER — logo, title and copy over the flat-lay ═══
+    h('div', { style: { position: 'relative' } },
+      h('img', {
+        src: IMG.flatlay,
+        alt: 'The Milonga Mate Latte with yerba mate, Lion’s Mane and bark',
+        style: { display: 'block', width: '100%', height: 'auto', border: 0 },
+      }),
+
+      // Everything above the product sits in the photo's empty top third.
+      h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, padding: '30px 34px 0' } },
+        h('div', { style: { textAlign: 'center' } },
+          h(M.Logo, { tone: 'green', variant: 'primary', size: 76 })
+        ),
+        h('div', { style: { height: 26 } }),
+        h('div', { style: {
+          fontFamily: M.fontStack, fontWeight: 700, fontSize: 11.5, letterSpacing: '0.2em',
+          textTransform: 'uppercase', color: FOREST, textAlign: 'left',
+        } }, 'Three functional ingredients'),
+        h('div', { style: { height: 12 } }),
+        h(M.Headline, { bg, line1: 'Everything your', line2: 'mornings need.', size: 38, align: 'left' }),
+        h('div', { style: { height: 14 } }),
+        h('p', { style: {
+          fontFamily: M.fontStack, fontSize: 14, lineHeight: 1.7, margin: 0,
+          maxWidth: 330, textAlign: 'left', color: '#000000',
+        } }, 'Not a long list of things you can’t pronounce. Three ingredients, each doing one job — inside a creamy vanilla latte.')
+      ),
+
+      // Arrows from the pouch out to each mark and its dose.
+      h(Callout, {
+        bg, mark: 'l-theanine', label: '200mg L-Theanine',
+        at: { top: '46%', left: '4%' },
+        from: { w: 90, h: 40, at: { left: 150, top: 14 }, d: 'M0 8 C 40 8, 60 22, 88 30', tip: [88, 30] },
+      }),
+      h(Callout, {
+        bg, mark: 'yerba-mate', label: '100mg Yerba Mate',
+        at: { top: '62%', right: '4%' },
+        from: { w: 90, h: 40, at: { right: 172, top: 12 }, d: 'M90 8 C 50 8, 30 20, 2 26', tip: [2, 26] },
+      }),
+      h(Callout, {
+        bg, mark: 'lions-mane', label: '500mg Lion’s Mane',
+        at: { top: '80%', left: '6%' },
+        from: { w: 90, h: 40, at: { left: 158, top: 8 }, d: 'M0 26 C 40 26, 60 14, 88 4', tip: [88, 4] },
+      })
+    ),
+
+    // ═══ ACT 2 · BODY — one block per ingredient, photo on the left ═══
+    // NOTE: the bullets below are placeholders written from the product file.
+    // Replace them with Bernat's.
+    h(Ingredient, {
+      bg, src: IMG.mate, dose: '100mg natural caffeine',
+      line1: 'Yerba mate,', line2: 'the leaf it starts with.',
+      bullets: [
+        'Clean, sustained energy — it climbs instead of spiking',
+        'Naturally rich in antioxidants',
+        'Organic, and the base of the whole cup',
+        'Drunk in South America for centuries',
+      ],
+    }),
+
+    h(Ingredient, {
+      bg, src: IMG.lionsMane, dose: '500mg per serving',
+      line1: 'Lion’s Mane,', line2: 'for the thinking part.',
+      bullets: [
+        'Cognitive support — focus and mental clarity',
+        'A full 500mg dose, not a pinch for the label',
+        'A functional mushroom, used for centuries in East Asia',
+      ],
+    }),
+
+    h(Ingredient, {
+      bg, src: IMG.theanine, dose: '200mg per serving',
+      line1: 'L-Theanine,', line2: 'the one that steadies it.',
+      bullets: [
+        'Takes the edge off caffeine — no jitters',
+        'A calm, balanced lift instead of a sharp one',
+        'The amino acid found naturally in tea leaves',
+        'Paired deliberately with the mate’s 100mg',
+      ],
+    }),
+
+    // How the three come together.
+    h(M.Section, { bg, pad: 'lg', rule: true },
+      h(M.Headline, { bg, line1: 'Separately, ingredients.', line2: 'Together, the point.', size: 26, align: 'left' }),
       h('div', { style: { height: 18 } }),
       h('p', { style: {
-        fontFamily: M.fontStack, fontSize: 15, lineHeight: 1.7, margin: '0 auto',
-        maxWidth: 440, textAlign: 'center', color: '#FFFFFF',
-      } }, 'The Mate Latte isn’t a long list of things you can’t pronounce. It’s three functional ingredients, each doing one job — and a vanilla latte built around them.')
-    ),
-
-    // The product, straight away.
-    h(M.Section, { bg, pad: 'sm' },
-      h(M.ImageSlot, { bg, src: IMG.botanical, alt: 'The Milonga Mate Latte pouch with vanilla and yerba mate', cutout: true, ratio: 'wide' })
-    ),
-    h(M.Section, { bg, pad: 'sm', align: 'center' },
-      h(M.SpecPills, { bg, items: [
-        '100mg natural caffeine',
-        '500mg Lion’s Mane',
-        '200mg L-Theanine',
+        fontFamily: M.fontStack, fontSize: 14, lineHeight: 1.75, margin: 0, color: '#000000',
+      } }, 'The mate lifts. The L-Theanine keeps the lift even. The Lion’s Mane is there for the part of the morning that actually asks you to think — and it all tastes like a vanilla latte.'),
+      h('div', { style: { height: 22 } }),
+      h(M.SpecPills, { bg, variant: 'gold', align: 'left', items: [
+        '90 cal', '3g sugar', 'Dairy-free', 'Ready in 30 seconds',
       ]})
-    ),
-
-    // ═══ ACT 2 · BODY — one section per ingredient ═══
-
-    h(Ingredient, {
-      bg, rule: true, mark: 'yerba-mate', dose: '100mg natural caffeine',
-      line1: 'Yerba mate,', line2: 'the leaf it starts with.',
-      text: 'A holly leaf from the forests of South America, dried and steeped there for centuries — long before anyone called it a wellness drink. It carries caffeine, but releases it gradually, which is why a mate morning climbs instead of spiking. It’s rich in antioxidants too. Ours is organic, and it’s the base of the whole cup.',
-    }),
-
-    h(Ingredient, {
-      bg, rule: true, mark: 'lions-mane', dose: '500mg per serving',
-      line1: 'Lion’s Mane,', line2: 'for the thinking part.',
-      text: 'A white, shaggy mushroom that grows on hardwood trees, long used in East Asian cooking and herbal tradition. It’s here for cognitive support — focus and mental clarity through a long morning. 500mg is a full dose, not the pinch most labels use just to earn the name on the front.',
-    }),
-
-    h(Ingredient, {
-      bg, rule: true, mark: 'l-theanine', dose: '200mg per serving',
-      line1: 'L-Theanine,', line2: 'the one that steadies it.',
-      text: 'An amino acid found naturally in tea leaves. It’s the reason a cup of tea can feel calm despite the caffeine in it — it takes the edge off, so the lift arrives even instead of sharp. We add 200mg, paired deliberately with the mate’s 100mg of caffeine.',
-    }),
-
-    // How they come together.
-    h(M.Section, { bg, pad: 'lg', rule: true },
-      h(M.Headline, { bg, line1: 'Separately, ingredients.', line2: 'Together, the point.', size: 28, align: 'center' }),
-      h('div', { style: { height: 24 } }),
-      h(M.IconRow, { bg, marks: M.INGREDIENTS, size: 60 }),
-      h('div', { style: { height: 26 } }),
-      h('p', { style: {
-        fontFamily: M.fontStack, fontSize: 14.5, lineHeight: 1.75, margin: '0 auto',
-        maxWidth: 450, textAlign: 'center', color: '#FFFFFF',
-      } }, 'The mate lifts. The L-Theanine keeps the lift even. The Lion’s Mane is there for the part of the morning that actually asks you to think. That combination is the whole reason the Mate Latte feels different from a coffee — and why it tastes like a vanilla latte rather than something you have to get through.')
     ),
 
     // ═══ ACT 3 · CTA ═══
     h(M.BleedImage, {
       bg, src: IMG.handPour, side: 'right', width: 0.94, overhang: 20,
       alt: 'A scoop of Milonga poured into a glass',
-      overlayAt: { top: '9%', left: '40%' },
-      overlay: h(M.Badge, { bg, label: '90 cal, 3g sugar', sub: 'Per serving' }),
     }),
     h(M.Section, { bg, pad: 'lg', align: 'center' },
       h(M.Headline, { bg, line1: 'Taste the three.', line2: 'Fifteen mornings a bag.', size: 26, align: 'center' }),

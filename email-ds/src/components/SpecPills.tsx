@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { fontStack } from '../tokens';
+import { colors } from '../tokens';
 import { EmailBg, onBg } from '../theme';
 import { useBlockFill } from '../surface';
 
@@ -8,8 +9,13 @@ export interface SpecPillsProps {
   items: string[];
   bg?: EmailBg;
   align?: 'left' | 'center';
-  /** `outline` is a hairline ring (quiet, the default); `solid` fills them. */
-  variant?: 'outline' | 'solid';
+  /**
+   * `outline` is a hairline ring (quiet, the default), `solid` fills them in
+   * the background's own raised tone, and `gold` fills them in brand gold with
+   * dark green type — the loudest, and the one that reads as a stamp of fact
+   * rather than a label.
+   */
+  variant?: 'outline' | 'solid' | 'gold';
   size?: number;
 }
 
@@ -32,8 +38,12 @@ export function SpecPills({
   size = 11,
 }: SpecPillsProps) {
   const t = onBg[bg];
+  const gold = variant === 'gold';
   const solid = variant === 'solid';
-  const fill = useBlockFill(bg, t.elevated);
+  const raised = useBlockFill(bg, t.elevated);
+  const fill = gold ? colors.gold : solid ? raised : 'transparent';
+  const ink = gold ? colors.forest : t.accent;
+  const edge = gold ? colors.gold : solid ? t.rule : t.outline;
   return (
     <div style={{ textAlign: align, fontSize: 0 }}>
       {items.map((label) => (
@@ -41,8 +51,9 @@ export function SpecPills({
           key={label}
           style={{
             display: 'inline-block',
-            background: solid ? fill : 'transparent',
-            border: `1px solid ${solid ? t.rule : t.outline}`,
+            background: fill,
+            border: `1px solid ${edge}`,
+            boxShadow: gold ? t.btnShadow : undefined,
             borderRadius: 999,
             padding: '8px 15px',
             margin: '0 5px 8px',
@@ -52,7 +63,7 @@ export function SpecPills({
             lineHeight: 1.2,
             letterSpacing: '0.09em',
             textTransform: 'uppercase',
-            color: t.accent,
+            color: ink,
           }}
         >
           {label}

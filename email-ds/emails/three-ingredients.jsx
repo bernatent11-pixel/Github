@@ -28,6 +28,7 @@ const SOCIAL = [
 
 const GOLD = '#E3BC62';
 const FOREST = '#004D27';
+const WHITE = '#FFFFFF';
 
 // The education act inverts the email: dark green ground, gold titles, white
 // pills. `INK` is that band's background, so every block inside it reads the
@@ -74,8 +75,8 @@ function Callout({ bg, mark, label, at, arrow }) {
 // One ingredient: photograph on the left, the case for it on the right.
 // The education act runs on dark green — the inverse of the cream the rest of
 // the email sits on — so the three ingredients read as one chapter rather than
-// as more of the same page. Titles gold, benefit pills white: on green, gold
-// pills under a gold title flatten into a single gold mass.
+// as more of the same page. Titles white, benefit pills gold: gold then means
+// one thing everywhere in the email, matching the spec pills in the closing act.
 function Ingredient({ bg, src, line1, line2, bullets }) {
   return h(M.Section, { bg, pad: 'lg' },
     h('div', { style: { display: 'flex', gap: 20, alignItems: 'flex-start' } },
@@ -83,9 +84,9 @@ function Ingredient({ bg, src, line1, line2, bullets }) {
         h(M.ImageSlot, { bg, src, cutout: true, ratio: 'square', alt: line1 })
       ),
       h('div', { style: { flex: 1 } },
-        h(M.Headline, { bg, line1, line2, size: 22, align: 'left', color: GOLD }),
+        h(M.Headline, { bg, line1, line2, size: 22, align: 'left', color: WHITE }),
         h('div', { style: { height: 16 } }),
-        h(M.SpecPills, { bg, items: bullets, variant: 'white', align: 'left', size: 11 })
+        h(M.SpecPills, { bg, items: bullets, variant: 'gold', align: 'left', size: 11 })
       )
     )
   );

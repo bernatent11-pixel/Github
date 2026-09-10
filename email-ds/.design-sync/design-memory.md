@@ -42,7 +42,7 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-08 | Type | Sizes come from a **documented type scale** and spacing from an **8px grid** — pick the nearest step rather than a number that looked right | Ported |
 | 2026-09-08 | Export | Review every design under a **fake inbox row** showing the subject line and preview text. A design judged alone always looks better than it performs | Ported |
 | 2026-09-10 | Background | The education act can invert the page — a dark green band on a cream email (or the reverse) marking the middle act as its own chapter. Both edges must land on a row where the page colour is already flat, never mid-content | Bernat |
-| 2026-09-10 | Colour | **On dark green, gold titles take white pills, not gold ones.** Gold pills under a gold title collapse into one gold mass | Bernat |
+| 2026-09-10 | Colour | **On dark green, titles are white and benefit pills gold.** Gold then means one thing across the whole email — the pills in an inverted band match the spec pills in the closing act, so the email reads as one system | Bernat, chose it over gold titles with white pills |
 | 2026-09-10 | Export | When an email has a colour band, cut the Klaviyo images **on the colour edges** rather than hunting for a flat row — each image then carries one flat background at its boundary and the seam cannot show | Bernat |
 
 ---
@@ -54,13 +54,20 @@ section of the ingredients email: dark green ground, gold titles, white benefit 
 all three ingredient blocks plus the "Discover more" CTA that closes them, so the band is one
 continuous chapter rather than three stripes.
 
-Two things came out of it that are system-level, not campaign-level. First, gold pills under a
-gold title on green do not work — at pill size the two golds sit within a few points of each other
-and the eye reads a single gold shape, so the benefits stop being scannable. White pills with dark
-green type keep the stamped look and restore the hierarchy; `SpecPills` gained a `white` variant
-for it. Second, the band's two colour edges are the natural cut lines for the Klaviyo export —
-better than the flat-row search, which is a way of *finding* an invisible seam when a hard edge is
-already there to *be* one.
+Two things came out of it that are system-level, not campaign-level. First, the colour pairing
+inside the band — see below; it was decided by comparison, not by argument. Second, the band's two
+colour edges are the natural cut lines for the Klaviyo export — better than the flat-row search,
+which is a way of *finding* an invisible seam when a hard edge is already there to *be* one.
+
+**Gold titles with white pills was built, shown, and rejected.** The case for it was hierarchy: a
+gold title reads before white benefits, so the ingredient name stays the loudest thing in its
+block. Bernat picked the reverse — white titles, gold pills — and it supersedes the rule this
+session first recorded (*"On dark green, gold titles take white pills, not gold ones. Gold pills
+under a gold title collapse into one gold mass"*). The reason it loses: it makes gold mean two
+different things in one email, since the closing act's spec pills are gold. Consistency of the
+accent across the whole email beat local hierarchy inside one block. `SpecPills` keeps its `white`
+variant — it is a sound option for a band with no gold elsewhere — but **do not re-propose it for
+this email**.
 
 **Note on the "one flat background per email" rule.** This is the second sanctioned transition
 (the first being the forest canopy), and it is a hard edge rather than a scene, which that rule

@@ -56,6 +56,32 @@
   </script>
   <!-- End Meta Pixel Code -->
 
+  <!-- UTM / GA4 diagnostic — invisible unless the URL has ?debug=utm
+       e.g. matelatte.milonga.life/?utm_source=test&utm_medium=prueba&debug=utm -->
+  <script>
+  (function () {
+    if (!/[?&]debug=utm(\b|=)/.test(location.search)) return;
+    var p = new URLSearchParams(location.search);
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;background:#0e3a20;color:#f7efe0;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:12px 14px;border:1px solid #ecc96f;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);word-break:break-all;max-height:50vh;overflow:auto';
+    function ga(){ return (window.google_tag_manager && window.google_tag_manager['G-M18RQG49P9']) ? 'YES' : 'NO — blocked or still loading'; }
+    function show(k){ return '<b>' + (p.get(k) || '(none)') + '</b>'; }
+    function render(){
+      box.innerHTML =
+        '<b style="color:#ecc96f">GA4 / UTM debug</b> &nbsp;(remove ?debug=utm to hide)<br>' +
+        'GA4 tag (gtag.js) loaded: <b>' + ga() + '</b><br>' +
+        'Measurement ID sent to: <b>G-M18RQG49P9</b><br>' +
+        'utm_source: '  + show('utm_source')  + ' &nbsp; utm_medium: ' + show('utm_medium') + '<br>' +
+        'utm_campaign: ' + show('utm_campaign') + '<br>' +
+        'utm_term: '     + show('utm_term')     + ' &nbsp; utm_content: ' + show('utm_content') + '<br>' +
+        'URL now: <b>' + location.pathname + location.search + '</b>';
+    }
+    function mount(){ if (document.body && !box.parentNode) document.body.appendChild(box); render(); }
+    if (document.readyState !== 'loading') mount(); else document.addEventListener('DOMContentLoaded', mount);
+    setTimeout(render, 1500); setTimeout(render, 4000);
+  })();
+  </script>
+
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
   <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
 

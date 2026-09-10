@@ -41,7 +41,7 @@ function Callout({ bg, mark, label, at, from }) {
       h('circle', { cx: from.tip[0], cy: from.tip[1], r: 3, fill: FOREST, opacity: 0.75 })
     ),
     h('div', { style: { display: 'flex', alignItems: 'center', gap: 9 } },
-      h(M.IconBadge, { mark, bg, size: 42 }),
+      h(M.IconBadge, { mark, bg, size: 46, fill: GOLD, ink: 'forest', halo: true }),
       h('span', { style: {
         fontFamily: M.fontStack, fontWeight: 900, fontSize: 11.5, letterSpacing: '0.08em',
         textTransform: 'uppercase', color: FOREST, lineHeight: 1.25, whiteSpace: 'nowrap',
@@ -51,19 +51,16 @@ function Callout({ bg, mark, label, at, from }) {
 }
 
 // One ingredient: photograph on the left, the case for it on the right.
-function Ingredient({ bg, src, dose, line1, line2, bullets }) {
+function Ingredient({ bg, src, line1, line2, bullets }) {
   return h(M.Section, { bg, pad: 'lg' },
     h('div', { style: { display: 'flex', gap: 20, alignItems: 'flex-start' } },
       h('div', { style: { flex: '0 0 34%', width: '34%' } },
         h(M.ImageSlot, { bg, src, kind: 'product', ratio: 'square', alt: line1 })
       ),
       h('div', { style: { flex: 1 } },
-        h('div', { style: { marginBottom: 10 } },
-          h(M.SpecPills, { bg, items: [dose], variant: 'gold', align: 'left', size: 10.5 })
-        ),
         h(M.Headline, { bg, line1, line2, size: 22, align: 'left' }),
-        h('div', { style: { height: 14 } }),
-        h(M.List, { bg, marker: 'leaf', items: bullets })
+        h('div', { style: { height: 16 } }),
+        h(M.SpecPills, { bg, items: bullets, variant: 'gold', align: 'left', size: 11 })
       )
     )
   );
@@ -100,7 +97,7 @@ function ThreeIngredients({ shopHref = '#' }) {
         h('p', { style: {
           fontFamily: M.fontStack, fontSize: 14, lineHeight: 1.7, margin: 0,
           maxWidth: 330, textAlign: 'left', color: '#000000',
-        } }, 'Not a long list of things you can’t pronounce. Three ingredients, each doing one job — inside a creamy vanilla latte.')
+        } }, 'Not a long list of things you can’t pronounce. Three ingredients, each doing one job, inside a creamy vanilla latte.')
       ),
 
       // Arrows from the pouch out to each mark and its dose.
@@ -125,34 +122,34 @@ function ThreeIngredients({ shopHref = '#' }) {
     // NOTE: the bullets below are placeholders written from the product file.
     // Replace them with Bernat's.
     h(Ingredient, {
-      bg, src: IMG.mate, dose: '100mg natural caffeine',
+      bg, src: IMG.mate,
       line1: 'Yerba mate,', line2: 'the leaf it starts with.',
       bullets: [
-        'Clean, sustained energy — it climbs instead of spiking',
-        'Naturally rich in antioxidants',
-        'Organic, and the base of the whole cup',
-        'Drunk in South America for centuries',
+        'Clean, sustained energy',
+        'No spike, no crash',
+        'Rich in antioxidants',
+        'Certified organic',
       ],
     }),
 
     h(Ingredient, {
-      bg, src: IMG.lionsMane, dose: '500mg per serving',
+      bg, src: IMG.lionsMane,
       line1: 'Lion’s Mane,', line2: 'for the thinking part.',
       bullets: [
-        'Cognitive support — focus and mental clarity',
-        'A full 500mg dose, not a pinch for the label',
-        'A functional mushroom, used for centuries in East Asia',
+        'Focus and mental clarity',
+        'Cognitive support',
+        'A full 500mg dose',
       ],
     }),
 
     h(Ingredient, {
-      bg, src: IMG.theanine, dose: '200mg per serving',
+      bg, src: IMG.theanine,
       line1: 'L-Theanine,', line2: 'the one that steadies it.',
       bullets: [
-        'Takes the edge off caffeine — no jitters',
-        'A calm, balanced lift instead of a sharp one',
-        'The amino acid found naturally in tea leaves',
-        'Paired deliberately with the mate’s 100mg',
+        'No jitters',
+        'A calm, balanced lift',
+        'Smooths out the caffeine',
+        'Found naturally in tea leaves',
       ],
     }),
 
@@ -162,7 +159,7 @@ function ThreeIngredients({ shopHref = '#' }) {
       h('div', { style: { height: 18 } }),
       h('p', { style: {
         fontFamily: M.fontStack, fontSize: 14, lineHeight: 1.75, margin: 0, color: '#000000',
-      } }, 'The mate lifts. The L-Theanine keeps the lift even. The Lion’s Mane is there for the part of the morning that actually asks you to think — and it all tastes like a vanilla latte.'),
+      } }, 'The mate lifts. The L-Theanine keeps the lift even. The Lion’s Mane is there for the part of the morning that actually asks you to think. And it all tastes like a vanilla latte.'),
       h('div', { style: { height: 22 } }),
       h(M.SpecPills, { bg, variant: 'gold', align: 'left', items: [
         '90 cal', '3g sugar', 'Dairy-free', 'Ready in 30 seconds',

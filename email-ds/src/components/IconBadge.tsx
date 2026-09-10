@@ -16,6 +16,12 @@ export interface IconBadgeProps {
   fill?: string;
   /** Override the glyph ink. */
   ink?: BrandInk;
+  /**
+   * Draw a pale ring and a deeper shadow around the disc. Use it when the
+   * badge sits on a photograph rather than a flat colour — without it the
+   * disc competes with whatever is behind it and neither wins.
+   */
+  halo?: boolean;
 }
 
 /**
@@ -23,7 +29,7 @@ export interface IconBadgeProps {
  * a gold disc carries a dark green icon, a dark green disc carries a gold one.
  * Used to lead benefit and ingredient rows.
  */
-export function IconBadge({ mark, bg = 'forest', size = 46, fill, ink }: IconBadgeProps) {
+export function IconBadge({ mark, bg = 'forest', size = 46, fill, ink, halo = false }: IconBadgeProps) {
   const t = onBg[bg];
   // The disc takes the accent colour; the glyph takes what reads on top of it.
   const disc = fill ?? t.icon;
@@ -39,7 +45,9 @@ export function IconBadge({ mark, bg = 'forest', size = 46, fill, ink }: IconBad
         height: size,
         borderRadius: 999,
         background: disc,
-        boxShadow: t.shadow,
+        boxShadow: halo
+          ? `0 0 0 3px rgba(255,255,255,0.9), 0 4px 14px rgba(0,26,13,0.28)`
+          : t.shadow,
         flex: '0 0 auto',
       }}
     >

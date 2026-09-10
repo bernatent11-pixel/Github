@@ -14,9 +14,11 @@ const IMG = {
   theanine: '../public/product/ing-theanine.png',
 };
 
-// The page colour is sampled from the bottom edge of the hero photograph, so
-// the picture ends and the email carries on in the same cream with no seam.
-const PAGE = '#E0CFBC';
+// The page is the hero photograph's own cream. The photo carries a vignette
+// that darkens over its last quarter, so the image is faded back up to this
+// colour at the bottom — matching only the darkest corner made the whole body
+// of the email read as a different, muddier colour than the picture above it.
+const PAGE = '#EEE2D4';
 
 const SOCIAL = [
   { label: 'Instagram', href: '#' },
@@ -38,18 +40,24 @@ function Callout({ bg, mark, label, at, arrow }) {
       style: { position: 'absolute', ...arrow.at, overflow: 'visible' },
     },
       h('path', {
-        d: arrow.d, fill: 'none', stroke: FOREST, strokeWidth: 1.6,
-        strokeLinecap: 'round', opacity: 0.8,
+        d: arrow.d, fill: 'none', stroke: '#FFFFFF', strokeWidth: 2.4,
+        strokeLinecap: 'round',
+        // A white line vanishes on cream, so it carries its own soft shadow.
+        style: { filter: 'drop-shadow(0 1px 2px rgba(60,44,20,0.45))' },
       }),
-      h('circle', { cx: arrow.tip[0], cy: arrow.tip[1], r: 3.4, fill: FOREST, opacity: 0.8 })
+      h('circle', {
+        cx: arrow.tip[0], cy: arrow.tip[1], r: 3.6, fill: '#FFFFFF',
+        style: { filter: 'drop-shadow(0 1px 2px rgba(60,44,20,0.45))' },
+      })
     ) : null,
     h('div', { style: {
+      position: 'relative', zIndex: 2,
       display: 'inline-flex', alignItems: 'center', gap: 9,
       background: 'rgba(255,253,247,0.94)',
       borderRadius: 999, padding: '5px 15px 5px 5px',
       boxShadow: '0 3px 14px rgba(60,44,20,0.20)',
     } },
-      h(M.IconBadge, { mark, bg, size: 38, fill: GOLD, ink: 'forest', halo: true }),
+      h(M.IconBadge, { mark, bg, size: 38, fill: GOLD, ink: 'forest' }),
       h('span', { style: {
         fontFamily: M.fontStack, fontWeight: 900, fontSize: 11, letterSpacing: '0.07em',
         textTransform: 'uppercase', color: FOREST, lineHeight: 1.2, whiteSpace: 'nowrap',
@@ -100,36 +108,31 @@ function ThreeIngredients({ shopHref = '#' }) {
           textTransform: 'uppercase', color: FOREST, textAlign: 'left',
         } }, 'Three functional ingredients'),
         h('div', { style: { height: 12 } }),
-        h(M.Headline, { bg, line1: 'Everything your', line2: 'mornings need.', size: 36, align: 'left' }),
-        h('div', { style: { height: 12 } }),
-        h('p', { style: {
-          fontFamily: M.fontStack, fontSize: 13.5, lineHeight: 1.65, margin: 0,
-          maxWidth: 300, textAlign: 'left', color: '#000000',
-        } }, 'Three ingredients, each doing one job, inside a creamy vanilla latte.')
+        h(M.Headline, { bg, line1: 'Everything your', line2: 'mornings need.', size: 38, align: 'left' })
       ),
 
       // Each callout sits in clear cream; the arrow does the pointing.
       h(Callout, {
         bg, mark: 'yerba-mate', label: '100mg Yerba Mate',
         at: { top: '31%', right: '5%' },
-        arrow: { w: 70, h: 46, at: { right: 150, top: 26 }, d: 'M70 4 C 40 8, 24 22, 2 40', tip: [2, 40] },
+        arrow: { w: 46, h: 34, at: { right: 152, top: 26 }, d: 'M46 3 C 28 6, 16 15, 3 28', tip: [3, 28] },
       }),
       h(Callout, {
         bg, mark: 'l-theanine', label: '200mg L-Theanine',
         at: { top: '45%', left: '4%' },
-        arrow: { w: 74, h: 40, at: { left: 168, top: 22 }, d: 'M0 6 C 30 6, 48 16, 72 30', tip: [72, 30] },
+        arrow: { w: 34, h: 26, at: { left: 170, top: 22 }, d: 'M0 4 C 12 4, 22 10, 32 21', tip: [32, 21] },
       }),
       h(Callout, {
         bg, mark: 'lions-mane', label: '500mg Lion’s Mane',
         at: { top: '62%', right: '5%' },
-        arrow: { w: 60, h: 40, at: { right: 152, top: 12 }, d: 'M60 24 C 38 21, 22 14, 2 5', tip: [2, 5] },
+        arrow: { w: 40, h: 30, at: { right: 154, top: 14 }, d: 'M40 22 C 26 19, 14 13, 2 5', tip: [2, 5] },
       })
     ),
 
     // ═══ ACT 2 · BODY — one block per ingredient, photo on the left ═══
     h(Ingredient, {
       bg, src: IMG.mate,
-      line1: 'Yerba mate,', line2: 'the leaf it starts with.',
+      line1: 'Yerba mate,', line2: 'the foundation.',
       bullets: [
         'Clean, sustained energy',
         'No spike, no crash',
@@ -140,7 +143,7 @@ function ThreeIngredients({ shopHref = '#' }) {
 
     h(Ingredient, {
       bg, src: IMG.lionsMane,
-      line1: 'Lion’s Mane,', line2: 'for the thinking part.',
+      line1: 'Lion’s Mane,', line2: 'for a clear head.',
       bullets: [
         'Focus and mental clarity',
         'Cognitive support',
@@ -150,11 +153,11 @@ function ThreeIngredients({ shopHref = '#' }) {
 
     h(Ingredient, {
       bg, src: IMG.theanine,
-      line1: 'L-Theanine,', line2: 'the one that steadies it.',
+      line1: 'L-Theanine,', line2: 'what balances it all.',
       bullets: [
+        'Balances the whole cup',
+        'Smooth and calm, never sharp',
         'No jitters',
-        'A calm, balanced lift',
-        'Smooths out the caffeine',
         'Found naturally in tea leaves',
       ],
     }),

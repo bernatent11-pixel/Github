@@ -49,6 +49,15 @@ it overrides the skill's reference files, because it is newer and came from him 
 
 ## Log
 
+**2026-09-10 — "Memory" approved as a Lion's Mane benefit.** Logged so it is not quietly
+substituted again. Earlier in this campaign Bernat asked for "memory" and it was swapped for
+"cognitive support" as exceeding the approved claim list; he has now asked for it a second time,
+explicitly, alongside cognitive support. That is his decision to make and it stands. Recorded here
+rather than as a rule row because it is a claims decision, not a design one — the Area vocabulary
+has no place for it, and inventing one would break filtering. Everything else on the standing
+list is unchanged: no cures, no stress removal, no weight loss, no "makes you smarter", and never
+THC, CBD, cannabis or weed.
+
 **2026-09-10 — the inverted education band.** Bernat asked to "reverse the colours" on the middle
 section of the ingredients email: dark green ground, gold titles, white benefit pills. Applied to
 all three ingredient blocks plus the "Discover more" CTA that closes them, so the band is one

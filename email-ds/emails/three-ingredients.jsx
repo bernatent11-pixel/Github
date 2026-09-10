@@ -154,10 +154,10 @@ function ThreeIngredients({ shopHref = '#' }) {
       bg: INK, src: IMG.mate,
       line1: 'Yerba mate,', line2: 'the foundation.',
       bullets: [
-        'Clean, sustained energy',
-        'No spike, no jitters, no crash',
+        'Clean sustained energy',
+        'No jitters, no crash',
+        'Mental clarity',
         'Rich in antioxidants',
-        'Certified organic',
       ],
     }),
 
@@ -166,8 +166,8 @@ function ThreeIngredients({ shopHref = '#' }) {
       line1: 'Lion’s Mane,', line2: 'for a clear head.',
       bullets: [
         'Focus',
-        'Mental clarity',
         'Concentration',
+        'Memory',
         'Cognitive support',
       ],
     }),
@@ -178,8 +178,7 @@ function ThreeIngredients({ shopHref = '#' }) {
       bullets: [
         'Balanced and calm',
         'Balances the whole experience',
-        'Smooth, never sharp',
-        'Found naturally in tea leaves',
+        'Smooth',
       ],
     }),
 

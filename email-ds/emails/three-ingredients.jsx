@@ -102,7 +102,10 @@ function ThreeIngredients({ shopHref = '#' }) {
         h('div', { style: { textAlign: 'center' } },
           h(M.Logo, { tone: 'green', variant: 'primary', size: 54 })
         ),
-        h('div', { style: { height: 18 } }),
+        // The title drops until the air above it (logo) and below it (the bark)
+        // measure the same — the stack has to read as one centred group, not as
+        // a title that drifted up toward the logo.
+        h('div', { style: { height: 32 } }),
         h(M.Headline, { bg, line1: 'Everything your', line2: 'mornings need.', size: 38, align: 'left' })
       ),
 
@@ -127,7 +130,7 @@ function ThreeIngredients({ shopHref = '#' }) {
       // the ask goes there rather than after the picture, so it is seen while
       // the product still is. Gold: on a photograph it reads as the one thing
       // to press, where green would sink into the leaves.
-      h('div', { style: { position: 'absolute', top: '84%', left: 0, right: 0, textAlign: 'center' } },
+      h('div', { style: { position: 'absolute', top: '79.5%', left: 0, right: 0, textAlign: 'center' } },
         h(M.Button, { bg: 'forest', label: 'Experience it', href: shopHref, size: 'md' })
       )
     ),
@@ -166,8 +169,10 @@ function ThreeIngredients({ shopHref = '#' }) {
       ],
     }),
 
-    // Having read all three, the reader is ready for a second ask.
-    h(M.Section, { bg, pad: 'md', align: 'center' },
+    // Having read all three, the reader is ready for a second ask. The padding
+    // is deliberately lopsided — the button belongs to the ingredients above it,
+    // so it sits tight under them and keeps its distance from the photo below.
+    h('div', { style: { padding: '0 30px 30px', textAlign: 'center' } },
       h(M.Button, { bg, label: 'Discover more', href: shopHref, size: 'md' })
     ),
 

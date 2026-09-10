@@ -19,6 +19,13 @@ export interface EmailShellProps {
    * (gold and dark green only — beige has no texture art).
    */
   textured?: boolean;
+  /**
+   * Override the page colour with an exact CSS colour. Use it when a
+   * full-bleed photograph is the hero and the page has to continue in the
+   * photo's own background — sample the colour at the image's bottom edge and
+   * the join disappears. Blocks still take their type colours from `bg`.
+   */
+  fill?: string;
   children?: React.ReactNode;
 }
 
@@ -26,14 +33,14 @@ export interface EmailShellProps {
  * The outer email frame: paints the base color full-bleed and centers the
  * content column. Sections may override the color for a band of the email.
  */
-export function EmailShell({ bg = 'forest', width = emailWidth, textured = false, children }: EmailShellProps) {
+export function EmailShell({ bg = 'forest', width = emailWidth, textured = false, fill, children }: EmailShellProps) {
   return (
     <SurfaceContext.Provider value={{ bg, textured }}>
     <div
       className="milonga-email"
       style={{
         fontFamily: fontStack,
-        ...bgStyle(bg, bgFill[bg], textured),
+        ...bgStyle(bg, fill ?? bgFill[bg], textured),
         color: onBg[bg].body,
         width: '100%',
         paddingBottom: 1,

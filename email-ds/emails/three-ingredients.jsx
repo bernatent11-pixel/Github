@@ -126,7 +126,15 @@ function ThreeIngredients({ shopHref = '#' }) {
         bg, mark: 'lions-mane', label: '500mg Lion’s Mane',
         at: { top: '62%', right: '5%' },
         arrow: { w: 40, h: 30, at: { right: 154, top: 14 }, d: 'M40 22 C 26 19, 14 13, 2 5', tip: [2, 5] },
-      })
+      }),
+
+      // The photograph leaves a clear band of cream under the last leaf —
+      // the ask goes there rather than after the picture, so it is seen while
+      // the product still is. Gold: on a photograph it reads as the one thing
+      // to press, where green would sink into the leaves.
+      h('div', { style: { position: 'absolute', top: '84%', left: 0, right: 0, textAlign: 'center' } },
+        h(M.Button, { bg: 'forest', label: 'Experience it', href: shopHref, size: 'md' })
+      )
     ),
 
     // ═══ ACT 2 · BODY — one block per ingredient, photo on the left ═══
@@ -162,11 +170,9 @@ function ThreeIngredients({ shopHref = '#' }) {
       ],
     }),
 
-    // The numbers, then the picture that says what the numbers add up to.
-    h(M.Section, { bg, pad: 'lg', align: 'center' },
-      h(M.SpecPills, { bg, variant: 'gold', align: 'center', items: [
-        '90 cal', '3g sugar', 'Dairy-free', 'Ready in 30 seconds',
-      ]})
+    // Having read all three, the reader is ready for a second ask.
+    h(M.Section, { bg, pad: 'md', align: 'center' },
+      h(M.Button, { bg, label: 'Discover more', href: shopHref, size: 'md' })
     ),
 
     h('img', {
@@ -177,9 +183,11 @@ function ThreeIngredients({ shopHref = '#' }) {
 
     // ═══ ACT 3 · CTA ═══
     h(M.Section, { bg, pad: 'lg', align: 'center' },
-      h(M.Headline, { bg, line1: 'Taste the three.', line2: 'Fifteen mornings a bag.', size: 26, align: 'center' }),
-      h('div', { style: { height: 22 } }),
-      h(M.Button, { bg, label: 'Try it now', href: shopHref, size: 'lg' }),
+      h(M.SpecPills, { bg, variant: 'gold', align: 'center', items: [
+        '90 cal', '3g sugar', 'Dairy-free', 'Ready in 30 seconds',
+      ]}),
+      h('div', { style: { height: 26 } }),
+      h(M.Button, { bg, label: 'Shop now', href: shopHref, size: 'lg' }),
       h('div', { style: {
         fontFamily: M.fontStack, fontWeight: 700, fontSize: 11, letterSpacing: '0.18em',
         textTransform: 'uppercase', color: M.onBg[bg].accent, marginTop: 16,

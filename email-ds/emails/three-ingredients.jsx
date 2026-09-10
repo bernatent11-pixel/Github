@@ -115,17 +115,17 @@ function ThreeIngredients({ shopHref = '#' }) {
       h(Callout, {
         bg, mark: 'yerba-mate', label: '100mg Yerba Mate',
         at: { top: '31%', right: '5%' },
-        arrow: { w: 46, h: 34, at: { right: 152, top: 26 }, d: 'M46 3 C 28 6, 16 15, 3 28', tip: [3, 28] },
+        arrow: { w: 46, h: 34, at: { right: 202, top: 26 }, d: 'M46 3 C 28 6, 16 15, 3 28', tip: [3, 28] },
       }),
       h(Callout, {
         bg, mark: 'l-theanine', label: '200mg L-Theanine',
         at: { top: '45%', left: '4%' },
-        arrow: { w: 34, h: 26, at: { left: 170, top: 22 }, d: 'M0 4 C 12 4, 22 10, 32 21', tip: [32, 21] },
+        arrow: { w: 40, h: 30, at: { left: 206, top: 22 }, d: 'M0 4 C 14 4, 26 11, 38 25', tip: [38, 25] },
       }),
       h(Callout, {
         bg, mark: 'lions-mane', label: '500mg Lion’s Mane',
         at: { top: '62%', right: '5%' },
-        arrow: { w: 40, h: 30, at: { right: 154, top: 14 }, d: 'M40 22 C 26 19, 14 13, 2 5', tip: [2, 5] },
+        arrow: { w: 48, h: 36, at: { right: 212, top: 10 }, d: 'M48 30 C 32 26, 18 16, 3 4', tip: [3, 4] },
       }),
 
       // The photograph leaves a clear band of cream under the last leaf —
@@ -143,7 +143,7 @@ function ThreeIngredients({ shopHref = '#' }) {
       line1: 'Yerba mate,', line2: 'the foundation.',
       bullets: [
         'Clean, sustained energy',
-        'No spike, no crash',
+        'No spike, no jitters, no crash',
         'Rich in antioxidants',
         'Certified organic',
       ],
@@ -153,9 +153,10 @@ function ThreeIngredients({ shopHref = '#' }) {
       bg, src: IMG.lionsMane,
       line1: 'Lion’s Mane,', line2: 'for a clear head.',
       bullets: [
-        'Focus and mental clarity',
+        'Focus',
+        'Mental clarity',
+        'Concentration',
         'Cognitive support',
-        'A full 500mg dose',
       ],
     }),
 
@@ -163,9 +164,9 @@ function ThreeIngredients({ shopHref = '#' }) {
       bg, src: IMG.theanine,
       line1: 'L-Theanine,', line2: 'what balances it all.',
       bullets: [
-        'Balances the whole cup',
-        'Smooth and calm, never sharp',
-        'No jitters',
+        'Balanced and calm',
+        'Balances the whole experience',
+        'Smooth, never sharp',
         'Found naturally in tea leaves',
       ],
     }),
@@ -187,11 +188,7 @@ function ThreeIngredients({ shopHref = '#' }) {
         '90 cal', '3g sugar', 'Dairy-free', 'Ready in 30 seconds',
       ]}),
       h('div', { style: { height: 26 } }),
-      h(M.Button, { bg, label: 'Shop now', href: shopHref, size: 'lg' }),
-      h('div', { style: {
-        fontFamily: M.fontStack, fontWeight: 700, fontSize: 11, letterSpacing: '0.18em',
-        textTransform: 'uppercase', color: M.onBg[bg].accent, marginTop: 16,
-      } }, '$29.99 · $2.00 a serving')
+      h(M.Button, { bg, label: 'Shop now', href: shopHref, size: 'lg' })
     ),
 
     h(M.Footer, { bg, social: SOCIAL, rule: false })

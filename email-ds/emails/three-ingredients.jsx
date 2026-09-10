@@ -54,12 +54,12 @@ function Callout({ bg, mark, label, at, arrow }) {
       position: 'relative', zIndex: 2,
       display: 'inline-flex', alignItems: 'center', gap: 9,
       background: 'rgba(255,253,247,0.94)',
-      borderRadius: 999, padding: '5px 15px 5px 5px',
+      borderRadius: 999, padding: '4px 13px 4px 4px',
       boxShadow: '0 3px 14px rgba(60,44,20,0.20)',
     } },
-      h(M.IconBadge, { mark, bg, size: 38, fill: GOLD, ink: 'forest' }),
+      h(M.IconBadge, { mark, bg, size: 34, fill: GOLD, ink: 'forest' }),
       h('span', { style: {
-        fontFamily: M.fontStack, fontWeight: 900, fontSize: 11, letterSpacing: '0.07em',
+        fontFamily: M.fontStack, fontWeight: 900, fontSize: 10.5, letterSpacing: '0.06em',
         textTransform: 'uppercase', color: FOREST, lineHeight: 1.2, whiteSpace: 'nowrap',
       } }, label)
     )
@@ -103,29 +103,24 @@ function ThreeIngredients({ shopHref = '#' }) {
           h(M.Logo, { tone: 'green', variant: 'primary', size: 54 })
         ),
         h('div', { style: { height: 18 } }),
-        h('div', { style: {
-          fontFamily: M.fontStack, fontWeight: 700, fontSize: 11.5, letterSpacing: '0.2em',
-          textTransform: 'uppercase', color: FOREST, textAlign: 'left',
-        } }, 'Three functional ingredients'),
-        h('div', { style: { height: 12 } }),
         h(M.Headline, { bg, line1: 'Everything your', line2: 'mornings need.', size: 38, align: 'left' })
       ),
 
       // Each callout sits in clear cream; the arrow does the pointing.
       h(Callout, {
         bg, mark: 'yerba-mate', label: '100mg Yerba Mate',
-        at: { top: '31%', right: '5%' },
-        arrow: { w: 46, h: 34, at: { right: 202, top: 26 }, d: 'M46 3 C 28 6, 16 15, 3 28', tip: [3, 28] },
+        at: { top: '30%', right: '3%' },
+        arrow: { w: 46, h: 46, at: { right: 158, top: 24 }, d: 'M46 2 C 30 10, 16 24, 3 42', tip: [3, 42] },
       }),
       h(Callout, {
         bg, mark: 'l-theanine', label: '200mg L-Theanine',
-        at: { top: '45%', left: '4%' },
-        arrow: { w: 40, h: 30, at: { left: 206, top: 22 }, d: 'M0 4 C 14 4, 26 11, 38 25', tip: [38, 25] },
+        at: { top: '45%', left: '3%' },
+        arrow: { w: 40, h: 26, at: { left: 158, top: 20 }, d: 'M0 2 C 14 2, 26 9, 38 23', tip: [38, 23] },
       }),
       h(Callout, {
         bg, mark: 'lions-mane', label: '500mg Lion’s Mane',
-        at: { top: '62%', right: '5%' },
-        arrow: { w: 48, h: 36, at: { right: 212, top: 10 }, d: 'M48 30 C 32 26, 18 16, 3 4', tip: [3, 4] },
+        at: { top: '63%', right: '3%' },
+        arrow: { w: 44, h: 40, at: { right: 158, top: -14 }, d: 'M44 38 C 30 32, 16 20, 3 3', tip: [3, 3] },
       }),
 
       // The photograph leaves a clear band of cream under the last leaf —

@@ -41,10 +41,33 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-08 | Blocks | Ingredient rows have a quiet variant: **ring icons and the dose in the title** ("LION'S MANE · 500MG"), rows separated by hairlines. Use it when the copy is doing the work; filled discs when the row should shout | Ported |
 | 2026-09-08 | Type | Sizes come from a **documented type scale** and spacing from an **8px grid** — pick the nearest step rather than a number that looked right | Ported |
 | 2026-09-08 | Export | Review every design under a **fake inbox row** showing the subject line and preview text. A design judged alone always looks better than it performs | Ported |
+| 2026-09-10 | Background | The education act can invert the page — a dark green band on a cream email (or the reverse) marking the middle act as its own chapter. Both edges must land on a row where the page colour is already flat, never mid-content | Bernat |
+| 2026-09-10 | Colour | **On dark green, gold titles take white pills, not gold ones.** Gold pills under a gold title collapse into one gold mass | Bernat |
+| 2026-09-10 | Export | When an email has a colour band, cut the Klaviyo images **on the colour edges** rather than hunting for a flat row — each image then carries one flat background at its boundary and the seam cannot show | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-10 — the inverted education band.** Bernat asked to "reverse the colours" on the middle
+section of the ingredients email: dark green ground, gold titles, white benefit pills. Applied to
+all three ingredient blocks plus the "Discover more" CTA that closes them, so the band is one
+continuous chapter rather than three stripes.
+
+Two things came out of it that are system-level, not campaign-level. First, gold pills under a
+gold title on green do not work — at pill size the two golds sit within a few points of each other
+and the eye reads a single gold shape, so the benefits stop being scannable. White pills with dark
+green type keep the stamped look and restore the hierarchy; `SpecPills` gained a `white` variant
+for it. Second, the band's two colour edges are the natural cut lines for the Klaviyo export —
+better than the flat-row search, which is a way of *finding* an invisible seam when a hard edge is
+already there to *be* one.
+
+**Note on the "one flat background per email" rule.** This is the second sanctioned transition
+(the first being the forest canopy), and it is a hard edge rather than a scene, which that rule
+warns against. It works here because both edges land in already-flat cream and because the band
+maps exactly onto one act of the email. `references/design-system.md` §2 is now narrower than
+what memory allows; the reference should be updated to describe both kinds of transition.
+
 
 **2026-09-08 — ported from the previous Milonga email system.** Bernat sent the old design
 system (the cannabis/Lion's Mane can line) and asked for anything that fits. Taken: the two-line

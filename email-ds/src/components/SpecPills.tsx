@@ -13,9 +13,10 @@ export interface SpecPillsProps {
    * `outline` is a hairline ring (quiet, the default), `solid` fills them in
    * the background's own raised tone, and `gold` fills them in brand gold with
    * dark green type — the loudest, and the one that reads as a stamp of fact
-   * rather than a label.
+   * rather than a label. `white` is the same stamp inverted for dark green
+   * backgrounds, where gold pills have to compete with gold titles.
    */
-  variant?: 'outline' | 'solid' | 'gold';
+  variant?: 'outline' | 'solid' | 'gold' | 'white';
   size?: number;
 }
 
@@ -39,11 +40,15 @@ export function SpecPills({
 }: SpecPillsProps) {
   const t = onBg[bg];
   const gold = variant === 'gold';
+  const white = variant === 'white';
   const solid = variant === 'solid';
   const raised = useBlockFill(bg, t.elevated);
-  const fill = gold ? colors.gold : solid ? raised : 'transparent';
-  const ink = gold ? colors.forest : t.accent;
-  const edge = gold ? colors.gold : solid ? t.rule : t.outline;
+  // Gold and white are the two stamped variants — a filled pill with dark green
+  // type. They carry the button shadow, so they read as pressed into the page.
+  const stamped = gold || white;
+  const fill = gold ? colors.gold : white ? colors.white : solid ? raised : 'transparent';
+  const ink = stamped ? colors.forest : t.accent;
+  const edge = gold ? colors.gold : white ? colors.white : solid ? t.rule : t.outline;
   return (
     <div style={{ textAlign: align, fontSize: 0 }}>
       {items.map((label) => (
@@ -53,7 +58,7 @@ export function SpecPills({
             display: 'inline-block',
             background: fill,
             border: `1px solid ${edge}`,
-            boxShadow: gold ? t.btnShadow : undefined,
+            boxShadow: stamped ? t.btnShadow : undefined,
             borderRadius: 999,
             padding: '8px 15px',
             margin: '0 5px 8px',

@@ -29,6 +29,11 @@ const SOCIAL = [
 const GOLD = '#E3BC62';
 const FOREST = '#004D27';
 
+// The education act inverts the email: dark green ground, gold titles, white
+// pills. `INK` is that band's background, so every block inside it reads the
+// contrast map for dark green rather than for the cream page.
+const INK = 'forest';
+
 // A callout pinned over the hero: the mark and its dose ride in a cream pill
 // with a hairline arrow running back toward the product. The pill matters —
 // a label sitting straight on a photograph is legible over cream and invisible
@@ -67,6 +72,10 @@ function Callout({ bg, mark, label, at, arrow }) {
 }
 
 // One ingredient: photograph on the left, the case for it on the right.
+// The education act runs on dark green — the inverse of the cream the rest of
+// the email sits on — so the three ingredients read as one chapter rather than
+// as more of the same page. Titles gold, benefit pills white: on green, gold
+// pills under a gold title flatten into a single gold mass.
 function Ingredient({ bg, src, line1, line2, bullets }) {
   return h(M.Section, { bg, pad: 'lg' },
     h('div', { style: { display: 'flex', gap: 20, alignItems: 'flex-start' } },
@@ -74,9 +83,9 @@ function Ingredient({ bg, src, line1, line2, bullets }) {
         h(M.ImageSlot, { bg, src, cutout: true, ratio: 'square', alt: line1 })
       ),
       h('div', { style: { flex: 1 } },
-        h(M.Headline, { bg, line1, line2, size: 22, align: 'left' }),
+        h(M.Headline, { bg, line1, line2, size: 22, align: 'left', color: GOLD }),
         h('div', { style: { height: 16 } }),
-        h(M.SpecPills, { bg, items: bullets, variant: 'gold', align: 'left', size: 11 })
+        h(M.SpecPills, { bg, items: bullets, variant: 'white', align: 'left', size: 11 })
       )
     )
   );
@@ -136,8 +145,12 @@ function ThreeIngredients({ shopHref = '#' }) {
     ),
 
     // ═══ ACT 2 · BODY — one block per ingredient, photo on the left ═══
+    // The band is dark green from the first ingredient through the CTA that
+    // closes them. Both of its edges land where the cream is already flat, so
+    // the colour change reads as the chapter break it is — and it is also
+    // exactly where the Klaviyo export is cut.
     h(Ingredient, {
-      bg, src: IMG.mate,
+      bg: INK, src: IMG.mate,
       line1: 'Yerba mate,', line2: 'the foundation.',
       bullets: [
         'Clean, sustained energy',
@@ -148,7 +161,7 @@ function ThreeIngredients({ shopHref = '#' }) {
     }),
 
     h(Ingredient, {
-      bg, src: IMG.lionsMane,
+      bg: INK, src: IMG.lionsMane,
       line1: 'Lion’s Mane,', line2: 'for a clear head.',
       bullets: [
         'Focus',
@@ -159,7 +172,7 @@ function ThreeIngredients({ shopHref = '#' }) {
     }),
 
     h(Ingredient, {
-      bg, src: IMG.theanine,
+      bg: INK, src: IMG.theanine,
       line1: 'L-Theanine,', line2: 'what balances it all.',
       bullets: [
         'Balanced and calm',
@@ -172,8 +185,8 @@ function ThreeIngredients({ shopHref = '#' }) {
     // Having read all three, the reader is ready for a second ask. The padding
     // is deliberately lopsided — the button belongs to the ingredients above it,
     // so it sits tight under them and keeps its distance from the photo below.
-    h('div', { style: { padding: '0 30px 30px', textAlign: 'center' } },
-      h(M.Button, { bg, label: 'Discover more', href: shopHref, size: 'md' })
+    h('div', { style: { background: FOREST, padding: '4px 30px 40px', textAlign: 'center' } },
+      h(M.Button, { bg: INK, label: 'Discover more', href: shopHref, size: 'md' })
     ),
 
     h('img', {

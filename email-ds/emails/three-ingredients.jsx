@@ -8,7 +8,7 @@ const h = React.createElement;
 
 const IMG = {
   flatlay: '../public/product/flatlay-ingredients.jpg',
-  handPour: '../public/product/pouch-hand-pour-big.png',
+  mindBody: '../public/product/mind-body-connected.jpg',
   mate: '../public/product/ing-yerba-mate.png',
   lionsMane: '../public/product/ing-lions-mane.png',
   theanine: '../public/product/ing-theanine.png',
@@ -162,24 +162,20 @@ function ThreeIngredients({ shopHref = '#' }) {
       ],
     }),
 
-    // How the three come together.
-    h(M.Section, { bg, pad: 'lg', rule: true },
-      h(M.Headline, { bg, line1: 'Separately, ingredients.', line2: 'Together, the point.', size: 26, align: 'left' }),
-      h('div', { style: { height: 18 } }),
-      h('p', { style: {
-        fontFamily: M.fontStack, fontSize: 14, lineHeight: 1.75, margin: 0, color: '#000000',
-      } }, 'The mate lifts. The L-Theanine keeps the lift even. The Lion’s Mane is there for the part of the morning that actually asks you to think. And it all tastes like a vanilla latte.'),
-      h('div', { style: { height: 22 } }),
-      h(M.SpecPills, { bg, variant: 'gold', align: 'left', items: [
+    // The numbers, then the picture that says what the numbers add up to.
+    h(M.Section, { bg, pad: 'lg', align: 'center' },
+      h(M.SpecPills, { bg, variant: 'gold', align: 'center', items: [
         '90 cal', '3g sugar', 'Dairy-free', 'Ready in 30 seconds',
       ]})
     ),
 
-    // ═══ ACT 3 · CTA ═══
-    h(M.BleedImage, {
-      bg, src: IMG.handPour, side: 'right', width: 0.94, overhang: 20,
-      alt: 'A scoop of Milonga poured into a glass',
+    h('img', {
+      src: IMG.mindBody,
+      alt: 'A Milonga stick poured into a glass of Mate Latte — mind and body connected',
+      style: { display: 'block', width: '100%', height: 'auto', border: 0 },
     }),
+
+    // ═══ ACT 3 · CTA ═══
     h(M.Section, { bg, pad: 'lg', align: 'center' },
       h(M.Headline, { bg, line1: 'Taste the three.', line2: 'Fifteen mornings a bag.', size: 26, align: 'center' }),
       h('div', { style: { height: 22 } }),

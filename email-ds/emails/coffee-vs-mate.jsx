@@ -14,7 +14,7 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  pouch: '../public/product/pouch-botanical.png',
+  pouch: '../public/product/pouch-solo.png',
   coffee: '../public/product/coffee-cup.png',
 };
 
@@ -77,9 +77,11 @@ function CoffeeVsMate({ shopHref = '#' }) {
       h(M.CompareRows, {
         bg, rows: ROWS,
         ourName: 'Mate Latte', theirName: 'Coffee',
-        // Both column heads are photographs in the same 200px box, each
-        // trimmed of its transparent margin so they fill it equally. Matching
-        // the treatment is the point: the comparison has to look fair for the
+        // Both column heads are photographs in the same 200px box. The pouch
+        // is cropped out of its botanical composition first: in the full shot
+        // the product is under half the frame's width, so at equal box sizes
+        // the cup looked bigger than the thing we are selling. Matching the
+        // treatment is the point — the comparison has to look fair for the
         // gold column to read as a win rather than as staging.
         ourArt: h('img', {
           src: IMG.pouch, alt: '',

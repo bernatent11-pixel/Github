@@ -44,10 +44,37 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-10 | Background | The education act can invert the page — a dark green band on a cream email (or the reverse) marking the middle act as its own chapter. Both edges must land on a row where the page colour is already flat, never mid-content | Bernat |
 | 2026-09-10 | Colour | **On dark green, titles are white and benefit pills gold.** Gold then means one thing across the whole email — the pills in an inverted band match the spec pills in the closing act, so the email reads as one system | Bernat, chose it over gold titles with white pills |
 | 2026-09-10 | Export | When an email has a colour band, cut the Klaviyo images **on the colour edges** rather than hunting for a flat row — each image then carries one flat background at its boundary and the seam cannot show | Bernat |
+| 2026-09-15 | Blocks | **Milonga has customer reviews now.** Five so far, all five stars, on Judge.me. Testimonial blocks are allowed — using real, verified quotes only. Trim for length, never reword | Bernat |
+| 2026-09-15 | Export | **Testimonial cards ship as live text, never a flattened image.** The old image-only testimonial block took about a third of the clicks of the campaigns around it, and an all-image email is unreadable with images off | Bernat |
+| 2026-09-15 | Blocks | **Comparison block** — one rounded row per attribute, our column filled gold, theirs a hairline outline. The colour carries the argument before a word is read. Where a competitor figure can't be sourced, an em dash beats a plausible number | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-15 — reviews exist, and the no-social-proof rule is retired.** Bernat supplied five
+Judge.me reviews with names, all five stars. This **supersedes the standing prohibition** that ran
+through the product file, `references/design-system.md` §"What this skill will not do" and every
+prior campaign: *"No social proof yet — no reviews, ratings, testimonials or customer counts. Do
+not invent any."* The ban on *inventing* social proof stands and always will; what has changed is
+that there is now real proof to use. **Both reference files are knowingly stale on this point and
+should be updated** — the product file's "Not yet available" section and the skill's claim list.
+
+**Two open items carried into the build, neither resolved by me.** First, Bernat asked that each
+quote be checked word for word against Judge.me before sending and said he could not reopen the
+page; I have no access to it, so the five quotes are transcribed exactly as he supplied them and
+remain **unverified against source**. Second, the review excerpts are trimmed because four of the
+five full reviews contain wording the voice rules ban from anything a customer sees — "game
+changer", "caffeine boost", "addiction", and a teeth-staining line that reads as a health claim.
+Trimming rather than rewording is the right call and is now the rule.
+
+**2026-09-15 — live text beat the picture.** The testimonial section ships as a pasted HTML block
+rather than part of the image export. This is the first Milonga campaign that is not entirely
+images, and it is a deliberate break from *"Campaigns ship to Klaviyo as two stacked images"* —
+that rule still holds for everything else in this email. Two visible costs, both accepted: Gotham
+falls back to Montserrat (already the system's documented email fallback, so this is on-system,
+not a compromise), and the paper grain is dropped for a flat #004D27 of the identical hue.
+Outlook squares the card corners; that is the floor.
 
 **2026-09-10 — "Memory" approved as a Lion's Mane benefit.** Logged so it is not quietly
 substituted again. Earlier in this campaign Bernat asked for "memory" and it was swapped for

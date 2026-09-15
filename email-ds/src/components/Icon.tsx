@@ -12,7 +12,8 @@ export type IconName =
   | 'cross'
   | 'star'
   | 'scoop'
-  | 'whisk';
+  | 'whisk'
+  | 'coffee';
 
 export interface IconProps {
   /** Which glyph to draw. */
@@ -27,6 +28,16 @@ export interface IconProps {
 const PATHS: Record<IconName, React.ReactNode> = {
   leaf: <path d="M20 4C9 5 4 12 4 20c6 .3 10-1 13-4 2.2-2.2 3-6 3-12Zm-9 13c2.5-3 5-5 8-6" />,
   bolt: <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" />,
+  // A cup with a handle and two curls of steam. Drawn in the same hairline
+  // weight as the rest of the set so it sits beside a product cutout without
+  // reading as clip art.
+  coffee: (
+    <>
+      <path d="M4 9h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z" />
+      <path d="M17 10.5h1.6a2.6 2.6 0 0 1 0 5.2H17" />
+      <path d="M8 2.5c-.9 1.2-.9 2.1 0 3.3M12.5 2.5c-.9 1.2-.9 2.1 0 3.3" />
+    </>
+  ),
   brain: (
     <path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 2 5 3 3 0 0 0 5 1V4.5A2.5 2.5 0 0 0 9 4Zm6 0a2.5 2.5 0 0 0-2 .5V18a3 3 0 0 0 5-1 3 3 0 0 0 2-5 3 3 0 0 0-1-5 3 3 0 0 0-3-3Z" />
   ),

@@ -15,6 +15,14 @@ export interface Review {
 export interface ReviewCardProps {
   review: Review;
   bg?: EmailBg;
+  /**
+   * Force a fixed height so a row of cards is optically equal. Used by the
+   * `grid` layout, where ragged card heights read as a mistake rather than as
+   * reviews of different lengths.
+   */
+  height?: number;
+  /** Quote size. The grid runs smaller than a full-width stack. */
+  size?: number;
 }
 
 /**
@@ -29,7 +37,7 @@ export interface ReviewCardProps {
  * The quote is set in italic at a size that survives a phone, and the name sits
  * under it in small caps so the eye lands on the words before the attribution.
  */
-export function ReviewCard({ review, bg = 'forest' }: ReviewCardProps) {
+export function ReviewCard({ review, bg = 'forest', height, size = 14.5 }: ReviewCardProps) {
   const t = onBg[bg];
   const stars = review.stars ?? 5;
   return (
@@ -37,10 +45,13 @@ export function ReviewCard({ review, bg = 'forest' }: ReviewCardProps) {
       style={{
         background: colors.gold,
         borderRadius: 16,
-        padding: '20px 22px',
+        padding: height ? '18px 18px' : '20px 22px',
         boxShadow: t.shadowLg,
         // The lit top edge — the card catches light rather than lying flat.
         borderTop: `1px solid rgba(255,255,255,0.45)`,
+        ...(height
+          ? { height, boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }
+          : null),
       }}
     >
       <div style={{ fontSize: 0, marginBottom: 11 }}>
@@ -55,9 +66,12 @@ export function ReviewCard({ review, bg = 'forest' }: ReviewCardProps) {
           fontFamily: fontStack,
           fontStyle: 'italic',
           fontWeight: 500,
-          fontSize: 14.5,
-          lineHeight: 1.5,
+          fontSize: size,
+          lineHeight: 1.45,
           color: colors.forest,
+          // In a fixed-height card the quote takes the slack so the name is
+          // pinned to the bottom edge and every attribution lines up.
+          ...(height ? { flex: 1 } : null),
         }}
       >
         {review.quote}
@@ -85,10 +99,37 @@ export interface ReviewsProps {
   bg?: EmailBg;
   /** Space between cards, in px. */
   gap?: number;
+  /**
+   * `stack` is one full-width card per row — best when the quotes are long or
+   * uneven. `grid` is two equal square cards per row: tidier, and the right
+   * choice when there are enough reviews that a stack would run for a screen
+   * and a half. In `grid` every card is the same height, so the longest quote
+   * sets it for all of them.
+   */
+  layout?: 'stack' | 'grid';
+  /** Card height in `grid`. Square at the default two-up column width. */
+  cardHeight?: number;
 }
 
-/** A stack of review cards. */
-export function Reviews({ reviews, bg = 'forest', gap = 14 }: ReviewsProps) {
+/** Review cards, stacked full width or squared off two to a row. */
+export function Reviews({
+  reviews,
+  bg = 'forest',
+  gap = 14,
+  layout = 'stack',
+  cardHeight = 248,
+}: ReviewsProps) {
+  if (layout === 'grid') {
+    return (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap }}>
+        {reviews.map((r) => (
+          <div key={r.name} style={{ flex: `0 0 calc(50% - ${gap / 2}px)`, width: `calc(50% - ${gap / 2}px)` }}>
+            <ReviewCard review={r} bg={bg} height={cardHeight} size={12.5} />
+          </div>
+        ))}
+      </div>
+    );
+  }
   return (
     <div>
       {reviews.map((r, i) => (

@@ -46,7 +46,10 @@ export function CompareRows({
   theirArt,
 }: CompareRowsProps) {
   const t = onBg[bg];
-  const LABEL = 78;
+  // Narrow label gutter and a capped width: the table reads as one centred
+  // object rather than a full-bleed spreadsheet.
+  const LABEL = 66;
+  const MAXW = 512;
 
   const head: React.CSSProperties = {
     fontFamily: fontStack,
@@ -63,18 +66,18 @@ export function CompareRows({
     fontSize: 11.5,
     lineHeight: 1.35,
     borderRadius: 999,
-    padding: '11px 15px',
+    padding: '10px 13px',
     textAlign: 'center',
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: MAXW, margin: '0 auto' }}>
       {/* Column heads — art, then the name. */}
-      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
         <div style={{ flex: `0 0 ${LABEL}px`, width: LABEL }} />
         <div style={{ flex: 1, textAlign: 'center' }}>
           {ourArt}
-          <div style={{ ...head, color: colors.gold, marginTop: 8 }}>{ourName}</div>
+          <div style={{ ...head, color: t.accent, marginTop: 8 }}>{ourName}</div>
         </div>
         <div style={{ flex: 1, textAlign: 'center' }}>
           {theirArt}
@@ -87,7 +90,7 @@ export function CompareRows({
       {rows.map((r) => (
         <div
           key={r.label}
-          style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}
         >
           <div
             style={{
@@ -95,8 +98,8 @@ export function CompareRows({
               width: LABEL,
               fontFamily: fontStack,
               fontWeight: 900,
-              fontSize: 9.5,
-              letterSpacing: '0.1em',
+              fontSize: 9,
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
               color: t.accent,
               lineHeight: 1.25,

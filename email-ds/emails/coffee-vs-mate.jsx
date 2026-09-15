@@ -77,17 +77,17 @@ function CoffeeVsMate({ shopHref = '#' }) {
       h(M.CompareRows, {
         bg, rows: ROWS,
         ourName: 'Mate Latte', theirName: 'Coffee',
-        // Both column heads are photographs in the same 168px box, each
+        // Both column heads are photographs in the same 200px box, each
         // trimmed of its transparent margin so they fill it equally. Matching
         // the treatment is the point: the comparison has to look fair for the
         // gold column to read as a win rather than as staging.
         ourArt: h('img', {
           src: IMG.pouch, alt: '',
-          style: { display: 'block', width: 168, height: 168, objectFit: 'contain', margin: '0 auto' },
+          style: { display: 'block', width: 200, height: 200, objectFit: 'contain', margin: '0 auto' },
         }),
         theirArt: h('img', {
           src: IMG.coffee, alt: '',
-          style: { display: 'block', width: 168, height: 168, objectFit: 'contain', margin: '0 auto' },
+          style: { display: 'block', width: 200, height: 200, objectFit: 'contain', margin: '0 auto' },
         }),
       })
     ),

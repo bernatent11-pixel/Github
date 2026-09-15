@@ -15,6 +15,7 @@ const h = React.createElement;
 
 const IMG = {
   pouch: '../public/product/pouch-botanical.png',
+  coffee: '../public/product/coffee-cup.png',
 };
 
 const SOCIAL = [
@@ -83,15 +84,18 @@ function CoffeeVsMate({ shopHref = '#' }) {
       h(M.CompareRows, {
         bg, rows: ROWS,
         ourName: 'Mate Latte', theirName: 'Coffee',
-        // Both column heads occupy the same 128px box so neither side looks
-        // favoured by size — the gold does the arguing, not the scale.
+        // Both column heads are photographs in the same 128px box, each
+        // trimmed of its transparent margin so they fill it equally. Matching
+        // the treatment is the point: the comparison has to look fair for the
+        // gold column to read as a win rather than as staging.
         ourArt: h('img', {
           src: IMG.pouch, alt: '',
           style: { display: 'block', width: 128, height: 128, objectFit: 'contain', margin: '0 auto' },
         }),
-        theirArt: h('div', {
-          style: { width: 128, height: 128, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-        }, h(M.Icon, { name: 'coffee', size: 86, color: 'rgba(0,77,39,0.42)' })),
+        theirArt: h('img', {
+          src: IMG.coffee, alt: '',
+          style: { display: 'block', width: 128, height: 128, objectFit: 'contain', margin: '0 auto' },
+        }),
       })
     ),
 

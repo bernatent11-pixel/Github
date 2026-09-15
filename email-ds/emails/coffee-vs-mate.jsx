@@ -38,41 +38,9 @@ const ROWS = [
   { label: 'Also', ours: 'Dairy-free, no artificial sweeteners, 90 cal, 3g sugar', theirs: '—' },
 ];
 
-// The five Judge.me reviews, verbatim except where a phrase on the banned list
-// had to come out. Three needed a cut and each one is a whole clause removed at
-// a sentence boundary — nothing is reworded, and nothing is paraphrased:
-//   Francisco T — "while still giving me the clean caffeine boost I need"
-//   Sam A.      — "This is definitely a game changer."
-//   Sam         — "This has been such a game changer for getting my caffeine
-//                  in every day."
-// Bryant and Manuela Jurado are untouched.
-const REVIEWS = [
-  {
-    name: 'Bryant',
-    title: 'I’m speechless with the mate latte',
-    quote: '“The taste was what sold me first. It’s creamy, lightly sweet, and has a really nice vanilla flavor without tasting like an overly sugary coffee drink. It only has 90 calories and less than 3g of sugar per scoop. That’s crazy! The energy and focus is a bonus. I feel awake and productive, especially during busy mornings. Compared with other functional coffees I’ve tried, this one is much easier to drink consistently.”',
-  },
-  {
-    name: 'Francisco T.',
-    title: 'I love the mate latte!!',
-    quote: '“Finally, a coffee alternative that doesn’t taste like I’m forcing myself to drink something “healthy.” The Mate Latte is genuinely enjoyable. It’s creamy, smooth, and easy to make… I also like that the formula includes ingredients like Lion’s Mane and L-theanine for focus and staying calm.”',
-  },
-  {
-    name: 'Manuela Jurado',
-    title: 'So gooood!',
-    quote: '“The biggest thing I noticed is how I feel afterward. With coffee, I sometimes feel like I need another one a few hours later. With the Mate Latte, I feel like I get a steady boost that carries me through what I’m doing without constantly thinking about my next caffeine fix.”',
-  },
-  {
-    name: 'Sam A.',
-    title: 'New caffeine fix!',
-    quote: '“…I used to drink coffee lattes almost every day but it was highly acidic, but this has kinda made me feel like it’s a coffee latte without the acidity from coffee. 10/10”',
-  },
-  {
-    name: 'Sam',
-    title: 'Love This Product!',
-    quote: '“…Tastes super clean and doesn’t give me any jitters or crash afterwards. I also love how easy and quick it is to make!!”',
-  },
-];
+// The reviews live in coffee-vs-mate-reviews.js — one source of truth shared
+// with the live-text Klaviyo export. See that file for what was trimmed.
+const REVIEWS = window.COFFEE_VS_MATE_REVIEWS;
 
 function CoffeeVsMate({ shopHref = '#' }) {
   const bg = 'beige';
@@ -137,7 +105,7 @@ function CoffeeVsMate({ shopHref = '#' }) {
       h('div', { style: para }, 'Real reviews from real customers, straight from our product page.'),
       h('div', { style: { height: 26 } }),
       h('div', { style: { textAlign: 'left' } },
-        h(M.Reviews, { bg, reviews: REVIEWS, layout: 'grid', cardHeight: 330, gap: 14 })
+        h(M.Reviews, { bg, reviews: REVIEWS, layout: 'grid', gap: 14 })
       ),
       h('div', { style: { height: 30 } }),
       h(M.Button, { bg, label: 'Get my better morning', href: shopHref, size: 'lg' })

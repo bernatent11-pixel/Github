@@ -22,11 +22,12 @@ export interface ReviewCardProps {
   review: Review;
   bg?: EmailBg;
   /**
-   * Force a fixed height so a row of cards is optically equal. Used by the
-   * `grid` layout, where ragged card heights read as a mistake rather than as
-   * reviews of different lengths.
+   * Fill the height of the row the card sits in, pinning the name to the
+   * bottom edge. Used by the `grid` layout so two cards side by side match
+   * each other without a hard-coded height that goes stale when a quote is
+   * edited.
    */
-  height?: number;
+  stretch?: boolean;
   /** Quote size. The grid runs smaller than a full-width stack. */
   size?: number;
 }
@@ -43,7 +44,7 @@ export interface ReviewCardProps {
  * The quote is set in italic at a size that survives a phone, and the name sits
  * under it in small caps so the eye lands on the words before the attribution.
  */
-export function ReviewCard({ review, bg = 'forest', height, size = 14.5 }: ReviewCardProps) {
+export function ReviewCard({ review, bg = 'forest', stretch = false, size = 14.5 }: ReviewCardProps) {
   const t = onBg[bg];
   const stars = review.stars ?? 5;
   return (
@@ -51,12 +52,12 @@ export function ReviewCard({ review, bg = 'forest', height, size = 14.5 }: Revie
       style={{
         background: colors.gold,
         borderRadius: 16,
-        padding: height ? '18px 18px' : '20px 22px',
+        padding: stretch ? '18px' : '20px 22px',
         boxShadow: t.shadowLg,
         // The lit top edge — the card catches light rather than lying flat.
         borderTop: `1px solid rgba(255,255,255,0.45)`,
-        ...(height
-          ? { height, boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }
+        ...(stretch
+          ? { height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }
           : null),
       }}
     >
@@ -72,7 +73,7 @@ export function ReviewCard({ review, bg = 'forest', height, size = 14.5 }: Revie
           style={{
             fontFamily: fontStack,
             fontWeight: 900,
-            fontSize: height ? 12.5 : 14,
+            fontSize: stretch ? 12.5 : 14,
             lineHeight: 1.25,
             color: colors.forest,
             marginBottom: 7,
@@ -91,7 +92,7 @@ export function ReviewCard({ review, bg = 'forest', height, size = 14.5 }: Revie
           color: colors.forest,
           // In a fixed-height card the quote takes the slack so the name is
           // pinned to the bottom edge and every attribution lines up.
-          ...(height ? { flex: 1 } : null),
+          ...(stretch ? { flex: 1 } : null),
         }}
       >
         {review.quote}
@@ -127,8 +128,6 @@ export interface ReviewsProps {
    * sets it for all of them.
    */
   layout?: 'stack' | 'grid';
-  /** Card height in `grid`. Square at the default two-up column width. */
-  cardHeight?: number;
 }
 
 /** Review cards, stacked full width or squared off two to a row. */
@@ -137,33 +136,42 @@ export function Reviews({
   bg = 'forest',
   gap = 14,
   layout = 'stack',
-  cardHeight = 248,
 }: ReviewsProps) {
   if (layout === 'grid') {
-    // An odd count leaves a half-empty row. Rather than let one card sit at
-    // column width with a void under it, the last one runs full width and
-    // sizes to its own text — it reads as a closing quote instead of a gap.
-    const odd = reviews.length % 2 === 1;
+    // Cards are equalised PER ROW, not across the whole grid — which is what
+    // the shipped HTML table does for free, and the only version that doesn't
+    // leave a void under a short pair. `alignItems: stretch` makes the shorter
+    // card in a pair grow to its partner; `flex: 1` on the quote then pushes
+    // every name down to the bottom edge so the attributions line up.
+    const rows: Review[][] = [];
+    for (let i = 0; i < reviews.length; i += 2) rows.push(reviews.slice(i, i + 2));
     return (
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap, justifyContent: 'center' }}>
-        {reviews.map((r, i) => {
-          const last = odd && i === reviews.length - 1;
-          return (
-            <div
-              key={r.name}
-              style={
-                last
-                  ? { flex: '0 0 100%', width: '100%' }
-                  : { flex: `0 0 calc(50% - ${gap / 2}px)`, width: `calc(50% - ${gap / 2}px)` }
-              }
-            >
-              <ReviewCard review={r} bg={bg} height={last ? undefined : cardHeight} size={12.5} />
-            </div>
-          );
-        })}
+      <div>
+        {rows.map((row, ri) => (
+          <div
+            key={row[0].name}
+            style={{ display: 'flex', alignItems: 'stretch', gap, marginTop: ri === 0 ? 0 : gap }}
+          >
+            {row.map((r) => (
+              <div
+                key={r.name}
+                style={
+                  // A lone card on the last row runs full width rather than
+                  // leaving a hole beside it.
+                  row.length === 1
+                    ? { flex: '0 0 100%', width: '100%' }
+                    : { flex: `0 0 calc(50% - ${gap / 2}px)`, width: `calc(50% - ${gap / 2}px)` }
+                }
+              >
+                <ReviewCard review={r} bg={bg} stretch size={12.5} />
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     );
   }
+
   return (
     <div>
       {reviews.map((r, i) => (

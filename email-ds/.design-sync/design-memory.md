@@ -47,10 +47,31 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-15 | Blocks | **Milonga has customer reviews now.** Five so far, all five stars, on Judge.me. Testimonial blocks are allowed — using real, verified quotes only. Trim for length, never reword | Bernat |
 | 2026-09-15 | Export | **Testimonial cards ship as live text, never a flattened image.** The old image-only testimonial block took about a third of the clicks of the campaigns around it, and an all-image email is unreadable with images off | Bernat |
 | 2026-09-15 | Blocks | **Comparison block** — one rounded row per attribute, our column filled gold, theirs a hairline outline. The colour carries the argument before a word is read. Where a competitor figure can't be sourced, an em dash beats a plausible number | Bernat |
+| 2026-09-15 | Blocks | **Review cards carry the customer's own headline** above the quote. It gives every card a fixed top line, which is what stops a grid of equal cards reading half-empty when the quotes run to different lengths | Bernat |
+| 2026-09-15 | Blocks | Review cards go in a **two-up grid of equal-height cards**. An odd count runs the last card full width rather than leaving a hole beside it | Bernat |
+| 2026-09-15 | Colour | **On cream, gold is a fill and never type.** A gold cell or card with dark green type on it is the loudest thing on the page; gold type on cream measures about 1.5:1 and disappears. Extends the beige rule from titles to every element | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-15 — the five reviews went in trimmed, not whole.** Bernat asked for the full review in
+each card and then supplied five (not the six he expected). Three could not go in whole: Francisco
+T. and both Sams contain phrases on the voice ban list — "caffeine boost" once, "game changer"
+twice. Each cut removes one complete clause at a sentence boundary and nothing is reworded or
+paraphrased; Bryant and Manuela Jurado are untouched. The exact removals are listed in the email
+file so they can be reversed in one edit if Bernat overrules the ban.
+
+Two things he should know rather than discover: the fifth and sixth reviewers are both called Sam
+("Sam A." and "Sam"), which reads as a duplicate when their cards sit near each other, and every
+quote is still **unverified against Judge.me** — he asked for a word-for-word check, could not
+reopen the page, and I have no access to it.
+
+**Cream forced a colour correction.** `CompareRows` had gold hard-coded for its column head, which
+is invisible on cream. The beige rule in memory covered titles, eyebrows and subtitles; it now
+covers every element, and the distinction that matters is fill versus type. Gold fills are not
+just allowed on cream, they are the whole mechanism by which the comparison and the review cards
+read as loud.
 
 **2026-09-15 — reviews exist, and the no-social-proof rule is retired.** Bernat supplied five
 Judge.me reviews with names, all five stars. This **supersedes the standing prohibition** that ran

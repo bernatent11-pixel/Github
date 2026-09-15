@@ -6,6 +6,12 @@ import { Icon } from './Icon';
 export interface Review {
   /** The customer's name as it appears on the review, e.g. "Jose P." */
   name: string;
+  /**
+   * The review's own headline, as the customer wrote it. Worth carrying: it
+   * gives every card a fixed top line, which is what stops a grid of equal
+   * cards looking half-empty when the quotes run to different lengths.
+   */
+  title?: string;
   /** The quote. Trim for length if you must; never reword a customer. */
   quote: string;
   /** Out of five. Defaults to five — pass a real number, never a flattering one. */
@@ -61,6 +67,20 @@ export function ReviewCard({ review, bg = 'forest', height, size = 14.5 }: Revie
           </span>
         ))}
       </div>
+      {review.title ? (
+        <div
+          style={{
+            fontFamily: fontStack,
+            fontWeight: 900,
+            fontSize: height ? 12.5 : 14,
+            lineHeight: 1.25,
+            color: colors.forest,
+            marginBottom: 7,
+          }}
+        >
+          {review.title}
+        </div>
+      ) : null}
       <div
         style={{
           fontFamily: fontStack,
@@ -120,13 +140,27 @@ export function Reviews({
   cardHeight = 248,
 }: ReviewsProps) {
   if (layout === 'grid') {
+    // An odd count leaves a half-empty row. Rather than let one card sit at
+    // column width with a void under it, the last one runs full width and
+    // sizes to its own text — it reads as a closing quote instead of a gap.
+    const odd = reviews.length % 2 === 1;
     return (
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap }}>
-        {reviews.map((r) => (
-          <div key={r.name} style={{ flex: `0 0 calc(50% - ${gap / 2}px)`, width: `calc(50% - ${gap / 2}px)` }}>
-            <ReviewCard review={r} bg={bg} height={cardHeight} size={12.5} />
-          </div>
-        ))}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap, justifyContent: 'center' }}>
+        {reviews.map((r, i) => {
+          const last = odd && i === reviews.length - 1;
+          return (
+            <div
+              key={r.name}
+              style={
+                last
+                  ? { flex: '0 0 100%', width: '100%' }
+                  : { flex: `0 0 calc(50% - ${gap / 2}px)`, width: `calc(50% - ${gap / 2}px)` }
+              }
+            >
+              <ReviewCard review={r} bg={bg} height={last ? undefined : cardHeight} size={12.5} />
+            </div>
+          );
+        })}
       </div>
     );
   }

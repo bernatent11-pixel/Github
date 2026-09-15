@@ -1,126 +1,138 @@
 <!--
-  ACT 2 — "The Reviews Are In" as LIVE TEXT for Klaviyo.
+  ACT 2 — "Don't take it from us" as LIVE TEXT for Klaviyo.
+  Paste into an HTML block directly under the ACT 1 image.
 
-  Paste this into a Klaviyo HTML block, directly under the ACT 1 image.
+  Why not an image: a testimonial section exported as one PNG has nothing to
+  select, nothing to click, and nothing to read when images are blocked.
+  Milonga's previous image-only testimonial block took roughly a third of the
+  clicks of the campaigns around it.
 
-  Why this block is not an image: a testimonial section exported as one PNG has
-  nothing to select, nothing to click, and nothing to read when images are
-  blocked — which is most of the first impression on a cold list. Milonga's
-  previous image-only testimonial block took roughly a third of the clicks of
-  the campaigns around it.
+  Equal card heights come free here: the two cards in a table row stretch to
+  the taller of them automatically, so no fixed height is hard-coded and the
+  block still looks right if a quote is edited later.
 
-  What is deliberately different from the React design:
-    - Gotham is not web-safe in email, so this falls back to Montserrat, which
-      is the design system's documented fallback. It is not an accident.
-    - The paper grain behind the green is dropped; email clients cannot be
-      trusted to tile a background image. The flat #004D27 underneath it is the
-      same brand green, so nothing shifts in hue.
-    - Outlook desktop squares off the rounded corners. That is the accepted
-      floor; everything else still reads.
+  The <style> block stacks the cards one-up under 620px so they stay readable
+  on a phone. If Klaviyo strips it, the two-up grid still renders — the phone
+  just scales it down.
+
+  Differences from the React design, all deliberate:
+    - Gotham falls back to Montserrat, the design system's documented email
+      fallback.
+    - Outlook desktop squares the rounded corners. That is the accepted floor.
 
   Replace BOTH href="#" values with the product page URL before sending.
 -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#004D27" style="background-color:#004D27;margin:0;padding:0;">
+<style>
+  @media only screen and (max-width:620px) {
+    /* border-box, or the 18px padding is added to a 100% width and the card
+       hangs past the right margin. */
+    .mg-card { display:block !important; width:100% !important; box-sizing:border-box !important; }
+    .mg-gap  { display:none !important; height:0 !important; }
+    .mg-rowgap { height:14px !important; }
+  }
+</style>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F0EFDF" style="background-color:#F0EFDF;margin:0;padding:0;">
   <tr>
     <td align="center" style="padding:0 30px 44px 30px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
-
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;">
 
         <!-- Title -->
         <tr>
           <td align="center" style="padding:40px 0 0 0;">
-            <div style="font-size:32px;line-height:1.05;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;color:#F0EFDF;">The reviews</div>
-            <div style="font-size:32px;line-height:1.05;font-weight:900;font-style:italic;letter-spacing:0.02em;text-transform:uppercase;color:#F0EFDF;">Are in. &#11088;</div>
+            <div style="font-size:30px;line-height:1.05;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;color:#004D27;">Don&rsquo;t take it from us.</div>
+            <div style="font-size:30px;line-height:1.05;font-weight:900;font-style:italic;letter-spacing:0.02em;text-transform:uppercase;color:#004D27;">Take it from them.</div>
           </td>
         </tr>
-
-        <!-- Subtitle -->
         <tr>
-          <td align="center" style="padding:14px 0 0 0;font-size:11.5px;line-height:1.4;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#E3BC62;">
-            Every review so far is five stars. Here&rsquo;s what they said.
+          <td align="center" style="padding:14px 0 0 0;font-size:11.5px;line-height:1.4;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#004D27;">
+            Every review so far is five stars.
           </td>
         </tr>
-
-        <!-- Paragraph -->
         <tr>
-          <td align="center" style="padding:16px 0 0 0;font-size:14px;line-height:1.6;color:#FFFFFF;">
-            Real reviews from real customers, straight from our product page. Trimmed for length, never reworded.
+          <td align="center" style="padding:14px 0 0 0;font-size:13.5px;line-height:1.65;color:#1A1A1A;">
+            Real reviews from real customers, straight from our product page.
           </td>
         </tr>
 
         <tr><td style="height:26px;line-height:26px;font-size:0;">&nbsp;</td></tr>
 
-        <!-- ══ REVIEW CARDS ══ -->
-
-        <!-- Katya -->
+        <!-- ══ CARD GRID ══ -->
         <tr>
-          <td bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:20px 22px;">
-            <div style="font-size:15px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div style="padding-top:11px;font-size:14.5px;line-height:1.5;font-style:italic;font-weight:500;color:#004D27;">&ldquo;Never thought I&rsquo;d trade in my coffee&hellip; I drink mine iced with coconut milk and love it.&rdquo;</div>
-            <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Katya</div>
+          <td>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+              <!-- Row 1 -->
+              <tr>
+                <td class="mg-card" width="48%" valign="top" bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:18px;">
+                  <div style="font-size:14px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div style="padding-top:11px;font-size:12.5px;line-height:1.25;font-weight:900;color:#004D27;">I&rsquo;m speechless with the mate latte</div>
+                  <div style="padding-top:7px;font-size:12.5px;line-height:1.45;font-style:italic;font-weight:500;color:#004D27;">&ldquo;The taste was what sold me first. It&rsquo;s creamy, lightly sweet, and has a really nice vanilla flavor without tasting like an overly sugary coffee drink. It only has 90 calories and less than 3g of sugar per scoop. That&rsquo;s crazy! The energy and focus is a bonus. I feel awake and productive, especially during busy mornings. Compared with other functional coffees I&rsquo;ve tried, this one is much easier to drink consistently.&rdquo;</div>
+                  <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Bryant</div>
+                </td>
+                <td class="mg-gap" width="4%" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td class="mg-card" width="48%" valign="top" bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:18px;">
+                  <div style="font-size:14px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div style="padding-top:11px;font-size:12.5px;line-height:1.25;font-weight:900;color:#004D27;">I love the mate latte!!</div>
+                  <div style="padding-top:7px;font-size:12.5px;line-height:1.45;font-style:italic;font-weight:500;color:#004D27;">&ldquo;Finally, a coffee alternative that doesn&rsquo;t taste like I&rsquo;m forcing myself to drink something &ldquo;healthy.&rdquo; The Mate Latte is genuinely enjoyable. It&rsquo;s creamy, smooth, and easy to make&hellip; I also like that the formula includes ingredients like Lion&rsquo;s Mane and L-theanine for focus and staying calm.&rdquo;</div>
+                  <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Francisco T.</div>
+                </td>
+              </tr>
+
+              <tr><td colspan="3" class="mg-rowgap" style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+              <!-- Row 2 -->
+              <tr>
+                <td class="mg-card" width="48%" valign="top" bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:18px;">
+                  <div style="font-size:14px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div style="padding-top:11px;font-size:12.5px;line-height:1.25;font-weight:900;color:#004D27;">So gooood!</div>
+                  <div style="padding-top:7px;font-size:12.5px;line-height:1.45;font-style:italic;font-weight:500;color:#004D27;">&ldquo;The biggest thing I noticed is how I feel afterward. With coffee, I sometimes feel like I need another one a few hours later. With the Mate Latte, I feel like I get a steady boost that carries me through what I&rsquo;m doing without constantly thinking about my next caffeine fix.&rdquo;</div>
+                  <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Manuela Jurado</div>
+                </td>
+                <td class="mg-gap" width="4%" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td class="mg-card" width="48%" valign="top" bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:18px;">
+                  <div style="font-size:14px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div style="padding-top:11px;font-size:12.5px;line-height:1.25;font-weight:900;color:#004D27;">New caffeine fix!</div>
+                  <div style="padding-top:7px;font-size:12.5px;line-height:1.45;font-style:italic;font-weight:500;color:#004D27;">&ldquo;&hellip;I used to drink coffee lattes almost every day but it was highly acidic, but this has kinda made me feel like it&rsquo;s a coffee latte without the acidity from coffee. 10/10&rdquo;</div>
+                  <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Sam A.</div>
+                </td>
+              </tr>
+
+              <tr><td colspan="3" class="mg-rowgap" style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+              <!-- Row 3 — the odd fifth runs full width so there is no gap -->
+              <tr>
+                <td colspan="3" valign="top" bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:18px;">
+                  <div style="font-size:14px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div style="padding-top:11px;font-size:12.5px;line-height:1.25;font-weight:900;color:#004D27;">Love This Product!</div>
+                  <div style="padding-top:7px;font-size:12.5px;line-height:1.45;font-style:italic;font-weight:500;color:#004D27;">&ldquo;&hellip;Tastes super clean and doesn&rsquo;t give me any jitters or crash afterwards. I also love how easy and quick it is to make!!&rdquo;</div>
+                  <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Sam</div>
+                </td>
+              </tr>
+
+            </table>
           </td>
         </tr>
-        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
 
-        <!-- Sam -->
-        <tr>
-          <td bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:20px 22px;">
-            <div style="font-size:15px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div style="padding-top:11px;font-size:14.5px;line-height:1.5;font-style:italic;font-weight:500;color:#004D27;">&ldquo;Tastes super clean and doesn&rsquo;t give me any jitters or crash afterwards. I love how easy and quick it is to make!!&rdquo;</div>
-            <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Sam</div>
-          </td>
-        </tr>
-        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
-
-        <!-- Jose P. -->
-        <tr>
-          <td bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:20px 22px;">
-            <div style="font-size:15px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div style="padding-top:11px;font-size:14.5px;line-height:1.5;font-style:italic;font-weight:500;color:#004D27;">&ldquo;Not too sweet, but still tastes amazing.&rdquo;</div>
-            <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Jose P.</div>
-          </td>
-        </tr>
-        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
-
-        <!-- M.L. -->
-        <tr>
-          <td bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:20px 22px;">
-            <div style="font-size:15px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div style="padding-top:11px;font-size:14.5px;line-height:1.5;font-style:italic;font-weight:500;color:#004D27;">&ldquo;Smooth, creamy, and balanced without being overly sweet.&rdquo;</div>
-            <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">M.L.</div>
-          </td>
-        </tr>
-        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
-
-        <!-- Priscilla -->
-        <tr>
-          <td bgcolor="#E3BC62" style="background-color:#E3BC62;border-radius:16px;padding:20px 22px;">
-            <div style="font-size:15px;line-height:1;letter-spacing:3px;color:#004D27;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div style="padding-top:11px;font-size:14.5px;line-height:1.5;font-style:italic;font-weight:500;color:#004D27;">&ldquo;&hellip;it genuinely doesn&rsquo;t need anything else.&rdquo;</div>
-            <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#2A6244;">Priscilla</div>
-          </td>
-        </tr>
-
-        <tr><td style="height:30px;line-height:30px;font-size:0;">&nbsp;</td></tr>
+        <tr><td style="height:32px;line-height:32px;font-size:0;">&nbsp;</td></tr>
 
         <!-- CTA -->
         <tr>
           <td align="center">
             <!--[if mso]>
             <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-              href="#" style="height:50px;v-text-anchor:middle;width:280px;" arcsize="50%" stroke="f" fillcolor="#E3BC62">
+              href="#" style="height:50px;v-text-anchor:middle;width:290px;" arcsize="50%" stroke="f" fillcolor="#004D27">
               <w:anchorlock/>
-              <center style="color:#004D27;font-family:'Montserrat',Helvetica,Arial,sans-serif;font-size:13.5px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;">Get my better morning</center>
+              <center style="color:#F0EFDF;font-family:'Montserrat',Helvetica,Arial,sans-serif;font-size:13.5px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;">Get my better morning</center>
             </v:roundrect>
             <![endif]-->
             <!--[if !mso]><!-- -->
-            <a href="#" style="display:inline-block;background-color:#E3BC62;border-radius:999px;padding:17px 38px;font-size:13.5px;line-height:1;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:#004D27;text-decoration:none;">Get my better morning</a>
+            <a href="#" style="display:inline-block;background-color:#004D27;border-radius:999px;padding:17px 38px;font-size:13.5px;line-height:1;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:#F0EFDF;text-decoration:none;">Get my better morning</a>
             <!--<![endif]-->
           </td>
         </tr>
 
       </table>
-
     </td>
   </tr>
 </table>

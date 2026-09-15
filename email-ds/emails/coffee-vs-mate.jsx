@@ -14,7 +14,7 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  pouch: '../public/product/pouch-solo.png',
+  pouch: '../public/product/pouch-botanical.png',
   coffee: '../public/product/coffee-cup.png',
 };
 
@@ -77,19 +77,19 @@ function CoffeeVsMate({ shopHref = '#' }) {
       h(M.CompareRows, {
         bg, rows: ROWS,
         ourName: 'Mate Latte', theirName: 'Coffee',
-        // Both column heads are photographs in the same 200px box. The pouch
-        // is cropped out of its botanical composition first: in the full shot
-        // the product is under half the frame's width, so at equal box sizes
-        // the cup looked bigger than the thing we are selling. Matching the
-        // treatment is the point — the comparison has to look fair for the
-        // gold column to read as a win rather than as staging.
+        // Both shots run whole — nothing cropped, so neither looks cut off.
+        // The boxes are deliberately NOT the same number. The pouch arrives in
+        // a botanical composition where the product is under half the frame's
+        // width, while the cup is trimmed to its own edges; at an equal box the
+        // competitor's product looked bigger than ours. Sizing to make the two
+        // PRODUCTS match is the fair comparison, not sizing the two files.
         ourArt: h('img', {
           src: IMG.pouch, alt: '',
-          style: { display: 'block', width: 200, height: 200, objectFit: 'contain', margin: '0 auto' },
+          style: { display: 'block', width: 232, height: 232, objectFit: 'contain', margin: '0 auto' },
         }),
         theirArt: h('img', {
           src: IMG.coffee, alt: '',
-          style: { display: 'block', width: 200, height: 200, objectFit: 'contain', margin: '0 auto' },
+          style: { display: 'block', width: 204, height: 204, objectFit: 'contain', margin: '0 auto' },
         }),
       })
     ),

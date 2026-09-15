@@ -48,8 +48,8 @@ export function CompareRows({
   const t = onBg[bg];
   // Narrow label gutter and a capped width: the table reads as one centred
   // object rather than a full-bleed spreadsheet.
-  const LABEL = 66;
-  const MAXW = 512;
+  const LABEL = 56;
+  const MAXW = 540;
 
   const head: React.CSSProperties = {
     fontFamily: fontStack,

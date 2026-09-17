@@ -34,7 +34,6 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09 | Structure | Every email runs three acts: header (loud, curiosity) → body (value, education) → CTA (price, offer, urgency) | Bernat |
 | 2026-09 | Images | Cutouts enter from the left or right edge and run past the margin. Alternating edges down an email gives it rhythm | Bernat |
 | 2026-09 | Images | A gold pill badge can be stamped onto a product image to state a fact (e.g. "90 CAL, 3G SUGAR / PER SERVING") | Bernat |
-| 2026-09 | Export | Campaigns ship to Klaviyo as **two stacked images**, cut at a flat row so the seam is invisible | Bernat |
 | 2026-09-08 | Letters | A founder note can sit on a cream sheet with paper grain, a lit top edge and a layered shadow — squared-off corners, because paper has no soft radius | Bernat |
 | 2026-09-08 | Type | **Two-line headline** — a statement in Gotham Black, then the turn beneath it in Bold Italic ("CLARITY, / on tap."). The contrast is weight and slant, not colour, so it holds anywhere. Both lines must be short enough not to wrap | Ported from the previous Milonga email system |
 | 2026-09-08 | Blocks | **Spec pill cluster** — a wrapped row of small outlined pills, one fact each, placed high in the email under the product shot. The whole formula readable in two seconds, before anyone has decided to read | Ported |
@@ -50,10 +49,49 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-15 | Blocks | **Review cards carry the customer's own headline** above the quote. It gives every card a fixed top line, which is what stops a grid of equal cards reading half-empty when the quotes run to different lengths | Bernat |
 | 2026-09-15 | Blocks | Review cards go in a **two-up grid of equal-height cards**. An odd count runs the last card full width rather than leaving a hole beside it | Bernat |
 | 2026-09-15 | Colour | **On cream, gold is a fill and never type.** A gold cell or card with dark green type on it is the loudest thing on the page; gold type on cream measures about 1.5:1 and disappears. Extends the beige rule from titles to every element | Bernat |
+| 2026-09-17 | Export | **Headlines, body copy and CTA labels are always live text.** Images carry product, lifestyle and texture — never words the reader needs. Photographic acts may still ship as images; target under 30% image-link share overall | Competitor benchmark, 90 emails |
+| 2026-09-17 | Type | **Body copy is 16px minimum, never below.** Type scale 16/18/20/24/32/40 on an 8px base; line-height 1.4 body, 1.15 headline | Competitor benchmark |
+| 2026-09-17 | Structure | **600px container, 480px mobile breakpoint.** Settled category conventions — no upside in deviating | Competitor benchmark |
+| 2026-09-17 | Structure | Spacing runs 8/16/24/32/48/64. **No 9px anywhere** — it is an inherited template default, not a decision | Competitor benchmark |
+| 2026-09-17 | Buttons | Buttons keep the **pill radius**, minimum 44px tap height, 16px label. Square corners dominate the category, so the pill is a free differentiator | Competitor benchmark |
+| 2026-09-17 | Images | **Alt text is 100% and meaningful before any send.** The best brand in the category manages 87% | Competitor benchmark |
+| 2026-09-17 | Export | Every template ships an `@media (prefers-color-scheme: dark)` block, and passes an **images-off test**: with images disabled the email still reads and still has a clickable CTA | Competitor benchmark |
+| 2026-09-17 | Structure | **Emails are composed from the section library, not from one template.** No two adjacent sections share a shape; at least one section breaks the centre axis; one background change per email; one loud moment; max three CTAs. See `references/section-library.md` | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-17 — the section library, and the one rule the benchmark overturned.** Bernat asked for a
+modular section kit so campaigns stop coming out as the same stack of text, image and button.
+Written as `references/section-library.md`: 22 sections across openers, body, product, proof,
+rhythm devices and closers, each with variations and pairing notes, plus five composition rules and
+a five-question anti-sameness check to run before export. Four components were built to match —
+`TextOverImage`, `ZigZag`, `ProductGrid`, and the rhythm set (`ColorBand`, `Marquee`, `Breath`,
+`PullQuote`) — and proved in `emails/section-sampler.jsx`.
+
+**Superseded:** *"Campaigns ship to Klaviyo as two stacked images, cut at a flat row so the seam is
+invisible."* The benchmark of 90 competitor emails found five of six brands baking headlines and
+CTAs into pixels, running 61–87% image-only links, and it names what that costs: dead CTAs with
+images off, no ability to A/B a label without a design ticket, worse dark-mode rendering, a spam
+heuristic, and unreadable-by-screen-reader campaigns. The image *technique* is not banned — a
+photographic act still ships as an image, and the flat-row and colour-edge cutting rules still
+apply to those. What changed is that words the reader needs may no longer live inside a PNG.
+
+**Two things this makes knowingly stale, both worth fixing rather than noting:**
+`references/design-system.md` §9 still ends "Milonga campaigns usually ship as images", which is now
+the opposite of the rule. And the live campaigns built this month run 13.5–14.5px body copy against
+a new 16px floor — the coffee-vs-mate email included. Neither is urgent, but the next edit to either
+should bring them up.
+
+**Provenance, stated plainly because it will matter later.** The hard specs are evidence-backed:
+container width, breakpoint, type sizes, spacing values, image-vs-text ratios, alt coverage and
+palettes were measured from DOM structure and inline styles across 90 emails. **The section kit is
+not.** The competitor campaign HTML never arrived — only the benchmark document did, and the
+benchmark measures palette, type and spacing, not layout. So sections 2–7 of the library come from
+Milonga's own memory, our proven patterns, and ordinary editorial judgement. They should not be
+described to anyone as derived from competitor emails. If the raw corpus arrives later, the library
+can be revised against what those brands actually do.
 
 **2026-09-15 — the five reviews went in trimmed, not whole.** Bernat asked for the full review in
 each card and then supplied five (not the six he expected). Three could not go in whole: Francisco

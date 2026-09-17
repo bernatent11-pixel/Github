@@ -16,6 +16,7 @@ Bernat says how something should look. Load the memory first, apply it, and add 
 |---|---|---|
 | `/Email Marketing Agent/design-system/design-memory.md` | **Accumulated preferences.** Every rule Bernat asked to remember, dated | **Every activation, first** |
 | `references/design-system.md` | The stable visual system — colour contrast map, structure, components, claim limits | Every activation |
+| `references/section-library.md` | **The section kit** — every reusable section with its variations, plus the composition rules that keep campaigns from repeating | Before laying out any email |
 | `references/saving-and-handoff.md` | Where finished designs go, how they connect to the copy and the report | Before saving anything |
 
 The memory is the source of truth **on the user's computer**. When the Github repo is present, it is

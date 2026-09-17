@@ -58,10 +58,24 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Export | Every template ships an `@media (prefers-color-scheme: dark)` block, and passes an **images-off test**: with images disabled the email still reads and still has a clickable CTA | Competitor benchmark |
 | 2026-09-17 | Structure | **Emails are composed from the section library, not from one template.** No two adjacent sections share a shape; at least one section breaks the centre axis; one background change per email; one loud moment; max three CTAs. See `references/section-library.md` | Bernat |
 | 2026-09-17 | Structure | **Three style presets — `dense`, `systematic`, `editorial`** — set on `EmailShell`. One prop re-proportions every section at once (type size, air, image framing, alignment). Colours never change; the contrast map still rules. Rotate presets across a month so campaigns don't read as one template | Bernat, from the three brands he likes |
+| 2026-09-17 | Blocks | **The predetermined section kit is the starting point for every campaign.** 20 named sections across chrome, openers, body, product, proof, offer and rhythm — browse `emails/section-catalogue.jsx` and `-2.jsx`, pick by id, fill with copy. Drop to the primitives only when nothing fits | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-17 — the kit is complete at twenty sections.** Part two added the pieces the first pass
+left out: `AnnouncementBar` and `NavStrip` (the chrome above the content — the first 40px are read
+by people who read nothing else, and a nav row gives a reader who doesn't want today's message
+somewhere to go other than delete), `Collage` in row and feature layouts (photography that isn't a
+product shot with a price under it — the section that makes an email feel like it came from a brand
+rather than a store), `OfferBand` with a dashed code box, `FaqList`, `QuoteWithImage` and
+`CheckList`.
+
+Two judgements worth keeping. The offer band only states an expiry that is true — fake urgency is
+the one promotional technique a customer can catch you at. And the free-from CheckList is more
+persuasive than a benefits list for this category, because it answers the thing the reader was
+about to go and check the label for.
 
 **2026-09-17 — three presets, from the three brands Bernat named.** He picked MUD\WTR, Athletic
 Brewing and Nowadays. What separates those three in the benchmark is not layout — it is density,

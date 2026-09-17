@@ -28,6 +28,13 @@ export { ColorBand, Marquee, Breath, PullQuote } from './components/Rhythm';
 export { PRESETS, PresetProvider, usePreset, PresetContext } from './preset';
 export type { StylePreset } from './preset';
 export { ImageBlock, SplitRow, ProcessStrip, StatBand, HeroBanner, CtaBand } from './components/Sections';
+export {
+  AnnouncementBar, NavStrip, Collage, OfferBand, FaqList, QuoteWithImage, CheckList,
+} from './components/Sections2';
+export type {
+  AnnouncementBarProps, NavStripProps, CollageProps, OfferBandProps,
+  FaqListProps, FaqItem, QuoteWithImageProps, CheckListProps,
+} from './components/Sections2';
 export type {
   ImageBlockProps, SplitRowProps, ProcessStripProps, ProcessStep,
   StatBandProps, StatFigure, HeroBannerProps, CtaBandProps,

@@ -59,10 +59,31 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Structure | **Emails are composed from the section library, not from one template.** No two adjacent sections share a shape; at least one section breaks the centre axis; one background change per email; one loud moment; max three CTAs. See `references/section-library.md` | Bernat |
 | 2026-09-17 | Structure | **Three style presets — `dense`, `systematic`, `editorial`** — set on `EmailShell`. One prop re-proportions every section at once (type size, air, image framing, alignment). Colours never change; the contrast map still rules. Rotate presets across a month so campaigns don't read as one template | Bernat, from the three brands he likes |
 | 2026-09-17 | Blocks | **The predetermined section kit is the starting point for every campaign.** 20 named sections across chrome, openers, body, product, proof, offer and rhythm — browse `emails/section-catalogue.jsx` and `-2.jsx`, pick by id, fill with copy. Drop to the primitives only when nothing fits | Bernat |
+| 2026-09-17 | Blocks | **`HeroSection` is the first section of every email.** Eight parts — announcement bar · logo · eyebrow · headline · feature figure · subtitle/body · CTA · photograph — in three variants: `over` (type on the picture), `stack` (words then picture), `card` (picture with a coloured card riding over its lower edge) | Bernat, from five competitor heroes |
+| 2026-09-17 | Images | **A logo or headline placed on a photograph needs its ink checked against that photograph.** The contrast map is calibrated to flat brand grounds; a picture's top edge is whatever the photographer made it. `HeroSection` takes a `logoTone` override for exactly this | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-17 — the hero, built from five real competitor heroes.** Bernat sent Cann, MUD\WTR,
+Brez, Athletic Brewing and Mateína — the first actual creative to arrive in this thread. All five
+use the same eight parts and differ mainly in **where the photograph sits relative to the words**,
+which is why this is one component with three variants rather than three components.
+
+Two details worth keeping from the reading. Cann floats a coloured card up over the photograph's
+lower edge — the overlap is what makes the two read as one object instead of two stacked bands, and
+it survives Outlook dropping the negative margin because butted bands still look deliberate. And
+several of them put one oversized figure between the headline lines ("46% OFF", "70,000+"); the
+`feature` prop does that, stepping the headline down to make room rather than letting both compete.
+
+**Not taken: rotation.** Cann's "LEAVING SOON" badge is tilted. Rotation does not survive email
+clients — that is a standing rule here — so the badge is a straight pill. If a tilt is wanted it
+has to be baked into the PNG.
+
+**Also caught in the render, not the code.** The beige wordmark vanished against a pale photograph.
+The contrast map cannot help here: it is calibrated to flat brand grounds, and a photograph's top
+edge is whatever the photographer made it.
 
 **2026-09-17 — the kit is complete at twenty sections.** Part two added the pieces the first pass
 left out: `AnnouncementBar` and `NavStrip` (the chrome above the content — the first 40px are read

@@ -79,6 +79,8 @@ export { Header } from './components/Header';
 export type { HeaderProps } from './components/Header';
 export { Hero } from './components/Hero';
 export type { HeroProps } from './components/Hero';
+export { HeroSection } from './components/HeroSection';
+export type { HeroSectionProps, HeroSectionCta } from './components/HeroSection';
 export { Button } from './components/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './components/Button';
 export { ImageSlot } from './components/ImageSlot';

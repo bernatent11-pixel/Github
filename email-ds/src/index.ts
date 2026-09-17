@@ -25,6 +25,11 @@ export type { ZigZagProps, ZigZagItem } from './components/ZigZag';
 export { ProductGrid } from './components/ProductGrid';
 export type { ProductGridProps, ProductGridItem } from './components/ProductGrid';
 export { ColorBand, Marquee, Breath, PullQuote } from './components/Rhythm';
+export { ImageBlock, SplitRow, ProcessStrip, StatBand, HeroBanner, CtaBand } from './components/Sections';
+export type {
+  ImageBlockProps, SplitRowProps, ProcessStripProps, ProcessStep,
+  StatBandProps, StatFigure, HeroBannerProps, CtaBandProps,
+} from './components/Sections';
 export type { ColorBandProps, MarqueeProps, BreathProps, PullQuoteProps } from './components/Rhythm';
 export { Paper } from './components/Paper';
 export type { PaperProps } from './components/Paper';

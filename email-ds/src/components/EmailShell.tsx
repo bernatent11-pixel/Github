@@ -3,6 +3,7 @@ import { emailWidth, fontStack } from '../tokens';
 import { EmailBg, bgFill, onBg } from '../theme';
 import { bgStyle } from '../textures';
 import { SurfaceContext } from '../surface';
+import { PresetProvider, StylePreset } from '../preset';
 
 export interface EmailShellProps {
   /**
@@ -26,6 +27,14 @@ export interface EmailShellProps {
    * the join disappears. Blocks still take their type colours from `bg`.
    */
   fill?: string;
+  /**
+   * The style preset for the whole email — `dense`, `systematic` or
+   * `editorial`. It re-proportions every section at once (type size, air,
+   * image framing, alignment), which is the fastest way to make a campaign
+   * look unlike the last one without redesigning a single block. Colours are
+   * unaffected: those still come from the contrast map.
+   */
+  preset?: StylePreset['name'] | StylePreset;
   children?: React.ReactNode;
 }
 
@@ -33,8 +42,9 @@ export interface EmailShellProps {
  * The outer email frame: paints the base color full-bleed and centers the
  * content column. Sections may override the color for a band of the email.
  */
-export function EmailShell({ bg = 'forest', width = emailWidth, textured = false, fill, children }: EmailShellProps) {
+export function EmailShell({ bg = 'forest', width = emailWidth, textured = false, fill, preset = 'systematic', children }: EmailShellProps) {
   return (
+    <PresetProvider preset={preset}>
     <SurfaceContext.Provider value={{ bg, textured }}>
     <div
       className="milonga-email"
@@ -49,5 +59,6 @@ export function EmailShell({ bg = 'forest', width = emailWidth, textured = false
       <div style={{ maxWidth: width, margin: '0 auto' }}>{children}</div>
     </div>
     </SurfaceContext.Provider>
+    </PresetProvider>
   );
 }

@@ -57,10 +57,29 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Images | **Alt text is 100% and meaningful before any send.** The best brand in the category manages 87% | Competitor benchmark |
 | 2026-09-17 | Export | Every template ships an `@media (prefers-color-scheme: dark)` block, and passes an **images-off test**: with images disabled the email still reads and still has a clickable CTA | Competitor benchmark |
 | 2026-09-17 | Structure | **Emails are composed from the section library, not from one template.** No two adjacent sections share a shape; at least one section breaks the centre axis; one background change per email; one loud moment; max three CTAs. See `references/section-library.md` | Bernat |
+| 2026-09-17 | Structure | **Three style presets — `dense`, `systematic`, `editorial`** — set on `EmailShell`. One prop re-proportions every section at once (type size, air, image framing, alignment). Colours never change; the contrast map still rules. Rotate presets across a month so campaigns don't read as one template | Bernat, from the three brands he likes |
 
 ---
 
 ## Log
+
+**2026-09-17 — three presets, from the three brands Bernat named.** He picked MUD\WTR, Athletic
+Brewing and Nowadays. What separates those three in the benchmark is not layout — it is density,
+type size, air and image treatment. Four dials. So rather than three section sets there is one set
+and three presets, and switching `preset` on `EmailShell` re-proportions the whole email.
+
+`dense` follows the MUD\WTR numbers (15.3 images an email, 10.3 full-bleed, tight padding, short
+copy — their 13px body is refused for our 16px floor). `systematic` follows Athletic Brewing (one
+dominant colour, strict grid, about half the images inset as figures, heavy buttons) and is the
+default because it is closest to how Milonga already works. `editorial` follows Nowadays (20px
+body, fewest images, most words, left-aligned) — the outlier of the six and the only one whose
+emails survive images being turned off.
+
+**The competitor campaign HTML still has not arrived.** Bernat has twice referred to HTML files
+that are not in the uploads folder — it holds only the benchmark document and the old Milonga
+design system from 8 September. So the presets are calibrated to *measured proportions* from the
+benchmark, which is real and usable, and nothing here reproduces anyone's layout. Ask for the raw
+files before claiming any section is modelled on a specific competitor email.
 
 **2026-09-17 — the section library, and the one rule the benchmark overturned.** Bernat asked for a
 modular section kit so campaigns stop coming out as the same stack of text, image and button.

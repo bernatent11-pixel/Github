@@ -25,6 +25,8 @@ export type { ZigZagProps, ZigZagItem } from './components/ZigZag';
 export { ProductGrid } from './components/ProductGrid';
 export type { ProductGridProps, ProductGridItem } from './components/ProductGrid';
 export { ColorBand, Marquee, Breath, PullQuote } from './components/Rhythm';
+export { PRESETS, PresetProvider, usePreset, PresetContext } from './preset';
+export type { StylePreset } from './preset';
 export { ImageBlock, SplitRow, ProcessStrip, StatBand, HeroBanner, CtaBand } from './components/Sections';
 export type {
   ImageBlockProps, SplitRowProps, ProcessStripProps, ProcessStep,

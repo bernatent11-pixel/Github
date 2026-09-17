@@ -7,6 +7,7 @@ import { SpecPills } from './SpecPills';
 import { Logo } from './Logo';
 import { IconBadge } from './IconBadge';
 import { AnyIconName } from './AnyIcon';
+import { usePreset } from '../preset';
 
 /* ────────────────────────────────────────────────────────────────────────────
    PREDETERMINED SECTIONS
@@ -24,12 +25,13 @@ const pad = (n: number) => ({ height: n, lineHeight: 0, fontSize: 0 });
 
 function Eyebrow({ text, bg }: { text: string; bg: EmailBg }) {
   const t = onBg[bg];
+  const P = usePreset();
   return (
     <div
       style={{
         fontFamily: fontStack,
         fontWeight: 900,
-        fontSize: 11.5,
+        fontSize: P.eyebrow,
         letterSpacing: '0.14em',
         textTransform: 'uppercase',
         color: t.accent,
@@ -43,15 +45,16 @@ function Eyebrow({ text, bg }: { text: string; bg: EmailBg }) {
 
 function Body({ text, bg, align = 'center' }: { text: string; bg: EmailBg; align?: 'left' | 'center' }) {
   const t = onBg[bg];
+  const P = usePreset();
   return (
     <div
       style={{
         fontFamily: fontStack,
         fontWeight: 400,
-        fontSize: 16,
-        lineHeight: 1.5,
+        fontSize: P.body,
+        lineHeight: P.bodyLead,
         color: t.body,
-        maxWidth: align === 'center' ? 460 : undefined,
+        maxWidth: align === 'center' ? P.copyWidth : undefined,
         margin: align === 'center' ? '0 auto' : undefined,
       }}
     >
@@ -102,11 +105,17 @@ export function ImageBlock({
   body,
   cta,
   bg = 'forest',
-  frame = 'bleed',
+  frame,
   imageFirst = true,
-  align = 'center',
-  size = 30,
+  align,
+  size,
 }: ImageBlockProps) {
+  // Unset props fall through to the preset, so switching the preset
+  // re-proportions every section at once instead of one at a time.
+  const P = usePreset();
+  const F = frame ?? P.frame;
+  const A = align ?? P.align;
+  const S = size ?? P.sectionTitle;
   const art = (
     <img
       key="art"
@@ -117,18 +126,18 @@ export function ImageBlock({
         width: '100%',
         height: 'auto',
         border: 0,
-        borderRadius: frame === 'inset' ? 12 : 0,
+        borderRadius: F === 'inset' ? 12 : 0,
       }}
     />
   );
   const artWrap = (
-    <div key="wrap" style={{ padding: frame === 'bleed' ? 0 : '0 30px' }}>
+    <div key="wrap" style={{ padding: F === 'bleed' ? 0 : '0 30px' }}>
       {art}
     </div>
   );
   const words = (
-    <div key="words" style={{ padding: '0 30px', textAlign: align }}>
-      <Headline bg={bg} line1={line1} line2={line2} size={size} align={align} />
+    <div key="words" style={{ padding: '0 30px', textAlign: A }}>
+      <Headline bg={bg} line1={line1} line2={line2} size={S} align={A} />
       {subtitle ? (
         <>
           <div style={pad(12)} />
@@ -138,7 +147,7 @@ export function ImageBlock({
       {body ? (
         <>
           <div style={pad(14)} />
-          <Body text={body} bg={bg} align={align} />
+          <Body text={body} bg={bg} align={A} />
         </>
       ) : null}
       {cta ? (
@@ -198,6 +207,7 @@ export function SplitRow({
   imageWidth = '46%',
   inset = true,
 }: SplitRowProps) {
+  const P = usePreset();
   const art = (
     <div key="art" style={{ flex: `0 0 ${imageWidth}`, width: imageWidth }}>
       <img
@@ -209,7 +219,7 @@ export function SplitRow({
   );
   const words = (
     <div key="words" style={{ flex: 1 }}>
-      <Headline bg={bg} line1={line1} line2={line2} size={24} align="left" />
+      <Headline bg={bg} line1={line1} line2={line2} size={P.rowTitle} align="left" />
       {body ? (
         <>
           <div style={pad(12)} />
@@ -225,7 +235,7 @@ export function SplitRow({
     </div>
   );
   return (
-    <div style={{ display: 'flex', gap: 22, alignItems: 'center', padding: '0 30px' }}>
+    <div style={{ display: 'flex', gap: P.gap + 8, alignItems: 'center', padding: '0 30px' }}>
       {side === 'left' ? [art, words] : [words, art]}
     </div>
   );
@@ -424,20 +434,23 @@ export function HeroBanner({
   cta,
   bg = 'forest',
   logo = true,
-  align = 'center',
-  size = 38,
+  align,
+  size,
 }: HeroBannerProps) {
+  const P = usePreset();
+  const A = align ?? P.align;
+  const S = size ?? P.headline;
   return (
-    <div style={{ padding: '0 30px', textAlign: align }}>
+    <div style={{ padding: '0 30px', textAlign: A }}>
       {logo ? (
         <>
-          <div style={{ textAlign: align }}>
+          <div style={{ textAlign: A }}>
             <Logo tone={onBg[bg].logo} variant="primary" height={54} />
           </div>
           <div style={pad(26)} />
         </>
       ) : null}
-      <Headline bg={bg} line1={line1} line2={line2} size={size} align={align} />
+      <Headline bg={bg} line1={line1} line2={line2} size={S} align={A} />
       {eyebrow ? (
         <>
           <div style={pad(14)} />
@@ -447,7 +460,7 @@ export function HeroBanner({
       {body ? (
         <>
           <div style={pad(16)} />
-          <Body text={body} bg={bg} align={align} />
+          <Body text={body} bg={bg} align={A} />
         </>
       ) : null}
       {cta ? (

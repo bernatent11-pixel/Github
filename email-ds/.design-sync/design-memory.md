@@ -61,10 +61,25 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Blocks | **The predetermined section kit is the starting point for every campaign.** 20 named sections across chrome, openers, body, product, proof, offer and rhythm — browse `emails/section-catalogue.jsx` and `-2.jsx`, pick by id, fill with copy. Drop to the primitives only when nothing fits | Bernat |
 | 2026-09-17 | Blocks | **`HeroSection` is the first section of every email.** Eight parts — announcement bar · logo · eyebrow · headline · feature figure · subtitle/body · CTA · photograph — in three variants: `over` (type on the picture), `stack` (words then picture), `card` (picture with a coloured card riding over its lower edge) | Bernat, from five competitor heroes |
 | 2026-09-17 | Images | **A logo or headline placed on a photograph needs its ink checked against that photograph.** The contrast map is calibrated to flat brand grounds; a picture's top edge is whatever the photographer made it. `HeroSection` takes a `logoTone` override for exactly this | Bernat |
+| 2026-09-17 | Images | **Every photograph in a template sits in a FIXED-RATIO frame and is cropped to fill it.** A raw `<img>` takes the height its file happens to have, so a portrait shot pushes the headline down the page — which is why swapping an image normally wrecks a layout. The frame owns the height; the picture adapts. Aim the crop with `focus` when a swapped file loses its subject | Bernat |
+| 2026-09-17 | Blocks | **Five plug-and-play hero templates** — T1 photo + floating card · T2 big number, product below · T3 minimal, words then picture · T4 pilot (eyebrow, headline, product, copy, CTA) · T5 urgency, two-tone headline on a photograph. Fixed layouts; pass a picture and the copy and nothing moves | Bernat, replicating five references |
 
 ---
 
 ## Log
+
+**2026-09-17 — five hero templates, replicating the references exactly.** Bernat asked for exact
+replicas of the five heroes he sent, as plug-and-play templates in Milonga's type and colour, and
+named the constraint that matters: *the image size must not interfere with where the title,
+subtitle and CTA appear.*
+
+That constraint is the whole engineering of this file. A raw `<img>` takes whatever height its file
+has, so a portrait shot pushes the headline down and a wide one starves it — the reason swapping a
+picture normally wrecks a template. Every photograph now sits in a fixed-ratio `Frame` and is
+cropped to fill it, so the type, the CTA and the spacing land in the same place regardless of what
+goes in. The trade is that pictures are cropped rather than letterboxed; `focus` aims the crop, and
+it is the one prop to reach for when a swapped file looks wrong. The T5 demo shows it: a tall file
+in a wide frame lost its edges until the ratio rose and the crop was aimed.
 
 **2026-09-17 — the hero, built from five real competitor heroes.** Bernat sent Cann, MUD\WTR,
 Brez, Athletic Brewing and Mateína — the first actual creative to arrive in this thread. All five

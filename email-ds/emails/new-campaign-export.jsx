@@ -26,6 +26,7 @@ function NewCampaignExport() {
     h(M.T8Callouts, {
       src: IMG.callout,
       alt: 'A hand holding a jar of iced Milonga Mate Latte, with its benefits listed alongside',
+      eyebrow: 'Made to keep up',
       line1: 'For everything your', line2: 'day throws at you.',
       intro: 'Work, errands, workouts, and whatever comes next.',
       cta: { label: 'Shop the Mate Latte', href: '#' },

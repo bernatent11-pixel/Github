@@ -48,6 +48,7 @@ function NewCampaign() {
       // picture rather than darkening it.
       src: IMG.icedHand,
       alt: 'A hand holding a jar of iced Milonga Mate Latte',
+      eyebrow: 'Made to keep up',
       line1: 'For everything your', line2: 'day throws at you.',
       text: 'Work, errands, workouts, and whatever comes next.',
       ink: 'dark', anchor: 'top', wash: 0.2,
@@ -59,6 +60,7 @@ function NewCampaign() {
     h(M.T8Callouts, {
       src: IMG.calloutFlat,
       alt: 'A hand holding a jar of iced Milonga Mate Latte, with its benefits listed alongside',
+      eyebrow: 'Made to keep up',
       line1: 'For everything your', line2: 'day throws at you.',
       intro: 'Work, errands, workouts, and whatever comes next.',
       cta: { label: 'Shop the Mate Latte', href: '#' },

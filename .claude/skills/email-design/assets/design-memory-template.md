@@ -75,10 +75,22 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Blocks | T8's three bands — title, callouts, button — are distributed with **`space-between` rather than stacked from the top**. That is what makes the section read as balanced instead of top-heavy with dead ground beneath it | Bernat |
 | 2026-09-18 | Images | **Ask for a cutout before engineering around a backdrop.** A transparent PNG sits on a real brand colour with no seam, no vignette and no correction. Flat-fielding (model the backdrop with a heavy blur, push each pixel by target − model weighted by how much it looks like backdrop) is the fallback when only a JPEG exists | Bernat |
 | 2026-09-18 | Blocks | In T8 each callout is **one rounded white shape holding its icon, label and note**. On an open ground five bare rows read as a list; giving each an edge turns them into objects the hairlines connect to, which is what makes the section read as a diagram | Bernat |
+| 2026-09-18 | Type | **Every section title in a campaign uses the same anatomy: eyebrow in small caps, a headline whose second line is set apart, then the paragraph.** Where the ground forbids the accent colour, set the second line apart by SLANT instead — the contrast is weight and slant, not colour, which is why it holds anywhere | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — matching a title's aesthetic across two grounds.** Bernat asked for section two's
+title to share section one's aesthetic "not same colors because of the background". What carries
+across is the *anatomy*: a small-caps eyebrow above, a headline whose second line is visibly set
+apart, and the paragraph beneath.
+
+On the photograph that split is cream into gold. On cream neither is available — gold there
+measures about 1.5:1 — so the second line is set apart by **slant**. That is not a workaround: it
+is the house two-line headline exactly as documented, where the contrast is weight and slant rather
+than colour, precisely so it holds on any ground. Section two also gained an eyebrow ("MADE TO KEEP
+UP") because it had none and the anatomy needs all three parts.
 
 **2026-09-18 — the cutout made the engineering unnecessary.** Bernat sent the glass as a
 transparent PNG. Everything built to work around the studio backdrop — extending edge pixels,

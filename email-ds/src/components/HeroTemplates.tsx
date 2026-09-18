@@ -747,6 +747,8 @@ export interface T8Props {
   alt: string;
   line1: string;
   line2?: string;
+  /** Small caps above the title, as in the opening section. */
+  eyebrow?: string;
   intro?: string;
   items: CalloutRow[];
   cta?: Cta;
@@ -763,6 +765,7 @@ export function T8Callouts({
   alt,
   line1,
   line2,
+  eyebrow,
   intro,
   items,
   cta,
@@ -791,8 +794,19 @@ export function T8Callouts({
         }}
       >
         <div style={{ padding: '0 30px', textAlign: 'center' }}>
+          {/* Same anatomy as the opening section — eyebrow, a headline whose
+              second line is set apart, then the paragraph. There the two lines
+              are cream and gold; on cream neither is legal (gold measures about
+              1.5:1 here), so the split is carried by SLANT instead. That is the
+              house two-line headline exactly: the contrast is weight and slant
+              rather than colour, which is why it holds on any ground. */}
+          {eyebrow ? (
+            <div style={{ ...caps(11.5, '0.2em', ink), marginBottom: 14 }}>{eyebrow}</div>
+          ) : null}
           <div style={{ ...caps(30, '0.01em', ink), lineHeight: 1.04 }}>{line1}</div>
-          {line2 ? <div style={{ ...caps(30, '0.01em', ink), lineHeight: 1.04 }}>{line2}</div> : null}
+          {line2 ? (
+            <div style={{ ...caps(30, '0.01em', ink), lineHeight: 1.04, fontStyle: 'italic' }}>{line2}</div>
+          ) : null}
           {intro ? (
             <div
               style={{

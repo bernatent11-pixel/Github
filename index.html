@@ -18,6 +18,28 @@
     gtag('config', 'G-M18RQG49P9');   /* fires page_view automatically */
     /* product view, on initial load (independent of the rest of the page) */
     gtag('event', 'view_item', { currency: 'USD', value: 29.99, items: [{ item_id: '54302750212406', item_name: 'Milonga Mate Latte', price: 29.99, quantity: 1 }] });
+
+    /* ---- GA4 engagement heartbeat ----
+       GA4 normally ships the page's engagement time in ONE user_engagement
+       beacon when the tab is closed/hidden. On mobile / in-app browsers that
+       final beacon is often dropped, so real dwell time is lost and the page
+       reports ~1s. This fires user_engagement after ~10s and ~30s of FOREGROUND
+       time; gtag attaches the real accrued engagement_time_msec and resets its
+       own counter, so there is NO double counting, and engagement is captured
+       even if the exit beacon is later dropped. Genuine sub-10s bounces are
+       unaffected (their timers never reach 10s). */
+    (function () {
+      var active = 0, last = Date.now(), fired10 = false, fired30 = false, id;
+      function ping() { if (typeof window.gtag === 'function') gtag('event', 'user_engagement'); }
+      document.addEventListener('visibilitychange', function () { last = Date.now(); }, { passive: true });
+      id = setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (!fired10 && active >= 10000) { fired10 = true; ping(); }
+        if (!fired30 && active >= 30000) { fired30 = true; ping(); clearInterval(id); }
+      }, 2000);
+    })();
   </script>
 
   <!-- Meta Pixel Code -->

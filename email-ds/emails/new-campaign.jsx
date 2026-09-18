@@ -11,6 +11,7 @@ const IMG = {
   pour: '../public/product/mind-body-connected.jpg',
   iced: '../public/product/pouch-iced-botanical.png',
   kitchen: '../public/product/kitchen-morning.jpg',
+  icedHand: '../public/product/iced-in-hand.jpg',
 };
 
 function Label(t) {
@@ -39,15 +40,17 @@ function NewCampaign() {
     }),
     Gap(44),
 
-    Label('Same section, a different photograph — nothing moves'),
-    h(M.T6FullImage, {
-      src: IMG.pour,
-      alt: 'A Milonga stick poured into a glass of Mate Latte',
-      eyebrow: 'The morning ritual',
-      line1: 'Thirty seconds,', line2: 'start to finish.',
-      subtitle: 'Pour, whisk, drink. It does not clump and it does not need anything else.',
-      cta: { label: 'Try it now', href: '#' },
-      ratio: 1.3, at: '84%', focus: 'center 30%',
+    Label('Section 2 · statement on a photograph'),
+    h(M.T7Statement, {
+      // The upper third of this shot measures rgb(219,190,163) — a light warm
+      // beige — so the ink is forest, not cream, and the wash LIFTS the
+      // picture rather than darkening it.
+      src: IMG.icedHand,
+      alt: 'A hand holding a jar of iced Milonga Mate Latte',
+      line1: 'For everything your', line2: 'day throws at you.',
+      text: 'Work, errands, workouts, and whatever comes next.',
+      ink: 'dark', anchor: 'top', wash: 0.2,
+      size: 38, ratio: 1.26, focus: 'center 34%',
     }),
     Gap(44),
 

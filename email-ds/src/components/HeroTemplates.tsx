@@ -594,3 +594,111 @@ export function T6FullImage({
     </Frame>
   );
 }
+
+
+/* ══ T7 · STATEMENT ON A PHOTOGRAPH ══════════════════════════════════════
+   A title and one line of copy sitting on a full-bleed picture. No wordmark,
+   no button — this is a mid-email section, not an opener.
+
+   The thing that decides whether it works is the INK, and it is not a matter
+   of taste. The contrast map is calibrated to flat brand grounds; a
+   photograph is not one. Measure the region the type will occupy and pick:
+   forest on a light picture, beige on a dark one. Getting it backwards is the
+   single most common way type on art fails, and a heavier scrim never rescues
+   it — it only dims the photograph you chose the section for.
+
+   `wash` lifts the type's region a little in the OPPOSITE colour to the ink,
+   which is a gentler instrument than a scrim: it lightens a light picture
+   rather than darkening it. Keep it low. ─────────────────────────────────── */
+
+export interface T7Props {
+  src: string;
+  alt: string;
+  line1: string;
+  line2?: string;
+  /** One line under the title. */
+  text?: string;
+  /**
+   * Type colour. `dark` is forest, for a light photograph; `light` is beige
+   * with gold on the second line, for a dark one. Measure, don't guess.
+   */
+  ink?: 'dark' | 'light';
+  /** Which end of the picture the type sits at. */
+  anchor?: 'top' | 'bottom';
+  /** 0 to 1. A gentle lift under the type, in the ink's opposite. */
+  wash?: number;
+  size?: number;
+  ratio?: number;
+  focus?: string;
+  bg?: EmailBg;
+}
+
+export function T7Statement({
+  src,
+  alt,
+  line1,
+  line2,
+  text,
+  ink = 'dark',
+  anchor = 'top',
+  wash = 0.18,
+  size = 40,
+  ratio = 1.4,
+  focus,
+  bg = 'beige',
+}: T7Props) {
+  const dark = ink === 'dark';
+  const head = dark ? colors.forest : colors.beige;
+  const head2 = dark ? colors.forest : colors.gold;
+  const bodyInk = dark ? 'rgba(20,20,20,0.86)' : 'rgba(255,255,255,0.92)';
+  // A light picture is lifted with cream, a dark one deepened with forest —
+  // the same control in both directions, so the picture never has to be
+  // darkened to protect dark type.
+  const washRgb = dark ? '240,239,223' : '0,26,13';
+  const dir = anchor === 'top' ? 'to bottom' : 'to top';
+  const shadow = dark ? 'none' : '0 2px 6px rgba(0,26,13,0.6), 0 4px 20px rgba(0,26,13,0.5)';
+
+  return (
+    <Frame src={src} alt={alt} ratio={ratio} focus={focus}>
+      {wash > 0 ? (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `linear-gradient(${dir}, rgba(${washRgb},${wash.toFixed(2)}) 0%, rgba(${washRgb},${(wash * 0.55).toFixed(2)}) 34%, rgba(${washRgb},0) 62%)`,
+          }}
+        />
+      ) : null}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          ...(anchor === 'top' ? { top: 0, padding: '40px 32px 0' } : { bottom: 0, padding: '0 32px 40px' }),
+          textAlign: 'center',
+        }}
+      >
+        <div style={{ ...caps(size, '0.01em', head), lineHeight: 0.98, textShadow: shadow }}>{line1}</div>
+        {line2 ? (
+          <div style={{ ...caps(size, '0.01em', head2), lineHeight: 0.98, textShadow: shadow }}>{line2}</div>
+        ) : null}
+        {text ? (
+          <div
+            style={{
+              fontFamily: fontStack,
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: 1.5,
+              color: bodyInk,
+              maxWidth: 460,
+              margin: '16px auto 0',
+              textShadow: shadow,
+            }}
+          >
+            {text}
+          </div>
+        ) : null}
+      </div>
+    </Frame>
+  );
+}

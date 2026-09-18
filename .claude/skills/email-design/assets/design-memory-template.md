@@ -66,10 +66,29 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Type | **Hero headlines run big — 34–58px, Gotham Black (weight 900), tight leading.** A hero title below about 30px stops carrying the email. Extra size buys presence only if the leading tightens with it | Bernat |
 | 2026-09-18 | Images | **The wordmark sits at a medium, clearly visible size — 52–64px high in a hero**, never a courtesy mark. At 40px it reads as a watermark rather than as the brand signing the email | Bernat |
 | 2026-09-18 | Blocks | **T6 · full image** — one photograph is the whole opening section. The reading splits in two: **wordmark, title and paragraph together at the TOP**, the **CTA alone near the bottom**, and the photograph fills the gap between them. Needs a tall frame (1.3–1.5) and a scrim weighted at both ends, middle left clear | Bernat |
+| 2026-09-18 | Blocks | **T7 · statement on a photograph** — title and one line on a full-bleed picture, no wordmark and no button. A mid-email section, not an opener | Bernat |
+| 2026-09-18 | Colour | **Type on a photograph takes its ink from the photograph, measured — not from the contrast map.** Sample the region the type will occupy: forest on a light picture, beige on a dark one. Getting it backwards is the commonest way type on art fails, and a heavier scrim never rescues it | Bernat |
+| 2026-09-18 | Images | **Lift a light photograph, don't darken it.** Where dark type needs help, wash the region in cream rather than adding a dark scrim — the same control in the other direction, and it keeps the picture bright | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — section 2, and the ink rule made explicit.** Bernat sent a studio shot of the iced
+latte held against a warm beige backdrop. Sampling its upper third gave rgb(219,190,163) — light —
+so the type is **forest, not cream**, and it needs no scrim at all: dark green on that ground is
+about 7:1.
+
+This is the third time in two days that type-on-art has turned on the same question, so it is now a
+rule rather than a case: **measure the region, then pick the ink.** The contrast map cannot answer
+it, because the map is calibrated to flat brand grounds and a photograph is not one. The corollary
+matters as much — where dark type needs help, **wash the region in cream rather than darkening it**.
+A scrim is only one direction of the same control, and reaching for it on a light picture dims the
+very thing the section was chosen for.
+
+Two fixes from the render: the frame came from 1.5 to 1.26 with the crop aimed, because the full
+photograph left a third of empty backdrop under the jar; and the statement line's measure went 400
+to 460 so one sentence stops breaking to orphan its last word.
 
 **2026-09-18 — shadow, not scrim.** Bernat wanted the photograph more visible without losing the
 title. Those pull against each other only if the scrim is doing the protecting: a scrim dims the

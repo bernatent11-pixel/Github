@@ -12,6 +12,7 @@ const IMG = {
   iced: '../public/product/pouch-iced-botanical.png',
   kitchen: '../public/product/kitchen-morning.jpg',
   icedHand: '../public/product/iced-in-hand.jpg',
+  calloutBg: '../public/product/iced-callout-bg.jpg',
 };
 
 function Label(t) {
@@ -51,6 +52,27 @@ function NewCampaign() {
       text: 'Work, errands, workouts, and whatever comes next.',
       ink: 'dark', anchor: 'top', wash: 0.2,
       size: 38, ratio: 1.26, focus: 'center 34%',
+    }),
+    Gap(44),
+
+    Label('Section 3 · callout diagram'),
+    h(M.T8Callouts, {
+      src: IMG.calloutBg,
+      alt: 'A hand holding a jar of iced Milonga Mate Latte, with its benefits listed alongside',
+      line1: 'Everything a morning', line2: 'asks of you.',
+      intro: 'One scoop of yerba mate, Lion’s Mane and L-Theanine — working while you get on with it.',
+      cta: { label: 'Shop the Mate Latte', href: '#' },
+      // Must match iced-callout-bg.jpg's own 1200x1440 aspect.
+      ratio: 1.2,
+      // Line lengths are per row so each one lands on the glass rather than
+      // stopping on a shared vertical.
+      items: [
+        { mark: 'yerba-mate', label: 'Clean, sustained energy', note: 'For walking into work already on your second gear.', line: 112 },
+        { mark: 'lions-mane', label: 'Mental clarity & focus', note: 'For when your brain clocks in before you do.', line: 118 },
+        { mark: 'l-theanine', label: 'Balanced calm', note: 'For keeping your cool when your boss starts the day with “Got a minute?”', line: 108 },
+        { mark: 'check', label: 'No jitters, no crash', note: 'For when your inbox is already testing you at 8:47 AM.', line: 104 },
+        { mark: 'leaf', label: 'Antioxidant-rich', note: 'For giving your morning routine a little extra goodness.', line: 106 },
+      ],
     }),
     Gap(44),
 

@@ -69,10 +69,29 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Blocks | **T7 · statement on a photograph** — title and one line on a full-bleed picture, no wordmark and no button. A mid-email section, not an opener | Bernat |
 | 2026-09-18 | Colour | **Type on a photograph takes its ink from the photograph, measured — not from the contrast map.** Sample the region the type will occupy: forest on a light picture, beige on a dark one. Getting it backwards is the commonest way type on art fails, and a heavier scrim never rescues it | Bernat |
 | 2026-09-18 | Images | **Lift a light photograph, don't darken it.** Where dark type needs help, wash the region in cream rather than adding a dark scrim — the same control in the other direction, and it keeps the picture bright | Bernat |
+| 2026-09-18 | Blocks | **T8 · callout diagram** — product right, benefits down the left, a hairline from each one reaching the product. The lines must ACTUALLY TOUCH it; a line stopping in open space reads as decoration | Bernat |
+| 2026-09-18 | Images | For a diagram section, **extend the photograph's backdrop from its own edge pixels** rather than filling with a sampled colour — a studio backdrop vignettes, so its corner is not its edge and a flat fill leaves a seam | Bernat |
+| 2026-09-18 | Images | **A `Frame` ratio must match its art's own aspect.** The frame crops to fill, so a mismatch silently zooms the picture — and in a diagram every callout line then points at the wrong part of the product | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — the callout diagram, and a claim that could not go in.** Bernat sent the MUD\WTR
+pumpkin-spice section and five benefit lines to replicate. Four went in as written. **"Less stress,
+more flow" did not:** the standing claim limit is explicit that Milonga never says it removes
+stress, and a benefit line reading "less stress" is exactly that claim. It is replaced with
+**"No jitters, no crash"**, which is on the approved list and carries the same line about the inbox
+at 8:47. Flagged to Bernat rather than swapped quietly; his call if he wants it back.
+
+**Three build lessons, all found by looking rather than reasoning.** The section ground has to be
+the photograph's own backdrop or the picture has a visible edge — and extending that backdrop by
+stretching the photo's **own edge pixels** is the only seamless way, because a studio backdrop
+vignettes and its corner colour is not its edge colour. The callout lines have to reach the
+product; a line that stops in open space is decoration and the eye catches it. And the frame's
+ratio has to match the art's own aspect: a stale edit left the frame at 1.58 against 1.20 art,
+which silently zoomed the picture and sent every line pointing at the wrong place — four rebuilds
+were spent chasing that before the ratio was checked.
 
 **2026-09-18 — section 2, and the ink rule made explicit.** Bernat sent a studio shot of the iced
 latte held against a warm beige backdrop. Sampling its upper third gave rgb(219,190,163) — light —

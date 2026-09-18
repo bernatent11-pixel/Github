@@ -2,6 +2,8 @@ import * as React from 'react';
 import { fontStack, colors } from '../tokens';
 import { EmailBg, onBg } from '../theme';
 import { Logo } from './Logo';
+import { IconBadge } from './IconBadge';
+import { AnyIconName } from './AnyIcon';
 import { bgStyle } from '../textures';
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -700,5 +702,148 @@ export function T7Statement({
         ) : null}
       </div>
     </Frame>
+  );
+}
+
+
+/* ══ T8 · CALLOUT DIAGRAM ════════════════════════════════════════════════
+   The product on the right, its benefits listed down the left, a hairline
+   running from each one across to the glass.
+
+   Two things make this read as a diagram rather than a list beside a photo.
+   The lines must ACTUALLY REACH the product — a line that stops in open space
+   is decoration, and the eye notices. And the ground must be the photograph's
+   own backdrop, so the picture has no edge: the moment you can see where the
+   image ends, it is a picture pasted on a panel.
+
+   That is why the art for this section is pre-composed. The backdrop is
+   extended outward from the photograph's own edge pixels rather than filled
+   with a sampled colour — a flat fill leaves a seam, because a studio backdrop
+   vignettes and its corner is not its edge.
+
+   Each row's line length is set per row, so they land at the glass rather than
+   all stopping on the same vertical — which is what the reference does and
+   what stops the group looking like a table. ─────────────────────────────── */
+
+export interface CalloutRow {
+  /** Brand mark or generic glyph for the disc. */
+  mark: AnyIconName;
+  /** The benefit. Caps. */
+  label: string;
+  /** The line under it — where the joke lives. */
+  note: string;
+  /** How far the hairline runs right, in px. Aim it at the glass. */
+  line: number;
+}
+
+export interface T8Props {
+  /**
+   * Pre-composed art: product right, backdrop extended left. `ratio` MUST
+   * match this file's own aspect — the frame crops to fill, so a mismatch
+   * silently zooms the art and every callout line then points at the wrong
+   * part of the product.
+   */
+  src: string;
+  alt: string;
+  line1: string;
+  line2?: string;
+  intro?: string;
+  items: CalloutRow[];
+  cta?: Cta;
+  /** The photograph's own backdrop colour — the section ground. */
+  ground?: string;
+  /** Ink for type and hairlines. Measure the backdrop; don't guess. */
+  ink?: string;
+  ratio?: number;
+  bg?: EmailBg;
+}
+
+export function T8Callouts({
+  src,
+  alt,
+  line1,
+  line2,
+  intro,
+  items,
+  cta,
+  ground = '#DBBEA3',
+  ink = colors.forest,
+  ratio = 1.2,
+  bg = 'beige',
+}: T8Props) {
+  return (
+    <div style={{ position: 'relative', background: ground }}>
+      <Frame src={src} alt={alt} ratio={ratio} />
+
+      <div style={{ position: 'absolute', inset: 0 }}>
+        {/* Title band — full width, above the product. */}
+        <div style={{ padding: '30px 30px 0', textAlign: 'center' }}>
+          <div style={{ ...caps(31, '0.01em', ink), lineHeight: 1.02 }}>{line1}</div>
+          {line2 ? <div style={{ ...caps(31, '0.01em', ink), lineHeight: 1.02 }}>{line2}</div> : null}
+          {intro ? (
+            <div
+              style={{
+                fontFamily: fontStack,
+                fontWeight: 500,
+                fontSize: 14.5,
+                lineHeight: 1.5,
+                color: ink,
+                opacity: 0.88,
+                maxWidth: 440,
+                margin: '14px auto 0',
+              }}
+            >
+              {intro}
+            </div>
+          ) : null}
+        </div>
+
+        {/* The callouts, down the left. */}
+        <div style={{ padding: '22px 0 0 24px' }}>
+          {items.map((it) => (
+            <div key={it.label} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30 }}>
+              <span style={{ flex: '0 0 auto' }}>
+                <IconBadge mark={it.mark} bg="beige" size={40} fill={colors.forest} ink="gold" />
+              </span>
+              <span style={{ flex: '0 0 auto', maxWidth: 210 }}>
+                <span style={{ ...caps(13, '0.05em', ink), display: 'block', lineHeight: 1.12 }}>{it.label}</span>
+                <span
+                  style={{
+                    fontFamily: fontStack,
+                    fontWeight: 500,
+                    fontSize: 11.5,
+                    lineHeight: 1.35,
+                    color: ink,
+                    opacity: 0.82,
+                    display: 'block',
+                    marginTop: 3,
+                  }}
+                >
+                  {it.note}
+                </span>
+              </span>
+              {/* The hairline. Length is per row so every line lands on the
+                  glass instead of stopping on a shared vertical. */}
+              <span
+                style={{
+                  flex: '0 0 auto',
+                  height: 1,
+                  width: it.line,
+                  background: ink,
+                  opacity: 0.55,
+                  display: 'block',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {cta ? (
+          <div style={{ position: 'absolute', bottom: 26, left: 0, right: 0, textAlign: 'center' }}>
+            <Pill cta={cta} fill={colors.forest} ink={colors.beige} />
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }

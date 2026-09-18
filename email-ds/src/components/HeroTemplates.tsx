@@ -477,14 +477,15 @@ export function T5Urgency({ src, alt, line1, line2, note, cta, bg = 'forest', ra
    except the photograph itself. Three things make it work:
 
      - a TALL frame. A wide picture leaves the type stacked on top of the
-       subject; at 1.2–1.4 there is room for the words to have their own part
+       subject; at 1.3–1.5 there is room for the words to have their own part
        of the frame.
-     - the type held in the LOWER half, with the wordmark alone at the top.
-       Splitting them is what stops the whole thing reading as one clump in
-       the middle of a photo.
-     - a scrim weighted at BOTH ends — the mark needs ground at the top and
-       the stack needs it at the bottom, while the middle stays clear so the
-       photograph is still a photograph.
+     - the reading split in two. Wordmark, title and paragraph sit together at
+       the TOP; the CTA sits alone near the BOTTOM. The photograph is what
+       fills the gap between them, which is the whole reason to use a picture
+       this size instead of a smaller one with copy underneath.
+     - a scrim weighted at BOTH ends — the top block needs ground and so does
+       the button, while the middle stays clear so the photograph is still a
+       photograph.
 
    Give it art with a quiet lower half. If the subject sits low, use `focus`
    to push it up rather than fighting it with a heavier scrim. ───────────── */
@@ -502,7 +503,7 @@ export interface T6Props {
   cta: Cta;
   /** Tiny line under the CTA. */
   legal?: string;
-  /** Where the type stack sits, as a share of the frame. */
+  /** Where the CTA sits, as a share of the frame. */
   at?: string;
   bg?: EmailBg;
   ratio?: number;
@@ -520,7 +521,7 @@ export function T6FullImage({
   subtitle,
   cta,
   legal,
-  at = '52%',
+  at = '78%',
   bg = 'beige',
   ratio = 1.28,
   focus,
@@ -533,25 +534,25 @@ export function T6FullImage({
         style={{
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.5)}) 0%, rgba(0,26,13,${k(0.1)}) 28%, rgba(0,26,13,${k(0.14)}) 46%, rgba(0,26,13,${k(0.62)}) 78%, rgba(0,26,13,${k(0.72)}) 100%)`,
+          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.52)}) 38%, rgba(0,26,13,${k(0.16)}) 58%, rgba(0,26,13,${k(0.5)}) 84%, rgba(0,26,13,${k(0.6)}) 100%)`,
         }}
       />
 
-      <div style={{ position: 'absolute', top: 22, left: 0, right: 0, textAlign: 'center' }}>
-        <Logo tone="beige" variant="primary" height={64} />
-      </div>
-
-      <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+      {/* TOP BLOCK — wordmark, title, paragraph. They read as one unit, so
+          they are one absolutely-positioned stack rather than three. */}
+      <div style={{ position: 'absolute', top: 24, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+        <Logo tone="beige" variant="primary" height={76} />
+        <div style={{ height: 20 }} />
         {eyebrow ? (
-          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 14, textShadow: '0 2px 10px rgba(0,26,13,0.6)' }}>
+          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 12, textShadow: '0 2px 10px rgba(0,26,13,0.6)' }}>
             {eyebrow}
           </div>
         ) : null}
-        <div style={{ ...caps(46, '0.01em', colors.beige), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.6)' }}>
+        <div style={{ ...caps(44, '0.01em', colors.beige), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.65)' }}>
           {line1}
         </div>
         {line2 ? (
-          <div style={{ ...caps(46, '0.01em', colors.gold), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.6)' }}>
+          <div style={{ ...caps(44, '0.01em', colors.gold), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.65)' }}>
             {line2}
           </div>
         ) : null}
@@ -565,13 +566,16 @@ export function T6FullImage({
               color: 'rgba(255,255,255,0.94)',
               maxWidth: 400,
               margin: '16px auto 0',
-              textShadow: '0 2px 10px rgba(0,26,13,0.55)',
+              textShadow: '0 2px 10px rgba(0,26,13,0.6)',
             }}
           >
             {subtitle}
           </div>
         ) : null}
-        <div style={{ height: 24 }} />
+      </div>
+
+      {/* THE BUTTON, ALONE — the photograph fills the gap above it. */}
+      <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
         <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
         {legal ? (
           <div

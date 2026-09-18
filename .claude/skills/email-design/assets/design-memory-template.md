@@ -65,11 +65,22 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Blocks | **Five plug-and-play hero templates** — T1 photo + floating card · T2 big number, product below · T3 minimal, words then picture · T4 pilot (eyebrow, headline, product, copy, CTA) · T5 urgency, two-tone headline on a photograph. Fixed layouts; pass a picture and the copy and nothing moves | Bernat, replicating five references |
 | 2026-09-18 | Type | **Hero headlines run big — 34–58px, Gotham Black (weight 900), tight leading.** A hero title below about 30px stops carrying the email. Extra size buys presence only if the leading tightens with it | Bernat |
 | 2026-09-18 | Images | **The wordmark sits at a medium, clearly visible size — 52–64px high in a hero**, never a courtesy mark. At 40px it reads as a watermark rather than as the brand signing the email | Bernat |
-| 2026-09-18 | Blocks | **T6 · full image** — one photograph is the whole opening section: wordmark centred at the top, then title, subtitle and CTA on the picture. Needs a TALL frame (1.25–1.4), the type held in the lower half, and a scrim weighted at both ends so the mark has ground at the top and the stack has it at the bottom | Bernat |
+| 2026-09-18 | Blocks | **T6 · full image** — one photograph is the whole opening section. The reading splits in two: **wordmark, title and paragraph together at the TOP**, the **CTA alone near the bottom**, and the photograph fills the gap between them. Needs a tall frame (1.3–1.5) and a scrim weighted at both ends, middle left clear | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — T6's reading splits in two.** The first build stacked wordmark, title, paragraph and
+CTA together low on the picture. Bernat moved the title and paragraph up under the wordmark and
+kept the button where it was, and the section got markedly better: the top block is one thing to
+read, the button is the one thing to do, and **the photograph fills the gap between them** — which
+is the only real argument for using a picture this size instead of a smaller one with copy under
+it. A single low clump wastes the whole upper frame.
+
+The wordmark also went 64 to 76px, and the scrim was re-weighted to follow the type: heavier and
+deeper at the top now that the whole reading lives there, still weighted under the button, middle
+left clear.
 
 **2026-09-18 — T6, the full-image opener.** Bernat asked for a new email opening on one whole
 photograph with the wordmark centred above a big title, subtitle and CTA. It is the hardest of the

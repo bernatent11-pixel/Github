@@ -71,6 +71,20 @@ it overrides the skill's reference files, because it is newer and came from him 
 
 ## Log
 
+**2026-09-18 — shadow, not scrim.** Bernat wanted the photograph more visible without losing the
+title. Those pull against each other only if the scrim is doing the protecting: a scrim dims the
+whole picture in order to save the letters, while a **text shadow sits behind the letters alone**.
+So the gradient came down across every stop (0.62 to 0.46 at the top, 0.50 to 0.34 under the
+button) and the type took a two-layer shadow — a tight dark one for edge definition, a wide soft
+one for separation. The picture came back up and the headline held.
+
+**Worth applying anywhere type sits on art:** reach for the type's own shadow before reaching for
+a heavier scrim. The scrim is the blunt instrument and it costs the photograph.
+
+Also this round: title to "Set the tone / for your day.", the paragraph gained an opening line and
+lost its em dash, the wordmark gained air beneath it (20 to 34px), and the CTA dropped from 78% to
+84%.
+
 **2026-09-18 — T6's reading splits in two.** The first build stacked wordmark, title, paragraph and
 CTA together low on the picture. Bernat moved the title and paragraph up under the wordmark and
 kept the button where it was, and the section got markedly better: the top block is one thing to

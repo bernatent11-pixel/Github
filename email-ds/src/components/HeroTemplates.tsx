@@ -534,7 +534,7 @@ export function T6FullImage({
         style={{
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.52)}) 38%, rgba(0,26,13,${k(0.16)}) 58%, rgba(0,26,13,${k(0.5)}) 84%, rgba(0,26,13,${k(0.6)}) 100%)`,
+          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.46)}) 0%, rgba(0,26,13,${k(0.36)}) 40%, rgba(0,26,13,${k(0.08)}) 60%, rgba(0,26,13,${k(0.34)}) 86%, rgba(0,26,13,${k(0.46)}) 100%)`,
         }}
       />
 
@@ -542,17 +542,17 @@ export function T6FullImage({
           they are one absolutely-positioned stack rather than three. */}
       <div style={{ position: 'absolute', top: 24, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
         <Logo tone="beige" variant="primary" height={76} />
-        <div style={{ height: 20 }} />
+        <div style={{ height: 34 }} />
         {eyebrow ? (
-          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 12, textShadow: '0 2px 10px rgba(0,26,13,0.6)' }}>
+          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 12, textShadow: '0 1px 5px rgba(0,26,13,0.7)' }}>
             {eyebrow}
           </div>
         ) : null}
-        <div style={{ ...caps(44, '0.01em', colors.beige), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.65)' }}>
+        <div style={{ ...caps(44, '0.01em', colors.beige), lineHeight: 0.98, textShadow: '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)' }}>
           {line1}
         </div>
         {line2 ? (
-          <div style={{ ...caps(44, '0.01em', colors.gold), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.65)' }}>
+          <div style={{ ...caps(44, '0.01em', colors.gold), lineHeight: 0.98, textShadow: '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)' }}>
             {line2}
           </div>
         ) : null}
@@ -566,7 +566,7 @@ export function T6FullImage({
               color: 'rgba(255,255,255,0.94)',
               maxWidth: 400,
               margin: '16px auto 0',
-              textShadow: '0 2px 10px rgba(0,26,13,0.6)',
+              textShadow: '0 1px 4px rgba(0,26,13,0.7), 0 3px 14px rgba(0,26,13,0.5)',
             }}
           >
             {subtitle}

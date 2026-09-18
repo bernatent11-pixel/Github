@@ -31,11 +31,11 @@ function NewCampaign() {
       src: IMG.kitchen, focus: 'center 34%',
       alt: 'A hand lifting the Milonga Mate Latte from a sunlit kitchen counter',
       eyebrow: 'Energy that thinks',
-      line1: 'Everything your', line2: 'mornings need.',
-      subtitle: 'Clean caffeine, a clear head and a calm start — in thirty seconds, hot or iced.',
+      line1: 'Set the tone', line2: 'for your day.',
+      subtitle: 'Before the day gets busy, take a moment to slow down. Clean caffeine, a clear head and a calm start, in thirty seconds, hot or iced.',
       cta: { label: 'Shop the Mate Latte', href: '#' },
       legal: '15 servings · 90 cal · 3g sugar per scoop',
-      ratio: 1.46, at: '78%',
+      ratio: 1.46, at: '84%',
     }),
     Gap(44),
 
@@ -47,7 +47,7 @@ function NewCampaign() {
       line1: 'Thirty seconds,', line2: 'start to finish.',
       subtitle: 'Pour, whisk, drink. It does not clump and it does not need anything else.',
       cta: { label: 'Try it now', href: '#' },
-      ratio: 1.3, at: '78%', focus: 'center 30%',
+      ratio: 1.3, at: '84%', focus: 'center 30%',
     }),
     Gap(44),
 

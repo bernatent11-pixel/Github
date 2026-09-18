@@ -786,7 +786,7 @@ export function T8Callouts({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '46px 0 36px',
+          padding: '46px 0 58px',
           boxSizing: 'border-box',
         }}
       >
@@ -813,26 +813,44 @@ export function T8Callouts({
         {/* The callouts. White discs read as objects on the beige; the labels
             take the one ink the ground allows, and the notes go near-black —
             the pairing the ground can actually carry. */}
-        <div style={{ paddingLeft: 26 }}>
+        <div style={{ paddingLeft: 24 }}>
           {items.map((it) => (
-            <div key={it.label} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
-              <span style={{ flex: '0 0 auto' }}>
-                <IconBadge mark={it.mark} bg="beige" size={38} fill={colors.white} ink="forest" />
-              </span>
-              <span style={{ flex: '0 0 auto', maxWidth: 208 }}>
-                <span style={{ ...caps(12.5, '0.05em', ink), display: 'block', lineHeight: 1.12 }}>{it.label}</span>
-                <span
-                  style={{
-                    fontFamily: fontStack,
-                    fontWeight: 500,
-                    fontSize: 11.5,
-                    lineHeight: 1.35,
-                    color: '#151515',
-                    display: 'block',
-                    marginTop: 3,
-                  }}
-                >
-                  {it.note}
+            <div key={it.label} style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+              {/* Each row is one rounded shape holding its icon, label and
+                  note. On an open ground five bare rows read as a list; giving
+                  each one an edge turns them into objects the lines connect to,
+                  which is what makes the section read as a diagram. */}
+              <span
+                style={{
+                  flex: '0 0 auto',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 11,
+                  maxWidth: 268,
+                  background: colors.white,
+                  borderRadius: 999,
+                  padding: '9px 20px 9px 9px',
+                  boxShadow: '0 3px 12px rgba(0,26,13,0.10)',
+                }}
+              >
+                <span style={{ flex: '0 0 auto' }}>
+                  <IconBadge mark={it.mark} bg="beige" size={34} fill={colors.forest} ink="gold" />
+                </span>
+                <span style={{ flex: 1 }}>
+                  <span style={{ ...caps(11.5, '0.05em', ink), display: 'block', lineHeight: 1.12 }}>{it.label}</span>
+                  <span
+                    style={{
+                      fontFamily: fontStack,
+                      fontWeight: 500,
+                      fontSize: 10.5,
+                      lineHeight: 1.3,
+                      color: '#151515',
+                      display: 'block',
+                      marginTop: 2,
+                    }}
+                  >
+                    {it.note}
+                  </span>
                 </span>
               </span>
               {/* Per-row length, so each line lands on the glass. */}

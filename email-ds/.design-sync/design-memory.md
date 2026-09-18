@@ -73,11 +73,24 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Images | For a diagram section, **extend the photograph's backdrop from its own edge pixels** rather than filling with a sampled colour — a studio backdrop vignettes, so its corner is not its edge and a flat fill leaves a seam | Bernat |
 | 2026-09-18 | Images | **A `Frame` ratio must match its art's own aspect.** The frame crops to fill, so a mismatch silently zooms the picture — and in a diagram every callout line then points at the wrong part of the product | Bernat |
 | 2026-09-18 | Blocks | T8's three bands — title, callouts, button — are distributed with **`space-between` rather than stacked from the top**. That is what makes the section read as balanced instead of top-heavy with dead ground beneath it | Bernat |
-| 2026-09-18 | Images | **Flat-field a studio photograph when its backdrop becomes the section's ground.** Model the backdrop with a heavy blur and push each pixel by (target − model) in proportion to how much it looks like backdrop: the ground lands on one even colour and the subject keeps its own tone | Bernat |
+| 2026-09-18 | Images | **Ask for a cutout before engineering around a backdrop.** A transparent PNG sits on a real brand colour with no seam, no vignette and no correction. Flat-fielding (model the backdrop with a heavy blur, push each pixel by target − model weighted by how much it looks like backdrop) is the fallback when only a JPEG exists | Bernat |
+| 2026-09-18 | Blocks | In T8 each callout is **one rounded white shape holding its icon, label and note**. On an open ground five bare rows read as a list; giving each an edge turns them into objects the hairlines connect to, which is what makes the section read as a diagram | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — the cutout made the engineering unnecessary.** Bernat sent the glass as a
+transparent PNG. Everything built to work around the studio backdrop — extending edge pixels,
+flat-fielding, matching the ground to a sampled beige — became irrelevant in one step: the section
+is now real Milonga cream with the product sitting on it, no seam and no correction. **The lesson
+is to ask for a cutout first.** Several rounds went into compositing around a backdrop that did not
+need to be there. The flat-field technique stays in memory as the fallback for when only a JPEG
+exists, which is often.
+
+Each callout also gained its own rounded white shape around the icon, label and note. On an open
+ground five bare rows read as a list; an edge turns each into an object for the hairline to connect
+to, and the section reads as a diagram rather than a caption beside a photo.
 
 **2026-09-18 — the panel comes out, and the ground is flattened instead.** Bernat asked for one
 even beige and no green rectangle. Both were possible once the real problem was named: the section

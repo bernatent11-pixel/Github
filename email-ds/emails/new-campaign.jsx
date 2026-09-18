@@ -10,6 +10,7 @@ const IMG = {
   flatlay: '../public/product/flatlay-ingredients.jpg',
   pour: '../public/product/mind-body-connected.jpg',
   iced: '../public/product/pouch-iced-botanical.png',
+  kitchen: '../public/product/kitchen-morning.jpg',
 };
 
 function Label(t) {
@@ -24,14 +25,17 @@ function NewCampaign() {
 
     Label('Section 1 · full image — tall frame, type low'),
     h(M.T6FullImage, {
-      src: IMG.flatlay,
-      alt: 'The Milonga Mate Latte with yerba mate, Lion’s Mane and bark',
+      // Source is 1.5 tall; the frame takes 1.3, so the crop trims top and
+      // bottom. Aimed a little high to keep the window light and the pouch,
+      // and to leave the quiet counter for the type.
+      src: IMG.kitchen, focus: 'center 34%',
+      alt: 'A hand lifting the Milonga Mate Latte from a sunlit kitchen counter',
       eyebrow: 'Energy that thinks',
       line1: 'Everything your', line2: 'mornings need.',
       subtitle: 'Clean caffeine, a clear head and a calm start — in thirty seconds, hot or iced.',
       cta: { label: 'Shop the Mate Latte', href: '#' },
       legal: '15 servings · 90 cal · 3g sugar per scoop',
-      ratio: 1.3, at: '54%',
+      ratio: 1.46, at: '63%',
     }),
     Gap(44),
 

@@ -72,10 +72,26 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Blocks | **T8 · callout diagram** — product right, benefits down the left, a hairline from each one reaching the product. The lines must ACTUALLY TOUCH it; a line stopping in open space reads as decoration | Bernat |
 | 2026-09-18 | Images | For a diagram section, **extend the photograph's backdrop from its own edge pixels** rather than filling with a sampled colour — a studio backdrop vignettes, so its corner is not its edge and a flat fill leaves a seam | Bernat |
 | 2026-09-18 | Images | **A `Frame` ratio must match its art's own aspect.** The frame crops to fill, so a mismatch silently zooms the picture — and in a diagram every callout line then points at the wrong part of the product | Bernat |
+| 2026-09-18 | Blocks | In T8 the callout rows sit in a **forest panel** — white icon discs, beige titles, cream notes — placed low and close to the CTA, with the hairlines leaving the panel's right edge for the product. The panel is what makes pale type possible over a light photograph | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — the panel, and why it had to exist.** Bernat asked for white icons, white or beige
+titles and black body text. On this section's ground — the photograph's own light beige, luminance
+around 193 — white type measures about 1.35:1 and is simply unreadable, while black reads at about
+12:1. The three instructions could not all hold on one ground.
+
+Two of the three pointed at a dark field, so that is what the rows got: a **forest panel**, with
+white icon discs, beige titles and cream notes. It answers the rest of the brief at the same time —
+it separates the intro from the benefits, it sits low beside the button, and it reads as a
+deliberate object rather than a list floating on a photograph. The one instruction not honoured is
+"text below black", which would be invisible on green; cream carries it instead.
+
+The art was recomposed to bring the glass down level with the panel, which needed the backdrop
+extended **upward** from the photo's own first row — the same edge-stretch trick as before, in the
+other direction.
 
 **2026-09-18 — the callout diagram, and a claim that could not go in.** Bernat sent the MUD\WTR
 pumpkin-spice section and five benefit lines to replicate. Four went in as written. **"Less stress,

@@ -755,6 +755,10 @@ export interface T8Props {
   /** Ink for type and hairlines. Measure the backdrop; don't guess. */
   ink?: string;
   ratio?: number;
+  /** Width of the forest panel the rows sit in. */
+  panelWidth?: number;
+  /** How far the panel sits above the section's bottom edge. */
+  panelBottom?: number;
   bg?: EmailBg;
 }
 
@@ -769,6 +773,8 @@ export function T8Callouts({
   ground = '#DBBEA3',
   ink = colors.forest,
   ratio = 1.2,
+  panelWidth = 336,
+  panelBottom = 108,
   bg = 'beige',
 }: T8Props) {
   return (
@@ -798,44 +804,61 @@ export function T8Callouts({
           ) : null}
         </div>
 
-        {/* The callouts, down the left. */}
-        <div style={{ padding: '22px 0 0 24px' }}>
-          {items.map((it) => (
-            <div key={it.label} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30 }}>
-              <span style={{ flex: '0 0 auto' }}>
-                <IconBadge mark={it.mark} bg="beige" size={40} fill={colors.forest} ink="gold" />
-              </span>
-              <span style={{ flex: '0 0 auto', maxWidth: 210 }}>
-                <span style={{ ...caps(13, '0.05em', ink), display: 'block', lineHeight: 1.12 }}>{it.label}</span>
+        {/* The callouts. On a light photograph white type is unreadable, so
+            asking for white icons and pale titles is really asking for a dark
+            ground — the rows get their own forest panel, low on the section
+            and close to the button, with the hairlines leaving its right edge
+            for the glass. */}
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: panelBottom, paddingLeft: 22 }}>
+          <div
+            style={{
+              width: panelWidth,
+              background: colors.forest,
+              borderRadius: 18,
+              padding: '22px 20px 8px',
+              boxShadow: '0 16px 40px rgba(0,26,13,0.26)',
+            }}
+          >
+            {items.map((it) => (
+              <div key={it.label} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                <span style={{ flex: '0 0 auto' }}>
+                  <IconBadge mark={it.mark} bg="beige" size={36} fill={colors.white} ink="forest" />
+                </span>
+                <span style={{ flex: 1 }}>
+                  <span style={{ ...caps(12.5, '0.05em', colors.beige), display: 'block', lineHeight: 1.12 }}>
+                    {it.label}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: fontStack,
+                      fontWeight: 500,
+                      fontSize: 11.5,
+                      lineHeight: 1.35,
+                      color: 'rgba(255,255,255,0.82)',
+                      display: 'block',
+                      marginTop: 3,
+                    }}
+                  >
+                    {it.note}
+                  </span>
+                </span>
+                {/* The hairline leaves the panel and runs to the glass. Length
+                    is per row, so each one lands on the product rather than
+                    stopping on a shared vertical. */}
                 <span
                   style={{
-                    fontFamily: fontStack,
-                    fontWeight: 500,
-                    fontSize: 11.5,
-                    lineHeight: 1.35,
-                    color: ink,
-                    opacity: 0.82,
+                    position: 'absolute',
+                    left: panelWidth + 22,
+                    width: it.line,
+                    height: 1,
+                    background: colors.white,
+                    opacity: 0.8,
                     display: 'block',
-                    marginTop: 3,
                   }}
-                >
-                  {it.note}
-                </span>
-              </span>
-              {/* The hairline. Length is per row so every line lands on the
-                  glass instead of stopping on a shared vertical. */}
-              <span
-                style={{
-                  flex: '0 0 auto',
-                  height: 1,
-                  width: it.line,
-                  background: ink,
-                  opacity: 0.55,
-                  display: 'block',
-                }}
-              />
-            </div>
-          ))}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {cta ? (

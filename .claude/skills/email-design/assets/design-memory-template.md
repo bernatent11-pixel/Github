@@ -63,10 +63,26 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Images | **A logo or headline placed on a photograph needs its ink checked against that photograph.** The contrast map is calibrated to flat brand grounds; a picture's top edge is whatever the photographer made it. `HeroSection` takes a `logoTone` override for exactly this | Bernat |
 | 2026-09-17 | Images | **Every photograph in a template sits in a FIXED-RATIO frame and is cropped to fill it.** A raw `<img>` takes the height its file happens to have, so a portrait shot pushes the headline down the page — which is why swapping an image normally wrecks a layout. The frame owns the height; the picture adapts. Aim the crop with `focus` when a swapped file loses its subject | Bernat |
 | 2026-09-17 | Blocks | **Five plug-and-play hero templates** — T1 photo + floating card · T2 big number, product below · T3 minimal, words then picture · T4 pilot (eyebrow, headline, product, copy, CTA) · T5 urgency, two-tone headline on a photograph. Fixed layouts; pass a picture and the copy and nothing moves | Bernat, replicating five references |
+| 2026-09-18 | Type | **Hero headlines run big — 34–58px, Gotham Black (weight 900), tight leading.** A hero title below about 30px stops carrying the email. Extra size buys presence only if the leading tightens with it | Bernat |
+| 2026-09-18 | Images | **The wordmark sits at a medium, clearly visible size — 52–64px high in a hero**, never a courtesy mark. At 40px it reads as a watermark rather than as the brand signing the email | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — sized up for legibility.** Bernat asked for the wordmark at a medium visible size
+and the titles bigger in Gotham Black. Wordmarks went 40–42px to 52–64px; hero titles went up
+across all five templates (T1 offer 46→58, T2 figure 62→78, T3 title 27→34, T4 headline 34→43,
+T5 two-tone 30→37), each with its leading tightened so the extra size reads as presence rather
+than as height.
+
+Two knock-on fixes the render caught. The bigger wordmark needed the copy below it moved down, and
+— more usefully — it needed something to sit against: on T1 and T5 the cream mark was landing on
+the pale part of a photograph and nearly vanishing, so both scrims carry more weight at the top
+stop now. **A bigger mark is not a more visible mark unless it has ground under it.**
+
+Confirmed while doing it: `fontWeight: 900` in this system resolves to Gotham-Black.otf, so every
+caps title in the templates is already Gotham Black.
 
 **2026-09-17 — five hero templates, replicating the references exactly.** Bernat asked for exact
 replicas of the five heroes he sent, as plug-and-play templates in Milonga's type and colour, and

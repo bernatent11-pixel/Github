@@ -166,12 +166,12 @@ export function T1PhotoCard({
         {/* The whole picture is darkened a touch, not just a third — the offer
             sits high and the card sits low, so there is no quiet band to aim a
             directional scrim at. */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,26,13,0.34) 0%, rgba(0,26,13,0.12) 42%, rgba(0,26,13,0.30) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,26,13,0.52) 0%, rgba(0,26,13,0.14) 44%, rgba(0,26,13,0.32) 100%)' }} />
         <div style={{ position: 'absolute', top: 20, left: 0, right: 0, textAlign: 'center' }}>
-          <Logo tone="beige" variant="primary" height={40} />
+          <Logo tone="beige" variant="primary" height={64} />
         </div>
         {badge ? (
-          <div style={{ position: 'absolute', top: '26%', left: '6%' }}>
+          <div style={{ position: 'absolute', top: '31%', left: '6%' }}>
             <span
               style={{
                 display: 'inline-block',
@@ -186,17 +186,17 @@ export function T1PhotoCard({
             </span>
           </div>
         ) : null}
-        <div style={{ position: 'absolute', top: '15%', left: 0, right: 0, padding: '0 28px', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: '19%', left: 0, right: 0, padding: '0 28px', textAlign: 'center' }}>
           {lead ? (
-            <div style={{ ...caps(13, '0.1em', colors.beige), marginBottom: 8, textShadow: '0 2px 10px rgba(0,26,13,0.5)' }}>
+            <div style={{ ...caps(15, '0.1em', colors.beige), marginBottom: 10, textShadow: '0 2px 10px rgba(0,26,13,0.5)' }}>
               {lead}
             </div>
           ) : null}
-          <div style={{ ...caps(46, '0.005em', colors.beige), lineHeight: 0.98, textShadow: '0 3px 18px rgba(0,26,13,0.55)' }}>
+          <div style={{ ...caps(58, '0.005em', colors.beige), lineHeight: 0.94, textShadow: '0 3px 18px rgba(0,26,13,0.55)' }}>
             {offerLine1}
           </div>
           {offerLine2 ? (
-            <div style={{ ...caps(34, '0.01em', colors.beige), lineHeight: 1.05, textShadow: '0 3px 18px rgba(0,26,13,0.55)' }}>
+            <div style={{ ...caps(42, '0.01em', colors.beige), lineHeight: 1.0, textShadow: '0 3px 18px rgba(0,26,13,0.55)' }}>
               {offerLine2}
             </div>
           ) : null}
@@ -213,9 +213,9 @@ export function T1PhotoCard({
             boxShadow: '0 14px 36px rgba(0,26,13,0.3)',
           }}
         >
-          <div style={{ ...caps(25, '0.015em', colors.beige), lineHeight: 1.1 }}>{cardLine1}</div>
+          <div style={{ ...caps(31, '0.015em', colors.beige), lineHeight: 1.06 }}>{cardLine1}</div>
           {cardLine2 ? (
-            <div style={{ ...caps(25, '0.015em', colors.gold), lineHeight: 1.1 }}>{cardLine2}</div>
+            <div style={{ ...caps(31, '0.015em', colors.gold), lineHeight: 1.06 }}>{cardLine2}</div>
           ) : null}
           <div style={{ height: 20 }} />
           <Pill cta={cta} fill={colors.gold} ink={colors.forest} outline />
@@ -267,15 +267,15 @@ export function T2BigNumber({
   return (
     <div style={{ ...bgStyle(bg, colors.forest, false) }}>
       <div style={{ padding: '30px 30px 0', textAlign: 'center' }}>
-        <Logo tone="gold" variant="primary" height={42} />
+        <Logo tone="gold" variant="primary" height={64} />
         <div style={{ height: 26 }} />
-        <div style={{ fontFamily: fontStack, fontStyle: 'italic', fontWeight: 500, fontSize: 24, color: colors.beige, lineHeight: 1.2 }}>
+        <div style={{ fontFamily: fontStack, fontStyle: 'italic', fontWeight: 500, fontSize: 27, color: colors.beige, lineHeight: 1.2 }}>
           {lead}
         </div>
-        <div style={{ fontFamily: fontStack, fontWeight: 900, fontSize: 62, lineHeight: 1.02, letterSpacing: '-0.015em', color: colors.gold, margin: '4px 0 2px' }}>
+        <div style={{ fontFamily: fontStack, fontWeight: 900, fontSize: 78, lineHeight: 0.98, letterSpacing: '-0.015em', color: colors.gold, margin: '4px 0 2px' }}>
           {figure}
         </div>
-        <div style={{ ...caps(22, '0.02em', colors.beige) }}>{under}</div>
+        <div style={{ ...caps(27, '0.02em', colors.beige) }}>{under}</div>
         <div style={{ height: 18 }} />
         <div style={{ fontFamily: fontStack, fontSize: 16, lineHeight: 1.55, color: 'rgba(255,255,255,0.9)', maxWidth: 430, margin: '0 auto' }}>
           {body}
@@ -310,9 +310,9 @@ export function T3Minimal({ src, alt, title, body, cta, bg = 'beige', ratio = 0.
   return (
     <div>
       <div style={{ padding: '30px 34px 0', textAlign: 'center' }}>
-        <Logo tone={t.logo} variant="primary" height={40} />
+        <Logo tone={t.logo} variant="primary" height={62} />
         <div style={{ height: 24 }} />
-        <div style={{ ...caps(27, '0.02em', t.title), lineHeight: 1.12 }}>{title}</div>
+        <div style={{ ...caps(34, '0.02em', t.title), lineHeight: 1.08 }}>{title}</div>
         <div style={{ height: 14 }} />
         <div style={{ fontFamily: fontStack, fontSize: 15, lineHeight: 1.6, color: t.body, maxWidth: 400, margin: '0 auto' }}>
           {body}
@@ -368,7 +368,7 @@ export function T4Pilot({
   return (
     <div style={{ ...bgStyle(bg, colors.forest, true), position: 'relative' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 26px 0' }}>
-        <Logo tone="gold" variant="mark" height={34} />
+        <Logo tone="gold" variant="mark" height={52} />
         {stamp ? (
           <span
             style={{
@@ -392,9 +392,9 @@ export function T4Pilot({
       </div>
 
       <div style={{ padding: '18px 30px 0', textAlign: 'center' }}>
-        <div style={{ ...caps(10.5, '0.22em', colors.gold) }}>{eyebrow}</div>
+        <div style={{ ...caps(11.5, '0.22em', colors.gold) }}>{eyebrow}</div>
         <div style={{ height: 12 }} />
-        <div style={{ ...caps(34, '0.015em', colors.beige), lineHeight: 1.05, textShadow: '0 2px 12px rgba(0,26,13,0.4)' }}>
+        <div style={{ ...caps(43, '0.015em', colors.beige), lineHeight: 1.0, textShadow: '0 2px 12px rgba(0,26,13,0.4)' }}>
           {title}
         </div>
       </div>
@@ -445,15 +445,15 @@ export interface T5Props {
 export function T5Urgency({ src, alt, line1, line2, note, cta, bg = 'forest', ratio = 0.72, focus }: T5Props) {
   return (
     <Frame src={src} alt={alt} ratio={ratio} focus={focus}>
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,26,13,0.44) 0%, rgba(0,26,13,0.24) 40%, rgba(0,26,13,0.52) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,26,13,0.58) 0%, rgba(0,26,13,0.26) 40%, rgba(0,26,13,0.54) 100%)' }} />
       <div style={{ position: 'absolute', top: 18, left: 0, right: 0, textAlign: 'center' }}>
-        <Logo tone="beige" variant="mark" height={34} />
+        <Logo tone="beige" variant="mark" height={60} />
       </div>
       <div style={{ position: 'absolute', top: '34%', left: 0, right: 0, padding: '0 26px', textAlign: 'center' }}>
-        <div style={{ ...caps(30, '0.01em', colors.beige), lineHeight: 1.08, textShadow: '0 2px 14px rgba(0,26,13,0.5)' }}>
+        <div style={{ ...caps(37, '0.01em', colors.beige), lineHeight: 1.04, textShadow: '0 2px 14px rgba(0,26,13,0.5)' }}>
           {line1}
         </div>
-        <div style={{ ...caps(30, '0.01em', colors.gold), lineHeight: 1.08, textShadow: '0 2px 14px rgba(0,26,13,0.5)' }}>
+        <div style={{ ...caps(37, '0.01em', colors.gold), lineHeight: 1.04, textShadow: '0 2px 14px rgba(0,26,13,0.5)' }}>
           {line2}
         </div>
         {note ? (

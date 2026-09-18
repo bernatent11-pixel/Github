@@ -65,10 +65,24 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-17 | Blocks | **Five plug-and-play hero templates** — T1 photo + floating card · T2 big number, product below · T3 minimal, words then picture · T4 pilot (eyebrow, headline, product, copy, CTA) · T5 urgency, two-tone headline on a photograph. Fixed layouts; pass a picture and the copy and nothing moves | Bernat, replicating five references |
 | 2026-09-18 | Type | **Hero headlines run big — 34–58px, Gotham Black (weight 900), tight leading.** A hero title below about 30px stops carrying the email. Extra size buys presence only if the leading tightens with it | Bernat |
 | 2026-09-18 | Images | **The wordmark sits at a medium, clearly visible size — 52–64px high in a hero**, never a courtesy mark. At 40px it reads as a watermark rather than as the brand signing the email | Bernat |
+| 2026-09-18 | Blocks | **T6 · full image** — one photograph is the whole opening section: wordmark centred at the top, then title, subtitle and CTA on the picture. Needs a TALL frame (1.25–1.4), the type held in the lower half, and a scrim weighted at both ends so the mark has ground at the top and the stack has it at the bottom | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — T6, the full-image opener.** Bernat asked for a new email opening on one whole
+photograph with the wordmark centred above a big title, subtitle and CTA. It is the hardest of the
+six templates because nothing protects the type except the photograph. Three things make it hold: a
+tall frame, so the words get their own part of the picture instead of stacking on the subject; the
+mark alone at the top with the type stack low, because putting them together reads as one clump in
+the middle of a photo; and a scrim weighted at BOTH ends with the middle left clear, so the picture
+is still a picture.
+
+The second render in the file is the same section with a different photograph and no other change —
+proof that swapping art moves nothing. It also demonstrates the standing rule the hard way: that
+photograph has "mind and body connected" baked into it, and the words collide with our headline.
+**Art for this template must not carry type of its own.**
 
 **2026-09-18 — sized up for legibility.** Bernat asked for the wordmark at a medium visible size
 and the titles bigger in Gotham Black. Wordmarks went 40–42px to 52–64px; hero titles went up

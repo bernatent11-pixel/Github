@@ -467,3 +467,126 @@ export function T5Urgency({ src, alt, line1, line2, note, cta, bg = 'forest', ra
     </Frame>
   );
 }
+
+
+/* ══ T6 · FULL IMAGE ═════════════════════════════════════════════════════
+   One photograph is the whole section. Wordmark centred at the top, then the
+   title, subtitle and CTA sitting on the picture.
+
+   The hardest of the six to get right, because nothing is protecting the type
+   except the photograph itself. Three things make it work:
+
+     - a TALL frame. A wide picture leaves the type stacked on top of the
+       subject; at 1.2–1.4 there is room for the words to have their own part
+       of the frame.
+     - the type held in the LOWER half, with the wordmark alone at the top.
+       Splitting them is what stops the whole thing reading as one clump in
+       the middle of a photo.
+     - a scrim weighted at BOTH ends — the mark needs ground at the top and
+       the stack needs it at the bottom, while the middle stays clear so the
+       photograph is still a photograph.
+
+   Give it art with a quiet lower half. If the subject sits low, use `focus`
+   to push it up rather than fighting it with a heavier scrim. ───────────── */
+
+export interface T6Props {
+  src: string;
+  alt: string;
+  /** Small caps line above the title. */
+  eyebrow?: string;
+  /** The title. Two lines; the second takes the accent. */
+  line1: string;
+  line2?: string;
+  /** One line under the title. */
+  subtitle?: string;
+  cta: Cta;
+  /** Tiny line under the CTA. */
+  legal?: string;
+  /** Where the type stack sits, as a share of the frame. */
+  at?: string;
+  bg?: EmailBg;
+  ratio?: number;
+  focus?: string;
+  /** Turn the scrim down for an already-dark photograph. */
+  scrim?: number;
+}
+
+export function T6FullImage({
+  src,
+  alt,
+  eyebrow,
+  line1,
+  line2,
+  subtitle,
+  cta,
+  legal,
+  at = '52%',
+  bg = 'beige',
+  ratio = 1.28,
+  focus,
+  scrim = 1,
+}: T6Props) {
+  const k = (v: number) => (v * scrim).toFixed(2);
+  return (
+    <Frame src={src} alt={alt} ratio={ratio} focus={focus}>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.5)}) 0%, rgba(0,26,13,${k(0.1)}) 28%, rgba(0,26,13,${k(0.14)}) 46%, rgba(0,26,13,${k(0.62)}) 78%, rgba(0,26,13,${k(0.72)}) 100%)`,
+        }}
+      />
+
+      <div style={{ position: 'absolute', top: 22, left: 0, right: 0, textAlign: 'center' }}>
+        <Logo tone="beige" variant="primary" height={64} />
+      </div>
+
+      <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+        {eyebrow ? (
+          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 14, textShadow: '0 2px 10px rgba(0,26,13,0.6)' }}>
+            {eyebrow}
+          </div>
+        ) : null}
+        <div style={{ ...caps(46, '0.01em', colors.beige), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.6)' }}>
+          {line1}
+        </div>
+        {line2 ? (
+          <div style={{ ...caps(46, '0.01em', colors.gold), lineHeight: 0.98, textShadow: '0 3px 20px rgba(0,26,13,0.6)' }}>
+            {line2}
+          </div>
+        ) : null}
+        {subtitle ? (
+          <div
+            style={{
+              fontFamily: fontStack,
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: 1.5,
+              color: 'rgba(255,255,255,0.94)',
+              maxWidth: 400,
+              margin: '16px auto 0',
+              textShadow: '0 2px 10px rgba(0,26,13,0.55)',
+            }}
+          >
+            {subtitle}
+          </div>
+        ) : null}
+        <div style={{ height: 24 }} />
+        <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+        {legal ? (
+          <div
+            style={{
+              fontFamily: fontStack,
+              fontSize: 10,
+              letterSpacing: '0.06em',
+              color: 'rgba(255,255,255,0.72)',
+              marginTop: 14,
+            }}
+          >
+            {legal}
+          </div>
+        ) : null}
+      </div>
+    </Frame>
+  );
+}

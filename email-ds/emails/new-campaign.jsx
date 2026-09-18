@@ -12,7 +12,7 @@ const IMG = {
   iced: '../public/product/pouch-iced-botanical.png',
   kitchen: '../public/product/kitchen-morning.jpg',
   icedHand: '../public/product/iced-in-hand.jpg',
-  calloutBg: '../public/product/iced-callout-bg.jpg',
+  calloutFlat: '../public/product/iced-callout-flat.jpg',
 };
 
 function Label(t) {
@@ -57,21 +57,21 @@ function NewCampaign() {
 
     Label('Section 3 · callout diagram'),
     h(M.T8Callouts, {
-      src: IMG.calloutBg,
+      src: IMG.calloutFlat,
       alt: 'A hand holding a jar of iced Milonga Mate Latte, with its benefits listed alongside',
-      line1: 'Everything a morning', line2: 'asks of you.',
-      intro: 'One scoop of yerba mate, Lion’s Mane and L-Theanine — working while you get on with it.',
+      line1: 'For everything your', line2: 'day throws at you.',
+      intro: 'Work, errands, workouts, and whatever comes next.',
       cta: { label: 'Shop the Mate Latte', href: '#' },
       // Must match iced-callout-bg.jpg's own 1200x1440 aspect.
       ratio: 1.2,
       // Line lengths are per row so each one lands on the glass rather than
       // stopping on a shared vertical.
       items: [
-        { mark: 'yerba-mate', label: 'Clean, sustained energy', note: 'For walking into work already on your second gear.', line: 74 },
-        { mark: 'lions-mane', label: 'Mental clarity & focus', note: 'For when your brain clocks in before you do.', line: 80 },
-        { mark: 'l-theanine', label: 'Balanced calm', note: 'For keeping your cool when your boss starts the day with “Got a minute?”', line: 70 },
-        { mark: 'check', label: 'No jitters, no crash', note: 'For when your inbox is already testing you at 8:47 AM.', line: 66 },
-        { mark: 'leaf', label: 'Antioxidant-rich', note: 'For giving your morning routine a little extra goodness.', line: 68 },
+        { mark: 'yerba-mate', label: 'Clean, sustained energy', note: 'For walking into work already on your second gear.', line: 100 },
+        { mark: 'lions-mane', label: 'Mental clarity & focus', note: 'For when your brain clocks in before you do.', line: 108 },
+        { mark: 'l-theanine', label: 'Balanced calm', note: 'For keeping your cool when your boss starts the day with “Got a minute?”', line: 96 },
+        { mark: 'check', label: 'No jitters, no crash', note: 'For when your inbox is already testing you at 8:47 AM.', line: 92 },
+        { mark: 'leaf', label: 'Antioxidant-rich', note: 'For giving your morning routine a little extra goodness.', line: 94 },
       ],
     }),
     Gap(44),

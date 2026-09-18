@@ -755,10 +755,6 @@ export interface T8Props {
   /** Ink for type and hairlines. Measure the backdrop; don't guess. */
   ink?: string;
   ratio?: number;
-  /** Width of the forest panel the rows sit in. */
-  panelWidth?: number;
-  /** How far the panel sits above the section's bottom edge. */
-  panelBottom?: number;
   bg?: EmailBg;
 }
 
@@ -773,29 +769,39 @@ export function T8Callouts({
   ground = '#DBBEA3',
   ink = colors.forest,
   ratio = 1.2,
-  panelWidth = 336,
-  panelBottom = 108,
   bg = 'beige',
 }: T8Props) {
   return (
     <div style={{ position: 'relative', background: ground }}>
       <Frame src={src} alt={alt} ratio={ratio} />
 
-      <div style={{ position: 'absolute', inset: 0 }}>
-        {/* Title band — full width, above the product. */}
-        <div style={{ padding: '30px 30px 0', textAlign: 'center' }}>
-          <div style={{ ...caps(31, '0.01em', ink), lineHeight: 1.02 }}>{line1}</div>
-          {line2 ? <div style={{ ...caps(31, '0.01em', ink), lineHeight: 1.02 }}>{line2}</div> : null}
+      {/* One column, distributed. `space-between` is what makes the section
+          read as balanced rather than top-heavy: the title band, the callouts
+          and the button each take a third of the height instead of stacking
+          from the top and leaving the rest empty. */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '46px 0 36px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ padding: '0 30px', textAlign: 'center' }}>
+          <div style={{ ...caps(30, '0.01em', ink), lineHeight: 1.04 }}>{line1}</div>
+          {line2 ? <div style={{ ...caps(30, '0.01em', ink), lineHeight: 1.04 }}>{line2}</div> : null}
           {intro ? (
             <div
               style={{
                 fontFamily: fontStack,
                 fontWeight: 500,
-                fontSize: 14.5,
+                fontSize: 15,
                 lineHeight: 1.5,
-                color: ink,
-                opacity: 0.88,
-                maxWidth: 440,
+                color: '#151515',
+                maxWidth: 420,
                 margin: '14px auto 0',
               }}
             >
@@ -804,68 +810,42 @@ export function T8Callouts({
           ) : null}
         </div>
 
-        {/* The callouts. On a light photograph white type is unreadable, so
-            asking for white icons and pale titles is really asking for a dark
-            ground — the rows get their own forest panel, low on the section
-            and close to the button, with the hairlines leaving its right edge
-            for the glass. */}
-        <div style={{ position: 'absolute', left: 0, right: 0, bottom: panelBottom, paddingLeft: 22 }}>
-          <div
-            style={{
-              width: panelWidth,
-              background: colors.forest,
-              borderRadius: 18,
-              padding: '22px 20px 8px',
-              boxShadow: '0 16px 40px rgba(0,26,13,0.26)',
-            }}
-          >
-            {items.map((it) => (
-              <div key={it.label} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                <span style={{ flex: '0 0 auto' }}>
-                  <IconBadge mark={it.mark} bg="beige" size={36} fill={colors.white} ink="forest" />
-                </span>
-                <span style={{ flex: 1 }}>
-                  <span style={{ ...caps(12.5, '0.05em', colors.beige), display: 'block', lineHeight: 1.12 }}>
-                    {it.label}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: fontStack,
-                      fontWeight: 500,
-                      fontSize: 11.5,
-                      lineHeight: 1.35,
-                      color: 'rgba(255,255,255,0.82)',
-                      display: 'block',
-                      marginTop: 3,
-                    }}
-                  >
-                    {it.note}
-                  </span>
-                </span>
-                {/* The hairline leaves the panel and runs to the glass. Length
-                    is per row, so each one lands on the product rather than
-                    stopping on a shared vertical. */}
+        {/* The callouts. White discs read as objects on the beige; the labels
+            take the one ink the ground allows, and the notes go near-black —
+            the pairing the ground can actually carry. */}
+        <div style={{ paddingLeft: 26 }}>
+          {items.map((it) => (
+            <div key={it.label} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+              <span style={{ flex: '0 0 auto' }}>
+                <IconBadge mark={it.mark} bg="beige" size={38} fill={colors.white} ink="forest" />
+              </span>
+              <span style={{ flex: '0 0 auto', maxWidth: 208 }}>
+                <span style={{ ...caps(12.5, '0.05em', ink), display: 'block', lineHeight: 1.12 }}>{it.label}</span>
                 <span
                   style={{
-                    position: 'absolute',
-                    left: panelWidth + 22,
-                    width: it.line,
-                    height: 1,
-                    background: colors.white,
-                    opacity: 0.8,
+                    fontFamily: fontStack,
+                    fontWeight: 500,
+                    fontSize: 11.5,
+                    lineHeight: 1.35,
+                    color: '#151515',
                     display: 'block',
+                    marginTop: 3,
                   }}
-                />
-              </div>
-            ))}
-          </div>
+                >
+                  {it.note}
+                </span>
+              </span>
+              {/* Per-row length, so each line lands on the glass. */}
+              <span
+                style={{ flex: '0 0 auto', height: 1, width: it.line, background: ink, opacity: 0.6, display: 'block' }}
+              />
+            </div>
+          ))}
         </div>
 
-        {cta ? (
-          <div style={{ position: 'absolute', bottom: 26, left: 0, right: 0, textAlign: 'center' }}>
-            <Pill cta={cta} fill={colors.forest} ink={colors.beige} />
-          </div>
-        ) : null}
+        <div style={{ textAlign: 'center' }}>
+          {cta ? <Pill cta={cta} fill={colors.forest} ink={colors.beige} /> : null}
+        </div>
       </div>
     </div>
   );

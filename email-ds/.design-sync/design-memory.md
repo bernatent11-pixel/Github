@@ -72,11 +72,30 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Blocks | **T8 · callout diagram** — product right, benefits down the left, a hairline from each one reaching the product. The lines must ACTUALLY TOUCH it; a line stopping in open space reads as decoration | Bernat |
 | 2026-09-18 | Images | For a diagram section, **extend the photograph's backdrop from its own edge pixels** rather than filling with a sampled colour — a studio backdrop vignettes, so its corner is not its edge and a flat fill leaves a seam | Bernat |
 | 2026-09-18 | Images | **A `Frame` ratio must match its art's own aspect.** The frame crops to fill, so a mismatch silently zooms the picture — and in a diagram every callout line then points at the wrong part of the product | Bernat |
-| 2026-09-18 | Blocks | In T8 the callout rows sit in a **forest panel** — white icon discs, beige titles, cream notes — placed low and close to the CTA, with the hairlines leaving the panel's right edge for the product. The panel is what makes pale type possible over a light photograph | Bernat |
+| 2026-09-18 | Blocks | T8's three bands — title, callouts, button — are distributed with **`space-between` rather than stacked from the top**. That is what makes the section read as balanced instead of top-heavy with dead ground beneath it | Bernat |
+| 2026-09-18 | Images | **Flat-field a studio photograph when its backdrop becomes the section's ground.** Model the backdrop with a heavy blur and push each pixel by (target − model) in proportion to how much it looks like backdrop: the ground lands on one even colour and the subject keeps its own tone | Bernat |
 
 ---
 
 ## Log
+
+**2026-09-18 — the panel comes out, and the ground is flattened instead.** Bernat asked for one
+even beige and no green rectangle. Both were possible once the real problem was named: the section
+looked uneven because a studio backdrop **vignettes**, and we were using that backdrop as the
+ground. A flat-field correction fixes it properly — model the backdrop with a heavy blur, then push
+every pixel by (target − model) weighted by how much it looks like backdrop. Flat areas land within
+3/255 of one colour everywhere; the glass keeps its own tone. With an even ground the panel was no
+longer carrying anything, so it went, and the labels returned to dark green with near-black notes —
+the pairing this ground can actually carry.
+
+**The balance came from `space-between`, not from nudging.** Title, callouts and button are now
+three distributed bands rather than a stack that starts at the top and leaves the rest empty. That
+is the reusable part: when a section reads top-heavy, distribute the bands before adjusting any
+single margin.
+
+Supersedes the forest-panel rule recorded an hour earlier — *"In T8 the callout rows sit in a
+forest panel … the panel is what makes pale type possible over a light photograph."* True as far as
+it went, but it solved a symptom; flattening the ground removed the need for it.
 
 **2026-09-18 — the panel, and why it had to exist.** Bernat asked for white icons, white or beige
 titles and black body text. On this section's ground — the photograph's own light beige, luminance

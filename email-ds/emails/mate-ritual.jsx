@@ -11,7 +11,7 @@ const h = React.createElement;
 const IMG = {
   passed: '../public/product/mate-passed-tall.jpg',
   circle: '../public/product/mate-circle.jpg',
-  family: '../public/product/milonga-family-tall.jpg',
+  family: '../public/product/milonga-family-full.jpg',
 };
 
 function MateRitual() {
@@ -76,36 +76,33 @@ function MateRitual() {
     }),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
-    // The product still life. Its ground is already Milonga forest, so the
-    // section still reads as the colour change that closes the email — the
-    // products just arrive inside it instead of after it.
+    // The supplied still life, full bleed and uncropped, with the type in its
+    // middle — the same treatment as the two photographs above it.
     //
-    // The art is cropped 190px off the left of the supplied file, which
-    // removes the acai-mint can whose label reads '10mg THC | 10mg CBD'.
+    // The art is a border composition: products in all four corners, clear
+    // ground through the centre. Measured, that clear band runs 40%-68% of the
+    // height, and this copy needs more than 28% of a frame, so the stack
+    // reaches a little into the pouch above and the can below. The scrim is
+    // therefore weighted through the MIDDLE rather than the top, which is
+    // where the type is and where the picture has least to lose.
     h(M.T9Story, {
       src: IMG.family,
-      alt: 'Milonga yerba mate latte pouch, a peach ginger can and a mate gourd among leaves on a deep green ground',
-      eyebrow: 'Old tradition, new form',
+      alt: 'Milonga yerba mate cans, the latte pouch and a mate gourd among leaves and fruit on a deep green ground',
       line1: 'Bringing the',
       line2: 'ritual forward',
       lead: 'Milonga takes the spirit of mate and reimagines it for today.',
       paras: [
-        'We keep what makes mate special — its natural energy, connection, and culture — and bring it into innovative products made for modern moments. From sparkling yerba mate to our Mate Latte, Milonga is a new way to experience an old tradition.',
+        'We keep what makes mate special \u2014 its natural energy, connection, and culture \u2014 and bring it into innovative products made for modern moments. From sparkling yerba mate to our Mate Latte, Milonga is a new way to experience an old tradition.',
       ],
       cta: { label: 'Explore Milonga', href: '#', arrow: true },
-      // The copy is centred in the band grown off the top of the still life,
-      // so nothing sits on the picture and the whole composition — both edges,
-      // all three products — is visible at full width, uncropped. The button
-      // drops into the one place the photographer left empty, the clear middle
-      // between the pouch and the can.
-      at: '62%',
-      ratio: 2.563,
-      size: 37,
-      top: 86,
-      measure: 430,
-      // The ground is already near-black green, so the scrim only has to lift
-      // the type off the leaves — not darken a picture that is already dark.
-      scrim: 0.45,
+      // Title, copy and button read as one centred group, so the button rides
+      // in the stack instead of being pinned to the foot of the frame.
+      ctaInline: true,
+      scrimAt: 'middle',
+      top: '25%',
+      ratio: 1.58,
+      size: 35,
+      measure: 440,
     })
   );
 }

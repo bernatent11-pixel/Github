@@ -991,8 +991,24 @@ export interface T9Props {
   at?: string;
   /** Headline size. */
   size?: number;
-  /** Distance from the top of the frame to the top of the type stack. */
-  top?: number;
+  /**
+   * Where the type stack starts. A number is px from the top; a percentage
+   * string places it as a share of the frame, which is how you centre a block
+   * on art whose clear zone is in the middle rather than at one end.
+   */
+  top?: number | string;
+  /**
+   * Render the CTA at the foot of the type stack instead of pinning it at
+   * `at`. Use it when the title, the copy and the button have to read as one
+   * centred group rather than as a head and a foot.
+   */
+  ctaInline?: boolean;
+  /**
+   * Which end of the picture the scrim protects. 'top' weights it for a stack
+   * anchored at the top; 'middle' carries it through the centre band and lets
+   * both ends of the photograph come back clear.
+   */
+  scrimAt?: 'top' | 'middle';
   /** Measure for the paragraphs. */
   measure?: number;
   /**
@@ -1027,6 +1043,8 @@ export function T9Story({
   tailParas = [],
   cta,
   ctaBelow = false,
+  ctaInline = false,
+  scrimAt = 'top',
   belowPad = 34,
   at = '88%',
   size = 38,
@@ -1055,6 +1073,11 @@ export function T9Story({
     : hasTailCopy
       ? `rgba(0,26,13,${k(0.20)}) 70%, rgba(0,26,13,${k(0.46)}) 84%, rgba(0,26,13,${k(0.52)}) 100%`
       : `rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.44)}) 100%`;
+  // A centred stack needs the weight where IT is. Protecting the top instead
+  // would dim the sky the type has left and leave the type itself exposed.
+  const scrimCss = scrimAt === 'middle'
+    ? `linear-gradient(to bottom, rgba(0,26,13,${k(0.10)}) 0%, rgba(0,26,13,${k(0.34)}) 20%, rgba(0,26,13,${k(0.56)}) 38%, rgba(0,26,13,${k(0.58)}) 66%, rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.12)}) 100%)`
+    : `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.56)}) 30%, rgba(0,26,13,${k(0.40)}) 48%, rgba(0,26,13,${k(0.10)}) 64%, ${tail})`;
   const shadow = '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
   const softShadow = '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
 
@@ -1065,7 +1088,7 @@ export function T9Story({
         style={{
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.56)}) 30%, rgba(0,26,13,${k(0.40)}) 48%, rgba(0,26,13,${k(0.10)}) 64%, ${tail})`,
+          background: scrimCss,
         }}
       />
 
@@ -1120,9 +1143,15 @@ export function T9Story({
             {p}
           </div>
         ))}
+
+        {cta && ctaInline ? (
+          <div style={{ marginTop: 30 }}>
+            <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+          </div>
+        ) : null}
       </div>
 
-      {(cta && !ctaBelow) || hasTailCopy ? (
+      {(cta && !ctaBelow && !ctaInline) || hasTailCopy ? (
         <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: 'center' }}>
           {tailParas.map((p, i) => (
             <div
@@ -1141,7 +1170,7 @@ export function T9Story({
               {p}
             </div>
           ))}
-          {cta ? (
+          {cta && !ctaInline ? (
             <div style={{ marginTop: hasTailCopy ? 28 : 0 }}>
               <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
             </div>

@@ -23,7 +23,7 @@ function MateRitual() {
     // ends, rather than the copy being cut down to clear them.
     h(M.T9Story, {
       src: IMG.passed,
-      alt: 'One hand passing a mate gourd to another across a picnic table, with a Milonga yerba mate pouch and a thermos below',
+      alt: 'Why mate is meant to be shared. One hand passes a mate gourd to another across a sunny picnic table, with a Milonga yerba mate pouch and a thermos below. Mate is more than a drink — it’s a ritual built around sharing, connection and being present. Discover why we started.',
       logo: true,
       logoHeight: 70,
       eyebrow: 'The mate circle',
@@ -53,7 +53,7 @@ function MateRitual() {
     // is tighter, to finish before the first face.
     h(M.T9Story, {
       src: IMG.circle,
-      alt: 'Eight friends sitting in a circle on the grass at golden hour, passing a mate between them, with a Milonga yerba mate pouch in the foreground',
+      alt: 'More than what’s in the cup. Eight friends sit in a circle on the grass at golden hour, passing a mate between them, a Milonga yerba mate pouch in the foreground. Sharing mate creates a pause from everything else. Discover the Mate Ritual.',
       eyebrow: 'More than a drink',
       line1: 'More than what’s',
       line2: 'in the cup',
@@ -91,7 +91,7 @@ function MateRitual() {
     // where the type is and where the picture has least to lose.
     h(M.T9Story, {
       src: IMG.family,
-      alt: 'Milonga yerba mate cans, the latte pouch and a mate gourd among leaves and fruit on a deep green ground',
+      alt: 'Bringing the ritual to the world. Milonga yerba mate cans, the Mate Latte pouch and a mate gourd among leaves, peach and ginger on a deep green ground. Our mission is to share the ritual of mate with the world. Explore Milonga.',
       line1: 'Bringing the ritual',
       line2: 'to the world',
       lead: 'Our mission is to share the ritual of mate with the world.',

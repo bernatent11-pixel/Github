@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { fontStack, colors } from '../tokens';
-import { EmailBg, onBg } from '../theme';
+import { EmailBg, onBg, bgFill } from '../theme';
 import { Logo } from './Logo';
 import { IconBadge } from './IconBadge';
 import { AnyIconName } from './AnyIcon';
@@ -107,6 +107,41 @@ function Pill({
       {cta.label}
       {cta.arrow ? <span style={{ marginLeft: 10 }}>&rarr;</span> : null}
     </a>
+  );
+}
+
+/**
+ * A headline line that may end in an emoji.
+ *
+ * An emoji in a Gotham Black caps line is not the same object as the letters
+ * around it: it comes from the system colour font, so uppercasing does nothing
+ * to it, the caps tracking pushes it away from the word, it sits low against
+ * the cap height, and the headline's drop shadow smears a colour glyph instead
+ * of lifting it. Left alone it reads as something that fell into the title.
+ *
+ * So a trailing emoji gets its own treatment — no tracking, no shadow, nudged
+ * up to the cap line and sized to sit with the letters rather than under them.
+ */
+const TRAILING_EMOJI = /^(.*?)[\s ]*(\p{Extended_Pictographic}[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}️‍]*)$/u;
+
+function CapsLine({ text, style }: { text: string; style: React.CSSProperties }) {
+  const m = TRAILING_EMOJI.exec(text);
+  if (!m || !m[1]) return <div style={style}>{text}</div>;
+  return (
+    <div style={style}>
+      {m[1]}
+      <span
+        style={{
+          fontSize: '0.84em',
+          verticalAlign: '0.02em',
+          marginLeft: '0.2em',
+          letterSpacing: 0,
+          textShadow: 'none',
+        }}
+      >
+        {m[2]}
+      </span>
+    </div>
   );
 }
 
@@ -879,6 +914,240 @@ export function T8Callouts({
           {cta ? <Pill cta={cta} fill={colors.forest} ink={colors.beige} /> : null}
         </div>
       </div>
+    </div>
+  );
+}
+
+
+/* ══ T9 · STORY ON A PHOTOGRAPH ══════════════════════════════════════════
+   A full-bleed picture carrying a title and SEVERAL paragraphs, with the CTA
+   pinned near the bottom.
+
+   T6 takes one line under the title and T7 takes one sentence. Neither can
+   hold a story, and stretching them is how a section ends up with 90 words
+   crammed into a subtitle slot. This is the variant for copy that has
+   something to say.
+
+   PICK THE ART BY ITS DEAD HALF, NOT ITS SUBJECT
+   ----------------------------------------------
+   Long copy on a photograph only works when the photograph has a large quiet
+   region and its subject is somewhere else. Both of the mate pictures this was
+   built for are that shape — sky or canopy up top, people and product below —
+   so the type lands on nothing and the picture keeps its whole subject.
+
+   That is also why `ratio` is the real control here. The type block has a
+   fixed height once the copy is set; making the frame TALLER pushes the
+   subject down past the end of the type rather than shrinking the type to fit
+   around it. Set the ratio so the copy ends above the subject, then stop.
+
+   The scrim is weighted to the top, where the type is, and lifts again at the
+   bottom only if there is a button to protect. The middle stays clear — that
+   is the part of the picture you chose the section for. ──────────────────── */
+
+export interface T9Props {
+  src: string;
+  alt: string;
+  /** Show the wordmark above the title. Openers yes, mid-email sections no. */
+  logo?: boolean;
+  logoHeight?: number;
+  eyebrow?: string;
+  line1: string;
+  /** Second title line, in the accent. */
+  line2?: string;
+  /** The paragraphs, in order. The first is set a little larger as a lead. */
+  paras?: string[];
+  cta?: Cta;
+  /** Where the CTA sits, as a share of the frame. */
+  at?: string;
+  /** Headline size. */
+  size?: number;
+  /** Distance from the top of the frame to the top of the type stack. */
+  top?: number;
+  /** Measure for the paragraphs. */
+  measure?: number;
+  ratio?: number;
+  focus?: string;
+  /** Overall scrim strength. Turn down for an already-dark photograph. */
+  scrim?: number;
+  bg?: EmailBg;
+}
+
+export function T9Story({
+  src,
+  alt,
+  logo = false,
+  logoHeight = 68,
+  eyebrow,
+  line1,
+  line2,
+  paras = [],
+  cta,
+  at = '88%',
+  size = 38,
+  top = 30,
+  measure = 452,
+  ratio = 1.7,
+  focus,
+  scrim = 1,
+  bg = 'beige',
+}: T9Props) {
+  const k = (v: number) => Math.min(1, v * scrim).toFixed(2);
+  // Two stops at the bottom only when a button needs to sit on the picture.
+  const tail = cta
+    ? `rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.44)}) 100%`
+    : `rgba(0,26,13,${k(0.06)}) 84%, rgba(0,26,13,${k(0.14)}) 100%`;
+  const shadow = '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
+  const softShadow = '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
+
+  return (
+    <Frame src={src} alt={alt} ratio={ratio} focus={focus}>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.56)}) 30%, rgba(0,26,13,${k(0.40)}) 48%, rgba(0,26,13,${k(0.10)}) 64%, ${tail})`,
+        }}
+      />
+
+      <div style={{ position: 'absolute', top, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+        {logo ? (
+          <>
+            <Logo tone="beige" variant="primary" height={logoHeight} />
+            <div style={{ height: 30 }} />
+          </>
+        ) : null}
+        {eyebrow ? (
+          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 13, textShadow: softShadow }}>{eyebrow}</div>
+        ) : null}
+        <CapsLine text={line1} style={{ ...caps(size, '0.01em', colors.beige), lineHeight: 1.0, textShadow: shadow }} />
+        {line2 ? (
+          <CapsLine text={line2} style={{ ...caps(size, '0.01em', colors.gold), lineHeight: 1.0, textShadow: shadow }} />
+        ) : null}
+
+        {paras.map((p, i) => (
+          <div
+            key={i}
+            style={{
+              fontFamily: fontStack,
+              fontWeight: 500,
+              // The first paragraph is the one everybody reads, so it gets the
+              // extra point. The rest settle to the 16px floor.
+              fontSize: i === 0 ? 17 : 16,
+              lineHeight: 1.56,
+              color: 'rgba(255,255,255,0.95)',
+              maxWidth: measure,
+              margin: `${i === 0 ? 18 : 14}px auto 0`,
+              textShadow: softShadow,
+            }}
+          >
+            {p}
+          </div>
+        ))}
+      </div>
+
+      {cta ? (
+        <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+          <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+        </div>
+      ) : null}
+    </Frame>
+  );
+}
+
+
+/* ══ T10 · TYPE-LED CLOSE ════════════════════════════════════════════════
+   The last section: no picture, one flat brand ground, a title, a lead line
+   and the button.
+
+   Every campaign that opens on photography needs somewhere to land, and an
+   email that is photographs the whole way down has no punctuation in it. The
+   colour change IS the design here — after two full-bleed pictures, a flat
+   forest field reads as arriving somewhere, and the reader's eye finally has
+   nothing to do but read.
+
+   Which is why there is deliberately no image slot. Adding one would make this
+   a third photo section. ────────────────────────────────────────────────── */
+
+export interface T10Props {
+  eyebrow?: string;
+  line1: string;
+  line2?: string;
+  /** One sentence, set larger than the body — the point of the section. */
+  lead?: string;
+  /** Supporting paragraphs under the lead. */
+  paras?: string[];
+  cta?: Cta;
+  bg?: EmailBg;
+  size?: number;
+  measure?: number;
+  /** Vertical padding of the whole band. */
+  pad?: number;
+  /** A hairline above the title, to mark the change of ground. */
+  rule?: boolean;
+  /** Lay the brand's paper texture over the flat ground. */
+  textured?: boolean;
+}
+
+export function T10Close({
+  eyebrow,
+  line1,
+  line2,
+  lead,
+  paras = [],
+  cta,
+  bg = 'forest',
+  size = 38,
+  measure = 452,
+  pad = 58,
+  rule = true,
+  textured = false,
+}: T10Props) {
+  const t = onBg[bg];
+  return (
+    <div style={{ padding: `${pad}px 30px`, textAlign: 'center', ...bgStyle(bg, bgFill[bg], textured) }}>
+      {rule ? <div style={{ width: 46, height: 2, background: t.accent, margin: '0 auto 26px' }} /> : null}
+      {eyebrow ? <div style={{ ...caps(12, '0.2em', t.accent), marginBottom: 14 }}>{eyebrow}</div> : null}
+      <CapsLine text={line1} style={{ ...caps(size, '0.01em', t.title), lineHeight: 1.0 }} />
+      {line2 ? <CapsLine text={line2} style={{ ...caps(size, '0.01em', t.titleAccent), lineHeight: 1.0 }} /> : null}
+
+      {lead ? (
+        <div
+          style={{
+            fontFamily: fontStack,
+            fontWeight: 500,
+            fontSize: 19,
+            lineHeight: 1.5,
+            color: t.accent,
+            maxWidth: measure,
+            margin: '22px auto 0',
+          }}
+        >
+          {lead}
+        </div>
+      ) : null}
+
+      {paras.map((p, i) => (
+        <div
+          key={i}
+          style={{
+            fontFamily: fontStack,
+            fontWeight: 400,
+            fontSize: 16,
+            lineHeight: 1.6,
+            color: t.body,
+            maxWidth: measure,
+            margin: '16px auto 0',
+          }}
+        >
+          {p}
+        </div>
+      ))}
+
+      {cta ? (
+        <div style={{ marginTop: 32 }}>
+          <Pill cta={cta} fill={t.btnBg} ink={t.btnText} />
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -965,6 +965,8 @@ export interface T9Props {
   line1: string;
   /** Second title line, in the accent. */
   line2?: string;
+  /** One sentence in the accent, between the title and the body. */
+  lead?: string;
   /** The paragraphs, in order. The first is set a little larger as a lead. */
   paras?: string[];
   /**
@@ -993,6 +995,18 @@ export interface T9Props {
   top?: number;
   /** Measure for the paragraphs. */
   measure?: number;
+  /**
+   * Side padding of the type column. Raising ONE of them slides the whole
+   * centred stack toward the other side.
+   *
+   * A still life's copy space is rarely in the middle — this campaign's closing
+   * art stacks its products down the right, so centred copy runs straight
+   * across the pack. Moving the column into the space the photographer left is
+   * the fix; a narrower measure just makes a thin ribbon that still clips the
+   * product.
+   */
+  padLeft?: number;
+  padRight?: number;
   ratio?: number;
   focus?: string;
   /** Overall scrim strength. Turn down for an already-dark photograph. */
@@ -1008,6 +1022,7 @@ export function T9Story({
   eyebrow,
   line1,
   line2,
+  lead,
   paras = [],
   tailParas = [],
   cta,
@@ -1017,6 +1032,8 @@ export function T9Story({
   size = 38,
   top = 30,
   measure = 452,
+  padLeft = 30,
+  padRight = 30,
   ratio = 1.7,
   focus,
   scrim = 1,
@@ -1052,7 +1069,7 @@ export function T9Story({
         }}
       />
 
-      <div style={{ position: 'absolute', top, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+      <div style={{ position: 'absolute', top, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: 'center' }}>
         {logo ? (
           <>
             <Logo tone="beige" variant="primary" height={logoHeight} />
@@ -1067,6 +1084,23 @@ export function T9Story({
           <CapsLine text={line2} style={{ ...caps(size, '0.01em', colors.gold), lineHeight: 1.0, textShadow: shadow }} />
         ) : null}
 
+        {lead ? (
+          <div
+            style={{
+              fontFamily: fontStack,
+              fontWeight: 500,
+              fontSize: 19,
+              lineHeight: 1.48,
+              color: colors.gold,
+              maxWidth: measure,
+              margin: '20px auto 0',
+              textShadow: softShadow,
+            }}
+          >
+            {lead}
+          </div>
+        ) : null}
+
         {paras.map((p, i) => (
           <div
             key={i}
@@ -1075,11 +1109,11 @@ export function T9Story({
               fontWeight: 500,
               // The first paragraph is the one everybody reads, so it gets the
               // extra point. The rest settle to the 16px floor.
-              fontSize: i === 0 ? 17 : 16,
+              fontSize: i === 0 && !lead ? 17 : 16,
               lineHeight: 1.56,
               color: 'rgba(255,255,255,0.95)',
               maxWidth: measure,
-              margin: `${i === 0 ? 18 : 14}px auto 0`,
+              margin: `${i === 0 ? (lead ? 16 : 18) : 14}px auto 0`,
               textShadow: softShadow,
             }}
           >
@@ -1089,7 +1123,7 @@ export function T9Story({
       </div>
 
       {(cta && !ctaBelow) || hasTailCopy ? (
-        <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: 'center' }}>
           {tailParas.map((p, i) => (
             <div
               key={i}
@@ -1117,7 +1151,7 @@ export function T9Story({
     </Frame>
 
     {cta && ctaBelow ? (
-      <div style={{ padding: `${belowPad}px 30px`, textAlign: 'center', ...bgStyle(bg, bgFill[bg]) }}>
+      <div style={{ padding: `${belowPad}px ${padRight}px ${belowPad}px ${padLeft}px`, textAlign: 'center', ...bgStyle(bg, bgFill[bg]) }}>
         {tailParas.map((p, i) => (
           <div
             key={i}

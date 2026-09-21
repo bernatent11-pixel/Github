@@ -11,6 +11,7 @@ const h = React.createElement;
 const IMG = {
   passed: '../public/product/mate-passed.jpg',
   circle: '../public/product/mate-circle.jpg',
+  family: '../public/product/milonga-family.jpg',
 };
 
 function MateRitual() {
@@ -33,19 +34,19 @@ function MateRitual() {
       ],
       // One paragraph instead of two, so the frame comes down with it — leaving
       // the old 1.72 would open a dead gap between the copy and the hands.
-      ratio: 1.62,
+      // The button goes back ON the picture, so the frame has to make room for
+      // it. Raising the ratio is what does that: the copy block's height is
+      // fixed and anchored at the top, so a taller frame pushes the gourd and
+      // the hands further down in absolute terms and opens a clear gap between
+      // the last line of copy and the top of the gourd. The measure goes wide
+      // at the same time, which saves the copy a line.
+      ratio: 1.80,
       focus: 'center 50%',
       size: 37,
       top: 28,
-      measure: 460,
-      // The button goes on forest under the picture, not on it. This
-      // photograph runs the pouch almost to the bottom edge and has no quiet
-      // corner left — a pill over the pack would be the same mistake that was
-      // just corrected in section 2.
+      measure: 500,
       cta: { label: 'Discover why we started', href: '#about', arrow: true },
-      ctaBelow: true,
-      bg: 'forest',
-      belowPad: 36,
+      at: '40%',
     }),
 
     // ── 2 · WHAT IT'S REALLY FOR ──────────────────────────────────────────
@@ -77,11 +78,15 @@ function MateRitual() {
     }),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
-    // No photograph. After two full-bleed pictures the flat forest field is
-    // the punctuation — it is where the email stops being a story and becomes
-    // an offer.
-    h(M.T10Close, {
-      bg: 'forest',
+    // The product still life. Its ground is already Milonga forest, so the
+    // section still reads as the colour change that closes the email — the
+    // products just arrive inside it instead of after it.
+    //
+    // The art is cropped 190px off the left of the supplied file, which
+    // removes the acai-mint can whose label reads '10mg THC | 10mg CBD'.
+    h(M.T9Story, {
+      src: IMG.family,
+      alt: 'Milonga yerba mate latte pouch, a peach ginger can and a mate gourd among leaves on a deep green ground',
       eyebrow: 'Old tradition, new form',
       line1: 'Bringing the',
       line2: 'ritual forward',
@@ -90,8 +95,18 @@ function MateRitual() {
         'We keep what makes mate special — its natural energy, connection, and culture — and bring it into innovative products made for modern moments. From sparkling yerba mate to our Mate Latte, Milonga is a new way to experience an old tradition.',
       ],
       cta: { label: 'Explore Milonga', href: '#', arrow: true },
-      size: 38,
-      pad: 62,
+      at: '47%',
+      ratio: 1.84,
+      size: 37,
+      top: 110,
+      measure: 380,
+      // The still life stacks its products down the right — pouch high, can
+      // low — so the copy space it left is on the LEFT. Centred type ran
+      // straight across the pack; this slides the whole column into the gap.
+      padRight: 175,
+      // The ground is already near-black green, so the scrim only has to lift
+      // the type off the leaves — not darken a picture that is already dark.
+      scrim: 0.45,
     })
   );
 }

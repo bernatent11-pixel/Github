@@ -974,6 +974,17 @@ export interface T9Props {
    */
   tailParas?: string[];
   cta?: Cta;
+  /**
+   * Move the CTA group OFF the photograph, onto a band of `bg` underneath it.
+   *
+   * Some pictures have no quiet corner to put a button in — this section's
+   * opener runs the pouch almost to the bottom edge, and a pill on top of the
+   * pack is worse than no pill at all. When the picture has nowhere for it,
+   * the button belongs on brand colour below, not squeezed onto the art.
+   */
+  ctaBelow?: boolean;
+  /** Vertical padding of that band. */
+  belowPad?: number;
   /** Where the CTA GROUP starts — tail paragraphs first, then the button. */
   at?: string;
   /** Headline size. */
@@ -1000,6 +1011,8 @@ export function T9Story({
   paras = [],
   tailParas = [],
   cta,
+  ctaBelow = false,
+  belowPad = 34,
   at = '88%',
   size = 38,
   top = 30,
@@ -1009,13 +1022,18 @@ export function T9Story({
   scrim = 1,
   bg = 'beige',
 }: T9Props) {
+  const t = onBg[bg];
   const k = (v: number) => Math.min(1, v * scrim).toFixed(2);
-  const hasTailCopy = tailParas.length > 0;
+  // When the CTA group sits on a band below, the picture has nothing to
+  // protect at its foot — so the bottom of the scrim goes back to the light
+  // setting instead of darkening art for a button that is not on it.
+  const hasTailCopy = tailParas.length > 0 && !ctaBelow;
+  const guarding = (!!cta && !ctaBelow) || hasTailCopy;
   // The bottom lift has to start above whatever sits down there. A lone button
   // needs the last 16%; a paragraph riding with it needs roughly twice that,
   // and starting the lift too late is what leaves a paragraph half-legible on
   // a bright patch of picture.
-  const tail = !cta && !hasTailCopy
+  const tail = !guarding
     ? `rgba(0,26,13,${k(0.06)}) 84%, rgba(0,26,13,${k(0.14)}) 100%`
     : hasTailCopy
       ? `rgba(0,26,13,${k(0.20)}) 70%, rgba(0,26,13,${k(0.46)}) 84%, rgba(0,26,13,${k(0.52)}) 100%`
@@ -1024,6 +1042,7 @@ export function T9Story({
   const softShadow = '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
 
   return (
+    <>
     <Frame src={src} alt={alt} ratio={ratio} focus={focus}>
       <div
         style={{
@@ -1069,7 +1088,7 @@ export function T9Story({
         ))}
       </div>
 
-      {cta || hasTailCopy ? (
+      {(cta && !ctaBelow) || hasTailCopy ? (
         <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
           {tailParas.map((p, i) => (
             <div
@@ -1096,6 +1115,31 @@ export function T9Story({
         </div>
       ) : null}
     </Frame>
+
+    {cta && ctaBelow ? (
+      <div style={{ padding: `${belowPad}px 30px`, textAlign: 'center', ...bgStyle(bg, bgFill[bg]) }}>
+        {tailParas.map((p, i) => (
+          <div
+            key={i}
+            style={{
+              fontFamily: fontStack,
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: 1.56,
+              color: t.body,
+              maxWidth: measure,
+              margin: `${i === 0 ? 0 : 14}px auto 0`,
+            }}
+          >
+            {p}
+          </div>
+        ))}
+        <div style={{ marginTop: tailParas.length ? 26 : 0 }}>
+          <Pill cta={cta} fill={t.btnBg} ink={t.btnText} />
+        </div>
+      </div>
+    ) : null}
+    </>
   );
 }
 

@@ -38,6 +38,14 @@ function MateRitual() {
       size: 37,
       top: 28,
       measure: 460,
+      // The button goes on forest under the picture, not on it. This
+      // photograph runs the pouch almost to the bottom edge and has no quiet
+      // corner left — a pill over the pack would be the same mistake that was
+      // just corrected in section 2.
+      cta: { label: 'Discover why we started', href: '#about', arrow: true },
+      ctaBelow: true,
+      bg: 'forest',
+      belowPad: 36,
     }),
 
     // ── 2 · WHAT IT'S REALLY FOR ──────────────────────────────────────────

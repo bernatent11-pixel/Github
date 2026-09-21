@@ -1,0 +1,501 @@
+<title>The Mate Circle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;900&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+
+<style>
+  /* Milonga’s own tokens. The contrast map is the brand’s: on a light ground
+     the accent is forest green, never gold — gold is reserved for dark grounds,
+     where it is the one thing that lifts. */
+  :root {
+    --ground:      #FBF8EF;
+    --ground-2:    #F1EEDE;
+    --ink:         #1B2A20;
+    --ink-soft:    #52645A;
+    --display:     #004D27;
+    --accent:      #004D27;
+    --accent-warm: #8A6518;
+    --gold:        #E3BC62;
+    --rule:        rgba(0, 77, 39, 0.15);
+    --rule-strong: rgba(0, 77, 39, 0.34);
+    --band:        #004D27;
+    --band-ink:    #F0EFDF;
+    --band-soft:   rgba(240, 239, 223, 0.74);
+    --diagram-ring: rgba(0, 77, 39, 0.22);
+
+    --measure: 34rem;
+    --step: clamp(1.05rem, 0.98rem + 0.32vw, 1.2rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #0D1E14;
+      --ground-2:    #14291B;
+      --ink:         #DCE6DC;
+      --ink-soft:    #9AAFA1;
+      --display:     #F0EFDF;
+      --accent:      #E3BC62;
+      --accent-warm: #E3BC62;
+      --gold:        #E3BC62;
+      --rule:        rgba(227, 188, 98, 0.20);
+      --rule-strong: rgba(227, 188, 98, 0.42);
+      --band:        #00351B;
+      --band-ink:    #F0EFDF;
+      --band-soft:   rgba(240, 239, 223, 0.74);
+      --diagram-ring: rgba(227, 188, 98, 0.26);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #0D1E14;
+    --ground-2:    #14291B;
+    --ink:         #DCE6DC;
+    --ink-soft:    #9AAFA1;
+    --display:     #F0EFDF;
+    --accent:      #E3BC62;
+    --accent-warm: #E3BC62;
+    --gold:        #E3BC62;
+    --rule:        rgba(227, 188, 98, 0.20);
+    --rule-strong: rgba(227, 188, 98, 0.42);
+    --band:        #00351B;
+    --band-ink:    #F0EFDF;
+    --band-soft:   rgba(240, 239, 223, 0.74);
+    --diagram-ring: rgba(227, 188, 98, 0.26);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: var(--step);
+    line-height: 1.68;
+    font-weight: 400;
+    margin: 0;
+    padding-inline: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-block: 3.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  /* ── masthead ─────────────────────────────────────────────────────── */
+
+  .eyebrow {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin: 0;
+  }
+
+  h1 {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.1rem, 1.5rem + 2.7vw, 3.1rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--display);
+    margin: 0.7rem 0 0;
+  }
+
+  .standfirst {
+    font-size: 1.22em;
+    line-height: 1.52;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .byline {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+    align-items: center;
+    padding-block: 1rem;
+    border-block: 1px solid var(--rule);
+    margin: 0.4rem 0 0;
+  }
+  .byline span::before { content: "·"; margin-right: 0.9rem; color: var(--rule-strong); }
+  .byline span:first-child::before { content: none; margin: 0; }
+
+  /* ── body ─────────────────────────────────────────────────────────── */
+
+  p { margin: 0; text-wrap: pretty; }
+
+  h2 {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    font-size: 1.16rem;
+    line-height: 1.22;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: var(--display);
+    text-wrap: balance;
+    margin: 1.9rem 0 -0.2rem;
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 500; color: var(--display); }
+
+  .lede::first-letter {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    float: left;
+    font-size: 3.3em;
+    line-height: 0.78;
+    margin: 0.06em 0.09em 0 0;
+    color: var(--accent);
+  }
+
+  /* ── the rules block — a real list of rules, so it gets list form ─── */
+
+  .rules {
+    list-style: none;
+    margin: 0.6rem 0;
+    padding: 1.5rem 1.6rem;
+    background: var(--ground-2);
+    border-left: 3px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+    font-size: 0.97em;
+  }
+  .rules li { margin: 0; }
+  .rules b {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── the diagram ──────────────────────────────────────────────────── */
+
+  figure { margin: 1.3rem 0; display: flex; flex-direction: column; gap: 0.9rem; }
+  figure svg { width: 100%; max-width: 100%; height: auto; display: block; }
+  figcaption {
+    font-size: 0.86em;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding-left: 0.95rem;
+    border-left: 1px solid var(--rule-strong);
+  }
+  .d-label {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .d-num {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── pull quote ───────────────────────────────────────────────────── */
+
+  .pull {
+    margin: 1.6rem 0;
+    font-size: 1.3em;
+    line-height: 1.38;
+    font-weight: 400;
+    color: var(--display);
+    text-wrap: balance;
+    padding-left: 1.3rem;
+    border-left: 3px solid var(--gold);
+  }
+
+  /* ── the three terms ──────────────────────────────────────────────── */
+
+  .terms { margin: 0.6rem 0; display: flex; flex-direction: column; gap: 1.3rem; }
+  .term { display: flex; flex-direction: column; gap: 0.3rem; }
+  .term dt {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+  }
+  .term dd { margin: 0; font-size: 0.99em; }
+
+  /* ── closing band ─────────────────────────────────────────────────── */
+
+  .band {
+    background: var(--band);
+    color: var(--band-ink);
+    margin-top: 2.4rem;
+    padding: 2.4rem 1.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .band h2 { color: var(--gold); margin: 0; }
+  .band p { color: var(--band-soft); font-size: 0.99em; }
+  .band p.first { color: var(--band-ink); font-size: 1.14em; line-height: 1.48; }
+
+  .coda {
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 460px) {
+    .rules, .band { padding-inline: 1.15rem; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">The Milonga Journal</p>
+    <h1>The drink you’re not meant to drink alone</h1>
+  </header>
+
+  <p class="standfirst">Mate isn’t yerba in hot water. It’s one gourd, one
+  straw, and a circle of people taking turns — and the rules of that circle are
+  the whole point.</p>
+
+  <p class="byline"><span>Mate &amp; culture</span><span>6 minute read</span></p>
+
+  <p class="lede">In most of the world, a hot drink is a private thing. You
+  order your own. You carry it in your own cup, with your own name written on
+  the side. You finish it at your own pace, and when it’s gone, it’s gone.</p>
+
+  <p>Mate doesn’t work like that. There is one gourd, one straw, and everyone
+  drinks from it.</p>
+
+  <p>That single fact — one vessel, passed from hand to hand — is the reason
+  mate became what it is across South America. Not a beverage. A reason to sit
+  down together, and a reason to stay there.</p>
+
+  <h2>What mate actually is</h2>
+
+  <p>Yerba mate is the dried, cut leaf of <em>Ilex paraguariensis</em>, a
+  species of holly that grows in the subtropical forests where Argentina,
+  Paraguay, Brazil and Uruguay meet. The Guaraní people were drinking it long
+  before Europeans arrived in the region, and the practice spread outward from
+  there across the Southern Cone, where it has stayed ever since.</p>
+
+  <p>The name is borrowed, and it’s telling. <em>Mate</em> comes from the
+  Quechua <em>mati</em>, meaning gourd or vessel. The word for the drink is the
+  word for the cup — which gives you a fair idea of where the emphasis has
+  always been.</p>
+
+  <p>And the cup does matter. Mate is served in a hollowed gourd, packed with
+  loose leaf banked up one side so there’s always dry leaf held in reserve. You
+  drink it through a <em>bombilla</em>, a metal straw with a filtered end that
+  strains the leaf out. Hot water — hot, never boiling — comes from a thermos,
+  and the thermos gets tucked under your arm.</p>
+
+  <p>That’s the image most people from the region carry: someone crossing a
+  park with a gourd in one hand and a flask wedged into their elbow, on their
+  way to meet somebody.</p>
+
+  <h2>A drink that came with instructions</h2>
+
+  <p>Most drinks are just drinks. Mate arrives with a set of rules, and they
+  aren’t decoration — they’re the mechanism that makes the whole thing work.</p>
+
+  <p>One person prepares it. That person is the <strong>cebador</strong>, from
+  <em>cebar</em>, to prime or to pour. The cebador fills the gourd, pours the
+  water, and drinks the first one themselves — the first is usually the
+  strongest and the least pleasant, and taking it is a small act of hospitality
+  that nobody comments on.</p>
+
+  <p>After that it goes around. The cebador refills and hands it to the next
+  person, who drinks the whole thing, all of it, and hands the empty gourd
+  back. Not to the person beside them — back to the cebador, who refills it and
+  passes it on.</p>
+
+  <ul class="rules">
+    <li><b>Don’t move the bombilla</b>It’s set so the filter sits where the leaf
+    isn’t. Stirring it clogs the straw, and someone has to rebuild the whole
+    gourd from scratch.</li>
+    <li><b>Finish it</b>The gurgling sound at the end isn’t rude. It’s the
+    signal that you’re done and the gourd is ready to go back.</li>
+    <li><b>Don’t say thank you unless you mean it</b><em>Gracias</em> is how you
+    tell the cebador you’ve had enough. Say it early and you’ll be politely
+    dropped from the rotation for the rest of the afternoon.</li>
+  </ul>
+
+  <p>Every one of these rules does the same job: it keeps the gourd moving, and
+  it keeps the group together while it moves.</p>
+
+  <h2>The circle</h2>
+
+  <p>Watch a group share mate and you’ll notice the shape it makes. People sit
+  facing each other. The cebador sits where they can reach everyone. The gourd
+  travels a fixed route and comes back to the middle between every turn.</p>
+
+  <figure>
+    <svg viewBox="0 0 520 430" role="img" aria-label="Diagram of a mate circle: six drinkers arranged around a central cebador, with the gourd returning to the centre after each turn.">
+      <!-- the ring the drinkers sit on -->
+      <circle cx="260" cy="205" r="130" fill="none" stroke="var(--diagram-ring)" stroke-width="1" stroke-dasharray="3 6"/>
+
+      <!-- every pass runs through the centre, so every spoke is drawn -->
+      <g stroke="var(--rule-strong)" stroke-width="1.4">
+        <line x1="260" y1="205" x2="260" y2="75"/>
+        <line x1="260" y1="205" x2="372.6" y2="140"/>
+        <line x1="260" y1="205" x2="372.6" y2="270"/>
+        <line x1="260" y1="205" x2="260" y2="335"/>
+        <line x1="260" y1="205" x2="147.4" y2="270"/>
+        <line x1="260" y1="205" x2="147.4" y2="140"/>
+      </g>
+
+      <!-- the drinkers, numbered in the order the gourd reaches them -->
+      <g>
+        <circle cx="260"   cy="75"  r="21" fill="var(--ground-2)" stroke="var(--rule-strong)" stroke-width="1.4"/>
+        <text class="d-num" x="260"   y="80"  fill="var(--ink)" text-anchor="middle">1</text>
+        <circle cx="372.6" cy="140" r="21" fill="var(--ground-2)" stroke="var(--rule-strong)" stroke-width="1.4"/>
+        <text class="d-num" x="372.6" y="145" fill="var(--ink)" text-anchor="middle">2</text>
+        <circle cx="372.6" cy="270" r="21" fill="var(--ground-2)" stroke="var(--rule-strong)" stroke-width="1.4"/>
+        <text class="d-num" x="372.6" y="275" fill="var(--ink)" text-anchor="middle">3</text>
+        <circle cx="260"   cy="335" r="21" fill="var(--ground-2)" stroke="var(--rule-strong)" stroke-width="1.4"/>
+        <text class="d-num" x="260"   y="340" fill="var(--ink)" text-anchor="middle">4</text>
+        <circle cx="147.4" cy="270" r="21" fill="var(--ground-2)" stroke="var(--rule-strong)" stroke-width="1.4"/>
+        <text class="d-num" x="147.4" y="275" fill="var(--ink)" text-anchor="middle">5</text>
+        <circle cx="147.4" cy="140" r="21" fill="var(--ground-2)" stroke="var(--rule-strong)" stroke-width="1.4"/>
+        <text class="d-num" x="147.4" y="145" fill="var(--ink)" text-anchor="middle">6</text>
+      </g>
+
+      <!-- the cebador, and the gourd that never leaves the middle for long -->
+      <circle cx="260" cy="205" r="37" fill="var(--band)" stroke="var(--gold)" stroke-width="1.6"/>
+      <text class="d-label" x="260" y="210" fill="var(--gold)" text-anchor="middle">CEBADOR</text>
+
+      <text class="d-label" x="260" y="400" fill="var(--ink-soft)" text-anchor="middle">ONE GOURD · ONE STRAW · SIX TURNS</text>
+    </svg>
+    <figcaption>The gourd never passes from drinker to drinker. It goes out from
+    the cebador and comes straight back, every single turn — which is why one
+    person serves, and why everyone else waits exactly the same length of
+    time.</figcaption>
+  </figure>
+
+  <p>It’s a circle, and circles behave differently from lines. Nobody is at the
+  head. Everyone sits the same distance from the centre. The gourd reaches each
+  person in turn, which means each person gets the same thing, in the same
+  amount, at the same interval — and it means there’s a small, regular,
+  predictable event that keeps pulling everyone’s attention back to the same
+  place.</p>
+
+  <p>The circle also sets the pace. A round takes as long as it takes. You
+  can’t speed it up by drinking faster, because the next person is waiting on
+  the cebador, not on you. You can’t skip ahead. The ritual has its own tempo,
+  and everybody in it moves at that tempo, together.</p>
+
+  <p>That’s a rare thing. Most of what we do socially can be rushed. Mate
+  can’t.</p>
+
+  <h2>Sharing as a metaphor — and as a mechanic</h2>
+
+  <p>It’s easy to call mate a symbol of sharing and leave it there. But mate
+  isn’t a symbol of sharing the way a heart is a symbol of love. It doesn’t
+  represent the idea.</p>
+
+  <p class="pull">It performs it — physically, out loud, several times an
+  hour.</p>
+
+  <p>You are drinking from the same straw as everyone else. You are waiting
+  your turn. Someone is serving you, and in a few minutes you’ll hand the gourd
+  back so they can serve the next person. The generosity isn’t implied. It’s
+  the actual procedure.</p>
+
+  <p>And because it’s a procedure, it gives you something to do while you talk.
+  There’s no pressure to fill every silence, because there’s always a small
+  transaction happening: the gourd arriving, the water going in, the pass. Some
+  of the best conversations in the region happen in the gaps between those
+  movements.</p>
+
+  <h2>What the ritual actually asks of you</h2>
+
+  <p>Strip away the gourd and the leaf, and what mate really asks for is
+  time.</p>
+
+  <p>You can’t share mate in five minutes. A thermos holds enough water for a
+  lot of rounds, and the social contract is that you stay until it’s finished
+  or until the conversation runs out on its own. Nobody sets a timer. Nobody
+  checks the gourd to see how much is left.</p>
+
+  <p>It asks you to be present, because the gourd will come to you and you’ll
+  need to take it. It asks you to listen, because there’s nothing else to do
+  while it goes around. And it asks you to slow down, because the tempo isn’t
+  yours to set.</p>
+
+  <p>Those three things — time, attention, and a shared pace — are most of what
+  a good conversation needs. Mate supplies the structure and lets the rest
+  happen.</p>
+
+  <h2>Connection, balance, and the moment</h2>
+
+  <p>So why has this particular ritual held on, for centuries, across four
+  countries and every kind of setting — a university courtyard, a building site
+  at seven in the morning, a family kitchen on a Sunday?</p>
+
+  <dl class="terms">
+    <div class="term">
+      <dt>Connection</dt>
+      <dd>Because the format makes it unavoidable. You can sit near someone with
+      a coffee and never speak to them. You can’t share mate and ignore each
+      other — the gourd keeps arriving.</dd>
+    </div>
+    <div class="term">
+      <dt>Balance</dt>
+      <dd>In the sense that the ritual itself is balanced. Everyone takes a
+      turn, everyone gets the same, and the person doing the serving takes the
+      worst one first. A small, fair system that runs without anybody managing
+      it.</dd>
+    </div>
+    <div class="term">
+      <dt>The moment</dt>
+      <dd>Because that’s genuinely all it is. A mate isn’t going anywhere. It
+      doesn’t produce anything. Its only output is an afternoon spent with
+      people — which is exactly why it survived in a part of the world that had
+      every opportunity to replace it with something faster.</dd>
+    </div>
+  </dl>
+
+  <section class="band">
+    <h2>Bringing the ritual forward</h2>
+    <p class="first">At Milonga, our mission is to share the ritual of mate with
+    the world.</p>
+    <p>We’re reimagining this timeless tradition through innovative mate
+    products made for modern life — bringing the natural energy, culture, and
+    spirit of connection behind mate into new ways of enjoying it, wherever you
+    are.</p>
+    <p>Because the gourd and the thermos aren’t the point. The circle is. And a
+    circle travels.</p>
+  </section>
+
+  <p class="coda">Mate is part of everyday life across Argentina, Uruguay,
+  Paraguay and southern Brazil. If you’ve never been handed one: take it, drink
+  all of it, don’t touch the straw, and pass it back. Save your thank you for
+  when you’re finished.</p>
+
+</div>

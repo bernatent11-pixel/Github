@@ -967,6 +967,12 @@ export interface T9Props {
   line2?: string;
   /** One sentence in the accent, between the title and the body. */
   lead?: string;
+  /**
+   * Measure for the lead alone. It is set three points larger than the body,
+   * so sharing the body's measure gives it fewer characters per line and it
+   * tends to shed a two-word last line. Narrow this until it rags evenly.
+   */
+  leadMeasure?: number;
   /** The paragraphs, in order. The first is set a little larger as a lead. */
   paras?: string[];
   /**
@@ -1039,6 +1045,7 @@ export function T9Story({
   line1,
   line2,
   lead,
+  leadMeasure,
   paras = [],
   tailParas = [],
   cta,
@@ -1115,7 +1122,7 @@ export function T9Story({
               fontSize: 19,
               lineHeight: 1.48,
               color: colors.gold,
-              maxWidth: measure,
+              maxWidth: leadMeasure ?? measure,
               margin: '20px auto 0',
               textShadow: softShadow,
             }}

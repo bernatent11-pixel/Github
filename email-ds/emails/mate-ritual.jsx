@@ -88,11 +88,11 @@ function MateRitual() {
     h(M.T9Story, {
       src: IMG.family,
       alt: 'Milonga yerba mate cans, the latte pouch and a mate gourd among leaves and fruit on a deep green ground',
-      line1: 'Bringing the',
-      line2: 'ritual forward',
-      lead: 'Milonga takes the spirit of mate and reimagines it for today.',
+      line1: 'Bringing the ritual',
+      line2: 'to the world',
+      lead: 'Our mission is to share the ritual of mate with the world.',
       paras: [
-        'We keep what makes mate special \u2014 its natural energy, connection, and culture \u2014 and bring it into innovative products made for modern moments. From sparkling yerba mate to our Mate Latte, Milonga is a new way to experience an old tradition.',
+        'We\u2019re reimagining this timeless tradition through innovative mate products made for modern life, bringing the natural energy, culture, and spirit of connection behind mate into new ways of enjoying it, wherever you are.',
       ],
       cta: { label: 'Explore Milonga', href: '#', arrow: true },
       // Title, copy and button read as one centred group, so the button rides
@@ -103,6 +103,7 @@ function MateRitual() {
       ratio: 1.58,
       size: 35,
       measure: 440,
+      leadMeasure: 345,
     })
   );
 }

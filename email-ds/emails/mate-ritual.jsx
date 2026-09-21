@@ -73,6 +73,10 @@ function MateRitual() {
       size: 37,
       top: 34,
       measure: 460,
+      // The photograph is the point of this section, so it is barely touched.
+      // The type is held by its own shadow instead, which T9Story tightens
+      // automatically once the scrim drops below 0.7.
+      scrim: 0.26,
     }),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────

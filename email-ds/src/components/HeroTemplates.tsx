@@ -1085,8 +1085,18 @@ export function T9Story({
   const scrimCss = scrimAt === 'middle'
     ? `linear-gradient(to bottom, rgba(0,26,13,${k(0.10)}) 0%, rgba(0,26,13,${k(0.34)}) 20%, rgba(0,26,13,${k(0.56)}) 38%, rgba(0,26,13,${k(0.58)}) 66%, rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.12)}) 100%)`
     : `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.56)}) 30%, rgba(0,26,13,${k(0.40)}) 48%, rgba(0,26,13,${k(0.10)}) 64%, ${tail})`;
-  const shadow = '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
-  const softShadow = '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
+  // SHADOW, NOT SCRIM. A scrim dims the whole photograph to protect a few
+  // hundred pixels of type; a shadow sits behind the letters alone. So as the
+  // scrim comes down, the type's own shadow automatically comes up — a tight,
+  // dense halo that hugs each letter instead of a wash over the picture.
+  // Without this, turning the scrim down quietly makes the copy unreadable.
+  const bare = scrim < 0.7;
+  const shadow = bare
+    ? '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.9), 0 2px 10px rgba(0,26,13,0.8), 0 6px 28px rgba(0,26,13,0.6)'
+    : '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
+  const softShadow = bare
+    ? '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 9px rgba(0,26,13,0.78), 0 5px 22px rgba(0,26,13,0.55)'
+    : '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
 
   return (
     <>

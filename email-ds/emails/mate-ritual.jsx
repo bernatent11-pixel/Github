@@ -9,9 +9,9 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  passed: '../public/product/mate-passed.jpg',
+  passed: '../public/product/mate-passed-tall.jpg',
   circle: '../public/product/mate-circle.jpg',
-  family: '../public/product/milonga-family.jpg',
+  family: '../public/product/milonga-family-tall.jpg',
 };
 
 function MateRitual() {
@@ -34,19 +34,17 @@ function MateRitual() {
       ],
       // One paragraph instead of two, so the frame comes down with it — leaving
       // the old 1.72 would open a dead gap between the copy and the hands.
-      // The button goes back ON the picture, so the frame has to make room for
-      // it. Raising the ratio is what does that: the copy block's height is
-      // fixed and anchored at the top, so a taller frame pushes the gourd and
-      // the hands further down in absolute terms and opens a clear gap between
-      // the last line of copy and the top of the gourd. The measure goes wide
-      // at the same time, which saves the copy a line.
+      // The CTA sits at the foot of the section, level with section 2's.
+      // The photograph had no room for it — the pouch ran to within a few
+      // pixels of the bottom edge — so the art is the version whose picnic
+      // table is extended downward into shadow, which is where the pill sits.
       ratio: 1.80,
       focus: 'center 50%',
       size: 37,
       top: 28,
       measure: 500,
       cta: { label: 'Discover why we started', href: '#about', arrow: true },
-      at: '40%',
+      at: '88%',
     }),
 
     // ── 2 · WHAT IT'S REALLY FOR ──────────────────────────────────────────
@@ -95,15 +93,16 @@ function MateRitual() {
         'We keep what makes mate special — its natural energy, connection, and culture — and bring it into innovative products made for modern moments. From sparkling yerba mate to our Mate Latte, Milonga is a new way to experience an old tradition.',
       ],
       cta: { label: 'Explore Milonga', href: '#', arrow: true },
-      at: '47%',
-      ratio: 1.84,
+      // The copy is centred in the band grown off the top of the still life,
+      // so nothing sits on the picture and the whole composition — both edges,
+      // all three products — is visible at full width, uncropped. The button
+      // drops into the one place the photographer left empty, the clear middle
+      // between the pouch and the can.
+      at: '62%',
+      ratio: 2.563,
       size: 37,
-      top: 110,
-      measure: 380,
-      // The still life stacks its products down the right — pouch high, can
-      // low — so the copy space it left is on the LEFT. Centred type ran
-      // straight across the pack; this slides the whole column into the gap.
-      padRight: 175,
+      top: 86,
+      measure: 430,
       // The ground is already near-black green, so the scrim only has to lift
       // the type off the leaves — not darken a picture that is already dark.
       scrim: 0.45,

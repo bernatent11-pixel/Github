@@ -29,10 +29,11 @@ function MateRitual() {
       line1: 'Why mate is meant',
       line2: 'to be shared 🧉',
       paras: [
-        'For generations, friends and families have gathered around a single mate. One person prepares it — the cebador — and passes it around the circle, one person at a time. You take a sip, pass it on, and keep the conversation going.',
-        'There’s no rush. The mate gives everyone a reason to stay, talk, laugh, and be present with one another. That simple ritual has made mate an everyday symbol of friendship, family, and connection across Argentina.',
+        'Mate is more than a drink. It is a ritual built around sharing, connection, and being present. In Argentina, people gather around one mate, passing it from person to person while stories, laughter, and conversations flow. It is a simple tradition that brings people closer and creates a reason to slow down and enjoy the moment together.',
       ],
-      ratio: 1.72,
+      // One paragraph instead of two, so the frame comes down with it — leaving
+      // the old 1.72 would open a dead gap between the copy and the hands.
+      ratio: 1.62,
       focus: 'center 50%',
       size: 37,
       top: 28,
@@ -52,10 +53,14 @@ function MateRitual() {
       paras: [
         'Mate brings people into the same moment.',
         'Whether it’s friends catching up, family spending an afternoon together, or a conversation that lasts longer than expected, sharing mate creates a pause from everything else.',
+      ],
+      // The last paragraph rides down with the button instead of stacking
+      // under the title — that is what opens the clear window over the circle.
+      tailParas: [
         'It’s not just about the natural energy of yerba mate. It’s about slowing down, sharing stories, and enjoying the people around you.',
       ],
       cta: { label: 'Discover the Mate Ritual', href: '#', arrow: true },
-      at: '87%',
+      at: '79%',
       ratio: 1.82,
       focus: 'center 52%',
       size: 37,

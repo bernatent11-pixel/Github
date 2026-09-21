@@ -942,7 +942,18 @@ export function T8Callouts({
 
    The scrim is weighted to the top, where the type is, and lifts again at the
    bottom only if there is a button to protect. The middle stays clear — that
-   is the part of the picture you chose the section for. ──────────────────── */
+   is the part of the picture you chose the section for.
+
+   SPLITTING THE COPY: `paras` vs `tailParas`
+   ------------------------------------------
+   Everything in `paras` stacks under the title. Anything in `tailParas` travels
+   down with the CTA instead, which is how you open a clear window in the middle
+   of the picture without cutting a word — the last paragraph reads as the line
+   before the button, where it was always going to be read anyway.
+
+   Use it when the copy is long enough that the top stack reaches into the
+   subject. Moving the LAST paragraph down keeps the reading order intact;
+   moving a middle one does not, and the reader will feel the jump. ────────── */
 
 export interface T9Props {
   src: string;
@@ -956,8 +967,14 @@ export interface T9Props {
   line2?: string;
   /** The paragraphs, in order. The first is set a little larger as a lead. */
   paras?: string[];
+  /**
+   * Paragraphs that ride down with the CTA instead of stacking under the
+   * title, leaving the middle of the photograph clear. Use the LAST of the
+   * copy here, never a middle one — the reading order has to survive.
+   */
+  tailParas?: string[];
   cta?: Cta;
-  /** Where the CTA sits, as a share of the frame. */
+  /** Where the CTA GROUP starts — tail paragraphs first, then the button. */
   at?: string;
   /** Headline size. */
   size?: number;
@@ -981,6 +998,7 @@ export function T9Story({
   line1,
   line2,
   paras = [],
+  tailParas = [],
   cta,
   at = '88%',
   size = 38,
@@ -992,10 +1010,16 @@ export function T9Story({
   bg = 'beige',
 }: T9Props) {
   const k = (v: number) => Math.min(1, v * scrim).toFixed(2);
-  // Two stops at the bottom only when a button needs to sit on the picture.
-  const tail = cta
-    ? `rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.44)}) 100%`
-    : `rgba(0,26,13,${k(0.06)}) 84%, rgba(0,26,13,${k(0.14)}) 100%`;
+  const hasTailCopy = tailParas.length > 0;
+  // The bottom lift has to start above whatever sits down there. A lone button
+  // needs the last 16%; a paragraph riding with it needs roughly twice that,
+  // and starting the lift too late is what leaves a paragraph half-legible on
+  // a bright patch of picture.
+  const tail = !cta && !hasTailCopy
+    ? `rgba(0,26,13,${k(0.06)}) 84%, rgba(0,26,13,${k(0.14)}) 100%`
+    : hasTailCopy
+      ? `rgba(0,26,13,${k(0.20)}) 70%, rgba(0,26,13,${k(0.46)}) 84%, rgba(0,26,13,${k(0.52)}) 100%`
+      : `rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.44)}) 100%`;
   const shadow = '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
   const softShadow = '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
 
@@ -1045,9 +1069,30 @@ export function T9Story({
         ))}
       </div>
 
-      {cta ? (
+      {cta || hasTailCopy ? (
         <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: '0 30px', textAlign: 'center' }}>
-          <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+          {tailParas.map((p, i) => (
+            <div
+              key={i}
+              style={{
+                fontFamily: fontStack,
+                fontWeight: 500,
+                fontSize: 16,
+                lineHeight: 1.56,
+                color: 'rgba(255,255,255,0.95)',
+                maxWidth: measure,
+                margin: `${i === 0 ? 0 : 14}px auto 0`,
+                textShadow: softShadow,
+              }}
+            >
+              {p}
+            </div>
+          ))}
+          {cta ? (
+            <div style={{ marginTop: hasTailCopy ? 28 : 0 }}>
+              <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+            </div>
+          ) : null}
         </div>
       ) : null}
     </Frame>

@@ -1375,6 +1375,12 @@ export interface T10Props {
   pad?: number;
   /** Horizontal padding. */
   padX?: number;
+  /**
+   * What an `**emphasised**` phrase looks like. 'accent' is the brand green;
+   * 'body' keeps the body's own colour and lets weight alone carry it, which
+   * is quieter and stays readable when several phrases are marked.
+   */
+  emphasis?: 'accent' | 'body';
   /** A hairline above the title, to mark the change of ground. */
   rule?: boolean;
   /** Lay the brand's paper texture over the flat ground. */
@@ -1396,6 +1402,7 @@ export function T10Close({
   measure = 452,
   pad = 58,
   padX = 30,
+  emphasis = 'accent',
   rule = true,
   textured = false,
 }: T10Props) {
@@ -1430,9 +1437,12 @@ export function T10Close({
           key={i}
           style={{
             fontFamily: fontStack,
-            fontWeight: 400,
+            // 500, never 400. The file mapped to Gotham's 400 renders heavier
+            // than its 500, so 500 is this family's true regular and 400 comes
+            // out looking bold.
+            fontWeight: 500,
             fontSize: 16,
-            lineHeight: 1.6,
+            lineHeight: 1.62,
             color: t.body,
             maxWidth: measure,
             margin: `18px ${mx} 0`,
@@ -1442,11 +1452,199 @@ export function T10Close({
               the part the reader takes away when they skim. */}
           {splitEmphasis(p).map((run, j) =>
             run.em
-              ? <strong key={j} style={{ fontWeight: 900, color: t.accent }}>{run.t}</strong>
+              ? <strong key={j} style={{ fontWeight: 900, color: emphasis === 'body' ? t.body : t.accent }}>{run.t}</strong>
               : <React.Fragment key={j}>{run.t}</React.Fragment>,
           )}
         </div>
       ))}
+
+      {cta ? (
+        <div style={{ marginTop: 34 }}>
+          <Pill cta={cta} fill={t.btnBg} ink={t.btnText} />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+
+/* ══ T11 · THE EQUATION ══════════════════════════════════════════════════
+   What goes in, joined by plus signs, resolving to the product.
+
+   The form does the explaining. A list of three ingredients and a product is
+   four facts the reader has to assemble themselves; the same four with `+`
+   between them and an arrow before the last one is an argument they read in
+   one pass. So the operators are not decoration — they are the only thing
+   turning a list into a claim, and they sit on the circles' own centre line
+   so the eye runs down the images and finds them on the way.
+
+   Each term's picture is optional. A term with no `src` shows its emoji on a
+   brand disc instead, which is a real placeholder rather than an empty hole:
+   the row keeps its exact height and spacing, so dropping the photograph in
+   later moves nothing. ───────────────────────────────────────────────────── */
+
+export interface EquationTerm {
+  /** Circular image. Omit it and the emoji stands in at the same size. */
+  src?: string;
+  alt?: string;
+  emoji?: string;
+  label: string;
+  note?: string;
+}
+
+export interface T11Props {
+  eyebrow?: string;
+  /** The inputs, joined by `+`. */
+  terms: EquationTerm[];
+  /** What they resolve to, after the arrow. */
+  result: EquationTerm;
+  /** Ways to serve it, side by side under the result. */
+  serves?: EquationTerm[];
+  cta?: Cta;
+  bg?: EmailBg;
+  /** Diameter of a term's disc. The result's is 15% larger. */
+  circle?: number;
+  labelSize?: number;
+  pad?: number;
+  padX?: number;
+}
+
+function Disc({
+  term,
+  size,
+  bg,
+  fill,
+}: {
+  term: EquationTerm;
+  size: number;
+  bg: EmailBg;
+  fill?: string;
+}) {
+  const t = onBg[bg];
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        flex: `0 0 ${size}px`,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        background: fill ?? t.panel,
+        border: `2px solid ${t.rule}`,
+        textAlign: 'center',
+        lineHeight: `${size - 4}px`,
+      }}
+    >
+      {term.src ? (
+        // `contain`, not `cover`: these are cutouts and product shots, and a
+        // cover crop would cut the subject off at the circle's edge.
+        <img
+          src={term.src}
+          alt={term.alt ?? ''}
+          style={{ width: '78%', height: '78%', objectFit: 'contain', margin: '11%', display: 'inline-block', verticalAlign: 'middle' }}
+        />
+      ) : (
+        <span style={{ fontSize: Math.round(size * 0.4), lineHeight: `${size - 4}px` }}>{term.emoji}</span>
+      )}
+    </div>
+  );
+}
+
+export function T11Equation({
+  eyebrow,
+  terms,
+  result,
+  serves = [],
+  cta,
+  bg = 'beige',
+  circle = 96,
+  labelSize = 19,
+  pad = 52,
+  padX = 34,
+}: T11Props) {
+  const t = onBg[bg];
+  const GAP = 22;
+  // The operators line up with the discs' centre, not with the page's, so the
+  // column of pictures reads as the left side of the equation.
+  const opLeft = circle / 2;
+
+  const Row = ({ term, size, big }: { term: EquationTerm; size: number; big?: boolean }) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: GAP }}>
+      <Disc term={term} size={size} bg={bg} fill={big ? t.elevated : undefined} />
+      <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+        <div style={{ ...caps(big ? labelSize + 7 : labelSize, '0.06em', t.title), lineHeight: 1.12 }}>{term.label}</div>
+        {term.note ? (
+          <div
+            style={{
+              fontFamily: fontStack,
+              // 500, never 400 — the file mapped to Gotham's 400 renders
+              // heavier than its 500, so 500 is this family's true regular.
+              fontWeight: 500,
+              fontSize: big ? 17 : 16,
+              lineHeight: 1.45,
+              color: t.body,
+              marginTop: 5,
+            }}
+          >
+            {term.note}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+
+  const Op = ({ glyph, size }: { glyph: string; size: number }) => (
+    <div style={{ height: size + 14, position: 'relative' }}>
+      <div
+        style={{
+          position: 'absolute',
+          left: opLeft,
+          top: 0,
+          transform: 'translateX(-50%)',
+          ...caps(size, '0', t.accent),
+          lineHeight: `${size + 14}px`,
+        }}
+      >
+        {glyph}
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={{ padding: `${pad}px ${padX}px`, ...bgStyle(bg, bgFill[bg]) }}>
+      {eyebrow ? <div style={{ ...caps(12, '0.2em', t.accent), marginBottom: 22 }}>{eyebrow}</div> : null}
+
+      {terms.map((term, i) => (
+        <React.Fragment key={i}>
+          <Row term={term} size={circle} />
+          {i < terms.length - 1 ? <Op glyph="+" size={30} /> : null}
+        </React.Fragment>
+      ))}
+
+      <Op glyph="↓" size={30} />
+
+      <Row term={result} size={Math.round(circle * 1.15)} big />
+
+      {serves.length ? (
+        <>
+          <div style={{ height: 1, background: t.rule, margin: '30px 0 26px' }} />
+          <div style={{ display: 'flex', gap: 18 }}>
+            {serves.map((s, i) => (
+              <div key={i} style={{ flex: '1 1 0', display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}>
+                <Disc term={s} size={Math.round(circle * 0.62)} bg={bg} />
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ ...caps(labelSize - 4, '0.08em', t.title), lineHeight: 1.1 }}>{s.label}</div>
+                  {s.note ? (
+                    <div style={{ fontFamily: fontStack, fontWeight: 500, fontSize: 14, lineHeight: 1.35, color: t.body, marginTop: 4 }}>
+                      {s.note}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
 
       {cta ? (
         <div style={{ marginTop: 34 }}>

@@ -95,6 +95,43 @@ function MateLatteWhy() {
       measure: 468,
       pad: 56,
       padX: 34,
+      // Weight alone carries the emphasis. Forest green on beige was pulling
+      // three separate phrases out of three short paragraphs, which left the
+      // section looking half-highlighted rather than emphasised.
+      emphasis: 'body',
+    }),
+
+    // ── 3 · THE EQUATION ──────────────────────────────────────────────────
+    // Pictures down the left, the terms beside them, operators on the discs'
+    // own centre line. Two of the discs are placeholders carrying their emoji
+    // at full size — the rows hold their exact height, so dropping the real
+    // photographs in later moves nothing else.
+    h(M.T11Equation, {
+      bg: 'beige',
+      terms: [
+        { src: '../public/product/ing-yerba-mate.png', emoji: '🧉',
+          alt: 'Loose yerba mate leaf',
+          label: 'Yerba mate', note: 'Natural energy + antioxidants' },
+        { src: '../public/product/ing-lions-mane.png', emoji: '🍄',
+          alt: 'A lion\u2019s mane mushroom',
+          label: 'Functional ingredients', note: 'Lion\u2019s Mane + L-Theanine' },
+        { emoji: '🍦', label: 'Creamy vanilla', note: 'Smooth, creamy & genuinely enjoyable' },
+      ],
+      result: {
+        src: '../public/product/pouch-floating.png', emoji: '☕',
+        alt: 'The Milonga Mate Latte pouch',
+        label: 'Mate Latte', note: 'Ready in 30 seconds.',
+      },
+      serves: [
+        // Both serve discs are placeholders. The iced cutout was tried here
+        // and dropped: at 60px a hand holding a jar resolves to an unreadable
+        // smudge, and an emoji that reads beats a photograph that does not.
+        { emoji: '🔥', label: 'Hot', note: 'Cozy & comforting' },
+        { emoji: '🧊', label: 'Iced', note: 'Cold & refreshing' },
+      ],
+      circle: 96,
+      pad: 4,
+      padX: 34,
     })
   );
 }

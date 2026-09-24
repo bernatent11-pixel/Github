@@ -141,46 +141,48 @@ function MateLatteWhy() {
     }),
 
     // ── 4 · HOT OR ICED ───────────────────────────────────────────────────
-    // The counter still life, in as shot, with the headline in section 1's
-    // treatment and a label pinned to each cup.
+    // The counter still life, in as shot, with a label pinned to each cup and
+    // the button centred on the frame at the foot.
     //
-    // WHERE THE TYPE CAN GO IS SET BY THE LIGHT. Measured on the untouched
-    // file, the marble wall behind the top-left corner reads luminance 68 and
-    // holds that out to about 65% of the width — which is why the headline
-    // sits there and can afford both white and gold. The bottom half is a lit
-    // marble counter at 185-206, the brightest ground in this campaign.
+    // 48px IS THE CEILING, NOT A CHOICE. Section 1's accent line runs 65, but
+    // the binding word here is "REIMAGINED." — eleven characters, which need
+    // 522px at 65px against a 600px frame. The dark marble that can carry type
+    // runs x 0-65%, y 0-30%; at 48px the word measures 385px and fits inside
+    // it. Anything larger walks out over the window sill, the empty glass and
+    // the top of the pack.
     //
-    // So ICED, beside the glass at 133, is comfortable. HOT sits where it was
-    // asked to, off the cup's bottom-right corner, and that is the 200-plus
-    // patch: it holds only because labels carry the dense halo unconditionally.
+    // THE LABELS ARE FLAT NOW. Measured: ICED sits at luminance 133, which
+    // gold survives unaided. HOT sits at 200-plus — the brightest ground in
+    // the campaign — and without its halo it is the one piece of type here
+    // that is genuinely fighting its background.
     h(M.T9Story, {
       src: IMG.counter,
-      alt: 'Your morning, reimagined. An iced Milonga Mate Latte in a tall glass and a hot one in a ceramic cup on a marble counter, beside the Mate Latte pouch and a measuring scoop. Iced is creamy and refreshing, hot is smooth and cozy.',
+      alt: 'Your morning, reimagined. An iced Milonga Mate Latte in a tall glass and a hot one in a ceramic cup on a marble counter, beside the Mate Latte pouch and a measuring scoop. Iced is creamy and refreshing, hot is smooth and cozy. Experience it.',
       align: 'left',
       line1Color: '#FFFFFF',
       line1: 'Your morning,',
       line2: 'Reimagined.',
       paras: ['Same mate. A whole new way to enjoy it.'],
       ratio: 1.501,
-      size: 42,
-      titleLead: 1.0,
-      // High enough that the one-line subtitle finishes before the pitcher
-      // starts at 22% of the frame — at 300px measure it wrapped, and the
-      // second line sat across the jug's rim.
-      top: 34,
+      size: 48,
+      titleLead: 0.96,
+      // Dropped well clear of the top edge, as asked.
+      top: 88,
       padLeft: 32,
-      // 390, not 348: a lone first paragraph renders at 17px rather than 16,
-      // so this line needs 367px and was orphaning "it." onto a second row.
       padRight: 178,
       measure: 390,
       scrim: 0,
       halo: 'soft',
+      labelHalo: 'soft',
       labels: [
         { text: 'Iced', note: 'Creamy & refreshing',
-          top: '46%', left: '4%', width: 150, size: 31 },
+          top: '40%', left: '4%', width: 150, size: 31 },
         { text: 'Hot', note: 'Smooth & cozy',
           top: '79%', left: '53%', width: 160, size: 31 },
       ],
+      cta: { label: 'Experience it', href: '#shop', arrow: true },
+      ctaAlign: 'center',
+      at: '88%',
     })
   );
 }

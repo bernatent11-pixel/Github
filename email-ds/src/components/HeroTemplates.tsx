@@ -1063,6 +1063,15 @@ export interface T9Props {
    */
   labels?: PhotoLabel[];
   /**
+   * The labels' own shadow, separate from the headline's. Defaults to a dense
+   * halo because a label sits where its subject is rather than where the
+   * picture is quiet. 'none' is flat, and only safe once you have checked what
+   * is actually behind each one.
+   */
+  labelHalo?: 'auto' | 'soft' | 'none';
+  /** Align the pinned CTA independently of the copy. */
+  ctaAlign?: 'left' | 'center';
+  /**
    * Override either headline line's colour. `ink` picks the brand pair — cream
    * and gold on a dark ground — and these are the escape hatch for when a
    * poster wants a flatter, colder white than the brand cream.
@@ -1140,6 +1149,8 @@ export function T9Story({
   line1Color,
   line2Color,
   labels = [],
+  labelHalo: labelHaloMode = 'auto',
+  ctaAlign,
   halo = 'auto',
   titleLead = 1.0,
   align = 'center',
@@ -1215,8 +1226,10 @@ export function T9Story({
     ? '0 1px 4px rgba(251,248,239,0.7)'
     : '0 1px 4px rgba(0,26,13,0.38)';
   const shadow = halo === 'none' ? 'none' : halo === 'soft' ? softShad : autoShadow;
-  // Labels get the dense halo unconditionally — see `labels`.
-  const labelHalo = '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 10px rgba(0,26,13,0.82), 0 6px 26px rgba(0,26,13,0.6)';
+  const labelHalo =
+    labelHaloMode === 'none' ? 'none'
+    : labelHaloMode === 'soft' ? '0 1px 4px rgba(0,26,13,0.45)'
+    : '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 10px rgba(0,26,13,0.82), 0 6px 26px rgba(0,26,13,0.6)';
   const autoSoft = darkInk
     ? '0 0 3px rgba(251,248,239,0.98), 0 0 8px rgba(251,248,239,0.92), 0 0 18px rgba(251,248,239,0.7)'
     : bare
@@ -1354,11 +1367,14 @@ export function T9Story({
             <div
               style={{
                 fontFamily: fontStack,
-                fontWeight: 500,
-                fontSize: 15,
-                lineHeight: 1.4,
+                // 700, not 500. A label's note is signage on a photograph, not
+                // body copy on a page — it gets one line and has to hold on
+                // whatever it happens to be standing on.
+                fontWeight: 700,
+                fontSize: 16,
+                lineHeight: 1.38,
                 color: l.noteColor ?? colors.beige,
-                marginTop: 7,
+                marginTop: 8,
                 textShadow: labelHalo,
               }}
             >

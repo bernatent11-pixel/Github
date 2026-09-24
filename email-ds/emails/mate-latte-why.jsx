@@ -37,7 +37,7 @@ function MateLatteWhy() {
     // alternative is 45px, which clears him completely.
     h(M.T9Story, {
       src: IMG.why,
-      alt: 'We turned mate into your new morning ritual. A man outdoors holds up a Milonga Yerba Mate Latte pouch in front of his face, framed by out-of-focus green trees. Try it now.',
+      alt: 'We turned mate into your new morning ritual. A man stands outdoors among blurred green trees, holding a Milonga Yerba Mate Latte pouch up in front of his face. Try it now.',
       logo: true,
       logoTone: 'white',
       logoHeight: 96,
@@ -80,6 +80,9 @@ function MateLatteWhy() {
     // soft. On a light ground the map sets everything typographic to the one
     // forest green, so the headline is flat and the emphasis inside the body
     // does the colour work instead.
+    // ALT TEXT FOR THIS BLOCK — sections 2 and 3 export as a single image, so
+    // the copy band and the equation share one alt, carried on the equation
+    // below. Keep the two in step if either one's wording changes.
     h(M.T10Close, {
       bg: 'beige',
       align: 'left',
@@ -109,6 +112,7 @@ function MateLatteWhy() {
     // are only a fallback if a file ever goes missing.
     h(M.T11Equation, {
       bg: 'beige',
+      alt: 'So why turn it into a latte? We wanted to make mate simple, creamy, comforting and easy to enjoy, just like your favorite morning latte. So we combined the natural energy of mate with functional ingredients in a smooth, creamy vanilla latte made for your everyday ritual. Meet Mate Latte: everything you love about mate, and more, reimagined for your morning. A diagram adds it up \u2014 yerba mate for natural energy and antioxidants, plus functional ingredients, Lion\u2019s Mane and L-Theanine, plus creamy vanilla that is smooth and genuinely enjoyable \u2014 which together make Mate Latte, ready in 30 seconds.',
       terms: [
         { src: '../public/product/ing-yerba-mate.png', emoji: '🧉',
           alt: 'Loose yerba mate leaf',
@@ -157,7 +161,7 @@ function MateLatteWhy() {
     // that is genuinely fighting its background.
     h(M.T9Story, {
       src: IMG.counter,
-      alt: 'Your morning, reimagined. An iced Milonga Mate Latte in a tall glass and a hot one in a ceramic cup on a marble counter, beside the Mate Latte pouch and a measuring scoop. Iced is creamy and refreshing, hot is smooth and cozy. Experience it.',
+      alt: 'Your morning, reimagined. Same mate, a whole new way to enjoy it. On a marble counter by a window: an iced Milonga Mate Latte in a tall glass, creamy and refreshing, and a hot one in a ceramic cup, smooth and cozy, beside the Mate Latte pouch, a measuring scoop and a jug of milk. Experience it.',
       align: 'left',
       line1Color: '#FFFFFF',
       line1: 'Your morning,',

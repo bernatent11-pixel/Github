@@ -1581,6 +1581,12 @@ export interface EquationTerm {
 }
 
 export interface T11Props {
+  /**
+   * The whole section's alt text. This block ships as a flat image, so the alt
+   * is the entire section for a reader with images off — it carries the copy
+   * and the equation, not a description of the pictures.
+   */
+  alt?: string;
   eyebrow?: string;
   /** The inputs, joined by `+`. */
   terms: EquationTerm[];

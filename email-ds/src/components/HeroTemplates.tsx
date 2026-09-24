@@ -956,6 +956,21 @@ export function T8Callouts({
    subject. Moving the LAST paragraph down keeps the reading order intact;
    moving a middle one does not, and the reader will feel the jump. ────────── */
 
+export interface PhotoLabel {
+  text: string;
+  note?: string;
+  /** Position within the frame, as a CSS percentage. */
+  top: string;
+  left?: string;
+  right?: string;
+  align?: 'left' | 'center' | 'right';
+  size?: number;
+  color?: string;
+  noteColor?: string;
+  /** Measure for the note, so it breaks where you want it to. */
+  width?: number;
+}
+
 export interface T9Props {
   src: string;
   alt: string;
@@ -1038,6 +1053,16 @@ export interface T9Props {
    */
   logoTop?: number | string;
   /**
+   * Labels pinned to things in the photograph — a name for the cup on the
+   * left, for the one at the bottom. Positioned in percentages of the frame so
+   * they stay on their subject at any width.
+   *
+   * These always carry a strong halo whatever `halo` is set to: a headline
+   * chooses its own patch of picture, but a label has to sit where its subject
+   * is, and that is often the brightest part of the shot.
+   */
+  labels?: PhotoLabel[];
+  /**
    * Override either headline line's colour. `ink` picks the brand pair — cream
    * and gold on a dark ground — and these are the escape hatch for when a
    * poster wants a flatter, colder white than the brand cream.
@@ -1114,6 +1139,7 @@ export function T9Story({
   size2,
   line1Color,
   line2Color,
+  labels = [],
   halo = 'auto',
   titleLead = 1.0,
   align = 'center',
@@ -1189,6 +1215,8 @@ export function T9Story({
     ? '0 1px 4px rgba(251,248,239,0.7)'
     : '0 1px 4px rgba(0,26,13,0.38)';
   const shadow = halo === 'none' ? 'none' : halo === 'soft' ? softShad : autoShadow;
+  // Labels get the dense halo unconditionally — see `labels`.
+  const labelHalo = '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 10px rgba(0,26,13,0.82), 0 6px 26px rgba(0,26,13,0.6)';
   const autoSoft = darkInk
     ? '0 0 3px rgba(251,248,239,0.98), 0 0 8px rgba(251,248,239,0.92), 0 0 18px rgba(251,248,239,0.7)'
     : bare
@@ -1307,6 +1335,38 @@ export function T9Story({
           ) : null}
         </div>
       ) : null}
+      {labels.map((l, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute',
+            top: l.top,
+            left: l.left,
+            right: l.right,
+            textAlign: l.align ?? 'left',
+            maxWidth: l.width,
+          }}
+        >
+          <div style={{ ...caps(l.size ?? 30, '0.14em', l.color ?? colors.gold), lineHeight: 1.05, textShadow: labelHalo }}>
+            {l.text}
+          </div>
+          {l.note ? (
+            <div
+              style={{
+                fontFamily: fontStack,
+                fontWeight: 500,
+                fontSize: 15,
+                lineHeight: 1.4,
+                color: l.noteColor ?? colors.beige,
+                marginTop: 7,
+                textShadow: labelHalo,
+              }}
+            >
+              {l.note}
+            </div>
+          ) : null}
+        </div>
+      ))}
     </Frame>
 
     {cta && ctaBelow ? (

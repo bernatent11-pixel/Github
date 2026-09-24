@@ -80,7 +80,7 @@ export type { HeaderProps } from './components/Header';
 export { Hero } from './components/Hero';
 export type { HeroProps } from './components/Hero';
 export { Frame, T1PhotoCard, T2BigNumber, T3Minimal, T4Pilot, T5Urgency, T6FullImage, T7Statement, T8Callouts, T9Story, T10Close, T11Equation } from './components/HeroTemplates';
-export type { FrameProps, Cta, T1Props, T2Props, T3Props, T4Props, T5Props, T6Props, T7Props, T8Props, T9Props, T10Props, T11Props, EquationTerm, CalloutRow } from './components/HeroTemplates';
+export type { FrameProps, Cta, T1Props, T2Props, T3Props, T4Props, T5Props, T6Props, T7Props, T8Props, T9Props, T10Props, T11Props, EquationTerm, PhotoLabel, CalloutRow } from './components/HeroTemplates';
 export { HeroSection } from './components/HeroSection';
 export type { HeroSectionProps, HeroSectionCta } from './components/HeroSection';
 export { Button } from './components/Button';

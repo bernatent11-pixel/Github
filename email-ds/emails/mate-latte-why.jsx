@@ -9,6 +9,7 @@ const IMG = {
   // The photograph exactly as supplied. Native 1.5 ratio, so the frame shows
   // all of it — nothing outpainted, nothing cropped.
   why: '../public/product/mate-pouch-man.jpg',
+  counter: '../public/product/latte-counter.jpg',
 };
 
 function MateLatteWhy() {
@@ -137,6 +138,49 @@ function MateLatteWhy() {
       // is almost the ground itself, so the pictures read as stains on it; a
       // white disc that is clearly lit from above reads as an object.
       discShadow: '0 10px 26px rgba(0,77,39,0.16), 0 2px 6px rgba(0,77,39,0.10)',
+    }),
+
+    // ── 4 · HOT OR ICED ───────────────────────────────────────────────────
+    // The counter still life, in as shot, with the headline in section 1's
+    // treatment and a label pinned to each cup.
+    //
+    // WHERE THE TYPE CAN GO IS SET BY THE LIGHT. Measured on the untouched
+    // file, the marble wall behind the top-left corner reads luminance 68 and
+    // holds that out to about 65% of the width — which is why the headline
+    // sits there and can afford both white and gold. The bottom half is a lit
+    // marble counter at 185-206, the brightest ground in this campaign.
+    //
+    // So ICED, beside the glass at 133, is comfortable. HOT sits where it was
+    // asked to, off the cup's bottom-right corner, and that is the 200-plus
+    // patch: it holds only because labels carry the dense halo unconditionally.
+    h(M.T9Story, {
+      src: IMG.counter,
+      alt: 'Your morning, reimagined. An iced Milonga Mate Latte in a tall glass and a hot one in a ceramic cup on a marble counter, beside the Mate Latte pouch and a measuring scoop. Iced is creamy and refreshing, hot is smooth and cozy.',
+      align: 'left',
+      line1Color: '#FFFFFF',
+      line1: 'Your morning,',
+      line2: 'Reimagined.',
+      paras: ['Same mate. A whole new way to enjoy it.'],
+      ratio: 1.501,
+      size: 42,
+      titleLead: 1.0,
+      // High enough that the one-line subtitle finishes before the pitcher
+      // starts at 22% of the frame — at 300px measure it wrapped, and the
+      // second line sat across the jug's rim.
+      top: 34,
+      padLeft: 32,
+      // 390, not 348: a lone first paragraph renders at 17px rather than 16,
+      // so this line needs 367px and was orphaning "it." onto a second row.
+      padRight: 178,
+      measure: 390,
+      scrim: 0,
+      halo: 'soft',
+      labels: [
+        { text: 'Iced', note: 'Creamy & refreshing',
+          top: '46%', left: '4%', width: 150, size: 31 },
+        { text: 'Hot', note: 'Smooth & cozy',
+          top: '79%', left: '53%', width: 160, size: 31 },
+      ],
     })
   );
 }

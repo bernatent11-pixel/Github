@@ -1037,6 +1037,11 @@ export interface T9Props {
    */
   logoTop?: number | string;
   /**
+   * Size of the SECOND headline line, when the accent half should be louder
+   * than the setup. Defaults to `size`.
+   */
+  size2?: number;
+  /**
    * Line-height of the headline. 1.0 is the default; a poster-scale stack
    * wants 0.88-0.92, where the lines almost touch and the block reads as one
    * mass rather than as separate rows. Below about 0.85 the descenders of one
@@ -1089,6 +1094,7 @@ export function T9Story({
   ink = 'light',
   logoTone,
   logoTop,
+  size2,
   titleLead = 1.0,
   align = 'center',
   belowPad = 34,
@@ -1180,7 +1186,12 @@ export function T9Story({
           inside its column, so it comes out of the stack and gets its own row. */}
       {logo && leftAlign ? (
         <div style={{ position: 'absolute', top: logoTop ?? top, left: 0, right: 0, textAlign: 'center' }}>
-          <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
+          {/* The wordmark is artwork, not text, so the type's textShadow does
+              nothing for it. On a bright sky with no scrim it needs a
+              drop-shadow of its own or the white lockup simply dissolves. */}
+          <span style={{ display: 'inline-block', filter: 'drop-shadow(0 1px 2px rgba(0,26,13,0.55)) drop-shadow(0 2px 8px rgba(0,26,13,0.5)) drop-shadow(0 6px 22px rgba(0,26,13,0.4))' }}>
+            <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
+          </span>
         </div>
       ) : null}
 
@@ -1196,7 +1207,7 @@ export function T9Story({
         ) : null}
         <CapsLine text={line1} style={{ ...caps(size, '0.01em', headInk), lineHeight: titleLead, textShadow: shadow }} />
         {line2 ? (
-          <CapsLine text={line2} style={{ ...caps(size, '0.01em', headInk2), lineHeight: titleLead, textShadow: shadow }} />
+          <CapsLine text={line2} style={{ ...caps(size2 ?? size, '0.01em', headInk2), lineHeight: titleLead, textShadow: shadow }} />
         ) : null}
 
         {lead ? (

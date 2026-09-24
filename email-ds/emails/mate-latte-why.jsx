@@ -39,7 +39,7 @@ function MateLatteWhy() {
       alt: 'We turned mate into your new morning ritual. A man outdoors holds up a Milonga Yerba Mate Latte pouch in front of his face, framed by out-of-focus green trees. Try it now.',
       logo: true,
       logoTone: 'white',
-      logoHeight: 78,
+      logoHeight: 96,
       // The wordmark belongs at the top of the frame; the stack is placed
       // against the photograph, so the two are positioned separately.
       logoTop: 30,
@@ -49,10 +49,15 @@ function MateLatteWhy() {
       line2: 'new morning ritual.',
       cta: { label: 'Try it now', href: '#shop', arrow: true },
       ctaInline: true,
+      // No wash at all — the photograph goes in as shot. The type is carried
+      // by its own halo, which T9Story tightens automatically below 0.7 scrim,
+      // and the wordmark by a drop-shadow of its own.
+      scrim: 0,
       ratio: 1.501,
       size: 55,
+      size2: 65,
       titleLead: 1.02,
-      top: '31%',
+      top: '27%',
       padLeft: 26,
       padRight: 289,
       measure: 285,

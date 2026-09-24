@@ -104,9 +104,8 @@ function MateLatteWhy() {
 
     // ── 3 · THE EQUATION ──────────────────────────────────────────────────
     // Pictures down the left, the terms beside them, operators on the discs'
-    // own centre line. Two of the discs are placeholders carrying their emoji
-    // at full size — the rows hold their exact height, so dropping the real
-    // photographs in later moves nothing else.
+    // own centre line. Every disc now carries real art, so the emoji fields
+    // are only a fallback if a file ever goes missing.
     h(M.T11Equation, {
       bg: 'beige',
       terms: [
@@ -125,20 +124,19 @@ function MateLatteWhy() {
         alt: 'The Milonga Mate Latte pouch',
         label: 'Mate Latte', note: 'Ready in 30 seconds.',
       },
-      serves: [
-        // The brand's own line icons, not emoji. A photograph of a drink does
-        // not survive a 94px disc — the iced cutout was tried and resolved to
-        // a smudge — but a line drawing is legible at any size by design.
-        { src: '../public/brand/icons/hot-forest.png', alt: 'A hot cup',
-          label: 'Hot', note: 'Cozy & comforting' },
-        { src: '../public/brand/icons/iced-forest.png', alt: 'An iced glass',
-          label: 'Iced', note: 'Cold & refreshing' },
-      ],
-      circle: 152,
+      circle: 170,
       labelSize: 26,
+      // Tight at the top, because the paragraph band above already ends in
+      // 56px of its own; generous at the foot, which the serve row used to
+      // provide and no longer does.
       pad: 4,
+      padBottom: 58,
       padX: 30,
       textured: true,
+      // White discs with a real shadow. On a beige ground a panel-tinted disc
+      // is almost the ground itself, so the pictures read as stains on it; a
+      // white disc that is clearly lit from above reads as an object.
+      discShadow: '0 10px 26px rgba(0,77,39,0.16), 0 2px 6px rgba(0,77,39,0.10)',
     })
   );
 }

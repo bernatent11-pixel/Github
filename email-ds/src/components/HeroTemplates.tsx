@@ -1505,10 +1505,16 @@ export interface T11Props {
   /** Diameter of a term's disc. The result's is 15% larger. */
   circle?: number;
   labelSize?: number;
+  /** Vertical padding. `padBottom` defaults to it when the foot needs more. */
   pad?: number;
+  padBottom?: number;
   padX?: number;
   /** Lay the brand's paper grain over the flat ground. */
   textured?: boolean;
+  /** Fill behind each picture. White lifts a cutout off a beige ground. */
+  discFill?: string;
+  /** Shadow under each disc. Defaults to the ground's stronger depth token. */
+  discShadow?: string;
 }
 
 function Disc({
@@ -1516,11 +1522,13 @@ function Disc({
   size,
   bg,
   fill,
+  shadow,
 }: {
   term: EquationTerm;
   size: number;
   bg: EmailBg;
   fill?: string;
+  shadow?: string;
 }) {
   const t = onBg[bg];
   return (
@@ -1531,11 +1539,10 @@ function Disc({
         flex: `0 0 ${size}px`,
         borderRadius: '50%',
         overflow: 'hidden',
-        background: fill ?? t.panel,
-        border: `2px solid ${t.rule}`,
-        // Lifted, so the column of pictures reads as objects on the page
-        // rather than as holes cut in it.
-        boxShadow: t.shadow,
+        background: fill ?? colors.white,
+        // No border. A white disc on a beige ground already has an edge; a
+        // rule on top of the shadow gives it two, and reads as a sticker.
+        boxShadow: shadow ?? t.shadowLg,
         textAlign: 'center',
         lineHeight: `${size - 4}px`,
       }}
@@ -1565,8 +1572,11 @@ export function T11Equation({
   circle = 96,
   labelSize = 19,
   pad = 52,
+  padBottom,
   padX = 34,
   textured = false,
+  discFill,
+  discShadow,
 }: T11Props) {
   const t = onBg[bg];
   const GAP = 22;
@@ -1576,7 +1586,7 @@ export function T11Equation({
 
   const Row = ({ term, size, big }: { term: EquationTerm; size: number; big?: boolean }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: GAP }}>
-      <Disc term={term} size={size} bg={bg} fill={big ? t.elevated : undefined} />
+      <Disc term={term} size={size} bg={bg} fill={discFill} shadow={discShadow} />
       <div style={{ flex: '1 1 auto', minWidth: 0 }}>
         <div style={{ ...caps(big ? labelSize + 7 : labelSize, '0.06em', t.title), lineHeight: 1.12 }}>{term.label}</div>
         {term.note ? (
@@ -1617,7 +1627,7 @@ export function T11Equation({
   );
 
   return (
-    <div style={{ padding: `${pad}px ${padX}px`, ...bgStyle(bg, bgFill[bg], textured) }}>
+    <div style={{ padding: `${pad}px ${padX}px ${padBottom ?? pad}px`, ...bgStyle(bg, bgFill[bg], textured) }}>
       {eyebrow ? <div style={{ ...caps(12, '0.2em', t.accent), marginBottom: 22 }}>{eyebrow}</div> : null}
 
       {/* The operators scale with the discs — a 30px plus between 152px
@@ -1639,7 +1649,7 @@ export function T11Equation({
           <div style={{ display: 'flex', gap: 18 }}>
             {serves.map((s, i) => (
               <div key={i} style={{ flex: '1 1 0', display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}>
-                <Disc term={s} size={Math.round(circle * 0.62)} bg={bg} />
+                <Disc term={s} size={Math.round(circle * 0.62)} bg={bg} fill={discFill} shadow={discShadow} />
                 <div style={{ minWidth: 0 }}>
                   <div style={{ ...caps(labelSize - 4, '0.08em', t.title), lineHeight: 1.1 }}>{s.label}</div>
                   {s.note ? (

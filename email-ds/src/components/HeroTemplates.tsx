@@ -571,7 +571,7 @@ export function T6FullImage({
         style={{
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(to bottom, rgba(${sRgb},${k(0.46)}) 0%, rgba(${sRgb},${k(0.36)}) 40%, rgba(${sRgb},${k(0.08)}) 60%, rgba(${sRgb},${k(0.34)}) 86%, rgba(${sRgb},${k(0.46)}) 100%)`,
+          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.46)}) 0%, rgba(0,26,13,${k(0.36)}) 40%, rgba(0,26,13,${k(0.08)}) 60%, rgba(0,26,13,${k(0.34)}) 86%, rgba(0,26,13,${k(0.46)}) 100%)`,
         }}
       />
 

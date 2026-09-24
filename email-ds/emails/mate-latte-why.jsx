@@ -6,47 +6,51 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 const IMG = {
-  // The supplied photograph with its out-of-focus backdrop grown left and up.
-  // The original put the subject's closest approach at 35% of the width, which
-  // left about 180px for a headline at email size — a ribbon, not a title.
-  why: '../public/product/mate-latte-why.jpg',
+  // The photograph exactly as supplied. Native 1.5 ratio, so the frame shows
+  // all of it — nothing outpainted, nothing cropped.
+  why: '../public/product/mate-gourd-man.jpg',
 };
 
 function MateLatteWhy() {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · WHY ───────────────────────────────────────────────────────────
-    // Wordmark centred on the frame, copy in the column beside him.
+    // White wordmark centred on top, the headline stacked big down the left,
+    // a short paragraph and the button to the About page.
     //
-    // DARK INK, measured not guessed: that column reads at luminance 152 and
-    // the logo band at 184 — both light. Cream type and a beige wordmark would
-    // have dissolved into the sky. So the type is forest, the wordmark is the
-    // green lockup, and the scrim lifts in cream instead of darkening, which
-    // is the only treatment where dark type and a bright photograph both live.
+    // THE SCRIM IS DOING ONE SPECIFIC JOB. Measured on the untouched picture,
+    // the band behind the wordmark reads luminance 212 — near-white sky — and
+    // the band behind the headline 187. White type and a white lockup would
+    // have been invisible in both. So the wash is weighted hard to the TOP,
+    // which is where the type is and where this photograph has nothing in it;
+    // by 64% of the frame it is gone, and he, his hands and the gourd are all
+    // below that line, untouched.
     h(M.T9Story, {
       src: IMG.why,
-      alt: 'Why we turned mate into a latte. A man outdoors holds a mate gourd and metal straw up to his face, framed by out-of-focus green trees. Mate is South America’s everyday ritual, and Milonga carries it into a creamy vanilla latte.',
+      alt: 'Why we turned mate. A man outdoors holds a mate gourd and metal straw up to his face, framed by out-of-focus green trees. Yerba mate is South America’s everyday ritual, shared from one gourd around a circle — and Milonga carries it into a creamy vanilla latte. Read our story.',
       logo: true,
-      logoHeight: 78,
+      logoTone: 'white',
+      logoHeight: 86,
       align: 'left',
-      ink: 'dark',
       line1: 'Why we turned',
-      line2: 'mate into a latte',
+      line2: 'mate',
       paras: [
-        'Mate is South America’s everyday ritual: yerba mate steeped in a shared gourd, passed around a circle, and valued as much for the conversation as for the drink. We started Milonga to carry that ritual somewhere new — the same natural energy, in a creamy vanilla latte that takes thirty seconds.',
+        'Yerba mate is South America’s everyday ritual — one gourd, shared around a circle. We started Milonga to carry it into a creamy vanilla latte.',
       ],
-      ratio: 1.243,
-      size: 32,
-      top: 34,
-      // The column stops at 330px of 600. He reaches in to 59% of this frame,
-      // so this clears him by about 20px at his closest.
+      cta: { label: 'Read our story', href: '#about', arrow: true },
+      ctaInline: true,
+      // Native ratio: the frame is the picture, uncropped.
+      ratio: 1.501,
+      size: 45,
+      top: 30,
+      // He reaches in to 43% of the width at the height the copy ends, so the
+      // column stops at 260px of 600. The headline sets three lines deep in
+      // that width, which is what makes it read big rather than wide — 48px
+      // rather than 52 because "WHY WE" needs 213px at this size and breaking
+      // a two-word phrase across two lines gains a step the stack does not need.
       padLeft: 34,
-      padRight: 250,
-      measure: 316,
-      // Weighted through the middle, because that is where the copy is and
-      // where the backdrop turns greener and starts fighting it.
-      scrimAt: 'middle',
-      scrim: 0.52,
+      padRight: 340,
+      measure: 226,
     })
   );
 }

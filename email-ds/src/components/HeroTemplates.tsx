@@ -1322,8 +1322,20 @@ export function T9Story({
         ) : null}
       </div>
 
+      {/* Centred means centred on the FRAME. Inheriting the copy column's
+          asymmetric padding would centre the button on the column instead,
+          which lands it visibly off to one side of the picture. */}
       {(cta && !ctaBelow && !ctaInline) || hasTailCopy ? (
-        <div style={{ position: 'absolute', top: at, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: 'center' }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: at,
+            left: 0,
+            right: 0,
+            padding: ctaAlign === 'center' ? '0 30px' : `0 ${padRight}px 0 ${padLeft}px`,
+            textAlign: ctaAlign ?? (leftAlign ? 'left' : 'center'),
+          }}
+        >
           {tailParas.map((p, i) => (
             <div
               key={i}

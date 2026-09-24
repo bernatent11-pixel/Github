@@ -165,6 +165,13 @@ function MateLatteWhy() {
       paras: ['Same mate. A whole new way to enjoy it.'],
       ratio: 1.501,
       size: 48,
+      // The accent line steps up hard so it separates from the setup. It
+      // overruns its column on purpose — a single word cannot wrap, so
+      // "REIMAGINED." at 58px runs to 83% of the frame, and the marble it
+      // crosses there measures about 100, dark enough to carry gold. The
+      // column stays narrow so "YOUR MORNING," still breaks in two and keeps
+      // out of the window frame above it, which is a 200-lum white.
+      size2: 58,
       titleLead: 0.96,
       // Dropped well clear of the top edge, as asked.
       top: 88,

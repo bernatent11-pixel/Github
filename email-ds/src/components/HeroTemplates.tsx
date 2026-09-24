@@ -571,7 +571,7 @@ export function T6FullImage({
         style={{
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(to bottom, rgba(0,26,13,${k(0.46)}) 0%, rgba(0,26,13,${k(0.36)}) 40%, rgba(0,26,13,${k(0.08)}) 60%, rgba(0,26,13,${k(0.34)}) 86%, rgba(0,26,13,${k(0.46)}) 100%)`,
+          background: `linear-gradient(to bottom, rgba(${sRgb},${k(0.46)}) 0%, rgba(${sRgb},${k(0.36)}) 40%, rgba(${sRgb},${k(0.08)}) 60%, rgba(${sRgb},${k(0.34)}) 86%, rgba(${sRgb},${k(0.46)}) 100%)`,
         }}
       />
 
@@ -1015,6 +1015,25 @@ export interface T9Props {
    * both ends of the photograph come back clear.
    */
   scrimAt?: 'top' | 'middle';
+  /**
+   * Type colour. 'light' is cream and gold for a dark photograph; 'dark' is
+   * forest for a light one, and it flips the scrim too — a light picture gets
+   * lifted with cream rather than darkened, which is the only way dark type
+   * and a bright photograph can both survive.
+   *
+   * MEASURE the band the copy will sit in; do not guess. Getting this backwards
+   * is the most common way type on art fails, and no amount of shadow or scrim
+   * rescues cream letters on a pale sky.
+   */
+  ink?: 'light' | 'dark';
+  /** Override the wordmark's tone. Defaults to following `ink`. */
+  logoTone?: 'gold' | 'green' | 'beige' | 'white';
+  /**
+   * Alignment of the copy. 'left' also lifts the wordmark out of the stack and
+   * centres it across the full frame, because a logo centred inside a narrow
+   * left-hand column reads as misplaced rather than as left-aligned.
+   */
+  align?: 'left' | 'center';
   /** Measure for the paragraphs. */
   measure?: number;
   /**
@@ -1052,6 +1071,9 @@ export function T9Story({
   ctaBelow = false,
   ctaInline = false,
   scrimAt = 'top',
+  ink = 'light',
+  logoTone,
+  align = 'center',
   belowPad = 34,
   at = '88%',
   size = 38,
@@ -1065,6 +1087,26 @@ export function T9Story({
   bg = 'beige',
 }: T9Props) {
   const t = onBg[bg];
+  const darkInk = ink === 'dark';
+  const leftAlign = align === 'left';
+  // On a light photograph the brand's own contrast map applies: forest for the
+  // whole headline, no gold. Gold only ever lifts off a dark ground.
+  const headInk  = darkInk ? colors.forest : colors.beige;
+  const headInk2 = darkInk ? colors.forest : colors.gold;
+  const bodyInk  = darkInk ? colors.ink : 'rgba(255,255,255,0.95)';
+  const leadInk  = darkInk ? colors.forest : colors.gold;
+  const eyebrowInk = darkInk ? colors.forest : colors.gold;
+  const pillFill = darkInk ? colors.forest : colors.gold;
+  const pillInk  = darkInk ? colors.beige : colors.forest;
+  // The scrim works in the ink's opposite: a light picture is lifted in cream,
+  // a dark one deepened in forest. Darkening a bright photograph to carry dark
+  // type just makes a muddy picture and still-illegible letters.
+  const sRgb = darkInk ? '240,239,223' : '0,26,13';
+  // With the wordmark lifted out, the copy has to start below it.
+  const drop = logoHeight + 34;
+  const stackTop = logo && leftAlign
+    ? (typeof top === 'number' ? top + drop : `calc(${top} + ${drop}px)`)
+    : top;
   const k = (v: number) => Math.min(1, v * scrim).toFixed(2);
   // When the CTA group sits on a band below, the picture has nothing to
   // protect at its foot — so the bottom of the scrim goes back to the light
@@ -1076,25 +1118,31 @@ export function T9Story({
   // and starting the lift too late is what leaves a paragraph half-legible on
   // a bright patch of picture.
   const tail = !guarding
-    ? `rgba(0,26,13,${k(0.06)}) 84%, rgba(0,26,13,${k(0.14)}) 100%`
+    ? `rgba(${sRgb},${k(0.06)}) 84%, rgba(${sRgb},${k(0.14)}) 100%`
     : hasTailCopy
-      ? `rgba(0,26,13,${k(0.20)}) 70%, rgba(0,26,13,${k(0.46)}) 84%, rgba(0,26,13,${k(0.52)}) 100%`
-      : `rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.44)}) 100%`;
+      ? `rgba(${sRgb},${k(0.20)}) 70%, rgba(${sRgb},${k(0.46)}) 84%, rgba(${sRgb},${k(0.52)}) 100%`
+      : `rgba(${sRgb},${k(0.30)}) 84%, rgba(${sRgb},${k(0.44)}) 100%`;
   // A centred stack needs the weight where IT is. Protecting the top instead
   // would dim the sky the type has left and leave the type itself exposed.
   const scrimCss = scrimAt === 'middle'
-    ? `linear-gradient(to bottom, rgba(0,26,13,${k(0.10)}) 0%, rgba(0,26,13,${k(0.34)}) 20%, rgba(0,26,13,${k(0.56)}) 38%, rgba(0,26,13,${k(0.58)}) 66%, rgba(0,26,13,${k(0.30)}) 84%, rgba(0,26,13,${k(0.12)}) 100%)`
-    : `linear-gradient(to bottom, rgba(0,26,13,${k(0.62)}) 0%, rgba(0,26,13,${k(0.56)}) 30%, rgba(0,26,13,${k(0.40)}) 48%, rgba(0,26,13,${k(0.10)}) 64%, ${tail})`;
+    ? `linear-gradient(to bottom, rgba(${sRgb},${k(0.10)}) 0%, rgba(${sRgb},${k(0.34)}) 20%, rgba(${sRgb},${k(0.56)}) 38%, rgba(${sRgb},${k(0.58)}) 66%, rgba(${sRgb},${k(0.30)}) 84%, rgba(${sRgb},${k(0.12)}) 100%)`
+    : `linear-gradient(to bottom, rgba(${sRgb},${k(0.62)}) 0%, rgba(${sRgb},${k(0.56)}) 30%, rgba(${sRgb},${k(0.40)}) 48%, rgba(${sRgb},${k(0.10)}) 64%, ${tail})`;
   // SHADOW, NOT SCRIM. A scrim dims the whole photograph to protect a few
   // hundred pixels of type; a shadow sits behind the letters alone. So as the
   // scrim comes down, the type's own shadow automatically comes up — a tight,
   // dense halo that hugs each letter instead of a wash over the picture.
   // Without this, turning the scrim down quietly makes the copy unreadable.
   const bare = scrim < 0.7;
-  const shadow = bare
+  // Dark type on a light picture is lifted by a pale halo, not a dark one —
+  // a forest shadow behind forest letters just thickens them into a smudge.
+  const shadow = darkInk
+    ? '0 0 4px rgba(251,248,239,0.95), 0 0 12px rgba(251,248,239,0.85), 0 0 26px rgba(251,248,239,0.6)'
+    : bare
     ? '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.9), 0 2px 10px rgba(0,26,13,0.8), 0 6px 28px rgba(0,26,13,0.6)'
     : '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
-  const softShadow = bare
+  const softShadow = darkInk
+    ? '0 0 3px rgba(251,248,239,0.98), 0 0 8px rgba(251,248,239,0.92), 0 0 18px rgba(251,248,239,0.7)'
+    : bare
     ? '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 9px rgba(0,26,13,0.78), 0 5px 22px rgba(0,26,13,0.55)'
     : '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
 
@@ -1109,19 +1157,27 @@ export function T9Story({
         }}
       />
 
-      <div style={{ position: 'absolute', top, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: 'center' }}>
-        {logo ? (
+      {/* Left-aligned copy still wants the wordmark centred on the FRAME, not
+          inside its column, so it comes out of the stack and gets its own row. */}
+      {logo && leftAlign ? (
+        <div style={{ position: 'absolute', top, left: 0, right: 0, textAlign: 'center' }}>
+          <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
+        </div>
+      ) : null}
+
+      <div style={{ position: 'absolute', top: stackTop, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: leftAlign ? 'left' : 'center' }}>
+        {logo && !leftAlign ? (
           <>
-            <Logo tone="beige" variant="primary" height={logoHeight} />
+            <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
             <div style={{ height: 30 }} />
           </>
         ) : null}
         {eyebrow ? (
-          <div style={{ ...caps(12, '0.2em', colors.gold), marginBottom: 13, textShadow: softShadow }}>{eyebrow}</div>
+          <div style={{ ...caps(12, '0.2em', eyebrowInk), marginBottom: 13, textShadow: softShadow }}>{eyebrow}</div>
         ) : null}
-        <CapsLine text={line1} style={{ ...caps(size, '0.01em', colors.beige), lineHeight: 1.0, textShadow: shadow }} />
+        <CapsLine text={line1} style={{ ...caps(size, '0.01em', headInk), lineHeight: 1.0, textShadow: shadow }} />
         {line2 ? (
-          <CapsLine text={line2} style={{ ...caps(size, '0.01em', colors.gold), lineHeight: 1.0, textShadow: shadow }} />
+          <CapsLine text={line2} style={{ ...caps(size, '0.01em', headInk2), lineHeight: 1.0, textShadow: shadow }} />
         ) : null}
 
         {lead ? (
@@ -1131,9 +1187,9 @@ export function T9Story({
               fontWeight: 500,
               fontSize: 19,
               lineHeight: 1.48,
-              color: colors.gold,
+              color: leadInk,
               maxWidth: leadMeasure ?? measure,
-              margin: '20px auto 0',
+              margin: leftAlign ? '20px 0 0' : '20px auto 0',
               textShadow: softShadow,
             }}
           >
@@ -1151,9 +1207,11 @@ export function T9Story({
               // extra point. The rest settle to the 16px floor.
               fontSize: i === 0 && !lead ? 17 : 16,
               lineHeight: 1.56,
-              color: 'rgba(255,255,255,0.95)',
+              color: bodyInk,
               maxWidth: measure,
-              margin: `${i === 0 ? (lead ? 16 : 18) : 14}px auto 0`,
+              margin: leftAlign
+                ? `${i === 0 ? (lead ? 16 : 18) : 14}px 0 0`
+                : `${i === 0 ? (lead ? 16 : 18) : 14}px auto 0`,
               textShadow: softShadow,
             }}
           >
@@ -1163,7 +1221,7 @@ export function T9Story({
 
         {cta && ctaInline ? (
           <div style={{ marginTop: 30 }}>
-            <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+            <Pill cta={cta} fill={pillFill} ink={pillInk} />
           </div>
         ) : null}
       </div>
@@ -1178,9 +1236,9 @@ export function T9Story({
                 fontWeight: 500,
                 fontSize: 16,
                 lineHeight: 1.56,
-                color: 'rgba(255,255,255,0.95)',
+                color: bodyInk,
                 maxWidth: measure,
-                margin: `${i === 0 ? 0 : 14}px auto 0`,
+                margin: leftAlign ? `${i === 0 ? 0 : 14}px 0 0` : `${i === 0 ? 0 : 14}px auto 0`,
                 textShadow: softShadow,
               }}
             >
@@ -1189,7 +1247,7 @@ export function T9Story({
           ))}
           {cta && !ctaInline ? (
             <div style={{ marginTop: hasTailCopy ? 28 : 0 }}>
-              <Pill cta={cta} fill={colors.gold} ink={colors.forest} />
+              <Pill cta={cta} fill={pillFill} ink={pillInk} />
             </div>
           ) : null}
         </div>

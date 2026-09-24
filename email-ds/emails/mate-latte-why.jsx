@@ -66,6 +66,35 @@ function MateLatteWhy() {
       padLeft: 26,
       padRight: 289,
       measure: 285,
+    }),
+
+    // ── 2 · SO WHY A LATTE ────────────────────────────────────────────────
+    // Flat beige, no photograph. The headline carries over section 1's
+    // treatment exactly — same face, same weight, same left-aligned stack,
+    // same 0.9-ish leading — so the two read as one email.
+    //
+    // WHAT DOES NOT CARRY OVER IS THE TWO-TONE. Gold on beige is the one
+    // pairing the brand's contrast map rules out: at #E3BC62 on #F0EFDF there
+    // is barely any contrast, and the accent half of the headline would go
+    // soft. On a light ground the map sets everything typographic to the one
+    // forest green, so the headline is flat and the emphasis inside the body
+    // does the colour work instead.
+    h(M.T10Close, {
+      bg: 'beige',
+      align: 'left',
+      rule: false,
+      line1: 'So why turn it',
+      line2: 'into a latte?',
+      size: 44,
+      titleLead: 0.94,
+      paras: [
+        'We wanted to make mate **simple, creamy, comforting, and easy to enjoy**, just like your favorite morning latte.',
+        'So we combined the natural energy of mate with functional ingredients in a **smooth, creamy vanilla latte** made for your everyday ritual.',
+        '**Meet Mate Latte:** everything you love about mate, and more, reimagined for your morning.',
+      ],
+      measure: 468,
+      pad: 56,
+      padX: 34,
     })
   );
 }

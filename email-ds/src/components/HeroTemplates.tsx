@@ -5,6 +5,7 @@ import { Logo } from './Logo';
 import { IconBadge } from './IconBadge';
 import { AnyIconName } from './AnyIcon';
 import { bgStyle } from '../textures';
+import { splitEmphasis } from './Prose';
 
 /* ────────────────────────────────────────────────────────────────────────────
    HERO TEMPLATES · one per reference Bernat sent.
@@ -1360,9 +1361,20 @@ export interface T10Props {
   cta?: Cta;
   bg?: EmailBg;
   size?: number;
+  /** Size of the second headline line, when the payoff should be louder. */
+  size2?: number;
+  /** Line-height of the headline. 0.9 for a poster stack, 1.0 for a title. */
+  titleLead?: number;
+  /**
+   * Alignment of the whole band. 'left' is what matches a poster opener, so a
+   * flat section reads as the same email as the photograph above it.
+   */
+  align?: 'left' | 'center';
   measure?: number;
   /** Vertical padding of the whole band. */
   pad?: number;
+  /** Horizontal padding. */
+  padX?: number;
   /** A hairline above the title, to mark the change of ground. */
   rule?: boolean;
   /** Lay the brand's paper texture over the flat ground. */
@@ -1378,18 +1390,24 @@ export function T10Close({
   cta,
   bg = 'forest',
   size = 38,
+  size2,
+  titleLead = 1.0,
+  align = 'center',
   measure = 452,
   pad = 58,
+  padX = 30,
   rule = true,
   textured = false,
 }: T10Props) {
   const t = onBg[bg];
+  const left = align === 'left';
+  const mx = left ? '0' : 'auto';
   return (
-    <div style={{ padding: `${pad}px 30px`, textAlign: 'center', ...bgStyle(bg, bgFill[bg], textured) }}>
-      {rule ? <div style={{ width: 46, height: 2, background: t.accent, margin: '0 auto 26px' }} /> : null}
+    <div style={{ padding: `${pad}px ${padX}px`, textAlign: left ? 'left' : 'center', ...bgStyle(bg, bgFill[bg], textured) }}>
+      {rule ? <div style={{ width: 46, height: 2, background: t.accent, margin: left ? '0 0 26px' : '0 auto 26px' }} /> : null}
       {eyebrow ? <div style={{ ...caps(12, '0.2em', t.accent), marginBottom: 14 }}>{eyebrow}</div> : null}
-      <CapsLine text={line1} style={{ ...caps(size, '0.01em', t.title), lineHeight: 1.0 }} />
-      {line2 ? <CapsLine text={line2} style={{ ...caps(size, '0.01em', t.titleAccent), lineHeight: 1.0 }} /> : null}
+      <CapsLine text={line1} style={{ ...caps(size, '0.01em', t.title), lineHeight: titleLead }} />
+      {line2 ? <CapsLine text={line2} style={{ ...caps(size2 ?? size, '0.01em', t.titleAccent), lineHeight: titleLead }} /> : null}
 
       {lead ? (
         <div
@@ -1400,7 +1418,7 @@ export function T10Close({
             lineHeight: 1.5,
             color: t.accent,
             maxWidth: measure,
-            margin: '22px auto 0',
+            margin: `22px ${mx} 0`,
           }}
         >
           {lead}
@@ -1417,15 +1435,21 @@ export function T10Close({
             lineHeight: 1.6,
             color: t.body,
             maxWidth: measure,
-            margin: '16px auto 0',
+            margin: `18px ${mx} 0`,
           }}
         >
-          {p}
+          {/* `**like this**` lifts a phrase into the accent at full weight —
+              the part the reader takes away when they skim. */}
+          {splitEmphasis(p).map((run, j) =>
+            run.em
+              ? <strong key={j} style={{ fontWeight: 900, color: t.accent }}>{run.t}</strong>
+              : <React.Fragment key={j}>{run.t}</React.Fragment>,
+          )}
         </div>
       ))}
 
       {cta ? (
-        <div style={{ marginTop: 32 }}>
+        <div style={{ marginTop: 34 }}>
           <Pill cta={cta} fill={t.btnBg} ink={t.btnText} />
         </div>
       ) : null}

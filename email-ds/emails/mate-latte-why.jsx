@@ -25,15 +25,15 @@ function MateLatteWhy() {
     //   · no body copy at all. The type IS the section.
     //
     // WHERE IT SITS. The stack starts level with the top of the pack and runs
-    // past his shoulder. That is not a free choice: 8 lines at 45px with 0.9
-    // leading is 324px, which is 36% of this frame, so the block's height is
-    // fixed by its width and only its position is left to set. Starting at 31%
-    // — the top of the pack — is what lands the last line below the shoulder.
+    // past his shoulder, and at 55px with 1.02 leading that block is 449px —
+    // half this frame — so it now reaches almost to the foot of the section.
     //
-    // WHY 45px. He reaches in to about 40% of the width through this band,
-    // leaving a 238px column. "MORNING" is the longest word and measures 230px
-    // at 45px, so this is the size the photograph allows. The two longest lines
-    // graze his sweater by a few pixels, which is what the reference does too.
+    // IT CROSSES HIM, DELIBERATELY. "MORNING" and "RITUAL." measure 281px
+    // against the roughly 215px of clear ground left at that height, so the
+    // two longest lines run about 70px onto his sweater. That is the trade for
+    // 55px type: the sweater there is flat mid-teal, the cream and gold hold
+    // against it, and type crossing a subject is what the reference does. The
+    // alternative is 45px, which clears him completely.
     h(M.T9Story, {
       src: IMG.why,
       alt: 'We turned mate into your new morning ritual. A man outdoors holds up a Milonga Yerba Mate Latte pouch in front of his face, framed by out-of-focus green trees. Try it now.',
@@ -50,12 +50,12 @@ function MateLatteWhy() {
       cta: { label: 'Try it now', href: '#shop', arrow: true },
       ctaInline: true,
       ratio: 1.501,
-      size: 45,
-      titleLead: 0.9,
+      size: 55,
+      titleLead: 1.02,
       top: '31%',
       padLeft: 26,
-      padRight: 336,
-      measure: 238,
+      padRight: 289,
+      measure: 285,
     })
   );
 }

@@ -1037,6 +1037,15 @@ export interface T9Props {
    */
   logoTop?: number | string;
   /**
+   * How hard the type's own shadow works.
+   *
+   * 'auto' follows the scrim — a dense halo when the scrim is low, a soft one
+   * when the picture is already dimmed. 'soft' is a single quiet shadow that
+   * separates the letters from the photograph without being visible as an
+   * effect. 'none' is flat type, which needs a genuinely even ground under it.
+   */
+  halo?: 'auto' | 'soft' | 'none';
+  /**
    * Size of the SECOND headline line, when the accent half should be louder
    * than the setup. Defaults to `size`.
    */
@@ -1095,6 +1104,7 @@ export function T9Story({
   logoTone,
   logoTop,
   size2,
+  halo = 'auto',
   titleLead = 1.0,
   align = 'center',
   belowPad = 34,
@@ -1160,16 +1170,21 @@ export function T9Story({
   const bare = scrim < 0.7;
   // Dark type on a light picture is lifted by a pale halo, not a dark one —
   // a forest shadow behind forest letters just thickens them into a smudge.
-  const shadow = darkInk
+  const autoShadow = darkInk
     ? '0 0 4px rgba(251,248,239,0.95), 0 0 12px rgba(251,248,239,0.85), 0 0 26px rgba(251,248,239,0.6)'
     : bare
     ? '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.9), 0 2px 10px rgba(0,26,13,0.8), 0 6px 28px rgba(0,26,13,0.6)'
     : '0 2px 6px rgba(0,26,13,0.62), 0 4px 22px rgba(0,26,13,0.55)';
-  const softShadow = darkInk
+  const softShad = darkInk
+    ? '0 1px 4px rgba(251,248,239,0.7)'
+    : '0 1px 4px rgba(0,26,13,0.38)';
+  const shadow = halo === 'none' ? 'none' : halo === 'soft' ? softShad : autoShadow;
+  const autoSoft = darkInk
     ? '0 0 3px rgba(251,248,239,0.98), 0 0 8px rgba(251,248,239,0.92), 0 0 18px rgba(251,248,239,0.7)'
     : bare
     ? '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 9px rgba(0,26,13,0.78), 0 5px 22px rgba(0,26,13,0.55)'
     : '0 1px 4px rgba(0,26,13,0.72), 0 3px 16px rgba(0,26,13,0.55)';
+  const softShadow = halo === 'none' ? 'none' : halo === 'soft' ? softShad : autoSoft;
 
   return (
     <>

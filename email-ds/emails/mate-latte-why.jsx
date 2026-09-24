@@ -49,10 +49,12 @@ function MateLatteWhy() {
       line2: 'new morning ritual.',
       cta: { label: 'Try it now', href: '#shop', arrow: true },
       ctaInline: true,
-      // No wash at all — the photograph goes in as shot. The type is carried
-      // by its own halo, which T9Story tightens automatically below 0.7 scrim,
-      // and the wordmark by a drop-shadow of its own.
+      // No wash at all — the photograph goes in as shot.
       scrim: 0,
+      // Flat letters. The automatic halo that comes with a zero scrim reads as
+      // an effect at this size, so the type takes a single quiet shadow
+      // instead — enough to keep it off the photograph, not enough to see.
+      halo: 'soft',
       ratio: 1.501,
       size: 55,
       size2: 65,

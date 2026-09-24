@@ -45,6 +45,9 @@ function MateLatteWhy() {
       logoTop: 30,
       align: 'left',
       // Five lines cream, three gold — the accent carries "new morning ritual".
+      // Pure white, not the brand cream — at poster scale #F0EFDF reads as a
+      // warm off-white against the gold below it rather than as a contrast.
+      line1Color: '#FFFFFF',
       line1: 'We turned mate into your',
       line2: 'new morning ritual.',
       cta: { label: 'Try it now', href: '#shop', arrow: true },

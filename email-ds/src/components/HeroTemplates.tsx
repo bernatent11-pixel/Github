@@ -1037,6 +1037,13 @@ export interface T9Props {
    */
   logoTop?: number | string;
   /**
+   * Override either headline line's colour. `ink` picks the brand pair — cream
+   * and gold on a dark ground — and these are the escape hatch for when a
+   * poster wants a flatter, colder white than the brand cream.
+   */
+  line1Color?: string;
+  line2Color?: string;
+  /**
    * How hard the type's own shadow works.
    *
    * 'auto' follows the scrim — a dense halo when the scrim is low, a soft one
@@ -1104,6 +1111,8 @@ export function T9Story({
   logoTone,
   logoTop,
   size2,
+  line1Color,
+  line2Color,
   halo = 'auto',
   titleLead = 1.0,
   align = 'center',
@@ -1220,9 +1229,9 @@ export function T9Story({
         {eyebrow ? (
           <div style={{ ...caps(12, '0.2em', eyebrowInk), marginBottom: 13, textShadow: softShadow }}>{eyebrow}</div>
         ) : null}
-        <CapsLine text={line1} style={{ ...caps(size, '0.01em', headInk), lineHeight: titleLead, textShadow: shadow }} />
+        <CapsLine text={line1} style={{ ...caps(size, '0.01em', line1Color ?? headInk), lineHeight: titleLead, textShadow: shadow }} />
         {line2 ? (
-          <CapsLine text={line2} style={{ ...caps(size2 ?? size, '0.01em', headInk2), lineHeight: titleLead, textShadow: shadow }} />
+          <CapsLine text={line2} style={{ ...caps(size2 ?? size, '0.01em', line2Color ?? headInk2), lineHeight: titleLead, textShadow: shadow }} />
         ) : null}
 
         {lead ? (

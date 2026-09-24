@@ -85,8 +85,8 @@ function MateLatteWhy() {
       rule: false,
       line1: 'So why turn it',
       line2: 'into a latte?',
-      size: 44,
-      titleLead: 0.94,
+      size: 55,
+      titleLead: 0.92,
       paras: [
         'We wanted to make mate **simple, creamy, comforting, and easy to enjoy**, just like your favorite morning latte.',
         'So we combined the natural energy of mate with functional ingredients in a **smooth, creamy vanilla latte** made for your everyday ritual.',
@@ -94,7 +94,8 @@ function MateLatteWhy() {
       ],
       measure: 468,
       pad: 56,
-      padX: 34,
+      padX: 30,
+      textured: true,
       // Weight alone carries the emphasis. Forest green on beige was pulling
       // three separate phrases out of three short paragraphs, which left the
       // section looking half-highlighted rather than emphasised.
@@ -115,7 +116,9 @@ function MateLatteWhy() {
         { src: '../public/product/ing-lions-mane.png', emoji: '🍄',
           alt: 'A lion\u2019s mane mushroom',
           label: 'Functional ingredients', note: 'Lion\u2019s Mane + L-Theanine' },
-        { emoji: '🍦', label: 'Creamy vanilla', note: 'Smooth, creamy & genuinely enjoyable' },
+        { src: '../public/product/ing-vanilla.png', emoji: '🍦',
+          alt: 'A vanilla flower and pods',
+          label: 'Creamy vanilla', note: 'Smooth, creamy & genuinely enjoyable' },
       ],
       result: {
         src: '../public/product/pouch-floating.png', emoji: '☕',
@@ -123,15 +126,19 @@ function MateLatteWhy() {
         label: 'Mate Latte', note: 'Ready in 30 seconds.',
       },
       serves: [
-        // Both serve discs are placeholders. The iced cutout was tried here
-        // and dropped: at 60px a hand holding a jar resolves to an unreadable
-        // smudge, and an emoji that reads beats a photograph that does not.
-        { emoji: '🔥', label: 'Hot', note: 'Cozy & comforting' },
-        { emoji: '🧊', label: 'Iced', note: 'Cold & refreshing' },
+        // The brand's own line icons, not emoji. A photograph of a drink does
+        // not survive a 94px disc — the iced cutout was tried and resolved to
+        // a smudge — but a line drawing is legible at any size by design.
+        { src: '../public/brand/icons/hot-forest.png', alt: 'A hot cup',
+          label: 'Hot', note: 'Cozy & comforting' },
+        { src: '../public/brand/icons/iced-forest.png', alt: 'An iced glass',
+          label: 'Iced', note: 'Cold & refreshing' },
       ],
-      circle: 96,
+      circle: 152,
+      labelSize: 26,
       pad: 4,
-      padX: 34,
+      padX: 30,
+      textured: true,
     })
   );
 }

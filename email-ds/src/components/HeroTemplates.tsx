@@ -1507,6 +1507,8 @@ export interface T11Props {
   labelSize?: number;
   pad?: number;
   padX?: number;
+  /** Lay the brand's paper grain over the flat ground. */
+  textured?: boolean;
 }
 
 function Disc({
@@ -1531,6 +1533,9 @@ function Disc({
         overflow: 'hidden',
         background: fill ?? t.panel,
         border: `2px solid ${t.rule}`,
+        // Lifted, so the column of pictures reads as objects on the page
+        // rather than as holes cut in it.
+        boxShadow: t.shadow,
         textAlign: 'center',
         lineHeight: `${size - 4}px`,
       }}
@@ -1561,6 +1566,7 @@ export function T11Equation({
   labelSize = 19,
   pad = 52,
   padX = 34,
+  textured = false,
 }: T11Props) {
   const t = onBg[bg];
   const GAP = 22;
@@ -1611,17 +1617,19 @@ export function T11Equation({
   );
 
   return (
-    <div style={{ padding: `${pad}px ${padX}px`, ...bgStyle(bg, bgFill[bg]) }}>
+    <div style={{ padding: `${pad}px ${padX}px`, ...bgStyle(bg, bgFill[bg], textured) }}>
       {eyebrow ? <div style={{ ...caps(12, '0.2em', t.accent), marginBottom: 22 }}>{eyebrow}</div> : null}
 
+      {/* The operators scale with the discs — a 30px plus between 152px
+          pictures reads as a stray mark rather than as an operator. */}
       {terms.map((term, i) => (
         <React.Fragment key={i}>
           <Row term={term} size={circle} />
-          {i < terms.length - 1 ? <Op glyph="+" size={30} /> : null}
+          {i < terms.length - 1 ? <Op glyph="+" size={Math.round(circle * 0.28)} /> : null}
         </React.Fragment>
       ))}
 
-      <Op glyph="↓" size={30} />
+      <Op glyph="↓" size={Math.round(circle * 0.28)} />
 
       <Row term={result} size={Math.round(circle * 1.15)} big />
 

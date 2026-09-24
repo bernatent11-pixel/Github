@@ -2,15 +2,23 @@ import * as React from 'react';
 import { EmailBg } from './theme';
 import tileGold from '../public/brand/textures/tile-gold.jpg';
 import tileForest from '../public/brand/textures/tile-forest.jpg';
+import tilePaper from '../public/brand/textures/tile-paper.jpg';
 
 /**
- * Optional paper-grain textures for the gold and dark green backgrounds — an
- * alternative to a flat fill when an email should feel more tactile. Beige has
- * no texture art, so it stays flat.
+ * Optional paper-grain textures, an alternative to a flat fill when an email
+ * should feel more tactile.
+ *
+ * Beige uses tile-paper, which had been sitting in the brand folder unwired.
+ * It matters most there: forest and gold are saturated enough to hold a flat
+ * field, but a large beige area with type on it reads as blank paper, and the
+ * grain is the difference between a background and an absence of one. It is
+ * within a point or two of the flat beige in every channel, so it adds tooth
+ * without shifting the colour.
  */
 export const textureTile: Partial<Record<EmailBg, string>> = {
   gold: tileGold,
   forest: tileForest,
+  beige: tilePaper,
 };
 
 /**

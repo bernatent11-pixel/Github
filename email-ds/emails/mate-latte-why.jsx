@@ -15,43 +15,47 @@ function MateLatteWhy() {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · THE TAGLINE ───────────────────────────────────────────────────
-    // White wordmark centred on top, the tagline stacked down the left in
-    // Gotham Black, a short paragraph, and the button.
+    // Poster type and nothing else, on the reference's terms.
     //
-    // SIZED TO THE COLUMN, NOT TO TASTE. He reaches in to 41% of the width
-    // through the middle of the frame, which leaves a 250px column at email
-    // size. In that column "WE TURNED" measures 243px at 35px and 257px at
-    // 37px — so 35 is the largest size at which this tagline still sets two
-    // words to a line. Going bigger means one word per line and an eight-step
-    // stack that reads as a list rather than a sentence.
+    // WHAT THE REFERENCE IS ACTUALLY DOING — four things, all structural:
+    //   · one or two words per line, so each line is a beat and the block is a
+    //     column of words rather than a wrapped sentence;
+    //   · leading near 0.9, so the lines almost touch and read as one mass;
+    //   · a two-tone split that puts the accent on the payoff, not the setup;
+    //   · no body copy at all. The type IS the section.
     //
-    // The wash is weighted hard to the top: measured on the untouched file the
-    // band behind the wordmark is luminance 212, near-white sky, so a white
-    // lockup would vanish there. By 64% of the frame the wash is gone, and his
-    // face, his hands and the pack are all below that line.
+    // WHERE IT SITS. The stack starts level with the top of the pack and runs
+    // past his shoulder. That is not a free choice: 8 lines at 45px with 0.9
+    // leading is 324px, which is 36% of this frame, so the block's height is
+    // fixed by its width and only its position is left to set. Starting at 31%
+    // — the top of the pack — is what lands the last line below the shoulder.
+    //
+    // WHY 45px. He reaches in to about 40% of the width through this band,
+    // leaving a 238px column. "MORNING" is the longest word and measures 230px
+    // at 45px, so this is the size the photograph allows. The two longest lines
+    // graze his sweater by a few pixels, which is what the reference does too.
     h(M.T9Story, {
       src: IMG.why,
-      alt: 'We turned mate into your new morning ritual. A man outdoors holds up a Milonga Yerba Mate Latte pouch in front of his face, framed by out-of-focus green trees. Yerba mate is South America’s everyday ritual, shared from one gourd around a circle. Try it now.',
+      alt: 'We turned mate into your new morning ritual. A man outdoors holds up a Milonga Yerba Mate Latte pouch in front of his face, framed by out-of-focus green trees. Try it now.',
       logo: true,
       logoTone: 'white',
-      logoHeight: 82,
+      logoHeight: 78,
+      // The wordmark belongs at the top of the frame; the stack is placed
+      // against the photograph, so the two are positioned separately.
+      logoTop: 30,
       align: 'left',
-      // Two lines beige, three gold — the break puts the accent on the payoff
-      // rather than on the setup.
-      line1: 'We turned mate into',
-      line2: 'your new morning ritual.',
-      paras: [
-        'Yerba mate is South America’s everyday ritual — one gourd, shared around a circle. We started Milonga to carry it into a creamy vanilla latte.',
-      ],
+      // Five lines cream, three gold — the accent carries "new morning ritual".
+      line1: 'We turned mate into your',
+      line2: 'new morning ritual.',
       cta: { label: 'Try it now', href: '#shop', arrow: true },
       ctaInline: true,
-      // Native ratio: the frame is the picture, uncropped.
       ratio: 1.501,
-      size: 35,
-      top: 28,
-      padLeft: 30,
-      padRight: 320,
-      measure: 250,
+      size: 45,
+      titleLead: 0.9,
+      top: '31%',
+      padLeft: 26,
+      padRight: 336,
+      measure: 238,
     })
   );
 }

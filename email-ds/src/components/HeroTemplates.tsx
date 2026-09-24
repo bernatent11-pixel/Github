@@ -1029,6 +1029,21 @@ export interface T9Props {
   /** Override the wordmark's tone. Defaults to following `ink`. */
   logoTone?: 'gold' | 'green' | 'beige' | 'white';
   /**
+   * Where the wordmark sits, when it should NOT simply sit above the copy.
+   * A poster stack is placed against the photograph — level with a product,
+   * clear of a shoulder — while the wordmark still belongs at the top of the
+   * frame, so the two need to be positioned separately. Omit it and the
+   * wordmark stays directly above the stack as before.
+   */
+  logoTop?: number | string;
+  /**
+   * Line-height of the headline. 1.0 is the default; a poster-scale stack
+   * wants 0.88-0.92, where the lines almost touch and the block reads as one
+   * mass rather than as separate rows. Below about 0.85 the descenders of one
+   * line start colliding with the caps of the next.
+   */
+  titleLead?: number;
+  /**
    * Alignment of the copy. 'left' also lifts the wordmark out of the stack and
    * centres it across the full frame, because a logo centred inside a narrow
    * left-hand column reads as misplaced rather than as left-aligned.
@@ -1073,6 +1088,8 @@ export function T9Story({
   scrimAt = 'top',
   ink = 'light',
   logoTone,
+  logoTop,
+  titleLead = 1.0,
   align = 'center',
   belowPad = 34,
   at = '88%',
@@ -1103,8 +1120,10 @@ export function T9Story({
   // type just makes a muddy picture and still-illegible letters.
   const sRgb = darkInk ? '240,239,223' : '0,26,13';
   // With the wordmark lifted out, the copy has to start below it.
+  // The stack only makes room for the wordmark when the wordmark is actually
+  // above it; given its own position, it stops pushing the copy down.
   const drop = logoHeight + 34;
-  const stackTop = logo && leftAlign
+  const stackTop = logo && leftAlign && logoTop === undefined
     ? (typeof top === 'number' ? top + drop : `calc(${top} + ${drop}px)`)
     : top;
   const k = (v: number) => Math.min(1, v * scrim).toFixed(2);
@@ -1160,7 +1179,7 @@ export function T9Story({
       {/* Left-aligned copy still wants the wordmark centred on the FRAME, not
           inside its column, so it comes out of the stack and gets its own row. */}
       {logo && leftAlign ? (
-        <div style={{ position: 'absolute', top, left: 0, right: 0, textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: logoTop ?? top, left: 0, right: 0, textAlign: 'center' }}>
           <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
         </div>
       ) : null}
@@ -1175,9 +1194,9 @@ export function T9Story({
         {eyebrow ? (
           <div style={{ ...caps(12, '0.2em', eyebrowInk), marginBottom: 13, textShadow: softShadow }}>{eyebrow}</div>
         ) : null}
-        <CapsLine text={line1} style={{ ...caps(size, '0.01em', headInk), lineHeight: 1.0, textShadow: shadow }} />
+        <CapsLine text={line1} style={{ ...caps(size, '0.01em', headInk), lineHeight: titleLead, textShadow: shadow }} />
         {line2 ? (
-          <CapsLine text={line2} style={{ ...caps(size, '0.01em', headInk2), lineHeight: 1.0, textShadow: shadow }} />
+          <CapsLine text={line2} style={{ ...caps(size, '0.01em', headInk2), lineHeight: titleLead, textShadow: shadow }} />
         ) : null}
 
         {lead ? (

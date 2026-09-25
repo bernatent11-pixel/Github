@@ -17,7 +17,7 @@
     gtag('js', new Date());
     gtag('config', 'G-M18RQG49P9');   /* fires page_view automatically */
     /* product view, on initial load (independent of the rest of the page) */
-    gtag('event', 'view_item', { currency: 'USD', value: 29.99, items: [{ item_id: '54302750212406', item_name: 'Milonga Mate Latte', price: 29.99, quantity: 1 }] });
+    gtag('event', 'view_item', { currency: 'USD', value: 34.99, items: [{ item_id: '54302750212406', item_name: 'Milonga Mate Latte', price: 34.99, quantity: 1 }] });
 
     /* ---- GA4 engagement heartbeat ----
        GA4 normally ships the page's engagement time in ONE user_engagement
@@ -74,15 +74,15 @@
   fbq('track', 'PageView');
   /* ViewContent on initial load — fired here (not deeper in the page) so it
      always fires even if a later script errors. Single product landing page. */
-  fbq('track', 'ViewContent', { content_ids: ['54302750212406'], content_type: 'product', content_name: 'Milonga Mate Latte', value: 29.99, currency: 'USD' });
+  fbq('track', 'ViewContent', { content_ids: ['54302750212406'], content_type: 'product', content_name: 'Milonga Mate Latte', value: 34.99, currency: 'USD' });
   </script>
   <!-- End Meta Pixel Code -->
 
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
-  <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
+  <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $34.99 for 15 servings, or subscribe and save 15%." />
 
   <meta property="og:title" content="Milonga, The Mate Latte" />
-  <meta property="og:description" content="Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $29.99 for 15 servings, or subscribe and save 15%." />
+  <meta property="og:description" content="Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $34.99 for 15 servings, or subscribe and save 15%." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/poster.jpg" />
 
@@ -720,17 +720,17 @@
         <div class="buy-options">
           <div class="opt">
             <div class="opt-name">One-Time</div>
-            <div class="opt-price">$29.99</div>
+            <div class="opt-price">$34.99</div>
             <div class="opt-meta">15 servings</div>
-            <div class="opt-anchor">$2.00 per serving</div>
+            <div class="opt-anchor">$2.33 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
           </div>
           <div class="opt featured">
             <span class="opt-badge">Save 15%</span>
             <div class="opt-name">Subscribe &amp; Save</div>
-            <div class="opt-price">$25.49<span class="permo">/mo</span></div>
+            <div class="opt-price">$29.74<span class="permo">/mo</span></div>
             <div class="opt-meta">15 servings monthly · cancel anytime</div>
-            <div class="opt-anchor">$1.70 per serving</div>
+            <div class="opt-anchor">$1.98 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
           </div>
         </div>
@@ -1001,17 +1001,17 @@
         <div class="buy-options">
           <div class="opt">
             <div class="opt-name">One-Time</div>
-            <div class="opt-price">$29.99</div>
+            <div class="opt-price">$34.99</div>
             <div class="opt-meta">15 servings</div>
-            <div class="opt-anchor">$2.00 per serving</div>
+            <div class="opt-anchor">$2.33 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
           </div>
           <div class="opt featured">
             <span class="opt-badge">Save 15%</span>
             <div class="opt-name">Subscribe &amp; Save</div>
-            <div class="opt-price">$25.49<span class="permo">/mo</span></div>
+            <div class="opt-price">$29.74<span class="permo">/mo</span></div>
             <div class="opt-meta">15 servings monthly · cancel anytime</div>
-            <div class="opt-anchor">$1.70 per serving</div>
+            <div class="opt-anchor">$1.98 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
           </div>
         </div>
@@ -1300,9 +1300,9 @@
       });
     }
 
-    /* ---------- pricing: $29.99 base, qty discounts stack with the sub discount ---------- */
+    /* ---------- pricing: $34.99 base, qty discounts stack with the sub discount ---------- */
     const PRICING = {
-      base: 29.99,                     // one bag
+      base: 34.99,                     // one bag
       sub: 0.15,                       // Subscribe & Save, adds on top
       qty: { 1: 0, 2: 0.10, 3: 0.15 }  // Buy 2 = 10% off, Buy 3 = 15% off
     };

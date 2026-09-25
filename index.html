@@ -79,10 +79,10 @@
   <!-- End Meta Pixel Code -->
 
   <title>Milonga, The Original Mate Latte | Energy That Thinks</title>
-  <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $34.99 for 15 servings, or subscribe and save 15%." />
+  <meta name="description" content="The Original Mate Latte by Milonga. Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $34.99 for 15 servings, or subscribe and save 30%." />
 
   <meta property="og:title" content="Milonga, The Mate Latte" />
-  <meta property="og:description" content="Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $34.99 for 15 servings, or subscribe and save 15%." />
+  <meta property="og:description" content="Energy That Thinks. Yerba mate, lion's mane, and L-theanine. Clean, focused energy with no crash. $34.99 for 15 servings, or subscribe and save 30%." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/poster.jpg" />
 
@@ -715,7 +715,7 @@
         <div class="qty-row" role="group" aria-label="Quantity">
           <button class="qty active" type="button" data-qty="1">Buy 1</button>
           <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>
-          <button class="qty" type="button" data-qty="3">Buy 3 &middot; Save 15%</button>
+          <button class="qty" type="button" data-qty="4">Buy 4 &middot; Save 15%</button>
         </div>
         <div class="buy-options">
           <div class="opt">
@@ -726,11 +726,11 @@
             <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
           </div>
           <div class="opt featured">
-            <span class="opt-badge">Save 15%</span>
+            <span class="opt-badge">Save 30%</span>
             <div class="opt-name">Subscribe &amp; Save</div>
-            <div class="opt-price">$29.74<span class="permo">/mo</span></div>
+            <div class="opt-price">$24.49<span class="permo">/mo</span></div>
             <div class="opt-meta">15 servings monthly · cancel anytime</div>
-            <div class="opt-anchor">$1.98 per serving</div>
+            <div class="opt-anchor">$1.63 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
           </div>
         </div>
@@ -996,7 +996,7 @@
         <div class="qty-row" role="group" aria-label="Quantity">
           <button class="qty active" type="button" data-qty="1">Buy 1</button>
           <button class="qty" type="button" data-qty="2">Buy 2 &middot; Save 10%</button>
-          <button class="qty" type="button" data-qty="3">Buy 3 &middot; Save 15%</button>
+          <button class="qty" type="button" data-qty="4">Buy 4 &middot; Save 15%</button>
         </div>
         <div class="buy-options">
           <div class="opt">
@@ -1007,11 +1007,11 @@
             <a class="btn buy-btn" href="#" data-checkout="onetime">Buy Now</a>
           </div>
           <div class="opt featured">
-            <span class="opt-badge">Save 15%</span>
+            <span class="opt-badge">Save 30%</span>
             <div class="opt-name">Subscribe &amp; Save</div>
-            <div class="opt-price">$29.74<span class="permo">/mo</span></div>
+            <div class="opt-price">$24.49<span class="permo">/mo</span></div>
             <div class="opt-meta">15 servings monthly · cancel anytime</div>
-            <div class="opt-anchor">$1.98 per serving</div>
+            <div class="opt-anchor">$1.63 per serving</div>
             <a class="btn buy-btn" href="#" data-checkout="subscribe">Subscribe &amp; Save</a>
           </div>
         </div>
@@ -1156,7 +1156,7 @@
     const STOREFRONT_TOKEN = "";          // ← paste the Storefront API access token here
     const API_VERSION = "2025-01";
     const SELLING_PLAN = "8837562678";    // Appstle "Mate Mornings Club" — monthly, 15% off
-    const VARIANTS = { 1: "54302750212406", 2: "54302750245174", 3: "54302750277942" };
+    const VARIANTS = { 1: "54302750212406", 2: "54302750245174", 4: "54302750277942" };
 
     /* ---------- analytics: ecommerce events → GA4 + Meta Pixel (direct) ----------
        One event per funnel stage, built from REAL dynamic selection data:
@@ -1303,8 +1303,8 @@
     /* ---------- pricing: $34.99 base, qty discounts stack with the sub discount ---------- */
     const PRICING = {
       base: 34.99,                     // one bag
-      sub: 0.15,                       // Subscribe & Save, adds on top
-      qty: { 1: 0, 2: 0.10, 3: 0.15 }  // Buy 2 = 10% off, Buy 3 = 15% off
+      sub: 0.30,                       // Subscribe & Save, adds on top
+      qty: { 1: 0, 2: 0.10, 4: 0.15 }  // Buy 2 = 10% off, Buy 4 = 15% off
     };
     const fmt = n => "$" + n.toFixed(2);
 
@@ -1312,7 +1312,7 @@
     function renderCard(card, q) {
       const qd = PRICING.qty[q] || 0;
       const gross = PRICING.base * q;              // full price for the quantity, no discount
-      const unit  = round2(gross * (1 - qd));      // one-time price = the exact Shopify variant price
+      const unit  = Math.floor(gross * (1 - qd) * 100) / 100; // one-time = exact Shopify variant price (floored)
       card.querySelectorAll(".opt").forEach(opt => {
         const isSub = opt.classList.contains("featured");
         // subscribe = Appstle's 15% off the rounded variant price (matches checkout to the cent)

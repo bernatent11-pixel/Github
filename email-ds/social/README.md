@@ -1,0 +1,57 @@
+# Milonga carousels
+
+Five email campaigns, reflowed as Instagram feed carousels. 25 slides,
+1080 × 1350 (4:5) — the tallest frame the feed allows, so each slide takes the
+most screen it can.
+
+| Folder | From the email | Slides |
+|---|---|---|
+| `mate-latte-why` | Why We Turned Mate Into a Latte | 5 |
+| `mate-ritual` | Why Mate Is Meant to Be Shared | 5 |
+| `three-ingredients` | Everything Your Mornings Need | 5 |
+| `coffee-vs-mate` | Meet Your Coffee's Competition | 5 |
+| `set-the-tone` | Set the Tone for Your Day | 5 |
+
+Upload `slide-01` … `slide-05` in order.
+
+## What changed from the email, and why
+
+An email section and a feed slide are different objects, so this is a reflow
+rather than a resize.
+
+**Height stops being an outcome and becomes a budget.** An email section is as
+tall as its content — 900px in one place, 2800px in another — and the reader
+scrolls. A slide is a fixed window, and anything that overflows is gone, not
+clipped politely. So sections carrying three paragraphs became two or three
+slides with one idea each.
+
+**Type went up, not down.** Body copy that reads well in an email at 16px is a
+wall at arm's length on a phone. Slides run 20–27px body against 36–56px
+headlines.
+
+**Three things were restructured rather than resized.** The coffee comparison
+was a six-row table, which is a reference document — it became three slides of
+one contrast each, which is how the argument lands in conversation anyway. The
+five-item callout diagram lost its two weakest items to the closing spec line.
+The three-ingredient email was the one that cost nothing: it was already three
+parallel units, so each ingredient simply took a slide.
+
+**The last slide is always the ask.** It is the only slide a reader reaches on
+purpose.
+
+## One substitution worth knowing
+
+`mate-ritual` slide 5 uses the CLEAN crop of the product still life. The file
+the email shipped contains an açaí-mint can whose label reads "10mg THC | 10mg
+CBD", and a public feed post is a worse place for that than an inbox.
+
+## Rebuilding
+
+Slides are authored in `emails/carousel/*.jsx` at 600 × 750 design units — the
+same 600px scale the email templates use — and shot at 1.8×, which lands on
+1080 × 1350 natively. One set of numbers serves both destinations.
+
+```
+npm run preview
+node scripts/shoot-carousel.mjs carousel-<name>.html social/<name>
+```

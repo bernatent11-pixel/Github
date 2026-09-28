@@ -123,3 +123,5 @@ export { StorytellingEmail } from './blueprints/StorytellingEmail';
 export type { StorytellingEmailProps } from './blueprints/StorytellingEmail';
 export { LaunchEmail } from './blueprints/LaunchEmail';
 export type { LaunchEmailProps } from './blueprints/LaunchEmail';
+export { Slide, SlideTitle, SlideBody, SlideEyebrow, SlideCta, SLIDE_W, SLIDE_H } from './components/Carousel';
+export type { SlideProps, SlideTitleProps } from './components/Carousel';

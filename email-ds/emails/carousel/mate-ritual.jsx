@@ -6,11 +6,14 @@
 // the hook sits right, the close sits centre, the middle three sit left — and
 // how hard each picture has to be held down for the type to read.
 //
-// THE SCRIM IS PER PICTURE, MEASURED. These five shots have nothing in common
-// at the top of the frame: open sky on two of them, weathered grey planks on
-// another, a garden in shade on a fourth. The type band is sampled on each and
-// the gradient set so it lands under about 95 — enough for cream, and weighted
-// to the top so the half of the picture that carries the subject is untouched.
+// THE SCRIM IS PER PICTURE, AND IT IS AS LIGHT AS IT CAN BE. These five shots
+// have nothing in common at the top of the frame: open sky on two of them,
+// weathered grey planks on another, a garden in shade on a fourth. Each one
+// carries the least gradient its own type band will tolerate — around a third
+// lighter than the first pass — so the photograph reads as a photograph and
+// not as a darkened one. What bought that back is the copy: the paragraphs
+// are 16 and set as prose, so they clear the frame by half and no longer need
+// holding down across two thirds of the picture.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 const S = (p, ...kids) => h(M.Slide, p, ...kids);
@@ -36,7 +39,7 @@ function CarouselMateRitual() {
     // 1 · THE HOOK. Top left, and left-aligned, which also puts it in step
     // with slides 2, 3 and 4. The frame still reads: the gourd handoff sits
     // low and centre, so the head of the picture is free either side.
-    S({ src: IMG.passed, focus: 'center 28%', scrim: 0.62, scrimAt: 'top',
+    S({ src: IMG.passed, focus: 'center 28%', scrim: 0.44, scrimAt: 'top',
         align: 'top', padX: 46, padY: 54 },
       h('div', { style: { maxWidth: 360 } },
         h(M.SlideEyebrow, { text: 'The mate circle' }),
@@ -49,7 +52,7 @@ function CarouselMateRitual() {
     // 2 · THE INVITATION. A park bench in Buenos Aires — the gourd, the
     // thermos and the pouch, which is the whole ritual in one frame. The
     // subject sits low and the sky fills the top, so the type takes the sky.
-    S({ src: IMG.park, focus: 'center 34%', scrim: 0.66, scrimAt: 'top',
+    S({ src: IMG.park, focus: 'center 34%', scrim: 0.48, scrimAt: 'top',
         align: 'top', padX: 46, padY: 54 },
       h(M.SlideTitle, { line1: 'Mate gives us', line2: 'a reason to\nslow down.',
         size: 30, size2: 48, lead: 0.96, color: WHITE, color2: GOLD, onPhoto: true }),
@@ -66,18 +69,22 @@ function CarouselMateRitual() {
     // backs at the foot ever did. The crop is anchored to the very top, which
     // spends all 150 units of a 2:3 source's overflow at the foot and drops
     // the group clear of the paragraph instead of pushing it up into it.
-    S({ src: IMG.circle, focus: 'center top', scrim: 0.58, scrimAt: 'top',
+    S({ src: IMG.circle, focus: 'center top', scrim: 0.42, scrimAt: 'top',
         align: 'top', padX: 46, padY: 54 },
       h(M.SlideTitle, { line1: 'One mate.', line2: 'One circle.',
         size: 48, lead: 0.98, color: WHITE, color2: GOLD, onPhoto: true }),
+      // Tighter leading than the rest of the set, because this is a single
+      // paragraph rather than a stack of them: at 1.44 three lines read as
+      // three separate statements instead of one sentence.
       h(M.SlideBody, { text: 'Everyone shares the mate, one sip at a time. As it makes its way around the circle, people slow down, stay present, and share the moment together.',
-        size: BODY, measure: 440, onPhoto: true, top: 22 }),
+        size: BODY, measure: 440, onPhoto: true, top: 22, lead: 1.3 }),
     ),
 
     // 4 · THE POINT. Two people on a porch, one of them laughing — the
     // argument of this slide is the photograph. The planks behind them are a
-    // pale weathered grey, so this frame needs the heaviest hand of the five.
-    S({ src: IMG.porch, focus: 'center top', scrim: 0.7, scrimAt: 'top',
+    // pale weathered grey, so this still needs the heaviest hand of the five,
+    // but 0.5 rather than 0.7.
+    S({ src: IMG.porch, focus: 'center top', scrim: 0.5, scrimAt: 'top',
         align: 'top', padX: 46, padY: 54 },
       h(M.SlideTitle, { line1: 'The point was', line2: 'never the energy.',
         size: 34, size2: 44, lead: 0.98, color: WHITE, color2: GOLD, onPhoto: true }),
@@ -91,7 +98,7 @@ function CarouselMateRitual() {
     // centred both ways, and the scrim moves with it: weighted to the middle
     // rather than the top, so the type has its ground and the table keeps its
     // corners.
-    S({ src: IMG.table, focus: 'center bottom', scrim: 0.6, scrimAt: 'middle',
+    S({ src: IMG.table, focus: 'center bottom', scrim: 0.44, scrimAt: 'middle',
         align: 'center', padX: 50, padY: 52 },
       h(M.SlideTitle, { line1: 'Bringing the ritual', line2: 'to the world.',
         size: 33, size2: 40, lead: 1.0, align: 'center',

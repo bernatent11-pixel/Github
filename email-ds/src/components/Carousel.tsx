@@ -311,6 +311,7 @@ export function SlideBody({
   measure,
   onPhoto = false,
   top = 22,
+  lead = 1.44,
 }: {
   text: string;
   size?: number;
@@ -319,6 +320,8 @@ export function SlideBody({
   measure?: number;
   onPhoto?: boolean;
   top?: number;
+  /** Line spacing. Tighten it where a paragraph is meant to read as a block. */
+  lead?: number;
 }) {
   return (
     <div
@@ -328,7 +331,7 @@ export function SlideBody({
         // its 500, so 500 is this family's true regular.
         fontWeight: 500,
         fontSize: size,
-        lineHeight: 1.44,
+        lineHeight: lead,
         color: color ?? colors.beige,
         maxWidth: measure,
         // A right-aligned block has to be pushed right as well as set right,

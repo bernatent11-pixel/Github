@@ -23,7 +23,26 @@ function Ingredient(src, alt, eyebrow, line1, line2, benefits) {
     h(M.SlideEyebrow, { text: eyebrow, align: 'center' }),
     h(M.SlideTitle, { line1, line2, size: 42, lead: 1.0, align: 'center',
       color: '#F0EFDF', color2: '#E3BC62' }),
-    h(M.SlideBody, { text: benefits.join('  ·  '), size: 22, align: 'center', measure: 470, top: 24 }),
+    // The benefits are set as one line, but each one is nowrap and the dots
+    // between them are the only break points. Left to wrap on its own the row
+    // split inside an item — "No jitters, no / crash" — which reads as two
+    // benefits rather than one. The dots are gold, so the row also picks up
+    // the accent the headline uses.
+    h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+      fontSize: 22, lineHeight: 1.4, color: '#F0EFDF', textAlign: 'center',
+      maxWidth: 492, margin: '24px auto 0' } },
+      // Each item carries its own trailing dot INSIDE its nowrap span, and the
+      // only plain whitespace is between the spans. That is what decides where
+      // the row is allowed to break: padding is not a break opportunity at all
+      // (the row simply ran off the right edge), and a separator that sits
+      // between the spans wraps down with the item after it and reads as a
+      // bullet at the head of the second line.
+      benefits.flatMap((b, i) => [
+        h('span', { key: i, style: { whiteSpace: 'nowrap' } }, b,
+          i < benefits.length - 1 ? h('span', { style: { color: '#E3BC62' } }, '  ·') : null),
+        i < benefits.length - 1 ? ' ' : null,
+      ]).filter(Boolean),
+    ),
   );
 }
 
@@ -58,15 +77,35 @@ function CarouselThreeIngredients() {
       ['Mental clarity', 'Concentration', 'Memory']),
 
     Ingredient('../public/product/ing-theanine.png', 'L-Theanine powder',
-      '200mg L-Theanine', 'L-Theanine,', 'what balances it all.',
-      ['Balanced and calm', 'Balances the whole experience']),
+      '200mg L-Theanine', 'L-Theanine,', 'what balances\nit all.',
+      // One phrase, not two: "Balanced and calm" and "Balances the whole
+      // experience" were the same claim said twice, and the repeat of the
+      // word was the first thing the eye caught.
+      ['Balanced and calm']),
 
-    S({ bg: 'beige', textured: true, align: 'center', padX: 54 },
+    // 5 · THE ASK. This was the weakest slide in the set — a closing frame
+    // carrying nothing but type, on a carousel whose whole argument is what
+    // is in the pouch. The scoop shot is the sentence "one scoop, thirty
+    // seconds" drawn rather than written, so it goes in and takes the foot of
+    // the frame, bleeding past both edges the way the gourd and the jar do
+    // elsewhere in the set.
+    //
+    // The title steps 52 -> 46 to buy the room: at 52 "THIRTY SECONDS." broke
+    // in two and the block ran three lines deep.
+    S({ bg: 'beige', textured: true, align: 'top', padX: 54, padY: 58 },
       h(M.SlideTitle, { line1: 'One scoop.', line2: 'Thirty seconds.',
-        size: 52, lead: 0.96, align: 'center', color: FOREST, color2: FOREST }),
+        size: 46, lead: 0.98, align: 'center', color: FOREST, color2: FOREST }),
       h(M.SlideBody, { text: '15 servings · 90 cal · 3g sugar\nDairy-free · Hot or iced',
-        size: 22, color: '#000000', align: 'center', measure: 440, top: 26 }),
+        size: 21, color: '#000000', align: 'center', measure: 440, top: 24 }),
       h(M.SlideCta, { label: 'Experience it', bg: 'beige', align: 'center' }),
+      h('img', { src: '../public/product/pouch-hand-pour-big.png',
+        alt: 'A scoop of Milonga Mate Latte powder being poured into a glass beside the pouch',
+        // Flush left rather than bled left: the pouch already touches the
+        // edge of its own file, so any negative offset slices its front face
+        // off. It bleeds on the right instead, where the arm runs out of
+        // frame and reads as reaching in.
+        style: { position: 'absolute', left: 0, bottom: 0, width: 656,
+                 height: 'auto', display: 'block' } }),
     ),
   );
 }

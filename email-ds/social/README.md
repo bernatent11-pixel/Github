@@ -59,11 +59,16 @@ crop to the top or the foot spends all of it at one end instead of splitting
 it, which is usually how a clean band of ground appears for the type without
 touching the picture.
 
-## One substitution worth knowing
+## One thing worth knowing
 
-`mate-ritual` slide 5 uses the CLEAN crop of the product still life. The file
-the email shipped contains an açaí-mint can whose label reads "10mg THC | 10mg
-CBD", and a public feed post is a worse place for that than an inbox.
+`mate-ritual` slide 5 is a table shot that includes two Milonga cans, one of
+them the acai-mint. On the clean product photograph that can's label carries a
+line reading "10mg THC | 10mg CBD". Here both cans are small and motion-
+blurred: the line is still there in the same position, but it does not resolve
+into readable text even upscaled eight times from the source, and the source
+is only 1333px wide, so the 4K export adds no detail. Worth knowing rather
+than worth fixing — but if that SKU should not appear in a feed post at all,
+the picture has to change, because no crop of this frame excludes it.
 
 ## Rebuilding
 

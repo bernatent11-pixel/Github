@@ -111,11 +111,15 @@ export function Slide({
   const t = onBg[bg];
   const dark = bg === 'forest' || !!src;
   const k = (v: number) => (v * scrim).toFixed(2);
+  // The 'top' ramp holds its value further down the frame than the others.
+  // A title alone clears in the first third, but a title with a paragraph
+  // under it can run to two thirds, and a gradient that has already faded by
+  // 78% drops the last two lines of copy onto whatever the picture is doing.
   const scrimCss =
     scrim <= 0
       ? undefined
       : scrimAt === 'top'
-        ? `linear-gradient(to bottom, rgba(0,26,13,${k(0.78)}) 0%, rgba(0,26,13,${k(0.5)}) 42%, rgba(0,26,13,${k(0.06)}) 78%)`
+        ? `linear-gradient(to bottom, rgba(0,26,13,${k(0.8)}) 0%, rgba(0,26,13,${k(0.64)}) 44%, rgba(0,26,13,${k(0.34)}) 68%, rgba(0,26,13,${k(0.04)}) 88%)`
         : scrimAt === 'bottom'
           ? `linear-gradient(to top, rgba(0,26,13,${k(0.8)}) 0%, rgba(0,26,13,${k(0.5)}) 40%, rgba(0,26,13,${k(0.05)}) 76%)`
           : scrimAt === 'middle'
@@ -272,7 +276,7 @@ export interface SlideTitleProps {
   lead?: number;
   color?: string;
   color2?: string;
-  align?: 'left' | 'center';
+  align?: 'left' | 'center' | 'right';
   /** A quiet shadow, for a title sitting on a photograph. */
   onPhoto?: boolean;
 }
@@ -311,7 +315,7 @@ export function SlideBody({
   text: string;
   size?: number;
   color?: string;
-  align?: 'left' | 'center';
+  align?: 'left' | 'center' | 'right';
   measure?: number;
   onPhoto?: boolean;
   top?: number;
@@ -327,7 +331,11 @@ export function SlideBody({
         lineHeight: 1.44,
         color: color ?? colors.beige,
         maxWidth: measure,
-        margin: `${top}px ${align === 'center' ? 'auto' : '0'} 0`,
+        // A right-aligned block has to be pushed right as well as set right,
+        // or a measure narrower than the column leaves it sitting on the left
+        // with ragged-left text inside it.
+        margin: align === 'center' ? `${top}px auto 0`
+          : align === 'right' ? `${top}px 0 0 auto` : `${top}px 0 0`,
         textAlign: align,
         // Honour explicit line breaks: on a slide a spec line reads as two
         // short rows, and letting it wrap on its own splits it mid-fact.
@@ -347,7 +355,7 @@ export function SlideEyebrow({
 }: {
   text: string;
   color?: string;
-  align?: 'left' | 'center';
+  align?: 'left' | 'center' | 'right';
 }) {
   return (
     <div style={{ ...caps(14, '0.2em', color ?? colors.gold), marginBottom: 18, textAlign: align, lineHeight: 1.2 }}>

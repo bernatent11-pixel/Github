@@ -11,11 +11,9 @@ const IMG = {
   counter: '../public/product/latte-counter.jpg',
   gourd: '../public/product/mate-gourd.png',
   cup: '../public/product/latte-cup-top.png',
-  // The still life re-laid for a 4:5 frame, by scripts/build-splash-ground.mjs:
-  // the native shot's vignette is flattened to one even green and the
-  // composition is placed in the middle, so the title and the spec line each
-  // have ground of their own instead of landing on the leaf splash.
-  splash: '../public/product/ingredient-splash-45.jpg',
+  // The still life exactly as shot — its own background, its own vignette,
+  // nothing rebuilt and nothing scaled down inside the frame.
+  splash: '../public/product/ingredient-splash.jpg',
   jar: '../public/product/jar-in-hand.png',
 };
 
@@ -95,13 +93,21 @@ function CarouselMateLatteWhy() {
     // 5 · THE ASK. The ingredient still life carries the argument, so the only
     // type it needs is the promise and the facts. The spec line is set in the
     // same gold caps the photograph already labels itself with.
-    S({ src: IMG.splash, align: 'top', padX: 48, padY: 52 },
+    // THE CROP IS WHERE THE ROOM COMES FROM. The picture goes in full width
+    // and untouched, so the only thing left to move is which 4:5 slice of it
+    // the frame shows. Source is 1500 x 2003 and the frame is 600 x 750, so
+    // width binds and 51 design units of height overflow. Anchoring the crop
+    // to the TOP spends all 51 at the foot instead of splitting them, which
+    // buys back the whole of the photograph's own empty sky.
+    //
+    // Measured against that crop: the composition runs 112 to 680 of the 750,
+    // so the title clears it by 12 units and the spec line by 15. Tight — but
+    // that is the honest ceiling on a picture that fills its own frame, and
+    // both bands of type sit on the photograph's own dark green.
+    S({ src: IMG.splash, focus: 'center top', align: 'top', padX: 48, padY: 36 },
       h(M.SlideTitle, { line1: 'Everything you love', line2: 'about mate, and more.',
         size: 32, lead: 1.0, align: 'center', color: '#FFFFFF', color2: '#E3BC62', onPhoto: true }),
-      // 34 off the foot, against the title's 52 off the head: the picture's
-      // content band runs 157 to 645, so that leaves 41 units of air above it
-      // and 44 below — the same gap, top and bottom.
-      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 34, padding: '0 40px', textAlign: 'center' } },
+      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 28, padding: '0 40px', textAlign: 'center' } },
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
           fontSize: 19, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#E3BC62',
           lineHeight: 1.4, textShadow: '0 1px 6px rgba(0,26,13,0.6)' } },

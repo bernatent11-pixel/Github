@@ -14,14 +14,14 @@ const FOREST = '#004D27';
 // sitting in a field of green instead of as the thing being introduced.
 // The benefits go on one line separated by gold dots, which also closes the
 // block up: three centred lines of 23 left a hole underneath them.
-function Ingredient(src, alt, eyebrow, line1, line2, benefits) {
+function Ingredient(src, alt, eyebrow, line1, line2, benefits, size2) {
   return h(M.Slide, { bg: 'forest', textured: true, align: 'center', padX: 52 },
     h('div', { style: { textAlign: 'center' } },
       h('img', { src, alt, style: { width: 250, height: 250, objectFit: 'contain', display: 'inline-block' } }),
     ),
     h('div', { style: { height: 30 } }),
     h(M.SlideEyebrow, { text: eyebrow, align: 'center' }),
-    h(M.SlideTitle, { line1, line2, size: 42, lead: 1.0, align: 'center',
+    h(M.SlideTitle, { line1, line2, size: 42, size2, lead: 1.0, align: 'center',
       color: '#F0EFDF', color2: '#E3BC62' }),
     // One benefit per line, centred and in caps. A row separated by dots has
     // to wrap wherever it runs out of width, which is never where the sense
@@ -63,8 +63,12 @@ function CarouselThreeIngredients() {
     // focus a third down spends that cost on the empty cream at the foot.
     S({ src: '../public/product/flatlay-ingredients.jpg', focus: 'center 32%',
         zoom: 1.16, align: 'top', padX: 46, padY: 46 },
+      // 30 against 56. "MORNINGS NEED." is the thing being read first and
+      // "everything your" is the run-up to it, so the split is nearly two to
+      // one rather than the two lines of one size it had. At 56 the payoff
+      // measures about 406 of the 508 units available, with room to spare.
       h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
-        size: 44, lead: 0.98, color: FOREST, color2: FOREST }),
+        size: 30, size2: 56, lead: 0.98, color: FOREST, color2: FOREST }),
     ),
 
     Ingredient('../public/product/ing-yerba-mate.png', 'Loose yerba mate leaf',
@@ -76,11 +80,16 @@ function CarouselThreeIngredients() {
       ['Mental clarity', 'Concentration', 'Memory']),
 
     Ingredient('../public/product/ing-theanine.png', 'L-Theanine powder',
-      '200mg L-Theanine', 'L-Theanine,', 'what balances\nit all.',
+      // "WHAT BALANCES IT ALL." is 21 characters and has to stay on one
+      // line, which sets its own size: at 42 a character of this face runs
+      // about 27.6 units, so the line needs 580 against the 496 between the
+      // margins. 34 is the size at which it fits, and it is the only line in
+      // the set that is measured rather than chosen.
+      '200mg L-Theanine', 'L-Theanine,', 'what balances it all.',
       // One phrase, not two: "Balanced and calm" and "Balances the whole
       // experience" were the same claim said twice, and the repeat of the
       // word was the first thing the eye caught.
-      ['Balanced and calm']),
+      ['Balanced and calm'], 34),
 
     // 5 · THE ASK. This was the weakest slide in the set — a closing frame
     // carrying nothing but type, on a carousel whose whole argument is what
@@ -107,10 +116,6 @@ function CarouselThreeIngredients() {
               lineHeight: 1.6, color: '#FFFFFF',
               textShadow: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)' } }, t)),
       ),
-      // The button stays. It sits on the clear wall between the spec lines
-      // and the glass, and this is the one carousel in the set whose job is
-      // the sale rather than the story.
-      h(M.SlideCta, { label: 'Experience it', align: 'left', onPhoto: true }),
     ),
   );
 }

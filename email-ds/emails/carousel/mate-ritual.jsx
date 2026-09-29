@@ -29,6 +29,8 @@ const IMG = {
   table: '../public/product/mate-table.jpg',
 };
 
+// Pure white, not the brand cream. Against gold on a photograph #F0EFDF
+// reads as a second warm tone rather than as the neutral the copy wants.
 const WHITE = '#FFFFFF';
 const GOLD = '#E3BC62';
 // One size for every paragraph in the set. Small on purpose: these slides are
@@ -64,7 +66,7 @@ function CarouselMateRitual() {
       // what pushes the copy down over the gourd — set as prose it is three
       // lines instead of six and the photograph is clear below it.
       h(M.SlideBody, { text: 'Mate is an invitation to pause from everything else. To put the phone down. To slow down. To stay a little longer. To be fully present with the people around you.\n\nMate isn’t about rushing through a drink. It’s about making space for the moment.',
-        size: BODY, measure: 440, halo: 'strong', top: 22 }),
+        size: BODY, color: WHITE, measure: 440, halo: 'strong', top: 22 }),
     ),
 
     // 3 · THE CIRCLE. Title moved to the head of the frame, where the garden
@@ -80,7 +82,7 @@ function CarouselMateRitual() {
       // paragraph rather than a stack of them: at 1.44 three lines read as
       // three separate statements instead of one sentence.
       h(M.SlideBody, { text: 'Everyone shares the mate, one sip at a time. As it makes its way around the circle, people slow down, stay present, and share the moment together.',
-        size: BODY, measure: 440, halo: 'strong', top: 22, lead: 1.3 }),
+        size: BODY, color: WHITE, measure: 440, halo: 'strong', top: 22, lead: 1.3 }),
     ),
 
     // 4 · THE POINT. Two people on a porch, one of them laughing — the
@@ -94,7 +96,7 @@ function CarouselMateRitual() {
       // Same move as slide 2, and it matters more here: six stacked lines put
       // the copy straight across the laughing face this slide exists for.
       h(M.SlideBody, { text: 'Mate gives people a reason to stay. To talk. To listen. To laugh. To disagree. To share stories.\n\nDifferent people, different perspectives, one shared ritual. Because the real energy isn’t what’s in the cup. It’s what happens around it.',
-        size: BODY, measure: 440, halo: 'strong', top: 22 }),
+        size: BODY, color: WHITE, measure: 440, halo: 'strong', top: 22 }),
     ),
 
     // 5 · THE CLOSE. No button — the block sits on the slide's own middle,
@@ -107,7 +109,7 @@ function CarouselMateRitual() {
         size: 33, size2: 40, lead: 1.0, align: 'center',
         color: WHITE, color2: GOLD, halo: 'hold' }),
       h(M.SlideBody, { text: 'Our mission is to share the ritual of mate with the world in new and innovative ways.',
-        size: BODY, align: 'center', measure: 400, halo: 'strong', top: 22 }),
+        size: BODY, color: WHITE, align: 'center', measure: 400, halo: 'strong', top: 22 }),
     ),
   );
 }

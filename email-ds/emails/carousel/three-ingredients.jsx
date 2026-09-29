@@ -23,25 +23,16 @@ function Ingredient(src, alt, eyebrow, line1, line2, benefits) {
     h(M.SlideEyebrow, { text: eyebrow, align: 'center' }),
     h(M.SlideTitle, { line1, line2, size: 42, lead: 1.0, align: 'center',
       color: '#F0EFDF', color2: '#E3BC62' }),
-    // The benefits are set as one line, but each one is nowrap and the dots
-    // between them are the only break points. Left to wrap on its own the row
-    // split inside an item — "No jitters, no / crash" — which reads as two
-    // benefits rather than one. The dots are gold, so the row also picks up
-    // the accent the headline uses.
-    h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-      fontSize: 22, lineHeight: 1.4, color: '#F0EFDF', textAlign: 'center',
-      maxWidth: 492, margin: '24px auto 0' } },
-      // Each item carries its own trailing dot INSIDE its nowrap span, and the
-      // only plain whitespace is between the spans. That is what decides where
-      // the row is allowed to break: padding is not a break opportunity at all
-      // (the row simply ran off the right edge), and a separator that sits
-      // between the spans wraps down with the item after it and reads as a
-      // bullet at the head of the second line.
-      benefits.flatMap((b, i) => [
-        h('span', { key: i, style: { whiteSpace: 'nowrap' } }, b,
-          i < benefits.length - 1 ? h('span', { style: { color: '#E3BC62' } }, '  ·') : null),
-        i < benefits.length - 1 ? ' ' : null,
-      ]).filter(Boolean),
+    // One benefit per line, centred and in caps. A row separated by dots has
+    // to wrap wherever it runs out of width, which is never where the sense
+    // breaks; a stack puts every item on its own line by construction and the
+    // three of them read as a list rather than as a sentence. Caps and a
+    // little tracking keep short lines from looking like leftover body copy.
+    h('div', { style: { marginTop: 26, textAlign: 'center' } },
+      benefits.map((b, i) => h('div', { key: i,
+        style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+          fontSize: 21, letterSpacing: '0.06em', textTransform: 'uppercase',
+          lineHeight: 1.62, color: '#F0EFDF' } }, b)),
     ),
   );
 }
@@ -60,12 +51,20 @@ function CarouselThreeIngredients() {
     // units overflow — by far the most latitude in the set. Anchoring the
     // crop to the top drops the whole arrangement 162 units and opens a clean
     // cream band across the head of the slide for the type to take.
-    S({ src: '../public/product/flatlay-ingredients.jpg', focus: 'center top',
-        align: 'top', padX: 46, padY: 48 },
+    // THE TITLE GIVES GROUND BACK TO THE PICTURE. The paragraph is gone, and
+    // the headline drops 50 -> 44, at which "EVERYTHING YOUR" fits the 508
+    // units between the margins and the stack is two lines instead of three.
+    // Between them that frees about 110 units at the head of the frame.
+    //
+    // The arrangement then moves up into it and grows. Cover is the smallest
+    // scale that fills a frame, so a picture that already fills it has no
+    // crop left to give — the only way to make the subject bigger is to go
+    // PAST cover, which zoom does, at the cost of the edges. 1.16 with the
+    // focus a third down spends that cost on the empty cream at the foot.
+    S({ src: '../public/product/flatlay-ingredients.jpg', focus: 'center 32%',
+        zoom: 1.16, align: 'top', padX: 46, padY: 46 },
       h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
-        size: 50, lead: 0.96, color: FOREST, color2: FOREST }),
-      h(M.SlideBody, { text: 'Three functional ingredients.\nOne 30-second ritual.',
-        size: 22, color: '#1A1A1A', measure: 440, top: 18 }),
+        size: 44, lead: 0.98, color: FOREST, color2: FOREST }),
     ),
 
     Ingredient('../public/product/ing-yerba-mate.png', 'Loose yerba mate leaf',
@@ -92,20 +91,26 @@ function CarouselThreeIngredients() {
     //
     // The title steps 52 -> 46 to buy the room: at 52 "THIRTY SECONDS." broke
     // in two and the block ran three lines deep.
-    S({ bg: 'beige', textured: true, align: 'top', padX: 54, padY: 58 },
+    // 5 · THE ASK, on the photograph. White over gold and a halo behind the
+    // letters, the way the rest of the account's photo slides run — no scrim,
+    // so the picture keeps its light. The spec line goes to caps and picks up
+    // the gold, which is how a fact reads as a fact rather than as a caption.
+    S({ src: '../public/product/latte-iced-table.jpg', focus: 'center top',
+        align: 'top', padX: 48, padY: 50 },
       h(M.SlideTitle, { line1: 'One scoop.', line2: 'Thirty seconds.',
-        size: 46, lead: 0.98, align: 'center', color: FOREST, color2: FOREST }),
-      h(M.SlideBody, { text: '15 servings · 90 cal · 3g sugar\nDairy-free · Hot or iced',
-        size: 21, color: '#000000', align: 'center', measure: 440, top: 24 }),
-      h(M.SlideCta, { label: 'Experience it', bg: 'beige', align: 'center' }),
-      h('img', { src: '../public/product/pouch-hand-pour-big.png',
-        alt: 'A scoop of Milonga Mate Latte powder being poured into a glass beside the pouch',
-        // Flush left rather than bled left: the pouch already touches the
-        // edge of its own file, so any negative offset slices its front face
-        // off. It bleeds on the right instead, where the arm runs out of
-        // frame and reads as reaching in.
-        style: { position: 'absolute', left: 0, bottom: 0, width: 656,
-                 height: 'auto', display: 'block' } }),
+        size: 46, lead: 0.98, color: '#FFFFFF', color2: '#E3BC62', halo: 'hold' }),
+      h('div', { style: { marginTop: 24 } },
+        ['15 servings · 90 cal · 3g sugar', 'Dairy-free · Hot or iced'].map((t, i) =>
+          h('div', { key: i,
+            style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+              fontSize: 19, letterSpacing: '0.07em', textTransform: 'uppercase',
+              lineHeight: 1.6, color: '#FFFFFF',
+              textShadow: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)' } }, t)),
+      ),
+      // The button stays. It sits on the clear wall between the spec lines
+      // and the glass, and this is the one carousel in the set whose job is
+      // the sale rather than the story.
+      h(M.SlideCta, { label: 'Experience it', align: 'left', onPhoto: true }),
     ),
   );
 }

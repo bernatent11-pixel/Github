@@ -59,6 +59,13 @@ export interface SlideProps {
   /** A full-bleed photograph behind the content. */
   src?: string;
   focus?: string;
+  /**
+   * Scale past cover. Cover is the smallest scale that fills the frame, so a
+   * picture that fills it and still reads small has no crop left to give —
+   * the only way to make the subject bigger is to go past cover and let more
+   * of the edges fall outside. 1 is cover; 1.2 shows 83% of what cover shows.
+   */
+  zoom?: number;
   /** 0 to 1. Darkens the photograph; leave at 0 for art that is already dark. */
   scrim?: number;
   /** Weight the scrim where the type is. */
@@ -98,6 +105,7 @@ export function Slide({
   padY = 62,
   src,
   focus = 'center',
+  zoom = 1,
   scrim = 0,
   scrimAt = 'even',
   logo = false,
@@ -153,6 +161,10 @@ export function Slide({
             height: '100%',
             objectFit: 'cover',
             objectPosition: focus,
+            // The origin follows the focus, or zooming would walk the subject
+            // out of the frame it was just positioned in.
+            transform: zoom === 1 ? undefined : `scale(${zoom})`,
+            transformOrigin: focus,
             display: 'block',
             border: 0,
           }}

@@ -39,6 +39,26 @@ parallel units, so each ingredient simply took a slide.
 **The last slide is always the ask.** It is the only slide a reader reaches on
 purpose.
 
+**No wordmark and no slide counters.** The handle already sits above the post
+and the dot row already says where a reader is, so both were removed from
+every slide in the set.
+
+**On a light photograph the ink goes dark.** Four of the shots in this set are
+bright — the flatlay is on cream, the kitchen counter is marble, the jar is on
+warm beige — and cream type on them was being rescued with a heavier and
+heavier scrim, which turns a warm morning photograph into a grey one. They
+carry forest green type on the picture as shot instead, with no wash at all.
+Where the photograph IS dark, the scrim stays and does its job: the two
+outdoor shots in `mate-ritual` run 0.58–0.66 at the foot, because sunlit grass
+measures well over 130 and cream cannot hold on it unaided.
+
+**The crop is a layout tool, not just a framing one.** Every source here is
+portrait, so inside a 4:5 frame the width binds and the excess height is
+free — 150 design units on a 2:3 source and 325 on the flatlay. Anchoring the
+crop to the top or the foot spends all of it at one end instead of splitting
+it, which is usually how a clean band of ground appears for the type without
+touching the picture.
+
 ## One substitution worth knowing
 
 `mate-ritual` slide 5 uses the CLEAN crop of the product still life. The file

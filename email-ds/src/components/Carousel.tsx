@@ -71,11 +71,17 @@ export interface SlideProps {
   index?: string;
   /**
    * Text pinned to things in the photograph. Positioned in percentages so a
-   * name stays on its subject whatever the crop does. Always carries a dense
-   * halo: a headline picks its own patch of picture, a label has to sit where
-   * its subject is, and that is often the brightest part of the shot.
+   * name stays on its subject whatever the crop does.
    */
   labels?: SlideLabel[];
+  /**
+   * How hard the labels are held off their background. 'auto' is the dense
+   * four-layer halo — a headline picks its own patch of picture, a label has
+   * to sit where its subject is, and that is often the brightest part of the
+   * shot. 'soft' is one quiet shadow; 'none' is flat letters, which is only
+   * safe where the ground under them has been measured.
+   */
+  labelHalo?: 'auto' | 'soft' | 'none';
   children?: React.ReactNode;
 }
 
@@ -99,6 +105,7 @@ export function Slide({
   logoHeight = 52,
   index,
   labels = [],
+  labelHalo = 'auto',
   children,
 }: SlideProps) {
   const t = onBg[bg];
@@ -114,6 +121,9 @@ export function Slide({
           : scrimAt === 'middle'
             ? `linear-gradient(to bottom, rgba(0,26,13,${k(0.2)}) 0%, rgba(0,26,13,${k(0.62)}) 38%, rgba(0,26,13,${k(0.62)}) 66%, rgba(0,26,13,${k(0.2)}) 100%)`
             : `linear-gradient(to bottom, rgba(0,26,13,${k(0.5)}) 0%, rgba(0,26,13,${k(0.5)}) 100%)`;
+
+  const haloCss =
+    labelHalo === 'none' ? 'none' : labelHalo === 'soft' ? '0 1px 4px rgba(0,26,13,0.45)' : LABEL_HALO;
 
   return (
     <div
@@ -192,7 +202,7 @@ export function Slide({
             style={{
               ...caps(l.size ?? 34, '0.14em', l.color ?? colors.gold),
               lineHeight: 1.05,
-              textShadow: LABEL_HALO,
+              textShadow: haloCss,
             }}
           >
             {l.text}
@@ -209,7 +219,7 @@ export function Slide({
                 lineHeight: 1.35,
                 color: l.noteColor ?? colors.beige,
                 marginTop: 9,
-                textShadow: LABEL_HALO,
+                textShadow: haloCss,
               }}
             >
               {l.note}

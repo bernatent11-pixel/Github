@@ -11,7 +11,11 @@ const IMG = {
   counter: '../public/product/latte-counter.jpg',
   gourd: '../public/product/mate-gourd.png',
   cup: '../public/product/latte-cup-top.png',
-  splash: '../public/product/ingredient-splash.jpg',
+  // The still life re-laid for a 4:5 frame: the composition sits in the middle
+  // of the picture with a clear band above and below, so the title and the
+  // spec line each have ground of their own instead of landing on the leaf
+  // splash. Built from the native file, on a blurred copy of itself.
+  splash: '../public/product/ingredient-splash-45.jpg',
   jar: '../public/product/jar-in-hand.png',
 };
 
@@ -42,7 +46,7 @@ function CarouselMateLatteWhy() {
       h(M.SlideTitle, { line1: 'So why turn it', line2: 'into a latte?',
         size: 54, lead: 0.94, color: '#004D27', color2: '#004D27' }),
       h(M.SlideBody, { text: 'We wanted to make mate simple, creamy, comforting and easy to enjoy, just like your favorite morning latte.',
-        size: 21, color: '#000000', measure: 450, top: 22 }),
+        size: 19, color: '#000000', measure: 430, top: 22 }),
       h('img', { src: IMG.jar, alt: 'A hand holding a jar of iced Milonga Mate Latte',
         style: { position: 'absolute', right: -58, bottom: 40, width: 442,
                  height: 'auto', display: 'block' } }),
@@ -72,7 +76,10 @@ function CarouselMateLatteWhy() {
     // 4 · HOT OR ICED. Title upper left, a label pinned to each cup exactly as
     // the email has them, and the line that ties them together centred at the
     // foot where a reader finishes.
+    // Flat labels, no halo. Both sit on the left third, which the scrim and
+    // the window's own falloff keep dark — measured before the halo came off.
     S({ src: IMG.counter, scrim: 0.46, scrimAt: 'bottom', align: 'top', padX: 44, padY: 48,
+        labelHalo: 'none',
         labels: [
           { text: 'Iced', note: 'Creamy & refreshing', top: '40%', left: '4%', width: 170, size: 34 },
           { text: 'Hot', note: 'Smooth & cozy', top: '69%', left: '4%', width: 175, size: 34 },
@@ -81,7 +88,7 @@ function CarouselMateLatteWhy() {
         size: 46, lead: 0.96, color: '#FFFFFF', onPhoto: true }),
       h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 22, padding: '0 44px' } },
         h(M.SlideBody, { text: 'Same mate.\nA whole new way to enjoy it.',
-          size: 29, align: 'center', measure: 470, onPhoto: true, top: 0 }),
+          size: 25, align: 'center', measure: 470, onPhoto: true, top: 0 }),
       ),
     ),
 
@@ -91,7 +98,10 @@ function CarouselMateLatteWhy() {
     S({ src: IMG.splash, align: 'top', padX: 48, padY: 52 },
       h(M.SlideTitle, { line1: 'Everything you love', line2: 'about mate, and more.',
         size: 32, lead: 1.0, align: 'center', color: '#FFFFFF', color2: '#E3BC62', onPhoto: true }),
-      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 30, padding: '0 40px', textAlign: 'center' } },
+      // 34 off the foot, against the title's 52 off the head: the picture's
+      // content band runs 157 to 645, so that leaves 41 units of air above it
+      // and 44 below — the same gap, top and bottom.
+      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 34, padding: '0 40px', textAlign: 'center' } },
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
           fontSize: 19, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#E3BC62',
           lineHeight: 1.4, textShadow: '0 1px 6px rgba(0,26,13,0.6)' } },

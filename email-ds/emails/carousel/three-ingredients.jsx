@@ -108,13 +108,34 @@ function CarouselThreeIngredients() {
         align: 'top', padX: 48, padY: 50 },
       h(M.SlideTitle, { line1: 'One scoop.', line2: 'Thirty seconds.',
         size: 46, lead: 0.98, color: '#FFFFFF', color2: '#E3BC62', halo: 'hold' }),
-      h('div', { style: { marginTop: 24 } },
-        ['15 servings · 90 cal · 3g sugar', 'Dairy-free · Hot or iced'].map((t, i) =>
-          h('div', { key: i,
-            style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-              fontSize: 19, letterSpacing: '0.07em', textTransform: 'uppercase',
-              lineHeight: 1.6, color: '#FFFFFF',
-              textShadow: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)' } }, t)),
+      // THE SPEC LIST, BULLETED WITH THE MARK. Five facts, one per line, each
+      // led by the gold Milonga hand — the same bullet the site uses.
+      //
+      // The band it has to live in is fixed: the title ends at 133 of the 750
+      // design units and the pouch begins at 311, so there are 178 to spend.
+      // Five rows of 26 plus their gaps is 154, which leaves the list ending
+      // 6 units clear of the pouch. That is what sets the type at 17 rather
+      // than the 19 the two-line version ran at — the list is longer, so each
+      // line is smaller.
+      //
+      // The mark carries its own drop-shadow. It is artwork, not type, so the
+      // halo behind the letters never reaches it, and on this wall a flat gold
+      // silhouette would dissolve.
+      h('div', { style: { marginTop: 18 } },
+        ['15 servings', '90 cal', '3g sugar', 'Dairy-free', 'Hot or iced'].map((t, i) =>
+          h('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 } },
+            // 26 rather than the 21 that matches the type. The mark is a hand
+            // in front of a canopy, and below about 25 units the canopy closes
+            // up and it reads as a gold smudge; the row gaps pay for it.
+            h('img', { src: '../public/logo/mark-gold.png', alt: '',
+              style: { height: 26, width: 'auto', flex: 'none', display: 'block',
+                       filter: 'drop-shadow(0 1px 3px rgba(0,26,13,0.55)) drop-shadow(0 3px 12px rgba(0,26,13,0.4))' } }),
+            h('span', {
+              style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+                fontSize: 17, letterSpacing: '0.08em', textTransform: 'uppercase',
+                lineHeight: 1.2, color: '#FFFFFF',
+                textShadow: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)' } }, t),
+          )),
       ),
     ),
   );

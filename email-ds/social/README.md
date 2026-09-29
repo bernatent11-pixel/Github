@@ -55,3 +55,16 @@ same 600px scale the email templates use — and shot at 1.8×, which lands on
 npm run preview
 node scripts/shoot-carousel.mjs carousel-<name>.html social/<name>
 ```
+
+An optional third argument is the scale, so the same harness also cuts a 4K
+master — 5.12× is 3072 × 3840, the same 4:5 frame:
+
+```
+node scripts/shoot-carousel.mjs carousel-<name>.html social/<name>-4k 5.12
+```
+
+The type is drawn at that size, so it is genuinely 4K sharp. The photographs
+are not: the source files are 1080–1500px wide, so they are upsampled and hold
+no detail the 1080 version does not. Instagram re-encodes anything wider than
+1080 anyway — the master is for print, stories and anywhere else the same
+artwork has to go bigger.

@@ -11,10 +11,10 @@ const IMG = {
   counter: '../public/product/latte-counter.jpg',
   gourd: '../public/product/mate-gourd.png',
   cup: '../public/product/latte-cup-top.png',
-  // The still life re-laid for a 4:5 frame: the composition sits in the middle
-  // of the picture with a clear band above and below, so the title and the
-  // spec line each have ground of their own instead of landing on the leaf
-  // splash. Built from the native file, on a blurred copy of itself.
+  // The still life re-laid for a 4:5 frame, by scripts/build-splash-ground.mjs:
+  // the native shot's vignette is flattened to one even green and the
+  // composition is placed in the middle, so the title and the spec line each
+  // have ground of their own instead of landing on the leaf splash.
   splash: '../public/product/ingredient-splash-45.jpg',
   jar: '../public/product/jar-in-hand.png',
 };

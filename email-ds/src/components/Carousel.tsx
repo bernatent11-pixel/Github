@@ -257,6 +257,24 @@ export function Slide({
 const LABEL_HALO =
   '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 10px rgba(0,26,13,0.82), 0 6px 26px rgba(0,26,13,0.6)';
 
+/* Halos, for type standing on a photograph that has NOT been washed.
+   A scrim dims the whole picture to rescue a hundred letters; a halo sits
+   behind the letters alone and leaves the photograph exactly as shot. The
+   cost is that it has to be tuned to the type size: what reads as a clean
+   lift under 16px body copy reads as a special effect under a 54px headline.
+
+   SOFT   one quiet shadow, for type already standing on dark ground.
+   HOLD   a soft dark glow with no hard edge — headline scale.
+   STRONG the dense four-layer stack — body scale, and the only thing that
+          survives ground that changes underneath a single line. */
+const HALO = {
+  none: 'none',
+  soft: '0 1px 4px rgba(0,26,13,0.45)',
+  hold: '0 1px 3px rgba(0,26,13,0.8), 0 3px 14px rgba(0,26,13,0.62), 0 10px 40px rgba(0,26,13,0.45)',
+  strong: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)',
+};
+export type SlideHalo = keyof typeof HALO;
+
 const caps = (size: number, tracking: string, color: string): React.CSSProperties => ({
   fontFamily: fontStack,
   fontWeight: 900,
@@ -279,6 +297,8 @@ export interface SlideTitleProps {
   align?: 'left' | 'center' | 'right';
   /** A quiet shadow, for a title sitting on a photograph. */
   onPhoto?: boolean;
+  /** Overrides onPhoto when the picture carries no scrim at all. */
+  halo?: SlideHalo;
 }
 
 export function SlideTitle({
@@ -291,8 +311,9 @@ export function SlideTitle({
   color2,
   align = 'left',
   onPhoto = false,
+  halo,
 }: SlideTitleProps) {
-  const shadow = onPhoto ? '0 1px 4px rgba(0,26,13,0.42)' : 'none';
+  const shadow = halo ? HALO[halo] : onPhoto ? HALO.soft : 'none';
   return (
     <div style={{ textAlign: align }}>
       <div style={{ ...caps(size, '0.01em', color ?? colors.white), lineHeight: lead, textShadow: shadow, whiteSpace: 'pre-line' }}>{line1}</div>
@@ -312,6 +333,7 @@ export function SlideBody({
   onPhoto = false,
   top = 22,
   lead = 1.44,
+  halo,
 }: {
   text: string;
   size?: number;
@@ -322,6 +344,8 @@ export function SlideBody({
   top?: number;
   /** Line spacing. Tighten it where a paragraph is meant to read as a block. */
   lead?: number;
+  /** Overrides onPhoto when the picture carries no scrim at all. */
+  halo?: SlideHalo;
 }) {
   return (
     <div
@@ -343,7 +367,7 @@ export function SlideBody({
         // Honour explicit line breaks: on a slide a spec line reads as two
         // short rows, and letting it wrap on its own splits it mid-fact.
         whiteSpace: 'pre-line',
-        textShadow: onPhoto ? '0 1px 4px rgba(0,26,13,0.45)' : 'none',
+        textShadow: halo ? HALO[halo] : onPhoto ? HALO.soft : 'none',
       }}
     >
       {text}
@@ -355,13 +379,16 @@ export function SlideEyebrow({
   text,
   color,
   align = 'left',
+  halo,
 }: {
   text: string;
   color?: string;
   align?: 'left' | 'center' | 'right';
+  halo?: SlideHalo;
 }) {
   return (
-    <div style={{ ...caps(14, '0.2em', color ?? colors.gold), marginBottom: 18, textAlign: align, lineHeight: 1.2 }}>
+    <div style={{ ...caps(14, '0.2em', color ?? colors.gold), marginBottom: 18, textAlign: align, lineHeight: 1.2,
+      textShadow: halo ? HALO[halo] : 'none' }}>
       {text}
     </div>
   );

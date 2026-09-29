@@ -35,6 +35,20 @@ export const SLIDE_W = 600;
 /** Design-unit height. 600 x 750 is 4:5, the feed's tallest allowed frame. */
 export const SLIDE_H = 750;
 
+export interface SlideLabel {
+  text: string;
+  note?: string;
+  /** Position within the slide, as a CSS percentage. */
+  top: string;
+  left?: string;
+  right?: string;
+  align?: 'left' | 'center' | 'right';
+  size?: number;
+  color?: string;
+  noteColor?: string;
+  width?: number;
+}
+
 export interface SlideProps {
   bg?: EmailBg;
   textured?: boolean;
@@ -55,6 +69,13 @@ export interface SlideProps {
   logoHeight?: number;
   /** Slide number, shown bottom-right, for a reader mid-swipe. */
   index?: string;
+  /**
+   * Text pinned to things in the photograph. Positioned in percentages so a
+   * name stays on its subject whatever the crop does. Always carries a dense
+   * halo: a headline picks its own patch of picture, a label has to sit where
+   * its subject is, and that is often the brightest part of the shot.
+   */
+  labels?: SlideLabel[];
   children?: React.ReactNode;
 }
 
@@ -77,6 +98,7 @@ export function Slide({
   logoTone,
   logoHeight = 52,
   index,
+  labels = [],
   children,
 }: SlideProps) {
   const t = onBg[bg];
@@ -154,6 +176,48 @@ export function Slide({
         {children}
       </div>
 
+      {labels.map((l, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute',
+            top: l.top,
+            left: l.left,
+            right: l.right,
+            textAlign: l.align ?? 'left',
+            maxWidth: l.width,
+          }}
+        >
+          <div
+            style={{
+              ...caps(l.size ?? 34, '0.14em', l.color ?? colors.gold),
+              lineHeight: 1.05,
+              textShadow: LABEL_HALO,
+            }}
+          >
+            {l.text}
+          </div>
+          {l.note ? (
+            <div
+              style={{
+                fontFamily: fontStack,
+                // 700 — a note under a label is signage on a photograph, not
+                // body copy on a page. It gets one line and has to hold on
+                // whatever it happens to be standing on.
+                fontWeight: 700,
+                fontSize: 18,
+                lineHeight: 1.35,
+                color: l.noteColor ?? colors.beige,
+                marginTop: 9,
+                textShadow: LABEL_HALO,
+              }}
+            >
+              {l.note}
+            </div>
+          ) : null}
+        </div>
+      ))}
+
       {index ? (
         <div
           style={{
@@ -176,6 +240,9 @@ export function Slide({
 
 /* shared slide atoms ────────────────────────────────────────────────────── */
 
+const LABEL_HALO =
+  '0 0 3px rgba(0,26,13,0.95), 0 1px 3px rgba(0,26,13,0.92), 0 2px 10px rgba(0,26,13,0.82), 0 6px 26px rgba(0,26,13,0.6)';
+
 const caps = (size: number, tracking: string, color: string): React.CSSProperties => ({
   fontFamily: fontStack,
   fontWeight: 900,
@@ -190,6 +257,8 @@ export interface SlideTitleProps {
   line1: string;
   line2?: string;
   size?: number;
+  /** Size of the second line, when the payoff should outrun the setup. */
+  size2?: number;
   lead?: number;
   color?: string;
   color2?: string;
@@ -202,6 +271,7 @@ export function SlideTitle({
   line1,
   line2,
   size = 52,
+  size2,
   lead = 0.95,
   color,
   color2,
@@ -213,7 +283,7 @@ export function SlideTitle({
     <div style={{ textAlign: align }}>
       <div style={{ ...caps(size, '0.01em', color ?? colors.white), lineHeight: lead, textShadow: shadow, whiteSpace: 'pre-line' }}>{line1}</div>
       {line2 ? (
-        <div style={{ ...caps(size, '0.01em', color2 ?? colors.gold), lineHeight: lead, textShadow: shadow, whiteSpace: 'pre-line' }}>{line2}</div>
+        <div style={{ ...caps(size2 ?? size, '0.01em', color2 ?? colors.gold), lineHeight: lead, textShadow: shadow, whiteSpace: 'pre-line' }}>{line2}</div>
       ) : null}
     </div>
   );
@@ -305,6 +375,54 @@ export function SlideCta({
       >
         {label}
       </span>
+    </div>
+  );
+}
+
+
+/**
+ * A transformation, read left to right: this becomes that.
+ *
+ * The arrow is drawn rather than typed. A text glyph inherits whatever arrow
+ * the rendering font happens to ship, which is usually thinner and differently
+ * proportioned than the brand's own line weight; an SVG keeps the stroke on
+ * the same scale as everything else on the slide.
+ */
+export function SlideTransform({
+  from,
+  to,
+  fromAlt = '',
+  toAlt = '',
+  size = 196,
+  arrow = 82,
+  color = colors.forest,
+}: {
+  from: string;
+  to: string;
+  fromAlt?: string;
+  toAlt?: string;
+  size?: number;
+  arrow?: number;
+  color?: string;
+}) {
+  // flex: none on every child. Without it an oversized row does not overflow
+  // visibly — it silently shrinks the arrow to nothing, and the slide renders
+  // as two objects with no relationship between them.
+  const img = (src: string, alt: string) => (
+    <img
+      src={src}
+      alt={alt}
+      style={{ width: size, height: size, objectFit: 'contain', display: 'block', flex: 'none' }}
+    />
+  );
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+      {img(from, fromAlt)}
+      <svg width={arrow} height={arrow * 0.34} viewBox="0 0 100 34" role="img" aria-label="becomes" style={{ flex: 'none' }}>
+        <line x1="2" y1="17" x2="76" y2="17" stroke={color} strokeWidth="6" strokeLinecap="round" />
+        <path d="M70 4 L96 17 L70 30 Z" fill={color} />
+      </svg>
+      {img(to, toAlt)}
     </div>
   );
 }

@@ -11,6 +11,34 @@
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
+/* ── ALT TEXT ───────────────────────────────────────────────────────────────
+   Each section exports as one image, so its alt has to carry everything the
+   image says — including the words, because with images off there is nothing
+   else. Section two's alt is long for that reason: a recipe whose ingredients
+   and method live inside a PNG is, to a screen reader, an empty green box.
+   Keep these in step with the copy above if either changes.               */
+
+const SECTION_1_ALT =
+  'Milonga. Cold, creamy and ready in 30 seconds. Make it iced, keep it creamy, ' +
+  'and enjoy steady energy without the coffee-shop routine. A tall glass of iced ' +
+  'Milonga Mate Latte stands on a pale table in morning light, a hand stirring it ' +
+  'with a straw, the vanilla Mate Latte pouch behind it and a branch of white ' +
+  'blossom overhead. Try it.';
+
+const SECTION_2_ALT =
+  'Golden Vanilla Mate. Creamy vanilla, a touch of honey, and a refreshing twist ' +
+  'on your daily Mate Latte. What you’ll need: 2.5 tbsp Milonga Vanilla Mate ' +
+  'Latte, 2 oz hot water, 6 oz oat or almond milk, ice, 1 tsp honey, a quarter ' +
+  'teaspoon of vanilla extract, a pinch of cinnamon, and optionally a cinnamon ' +
+  'stick to garnish. Beside the list, a hand holds a glass jar of the finished ' +
+  'drink, dusted with cinnamon and streaked with honey, embossed with the Milonga ' +
+  'hand. How to make it. One, make the mate: add 2.5 tbsp Milonga Mate Latte to ' +
+  '2 oz hot water and stir until completely dissolved. Two, make it creamy: add ' +
+  '1 tsp honey, a quarter teaspoon of vanilla and a pinch of cinnamon, and stir ' +
+  'well. Three, pour over ice: fill a glass with ice and pour in 6 oz of your ' +
+  'favorite milk. Four, finish: pour the Mate Latte over the milk, give it a ' +
+  'gentle stir and top with a light dusting of cinnamon. Shop the Mate Latte.';
+
 function HowToMakeIt() {
   return h(M.EmailShell, { bg: 'beige' },
 
@@ -36,7 +64,7 @@ function HowToMakeIt() {
     // units of width off each side, which this composition has to give.
     h(M.T9Story, {
       src: '../public/product/latte-iced-table.jpg',
-      alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it.',
+      alt: SECTION_1_ALT,
       logo: true,
       logoTone: 'gold',
       logoHeight: 92,
@@ -101,7 +129,10 @@ function HowToMakeIt() {
       backgroundSize: 'auto, 320px 320px',
       backgroundRepeat: 'no-repeat, repeat',
       padding: '56px 30px 56px',
-      position: 'relative', overflow: 'hidden' } },
+      position: 'relative', overflow: 'hidden' },
+      // Carried on the section itself so the exporter and the build record
+      // can read it off the markup rather than out of a separate note.
+      'data-alt': SECTION_2_ALT },
 
       h('div', { style: { textAlign: 'center' } },
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,

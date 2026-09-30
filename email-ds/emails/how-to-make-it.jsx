@@ -146,9 +146,35 @@ function HowToMakeIt() {
         // 74% empty pixels, and trimming them is free size.
         h('img', { src: '../public/product/jar-golden-vanilla.png',
           alt: 'A hand holding a glass jar of Golden Vanilla Mate, dusted with cinnamon and streaked with honey, embossed with the Milonga hand.',
+          // zIndex 1 because the jar is 303 units tall in a 250-unit row, so
+          // its base finishes exactly where the band begins and the two are
+          // one pixel from fighting. It paints above, so the glass can never
+          // be clipped by the strip it stands on. Nothing moves.
           style: { position: 'absolute', right: -80, top: -4, width: 330,
-                   height: 'auto', display: 'block' } }),
+                   height: 'auto', display: 'block', zIndex: 1 } }),
       ),
+
+      // THE BAND. A full-bleed strip of the SAME paper grain, recoloured to
+      // the palette's deep green — see scripts/make-forest-paper.mjs. It is
+      // not tile-forest, which is a different pattern altogether; it is this
+      // email's own tile with its grain carried across as a deviation from
+      // the paper's mean rather than as a colour, so the fibre reads the same
+      // and only the ground changes.
+      //
+      // 46 tall, which is the gap that already separates the blocks here, and
+      // 46 of air either side of it — so the break is the section's own
+      // rhythm rather than a new measurement. The negative margins take it
+      // past the 30-unit padding to the full 600, and the section's clip
+      // keeps the edges hard.
+      //
+      // A soft-edged band would have been the obvious move and the wrong one:
+      // the brief asks it to separate, and a gradient into beige separates
+      // nothing. The depth comes from the grain instead of from the edge.
+      h('div', { style: { height: 46, margin: '46px -30px 0',
+        backgroundColor: '#00351B',
+        backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.34) 0%, rgba(0,26,13,0) 42%, rgba(0,26,13,0.3) 100%), url(../public/brand/textures/tile-paper-forest.jpg)',
+        backgroundSize: 'auto, 320px 320px',
+        backgroundRepeat: 'no-repeat, repeat' } }),
 
       // THE METHOD. Four steps, numbered, set left — an ordered process is
       // the one place where a step's position matters as much as its name.

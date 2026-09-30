@@ -12,7 +12,7 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 
 function HowToMakeIt() {
-  return h(M.EmailShell, { bg: 'forest' },
+  return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · THE OPENER, ON THE PHOTOGRAPH ─────────────────────────────────
     // Wordmark centred at the head, the headline and its line under it, the
@@ -36,7 +36,7 @@ function HowToMakeIt() {
     // units of width off each side, which this composition has to give.
     h(M.T9Story, {
       src: '../public/product/latte-iced-table.jpg',
-      alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it iced.',
+      alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it.',
       logo: true,
       logoTone: 'gold',
       logoHeight: 92,
@@ -54,7 +54,7 @@ function HowToMakeIt() {
       line1Color: '#F0EFDF',
       line2Color: '#F0EFDF',
       paras: ['Make it iced, keep it creamy, and enjoy steady energy without the coffee-shop routine.'],
-      cta: { label: 'Try it iced', href: '#shop', arrow: true },
+      cta: { label: 'Try it', href: '#shop', arrow: true },
       // Pinned low, the way the full-image opener is meant to work: the mark
       // and the words are one thing to read at the head, the button is the
       // one thing to do at the foot, and the photograph fills the gap
@@ -78,70 +78,96 @@ function HowToMakeIt() {
       halo: 'soft',
     }),
 
-    // ── 2 · THE PROCESS ───────────────────────────────────────────────────
-    h(M.Section, { bg: 'forest', pad: 'lg', align: 'center' },
+    // ── 2 · THE RECIPE ────────────────────────────────────────────────────
+    // Beige, textured, and it carries the whole second half: the drink's
+    // name, what goes in it, and how to make it.
+    //
+    // ON BEIGE THE INK IS ONE DARK GREEN. Gold measures about 1.5:1 here, so
+    // it is a fill and never type — which is why the bullets are the GREEN
+    // mark rather than the gold one the photographic slides use.
+    h('div', { style: { ...M.bgStyle('beige', M.bgFill.beige, true), padding: '56px 30px 60px' } },
 
-      h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
-        fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase',
-        color: '#E3BC62', marginBottom: 14 } }, 'Ready in 30 seconds'),
-
-      h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
-        fontSize: 44, letterSpacing: '0.01em', textTransform: 'uppercase',
-        lineHeight: 1.0, color: '#F0EFDF' } }, 'Scoop, whisk,'),
-      h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
-        fontSize: 44, letterSpacing: '0.01em', textTransform: 'uppercase',
-        lineHeight: 1.0, color: '#E3BC62' } }, 'enjoy.'),
-
-      h('div', { style: { height: 26 } }),
-      h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-        fontSize: 17, lineHeight: 1.5, color: '#FFFFFF', maxWidth: 420, margin: '0 auto' } },
-        'Three steps between the pouch and the cup. That is the whole recipe.'),
-    ),
-
-    // The scoop shot sits between the headline and the steps because it IS
-    // step one — a picture of the instruction rather than an illustration
-    // beside it. Full bleed, so it reads as part of the section and not as a
-    // card dropped into it.
-    h('div', { style: { background: '#004D27', lineHeight: 0 } },
-      h('img', {
-        src: '../public/product/pouch-hand-pour-big.png',
-        alt: 'A measuring scoop of Milonga Mate Latte powder being poured into a ribbed glass, beside the vanilla Mate Latte pouch.',
-        style: { width: '100%', height: 'auto', display: 'block', border: 0 },
-      }),
-    ),
-
-    h(M.Section, { bg: 'forest', pad: 'md', align: 'center' },
-
-      // Numerals rather than icon discs. The numbers ARE the content here —
-      // an ordered process is the one place where a step's position matters
-      // as much as its name, and a row of discs flattens that into a menu.
-      //
-      // Set LEFT inside a centred section. Steps are read in order and each
-      // one starts at its numeral; centring them ragged both edges of every
-      // row and the sequence stopped looking like a sequence.
-      h('div', { style: { textAlign: 'left' } },
-      h(M.Steps, {
-        bg: 'forest',
-        variant: 'numerals',
-        items: [
-          { title: 'Scoop', text: 'One scoop of Mate Latte into your cup.' },
-          { title: 'Whisk', text: 'Add your milk or water and froth it smooth.' },
-          { title: 'Enjoy', text: 'Hot in a mug, or poured straight over ice.' },
-        ],
-      }),
+      h('div', { style: { textAlign: 'center' } },
+        h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
+          fontSize: 36, letterSpacing: '0.01em', textTransform: 'uppercase',
+          lineHeight: 1.02, color: '#004D27' } }, 'Golden Vanilla Mate'),
+        h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+          fontSize: 17, lineHeight: 1.5, color: '#1A1A1A', maxWidth: 440,
+          margin: '20px auto 0' } },
+          'Creamy vanilla, a touch of honey, and a refreshing twist on your daily Mate Latte.'),
       ),
 
-      h('div', { style: { height: 10 } }),
-      h(M.Divider, { bg: 'forest' }),
-      h('div', { style: { height: 26 } }),
+      // THE INGREDIENTS ROW. The list is fixed at 300 units and the picture
+      // takes what is left plus 30 more, running off the right edge — the
+      // same bleed the gourd and the pouch use elsewhere. A cutout with air
+      // on all four sides is a sticker; the same object crossing the edge is
+      // a photograph.
+      //
+      // 336 is measured, not chosen, and the picture was sized to leave it.
+      // The longest line — "Optional: cinnamon stick for garnish" — is 36
+      // characters, and at 16, the body floor, this face runs about 7.6 units
+      // a character: 273, plus the 21 the bullet and its gap take. At 300 two
+      // ingredients wrapped and at 310 one still did, which on a list of
+      // eight reads as a mistake rather than as a measure. The jar gives the
+      // width up rather than the list, because a list that wraps looks wrong
+      // and a picture 20 units narrower does not.
+      h('div', { style: { position: 'relative', marginTop: 40, minHeight: 250 } },
+        h('div', { style: { width: 336 } },
+          h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
+            fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
+            color: '#004D27', marginBottom: 16 } }, 'What you’ll need'),
+          [
+            '2.5 tbsp Milonga Vanilla Mate Latte',
+            '2 oz hot water',
+            '6 oz oat or almond milk',
+            'Ice',
+            '1 tsp honey',
+            '¼ tsp vanilla extract',
+            'Pinch of cinnamon',
+            'Optional: cinnamon stick for garnish',
+          ].map((t, i) => h('div', { key: i,
+            style: { display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 7 } },
+            h('img', { src: '../public/logo/mark-green.png', alt: '',
+              style: { height: 13, width: 'auto', flex: 'none', display: 'block', marginTop: 4 } }),
+            h('span', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+              fontSize: 16, lineHeight: 1.45, color: '#1A1A1A' } }, t),
+          )),
+        ),
+        h('img', { src: '../public/product/jar-in-hand.png',
+          alt: 'A hand holding a tall glass jar of iced Milonga Mate Latte, embossed with the Milonga hand.',
+          style: { position: 'absolute', right: -36, top: 8, width: 228,
+                   height: 'auto', display: 'block' } }),
+      ),
 
-      // The two serves, as the brand's own marks rather than as another line
-      // of copy. It is the one fact in this email that is a choice rather
-      // than an instruction, so it gets its own shape.
-      h(M.IconRow, { marks: ['hot', 'iced'], bg: 'forest', size: 56, labels: true }),
+      // THE METHOD. Four steps, numbered, set left — an ordered process is
+      // the one place where a step's position matters as much as its name.
+      h('div', { style: { marginTop: 46, textAlign: 'left' } },
+        h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
+          fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
+          color: '#004D27', marginBottom: 22 } }, 'How to make it'),
+        [
+          ['01', 'Make the Mate', 'Add 2.5 tbsp Milonga Mate Latte to 2 oz hot water. Stir until completely dissolved.'],
+          ['02', 'Make it Creamy', 'Add 1 tsp honey, ¼ tsp vanilla, and a pinch of cinnamon. Stir well.'],
+          ['03', 'Pour Over Ice', 'Fill a glass with ice and pour in 6 oz of your favorite milk.'],
+          ['04', 'Finish', 'Pour the Mate Latte over the milk. Give it a gentle stir and top with a light dusting of cinnamon.'],
+        ].map(([n, title, text], i) => h('div', { key: i,
+          style: { display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 22 } },
+          h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
+            fontSize: 30, lineHeight: 1, color: 'rgba(0,77,39,0.34)', flex: 'none',
+            width: 48 } }, n),
+          h('div', null,
+            h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
+              fontSize: 15, letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: '#004D27', marginBottom: 7 } }, title),
+            h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
+              fontSize: 16, lineHeight: 1.45, color: '#1A1A1A' } }, text),
+          ),
+        )),
+      ),
 
-      h('div', { style: { height: 34 } }),
-      h(M.Button, { label: 'Shop the Mate Latte', href: '#shop', bg: 'forest' }),
+      h('div', { style: { marginTop: 14, textAlign: 'center' } },
+        h(M.Button, { label: 'Shop the Mate Latte', href: '#shop', bg: 'beige' }),
+      ),
     ),
   );
 }

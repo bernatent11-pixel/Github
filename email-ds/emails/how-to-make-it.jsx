@@ -32,8 +32,11 @@ function HowToMakeIt() {
       alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it iced.',
       logo: true,
       logoTone: 'green',
-      logoHeight: 56,
-      logoTop: 28,
+      // 76, the size the full-image opener uses. A wordmark on a photograph
+      // is the brand signing the email; below about 52 it reads as a
+      // watermark instead.
+      logoHeight: 76,
+      logoTop: 24,
       align: 'center',
       line1: 'Cold, creamy &',
       line2: 'ready in 30 seconds.',
@@ -41,18 +44,17 @@ function HowToMakeIt() {
       line2Color: '#004D27',
       paras: ['Make it iced, keep it creamy, and enjoy steady energy without the coffee-shop routine.'],
       cta: { label: 'Try it iced', href: '#shop', arrow: true },
-      // Inline rather than pinned near the foot. The house pattern for a
-      // full-image opener puts the button low and lets the picture fill the
-      // gap — but the lower half of THIS picture is the product, and a
-      // button centred there lands on the glass. Keeping the reading in one
-      // block hands the whole lower frame to the photograph instead.
-      ctaInline: true,
+      // Pinned low, the way the full-image opener is meant to work: the mark
+      // and the words are one thing to read at the head, the button is the
+      // one thing to do at the foot, and the photograph fills the gap
+      // between them. A single clump in the middle wastes the frame.
+      at: '86%',
       ctaAlign: 'center',
       ratio: 1.5,
       size: 32,
       size2: 36,
       titleLead: 1.02,
-      top: 132,
+      top: 116,
       padLeft: 26,
       padRight: 26,
       measure: 430,

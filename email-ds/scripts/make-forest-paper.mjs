@@ -15,7 +15,7 @@ import sharp from 'sharp';
 // nothing, because the same relative variation is invisible once the ground
 // is 40 instead of 240.
 const SRC = 'public/brand/textures/tile-paper.jpg';
-const BASE = [0, 53, 27];   // #00351B — forestDeep, the palette's own deep green
+const BASE = [0, 77, 39];   // #004D27 — the core forest, a step up from forestDeep
 const GAIN = 2.4;           // the grain, amplified for a dark ground
 
 const { data, info } = await sharp(SRC).removeAlpha().raw().toBuffer({ resolveWithObject: true });

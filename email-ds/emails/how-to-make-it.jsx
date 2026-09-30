@@ -79,26 +79,37 @@ function HowToMakeIt() {
     }),
 
     // ── 2 · THE RECIPE ────────────────────────────────────────────────────
-    // Beige, textured, and it carries the whole second half: the drink's
-    // name, what goes in it, and how to make it.
+    // ONE GROUND FROM THE PHOTOGRAPH DOWN: this email's own paper grain,
+    // recoloured to the core forest by scripts/make-forest-paper.mjs. It is
+    // not tile-forest, which is a different pattern altogether (the brand
+    // doodle); it is the SAME tile, its grain carried across as a deviation
+    // from the paper's mean rather than as a colour, so the fibre reads
+    // identically and only the hue moves.
     //
-    // ON BEIGE THE INK IS ONE DARK GREEN. Gold measures about 1.5:1 here, so
-    // it is a fill and never type — which is why the bullets are the GREEN
-    // mark rather than the gold one the photographic slides use.
+    // THE INK IS THE DARK-GROUND SET THROUGHOUT: cream titles, white body,
+    // gold eyebrows, gold numerals, gold bullets. Gold finally has ground
+    // under it — on the beige this section used to sit on it measured
+    // 1.56:1, which is why every mark there had to be dark green instead.
+    //
     // overflow hidden. The jar runs past the right edge on purpose, and
     // without a clip here that overflow widened the whole page: the export
     // came out 1300 wide instead of 1200, with 100 units of the page's own
     // forest showing down the right-hand side.
-    h('div', { style: { ...M.bgStyle('beige', M.bgFill.beige, true), padding: '56px 30px 56px',
+    h('div', { style: {
+      backgroundColor: '#004D27',
+      backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.34) 0%, rgba(0,26,13,0) 96px), url(../public/brand/textures/tile-paper-forest.jpg)',
+      backgroundSize: 'auto, 320px 320px',
+      backgroundRepeat: 'no-repeat, repeat',
+      padding: '56px 30px 56px',
       position: 'relative', overflow: 'hidden' } },
 
       h('div', { style: { textAlign: 'center' } },
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
           fontSize: 36, letterSpacing: '0.01em', textTransform: 'uppercase',
-          lineHeight: 1.02, color: '#004D27' } },
+          lineHeight: 1.02, color: '#F0EFDF' } },
           h('span', { style: { color: '#E3BC62' } }, 'Golden'), ' Vanilla Mate'),
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-          fontSize: 17, lineHeight: 1.5, color: '#1A1A1A', maxWidth: 440,
+          fontSize: 17, lineHeight: 1.5, color: '#FFFFFF', maxWidth: 440,
           margin: '20px auto 0' } },
           'Creamy vanilla, a touch of honey, and a refreshing twist on your daily Mate Latte.'),
       ),
@@ -120,11 +131,11 @@ function HowToMakeIt() {
       // 15 is one step under the system's 16 body floor. Flagged rather than
       // taken quietly: it is a spec list of short phrases, not running copy,
       // and it is the only type in either email below the floor.
-      h('div', { style: { position: 'relative', marginTop: 40, minHeight: 250 } },
+      h('div', { style: { position: 'relative', marginTop: 56, minHeight: 250 } },
         h('div', { style: { width: 272 } },
           h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
             fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
-            color: '#004D27', marginBottom: 16 } }, 'What you’ll need'),
+            color: '#E3BC62', marginBottom: 16 } }, 'What you’ll need'),
           [
             '2.5 tbsp Milonga Vanilla Mate Latte',
             '2 oz hot water',
@@ -136,10 +147,10 @@ function HowToMakeIt() {
             'Optional: cinnamon stick for garnish',
           ].map((t, i) => h('div', { key: i,
             style: { display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 7 } },
-            h('img', { src: '../public/logo/mark-green.png', alt: '',
+            h('img', { src: '../public/logo/mark-gold.png', alt: '',
               style: { height: 11, width: 'auto', flex: 'none', display: 'block', marginTop: 3 } }),
             h('span', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-              fontSize: 13, lineHeight: 1.45, color: '#1A1A1A' } }, t),
+              fontSize: 13, lineHeight: 1.45, color: '#FFFFFF' } }, t),
           )),
         ),
         // The supplied cutout, trimmed to its own subject — the file carried
@@ -154,35 +165,9 @@ function HowToMakeIt() {
                    height: 'auto', display: 'block', zIndex: 1 } }),
       ),
 
-    ),
-
-    // ── 3 · THE METHOD, ON THE DARK GROUND ────────────────────────────────
-    // The transition is not a band any more — it is where the email changes
-    // ground and stays changed. Everything from here down sits on the SAME
-    // paper grain, recoloured to the palette's deep green by
-    // scripts/make-forest-paper.mjs. It is not tile-forest, which is a
-    // different pattern altogether (the brand doodle); it is this email's own
-    // tile, so the fibre reads identically and only the colour moves.
-    //
-    // THE INK REVERSES WITH IT, on the contrast map's terms. Dark green takes
-    // cream titles and white body; the eyebrow and the numerals keep the gold
-    // they were given, which on this ground is a strong accent rather than
-    // the 1.56:1 it measured on beige. The button inverts too — gold fill,
-    // forest label — where on cream it was forest fill with cream label.
-    //
-    // A soft edge was the obvious move and the wrong one: the brief asks the
-    // change to read, and a gradient into beige reads as nothing. The depth
-    // comes from the grain and from a short darkening under the seam.
-    h('div', { style: {
-      backgroundColor: '#00351B',
-      backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.34) 0%, rgba(0,26,13,0) 96px), url(../public/brand/textures/tile-paper-forest.jpg)',
-      backgroundSize: 'auto, 320px 320px',
-      backgroundRepeat: 'no-repeat, repeat',
-      padding: '52px 30px 60px' } },
-
       // THE METHOD. Four steps, numbered, set left — an ordered process is
       // the one place where a step's position matters as much as its name.
-      h('div', { style: { textAlign: 'left' } },
+      h('div', { style: { marginTop: 52, textAlign: 'left' } },
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
           fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
           color: '#E3BC62', marginBottom: 22 } }, 'How to make it'),

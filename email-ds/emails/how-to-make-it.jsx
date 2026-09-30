@@ -1,7 +1,12 @@
-// SCOOP, WHISK, ENJOY — a one-section email.
+// GOLDEN VANILLA MATE — the iced recipe email.
 //
-// Subject: Scoop, Whisk, Enjoy 🧉
-// Preview: Thirty seconds from pouch to cup — hot or over ice.
+// Subject: The Recipe We Keep Making Twice 🍯🧊
+// Preview: Golden Vanilla Mate — honey, cinnamon, and the step most people skip.
+//
+// The subject sells the fact that it is worth repeating; the preview names
+// the drink and leaves a hole. Neither says "recipe email", because a subject
+// that labels its own category gives a reader everything they need to skip
+// it.
 //
 // ONE SECTION IS A DIFFERENT BRIEF FROM A SHORT EMAIL. There is no second act
 // to carry anything, so everything the reader needs has to sit in one frame

@@ -1053,6 +1053,13 @@ export interface T9Props {
    */
   logoTop?: number | string;
   /**
+   * Where the wordmark sits when the copy is left-aligned. `center` is the
+   * default — centred on the FRAME, not inside the column. `left` puts it at
+   * the head of the stack instead, which is what you want when the centre of
+   * the picture is busy and one side of it is not.
+   */
+  logoAlign?: 'center' | 'left';
+  /**
    * Labels pinned to things in the photograph — a name for the cup on the
    * left, for the one at the bottom. Positioned in percentages of the frame so
    * they stay on their subject at any width.
@@ -1145,6 +1152,7 @@ export function T9Story({
   ink = 'light',
   logoTone,
   logoTop,
+  logoAlign = 'center',
   size2,
   line1Color,
   line2Color,
@@ -1185,8 +1193,9 @@ export function T9Story({
   // With the wordmark lifted out, the copy has to start below it.
   // The stack only makes room for the wordmark when the wordmark is actually
   // above it; given its own position, it stops pushing the copy down.
+  const logoInStack = !leftAlign || logoAlign === 'left';
   const drop = logoHeight + 34;
-  const stackTop = logo && leftAlign && logoTop === undefined
+  const stackTop = logo && leftAlign && !logoInStack && logoTop === undefined
     ? (typeof top === 'number' ? top + drop : `calc(${top} + ${drop}px)`)
     : top;
   const k = (v: number) => Math.min(1, v * scrim).toFixed(2);
@@ -1214,6 +1223,9 @@ export function T9Story({
   // scrim comes down, the type's own shadow automatically comes up — a tight,
   // dense halo that hugs each letter instead of a wash over the picture.
   // Without this, turning the scrim down quietly makes the copy unreadable.
+  const markShadow = darkInk
+    ? 'drop-shadow(0 1px 2px rgba(240,239,223,0.8)) drop-shadow(0 2px 10px rgba(240,239,223,0.7))'
+    : 'drop-shadow(0 1px 2px rgba(0,26,13,0.55)) drop-shadow(0 2px 8px rgba(0,26,13,0.5)) drop-shadow(0 6px 22px rgba(0,26,13,0.4))';
   const bare = scrim < 0.7;
   // Dark type on a light picture is lifted by a pale halo, not a dark one —
   // a forest shadow behind forest letters just thickens them into a smudge.
@@ -1250,21 +1262,26 @@ export function T9Story({
 
       {/* Left-aligned copy still wants the wordmark centred on the FRAME, not
           inside its column, so it comes out of the stack and gets its own row. */}
-      {logo && leftAlign ? (
+      {logo && leftAlign && !logoInStack ? (
         <div style={{ position: 'absolute', top: logoTop ?? top, left: 0, right: 0, textAlign: 'center' }}>
           {/* The wordmark is artwork, not text, so the type's textShadow does
-              nothing for it. On a bright sky with no scrim it needs a
-              drop-shadow of its own or the white lockup simply dissolves. */}
-          <span style={{ display: 'inline-block', filter: 'drop-shadow(0 1px 2px rgba(0,26,13,0.55)) drop-shadow(0 2px 8px rgba(0,26,13,0.5)) drop-shadow(0 6px 22px rgba(0,26,13,0.4))' }}>
+              nothing for it. It needs a drop-shadow of its own, and in the
+              ink's OWN direction: a dark halo under a white lockup on a bright
+              sky, a cream one under a green lockup on a light picture. Using
+              the dark one both ways smudges the green mark instead of lifting
+              it. */}
+          <span style={{ display: 'inline-block', filter: markShadow }}>
             <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
           </span>
         </div>
       ) : null}
 
       <div style={{ position: 'absolute', top: stackTop, left: 0, right: 0, padding: `0 ${padRight}px 0 ${padLeft}px`, textAlign: leftAlign ? 'left' : 'center' }}>
-        {logo && !leftAlign ? (
+        {logo && logoInStack ? (
           <>
-            <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
+            <span style={{ display: 'inline-block', filter: markShadow }}>
+              <Logo tone={logoTone ?? (darkInk ? 'green' : 'beige')} variant="primary" height={logoHeight} />
+            </span>
             <div style={{ height: 30 }} />
           </>
         ) : null}
@@ -1472,7 +1489,14 @@ export interface T10Props {
   /** A hairline above the title, to mark the change of ground. */
   rule?: boolean;
   /** Lay the brand's paper texture over the flat ground. */
-  textured?: boolean;
+  textured?: boolean;  /**
+   * Overrides for the two title lines. The contrast map gives line 2 the
+   * ground's accent, which is right by default — but where the accent colour
+   * already has a job elsewhere in the same email, the second line has to be
+   * set apart by size instead of by colour.
+   */
+  line1Color?: string;
+  line2Color?: string;
 }
 
 export function T10Close({
@@ -1493,6 +1517,8 @@ export function T10Close({
   emphasis = 'accent',
   rule = true,
   textured = false,
+  line1Color,
+  line2Color,
 }: T10Props) {
   const t = onBg[bg];
   const left = align === 'left';
@@ -1501,8 +1527,8 @@ export function T10Close({
     <div style={{ padding: `${pad}px ${padX}px`, textAlign: left ? 'left' : 'center', ...bgStyle(bg, bgFill[bg], textured) }}>
       {rule ? <div style={{ width: 46, height: 2, background: t.accent, margin: left ? '0 0 26px' : '0 auto 26px' }} /> : null}
       {eyebrow ? <div style={{ ...caps(12, '0.2em', t.accent), marginBottom: 14 }}>{eyebrow}</div> : null}
-      <CapsLine text={line1} style={{ ...caps(size, '0.01em', t.title), lineHeight: titleLead }} />
-      {line2 ? <CapsLine text={line2} style={{ ...caps(size2 ?? size, '0.01em', t.titleAccent), lineHeight: titleLead }} /> : null}
+      <CapsLine text={line1} style={{ ...caps(size, '0.01em', line1Color ?? t.title), lineHeight: titleLead }} />
+      {line2 ? <CapsLine text={line2} style={{ ...caps(size2 ?? size, '0.01em', line2Color ?? t.titleAccent), lineHeight: titleLead }} /> : null}
 
       {lead ? (
         <div

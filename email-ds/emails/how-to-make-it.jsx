@@ -39,7 +39,10 @@ function HowToMakeIt() {
       // is the brand signing the email; below about 52 it reads as a
       // watermark instead.
       logoHeight: 76,
-      logoTop: 16,
+      // No logoTop here. On a CENTRED stack the wordmark renders inside the
+      // stack, so `top` is what moves it — logoTop only applies when the copy
+      // is left-aligned and the mark comes out of the column to centre itself
+      // on the frame.
       align: 'center',
       line1: 'Cold, creamy &',
       line2: 'ready in 30 seconds.',
@@ -57,7 +60,7 @@ function HowToMakeIt() {
       size: 32,
       size2: 36,
       titleLead: 1.02,
-      top: 100,
+      top: 56,
       padLeft: 26,
       padRight: 26,
       measure: 430,

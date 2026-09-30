@@ -89,7 +89,7 @@ function HowToMakeIt() {
     // without a clip here that overflow widened the whole page: the export
     // came out 1300 wide instead of 1200, with 100 units of the page's own
     // forest showing down the right-hand side.
-    h('div', { style: { ...M.bgStyle('beige', M.bgFill.beige, true), padding: '56px 30px 60px',
+    h('div', { style: { ...M.bgStyle('beige', M.bgFill.beige, true), padding: '56px 30px 56px',
       position: 'relative', overflow: 'hidden' } },
 
       h('div', { style: { textAlign: 'center' } },
@@ -154,34 +154,38 @@ function HowToMakeIt() {
                    height: 'auto', display: 'block', zIndex: 1 } }),
       ),
 
-      // THE BAND. A full-bleed strip of the SAME paper grain, recoloured to
-      // the palette's deep green — see scripts/make-forest-paper.mjs. It is
-      // not tile-forest, which is a different pattern altogether; it is this
-      // email's own tile with its grain carried across as a deviation from
-      // the paper's mean rather than as a colour, so the fibre reads the same
-      // and only the ground changes.
-      //
-      // 46 tall, which is the gap that already separates the blocks here, and
-      // 46 of air either side of it — so the break is the section's own
-      // rhythm rather than a new measurement. The negative margins take it
-      // past the 30-unit padding to the full 600, and the section's clip
-      // keeps the edges hard.
-      //
-      // A soft-edged band would have been the obvious move and the wrong one:
-      // the brief asks it to separate, and a gradient into beige separates
-      // nothing. The depth comes from the grain instead of from the edge.
-      h('div', { style: { height: 46, margin: '46px -30px 0',
-        backgroundColor: '#00351B',
-        backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.34) 0%, rgba(0,26,13,0) 42%, rgba(0,26,13,0.3) 100%), url(../public/brand/textures/tile-paper-forest.jpg)',
-        backgroundSize: 'auto, 320px 320px',
-        backgroundRepeat: 'no-repeat, repeat' } }),
+    ),
+
+    // ── 3 · THE METHOD, ON THE DARK GROUND ────────────────────────────────
+    // The transition is not a band any more — it is where the email changes
+    // ground and stays changed. Everything from here down sits on the SAME
+    // paper grain, recoloured to the palette's deep green by
+    // scripts/make-forest-paper.mjs. It is not tile-forest, which is a
+    // different pattern altogether (the brand doodle); it is this email's own
+    // tile, so the fibre reads identically and only the colour moves.
+    //
+    // THE INK REVERSES WITH IT, on the contrast map's terms. Dark green takes
+    // cream titles and white body; the eyebrow and the numerals keep the gold
+    // they were given, which on this ground is a strong accent rather than
+    // the 1.56:1 it measured on beige. The button inverts too — gold fill,
+    // forest label — where on cream it was forest fill with cream label.
+    //
+    // A soft edge was the obvious move and the wrong one: the brief asks the
+    // change to read, and a gradient into beige reads as nothing. The depth
+    // comes from the grain and from a short darkening under the seam.
+    h('div', { style: {
+      backgroundColor: '#00351B',
+      backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.34) 0%, rgba(0,26,13,0) 96px), url(../public/brand/textures/tile-paper-forest.jpg)',
+      backgroundSize: 'auto, 320px 320px',
+      backgroundRepeat: 'no-repeat, repeat',
+      padding: '52px 30px 60px' } },
 
       // THE METHOD. Four steps, numbered, set left — an ordered process is
       // the one place where a step's position matters as much as its name.
-      h('div', { style: { marginTop: 46, textAlign: 'left' } },
+      h('div', { style: { textAlign: 'left' } },
         h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
           fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
-          color: '#004D27', marginBottom: 22 } }, 'How to make it'),
+          color: '#E3BC62', marginBottom: 22 } }, 'How to make it'),
         [
           ['01', 'Make the Mate', 'Add 2.5 tbsp Milonga Mate Latte to 2 oz hot water. Stir until completely dissolved.'],
           ['02', 'Make it Creamy', 'Add 1 tsp honey, ¼ tsp vanilla, and a pinch of cinnamon. Stir well.'],
@@ -195,15 +199,15 @@ function HowToMakeIt() {
           h('div', null,
             h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
               fontSize: 15, letterSpacing: '0.1em', textTransform: 'uppercase',
-              color: '#004D27', marginBottom: 7 } }, title),
+              color: '#F0EFDF', marginBottom: 7 } }, title),
             h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-              fontSize: 16, lineHeight: 1.45, color: '#1A1A1A' } }, text),
+              fontSize: 16, lineHeight: 1.45, color: '#FFFFFF' } }, text),
           ),
         )),
       ),
 
       h('div', { style: { marginTop: 14, textAlign: 'center' } },
-        h(M.Button, { label: 'Shop the Mate Latte', href: '#shop', bg: 'beige' }),
+        h(M.Button, { label: 'Shop the Mate Latte', href: '#shop', bg: 'forest' }),
       ),
     ),
   );

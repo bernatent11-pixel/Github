@@ -14,14 +14,57 @@ const h = React.createElement;
 function HowToMakeIt() {
   return h(M.EmailShell, { bg: 'forest' },
 
+    // ── 1 · THE OPENER, ON THE PHOTOGRAPH ─────────────────────────────────
+    // Wordmark centred at the head, the headline and its line under it, the
+    // button below that — the whole reading in the top third, with the glass
+    // and the pouch taking the rest of the frame untouched.
+    //
+    // THE WASH IS CREAM, NOT A SCRIM. Measured across the band the wordmark
+    // occupies, this picture runs a mean of 120 with a minimum of 39: pale
+    // wall and bright blossom, crossed by dark twigs. Forest green holds on
+    // the wall and disappears on the twigs, which is the whole problem with
+    // a mixed ground. Lifting that band toward cream — the same control as a
+    // scrim, in the other direction — closes the range from underneath and
+    // lets one dark ink hold across all of it, without dimming a morning
+    // photograph to save a hundred letters.
+    h(M.T9Story, {
+      src: '../public/product/latte-iced-table.jpg',
+      alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it iced.',
+      logo: true,
+      logoTone: 'green',
+      logoHeight: 56,
+      logoTop: 28,
+      align: 'center',
+      line1: 'Cold, creamy &',
+      line2: 'ready in 30 seconds.',
+      line1Color: '#004D27',
+      line2Color: '#004D27',
+      paras: ['Make it iced, keep it creamy, and enjoy steady energy without the coffee-shop routine.'],
+      cta: { label: 'Try it iced', href: '#shop', arrow: true },
+      // Inline rather than pinned near the foot. The house pattern for a
+      // full-image opener puts the button low and lets the picture fill the
+      // gap — but the lower half of THIS picture is the product, and a
+      // button centred there lands on the glass. Keeping the reading in one
+      // block hands the whole lower frame to the photograph instead.
+      ctaInline: true,
+      ctaAlign: 'center',
+      ratio: 1.5,
+      size: 32,
+      size2: 36,
+      titleLead: 1.02,
+      top: 132,
+      padLeft: 26,
+      padRight: 26,
+      measure: 430,
+      ink: 'dark',
+      scrim: 0.5,
+      scrimAt: 'top',
+      halo: 'none',
+    }),
+
+    // ── 2 · THE PROCESS ───────────────────────────────────────────────────
     h(M.Section, { bg: 'forest', pad: 'lg', align: 'center' },
 
-      h(M.Logo, { tone: 'beige', variant: 'primary', height: 54 }),
-      h('div', { style: { height: 30 } }),
-
-      // Eyebrow, headline, then the steps — the house anatomy, with the
-      // second line set apart in gold. Gold has only one job in this email,
-      // so it can have this one.
       h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
         fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase',
         color: '#E3BC62', marginBottom: 14 } }, 'Ready in 30 seconds'),

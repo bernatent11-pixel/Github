@@ -19,26 +19,27 @@ function HowToMakeIt() {
     // button below that — the whole reading in the top third, with the glass
     // and the pouch taking the rest of the frame untouched.
     //
-    // NOTHING IS DONE TO THE PICTURE. No scrim, no cream lift — the
-    // photograph goes in exactly as shot.
+    // THE PICTURE IS DARKENED AT THE HEAD, and the ink flips with it. Beige
+    // type needs a dark ground, so the whole section changes hands at once:
+    // ink 'light', a scrim weighted to the top, and the wordmark in gold.
+    // Measured on the band the title occupies, the photograph averages
+    // rgb(131,123,105) and spans 35 to 247 — at 0.55 that band lands near 60,
+    // where beige reads about 9:1. The gradient is out by 78% of the frame,
+    // so the glass, the pouch and the table keep their own light.
     //
-    // That still leaves the problem the lift was solving. Measured across the
-    // band the wordmark occupies, this picture runs a mean of 120 with a
-    // minimum of 39: pale wall and bright blossom, crossed by dark twigs, and
-    // forest green holds on the wall while it disappears on the twigs. So the
-    // type carries its own ground instead — a CREAM halo, sitting behind the
-    // letters and nowhere else. A dark halo behind dark letters only thickens
-    // them into a smudge; a pale one separates them from whatever is under
-    // them, and costs the photograph nothing at all.
+    // THE FRAME IS TALLER THAN THE FILE, and that is what keeps the paragraph
+    // off the bag. The source is 1333 x 2000, its own ratio 1.5; at 1.68 the
+    // frame binds on HEIGHT instead, so the picture scales up from 0.450 to
+    // 0.504 and every subject in it moves down. The pouch's top goes from 315
+    // design units to 353, and the copy block — 92 of wordmark, 126 of title,
+    // 50 of paragraph and the gaps between them — ends at 340. The cost is 36
+    // units of width off each side, which this composition has to give.
     h(M.T9Story, {
       src: '../public/product/latte-iced-table.jpg',
       alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it iced.',
       logo: true,
-      logoTone: 'green',
-      // 76, the size the full-image opener uses. A wordmark on a photograph
-      // is the brand signing the email; below about 52 it reads as a
-      // watermark instead.
-      logoHeight: 76,
+      logoTone: 'gold',
+      logoHeight: 92,
       // No logoTop here. On a CENTRED stack the wordmark renders inside the
       // stack, so `top` is what moves it — logoTop only applies when the copy
       // is left-aligned and the mark comes out of the column to centre itself
@@ -50,8 +51,8 @@ function HowToMakeIt() {
       // and strands "SECONDS." — the explicit break gives two rows of 304 and
       // 418 units instead.
       line2: 'ready in\n30 seconds.',
-      line1Color: '#E3BC62',
-      line2Color: '#E3BC62',
+      line1Color: '#F0EFDF',
+      line2Color: '#F0EFDF',
       paras: ['Make it iced, keep it creamy, and enjoy steady energy without the coffee-shop routine.'],
       cta: { label: 'Try it iced', href: '#shop', arrow: true },
       // Pinned low, the way the full-image opener is meant to work: the mark
@@ -60,18 +61,21 @@ function HowToMakeIt() {
       // between them. A single clump in the middle wastes the frame.
       at: '86%',
       ctaAlign: 'center',
-      ratio: 1.5,
+      ratio: 1.68,
       size: 28,
       size2: 48,
       titleLead: 1.02,
-      top: 40,
+      top: 20,
       padLeft: 26,
       padRight: 26,
       measure: 430,
-      ink: 'dark',
-      scrim: 0,
-      // Flat letters. The cream halo goes.
-      halo: 'none',
+      ink: 'light',
+      scrim: 0.55,
+      scrimAt: 'top',
+      // One quiet shadow, not the dense halo. The scrim is already carrying
+      // the separation; a four-layer stack behind 48px letters reads as an
+      // effect rather than as clarity.
+      halo: 'soft',
     }),
 
     // ── 2 · THE PROCESS ───────────────────────────────────────────────────

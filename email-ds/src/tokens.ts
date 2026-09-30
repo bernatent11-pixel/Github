@@ -1,27 +1,68 @@
 /**
  * Milonga email design tokens — the single source of truth for the brand.
  *
- * Colors come straight from the brand spec:
+ * The full Mate Latte palette, in three tiers:
+ *
+ *  Core — the brand spec. Backgrounds, type, buttons, icons.
  *  - forest  #004D27  primary: backgrounds, buttons, icons
  *  - gold    #E3BC62  primary: titles/text on dark, buttons, accents
  *  - leaf    #057441  secondary: buttons, botanical accents
  *  - beige   #F0EFDF  secondary: light backgrounds, text on dark
  *  - white   #FFFFFF  text/titles
+ *
+ *  Support — tints and shades of the core, for depth, paper and body ink.
+ *
+ *  Canopy — the forest-scene greens, lightest to darkest. Illustration only:
+ *  none of them is type, and none is a page background.
+ *
+ * The brand's delivered artwork (icons, textures, the canopy source) is inked
+ * in a duller rendering of the same four colours — see `artworkInks`.
  */
 export const colors = {
+  // Core
   forest: '#004D27',
-  forestDeep: '#00351B',
-  leaf: '#057441',
   gold: '#E3BC62',
-  goldSoft: '#EFD9A0',
+  leaf: '#057441',
   beige: '#F0EFDF',
-  cream: '#FBF8EF',
   white: '#FFFFFF',
   black: '#000000',
+
+  // Support
+  forestDeep: '#00351B',
+  forestNight: '#002D17',
+  goldSoft: '#EFD9A0',
+  goldDeep: '#C9A24E',
+  cream: '#FBF8EF',
   ink: '#12331F',
   inkSoft: '#3B5344',
+
+  // Canopy — the illustrated forest, back layer to front
+  canopyLight: '#88CF7F',
+  canopySage: '#62BD6F',
+  canopyFern: '#4CAB55',
+  canopyMid: '#297F49',
+  canopyShadow: '#0D5D32',
+  canopyTrunk: '#002D17',
+
   line: 'rgba(0, 77, 39, 0.14)',
   lineOnDark: 'rgba(227, 188, 98, 0.28)',
+} as const;
+
+/**
+ * The inks the brand's artwork files are exported in — the icon PNGs, the
+ * textures and the original canopy. Measured from the files, not from a spec.
+ * They are the core colours rendered duller (a CMYK-document export), so a
+ * gold icon reads darker than a gold button beside it.
+ *
+ * Not tokens: never pick one for type or a fill. Use them only to match
+ * something to a piece of delivered art, or as the source value when
+ * recolouring that art to the core palette.
+ */
+export const artworkInks = {
+  forest: '#284E2D',
+  gold: '#C2A15C',
+  leaf: '#407246',
+  cream: '#F0EFDF',
 } as const;
 
 /** Gotham with an email-safe fallback stack (most clients drop the web font). */

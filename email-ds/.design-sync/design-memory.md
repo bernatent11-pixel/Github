@@ -76,10 +76,43 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Images | **Ask for a cutout before engineering around a backdrop.** A transparent PNG sits on a real brand colour with no seam, no vignette and no correction. Flat-fielding (model the backdrop with a heavy blur, push each pixel by target − model weighted by how much it looks like backdrop) is the fallback when only a JPEG exists | Bernat |
 | 2026-09-18 | Blocks | In T8 each callout is **one rounded white shape holding its icon, label and note**. On an open ground five bare rows read as a list; giving each an edge turns them into objects the hairlines connect to, which is what makes the section read as a diagram | Bernat |
 | 2026-09-18 | Type | **Every section title in a campaign uses the same anatomy: eyebrow in small caps, a headline whose second line is set apart, then the paragraph.** Where the ground forbids the accent colour, set the second line apart by SLANT instead — the contrast is weight and slant, not colour, which is why it holds anywhere | Bernat |
+| 2026-09-30 | Colour | **The Mate Latte palette runs in three tiers.** Core — forest `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`, white, black — is the only tier that sets a ground, carries type or fills a button. Support — `forestDeep` `#00351B`, `forestNight` `#002D17`, `goldSoft` `#EFD9A0`, `goldDeep` `#C9A24E`, `cream` `#FBF8EF`, `ink` `#12331F`, `inkSoft` `#3B5344` — gives depth, paper and body ink. Canopy — `canopyLight` `#88CF7F` → `canopySage` `#62BD6F` → `canopyFern` `#4CAB55` → `canopyMid` `#297F49` → `canopyShadow` `#0D5D32` → `canopyTrunk` `#002D17` — is illustration only, never type or a ground. The duller inks the asset files are exported in (`#284E2D`, `#C2A15C`, `#407246`) are not tokens. Contrast table in `references/design-system.md` §1 | Bernat, asked for the whole palette in the system |
 
 ---
 
 ## Log
+
+**2026-09-30 — the whole palette goes in.** Bernat asked for every colour of the Mate Latte
+branding in the system. The five core hexes were already the brand spec; everything else was
+scattered — support shades as one-off literals in `theme.ts`, the canopy greens only inside a PNG.
+Now all of it is named in `tokens.ts` and `tokens.css`, and `references/design-system.md` §1 carries
+the full table with contrast ratios.
+
+**Where each tier came from — measured, not recalled.** The canopy greens are the flat layer colours
+of `canopy-band.png`, the scene already shifted onto `#004D27`. The support tints were already live in
+`tokens.ts` and the gold gradients; `forestNight` is the canopy's trunk colour and `goldDeep` the gold
+gradient's bottom stop, now tokens instead of literals. Nothing was invented to fill a slot.
+
+**The asset files disagree with the spec.** Every file in the Drive's *Milonga Mate Latte Assets*
+folder — icons, textures, the original canopy, the divider — is inked `#284E2D` / `#C2A15C` /
+`#407246` / `#F0EFDF`: the core colours rendered duller, the signature of a CMYK-document export.
+Earlier sessions corrected the logos, textures, canopy band and Klaviyo discs to the core hexes. **The
+`BrandIcon` PNGs were never corrected**, so today a gold icon (`#C2A15C`) sits beside a gold button
+(`#E3BC62`) in two different golds. Recorded as `artworkInks`, deliberately outside `colors` so they
+cannot be picked for type or a fill. Open: recolour the 28 icon PNGs to the core hexes — a one-line
+script, but it changes how every existing email renders, so it waits for Bernat's yes.
+
+**A contrast problem in an existing rule, flagged not changed.** The 2026-08 rule *"Gold bg → beige
+titles, white body, beige icons"* puts white body copy on gold at **1.8:1** and beige titles at
+**1.6:1**. The floor for body copy is 4.5:1. Dark green on gold measures 5.6:1. That rule is Bernat's
+and stands until he says otherwise, but the numbers are now in the reference next to it. Open: gold
+page body copy — keep white, or move to dark green.
+
+**Deliberately not taken.** The parent Milonga brandbook palette (`#016F3B`, `#7BBA49`, `#F7F5E7`,
+`#F6EB64`, `#B6D26E` and the flavour colours of the can line). The logo exports in the Mate Latte
+folder still carry the parent's `#006F3B` / `#7AB949`; the repo's lockups were recoloured to
+`#004D27` / `#057441` and stay that way. No packaging colours either — the only source was product
+photography, and a hex read off a photograph of a pouch is lighting, not a brand colour.
 
 **2026-09-18 — matching a title's aesthetic across two grounds.** Bernat asked for section two's
 title to share section one's aesthetic "not same colors because of the background". What carries

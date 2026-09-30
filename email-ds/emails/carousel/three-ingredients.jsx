@@ -63,12 +63,14 @@ function CarouselThreeIngredients() {
     // focus a third down spends that cost on the empty cream at the foot.
     S({ src: '../public/product/flatlay-ingredients.jpg', focus: 'center 32%',
         zoom: 1.16, align: 'top', padX: 46, padY: 46 },
-      // 30 against 56. "MORNINGS NEED." is the thing being read first and
-      // "everything your" is the run-up to it, so the split is nearly two to
-      // one rather than the two lines of one size it had. At 56 the payoff
-      // measures about 406 of the 508 units available, with room to spare.
+      // 30 against 48. "MORNINGS NEED." is the thing being read first and
+      // "everything your" is the run-up to it, so the split stays better than
+      // three to two — but the payoff has to hold on ONE line, and that sets
+      // the ceiling. At 56 a character of this face runs about 41 units, so
+      // the fourteen of them needed 574 against the 508 between the margins
+      // and "NEED." dropped to a line of its own. 48 is where it fits.
       h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
-        size: 30, size2: 56, lead: 0.98, color: FOREST, color2: FOREST }),
+        size: 30, size2: 48, lead: 0.98, color: FOREST, color2: FOREST }),
     ),
 
     Ingredient('../public/product/ing-yerba-mate.png', 'Loose yerba mate leaf',
@@ -113,8 +115,8 @@ function CarouselThreeIngredients() {
       //
       // The band it has to live in is fixed: the title ends at 133 of the 750
       // design units and the pouch begins at 311, so there are 178 to spend.
-      // Five rows of 26 plus their gaps is 154, which leaves the list ending
-      // 6 units clear of the pouch. That is what sets the type at 17 rather
+      // Five rows of 23 plus their gaps is 147, which leaves the list ending
+      // well clear of the pouch. That is what sets the type at 17 rather
       // than the 19 the two-line version ran at — the list is longer, so each
       // line is smaller.
       //
@@ -122,19 +124,25 @@ function CarouselThreeIngredients() {
       // halo behind the letters never reaches it, and on this wall a flat gold
       // silhouette would dissolve.
       h('div', { style: { marginTop: 18 } },
-        ['15 servings', '90 cal', '3g sugar', 'Dairy-free', 'Hot or iced'].map((t, i) =>
-          h('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 } },
-            // 26 rather than the 21 that matches the type. The mark is a hand
-            // in front of a canopy, and below about 25 units the canopy closes
-            // up and it reads as a gold smudge; the row gaps pay for it.
+        ['15 servings', '90 cal', ['3g sugar', '(no artificial sweeteners)'], 'Dairy-free', 'Hot or iced'].map((t, i) =>
+          h('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: 11, marginBottom: 8 } },
+            // 23 — still above the type it sits beside rather than matched to
+            // it, because the mark is a hand in front of a canopy and the
+            // canopy closes into a gold smudge somewhere around 20. The two
+            // units it gives back go into the row gaps.
             h('img', { src: '../public/logo/mark-gold.png', alt: '',
-              style: { height: 26, width: 'auto', flex: 'none', display: 'block',
+              style: { height: 23, width: 'auto', flex: 'none', display: 'block',
                        filter: 'drop-shadow(0 1px 3px rgba(0,26,13,0.55)) drop-shadow(0 3px 12px rgba(0,26,13,0.4))' } }),
             h('span', {
               style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
                 fontSize: 17, letterSpacing: '0.08em', textTransform: 'uppercase',
                 lineHeight: 1.2, color: '#FFFFFF',
-                textShadow: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)' } }, t),
+                textShadow: '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)' } },
+              // An item may carry a qualifier. It rides the same line at 0.8em
+              // and slightly held back, so the fact stays the headline of the
+              // row and the parenthetical reads as the footnote it is.
+              Array.isArray(t) ? t[0] : t,
+              Array.isArray(t) ? h('span', { style: { fontSize: '0.8em', opacity: 0.82, marginLeft: 8 } }, t[1]) : null),
           )),
       ),
     ),

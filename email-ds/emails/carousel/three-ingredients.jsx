@@ -88,10 +88,10 @@ function CarouselThreeIngredients() {
       // margins. 34 is the size at which it fits, and it is the only line in
       // the set that is measured rather than chosen.
       '200mg L-Theanine', 'L-Theanine,', 'what balances it all.',
-      // One phrase, not two: "Balanced and calm" and "Balances the whole
+      // One phrase, not two: "Balance and calm" and "Balances the whole
       // experience" were the same claim said twice, and the repeat of the
       // word was the first thing the eye caught.
-      ['Balanced and calm'], 34),
+      ['Balance and calm'], 34),
 
     // 5 · THE ASK. This was the weakest slide in the set — a closing frame
     // carrying nothing but type, on a carousel whose whole argument is what

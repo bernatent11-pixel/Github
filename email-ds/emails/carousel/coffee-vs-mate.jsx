@@ -15,7 +15,6 @@ const M = window.MilongaEmailDS;
 const h = React.createElement;
 const S = (p, ...kids) => h(M.Slide, p, ...kids);
 
-const FOREST = '#004D27';
 const CREAM = '#F0EFDF';
 const GOLD = '#E3BC62';
 const HALO = '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)';
@@ -25,6 +24,7 @@ const IMG = {
   cafe: '../public/product/vs-cafe-table.jpg',
   laptop: '../public/product/vs-laptop.jpg',
   balcony: '../public/product/vs-balcony.jpg',
+  courtyard: '../public/product/vs-courtyard.jpg',
 };
 
 // One contrast, as a caption on a photograph.
@@ -66,37 +66,28 @@ function CarouselCoffeeVsMate() {
         size: 19, color: '#FFFFFF', measure: 400, top: 22, halo: 'strong' }),
     ),
 
-    Versus(IMG.cafe, 'center 30%', 0.34, 'Energy',
+    Versus(IMG.cafe, 'center top', 0.34, 'Energy',
       'A spike, then a crash', 'Smooth, sustained energy'),
-    Versus(IMG.laptop, 'center 24%', 0.34, 'Focus',
+    Versus(IMG.laptop, 'center 22%', 0.34, 'Focus',
       'Awake, then scattered', 'Clear-headed & focused'),
     Versus(IMG.balcony, 'center top', 0.34, 'Calm',
       'Jittery, anxious, unsteady', 'Balanced, calm, and steady'),
 
-    // 5 · THE ASK. Title, the three facts as a bulleted list under the gold
-    // Milonga hand — the same bullet the site and the other closers use — and
-    // the scoop shot taking the foot of the frame so the slide ends on the
-    // product rather than on a colour.
-    S({ bg: 'forest', textured: true, align: 'top', padX: 50, padY: 54 },
-      h(M.SlideTitle, { line1: 'Upgrade your', line2: 'morning cup.',
-        size: 46, lead: 0.98, color: CREAM, color2: GOLD }),
-      h('div', { style: { marginTop: 22 } },
-        ['100mg natural caffeine', 'Lion’s Mane + L-Theanine', 'Ready in 30 seconds'].map((t, i) =>
-          h('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: 11, marginBottom: 8 } },
-            h('img', { src: '../public/logo/mark-gold.png', alt: '',
-              style: { height: 23, width: 'auto', flex: 'none', display: 'block' } }),
-            h('span', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-              fontSize: 17, letterSpacing: '0.08em', textTransform: 'uppercase',
-              lineHeight: 1.2, color: CREAM } }, t),
-          )),
-      ),
-      h(M.SlideCta, { label: 'Shop the Mate Latte', bg: 'forest', align: 'left' }),
-      h('img', { src: '../public/product/pouch-hand-pour-big.png',
-        alt: 'A scoop of Milonga Mate Latte powder being poured into a glass beside the pouch',
-        // Flush left, bleeding right: the pouch touches the edge of its own
-        // file, so a negative offset would slice its front face off.
-        style: { position: 'absolute', left: 0, bottom: 0, width: 620,
-                 height: 'auto', display: 'block' } }),
+    // 5 · THE CLOSE, on the photograph. No bullets and no button: the four
+    // slides before this one have already made every point, and the last
+    // frame's job is to leave the reader with the feeling rather than a spec
+    // sheet.
+    //
+    // This frame needs the heaviest hand in the set at 0.42. The others put
+    // their type on one kind of ground; here the head of the picture is white
+    // stucco on the left and tree canopy on the right, so cream has to hold
+    // across a 200 and a 60 in the same line, and a halo alone will not do it.
+    S({ src: IMG.courtyard, focus: 'center top', scrim: 0.42, scrimAt: 'top',
+        align: 'top', padX: 46, padY: 52 },
+      h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
+        size: 34, size2: 50, lead: 0.98, color: CREAM, color2: GOLD, halo: 'hold' }),
+      h(M.SlideBody, { text: 'Don’t you think it’s time to make an upgrade? Think about it…\n\nClean sustained energy, clear headed and focused, while staying calm and steady.',
+        size: 19, color: '#FFFFFF', measure: 450, top: 22, halo: 'strong' }),
     ),
   );
 }

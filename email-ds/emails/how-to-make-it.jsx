@@ -45,9 +45,13 @@ function HowToMakeIt() {
       // on the frame.
       align: 'center',
       line1: 'Cold, creamy &',
-      line2: 'ready in 30 seconds.',
-      line1Color: '#004D27',
-      line2Color: '#004D27',
+      // The payoff breaks where the sense breaks, not where the column runs
+      // out. At this size "READY IN 30 SECONDS." wraps on its own after "30"
+      // and strands "SECONDS." — the explicit break gives two rows of 304 and
+      // 418 units instead.
+      line2: 'ready in\n30 seconds.',
+      line1Color: '#E3BC62',
+      line2Color: '#E3BC62',
       paras: ['Make it iced, keep it creamy, and enjoy steady energy without the coffee-shop routine.'],
       cta: { label: 'Try it iced', href: '#shop', arrow: true },
       // Pinned low, the way the full-image opener is meant to work: the mark
@@ -57,15 +61,17 @@ function HowToMakeIt() {
       at: '86%',
       ctaAlign: 'center',
       ratio: 1.5,
-      size: 32,
-      size2: 36,
+      size: 28,
+      size2: 48,
       titleLead: 1.02,
-      top: 56,
+      top: 40,
       padLeft: 26,
       padRight: 26,
       measure: 430,
       ink: 'dark',
       scrim: 0,
+      // Flat letters. The cream halo goes.
+      halo: 'none',
     }),
 
     // ── 2 · THE PROCESS ───────────────────────────────────────────────────

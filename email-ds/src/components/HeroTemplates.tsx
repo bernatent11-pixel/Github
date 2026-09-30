@@ -126,10 +126,15 @@ function Pill({
 const TRAILING_EMOJI = /^(.*?)[\s ]*(\p{Extended_Pictographic}[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}️‍]*)$/u;
 
 function CapsLine({ text, style }: { text: string; style: React.CSSProperties }) {
+  // Explicit breaks are honoured. A headline big enough to wrap will otherwise
+  // break wherever it runs out of width, which is almost never where the sense
+  // divides — and at poster scale the difference between an even two rows and
+  // a row plus a stub is the whole look of the section.
+  const wrap: React.CSSProperties = { whiteSpace: 'pre-line', ...style };
   const m = TRAILING_EMOJI.exec(text);
-  if (!m || !m[1]) return <div style={style}>{text}</div>;
+  if (!m || !m[1]) return <div style={wrap}>{text}</div>;
   return (
-    <div style={style}>
+    <div style={wrap}>
       {m[1]}
       <span
         style={{

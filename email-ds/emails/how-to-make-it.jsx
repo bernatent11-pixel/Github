@@ -19,14 +19,17 @@ function HowToMakeIt() {
     // button below that — the whole reading in the top third, with the glass
     // and the pouch taking the rest of the frame untouched.
     //
-    // THE WASH IS CREAM, NOT A SCRIM. Measured across the band the wordmark
-    // occupies, this picture runs a mean of 120 with a minimum of 39: pale
-    // wall and bright blossom, crossed by dark twigs. Forest green holds on
-    // the wall and disappears on the twigs, which is the whole problem with
-    // a mixed ground. Lifting that band toward cream — the same control as a
-    // scrim, in the other direction — closes the range from underneath and
-    // lets one dark ink hold across all of it, without dimming a morning
-    // photograph to save a hundred letters.
+    // NOTHING IS DONE TO THE PICTURE. No scrim, no cream lift — the
+    // photograph goes in exactly as shot.
+    //
+    // That still leaves the problem the lift was solving. Measured across the
+    // band the wordmark occupies, this picture runs a mean of 120 with a
+    // minimum of 39: pale wall and bright blossom, crossed by dark twigs, and
+    // forest green holds on the wall while it disappears on the twigs. So the
+    // type carries its own ground instead — a CREAM halo, sitting behind the
+    // letters and nowhere else. A dark halo behind dark letters only thickens
+    // them into a smudge; a pale one separates them from whatever is under
+    // them, and costs the photograph nothing at all.
     h(M.T9Story, {
       src: '../public/product/latte-iced-table.jpg',
       alt: 'Cold, creamy and ready in 30 seconds. A tall glass of iced Milonga Mate Latte on a table in morning light, a hand stirring it with a straw, the vanilla Mate Latte pouch behind it and a branch of white blossom above. Try it iced.',
@@ -36,7 +39,7 @@ function HowToMakeIt() {
       // is the brand signing the email; below about 52 it reads as a
       // watermark instead.
       logoHeight: 76,
-      logoTop: 24,
+      logoTop: 16,
       align: 'center',
       line1: 'Cold, creamy &',
       line2: 'ready in 30 seconds.',
@@ -54,14 +57,12 @@ function HowToMakeIt() {
       size: 32,
       size2: 36,
       titleLead: 1.02,
-      top: 116,
+      top: 100,
       padLeft: 26,
       padRight: 26,
       measure: 430,
       ink: 'dark',
-      scrim: 0.5,
-      scrimAt: 'top',
-      halo: 'none',
+      scrim: 0,
     }),
 
     // ── 2 · THE PROCESS ───────────────────────────────────────────────────

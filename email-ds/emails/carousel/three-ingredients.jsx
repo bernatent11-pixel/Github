@@ -62,15 +62,15 @@ function CarouselThreeIngredients() {
     // PAST cover, which zoom does, at the cost of the edges. 1.16 with the
     // focus a third down spends that cost on the empty cream at the foot.
     S({ src: '../public/product/flatlay-ingredients.jpg', focus: 'center 32%',
-        zoom: 1.16, align: 'top', padX: 46, padY: 46 },
-      // 30 against 48. "MORNINGS NEED." is the thing being read first and
-      // "everything your" is the run-up to it, so the split stays better than
-      // three to two — but the payoff has to hold on ONE line, and that sets
-      // the ceiling. At 56 a character of this face runs about 41 units, so
-      // the fourteen of them needed 574 against the 508 between the margins
-      // and "NEED." dropped to a line of its own. 48 is where it fits.
+        zoom: 1.16, align: 'top', padX: 36, padY: 46 },
+      // 30 against 50. "MORNINGS NEED." is the thing being read first and
+      // "everything your" is the run-up to it — but the payoff has to hold on
+      // ONE line, and that is what caps the size. A character of this face
+      // runs about 0.73 of its point size here, so fourteen of them at 50
+      // need 513, and the margins are what has to give: padX comes in 46 ->
+      // 36, which opens 528 and leaves 15 units in hand.
       h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
-        size: 30, size2: 48, lead: 0.98, color: FOREST, color2: FOREST }),
+        size: 30, size2: 50, lead: 0.98, color: FOREST, color2: FOREST }),
     ),
 
     Ingredient('../public/product/ing-yerba-mate.png', 'Loose yerba mate leaf',

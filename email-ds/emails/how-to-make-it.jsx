@@ -103,16 +103,20 @@ function HowToMakeIt() {
       // on all four sides is a sticker; the same object crossing the edge is
       // a photograph.
       //
-      // 336 is measured, not chosen, and the picture was sized to leave it.
-      // The longest line — "Optional: cinnamon stick for garnish" — is 36
-      // characters, and at 16, the body floor, this face runs about 7.6 units
-      // a character: 273, plus the 21 the bullet and its gap take. At 300 two
-      // ingredients wrapped and at 310 one still did, which on a list of
-      // eight reads as a mistake rather than as a measure. The jar gives the
-      // width up rather than the list, because a list that wraps looks wrong
-      // and a picture 20 units narrower does not.
+      // THE BLEED IS WHAT BREAKS THE TRADE. Inside the container the list and
+      // the jar compete for 540 units, and the list cannot give up much: its
+      // longest line — "Optional: cinnamon stick for garnish" — measures 293
+      // at 15, plus the 16 the bullet and its gap take, so the column has to
+      // stay above 309. But the jar does not have to live inside the
+      // container. Running it 80 past the right edge rather than 36 takes the
+      // crop off the SLEEVE, where there is nothing to lose, and pays for a
+      // 296-unit jar beside a 312-unit list — 228 before.
+      //
+      // 15 is one step under the system's 16 body floor. Flagged rather than
+      // taken quietly: it is a spec list of short phrases, not running copy,
+      // and it is the only type in either email below the floor.
       h('div', { style: { position: 'relative', marginTop: 40, minHeight: 250 } },
-        h('div', { style: { width: 336 } },
+        h('div', { style: { width: 312 } },
           h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
             fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
             color: '#004D27', marginBottom: 16 } }, 'What you’ll need'),
@@ -128,14 +132,14 @@ function HowToMakeIt() {
           ].map((t, i) => h('div', { key: i,
             style: { display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 7 } },
             h('img', { src: '../public/logo/mark-green.png', alt: '',
-              style: { height: 13, width: 'auto', flex: 'none', display: 'block', marginTop: 4 } }),
+              style: { height: 12, width: 'auto', flex: 'none', display: 'block', marginTop: 4 } }),
             h('span', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-              fontSize: 16, lineHeight: 1.45, color: '#1A1A1A' } }, t),
+              fontSize: 15, lineHeight: 1.45, color: '#1A1A1A' } }, t),
           )),
         ),
         h('img', { src: '../public/product/jar-in-hand.png',
           alt: 'A hand holding a tall glass jar of iced Milonga Mate Latte, embossed with the Milonga hand.',
-          style: { position: 'absolute', right: -36, top: 8, width: 228,
+          style: { position: 'absolute', right: -80, top: 0, width: 296,
                    height: 'auto', display: 'block' } }),
       ),
 

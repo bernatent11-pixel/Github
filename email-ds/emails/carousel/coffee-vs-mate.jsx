@@ -55,9 +55,15 @@ function CarouselCoffeeVsMate() {
 
     // 1 · THE HOOK. The wider framing of the studio still life, which needs no
     // rebuilding: measured, the first row that is not flat backdrop is 31.7%
-    // down the file, so at a top crop the composition starts 285 design units
-    // in and the title and its paragraph have all the room they need.
-    S({ src: IMG.still, focus: 'center top', align: 'top', padX: 46, padY: 54 },
+    // down the file, so even after the crop the title and its paragraph have
+    // all the room they need.
+    //
+    // 18% rather than the top. The source is 832 x 1248 against a 600 x 750
+    // frame, so 150 design units of height overflow; at a top crop all 150
+    // comes off the foot and the composition sits as low as it can. 18 of
+    // them off the head lifts it 27 units, which still leaves 258 of clear
+    // green above it against the 217 the type occupies.
+    S({ src: IMG.still, focus: 'center 18%', align: 'top', padX: 46, padY: 54 },
       h(M.SlideTitle, { line1: 'Meet your coffee’s', line2: 'competition.',
         size: 34, size2: 54, lead: 0.98, color: CREAM, color2: GOLD, halo: 'hold' }),
       h(M.SlideBody, { text: 'Turn your everyday morning cup into a better start to your day.',

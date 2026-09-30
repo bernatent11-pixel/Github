@@ -20,7 +20,7 @@ const GOLD = '#E3BC62';
 const HALO = '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)';
 
 const IMG = {
-  still: '../public/product/vs-stilllife-tall.jpg',
+  still: '../public/product/vs-stilllife.jpg',
   cafe: '../public/product/vs-cafe-table.jpg',
   laptop: '../public/product/vs-laptop.jpg',
   balcony: '../public/product/vs-balcony.jpg',
@@ -53,13 +53,11 @@ function Versus(src, focus, scrim, label, coffee, mate) {
 function CarouselCoffeeVsMate() {
   return h('div', null,
 
-    // 1 · THE HOOK. The studio still life, rebuilt at 4:5 on more of its own
-    // backdrop — see scripts/build-vs-stilllife.mjs. As shot it leaves about
-    // 110 design units of clear green above the mug, less than this title
-    // alone needs, and cropping to make room takes the foot off the pouch.
-    // Rebuilt, the whole composition is there with 262 units clear above it,
-    // and because the file is already 4:5 the frame shows all of it.
-    S({ src: IMG.still, align: 'top', padX: 46, padY: 54 },
+    // 1 · THE HOOK. The wider framing of the studio still life, which needs no
+    // rebuilding: measured, the first row that is not flat backdrop is 31.7%
+    // down the file, so at a top crop the composition starts 285 design units
+    // in and the title and its paragraph have all the room they need.
+    S({ src: IMG.still, focus: 'center top', align: 'top', padX: 46, padY: 54 },
       h(M.SlideTitle, { line1: 'Meet your coffee’s', line2: 'competition.',
         size: 34, size2: 54, lead: 0.98, color: CREAM, color2: GOLD, halo: 'hold' }),
       h(M.SlideBody, { text: 'Turn your everyday morning cup into a better start to your day.',
@@ -86,8 +84,13 @@ function CarouselCoffeeVsMate() {
         align: 'top', padX: 46, padY: 52 },
       h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
         size: 34, size2: 50, lead: 0.98, color: CREAM, color2: GOLD, halo: 'hold' }),
-      h(M.SlideBody, { text: 'Don’t you think it’s time to make an upgrade? Think about it…\n\nClean sustained energy, clear headed and focused, while staying calm and steady.',
+      // Two blocks rather than one with a blank line between them. A blank
+      // line is a whole 27-unit row at this leading, which read as a gap
+      // between two ideas; 13 reads as a breath inside one.
+      h(M.SlideBody, { text: 'Don’t you think it’s time to make an upgrade? Think about it…',
         size: 19, color: '#FFFFFF', measure: 450, top: 22, halo: 'strong' }),
+      h(M.SlideBody, { text: 'Clean sustained energy, clear headed and focused, while staying calm and steady.',
+        size: 19, color: '#FFFFFF', measure: 450, top: 13, halo: 'strong' }),
     ),
   );
 }

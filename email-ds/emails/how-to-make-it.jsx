@@ -132,7 +132,10 @@ function HowToMakeIt() {
       // taken quietly: it is a spec list of short phrases, not running copy,
       // and it is the only type in either email below the floor.
       h('div', { style: { position: 'relative', marginTop: 56, minHeight: 250 } },
-        h('div', { style: { width: 272 } },
+        // 26 down. The list is about 250 units tall and the jar 324, both
+        // starting at the row's top, which left the type sitting high against
+        // it; half the difference centres one on the other.
+        h('div', { style: { width: 272, paddingTop: 26 } },
           h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900,
             fontSize: 13, letterSpacing: '0.2em', textTransform: 'uppercase',
             color: '#E3BC62', marginBottom: 16 } }, 'What you’ll need'),

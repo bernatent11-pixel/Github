@@ -92,7 +92,12 @@ function SetTheTonePosts() {
           alt: 'A hand holding a tall glass jar of iced Milonga Mate Latte',
           style: { position: 'absolute', right: -34, top: 36, width: 360,
                    height: 'auto', display: 'block' } }),
-        h('div', { style: { paddingLeft: 20, position: 'relative', zIndex: 1 } },
+        // The card stack lifts 26 to centre on the jar. Both start level at
+        // the top of this block, but the stack is about 700 units tall
+        // against the jar's 640, so starting them together leaves the cards
+        // hanging 60 below the glass. Half the difference puts one on the
+        // middle of the other.
+        h('div', { style: { paddingLeft: 20, marginTop: -26, position: 'relative', zIndex: 1 } },
           [
             ['yerba-mate', 'Clean, sustained energy', 'For walking into work already on your second gear.'],
             ['lions-mane', 'Mental clarity & focus', 'For when your brain clocks in before you do.'],

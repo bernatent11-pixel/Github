@@ -14,83 +14,113 @@ const h = React.createElement;
 const S = (p, ...kids) => h(M.Slide, p, ...kids);
 
 const FOREST = '#004D27';
+const GOLD = '#E3BC62';
 
 function SetTheTonePosts() {
   return h('div', null,
 
     // ── POST 1 · THE HOOK ─────────────────────────────────────────────────
-    // The crop drops to the foot, which spends the 150 design units a 2:3
-    // source overflows inside a 4:5 frame on the counter rather than on the
-    // window, and buys a clean marble band for the whole block. Marble at 150
-    // carries forest green; it does not carry cream, which is why nothing
-    // here is washed or darkened.
-    S({ src: '../public/product/kitchen-morning.jpg', focus: 'center bottom',
-        align: 'bottom', padX: 46, padY: 46 },
-      // A CREAM LIFT, NOT A SCRIM. The carousel's version of this slide put
-      // only an eyebrow and a title on the marble and needed nothing; a feed
-      // post has to carry the paragraph and the facts too, and that block is
-      // about 270 units against the 200 of clean counter available. It runs
-      // up onto the pouch and the lemons, where forest green stops reading.
-      //
-      // So the band is lifted toward cream rather than darkened. That is the
-      // direction this photograph wants: it is a bright morning shot, and a
-      // dark wash on it would cost exactly the thing it was chosen for. The
-      // gradient is out by 46% of the frame, so the pouch, the hand and the
-      // window keep their own light.
-      h('div', { style: { position: 'absolute', inset: 0, pointerEvents: 'none',
-        background: 'linear-gradient(to top, rgba(243,241,228,0.94) 0%, rgba(243,241,228,0.86) 20%, rgba(243,241,228,0.5) 34%, rgba(243,241,228,0) 48%)' } }),
-      // The block takes its own stacking order. The lift is an absolutely
-      // positioned element, so without this the type — ordinary blocks —
-      // paints UNDER it and the whole reading comes out washed to 40%.
-      h('div', { style: { position: 'relative', zIndex: 1 } },
-        h(M.SlideEyebrow, { text: 'Energy that thinks', color: FOREST }),
+    // The block moves to the HEAD of the frame, and the ink flips with it.
+    // Cream over gold needs a dark ground, so the lift that used to brighten
+    // the counter is gone and a scrim takes its place at the top — the
+    // opposite control, in the opposite direction, for the opposite ink.
+    //
+    // The crop goes back to the middle. Anchoring to the foot was buying a
+    // clean marble band for type that no longer sits there; from the centre
+    // the pouch and the hand sit lower in the frame and the window, which is
+    // what the type now covers, takes the top.
+    S({ src: '../public/product/kitchen-morning.jpg', focus: 'center 40%',
+        scrim: 0.6, scrimAt: 'top', align: 'top', padX: 46, padY: 46 },
+      h('div', { style: { maxWidth: 440 } },
+        h(M.SlideEyebrow, { text: 'Energy that thinks' }),
         h(M.SlideTitle, { line1: 'Set the tone', line2: 'for your day.',
-          size: 50, lead: 0.96, color: FOREST, color2: FOREST }),
+          size: 50, lead: 0.96, color: '#FFFFFF', color2: GOLD, onPhoto: true }),
         h(M.SlideBody, { text: 'Before the day gets busy, take a moment to slow down. Clean caffeine, a clear head and a calm start, in thirty seconds, hot or iced.',
-          size: 17, color: '#1A1A1A', measure: 430, top: 18 }),
-        // The spec line the email carries as legal type. On a feed it is the
-        // only place the facts appear at all, so it runs as a caps row rather
-        // than as fine print.
+          size: 17, color: '#FFFFFF', measure: 420, top: 18, onPhoto: true }),
         h('div', { style: { marginTop: 16, fontFamily: 'Gotham, Montserrat, sans-serif',
           fontWeight: 900, fontSize: 13, letterSpacing: '0.12em',
-          textTransform: 'uppercase', color: FOREST } },
+          textTransform: 'uppercase', color: GOLD,
+          textShadow: '0 1px 4px rgba(0,26,13,0.45)' } },
           '15 servings · 90 cal · 3g sugar'),
       ),
     ),
 
     // ── POST 2 · THE CALLOUT DIAGRAM ──────────────────────────────────────
-    // The email section almost fits a feed post untouched: it is built at
-    // ratio 1.2, which is 600 x 720 against the 600 x 750 a 4:5 frame wants.
-    // So it goes in as itself, at 1.25, rather than being redrawn — the
-    // hairlines still reach the glass and the five benefits stay five.
-    h('div', { style: { width: 600, height: 750, overflow: 'hidden' } },
-      h(M.T8Callouts, {
-        src: '../public/product/iced-callout-flat.jpg',
-        alt: 'For everything your day throws at you. A hand holding a jar of iced Milonga Mate Latte, with five benefits listed alongside: clean sustained energy, mental clarity and focus, balanced calm, no jitters and no crash, and antioxidant-rich.',
-        eyebrow: 'Made to keep up',
-        line1: 'For everything your', line2: 'day throws at you.',
-        intro: 'Work, errands, workouts, and whatever comes next.',
-        // 1.5, not the email's 1.2. At 1.2 the picture finished 145 units
-        // above the foot of the frame and left a band of bare beige under it;
-        // a taller frame fills down to the edge, and the crop it costs comes
-        // off the bottom of the jar, which the hand is holding anyway.
-        //
-        // THE LINES HAD TO GROW WITH IT, and not by the same amount. A taller
-        // frame moves the glass right and down, and the jar narrows toward its
-        // base, so every connector was stopping short in open space by a
-        // different margin — which reads as decoration rather than as a
-        // diagram. Each line is now measured to its own row: 124, 128, 128,
-        // 124 and 143, the last one longest because the hand curves furthest
-        // in at the bottom.
-        ratio: 1.5,
-        items: [
-          { mark: 'yerba-mate', label: 'Clean, sustained energy', note: 'For walking into work already on your second gear.', line: 124 },
-          { mark: 'lions-mane', label: 'Mental clarity & focus', note: 'For when your brain clocks in before you do.', line: 128 },
-          { mark: 'l-theanine', label: 'Balanced calm', note: 'For keeping your cool when your boss starts the day with “Got a minute?”', line: 128 },
-          { mark: 'check', label: 'No jitters, no crash', note: 'For when your inbox is already testing you at 8:47 AM.', line: 124 },
-          { mark: 'leaf', label: 'Antioxidant-rich', note: 'For giving your morning routine a little extra goodness.', line: 143 },
-        ],
-      }),
+    // Rebuilt rather than borrowed. The email's T8Callouts is fixed at a 30px
+    // title in one dark ink on its own beige, which cannot carry a cream-over-
+    // gold headline at twice that size — so the section is redrawn here with
+    // the pieces under control.
+    //
+    // A DARK BAND TAKES THE HEAD, which is what makes post two match post one:
+    // the same cream over gold, on the same kind of ground. It is the paper
+    // grain recoloured to forest, the same tile the recipe email uses, so the
+    // band reads as this system rather than as a coloured rectangle.
+    //
+    // THE CARDS GAVE WIDTH TO THE PICTURE. At 260 rather than the email's 330
+    // they still hold a label and a two-line note, and the 70 they release
+    // lets the jar run at 360 with its left edge at 270 — half the frame,
+    // against the third it had. The lines are short now because the gap is
+    // short, which is the point: a connector is a measurement of the distance
+    // between two objects, not a decoration of it.
+    S({ bg: 'beige', textured: true, align: 'top', padX: 0, padY: 0 },
+
+      h('div', { style: {
+        backgroundColor: '#004D27',
+        backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.3) 0%, rgba(0,26,13,0) 90px), url(../public/brand/textures/tile-paper-forest.jpg)',
+        backgroundSize: 'auto, 320px 320px',
+        backgroundRepeat: 'no-repeat, repeat',
+        padding: '42px 30px 34px', textAlign: 'center' } },
+        h(M.SlideEyebrow, { text: 'Made to keep up', align: 'center' }),
+        h(M.SlideTitle, { line1: 'For everything', line2: 'your day throws\nat you.',
+          size: 30, size2: 48, lead: 0.98, align: 'center',
+          color: '#FFFFFF', color2: GOLD }),
+        h(M.SlideBody, { text: 'Work, errands, workouts, and whatever comes next.',
+          size: 15, color: '#FFFFFF', align: 'center', measure: 400, top: 16 }),
+      ),
+
+      // The diagram, pushed to the top of what is left rather than centred in
+      // it — the band above already owns the head of the frame, and a block
+      // floating in the middle of the rest is the thing this whole set has
+      // been correcting.
+      h('div', { style: { position: 'relative', paddingTop: 26 } },
+        h('img', { src: '../public/product/jar-in-hand.png',
+          alt: 'A hand holding a tall glass jar of iced Milonga Mate Latte',
+          style: { position: 'absolute', right: -34, top: 36, width: 360,
+                   height: 'auto', display: 'block' } }),
+        h('div', { style: { paddingLeft: 20, position: 'relative', zIndex: 1 } },
+          [
+            ['yerba-mate', 'Clean, sustained energy', 'For walking into work already on your second gear.'],
+            ['lions-mane', 'Mental clarity & focus', 'For when your brain clocks in before you do.'],
+            ['l-theanine', 'Balanced calm', 'For keeping your cool when your boss starts the day with “Got a minute?”'],
+            ['check', 'No jitters, no crash', 'For when your inbox is already testing you at 8:47 AM.'],
+            ['leaf', 'Antioxidant-rich', 'For giving your morning routine a little extra goodness.'],
+          ].map(([mark, label, note], i) => h('div', { key: i,
+            style: { display: 'flex', alignItems: 'center', marginBottom: 10 } },
+            h('span', { style: { display: 'flex', alignItems: 'center', gap: 11,
+              width: 260, boxSizing: 'border-box', background: '#FFFFFF',
+              borderRadius: 999, padding: '10px 16px',
+              boxShadow: '0 6px 18px rgba(0,77,39,0.13), 0 1px 3px rgba(0,77,39,0.10)' } },
+              h('span', { style: { flex: 'none', width: 34, height: 34, borderRadius: 999,
+                background: FOREST, display: 'flex', alignItems: 'center',
+                justifyContent: 'center' } },
+                // AnyIcon, not BrandIcon. 'check' and 'leaf' are Icon names rather
+                // than brand marks, and BrandIcon only knows the seven marks —
+                // reaching for it directly threw on the two rows that are not
+                // ingredients.
+                h(M.AnyIcon, { name: mark, bg: 'forest', size: 19 }),
+              ),
+              h('span', null,
+                h('span', { style: { display: 'block', fontFamily: 'Gotham, Montserrat, sans-serif',
+                  fontWeight: 900, fontSize: 11.5, letterSpacing: '0.07em',
+                  textTransform: 'uppercase', color: FOREST, marginBottom: 3 } }, label),
+                h('span', { style: { display: 'block', fontFamily: 'Gotham, Montserrat, sans-serif',
+                  fontWeight: 500, fontSize: 11.5, lineHeight: 1.33, color: '#151515' } }, note),
+              ),
+            ),
+            h('span', { style: { flex: 'none', width: 26, height: 1, background: 'rgba(0,77,39,0.5)' } }),
+          )),
+        ),
+      ),
     ),
   );
 }

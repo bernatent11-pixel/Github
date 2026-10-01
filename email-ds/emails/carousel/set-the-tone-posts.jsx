@@ -51,10 +51,10 @@ function SetTheTonePosts() {
     // gold headline at twice that size — so the section is redrawn here with
     // the pieces under control.
     //
-    // A DARK BAND TAKES THE HEAD, which is what makes post two match post one:
-    // the same cream over gold, on the same kind of ground. It is the paper
-    // grain recoloured to forest, the same tile the recipe email uses, so the
-    // band reads as this system rather than as a coloured rectangle.
+    // ONE GROUND, ALL BEIGE. The head carried a dark band for a while so the
+    // title could run cream over gold; on one beige neither colour is legal,
+    // so the headline is one dark green and the second line is set apart by
+    // slant instead.
     //
     // THE CARDS GAVE WIDTH TO THE PICTURE. At 260 rather than the email's 330
     // they still hold a label and a two-line note, and the 70 they release
@@ -64,18 +64,23 @@ function SetTheTonePosts() {
     // between two objects, not a decoration of it.
     S({ bg: 'beige', textured: true, align: 'top', padX: 0, padY: 0 },
 
-      h('div', { style: {
-        backgroundColor: '#004D27',
-        backgroundImage: 'linear-gradient(180deg, rgba(0,26,13,0.3) 0%, rgba(0,26,13,0) 90px), url(../public/brand/textures/tile-paper-forest.jpg)',
-        backgroundSize: 'auto, 320px 320px',
-        backgroundRepeat: 'no-repeat, repeat',
-        padding: '42px 30px 34px', textAlign: 'center' } },
-        h(M.SlideEyebrow, { text: 'Made to keep up', align: 'center' }),
+      // ONE BEIGE, AND THE INK FOLLOWS IT. The head of this post was a dark
+      // band carrying cream over gold; on beige neither is available — gold
+      // measures 1.56:1 here and cream is 1.1:1 — so the whole headline is
+      // the one dark green the ground allows.
+      //
+      // The two-line split survives by changing instrument. Where the dark
+      // band set the payoff apart by COLOUR, here it is set apart by SLANT,
+      // which is the house two-line headline exactly as documented: the
+      // contrast is weight and slant rather than colour, precisely so it
+      // holds on a ground that rules the colour out.
+      h('div', { style: { padding: '42px 30px 34px', textAlign: 'center' } },
+        h(M.SlideEyebrow, { text: 'Made to keep up', color: FOREST, align: 'center' }),
         h(M.SlideTitle, { line1: 'For everything', line2: 'your day throws\nat you.',
           size: 30, size2: 48, lead: 0.98, align: 'center',
-          color: '#FFFFFF', color2: GOLD }),
+          color: FOREST, color2: FOREST }),
         h(M.SlideBody, { text: 'Work, errands, workouts, and whatever comes next.',
-          size: 15, color: '#FFFFFF', align: 'center', measure: 400, top: 16 }),
+          size: 15, color: '#151515', align: 'center', measure: 400, top: 16 }),
       ),
 
       // The diagram, pushed to the top of what is left rather than centred in

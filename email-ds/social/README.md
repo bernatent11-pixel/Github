@@ -11,8 +11,16 @@ most screen it can.
 | `three-ingredients` | Everything Your Mornings Need | 5 |
 | `coffee-vs-mate` | Meet Your Coffee's Competition | 5 |
 | `set-the-tone` | Set the Tone for Your Day | 5 |
+| `set-the-tone-posts` | Set the Tone for Your Day | 2 **single posts** |
 
 Upload `slide-01` … `slide-05` in order.
+
+`set-the-tone-posts` is the exception: it is not a carousel. It is the same
+email's two sections as two STANDALONE feed posts, to be published separately.
+A carousel splits an email into beats and lets slide 2 finish what slide 1
+started; a single post has to hold one whole idea in one frame, so section one
+keeps its paragraph and its spec line instead of handing them down the set,
+and section two keeps all five benefits instead of promoting the best two.
 
 ## What changed from the email, and why
 

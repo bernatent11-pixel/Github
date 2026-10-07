@@ -27,19 +27,21 @@ const TBD = '___';
 // Section 1 geometry: photo pixels → design units, and the subscribe card.
 const CAN = 600 / 1493;
 
-// Section 2 photo band. DESK maps the desk photograph's pixels to design
-// units (drawn 600 wide from its top edge); the can's visible left edge is at
-// file x 922, between y 662 and the hand at about 870.
-const DESK = 600 / 1333;
-const BAND_H = 560;
-const LABEL = { x: 20, w: 214 };
+// Section 2 figure. FRAME is the rounded photograph in 600-unit email
+// coordinates; FX/FY map a pixel of the original desk file into it (the
+// frame shows file x 200–1333, y 330–1420). The can's visible left edge is
+// at file x 922, from its lid at y 662 down to the hand at about 870.
+const FRAME = { x: 40, w: 520, h: Math.round(520 * 1090 / 1133) };
+const FX = x => FRAME.x + (x - 200) * FRAME.w / 1133;
+const FY = y => (y - 330) * FRAME.h / 1090;
+const LABEL = { x: 14, w: 214 };
 const CALLOUTS = [
-  { title: 'Clean, sustained energy', note: 'No jitters, no crash', y: 290, ty: 676 },
-  { title: 'Focus & mental clarity', y: 372, ty: 760 },
-  { title: 'Balance & calm', note: 'Steady, not anxious', y: 438, ty: 846 },
+  { title: 'Clean, sustained energy', note: 'No jitters, no crash', y: 92, ty: 690 },
+  { title: 'Focus & mental clarity', y: 210, ty: 770 },
+  { title: 'Balance & calm', note: 'Steady, not anxious', y: 312, ty: 850 },
 ].map(c => {
-  const sy = c.y + 26, tx = 918 * DESK - 3, ty = c.ty * DESK;
-  return { ...c, sy, tx, ty, cx: (LABEL.x + LABEL.w + tx) / 2, cy: Math.min(sy, ty) - 14 };
+  const sy = c.y + 26, tx = FX(918) - 3, ty = FY(c.ty);
+  return { ...c, sy, tx, ty, cx: (LABEL.x + LABEL.w + tx) / 2, cy: Math.min(sy, ty) - 16 };
 });
 const CARD_H = 250;
 
@@ -111,33 +113,25 @@ function ThreePmCans() {
         halo: 'soft',
       }),
 
-      // ── 2 · THE AFTERNOON, ON THE DESK PHOTOGRAPH ───────────────────────
-      // Section 2 opens on the desk shot as its own background, and it starts
-      // behind the subscribe card's middle line — the card is pulled up by
-      // half its height, so the photograph begins exactly where the opener's
-      // picture ends.
+      // ── 2 · THE AFTERNOON ────────────────────────────────────────────────
+      // Organised like the Cann section Bernat sent: the subscribe card's
+      // lower half on the new ground, the title and line centred under it,
+      // then one big rounded photograph. Forest replaces Cann's pink, so the
+      // type is white and the card is pulled up by half its height — the
+      // forest begins on the card's middle line.
       //
-      // THE PHOTOGRAPH IS LIGHT — linen, white curtains, travertine — so the
-      // ink is forest, and the head of the picture takes a cream LIFT rather
-      // than a dark scrim, which keeps it a bright afternoon. The benefits sit
-      // in white rounded labels, because a label on the busy left of the shot
-      // (suit, arm, sofa) needs an edge of its own to read as an object, and
-      // the arrows are forest: gold on pale linen measures about 1.5:1.
-      //
-      // The photograph is drawn 600 wide from its top edge, so a pixel in the
-      // file maps to the band by DESK alone; the can (x 922–1075, y 662–1115
-      // in the file) lands at x 415–484, y 298–502, and the arrows are aimed
-      // at its visible left edge, above the hand.
+      // THE BENEFITS BREAK OUT OF THE FRAME. Each white label starts on the
+      // green, crosses the frame's left edge and sends a forest arrow to the
+      // can. The can stands right of centre with the hand over its lower
+      // left, so the arrows land on its visible upper edge.
       h('div', { style: {
         // flow-root, or the card's negative margin collapses through this
-        // band and drags the whole photograph up over the opener with it.
-        display: 'flow-root', position: 'relative', height: BAND_H, boxSizing: 'border-box',
-        backgroundColor: '#E6DFD2',
-        backgroundImage: 'linear-gradient(180deg, rgba(240,239,223,0.86) 0px, rgba(240,239,223,0.72) 150px, rgba(240,239,223,0.38) 250px, rgba(240,239,223,0) 300px), url(../public/product/can-citrus-mango-desk.jpg)',
-        backgroundSize: '100% 100%, 600px auto',
-        backgroundPosition: '0 0, 0 0',
-        backgroundRepeat: 'no-repeat',
-        padding: '0 26px' } },
+        // band and drags the whole forest up over the opener with it.
+        display: 'flow-root', position: 'relative',
+        backgroundColor: FOREST,
+        backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
+        backgroundSize: '320px 320px',
+        padding: '0 26px 0' } },
         // Pulled up by half its own height, so the photograph ends — and the
         // forest begins — on the card's middle line.
         h('div', { style: { position: 'relative', zIndex: 2, marginTop: -CARD_H / 2,
@@ -158,39 +152,54 @@ function ThreePmCans() {
           ),
         ),
 
-        h('div', { style: { position: 'relative', zIndex: 1, textAlign: 'center', marginTop: 26 } },
-          h(M.Headline, { line1: 'Bye afternoon crashes', line2: 'welcome afternoon flow', bg: 'beige',
-            size: 31, align: 'center', color: FOREST, line2Color: FOREST, italic: true }),
+
+        h('div', { style: { position: 'relative', zIndex: 1, textAlign: 'center', marginTop: 44 } },
+          h(M.Headline, { line1: 'Bye afternoon crashes', line2: 'welcome afternoon flow', bg: 'forest',
+            size: 31, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
           h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
-            lineHeight: 1.45, color: '#12331F', maxWidth: 440, margin: '14px auto 0' } },
+            lineHeight: 1.5, color: '#FFFFFF', maxWidth: 440, margin: '18px auto 0' } },
             'Keep the day moving, without letting your energy slow you down.'),
         ),
 
-        CALLOUTS.map((c, i) => h('div', { key: i, style: { position: 'absolute', zIndex: 1,
-          left: LABEL.x, top: c.y, width: LABEL.w, boxSizing: 'border-box',
-          background: '#FFFFFF', borderRadius: 16, padding: '11px 14px',
-          boxShadow: '0 8px 20px rgba(0,53,27,0.20), 0 1px 3px rgba(0,53,27,0.14)' } },
-          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12.5, lineHeight: 1.2,
-            letterSpacing: '0.06em', textTransform: 'uppercase', color: FOREST } }, c.title),
-          c.note ? h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 12.5,
-            lineHeight: 1.35, color: '#3B5344', marginTop: 3 } }, c.note) : null,
-        )),
-
-        // Forest arrows with a cream edge glow, so the line holds where it
-        // crosses the grey sofa as well as the pale linen.
-        h('svg', { width: 600, height: BAND_H, viewBox: `0 0 600 ${BAND_H}`,
-          style: { position: 'absolute', left: 0, top: 0, zIndex: 1, overflow: 'visible',
-            filter: 'drop-shadow(0 0 2px rgba(251,248,239,0.9))' } },
-          h('defs', null,
-            h('marker', { id: 'arrowhead', markerWidth: 10, markerHeight: 10, refX: 7, refY: 5,
-              orient: 'auto', markerUnits: 'userSpaceOnUse' },
-              h('path', { d: 'M1,1 L8,5 L1,9', fill: 'none', stroke: FOREST, strokeWidth: 2.2,
-                strokeLinecap: 'round', strokeLinejoin: 'round' })),
+        // The figure, in the email's 600-unit width (it cancels the band's
+        // 26 of padding). FRAME holds the crop of the desk photo —
+        // can-citrus-mango-desk-frame.jpg, file x 200–1333, y 330–1420 — so
+        // the can lands at a known place and each arrow is aimed at it.
+        h('div', { style: { position: 'relative', margin: '40px -26px 0', height: FRAME.h + 8 } },
+          h('div', { style: { position: 'absolute', left: FRAME.x, top: 0, width: FRAME.w, height: FRAME.h,
+            borderRadius: 28, overflow: 'hidden',
+            boxShadow: '0 18px 36px rgba(0,26,13,0.40), 0 3px 8px rgba(0,26,13,0.26)' } },
+            h('img', { src: '../public/product/can-citrus-mango-desk-frame.jpg',
+              alt: 'A woman in a linen suit rests her hand on a can of Milonga Yerba Mate in Citrus Mango, on a travertine side table beside her open laptop.',
+              style: { width: '100%', height: '100%', display: 'block', objectFit: 'cover' } }),
           ),
-          CALLOUTS.map((c, i) => h('path', { key: i,
-            d: `M ${LABEL.x + LABEL.w + 6} ${c.sy} Q ${c.cx} ${c.cy} ${c.tx} ${c.ty}`,
-            fill: 'none', stroke: FOREST, strokeWidth: 2.4, strokeLinecap: 'round',
-            markerEnd: 'url(#arrowhead)' })),
+
+          CALLOUTS.map((c, i) => h('div', { key: i, style: { position: 'absolute', zIndex: 1,
+            left: LABEL.x, top: c.y, width: LABEL.w, boxSizing: 'border-box',
+            background: '#FFFFFF', borderRadius: 16, padding: '11px 14px',
+            boxShadow: '0 10px 22px rgba(0,26,13,0.30), 0 2px 4px rgba(0,26,13,0.18)' } },
+            h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12.5, lineHeight: 1.2,
+              letterSpacing: '0.06em', textTransform: 'uppercase', color: FOREST } }, c.title),
+            c.note ? h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 12.5,
+              lineHeight: 1.35, color: '#3B5344', marginTop: 3 } }, c.note) : null,
+          )),
+
+          // Forest arrows with a cream edge glow, so the line holds over the
+          // grey sofa as well as the pale linen.
+          h('svg', { width: 600, height: FRAME.h, viewBox: `0 0 600 ${FRAME.h}`,
+            style: { position: 'absolute', left: 0, top: 0, zIndex: 1, overflow: 'visible',
+              filter: 'drop-shadow(0 0 2px rgba(251,248,239,0.95))' } },
+            h('defs', null,
+              h('marker', { id: 'arrowhead', markerWidth: 10, markerHeight: 10, refX: 7, refY: 5,
+                orient: 'auto', markerUnits: 'userSpaceOnUse' },
+                h('path', { d: 'M1,1 L8,5 L1,9', fill: 'none', stroke: FOREST, strokeWidth: 2.2,
+                  strokeLinecap: 'round', strokeLinejoin: 'round' })),
+            ),
+            CALLOUTS.map((c, i) => h('path', { key: i,
+              d: `M ${LABEL.x + LABEL.w + 6} ${c.sy} Q ${c.cx} ${c.cy} ${c.tx} ${c.ty}`,
+              fill: 'none', stroke: FOREST, strokeWidth: 2.4, strokeLinecap: 'round',
+              markerEnd: 'url(#arrowhead)' })),
+          ),
         ),
       ),
 

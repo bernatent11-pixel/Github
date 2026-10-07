@@ -26,6 +26,20 @@ const TBD = '___';
 
 // Section 1 geometry: photo pixels → design units, and the subscribe card.
 const CAN = 600 / 1493;
+
+// Section 2 callout figure. The frame shows the desk crop (850 x 1060); the
+// can sits at x 592–745, y 382–835 of that crop.
+const FIG = { x: 24, w: 360, h: Math.round(360 * 1060 / 850) };
+const CROP = (x, y) => [FIG.x + x * FIG.w / 850, y * FIG.h / 1060];
+const LABEL_X = 412;
+const CALLOUTS = (() => {
+  const right = CROP(745, 0)[0] + 5;
+  return [
+    { title: 'Clean, sustained energy', note: 'No jitters, no crash', y: 92, ty: CROP(0, 470)[1] },
+    { title: 'Focus & mental clarity', y: 222, ty: CROP(0, 610)[1] },
+    { title: 'Balance & calm', note: 'Steady, not anxious', y: 330, ty: CROP(0, 750)[1] },
+  ].map(c => ({ ...c, tx: right, cx: (LABEL_X + right) / 2, cy: (c.y + 9 + c.ty) / 2 - 18 }));
+})();
 const CARD_H = 250;
 
 const SECTION_1_ALT =
@@ -146,27 +160,57 @@ function ThreePmCans() {
       position: 'relative', overflow: 'hidden' } },
 
       h('div', { style: { textAlign: 'center' } },
-        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12,
-          letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD,
-          marginBottom: 14 } }, 'The afternoon dip'),
-        h(M.Headline, { line1: 'Same slump,', line2: 'new answer.', bg: 'forest',
-          size: 40, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
+        h(M.Headline, { line1: 'Bye afternoon crashes', line2: 'welcome afternoon flow', bg: 'forest',
+          size: 31, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
         h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
-          lineHeight: 1.5, color: '#FFFFFF', maxWidth: 460, margin: '20px auto 0' } },
-          'A 3PM coffee hits fast, then leaves you lower than where you started. ' +
-          'A Milonga can is brewed from yerba mate, so the natural caffeine comes on ' +
-          'smooth and stays steady, with Lion’s Mane alongside for focus.'),
+          lineHeight: 1.5, color: '#FFFFFF', maxWidth: 440, margin: '18px auto 0' } },
+          'Keep the day moving, without letting your energy slow you down.'),
       ),
 
-      // Ring rows with the dose in the title — the copy is doing the work
-      // here, so the quiet variant. Doses are blanks until the label is in.
-      h('div', { style: { marginTop: 36 } },
-        h(M.BenefitList, { bg: 'forest', variant: 'ring', twoTone: false, items: [
-          { mark: 'yerba-mate', title: 'Natural caffeine', dose: `${TBD}MG`,
-            text: 'Brewed from real yerba mate. Clean, sustained energy, no jitters.' },
-          { mark: 'lions-mane', title: 'Lion’s Mane', dose: `${TBD}MG`,
-            text: 'The functional mushroom behind focus and mental clarity.' },
-        ] }),
+      // THE CALLOUT FIGURE. The desk shot in a big rounded frame, set left,
+      // with the three benefits on the green to its right and an arrow from
+      // each one running into the picture to the can. The arrows cross the
+      // frame's edge on purpose — that crossing is what ties a label on the
+      // page to an object in the photograph.
+      //
+      // Geometry is in the 600-unit width of the email (the block cancels
+      // the band's 32 padding). The frame is a crop of the original file —
+      // x 330–1180, y 280–1340 — so the can (x 922–1075, y 662–1115 in the
+      // original) lands at a known place and every arrow can be aimed at it.
+      h('div', { style: { position: 'relative', margin: '40px -32px 0', height: FIG.h } },
+        h('div', { style: { position: 'absolute', left: FIG.x, top: 0, width: FIG.w, height: FIG.h,
+          borderRadius: 26, overflow: 'hidden',
+          boxShadow: '0 16px 34px rgba(0,26,13,0.38), 0 3px 8px rgba(0,26,13,0.24)' } },
+          h('img', { src: '../public/product/can-citrus-mango-desk-crop.jpg',
+            alt: 'A woman in a linen suit rests her hand on a can of Milonga Yerba Mate in Citrus Mango, on a travertine side table beside her open laptop.',
+            style: { width: '100%', height: '100%', display: 'block', objectFit: 'cover' } }),
+        ),
+
+        CALLOUTS.map((c, i) => h('div', { key: i, style: { position: 'absolute',
+          left: LABEL_X, top: c.y, width: 600 - LABEL_X - 22 } },
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 14, lineHeight: 1.2,
+            letterSpacing: '0.06em', textTransform: 'uppercase', color: '#FFFFFF' } }, c.title),
+          c.note ? h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 14,
+            lineHeight: 1.35, color: GOLD, marginTop: 4 } }, c.note) : null,
+        )),
+
+        // The arrows, drawn over both the frame and the green. Gold carries
+        // on the band; the dark shadow under the stroke is what keeps it
+        // visible where it crosses the pale travertine and the laptop.
+        h('svg', { width: 600, height: FIG.h, viewBox: `0 0 600 ${FIG.h}`,
+          style: { position: 'absolute', left: 0, top: 0, overflow: 'visible',
+            filter: 'drop-shadow(0 1px 2px rgba(0,26,13,0.75))' } },
+          h('defs', null,
+            h('marker', { id: 'arrowhead', markerWidth: 10, markerHeight: 10, refX: 7, refY: 5,
+              orient: 'auto', markerUnits: 'userSpaceOnUse' },
+              h('path', { d: 'M1,1 L8,5 L1,9', fill: 'none', stroke: GOLD, strokeWidth: 2,
+                strokeLinecap: 'round', strokeLinejoin: 'round' })),
+          ),
+          CALLOUTS.map((c, i) => h('path', { key: i,
+            d: `M ${LABEL_X - 10} ${c.y + 9} Q ${c.cx} ${c.cy} ${c.tx} ${c.ty}`,
+            fill: 'none', stroke: GOLD, strokeWidth: 2.4, strokeLinecap: 'round',
+            markerEnd: 'url(#arrowhead)' })),
+        ),
       ),
 
       // The comparison. Our column is gold, theirs a hairline — the stripe

@@ -5,7 +5,7 @@
 //
 // CAN SPECS, as Bernat supplied them for this email (the product file covers
 // the Mate Latte bag only): 100mg natural caffeine, 1000mg Lion's Mane,
-// 200mg L-Theanine, 20 cal, 1g organic sugar, organic ingredients, 12 fl oz.
+// 200mg L-Theanine, 20–40 cal, low sugar, organic ingredients, 12 fl oz.
 // The 20% subscription offer is his too.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
@@ -21,10 +21,15 @@ const PILL = {
   boxShadow: '0 6px 14px rgba(0,53,27,0.16), 0 1px 3px rgba(0,53,27,0.14), inset 0 1px 0 rgba(255,246,214,0.7)',
 };
 const FORMULA = [
-  ['100mg natural caffeine', 'Clean energy'],
-  ['1000mg Lion’s Mane', 'Focus'],
-  ['200mg L-Theanine', 'Calmness'],
+  ['yerba-mate', '100mg natural caffeine', 'Clean energy'],
+  ['lions-mane', '1000mg Lion’s Mane', 'Focus'],
+  ['l-theanine', '200mg L-Theanine', 'Calmness'],
 ];
+
+// Section 3 geometry, top-down from the section's own edge. The can starts
+// CLOSE.canTop ABOVE that edge (into the forest) and ends on pillsEnd.
+const CLOSE = { padTop: 96, titleH: 58, gap: 40, pillH: 70, pillGap: 18, colW: 296, canTop: -52 };
+CLOSE.pillsEnd = CLOSE.padTop + CLOSE.titleH + CLOSE.gap + 3 * CLOSE.pillH + 2 * CLOSE.pillGap;
 
 // Section 1 geometry: photo pixels → design units, and the subscribe card.
 const CAN = 600 / 1493;
@@ -268,49 +273,69 @@ function ThreePmCans() {
     ),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
-    // Beige, dark green type. Title, the formula as gold pills and the button
+    // Beige, dark green type. Title and the functional three as gold pills
     // down the left; one big tilted can on the right whose top breaks up
-    // through the edge into the forest above. That crossing is the 3D moment
-    // of the email — the can stands in front of the page rather than on it.
+    // through the edge into the forest above — the 3D moment of the email.
+    // Then the secondary facts as one line across the full width, and the
+    // button centred under it.
+    //
+    // THE CAN'S FOOT AND THE LAST PILL'S FOOT SHARE ONE LINE. Everything in
+    // the column has a fixed height (CLOSE), so the last pill's bottom edge
+    // is a number, and the can is sized from its own top (CLOSE.canTop,
+    // above the section edge) down to exactly that number.
     //
     // The section paints above the comparison (zIndex 1) so the can's top
-    // covers the forest, and clips only its SIDES and foot: an unclipped
-    // cutout running past the right edge widens the whole export.
-    h('div', { style: { position: 'relative', zIndex: 1, padding: '64px 28px 56px',
+    // covers the forest, and clips only its sides and foot.
+    h('div', { style: { position: 'relative', zIndex: 1, padding: `${CLOSE.padTop}px 28px 56px`,
       clipPath: 'inset(-400px 0 0 0)' } },
       h('img', { src: '../public/product/can-peach-ginger-tilt.png',
         alt: 'A can of Milonga Yerba Mate, Peach Ginger, 12 fl oz, tilted.',
-        style: { position: 'absolute', right: 12, top: -126, height: 500, width: 'auto',
-          display: 'block', filter: 'drop-shadow(0 22px 26px rgba(0,26,13,0.34)) drop-shadow(0 4px 6px rgba(0,26,13,0.2))' } }),
+        style: { position: 'absolute', right: 6, top: CLOSE.canTop, height: CLOSE.pillsEnd - CLOSE.canTop,
+          width: 'auto', display: 'block',
+          filter: 'drop-shadow(0 22px 26px rgba(0,26,13,0.34)) drop-shadow(0 4px 6px rgba(0,26,13,0.2))' } }),
 
-      h('div', { style: { width: 284, position: 'relative' } },
-        h(M.Headline, { line1: 'Make the switch.', line2: 'Feel the difference', bg: 'beige',
-          size: 23, align: 'left', italic: true }),
+      h('div', { style: { width: CLOSE.colW, position: 'relative' } },
+        h('div', { style: { height: CLOSE.titleH } },
+          h(M.Headline, { line1: 'Make the switch.', line2: 'Feel the difference', bg: 'beige',
+            size: 23, align: 'left', italic: true }),
+        ),
 
-        // The functional three, each a gold pill with its dose and what it is
-        // for. On beige gold is a fill and never type, so the type is forest.
-        h('div', { style: { marginTop: 26 } },
-          FORMULA.map(([dose, note], i) => h('div', { key: i, style: { ...PILL,
-            padding: '11px 20px', marginBottom: 10, borderRadius: 999 } },
-            h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 13.5,
-              letterSpacing: '0.05em', textTransform: 'uppercase', color: FOREST, lineHeight: 1.15 } }, dose),
-            h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 12.5,
-              color: FOREST, opacity: 0.82, marginTop: 2 } }, note),
+        // The functional three, each a gold pill led by its brand mark. On
+        // beige gold is a fill and never type, so the marks and type are
+        // forest. The marks travel as their fixed ingredient group.
+        h('div', { style: { marginTop: CLOSE.gap } },
+          FORMULA.map(([mark, dose, note], i) => h('div', { key: i, style: { ...PILL,
+            display: 'flex', alignItems: 'center', gap: 12, boxSizing: 'border-box',
+            height: CLOSE.pillH, marginBottom: i < FORMULA.length - 1 ? CLOSE.pillGap : 0,
+            padding: '0 16px 0 12px', borderRadius: 999 } },
+            h('span', { style: { flex: 'none', width: 48, height: 48, borderRadius: 999,
+              background: 'rgba(255,248,226,0.55)', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6)' } },
+              h(M.BrandIcon, { mark, ink: 'forest', size: 36, alt: '' })),
+            h('div', null,
+              h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 13,
+                letterSpacing: '0.02em', textTransform: 'uppercase', color: FOREST, lineHeight: 1.15,
+                whiteSpace: 'nowrap' } }, dose),
+              h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 12.5,
+                color: FOREST, opacity: 0.82, marginTop: 2 } }, note),
+            ),
           )),
         ),
+      ),
 
-        h('div', { style: { height: 1, background: 'rgba(0,77,39,0.32)', margin: '18px 0 18px' } }),
+      // The secondary facts in a different register: no fill, one centred
+      // line of spaced caps between two hairlines, the separators in gold.
+      h('div', { style: { marginTop: 44, borderTop: '1px solid rgba(0,77,39,0.3)',
+        borderBottom: '1px solid rgba(0,77,39,0.3)', padding: '16px 0', textAlign: 'center',
+        fontFamily: FONT, fontWeight: 900, fontSize: 13, letterSpacing: '0.14em',
+        textTransform: 'uppercase', color: FOREST } },
+        ['20–40 cal', 'Low sugar', 'Organic ingredients'].map((t, i) => h(React.Fragment, { key: i },
+          i ? h('span', { style: { color: '#C9A24E', margin: '0 12px' } }, '|') : null,
+          h('span', null, t))),
+      ),
 
-        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } },
-          ['20 cal', '1g organic sugar', 'Organic ingredients'].map((t, i) => h('span', { key: i,
-            style: { ...PILL, display: 'inline-block', borderRadius: 999, padding: '9px 16px',
-              fontFamily: FONT, fontWeight: 900, fontSize: 12, letterSpacing: '0.07em',
-              textTransform: 'uppercase', color: FOREST } }, t)),
-        ),
-
-        h('div', { style: { marginTop: 30 } },
-          h(M.Button, { label: 'Shop now', href: '#shop', bg: 'beige', size: 'lg' }),
-        ),
+      h('div', { style: { marginTop: 30, textAlign: 'center' } },
+        h(M.Button, { label: 'Shop now', href: '#shop', bg: 'beige', size: 'lg' }),
       ),
     ),
 

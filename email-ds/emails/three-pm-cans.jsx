@@ -237,11 +237,16 @@ function ThreePmCans() {
           letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD,
           textAlign: 'center', marginBottom: 18 } }, 'Your 3PM, two ways'),
         h(M.CompareRows, { bg: 'forest', ourName: 'Milonga can', theirName: '3PM coffee',
+          // Four rows, in the order the afternoon happens: how the energy
+          // feels, where the focus comes from, the overall sensation, and
+          // what is left three hours on. Coffee's side is the positioning
+          // already in the product file (spikes, jitters, the crash) — no
+          // figures, so nothing here needs sourcing.
           rows: [
-            { label: 'Caffeine', ours: `${TBD}mg, brewed from mate`, theirs: '—' },
-            { label: 'Lion’s Mane', ours: `${TBD}mg`, theirs: '—' },
-            { label: 'Come-down', ours: 'Steady, no crash', theirs: 'The 4PM dip' },
-            { label: 'Ready', ours: 'Cold, crack and go', theirs: 'Brew it or queue' },
+            { label: 'Energy', ours: 'Smooth and sustained', theirs: 'A fast spike, then a drop' },
+            { label: 'Focus', ours: 'Clear, with Lion’s Mane', theirs: 'Wired, from caffeine alone' },
+            { label: 'Overall feel', ours: 'Balanced and calm', theirs: 'Jittery and on edge' },
+            { label: '3 hours later', ours: 'Still steady', theirs: 'The crash' },
           ] }),
       ),
 

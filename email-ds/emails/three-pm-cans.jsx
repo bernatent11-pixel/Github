@@ -52,12 +52,41 @@ const CALLOUTS = [
 });
 const CARD_H = 250;
 
+/* ── KLAVIYO EXPORT ─────────────────────────────────────────────────────────
+   Three images, cut on flat forest so no seam can show:
+     three-pm-cans-1.jpg  0–1128     opener + subscribe card   → subscribe link
+     three-pm-cans-2.jpg  1128–2364  desk photo + comparison   → shop link
+     three-pm-cans-3.jpg  2364–end   the close (can, formula)  → shop link
+   The second cut sits in the 4-unit gap between the Try it now button and
+   the top of the can, so neither is split. The footer is in image 3; swap
+   it for Klaviyo's own footer block if the account requires one.
+   Each alt carries every word its image says — with images off, this is
+   the email.                                                               */
+
 const SECTION_1_ALT =
   'Milonga. Imagine… 3 PM feeling as good as 10 AM. Skip the second coffee. ' +
   'Clean, sustained energy, focus, and balance in a cold, refreshing can. Ready ' +
   'to carry you through the rest of your day. A hand in an orange sweatshirt ' +
   'lifts an open can of Milonga Yerba Mate in Citrus Mango from a blue leather ' +
   'armchair. Subscribe and save 20% on each order. Subscribe and save.';
+
+const SECTION_2_ALT =
+  'Bye afternoon crashes, welcome afternoon flow. Keep the day moving, without ' +
+  'letting your energy slow you down. A woman in a linen suit rests her hand on ' +
+  'a can of Milonga Yerba Mate in Citrus Mango beside her laptop, with three ' +
+  'labels pointing to the can: clean, sustained energy, no jitters, no crash; ' +
+  'focus and mental clarity; balance and calm, steady, not anxious. Your 3PM, ' +
+  'two ways: a Milonga can against a 3PM coffee. Energy: smooth and sustained, ' +
+  'versus a fast spike, then a drop. Focus: clear, with Lion’s Mane, versus ' +
+  'wired, from caffeine alone. Overall feel: awake, focused, and calm, versus ' +
+  'jittery and on edge. 3 hours later: still sharp and ready, versus the ' +
+  'crash. Try it now.';
+
+const SECTION_3_ALT =
+  'Make the switch. Feel the difference. 100mg natural caffeine for clean ' +
+  'energy, 1000mg Lion’s Mane for focus, and 200mg L-Theanine for calmness. ' +
+  '20 to 40 calories, low sugar, organic ingredients. A can of Milonga Yerba ' +
+  'Mate in Peach Ginger, 12 fl oz. Shop now.';
 
 function ThreePmCans() {
   return h(M.EmailShell, { bg: 'beige' },

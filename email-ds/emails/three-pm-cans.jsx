@@ -176,29 +176,35 @@ function ThreePmCans() {
 
           CALLOUTS.map((c, i) => h('div', { key: i, style: { position: 'absolute', zIndex: 1,
             left: LABEL.x, top: c.y, width: LABEL.w, boxSizing: 'border-box',
-            background: '#FFFFFF', borderRadius: 16, padding: '11px 14px',
-            boxShadow: '0 10px 22px rgba(0,26,13,0.30), 0 2px 4px rgba(0,26,13,0.18)' } },
+            background: 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)',
+            borderRadius: 16, padding: '11px 14px',
+            boxShadow: '0 10px 22px rgba(0,26,13,0.30), 0 2px 4px rgba(0,26,13,0.18), inset 0 1px 0 rgba(255,246,214,0.7)' } },
             h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12.5, lineHeight: 1.2,
               letterSpacing: '0.06em', textTransform: 'uppercase', color: FOREST } }, c.title),
             c.note ? h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 12.5,
-              lineHeight: 1.35, color: '#3B5344', marginTop: 3 } }, c.note) : null,
+              lineHeight: 1.35, color: FOREST, marginTop: 3 } }, c.note) : null,
           )),
 
-          // Forest arrows with a cream edge glow, so the line holds over the
-          // grey sofa as well as the pale linen.
+          // The arrows: no shadow, a fine forest line, a small dot where it
+          // leaves the label and an open chevron where it meets the can. A
+          // cubic curve leaves the label level and arrives at the can level,
+          // so each one reads as a drawn gesture rather than a straight rule.
           h('svg', { width: 600, height: FRAME.h, viewBox: `0 0 600 ${FRAME.h}`,
-            style: { position: 'absolute', left: 0, top: 0, zIndex: 1, overflow: 'visible',
-              filter: 'drop-shadow(0 0 2px rgba(251,248,239,0.95))' } },
+            style: { position: 'absolute', left: 0, top: 0, zIndex: 1, overflow: 'visible' } },
             h('defs', null,
-              h('marker', { id: 'arrowhead', markerWidth: 10, markerHeight: 10, refX: 7, refY: 5,
+              h('marker', { id: 'arrowhead', markerWidth: 12, markerHeight: 12, refX: 8, refY: 6,
                 orient: 'auto', markerUnits: 'userSpaceOnUse' },
-                h('path', { d: 'M1,1 L8,5 L1,9', fill: 'none', stroke: FOREST, strokeWidth: 2.2,
+                h('path', { d: 'M2,2 L8,6 L2,10', fill: 'none', stroke: FOREST, strokeWidth: 1.8,
                   strokeLinecap: 'round', strokeLinejoin: 'round' })),
             ),
-            CALLOUTS.map((c, i) => h('path', { key: i,
-              d: `M ${LABEL.x + LABEL.w + 6} ${c.sy} Q ${c.cx} ${c.cy} ${c.tx} ${c.ty}`,
-              fill: 'none', stroke: FOREST, strokeWidth: 2.4, strokeLinecap: 'round',
-              markerEnd: 'url(#arrowhead)' })),
+            CALLOUTS.map((c, i) => {
+              const x0 = LABEL.x + LABEL.w + 9, dx = c.tx - x0;
+              return h('g', { key: i },
+                h('circle', { cx: x0, cy: c.sy, r: 3.2, fill: FOREST }),
+                h('path', { d: `M ${x0} ${c.sy} C ${x0 + dx * 0.55} ${c.sy}, ${c.tx - dx * 0.45} ${c.ty}, ${c.tx} ${c.ty}`,
+                  fill: 'none', stroke: FOREST, strokeWidth: 1.8, strokeLinecap: 'round',
+                  markerEnd: 'url(#arrowhead)' }));
+            }),
           ),
         ),
       ),

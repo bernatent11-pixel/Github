@@ -25,53 +25,71 @@ const FONT = 'Gotham, Montserrat, sans-serif';
 const TBD = '___';
 
 const SECTION_1_ALT =
-  'Milonga. Functional herbal energy. Your 3PM, without the crash. Skip the ' +
-  'second coffee: brewed yerba mate and Lion’s Mane, cold in a can and ready the ' +
-  'moment you open it. A can of Milonga Yerba Mate in Peach Ginger rests on a ' +
-  'mossy stone beside a slice of peach and a knob of ginger, water droplets ' +
-  'catching the light against a deep green background. Shop the cans.';
+  'Milonga. Imagine… 3 PM feeling as good as 10 AM. Skip the second coffee. ' +
+  'Clean, sustained energy, focus, and balance in a cold, refreshing can. Ready ' +
+  'to carry you through the rest of your day. A hand in an orange sweatshirt ' +
+  'lifts an open can of Milonga Yerba Mate in Citrus Mango from a blue leather ' +
+  'armchair. Fix my 3PM slump.';
 
 function ThreePmCans() {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · THE OPENER ────────────────────────────────────────────────────
-    // The crop is taken from the foot of the family composite, where the
-    // backdrop is empty forest green on the left and the can, the peach and
-    // the ginger fill the right. That gives the type a dark, clear column of
-    // its own, so the ink is cream and gold and the scrim stays light.
+    // The Citrus Mango can in hand, on a blue armchair. Wordmark centred at
+    // the head, the title and its paragraph under it, the hand and the can
+    // left clear below.
     //
-    // Everything reads in one group at the head — wordmark, title, line,
-    // button — because the bottom-left of this picture is rock, and a button
-    // on a rock is a button nobody finds.
+    // THE WALL IS EXTENDED 440px UPWARD from the photograph's own top rows
+    // (can-citrus-mango-tall.jpg). In the original the hand starts 22% down,
+    // which left about 177 units above it for a block that needs 300; the
+    // door frame and the wall are vertical surfaces, so stretching their top
+    // edge reads as more of the same room rather than as a patch.
+    //
+    // THE TOP MEASURES MID-GREY — about 125 of 255 — which neither ink holds
+    // on. So the same answer the Golden Vanilla opener took: a scrim weighted
+    // to the top, beige and gold type, gold wordmark.
+    //
+    // THE BUTTON GOES UNDER THE PICTURE. The can stands at the bottom centre,
+    // so a centred pill at the foot of the frame lands on the product; on the
+    // forest band below it reads as the close of the opener and hands
+    // straight into the forest of section 2.
     h(M.T9Story, {
-      src: '../public/product/can-peach-ginger-hero.jpg',
+      src: '../public/product/can-citrus-mango-tall.jpg',
       alt: SECTION_1_ALT,
       logo: true,
       logoTone: 'gold',
-      logoHeight: 72,
-      logoAlign: 'left',
-      align: 'left',
-      eyebrow: 'Functional herbal energy',
-      line1: 'Your 3PM,',
-      line2: 'without\nthe crash.',
+      logoHeight: 76,
+      align: 'center',
+      line1: 'Imagine…',
+      line2: '3 PM feeling as\ngood as 10 AM.',
       line1Color: BEIGE,
       line2Color: GOLD,
-      paras: ['Skip the second coffee. Brewed yerba mate and Lion’s Mane, cold in a can and ready the moment you crack it.'],
-      cta: { label: 'Shop the cans', href: '#shop', arrow: true },
-      ctaInline: true,
-      ratio: 1328 / 1100,
-      size: 40,
-      size2: 42,
-      titleLead: 1.0,
-      top: 34,
+      paras: ['Skip the second coffee. Clean, sustained energy, focus, and balance in a cold, refreshing can. Ready to carry you through the rest of your day.'],
+      ratio: 2440 / 1493,
+      size: 30,
+      size2: 40,
+      titleLead: 1.02,
+      top: 26,
       padLeft: 34,
-      padRight: 262,
-      measure: 300,
+      padRight: 34,
+      measure: 470,
       ink: 'light',
-      scrim: 0.25,
+      scrim: 0.62,
       scrimAt: 'top',
       halo: 'soft',
     }),
+
+    // The opener's button, on its own band of the same forest paper as
+    // section 2, so the grain runs unbroken from the button into the next
+    // act. T9's built-in ctaBelow band is a flat fill and left a visible
+    // edge against the texture.
+    h('div', { style: {
+      backgroundColor: FOREST,
+      backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
+      backgroundSize: '320px 320px',
+      padding: '32px 32px 8px', textAlign: 'center' } },
+      h(M.Button, { label: 'Fix my 3PM slump', href: '#shop', bg: 'forest', size: 'lg' }),
+    ),
 
     // ── 2 · THE SLUMP, AND WHAT CHANGES IT ───────────────────────────────
     // The education act inverts the page: the forest paper grain from the

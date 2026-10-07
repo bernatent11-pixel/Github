@@ -251,7 +251,7 @@ function ThreePmCans() {
       ),
 
       h('div', { style: { marginTop: 36, textAlign: 'center' } },
-        h(M.Button, { label: 'Find your flavor', href: '#shop', bg: 'forest' }),
+        h(M.Button, { label: 'Try it now', href: '#shop', bg: 'forest' }),
       ),
     ),
 

@@ -55,8 +55,8 @@ const CARD_H = 250;
 /* ── KLAVIYO EXPORT ─────────────────────────────────────────────────────────
    Three images, cut on flat forest so no seam can show:
      three-pm-cans-1.jpg  0–1128     opener + subscribe card   → subscribe link
-     three-pm-cans-2.jpg  1128–2364  desk photo + comparison   → shop link
-     three-pm-cans-3.jpg  2364–end   the close (can, formula)  → shop link
+     three-pm-cans-2.jpg  1128–2332  desk photo + comparison   → shop link
+     three-pm-cans-3.jpg  2332–end   the close (can, formula)  → shop link
    The second cut sits in the 4-unit gap between the Try it now button and
    the top of the can, so neither is split. The footer is in image 3; swap
    it for Klaviyo's own footer block if the account requires one.
@@ -75,8 +75,8 @@ const SECTION_2_ALT =
   'letting your energy slow you down. A woman in a linen suit rests her hand on ' +
   'a can of Milonga Yerba Mate in Citrus Mango beside her laptop, with three ' +
   'labels pointing to the can: clean, sustained energy, no jitters, no crash; ' +
-  'focus and mental clarity; balance and calm, steady, not anxious. Your 3PM, ' +
-  'two ways: a Milonga can against a 3PM coffee. Energy: smooth and sustained, ' +
+  'focus and mental clarity; balance and calm, steady, not anxious. A Milonga ' +
+  'can against a 3PM coffee. Energy: smooth and sustained, ' +
   'versus a fast spike, then a drop. Focus: clear, with Lion’s Mane, versus ' +
   'wired, from caffeine alone. Overall feel: awake, focused, and calm, versus ' +
   'jittery and on edge. 3 hours later: still sharp and ready, versus the ' +
@@ -269,9 +269,6 @@ function ThreePmCans() {
       // makes the point before a word is read. Where coffee's figure can't
       // be sourced it is an em dash, never a number that looks right.
       h('div', null,
-        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12,
-          letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD,
-          textAlign: 'center', marginBottom: 18 } }, 'Your 3PM, two ways'),
         // The two drinks as cutouts under their names, both sitting on one
         // baseline so the can and the cup read as a pair at the same scale.
         h(M.CompareRows, { bg: 'forest', ourName: 'Milonga can', theirName: '3PM coffee', artBelow: true,

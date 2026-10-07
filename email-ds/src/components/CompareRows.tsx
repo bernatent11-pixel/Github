@@ -24,6 +24,12 @@ export interface CompareRowsProps {
   /** Optional art above each column head — a product cutout and an icon. */
   ourArt?: React.ReactNode;
   theirArt?: React.ReactNode;
+  /**
+   * Put the art UNDER the column names instead of above them, so the names
+   * read as headings and the pictures sit directly on top of the rows they
+   * stand for.
+   */
+  artBelow?: boolean;
 }
 
 /**
@@ -44,6 +50,7 @@ export function CompareRows({
   theirName,
   ourArt,
   theirArt,
+  artBelow = false,
 }: CompareRowsProps) {
   const t = onBg[bg];
   // Narrow label gutter and a capped width: the table reads as one centred
@@ -72,16 +79,18 @@ export function CompareRows({
 
   return (
     <div style={{ maxWidth: MAXW, margin: '0 auto' }}>
-      {/* Column heads — art, then the name. */}
+      {/* Column heads — art, then the name (or the name, then the art). */}
       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
         <div style={{ flex: `0 0 ${LABEL}px`, width: LABEL }} />
         <div style={{ flex: 1, textAlign: 'center' }}>
-          {ourArt}
-          <div style={{ ...head, color: t.accent, marginTop: 8 }}>{ourName}</div>
+          {artBelow ? null : ourArt}
+          <div style={{ ...head, color: t.accent, marginTop: artBelow ? 0 : 8, marginBottom: artBelow ? 12 : 0 }}>{ourName}</div>
+          {artBelow ? ourArt : null}
         </div>
         <div style={{ flex: 1, textAlign: 'center' }}>
-          {theirArt}
-          <div style={{ ...head, color: t.body, opacity: 0.66, marginTop: 8 }}>{theirName}</div>
+          {artBelow ? null : theirArt}
+          <div style={{ ...head, color: t.body, opacity: 0.66, marginTop: artBelow ? 0 : 8, marginBottom: artBelow ? 12 : 0 }}>{theirName}</div>
+          {artBelow ? theirArt : null}
         </div>
       </div>
 

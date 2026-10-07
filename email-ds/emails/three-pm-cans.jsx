@@ -245,8 +245,8 @@ function ThreePmCans() {
           rows: [
             { label: 'Energy', ours: 'Smooth and sustained', theirs: 'A fast spike, then a drop' },
             { label: 'Focus', ours: 'Clear, with Lion’s Mane', theirs: 'Wired, from caffeine alone' },
-            { label: 'Overall feel', ours: 'Balanced and calm', theirs: 'Jittery and on edge' },
-            { label: '3 hours later', ours: 'Still steady', theirs: 'The crash' },
+            { label: 'Overall feel', ours: 'Awake, focused, and calm', theirs: 'Jittery and on edge' },
+            { label: '3 hours later', ours: 'Still sharp and ready', theirs: 'The crash' },
           ] }),
       ),
 

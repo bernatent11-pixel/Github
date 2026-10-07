@@ -27,19 +27,20 @@ const TBD = '___';
 // Section 1 geometry: photo pixels → design units, and the subscribe card.
 const CAN = 600 / 1493;
 
-// Section 2 callout figure. The frame shows the desk crop (850 x 1060); the
-// can sits at x 592–745, y 382–835 of that crop.
-const FIG = { x: 24, w: 360, h: Math.round(360 * 1060 / 850) };
-const CROP = (x, y) => [FIG.x + x * FIG.w / 850, y * FIG.h / 1060];
-const LABEL_X = 412;
-const CALLOUTS = (() => {
-  const right = CROP(745, 0)[0] + 5;
-  return [
-    { title: 'Clean, sustained energy', note: 'No jitters, no crash', y: 92, ty: CROP(0, 470)[1] },
-    { title: 'Focus & mental clarity', y: 222, ty: CROP(0, 610)[1] },
-    { title: 'Balance & calm', note: 'Steady, not anxious', y: 330, ty: CROP(0, 750)[1] },
-  ].map(c => ({ ...c, tx: right, cx: (LABEL_X + right) / 2, cy: (c.y + 9 + c.ty) / 2 - 18 }));
-})();
+// Section 2 photo band. DESK maps the desk photograph's pixels to design
+// units (drawn 600 wide from its top edge); the can's visible left edge is at
+// file x 922, between y 662 and the hand at about 870.
+const DESK = 600 / 1333;
+const BAND_H = 560;
+const LABEL = { x: 20, w: 214 };
+const CALLOUTS = [
+  { title: 'Clean, sustained energy', note: 'No jitters, no crash', y: 290, ty: 676 },
+  { title: 'Focus & mental clarity', y: 372, ty: 760 },
+  { title: 'Balance & calm', note: 'Steady, not anxious', y: 438, ty: 846 },
+].map(c => {
+  const sy = c.y + 26, tx = 918 * DESK - 3, ty = c.ty * DESK;
+  return { ...c, sy, tx, ty, cx: (LABEL.x + LABEL.w + tx) / 2, cy: Math.min(sy, ty) - 14 };
+});
 const CARD_H = 250;
 
 const SECTION_1_ALT =
@@ -110,14 +111,33 @@ function ThreePmCans() {
         halo: 'soft',
       }),
 
+      // ── 2 · THE AFTERNOON, ON THE DESK PHOTOGRAPH ───────────────────────
+      // Section 2 opens on the desk shot as its own background, and it starts
+      // behind the subscribe card's middle line — the card is pulled up by
+      // half its height, so the photograph begins exactly where the opener's
+      // picture ends.
+      //
+      // THE PHOTOGRAPH IS LIGHT — linen, white curtains, travertine — so the
+      // ink is forest, and the head of the picture takes a cream LIFT rather
+      // than a dark scrim, which keeps it a bright afternoon. The benefits sit
+      // in white rounded labels, because a label on the busy left of the shot
+      // (suit, arm, sofa) needs an edge of its own to read as an object, and
+      // the arrows are forest: gold on pale linen measures about 1.5:1.
+      //
+      // The photograph is drawn 600 wide from its top edge, so a pixel in the
+      // file maps to the band by DESK alone; the can (x 922–1075, y 662–1115
+      // in the file) lands at x 415–484, y 298–502, and the arrows are aimed
+      // at its visible left edge, above the hand.
       h('div', { style: {
-        backgroundColor: FOREST,
-        backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
-        backgroundSize: '320px 320px',
         // flow-root, or the card's negative margin collapses through this
-        // band and drags the whole forest up over the photograph with it.
-        display: 'flow-root',
-        padding: '0 26px 8px', position: 'relative' } },
+        // band and drags the whole photograph up over the opener with it.
+        display: 'flow-root', position: 'relative', height: BAND_H, boxSizing: 'border-box',
+        backgroundColor: '#E6DFD2',
+        backgroundImage: 'linear-gradient(180deg, rgba(240,239,223,0.86) 0px, rgba(240,239,223,0.72) 150px, rgba(240,239,223,0.38) 250px, rgba(240,239,223,0) 300px), url(../public/product/can-citrus-mango-desk.jpg)',
+        backgroundSize: '100% 100%, 600px auto',
+        backgroundPosition: '0 0, 0 0',
+        backgroundRepeat: 'no-repeat',
+        padding: '0 26px' } },
         // Pulled up by half its own height, so the photograph ends — and the
         // forest begins — on the card's middle line.
         h('div', { style: { position: 'relative', zIndex: 2, marginTop: -CARD_H / 2,
@@ -137,6 +157,41 @@ function ThreePmCans() {
             h(M.Button, { label: 'Subscribe & save', href: '#subscribe', bg: 'gold', size: 'lg' }),
           ),
         ),
+
+        h('div', { style: { position: 'relative', zIndex: 1, textAlign: 'center', marginTop: 26 } },
+          h(M.Headline, { line1: 'Bye afternoon crashes', line2: 'welcome afternoon flow', bg: 'beige',
+            size: 31, align: 'center', color: FOREST, line2Color: FOREST, italic: true }),
+          h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
+            lineHeight: 1.45, color: '#12331F', maxWidth: 440, margin: '14px auto 0' } },
+            'Keep the day moving, without letting your energy slow you down.'),
+        ),
+
+        CALLOUTS.map((c, i) => h('div', { key: i, style: { position: 'absolute', zIndex: 1,
+          left: LABEL.x, top: c.y, width: LABEL.w, boxSizing: 'border-box',
+          background: '#FFFFFF', borderRadius: 16, padding: '11px 14px',
+          boxShadow: '0 8px 20px rgba(0,53,27,0.20), 0 1px 3px rgba(0,53,27,0.14)' } },
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12.5, lineHeight: 1.2,
+            letterSpacing: '0.06em', textTransform: 'uppercase', color: FOREST } }, c.title),
+          c.note ? h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 12.5,
+            lineHeight: 1.35, color: '#3B5344', marginTop: 3 } }, c.note) : null,
+        )),
+
+        // Forest arrows with a cream edge glow, so the line holds where it
+        // crosses the grey sofa as well as the pale linen.
+        h('svg', { width: 600, height: BAND_H, viewBox: `0 0 600 ${BAND_H}`,
+          style: { position: 'absolute', left: 0, top: 0, zIndex: 1, overflow: 'visible',
+            filter: 'drop-shadow(0 0 2px rgba(251,248,239,0.9))' } },
+          h('defs', null,
+            h('marker', { id: 'arrowhead', markerWidth: 10, markerHeight: 10, refX: 7, refY: 5,
+              orient: 'auto', markerUnits: 'userSpaceOnUse' },
+              h('path', { d: 'M1,1 L8,5 L1,9', fill: 'none', stroke: FOREST, strokeWidth: 2.2,
+                strokeLinecap: 'round', strokeLinejoin: 'round' })),
+          ),
+          CALLOUTS.map((c, i) => h('path', { key: i,
+            d: `M ${LABEL.x + LABEL.w + 6} ${c.sy} Q ${c.cx} ${c.cy} ${c.tx} ${c.ty}`,
+            fill: 'none', stroke: FOREST, strokeWidth: 2.4, strokeLinecap: 'round',
+            markerEnd: 'url(#arrowhead)' })),
+        ),
       ),
 
       // The can's base, in front of the card's top edge.
@@ -146,7 +201,7 @@ function ThreePmCans() {
           filter: 'drop-shadow(0 6px 6px rgba(0,26,13,0.28))' } }),
     ),
 
-    // ── 2 · THE SLUMP, AND WHAT CHANGES IT ───────────────────────────────
+    // ── 2b · THE COMPARISON ──────────────────────────────
     // The education act inverts the page: the forest paper grain from the
     // Golden Vanilla email, so the opener's dark green carries straight on
     // into the band and the only colour change in the email is the beige
@@ -159,64 +214,10 @@ function ThreePmCans() {
       padding: '56px 32px 56px',
       position: 'relative', overflow: 'hidden' } },
 
-      h('div', { style: { textAlign: 'center' } },
-        h(M.Headline, { line1: 'Bye afternoon crashes', line2: 'welcome afternoon flow', bg: 'forest',
-          size: 31, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
-        h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
-          lineHeight: 1.5, color: '#FFFFFF', maxWidth: 440, margin: '18px auto 0' } },
-          'Keep the day moving, without letting your energy slow you down.'),
-      ),
-
-      // THE CALLOUT FIGURE. The desk shot in a big rounded frame, set left,
-      // with the three benefits on the green to its right and an arrow from
-      // each one running into the picture to the can. The arrows cross the
-      // frame's edge on purpose — that crossing is what ties a label on the
-      // page to an object in the photograph.
-      //
-      // Geometry is in the 600-unit width of the email (the block cancels
-      // the band's 32 padding). The frame is a crop of the original file —
-      // x 330–1180, y 280–1340 — so the can (x 922–1075, y 662–1115 in the
-      // original) lands at a known place and every arrow can be aimed at it.
-      h('div', { style: { position: 'relative', margin: '40px -32px 0', height: FIG.h } },
-        h('div', { style: { position: 'absolute', left: FIG.x, top: 0, width: FIG.w, height: FIG.h,
-          borderRadius: 26, overflow: 'hidden',
-          boxShadow: '0 16px 34px rgba(0,26,13,0.38), 0 3px 8px rgba(0,26,13,0.24)' } },
-          h('img', { src: '../public/product/can-citrus-mango-desk-crop.jpg',
-            alt: 'A woman in a linen suit rests her hand on a can of Milonga Yerba Mate in Citrus Mango, on a travertine side table beside her open laptop.',
-            style: { width: '100%', height: '100%', display: 'block', objectFit: 'cover' } }),
-        ),
-
-        CALLOUTS.map((c, i) => h('div', { key: i, style: { position: 'absolute',
-          left: LABEL_X, top: c.y, width: 600 - LABEL_X - 22 } },
-          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 14, lineHeight: 1.2,
-            letterSpacing: '0.06em', textTransform: 'uppercase', color: '#FFFFFF' } }, c.title),
-          c.note ? h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 14,
-            lineHeight: 1.35, color: GOLD, marginTop: 4 } }, c.note) : null,
-        )),
-
-        // The arrows, drawn over both the frame and the green. Gold carries
-        // on the band; the dark shadow under the stroke is what keeps it
-        // visible where it crosses the pale travertine and the laptop.
-        h('svg', { width: 600, height: FIG.h, viewBox: `0 0 600 ${FIG.h}`,
-          style: { position: 'absolute', left: 0, top: 0, overflow: 'visible',
-            filter: 'drop-shadow(0 1px 2px rgba(0,26,13,0.75))' } },
-          h('defs', null,
-            h('marker', { id: 'arrowhead', markerWidth: 10, markerHeight: 10, refX: 7, refY: 5,
-              orient: 'auto', markerUnits: 'userSpaceOnUse' },
-              h('path', { d: 'M1,1 L8,5 L1,9', fill: 'none', stroke: GOLD, strokeWidth: 2,
-                strokeLinecap: 'round', strokeLinejoin: 'round' })),
-          ),
-          CALLOUTS.map((c, i) => h('path', { key: i,
-            d: `M ${LABEL_X - 10} ${c.y + 9} Q ${c.cx} ${c.cy} ${c.tx} ${c.ty}`,
-            fill: 'none', stroke: GOLD, strokeWidth: 2.4, strokeLinecap: 'round',
-            markerEnd: 'url(#arrowhead)' })),
-        ),
-      ),
-
       // The comparison. Our column is gold, theirs a hairline — the stripe
       // makes the point before a word is read. Where coffee's figure can't
       // be sourced it is an em dash, never a number that looks right.
-      h('div', { style: { marginTop: 40 } },
+      h('div', null,
         h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12,
           letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD,
           textAlign: 'center', marginBottom: 18 } }, 'Your 3PM, two ways'),

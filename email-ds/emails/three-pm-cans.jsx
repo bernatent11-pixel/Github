@@ -239,8 +239,8 @@ function ThreePmCans() {
         // The two drinks as cutouts under their names, both sitting on one
         // baseline so the can and the cup read as a pair at the same scale.
         h(M.CompareRows, { bg: 'forest', ourName: 'Milonga can', theirName: '3PM coffee', artBelow: true,
-          ourArt: h('img', { src: '../public/product/can-citrus-mango-cutout.png',
-            alt: 'A can of Milonga Yerba Mate, Citrus Mango',
+          ourArt: h('img', { src: '../public/product/can-peach-ginger-cutout.png',
+            alt: 'A can of Milonga Yerba Mate, Peach Ginger',
             style: { height: 150, width: 'auto', display: 'block', margin: '0 auto',
               filter: 'drop-shadow(0 10px 12px rgba(0,26,13,0.45))' } }),
           theirArt: h('div', { style: { height: 150, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' } },

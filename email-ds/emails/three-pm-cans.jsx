@@ -28,7 +28,7 @@ const FORMULA = [
 
 // Section 3 geometry, top-down from the section's own edge. The can starts
 // CLOSE.canTop ABOVE that edge (into the forest) and ends on pillsEnd.
-const CLOSE = { padTop: 96, titleH: 58, gap: 40, pillH: 70, pillGap: 18, colW: 296, canTop: -52 };
+const CLOSE = { padTop: 80, titleH: 166, gap: 34, pillH: 70, pillGap: 16, colW: 300, pillW: 268, canTop: -52 };
 CLOSE.pillsEnd = CLOSE.padTop + CLOSE.titleH + CLOSE.gap + 3 * CLOSE.pillH + 2 * CLOSE.pillGap;
 
 // Section 1 geometry: photo pixels → design units, and the subscribe card.
@@ -290,14 +290,20 @@ function ThreePmCans() {
       clipPath: 'inset(-400px 0 0 0)' } },
       h('img', { src: '../public/product/can-peach-ginger-tilt.png',
         alt: 'A can of Milonga Yerba Mate, Peach Ginger, 12 fl oz, tilted.',
-        style: { position: 'absolute', right: 6, top: CLOSE.canTop, height: CLOSE.pillsEnd - CLOSE.canTop,
+        style: { position: 'absolute', right: 0, top: CLOSE.canTop, height: CLOSE.pillsEnd - CLOSE.canTop,
           width: 'auto', display: 'block',
           filter: 'drop-shadow(0 22px 26px rgba(0,26,13,0.34)) drop-shadow(0 4px 6px rgba(0,26,13,0.2))' } }),
 
       h('div', { style: { width: CLOSE.colW, position: 'relative' } },
+        // The title at full voice: four short rows, the statement in Black and
+        // the turn in Bold Italic, both lines broken where the sense breaks.
         h('div', { style: { height: CLOSE.titleH } },
-          h(M.Headline, { line1: 'Make the switch.', line2: 'Feel the difference', bg: 'beige',
-            size: 23, align: 'left', italic: true }),
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 40, lineHeight: 0.98,
+            letterSpacing: '0.01em', textTransform: 'uppercase', color: FOREST, whiteSpace: 'pre-line',
+            textShadow: '0 1px 2px rgba(0,53,27,0.12)' } }, 'Make the\nswitch.'),
+          h('div', { style: { fontFamily: FONT, fontWeight: 700, fontStyle: 'italic', fontSize: 40,
+            lineHeight: 1.0, textTransform: 'uppercase', color: FOREST, whiteSpace: 'pre-line',
+            marginTop: 6, textShadow: '0 1px 2px rgba(0,53,27,0.12)' } }, 'Feel the\ndifference'),
         ),
 
         // The functional three, each a gold pill led by its brand mark. On
@@ -306,7 +312,7 @@ function ThreePmCans() {
         h('div', { style: { marginTop: CLOSE.gap } },
           FORMULA.map(([mark, dose, note], i) => h('div', { key: i, style: { ...PILL,
             display: 'flex', alignItems: 'center', gap: 12, boxSizing: 'border-box',
-            height: CLOSE.pillH, marginBottom: i < FORMULA.length - 1 ? CLOSE.pillGap : 0,
+            width: CLOSE.pillW, height: CLOSE.pillH, marginBottom: i < FORMULA.length - 1 ? CLOSE.pillGap : 0,
             padding: '0 16px 0 12px', borderRadius: 999 } },
             h('span', { style: { flex: 'none', width: 48, height: 48, borderRadius: 999,
               background: 'rgba(255,248,226,0.55)', display: 'flex', alignItems: 'center',
@@ -314,8 +320,7 @@ function ThreePmCans() {
               h(M.BrandIcon, { mark, ink: 'forest', size: 36, alt: '' })),
             h('div', null,
               h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 13,
-                letterSpacing: '0.02em', textTransform: 'uppercase', color: FOREST, lineHeight: 1.15,
-                whiteSpace: 'nowrap' } }, dose),
+                letterSpacing: '0.02em', textTransform: 'uppercase', color: FOREST, lineHeight: 1.15 } }, dose),
               h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 12.5,
                 color: FOREST, opacity: 0.82, marginTop: 2 } }, note),
             ),

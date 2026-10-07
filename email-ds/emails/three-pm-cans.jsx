@@ -3,15 +3,10 @@
 // Subject: Your 3PM Without The Crash ☀️🧊
 // Preview: Brewed yerba mate and Lion's Mane, cold and ready by 2:59.
 //
-// FIRST LAYOUT, BUILT AHEAD OF THE FACTS. The product file covers the Mate
-// Latte bag only, so every number this email needs for the cans — caffeine,
-// Lion's Mane dose, calories, sugar, can size, price, pack, flavours — is a
-// visible "___" rather than a plausible figure. Fill them from the can's own
-// label before this goes anywhere near a send.
-//
-// THE ONLY CAN ART IN THE REPO is the Peach Ginger can inside the product
-// family composite, so both photographs here are crops of that one file.
-// They hold the layout; real can photography replaces them.
+// CAN SPECS, as Bernat supplied them for this email (the product file covers
+// the Mate Latte bag only): 100mg natural caffeine, 1000mg Lion's Mane,
+// 200mg L-Theanine, 20 cal, 1g organic sugar, organic ingredients, 12 fl oz.
+// The 20% subscription offer is his too.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
@@ -20,9 +15,16 @@ const GOLD = '#E3BC62';
 const BEIGE = '#F0EFDF';
 const FONT = 'Gotham, Montserrat, sans-serif';
 
-// A blank waiting for a real figure. Kept as a constant so a search for it
-// finds every hole in the email at once.
-const TBD = '___';
+// The close's gold pills: the face of a gold button, without the link.
+const PILL = {
+  background: 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)',
+  boxShadow: '0 6px 14px rgba(0,53,27,0.16), 0 1px 3px rgba(0,53,27,0.14), inset 0 1px 0 rgba(255,246,214,0.7)',
+};
+const FORMULA = [
+  ['100mg natural caffeine', 'Clean energy'],
+  ['1000mg Lion’s Mane', 'Focus'],
+  ['200mg L-Theanine', 'Calmness'],
+];
 
 // Section 1 geometry: photo pixels → design units, and the subscribe card.
 const CAN = 600 / 1493;
@@ -266,55 +268,49 @@ function ThreePmCans() {
     ),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
-    // Beige, dark green type only. The can on the left as an inset photograph
-    // (rounded, because it is a photo with its own backdrop rather than a
-    // cutout), the facts on the right, then the offer and one button.
-    h('div', { style: { padding: '56px 32px 48px' } },
-      h('div', { style: { textAlign: 'center' } },
-        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12,
-          letterSpacing: '0.2em', textTransform: 'uppercase', color: FOREST,
-          marginBottom: 14 } }, 'Stock the fridge'),
-        h(M.Headline, { line1: 'Crack one', line2: 'at 2:59.', bg: 'beige',
-          size: 40, align: 'center', italic: true }),
-      ),
+    // Beige, dark green type. Title, the formula as gold pills and the button
+    // down the left; one big tilted can on the right whose top breaks up
+    // through the edge into the forest above. That crossing is the 3D moment
+    // of the email — the can stands in front of the page rather than on it.
+    //
+    // The section paints above the comparison (zIndex 1) so the can's top
+    // covers the forest, and clips only its SIDES and foot: an unclipped
+    // cutout running past the right edge widens the whole export.
+    h('div', { style: { position: 'relative', zIndex: 1, padding: '64px 28px 56px',
+      clipPath: 'inset(-400px 0 0 0)' } },
+      h('img', { src: '../public/product/can-peach-ginger-tilt.png',
+        alt: 'A can of Milonga Yerba Mate, Peach Ginger, 12 fl oz, tilted.',
+        style: { position: 'absolute', right: 12, top: -126, height: 500, width: 'auto',
+          display: 'block', filter: 'drop-shadow(0 22px 26px rgba(0,26,13,0.34)) drop-shadow(0 4px 6px rgba(0,26,13,0.2))' } }),
 
-      h('div', { style: { display: 'flex', gap: 24, alignItems: 'center', marginTop: 36 } },
-        h('div', { style: { flex: '0 0 220px', width: 220, borderRadius: 16, overflow: 'hidden',
-          boxShadow: '0 10px 26px rgba(0,53,27,0.22), 0 2px 6px rgba(0,53,27,0.14)' } },
-          h('img', { src: '../public/product/can-peach-ginger-close.jpg',
-            alt: 'A can of Milonga Yerba Mate in Peach Ginger beside a slice of peach and fresh ginger.',
-            style: { width: '100%', height: 'auto', display: 'block' } }),
+      h('div', { style: { width: 284, position: 'relative' } },
+        h(M.Headline, { line1: 'Make the switch.', line2: 'Feel the difference', bg: 'beige',
+          size: 23, align: 'left', italic: true }),
+
+        // The functional three, each a gold pill with its dose and what it is
+        // for. On beige gold is a fill and never type, so the type is forest.
+        h('div', { style: { marginTop: 26 } },
+          FORMULA.map(([dose, note], i) => h('div', { key: i, style: { ...PILL,
+            padding: '11px 20px', marginBottom: 10, borderRadius: 999 } },
+            h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 13.5,
+              letterSpacing: '0.05em', textTransform: 'uppercase', color: FOREST, lineHeight: 1.15 } }, dose),
+            h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 12.5,
+              color: FOREST, opacity: 0.82, marginTop: 2 } }, note),
+          )),
         ),
-        h('div', { style: { flex: 1 } },
-          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 24,
-            textTransform: 'uppercase', color: FOREST, lineHeight: 1.05 } }, 'Peach Ginger'),
-          h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
-            lineHeight: 1.45, color: '#000000', margin: '10px 0 18px' } },
-            `More flavors: ${TBD}`),
-          h(M.SpecPills, { bg: 'beige', align: 'left', size: 11, items: [
-            `${TBD}mg natural caffeine`,
-            `${TBD}mg Lion’s Mane`,
-            `${TBD} cal`,
-            `${TBD}g sugar`,
-            `${TBD} fl oz`,
-          ] }),
+
+        h('div', { style: { height: 1, background: 'rgba(0,77,39,0.32)', margin: '18px 0 18px' } }),
+
+        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } },
+          ['20 cal', '1g organic sugar', 'Organic ingredients'].map((t, i) => h('span', { key: i,
+            style: { ...PILL, display: 'inline-block', borderRadius: 999, padding: '9px 16px',
+              fontFamily: FONT, fontWeight: 900, fontSize: 12, letterSpacing: '0.07em',
+              textTransform: 'uppercase', color: FOREST } }, t)),
         ),
-      ),
 
-      // The offer as a gold cell with dark green type — on cream, gold is a
-      // fill and never type. Price and pack are blanks until confirmed.
-      h('div', { style: { marginTop: 36, background: GOLD, borderRadius: 18,
-        padding: '22px 24px', textAlign: 'center',
-        boxShadow: '0 8px 22px rgba(0,53,27,0.16)' } },
-        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 20,
-          textTransform: 'uppercase', color: FOREST, letterSpacing: '0.04em' } },
-          `${TBD}-pack · $${TBD}`),
-        h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
-          color: FOREST, marginTop: 6 } }, `Offer: ${TBD}`),
-      ),
-
-      h('div', { style: { marginTop: 28, textAlign: 'center' } },
-        h(M.Button, { label: 'Shop the cans', href: '#shop', bg: 'beige', size: 'lg' }),
+        h('div', { style: { marginTop: 30 } },
+          h(M.Button, { label: 'Shop now', href: '#shop', bg: 'beige', size: 'lg' }),
+        ),
       ),
     ),
 

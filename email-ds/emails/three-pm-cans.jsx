@@ -24,12 +24,16 @@ const FONT = 'Gotham, Montserrat, sans-serif';
 // finds every hole in the email at once.
 const TBD = '___';
 
+// Section 1 geometry: photo pixels → design units, and the subscribe card.
+const CAN = 600 / 1493;
+const CARD_H = 250;
+
 const SECTION_1_ALT =
   'Milonga. Imagine… 3 PM feeling as good as 10 AM. Skip the second coffee. ' +
   'Clean, sustained energy, focus, and balance in a cold, refreshing can. Ready ' +
   'to carry you through the rest of your day. A hand in an orange sweatshirt ' +
   'lifts an open can of Milonga Yerba Mate in Citrus Mango from a blue leather ' +
-  'armchair. Fix my 3PM slump.';
+  'armchair. Subscribe and save 20% on each order. Subscribe and save.';
 
 function ThreePmCans() {
   return h(M.EmailShell, { bg: 'beige' },
@@ -53,42 +57,79 @@ function ThreePmCans() {
     // so a centred pill at the foot of the frame lands on the product; on the
     // forest band below it reads as the close of the opener and hands
     // straight into the forest of section 2.
-    h(M.T9Story, {
-      src: '../public/product/can-citrus-mango-tall.jpg',
-      alt: SECTION_1_ALT,
-      logo: true,
-      logoTone: 'gold',
-      logoHeight: 76,
-      align: 'center',
-      line1: 'Imagine…',
-      line2: '3 PM feeling as\ngood as 10 AM.',
-      line1Color: BEIGE,
-      line2Color: GOLD,
-      paras: ['Skip the second coffee. Clean, sustained energy, focus, and balance in a cold, refreshing can. Ready to carry you through the rest of your day.'],
-      ratio: 2440 / 1493,
-      size: 30,
-      size2: 40,
-      titleLead: 1.02,
-      top: 26,
-      padLeft: 34,
-      padRight: 34,
-      measure: 470,
-      ink: 'light',
-      scrim: 0.62,
-      scrimAt: 'top',
-      halo: 'soft',
-    }),
+    // THE SUBSCRIBE CARD, after the Cann opener Bernat sent. A gold card rides
+    // over the foot of the photograph with the can standing IN FRONT of its
+    // top edge, and the forest of section 2 starts behind the card's middle —
+    // so photograph, card and next section overlap instead of stacking as
+    // three bands.
+    //
+    // The can is in front because its base is cut out of the same photograph
+    // (can-citrus-mango-base-cutout.png, masked to the cylinder and its
+    // bevelled base) and laid back over the card exactly where it already
+    // sits in the picture. CAN maps photo pixels to design units: the frame
+    // is 600 wide and its ratio equals the file's, so one scale serves both
+    // axes, and the tall file is the original plus 440px of wall on top.
+    h('div', { style: { position: 'relative', zIndex: 0 } },
+      h(M.T9Story, {
+        src: '../public/product/can-citrus-mango-tall.jpg',
+        alt: SECTION_1_ALT,
+        logo: true,
+        logoTone: 'gold',
+        logoHeight: 76,
+        align: 'center',
+        line1: 'Imagine…',
+        line2: '3 PM feeling as\ngood as 10 AM.',
+        line1Color: BEIGE,
+        line2Color: GOLD,
+        paras: ['Skip the second coffee. Clean, sustained energy, focus, and balance in a cold, refreshing can. Ready to carry you through the rest of your day.'],
+        ratio: 2440 / 1493,
+        size: 30,
+        size2: 40,
+        titleLead: 1.02,
+        top: 26,
+        padLeft: 34,
+        padRight: 34,
+        measure: 470,
+        ink: 'light',
+        scrim: 0.62,
+        scrimAt: 'top',
+        halo: 'soft',
+      }),
 
-    // The opener's button, on its own band of the same forest paper as
-    // section 2, so the grain runs unbroken from the button into the next
-    // act. T9's built-in ctaBelow band is a flat fill and left a visible
-    // edge against the texture.
-    h('div', { style: {
-      backgroundColor: FOREST,
-      backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
-      backgroundSize: '320px 320px',
-      padding: '32px 32px 8px', textAlign: 'center' } },
-      h(M.Button, { label: 'Fix my 3PM slump', href: '#shop', bg: 'forest', size: 'lg' }),
+      h('div', { style: {
+        backgroundColor: FOREST,
+        backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
+        backgroundSize: '320px 320px',
+        // flow-root, or the card's negative margin collapses through this
+        // band and drags the whole forest up over the photograph with it.
+        display: 'flow-root',
+        padding: '0 26px 8px', position: 'relative' } },
+        // Pulled up by half its own height, so the photograph ends — and the
+        // forest begins — on the card's middle line.
+        h('div', { style: { position: 'relative', zIndex: 2, marginTop: -CARD_H / 2,
+          height: CARD_H, boxSizing: 'border-box',
+          background: 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)',
+          // The can stands about 76 units into the card, so the type starts
+          // below its base — the Cann card does the same.
+          borderRadius: 26, padding: '92px 24px 0', textAlign: 'center',
+          boxShadow: '0 18px 36px rgba(0,26,13,0.34), 0 3px 8px rgba(0,26,13,0.22), inset 0 1px 0 rgba(255,246,214,0.7)' } },
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 32, lineHeight: 1.0,
+            textTransform: 'uppercase', color: FOREST, letterSpacing: '0.01em' } },
+            'Subscribe & save 20%'),
+          h('div', { style: { fontFamily: FONT, fontWeight: 700, fontStyle: 'italic', fontSize: 28,
+            lineHeight: 1.05, textTransform: 'uppercase', color: FOREST, marginTop: 4 } },
+            'on each order.'),
+          h('div', { style: { marginTop: 22 } },
+            h(M.Button, { label: 'Subscribe & save', href: '#subscribe', bg: 'gold', size: 'lg' }),
+          ),
+        ),
+      ),
+
+      // The can's base, in front of the card's top edge.
+      h('img', { src: '../public/product/can-citrus-mango-base-cutout.png', alt: '',
+        style: { position: 'absolute', zIndex: 3, display: 'block', height: 'auto',
+          left: 578 * CAN, top: (1640 + 440) * CAN, width: 352 * CAN,
+          filter: 'drop-shadow(0 6px 6px rgba(0,26,13,0.28))' } }),
     ),
 
     // ── 2 · THE SLUMP, AND WHAT CHANGES IT ───────────────────────────────

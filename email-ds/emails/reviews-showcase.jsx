@@ -30,6 +30,19 @@ const CREAM = '#F0EFDF';
 // first review card rises into the photograph's faded foot.
 const HAND_GAP = { x: 312 };
 const CARD_RISE = 104;
+
+// Section 2's palette, in one place so the ground can be tried in another
+// colour without touching the layout. GOLD TRIAL (Bernat, 2026-10-09): on a
+// gold ground the cards cannot also be gold — gold on gold has no edge — so
+// they turn beige; the photo's foot fades to gold, and the button takes the
+// gold page's forest fill. The beige version was: ground #F0EFDF, cards in
+// the gold gradient, fade rgba(240,239,223,…), button bg 'beige'.
+const S2 = {
+  ground: '#E3BC62',
+  fade: 'rgba(227,188,98,',
+  card: 'linear-gradient(180deg, #F6F4E8 0%, #F0EFDF 60%, #E9E6D2 100%)',
+  btnBg: 'gold',
+};
 const FONT = 'Gotham, Montserrat, sans-serif';
 
 const REVIEWS = window.MATE_LATTE_REVIEWS;
@@ -43,9 +56,10 @@ const SECTION_1_ALT =
   REVIEWS[0].quote.replace(/[“”]/g, '');
 
 const SECTION_3_ALT =
-  'Your turn. Create a moment worth savoring. 100mg natural caffeine, 500mg Lion’s Mane ' +
-  'and 200mg L-Theanine in a creamy vanilla latte. 90 calories, 3g sugar, ready ' +
-  'in 30 seconds. Three Milonga Mate Latte pouches. Buy 1: $34.99, 15 servings, ' +
+  'Your turn. Create a moment worth savoring. A creamy vanilla mate latte made ' +
+  'for the little moments that matter in your day. Enjoy smooth, steady energy ' +
+  'and a clear, focused mind with a sense of calm. Your daily ritual is ready in ' +
+  'just 30 seconds. Three Milonga Mate Latte pouches. Buy 1: $34.99, 15 servings, ' +
   '$2.33 a serving, or $24.49 subscribed. Buy 2: $62.98, save 10%, 30 servings, ' +
   '$2.10 a serving, or $44.09 subscribed. Buy 4: $118.96, save 15%, 60 ' +
   'servings, $1.98 a serving, or $83.27 subscribed. Subscribing takes an extra ' +
@@ -78,11 +92,11 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
     // and the tree shade down into the email's dark green, so the photograph
     // turns into the reviews band rather than stopping on a hard edge. The
     // button sits on that green, centred under the picture.
-    h('div', { style: { position: 'relative', zIndex: 0, background: CREAM } },
+    h('div', { style: { position: 'relative', zIndex: 0, background: S2.ground } },
       h('img', { src: '../public/product/pouches-sky-tall.jpg', alt: SECTION_1_ALT,
         style: { display: 'block', width: 600, height: 'auto' } }),
       h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 190,
-        background: 'linear-gradient(180deg, rgba(240,239,223,0) 0%, rgba(240,239,223,0.6) 40%, rgba(240,239,223,0.92) 72%, #F0EFDF 100%)' } }),
+        background: `linear-gradient(180deg, ${S2.fade}0) 0%, ${S2.fade}0.6) 40%, ${S2.fade}0.92) 72%, ${S2.ground} 100%)` } }),
 
 
       h('div', { style: { position: 'absolute', top: 30, left: 0, right: 0, textAlign: 'center' } },
@@ -118,10 +132,10 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
     // name, five stars, the quote. On beige, gold is a fill and never type, so
     // everything on the cards is forest.
     h('div', { style: { position: 'relative', zIndex: 1, display: 'flow-root',
-      background: CREAM, padding: '0 28px 56px' } },
+      background: S2.ground, padding: '0 28px 56px' } },
       h('div', { style: { marginTop: -CARD_RISE } },
         REVIEWS.map((r, i) => h('div', { key: i, style: {
-          background: 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)',
+          background: S2.card,
           borderRadius: 28, padding: '30px 30px 28px', marginTop: i ? 18 : 0,
           textAlign: 'center',
           // The first card's lift is cast UP onto the photograph it rises over;
@@ -144,7 +158,7 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
         ))),
 
       h('div', { style: { marginTop: 36, textAlign: 'center' } },
-        h(M.Button, { label: 'See all reviews', href: '#reviews', bg: 'beige', size: 'lg' })),
+        h(M.Button, { label: 'See all reviews', href: '#reviews', bg: S2.btnBg, size: 'lg' })),
     ),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
@@ -160,13 +174,13 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
         size: 40, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
       h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
         lineHeight: 1.5, color: '#FFFFFF', maxWidth: 440, margin: '16px auto 0' } },
-        '100mg natural caffeine, 500mg Lion’s Mane and 200mg L-Theanine in a creamy vanilla latte. 90 calories, 3g sugar, ready in 30 seconds.'),
+        'A creamy vanilla mate latte made for the little moments that matter in your day. Enjoy smooth, steady energy and a clear, focused mind with a sense of calm. Your daily ritual is ready in just 30 seconds.'),
       h('div', { style: { height: 30 } }),
       // Prices as Shopify shows them (The Original Mate Latte – Vanilla,
       // read 2026-10-09): 1 bag $34.99, 2 bags $62.98 (save 10%), 4 bags
       // $118.96 (save 15%); subscribed, each 30% less again.
       h(M.BundleOffer, {
-        bg: 'forest', raised: true, imageWidth: '100%',
+        bg: 'forest', raised: true, imageWidth: '100%', plainFill: '#FFFFFF',
         image: { src: '../public/product/three-bags.png', alt: 'Three Milonga Mate Latte pouches, vanilla, 15 servings each' },
         // The Mate Mornings Club is set on the whole product in Shopify, so
         // its 30% applies to every bundle on top of the bundle saving — shown

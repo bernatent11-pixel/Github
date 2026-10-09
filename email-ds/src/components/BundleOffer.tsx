@@ -58,6 +58,12 @@ export interface BundleOfferProps {
   raised?: boolean;
   /** Width of the product image, as a share of the block. Default 78%. */
   imageWidth?: string;
+  /**
+   * With `raised`, a solid colour for the non-featured tiers (e.g. white on a
+   * forest page). Their type and buttons then follow the beige map — forest
+   * on light — the same way the gold featured tier does.
+   */
+  plainFill?: string;
 }
 
 /**
@@ -65,7 +71,7 @@ export interface BundleOfferProps {
  * side, then the subscription across the bottom as the best-value option.
  * Use it when the offer has more than two shapes — otherwise `PriceBlock`.
  */
-export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = false, imageWidth = '78%' }: BundleOfferProps) {
+export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = false, imageWidth = '78%', plainFill }: BundleOfferProps) {
   const t = onBg[bg];
   const fill = useBlockFill(bg, t.elevated);
   // A raised tier: its own fill with a sheen across the top, the featured one
@@ -73,16 +79,17 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
   const GOLD_FACE = 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)';
   // The sheen is a lit top edge: strong on a light page, faint on forest,
   // where a strong white wash would read as a grey card.
+  const LIGHT_SHEEN = 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 45%)';
   const SHEEN = bg === 'forest'
     ? 'linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 45%)'
     : 'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 45%)';
   const tierStyle = (featured?: boolean): React.CSSProperties =>
     raised
       ? {
-          background: featured ? GOLD_FACE : `${SHEEN}, ${fill}`,
-          backgroundColor: featured ? colors.gold : fill,
-          border: `1px solid ${featured ? 'rgba(201,162,78,0.9)' : t.rule}`,
-          borderTopColor: bg === 'forest' && !featured ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)',
+          background: featured ? GOLD_FACE : plainFill ? `${LIGHT_SHEEN}, ${plainFill}` : `${SHEEN}, ${fill}`,
+          backgroundColor: featured ? colors.gold : plainFill ?? fill,
+          border: `1px solid ${featured ? 'rgba(201,162,78,0.9)' : plainFill ? 'rgba(0,77,39,0.14)' : t.rule}`,
+          borderTopColor: bg === 'forest' && !featured && !plainFill ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)',
           borderRadius: 18,
           boxShadow: featured
             ? '0 16px 30px rgba(0,53,27,0.26), 0 3px 8px rgba(0,53,27,0.18), inset 0 1px 0 rgba(255,246,214,0.8)'
@@ -113,10 +120,11 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
 
       <div style={{ display: 'grid', gridTemplateColumns: `repeat(${tiers.length}, 1fr)`, gap: 10 }}>
         {tiers.map((tier) => {
-          // A raised featured tier is a GOLD card whatever the page, so its
-          // type and button follow the beige map (forest on light) rather than
-          // the page's — on a forest page gold-on-gold would vanish.
-          const onGold = raised && tier.featured;
+          // A raised featured tier is a GOLD card whatever the page, and a
+          // plainFill tier is light, so their type and buttons follow the beige
+          // map (forest on light) rather than the page's — on a forest page
+          // gold or white type on those cards would vanish.
+          const onGold = raised && (tier.featured || !!plainFill);
           const tt = onGold ? onBg.beige : t;
           return (
           <div

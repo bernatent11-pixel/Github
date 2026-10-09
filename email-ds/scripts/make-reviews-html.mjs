@@ -35,9 +35,10 @@ const CAMPAIGNS = {
     src: 'emails/mate-latte-reviews.js', key: 'MATE_LATTE_REVIEWS',
     out: 'exports/reviews-showcase-reviews.html',
     label: 'SECTION 2 — review cards 2–4', placement: 'directly under the section 1 image',
-    page: '#F0EFDF', title: '#004D27', eyebrow: '#004D27', body: '#1A1A1A',
+    // GOLD TRIAL: gold page, beige cards (was page #F0EFDF, cell #E3BC62).
+    page: '#E3BC62', title: '#004D27', eyebrow: '#004D27', body: '#1A1A1A',
     btnBg: '#004D27', btnInk: '#F0EFDF', topCta: null,
-    stack: true, cell: '#E3BC62', skip: 1, firstGap: 9, ctaGap: 36, padBottom: 56,
+    stack: true, cell: '#F0EFDF', skip: 1, firstGap: 9, ctaGap: 36, padBottom: 56,
     pull: null, line1: null, line2: null, kicker: null, kickerFirst: false, para: null,
     pills: null,
     cta: 'See all reviews',
@@ -92,7 +93,7 @@ const CELL = C.stack
 // the stars and the quote — the order of the BREZ card it follows.
 const stackCard = (r) => `
                   <div style="font-size:24px;line-height:1.1;font-weight:900;letter-spacing:0.01em;text-transform:uppercase;color:${INK};">${esc((r.title ?? '').replace(/\s+!/, '!')).replace(/ (\S+)$/, '&nbsp;$1')}</div>
-                  <div style="padding-top:8px;font-size:11.5px;line-height:1.2;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;color:${C.cell === GOLD ? INK : '#3B5344'};">${esc(r.name)}</div>
+                  <div style="padding-top:8px;font-size:11.5px;line-height:1.2;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;color:${C.cell === GOLD || C.page === GOLD ? INK : '#3B5344'};">${esc(r.name)}</div>
                   <div style="padding-top:12px;font-size:16px;line-height:1;letter-spacing:4px;color:${INK};">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                   <div style="padding-top:14px;font-size:15.5px;line-height:1.55;font-style:italic;font-weight:500;color:${C.cell === GOLD ? INK : '#12331F'};">${esc(r.quote)}</div>`;
 

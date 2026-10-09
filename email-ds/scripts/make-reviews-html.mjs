@@ -36,11 +36,12 @@ const CAMPAIGNS = {
     out: 'exports/reviews-showcase-reviews.html',
     label: 'SECTION 2 — review cards 2–4', placement: 'directly under the section 1 image',
     page: '#F0EFDF', title: '#004D27', eyebrow: '#004D27', body: '#1A1A1A',
-    btnBg: null, btnInk: null, topCta: null,
-    stack: true, cell: '#E3BC62', skip: 1, firstGap: 9,
+    btnBg: '#004D27', btnInk: '#F0EFDF', topCta: null,
+    stack: true, cell: '#E3BC62', skip: 1, firstGap: 9, ctaGap: 36, padBottom: 56,
     pull: null, line1: null, line2: null, kicker: null, kickerFirst: false, para: null,
-    pills: { head: 'What they keep mentioning', items: ['Creamy &amp; smooth', 'No jitters', 'Steady energy', 'Easy to make'] },
-    cta: null,
+    pills: null,
+    cta: 'See all reviews',
+    ctaNote: 'Replace BOTH href="#" values on the See all reviews button with the reviews page URL.',
   },
 };
 const C = CAMPAIGNS[process.argv[2] ?? 'coffee-vs-mate'];
@@ -171,7 +172,7 @@ const pills = C.pills ? `        <tr><td style="height:32px;line-height:32px;fon
         <tr>
           <td align="center" style="padding:12px 0 0 0;font-size:0;line-height:0;">${C.pills.items.map((t) => `<span style="display:inline-block;margin:0 4px 8px;background-color:${GOLD};border-radius:999px;padding:8px 15px;font-size:11.5px;line-height:1.2;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:${INK};">${t}</span>`).join('')}</td>
         </tr>` : '';
-const button = C.cta ? `        <tr><td style="height:32px;line-height:32px;font-size:0;">&nbsp;</td></tr>
+const button = C.cta ? `        <tr><td style="height:${C.ctaGap ?? 32}px;line-height:${C.ctaGap ?? 32}px;font-size:0;">&nbsp;</td></tr>
 
         <tr>
           <td align="center">
@@ -209,7 +210,7 @@ const html = `<!--
       fallback.
     - Outlook desktop squares the rounded corners. That is the accepted floor.
 
-${C.cta ? '  Replace BOTH href="#" values with the product page URL before sending.' : C.topCta ? '  Replace BOTH href="#" values on the "' + C.topCta.label + '" button with the reviews page URL.' : '  No button in this block: the email\'s buttons live in its images.'}
+${C.cta ? '  ' + (C.ctaNote ?? 'Replace BOTH href="#" values with the product page URL before sending.') : C.topCta ? '  Replace BOTH href="#" values on the "' + C.topCta.label + '" button with the reviews page URL.' : '  No button in this block: the email\'s buttons live in its images.'}
 -->
 <style>
   @media only screen and (max-width:620px) {
@@ -226,7 +227,7 @@ ${C.cta ? '  Replace BOTH href="#" values with the product page URL before sendi
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${PAGE}" style="background-color:${PAGE};margin:0;padding:0;">
   <tr>
-    <td align="center" style="padding:0 30px 44px 30px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+    <td align="center" style="padding:0 30px ${C.padBottom ?? 44}px 30px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;">
 
 ${head}

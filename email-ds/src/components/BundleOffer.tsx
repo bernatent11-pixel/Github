@@ -20,6 +20,13 @@ export interface BundleTier {
   /** The tier to push — accent border and a filled button. */
   featured?: boolean;
   href: string;
+  /**
+   * The subscription price for this tier, shown small inside the card under
+   * a hairline — "Subscribe $24.49", then a note such as "Extra 30% off".
+   * Use it instead of the separate `subscribe` card when every tier can be
+   * subscribed to.
+   */
+  sub?: { price: string; note: string };
 }
 
 export interface SubscribeOffer {
@@ -164,6 +171,17 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
             {tier.detail ? <div style={{ fontSize: 11, lineHeight: 1.45, color: t.body }}>{tier.detail}</div> : null}
             {tier.unit ? (
               <div style={{ fontSize: 11, fontWeight: 700, color: t.accent, paddingTop: 3 }}>{tier.unit}</div>
+            ) : null}
+            {tier.sub ? (
+              <div style={{ margin: '11px 4px 0', paddingTop: 9, borderTop: `1px solid ${t.rule}` }}>
+                <div style={{ fontSize: 9.5, fontWeight: 900, letterSpacing: '0.12em', textTransform: 'uppercase', color: t.body }}>
+                  Subscribe
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 900, color: t.accent, lineHeight: 1.15, paddingTop: 3 }}>
+                  {tier.sub.price}
+                </div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: t.accent, paddingTop: 2 }}>{tier.sub.note}</div>
+              </div>
             ) : null}
             <div style={{ height: 13 }} />
             <Button

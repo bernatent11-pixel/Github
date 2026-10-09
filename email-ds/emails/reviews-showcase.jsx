@@ -8,9 +8,10 @@
 // other four customers follow as a stack of beige cards. The beige close
 // turns belief into a basket with the real bundle prices.
 //
-// KLAVIYO: image 1 (reviews-showcase-1.jpg, ends on exact #004D27), then the
-// live-text block (reviews-showcase-reviews.html: the See all reviews button,
-// the four cards and the pills), then image 3 (the close).
+// KLAVIYO: image 1 (reviews-showcase-1.jpg: the opener and the first review
+// card, which rises into the photograph), then the live-text block
+// (reviews-showcase-reviews.html: cards 2–4 and the See all reviews button),
+// then image 3 (the close).
 //
 // The reviews come from mate-latte-reviews.js, which records what was left
 // out and why (a team member's review, and three trimmed sentences). The
@@ -38,7 +39,17 @@ const HERO = window.MATE_LATTE_HERO_REVIEW;
 const SECTION_1_ALT =
   'Milonga. Five stars. ' + HERO.title + '. ' + HERO.quote.replace(/…/g, '') +
   ' ' + HERO.name + ', verified buyer. Two hands raise two Milonga Mate Latte ' +
-  'pouches against a clear blue sky. See all reviews.';
+  'pouches against a clear blue sky. Five stars. Amazing! Priscilla: ' +
+  REVIEWS[0].quote.replace(/[“”]/g, '');
+
+const SECTION_3_ALT =
+  'Your turn. Taste it for yourself. 100mg natural caffeine, 500mg Lion’s Mane ' +
+  'and 200mg L-Theanine in a creamy vanilla latte. 90 calories, 3g sugar, ready ' +
+  'in 30 seconds. Three Milonga Mate Latte pouches. Buy 1: $34.99, 15 servings, ' +
+  '$2.33 a serving, or $24.49 subscribed. Buy 2: $62.98, save 10%, 30 servings, ' +
+  '$2.10 a serving, or $44.09 subscribed. Buy 4: $118.96, save 15%, 60 ' +
+  'servings, $1.98 a serving, or $83.27 subscribed. Subscribing takes an extra ' +
+  '30% off. Buy now.';
 
 // The forest paper, shared by the band and anything that has to match it.
 const FOREST_PAPER = {
@@ -73,12 +84,6 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
       h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 190,
         background: 'linear-gradient(180deg, rgba(240,239,223,0) 0%, rgba(240,239,223,0.6) 40%, rgba(240,239,223,0.92) 72%, #F0EFDF 100%)' } }),
 
-      // The button rides ON the photograph, in the clear sky between the two
-      // forearms — measured, that gap is about 200 units wide at y 880–930,
-      // centred on x 312 rather than the frame's middle, so it is placed on
-      // the gap and not on the page.
-      h('div', { style: { position: 'absolute', top: 878, left: HAND_GAP.x - 110, width: 220, textAlign: 'center' } },
-        h(M.Button, { label: 'See all reviews', href: '#reviews', bg: 'forest', size: 'md' })),
 
       h('div', { style: { position: 'absolute', top: 30, left: 0, right: 0, textAlign: 'center' } },
         h(M.Logo, { tone: 'white', variant: 'primary', height: 76 })),
@@ -138,15 +143,8 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
             lineHeight: 1.55, color: FOREST, marginTop: 14 } }, r.quote),
         ))),
 
-      // What the five keep coming back to, in their own vocabulary — every
-      // pill is a phrase from one of the reviews, nothing added.
-      h('div', { style: { marginTop: 38, textAlign: 'center' } },
-        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 11.5,
-          letterSpacing: '0.18em', textTransform: 'uppercase', color: FOREST,
-          marginBottom: 12 } }, 'What they keep mentioning'),
-        h(M.SpecPills, { bg: 'beige', align: 'center', variant: 'gold', size: 11.5,
-          items: ['Creamy & smooth', 'No jitters', 'Steady energy', 'Easy to make'] }),
-      ),
+      h('div', { style: { marginTop: 36, textAlign: 'center' } },
+        h(M.Button, { label: 'See all reviews', href: '#reviews', bg: 'beige', size: 'lg' })),
     ),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
@@ -165,20 +163,21 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
       h('div', { style: { height: 30 } }),
       // Prices as Shopify shows them (The Original Mate Latte – Vanilla,
       // read 2026-10-09): 1 bag $34.99, 2 bags $62.98 (save 10%), 4 bags
-      // $118.96 (save 15%), and the Mate Mornings Club subscription at 30% off.
+      // $118.96 (save 15%); subscribed, each 30% less again.
       h(M.BundleOffer, {
         bg: 'beige', raised: true, imageWidth: '100%',
         image: { src: '../public/product/three-bags-beige.jpg', alt: 'Three Milonga Mate Latte pouches, vanilla, 15 servings each' },
+        // The Mate Mornings Club is set on the whole product in Shopify, so
+        // its 30% applies to every bundle on top of the bundle saving — shown
+        // small inside each card rather than as a fourth box.
         tiers: [
-          { label: 'Buy 1', price: '$34.99', detail: '15 servings', unit: '$2.33 / serving', href: shopHref },
-          { label: 'Buy 2', was: '$69.98', price: '$62.98', detail: '30 servings', unit: '$2.10 / serving', badge: 'Save 10%', href: shopHref },
-          { label: 'Buy 4', was: '$139.96', price: '$118.96', detail: '60 servings', unit: '$1.98 / serving', badge: 'Save 15%', featured: true, href: shopHref },
+          { label: 'Buy 1', price: '$34.99', detail: '15 servings', unit: '$2.33 / serving', href: shopHref,
+            sub: { price: '$24.49', note: 'Extra 30% off' } },
+          { label: 'Buy 2', was: '$69.98', price: '$62.98', detail: '30 servings', unit: '$2.10 / serving', badge: 'Save 10%', href: shopHref,
+            sub: { price: '$44.09', note: 'Extra 30% off' } },
+          { label: 'Buy 4', was: '$139.96', price: '$118.96', detail: '60 servings', unit: '$1.98 / serving', badge: 'Save 15%', featured: true, href: shopHref,
+            sub: { price: '$83.27', note: 'Extra 30% off' } },
         ],
-        subscribe: {
-          label: 'Mate Mornings Club', was: '$34.99', price: '$24.49', suffix: '/ bag',
-          detail: 'Subscribe and save 30% on every delivery', badge: 'Save 30%',
-          cta: { label: 'Shop the Mate Latte', href: shopHref },
-        },
       }),
     ),
 

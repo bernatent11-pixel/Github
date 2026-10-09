@@ -3,10 +3,14 @@
 // Subject: They Said It Better Than We Could ⭐️
 // Preview: Four Mate Latte reviews, word for word: the taste, the energy, and the switch from coffee.
 //
-// Three acts. The opener hands the argument over ("don't take our word for
-// it"), the forest band IS the argument — one loud pull quote, then the four
-// reviews as gold cards — and the beige close turns belief into a basket with
-// the real bundle prices.
+// Three acts. The opener is one review at full size — Katya's, over two
+// pouches raised to a blue sky — and fades into the forest band, where the
+// other four customers follow as a stack of beige cards. The beige close
+// turns belief into a basket with the real bundle prices.
+//
+// KLAVIYO: image 1 (reviews-showcase-1.jpg, ends on exact #004D27), then the
+// live-text block (reviews-showcase-reviews.html: the See all reviews button,
+// the four cards and the pills), then image 3 (the close).
 //
 // The reviews come from mate-latte-reviews.js, which records what was left
 // out and why (a team member's review, and three trimmed sentences). The
@@ -20,15 +24,20 @@ const h = React.createElement;
 
 const FOREST = '#004D27';
 const GOLD = '#E3BC62';
+const CREAM = '#F0EFDF';
+// The review cards: the brand beige, a touch lifted so it holds against the
+// grain without turning into a white card.
+const CREAM_CARD = '#F3F1E4';
 const FONT = 'Gotham, Montserrat, sans-serif';
 
 const REVIEWS = window.MATE_LATTE_REVIEWS;
 
+const HERO = window.MATE_LATTE_HERO_REVIEW;
+
 const SECTION_1_ALT =
-  'Milonga. Straight from our product page. Don’t take our word for it. We could ' +
-  'tell you it’s creamy, smooth, and the easiest switch from coffee you’ll make. ' +
-  'We’d rather let the people drinking it say so. A smiling man holds the Milonga ' +
-  'Mate Latte pouch up to the camera outdoors under a pale sky. Try the Mate Latte.';
+  'Milonga. Five stars. ' + HERO.title + '. ' + HERO.quote.replace(/…/g, '') +
+  ' ' + HERO.name + ', verified buyer. Two hands raise two Milonga Mate Latte ' +
+  'pouches against a clear blue sky. See all reviews.';
 
 // The forest paper, shared by the band and anything that has to match it.
 const FOREST_PAPER = {
@@ -41,73 +50,84 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · THE OPENER ────────────────────────────────────────────────────
-    // A customer-looking moment rather than a product shot: a man holding the
-    // pouch up to the camera, mid-smile. The top fifth of the file is pale
-    // sky (it measures about 200 of 255), so the ink is forest and the head of
-    // the frame gets a cream LIFT rather than a scrim — dark type on a light
-    // picture, kept bright.
+    // Bernat's mockup on the email: two pouches raised against a blue sky,
+    // Katya's five-star review over the sky in cream, white wordmark centred
+    // at the head.
     //
-    // THE FRAME IS TALLER THAN THE FILE (1.66 against 1.5). It binds on
-    // height, scales the picture up, and moves the pouch down from about 270
-    // design units to 300 — which is the room the wordmark, title and line
-    // need above it. The cost is about 30 units of width off each side.
-    h(M.T9Story, {
-      src: '../public/product/mate-pouch-man.jpg',
-      alt: SECTION_1_ALT,
-      logo: true,
-      logoTone: 'green',
-      logoHeight: 64,
-      align: 'center',
-      eyebrow: 'Straight from our product page',
-      line1: 'Don’t take',
-      line2: 'our word for it.',
-      line1Color: FOREST,
-      line2Color: FOREST,
-      paras: ['We could tell you it’s creamy, smooth, and the easiest switch from coffee you’ll make. We’d rather let the people drinking it say so.'],
-      cta: { label: 'Try the Mate Latte', href: shopHref, arrow: true },
-      at: '88%',
-      ctaAlign: 'center',
-      ratio: 1.66,
-      size: 40,
-      size2: 40,
-      titleLead: 1.0,
-      top: 22,
-      padLeft: 40,
-      padRight: 40,
-      measure: 440,
-      ink: 'dark',
-      scrim: 0.5,
-      scrimAt: 'top',
-      halo: 'soft',
-    }),
-
-    // ── 2 · THE REVIEWS ───────────────────────────────────────────────────
-    // The education act inverts the page onto forest paper, so the gold cards
-    // are the loudest objects in the email. One loud moment first — a pull
-    // quote, the line a skimmer takes away — then all four cards in a 2-up
-    // grid of equal heights, each carrying the customer's own headline.
+    // THE SKY IS EXTENDED 360px UPWARD (pouches-sky-tall.jpg, by
+    // scripts/extend-sky.cjs, continuing the sky's own gradient). In the
+    // original the right pouch starts 31% down, which left about 280 units for
+    // a block that needs about 380; now it starts at 440.
     //
-    // On dark green the titles are white and gold means one thing: the cards.
-    h('div', { style: { ...FOREST_PAPER, padding: '60px 28px 56px' } },
-      h(M.PullQuote, { bg: 'forest', stars: 5, size: 27,
-        quote: '“The taste was what sold me first.”',
-        attribution: 'Bryant, on the Mate Latte' }),
+    // The sky measures about rgb(60,120,170) behind the type — white and
+    // cream read at roughly 4.8:1 there, so no scrim, just a soft shadow.
+    //
+    // THE FOOT FADES TO FOREST, after the BREZ section Bernat sent: the arms
+    // and the tree shade down into the email's dark green, so the photograph
+    // turns into the reviews band rather than stopping on a hard edge. The
+    // button sits on that green, centred under the picture.
+    h('div', { style: { position: 'relative', background: FOREST } },
+      h('img', { src: '../public/product/pouches-sky-tall.jpg', alt: SECTION_1_ALT,
+        style: { display: 'block', width: 600, height: 'auto' } }),
+      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 300,
+        background: 'linear-gradient(180deg, rgba(0,77,39,0) 0%, rgba(0,77,39,0.55) 45%, rgba(0,77,39,0.9) 78%, #004D27 100%)' } }),
 
-      h('div', { style: { textAlign: 'center', marginTop: 48 } },
-        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12,
-          letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD,
-          marginBottom: 14 } }, 'Every review so far: five stars'),
-        h(M.Headline, { line1: 'Real reviews,', line2: 'word for word.', bg: 'forest',
-          size: 34, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
+      h('div', { style: { position: 'absolute', top: 30, left: 0, right: 0, textAlign: 'center' } },
+        h(M.Logo, { tone: 'white', variant: 'primary', height: 76 })),
+
+      h('div', { style: { position: 'absolute', top: 132, left: 40, right: 40,
+        textShadow: '0 1px 3px rgba(0,30,60,0.35)' } },
+        h('div', { style: { fontSize: 30, letterSpacing: '6px', lineHeight: 1, color: CREAM } }, '★★★★★'),
+        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 36, lineHeight: 1.05,
+          textTransform: 'uppercase', color: CREAM, marginTop: 16, letterSpacing: '0.01em' } }, HERO.title),
+        h('div', { style: { fontFamily: FONT, fontWeight: 400, fontSize: 16.5, lineHeight: 1.6,
+          color: CREAM, marginTop: 14, maxWidth: 500 } }, HERO.quote),
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 18, marginTop: 20 } },
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 22, color: '#FFFFFF' } }, HERO.name),
+          h('div', { style: { display: 'inline-flex', alignItems: 'center', gap: 10, background: CREAM,
+            borderRadius: 999, padding: '7px 16px 7px 8px', textShadow: 'none',
+            boxShadow: '0 6px 16px rgba(0,30,60,0.28)' } },
+            h('span', { style: { width: 24, height: 24, borderRadius: 999, background: '#111',
+              color: '#FFFFFF', fontSize: 14, fontWeight: 900, display: 'inline-flex',
+              alignItems: 'center', justifyContent: 'center', lineHeight: 1 } }, '✓'),
+            h('span', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 15, color: '#111' } }, 'Verified Buyer'),
+          ),
+        ),
       ),
+    ),
 
-      h('div', { style: { marginTop: 30 } },
-        h(M.Reviews, { bg: 'forest', reviews: REVIEWS, layout: 'grid', gap: 14 }),
-      ),
+    // ── 2 · MORE REVIEWS ──────────────────────────────────────────────────
+    // The button, then the other customers as beige cards on the forest paper
+    // — the BREZ stack, each card a review: the customer's own headline large
+    // and centred, the name under it, five stars, the quote. On a textured
+    // ground the cards take a plain solid fill so they read as cut out of the
+    // grain; on beige the type is forest only.
+    h('div', { style: { ...FOREST_PAPER, padding: '6px 28px 56px',
+      backgroundImage: 'linear-gradient(180deg, #004D27 0px, rgba(0,77,39,0) 80px), url(../public/brand/textures/tile-paper-forest.jpg)',
+      backgroundSize: 'auto, 320px 320px', backgroundRepeat: 'no-repeat, repeat' } },
+      h('div', { style: { textAlign: 'center' } },
+        h(M.Button, { label: 'See all reviews', href: '#reviews', bg: 'forest', size: 'lg' })),
 
-      // What the four keep coming back to, in their own vocabulary — every
-      // pill is a phrase from one of the reviews above, nothing added.
-      h('div', { style: { marginTop: 34, textAlign: 'center' } },
+      h('div', { style: { marginTop: 40 } },
+        REVIEWS.map((r, i) => h('div', { key: i, style: {
+          background: CREAM_CARD, borderRadius: 28, padding: '30px 30px 28px', marginTop: i ? 18 : 0,
+          textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.7)',
+          boxShadow: '0 18px 34px rgba(0,26,13,0.34), 0 3px 8px rgba(0,26,13,0.2)' } },
+          // balance, so a long headline breaks into two even rows instead of
+          // a full line and a one-word stub.
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 24, lineHeight: 1.1,
+            textTransform: 'uppercase', color: FOREST, letterSpacing: '0.01em', textWrap: 'balance' } },
+            r.title.replace(/\s+!/, '!')),
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 11.5, letterSpacing: '0.16em',
+            textTransform: 'uppercase', color: '#3B5344', marginTop: 8 } }, r.name),
+          h('div', { style: { fontSize: 16, letterSpacing: '4px', color: FOREST, marginTop: 12 } }, '★★★★★'),
+          h('div', { style: { fontFamily: FONT, fontStyle: 'italic', fontWeight: 500, fontSize: 15.5,
+            lineHeight: 1.55, color: '#12331F', marginTop: 14 } }, r.quote),
+        ))),
+
+      // What the five keep coming back to, in their own vocabulary — every
+      // pill is a phrase from one of the reviews, nothing added.
+      h('div', { style: { marginTop: 38, textAlign: 'center' } },
         h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 11.5,
           letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FFFFFF',
           opacity: 0.8, marginBottom: 12 } }, 'What they keep mentioning'),

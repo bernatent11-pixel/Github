@@ -27,17 +27,19 @@ const CAMPAIGNS = {
     para: 'Real reviews from real customers, straight from our product page.',
     pills: null, cta: 'Get my better morning',
   },
-  // "They Said It Better Than We Could" — the whole forest band.
+  // "They Said It Better Than We Could" — the band under the opener: the
+  // button, then the reviews stacked one to a row as beige cards (the BREZ
+  // stack), then what they keep mentioning. The opener image fades to this
+  // exact forest at its foot, so the two meet without a seam.
   'reviews-showcase': {
     src: 'emails/mate-latte-reviews.js', key: 'MATE_LATTE_REVIEWS',
     out: 'exports/reviews-showcase-reviews.html',
-    label: 'SECTION 2 — the reviews band', placement: 'between the section 1 and section 3 images',
+    label: 'SECTION 2 — the review cards', placement: 'directly under the section 1 image',
     page: '#004D27', title: '#FFFFFF', eyebrow: '#E3BC62', body: '#FFFFFF',
     btnBg: null, btnInk: null,
-    pull: { quote: '&ldquo;The taste was what sold me first.&rdquo;', by: 'Bryant, on the Mate Latte' },
-    line1: 'Real reviews,', line2: 'word for word.',
-    kicker: 'Every review so far: five stars', kickerFirst: true,
-    para: null,
+    topCta: { label: 'See all reviews', bg: '#E3BC62', ink: '#004D27' },
+    stack: true, cell: '#F3F1E4',
+    pull: null, line1: null, line2: null, kicker: null, kickerFirst: false, para: null,
     pills: { head: 'What they keep mentioning', items: ['Creamy &amp; smooth', 'No jitters', 'Steady energy', 'Easy to make'] },
     cta: null,
   },
@@ -78,18 +80,33 @@ const card = (r) => `
                   <div style="padding-top:7px;font-size:12.5px;line-height:1.45;font-style:italic;font-weight:500;color:${INK};">${esc(r.quote)}</div>
                   <div style="padding-top:13px;font-size:10.5px;line-height:1.2;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:${NAME_INK};">${esc(r.name)}</div>`;
 
-const CELL = `valign="top" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:16px;padding:18px;"`;
+const CELL_BG = C.cell ?? GOLD;
+const CELL = C.stack
+  ? `valign="top" align="center" bgcolor="${CELL_BG}" style="background-color:${CELL_BG};border-radius:28px;padding:30px 28px 28px 28px;text-align:center;"`
+  : `valign="top" bgcolor="${CELL_BG}" style="background-color:${CELL_BG};border-radius:16px;padding:18px;"`;
+
+// The last two words of a headline are joined by a non-breaking space, so a
+// long one can never strand its final word on a line of its own — email
+// clients ignore text-wrap: balance.
+// The stacked card leads with the customer's headline, large, then the name,
+// the stars and the quote — the order of the BREZ card it follows.
+const stackCard = (r) => `
+                  <div style="font-size:24px;line-height:1.1;font-weight:900;letter-spacing:0.01em;text-transform:uppercase;color:${INK};">${esc((r.title ?? '').replace(/\s+!/, '!')).replace(/ (\S+)$/, '&nbsp;$1')}</div>
+                  <div style="padding-top:8px;font-size:11.5px;line-height:1.2;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;color:#3B5344;">${esc(r.name)}</div>
+                  <div style="padding-top:12px;font-size:16px;line-height:1;letter-spacing:4px;color:${INK};">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div style="padding-top:14px;font-size:15.5px;line-height:1.55;font-style:italic;font-weight:500;color:#12331F;">${esc(r.quote)}</div>`;
 
 // Two cards to a row. The pair's cells stretch to the taller of them for free —
 // no hard-coded height to go stale when a quote is edited. A lone card on the
 // last row spans the full width rather than leaving a hole beside it.
 const rows = [];
-for (let i = 0; i < reviews.length; i += 2) rows.push(reviews.slice(i, i + 2));
+const PER_ROW = C.stack ? 1 : 2;
+for (let i = 0; i < reviews.length; i += PER_ROW) rows.push(reviews.slice(i, i + PER_ROW));
 
 const grid = rows
   .map((row, i) => {
     const gap = i === 0 ? '' : `
-              <tr><td colspan="3" class="mg-rowgap" style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+              <tr><td colspan="3" class="mg-rowgap" style="height:${C.stack ? 18 : 14}px;line-height:${C.stack ? 18 : 14}px;font-size:0;">&nbsp;</td></tr>
 `;
     const body =
       row.length === 2
@@ -98,7 +115,7 @@ const grid = rows
                 <td class="mg-gap" width="4%" style="font-size:0;line-height:0;">&nbsp;</td>
                 <td class="mg-card mg-card-b" width="48%" ${CELL}>${card(row[1])}
                 </td>`
-        : `                <td colspan="3" ${CELL}>${card(row[0])}
+        : `                <td colspan="3" ${CELL}>${(C.stack ? stackCard : card)(row[0])}
                 </td>`;
     return `${gap}              <tr>
 ${body}
@@ -119,7 +136,22 @@ const pull = C.pull ? `        <tr>
           </td>
         </tr>
 ` : '';
-const head = `${pull}        <tr>
+const topCta = C.topCta ? `        <tr>
+          <td align="center" style="padding:6px 0 40px 0;">
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+              href="#" style="height:50px;v-text-anchor:middle;width:260px;" arcsize="50%" stroke="f" fillcolor="${C.topCta.bg}">
+              <w:anchorlock/>
+              <center style="color:${C.topCta.ink};font-family:'Montserrat',Helvetica,Arial,sans-serif;font-size:13.5px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;">${C.topCta.label}</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!-- -->
+            <a href="#" style="display:inline-block;background-color:${C.topCta.bg};border-radius:999px;padding:17px 38px;font-size:13.5px;line-height:1;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:${C.topCta.ink};text-decoration:none;">${C.topCta.label}</a>
+            <!--<![endif]-->
+          </td>
+        </tr>
+` : '';
+const head = !C.line1 ? topCta : `${pull}        <tr>
           <td align="center" style="padding:${C.pull ? 48 : 40}px 0 0 0;">
 ${C.kickerFirst ? `            <div style="padding-bottom:14px;font-size:11.5px;line-height:1.4;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:${C.eyebrow};">${C.kicker}</div>
 ` : ''}            <div style="font-size:30px;line-height:1.05;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;color:${C.title};">${C.line1}</div>
@@ -177,7 +209,7 @@ const html = `<!--
       fallback.
     - Outlook desktop squares the rounded corners. That is the accepted floor.
 
-${C.cta ? '  Replace BOTH href="#" values with the product page URL before sending.' : '  No button in this block: the email\'s buttons live in its images.'}
+${C.cta ? '  Replace BOTH href="#" values with the product page URL before sending.' : C.topCta ? '  Replace BOTH href="#" values on the "' + C.topCta.label + '" button with the reviews page URL.' : '  No button in this block: the email\'s buttons live in its images.'}
 -->
 <style>
   @media only screen and (max-width:620px) {
@@ -198,7 +230,7 @@ ${C.cta ? '  Replace BOTH href="#" values with the product page URL before sendi
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;">
 
 ${head}
-        <tr><td style="height:26px;line-height:26px;font-size:0;">&nbsp;</td></tr>
+${C.line1 ? '        <tr><td style="height:26px;line-height:26px;font-size:0;">&nbsp;</td></tr>' : ''}
 
         <tr>
           <td>

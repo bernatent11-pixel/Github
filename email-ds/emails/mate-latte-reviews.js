@@ -44,3 +44,18 @@ window.MATE_LATTE_REVIEWS = [
     quote: '“The biggest thing I noticed is how I feel afterward. With coffee, I sometimes feel like I need another one a few hours later. With the Mate Latte, I feel like I get a steady boost that carries me through what I’m doing without constantly thinking about my next caffeine fix.”',
   },
 ];
+
+// KATYA — the review featured in the opener, from Bernat's mockup (shown there
+// with a "Verified Buyer" badge). Two phrases in it are on the banned list for
+// anything a customer sees, "coffee addiction" and "caffeine boost", so they
+// are cut and the cuts are MARKED with an ellipsis rather than reworded:
+//   original: "Never thought I’d trade in my coffee addiction for a mate latte,
+//   but this has officially made it into the rotation. Great flavor and the
+//   perfect caffeine boost. I like mine iced with coconut milk and love it."
+// Unverified word for word against Judge.me, like the four above.
+window.MATE_LATTE_HERO_REVIEW = {
+  name: 'Katya',
+  title: 'New Caffeine Staple',
+  verified: true,
+  quote: 'Never thought I’d trade in my coffee… for a mate latte, but this has officially made it into the rotation. Great flavor… I like mine iced with coconut milk and love it.',
+};

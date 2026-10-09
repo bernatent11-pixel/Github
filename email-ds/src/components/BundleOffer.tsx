@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fontStack } from '../tokens';
+import { colors, fontStack } from '../tokens';
 import { EmailBg, onBg } from '../theme';
 import { useBlockFill } from '../surface';
 import { Button } from './Button';
@@ -43,6 +43,14 @@ export interface BundleOfferProps {
   tiers: BundleTier[];
   /** The subscription, given the full width beneath the tiers. */
   subscribe?: SubscribeOffer;
+  /**
+   * Give every tier the volume of a raised card — a solid fill, a lit top
+   * edge and a drop shadow — and fill the featured tier gold, instead of the
+   * default hairline outlines with only the featured tier lifted.
+   */
+  raised?: boolean;
+  /** Width of the product image, as a share of the block. Default 78%. */
+  imageWidth?: string;
 }
 
 /**
@@ -50,9 +58,35 @@ export interface BundleOfferProps {
  * side, then the subscription across the bottom as the best-value option.
  * Use it when the offer has more than two shapes — otherwise `PriceBlock`.
  */
-export function BundleOffer({ bg = 'forest', image, tiers, subscribe }: BundleOfferProps) {
+export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = false, imageWidth = '78%' }: BundleOfferProps) {
   const t = onBg[bg];
   const fill = useBlockFill(bg, t.elevated);
+  // A raised tier: its own fill with a sheen across the top, the featured one
+  // in the gold gradient the buttons use.
+  const GOLD_FACE = 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)';
+  const SHEEN = 'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 45%)';
+  const tierStyle = (featured?: boolean): React.CSSProperties =>
+    raised
+      ? {
+          background: featured ? GOLD_FACE : `${SHEEN}, ${fill}`,
+          backgroundColor: featured ? colors.gold : fill,
+          border: `1px solid ${featured ? 'rgba(201,162,78,0.9)' : t.rule}`,
+          borderTopColor: 'rgba(255,255,255,0.85)',
+          borderRadius: 18,
+          boxShadow: featured
+            ? '0 16px 30px rgba(0,53,27,0.26), 0 3px 8px rgba(0,53,27,0.18), inset 0 1px 0 rgba(255,246,214,0.8)'
+            : '0 12px 24px rgba(0,53,27,0.16), 0 2px 6px rgba(0,53,27,0.12), inset 0 1px 0 rgba(255,255,255,0.8)',
+          padding: '20px 10px 16px',
+          transform: featured ? 'translateY(-6px)' : undefined,
+        }
+      : {
+          background: featured ? fill : 'transparent',
+          border: `${featured ? 1.5 : 1}px solid ${featured ? t.outline : t.rule}`,
+          borderTopColor: featured ? t.sheen : t.rule,
+          borderRadius: 14,
+          boxShadow: featured ? t.shadow : 'none',
+          padding: '16px 10px 14px',
+        };
 
   return (
     <div style={{ fontFamily: fontStack }}>
@@ -61,7 +95,7 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe }: BundleOf
           <img
             src={image.src}
             alt={image.alt ?? ''}
-            style={{ display: 'inline-block', width: '78%', height: 'auto', border: 0 }}
+            style={{ display: 'inline-block', width: imageWidth, height: 'auto', border: 0 }}
           />
         </div>
       ) : null}
@@ -73,12 +107,7 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe }: BundleOf
             className="milonga-lift"
             style={{
               position: 'relative',
-              background: tier.featured ? fill : 'transparent',
-              border: `${tier.featured ? 1.5 : 1}px solid ${tier.featured ? t.outline : t.rule}`,
-              borderTopColor: tier.featured ? t.sheen : t.rule,
-              borderRadius: 14,
-              boxShadow: tier.featured ? t.shadow : 'none',
-              padding: '16px 10px 14px',
+              ...tierStyle(tier.featured),
               textAlign: 'center',
             }}
           >

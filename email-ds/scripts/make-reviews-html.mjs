@@ -27,18 +27,17 @@ const CAMPAIGNS = {
     para: 'Real reviews from real customers, straight from our product page.',
     pills: null, cta: 'Get my better morning',
   },
-  // "They Said It Better Than We Could" — the band under the opener: the
-  // button, then the reviews stacked one to a row as beige cards (the BREZ
-  // stack), then what they keep mentioning. The opener image fades to this
-  // exact forest at its foot, so the two meet without a seam.
+  // "They Said It Better Than We Could" — the review stack under the
+  // opener, on beige, cards gold. The FIRST card rises into the opener's
+  // photograph, which a live block cannot do, so it ships inside image 1;
+  // this block starts at the second card (skip: 1).
   'reviews-showcase': {
     src: 'emails/mate-latte-reviews.js', key: 'MATE_LATTE_REVIEWS',
     out: 'exports/reviews-showcase-reviews.html',
-    label: 'SECTION 2 — the review cards', placement: 'directly under the section 1 image',
-    page: '#004D27', title: '#FFFFFF', eyebrow: '#E3BC62', body: '#FFFFFF',
-    btnBg: null, btnInk: null,
-    topCta: { label: 'See all reviews', bg: '#E3BC62', ink: '#004D27' },
-    stack: true, cell: '#F3F1E4',
+    label: 'SECTION 2 — review cards 2–4', placement: 'directly under the section 1 image',
+    page: '#F0EFDF', title: '#004D27', eyebrow: '#004D27', body: '#1A1A1A',
+    btnBg: null, btnInk: null, topCta: null,
+    stack: true, cell: '#E3BC62', skip: 1, firstGap: 9,
     pull: null, line1: null, line2: null, kicker: null, kickerFirst: false, para: null,
     pills: { head: 'What they keep mentioning', items: ['Creamy &amp; smooth', 'No jitters', 'Steady energy', 'Easy to make'] },
     cta: null,
@@ -51,7 +50,7 @@ const OUT = C.out;
 
 const sandbox = { window: {} };
 new Function('window', readFileSync(SRC, 'utf8'))(sandbox.window);
-const reviews = sandbox.window[C.key];
+const reviews = sandbox.window[C.key].slice(C.skip ?? 0);
 if (!Array.isArray(reviews) || !reviews.length) throw new Error(`no reviews in ${SRC}`);
 
 // Curly quotes and dashes are written as entities: a stray encoding header on a
@@ -92,9 +91,9 @@ const CELL = C.stack
 // the stars and the quote — the order of the BREZ card it follows.
 const stackCard = (r) => `
                   <div style="font-size:24px;line-height:1.1;font-weight:900;letter-spacing:0.01em;text-transform:uppercase;color:${INK};">${esc((r.title ?? '').replace(/\s+!/, '!')).replace(/ (\S+)$/, '&nbsp;$1')}</div>
-                  <div style="padding-top:8px;font-size:11.5px;line-height:1.2;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;color:#3B5344;">${esc(r.name)}</div>
+                  <div style="padding-top:8px;font-size:11.5px;line-height:1.2;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;color:${C.cell === GOLD ? INK : '#3B5344'};">${esc(r.name)}</div>
                   <div style="padding-top:12px;font-size:16px;line-height:1;letter-spacing:4px;color:${INK};">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                  <div style="padding-top:14px;font-size:15.5px;line-height:1.55;font-style:italic;font-weight:500;color:#12331F;">${esc(r.quote)}</div>`;
+                  <div style="padding-top:14px;font-size:15.5px;line-height:1.55;font-style:italic;font-weight:500;color:${C.cell === GOLD ? INK : '#12331F'};">${esc(r.quote)}</div>`;
 
 // Two cards to a row. The pair's cells stretch to the taller of them for free —
 // no hard-coded height to go stale when a quote is edited. A lone card on the
@@ -151,7 +150,8 @@ const topCta = C.topCta ? `        <tr>
           </td>
         </tr>
 ` : '';
-const head = !C.line1 ? topCta : `${pull}        <tr>
+const head = !C.line1 ? (topCta || (C.firstGap ? `        <tr><td style="height:${C.firstGap}px;line-height:${C.firstGap}px;font-size:0;">&nbsp;</td></tr>
+` : '')) : `${pull}        <tr>
           <td align="center" style="padding:${C.pull ? 48 : 40}px 0 0 0;">
 ${C.kickerFirst ? `            <div style="padding-bottom:14px;font-size:11.5px;line-height:1.4;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:${C.eyebrow};">${C.kicker}</div>
 ` : ''}            <div style="font-size:30px;line-height:1.05;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;color:${C.title};">${C.line1}</div>

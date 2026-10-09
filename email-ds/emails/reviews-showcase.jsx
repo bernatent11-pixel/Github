@@ -43,7 +43,7 @@ const SECTION_1_ALT =
   REVIEWS[0].quote.replace(/[“”]/g, '');
 
 const SECTION_3_ALT =
-  'Your turn. Taste it for yourself. 100mg natural caffeine, 500mg Lion’s Mane ' +
+  'Your turn. Create a moment worth savoring. 100mg natural caffeine, 500mg Lion’s Mane ' +
   'and 200mg L-Theanine in a creamy vanilla latte. 90 calories, 3g sugar, ready ' +
   'in 30 seconds. Three Milonga Mate Latte pouches. Buy 1: $34.99, 15 servings, ' +
   '$2.33 a serving, or $24.49 subscribed. Buy 2: $62.98, save 10%, 30 servings, ' +
@@ -148,25 +148,26 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
     ),
 
     // ── 3 · THE CLOSE ─────────────────────────────────────────────────────
-    // Beige, dark green type only. The pouch and the real bundle ladder from
-    // the product file: one bag, two at 10% off, three at 15% off, and an
-    // extra 15% for subscribing. One button.
-    h('div', { style: { padding: '60px 28px 48px', textAlign: 'center' } },
+    // The buying section on the forest paper, so the email closes on its
+    // darkest, richest ground. Dark-green map: gold eyebrow, white title and
+    // body. The three bags, then the bundle ladder as raised cards — the
+    // featured gold card keeps forest type, because gold-on-gold vanishes.
+    h('div', { style: { ...FOREST_PAPER, padding: '60px 28px 52px', textAlign: 'center' } },
       h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12,
-        letterSpacing: '0.2em', textTransform: 'uppercase', color: FOREST,
+        letterSpacing: '0.2em', textTransform: 'uppercase', color: GOLD,
         marginBottom: 14 } }, 'Your turn'),
-      h(M.Headline, { line1: 'Taste it', line2: 'for yourself.', bg: 'beige',
-        size: 40, align: 'center', italic: true }),
+      h(M.Headline, { line1: 'Create a moment', line2: 'worth savoring.', bg: 'forest',
+        size: 40, align: 'center', color: '#FFFFFF', line2Color: '#FFFFFF', italic: true }),
       h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16,
-        lineHeight: 1.5, color: '#12331F', maxWidth: 440, margin: '16px auto 0' } },
+        lineHeight: 1.5, color: '#FFFFFF', maxWidth: 440, margin: '16px auto 0' } },
         '100mg natural caffeine, 500mg Lion’s Mane and 200mg L-Theanine in a creamy vanilla latte. 90 calories, 3g sugar, ready in 30 seconds.'),
       h('div', { style: { height: 30 } }),
       // Prices as Shopify shows them (The Original Mate Latte – Vanilla,
       // read 2026-10-09): 1 bag $34.99, 2 bags $62.98 (save 10%), 4 bags
       // $118.96 (save 15%); subscribed, each 30% less again.
       h(M.BundleOffer, {
-        bg: 'beige', raised: true, imageWidth: '100%',
-        image: { src: '../public/product/three-bags-beige.jpg', alt: 'Three Milonga Mate Latte pouches, vanilla, 15 servings each' },
+        bg: 'forest', raised: true, imageWidth: '100%',
+        image: { src: '../public/product/three-bags.png', alt: 'Three Milonga Mate Latte pouches, vanilla, 15 servings each' },
         // The Mate Mornings Club is set on the whole product in Shopify, so
         // its 30% applies to every bundle on top of the bundle saving — shown
         // small inside each card rather than as a fourth box.
@@ -181,6 +182,7 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
       }),
     ),
 
-    h(M.Footer, { bg: 'beige', social: [{ label: 'Instagram', href: '#' }, { label: 'Shop', href: '#' }] }),
+    // The footer joins the close on forest, so the email ends on one ground.
+    h(M.Footer, { bg: 'forest', social: [{ label: 'Instagram', href: '#' }, { label: 'Shop', href: '#' }] }),
   );
 }

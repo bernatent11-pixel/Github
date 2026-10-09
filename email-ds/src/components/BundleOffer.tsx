@@ -71,14 +71,18 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
   // A raised tier: its own fill with a sheen across the top, the featured one
   // in the gold gradient the buttons use.
   const GOLD_FACE = 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)';
-  const SHEEN = 'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 45%)';
+  // The sheen is a lit top edge: strong on a light page, faint on forest,
+  // where a strong white wash would read as a grey card.
+  const SHEEN = bg === 'forest'
+    ? 'linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 45%)'
+    : 'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 45%)';
   const tierStyle = (featured?: boolean): React.CSSProperties =>
     raised
       ? {
           background: featured ? GOLD_FACE : `${SHEEN}, ${fill}`,
           backgroundColor: featured ? colors.gold : fill,
           border: `1px solid ${featured ? 'rgba(201,162,78,0.9)' : t.rule}`,
-          borderTopColor: 'rgba(255,255,255,0.85)',
+          borderTopColor: bg === 'forest' && !featured ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)',
           borderRadius: 18,
           boxShadow: featured
             ? '0 16px 30px rgba(0,53,27,0.26), 0 3px 8px rgba(0,53,27,0.18), inset 0 1px 0 rgba(255,246,214,0.8)'
@@ -108,7 +112,13 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
       ) : null}
 
       <div style={{ display: 'grid', gridTemplateColumns: `repeat(${tiers.length}, 1fr)`, gap: 10 }}>
-        {tiers.map((tier) => (
+        {tiers.map((tier) => {
+          // A raised featured tier is a GOLD card whatever the page, so its
+          // type and button follow the beige map (forest on light) rather than
+          // the page's — on a forest page gold-on-gold would vanish.
+          const onGold = raised && tier.featured;
+          const tt = onGold ? onBg.beige : t;
+          return (
           <div
             key={tier.label}
             className="milonga-lift"
@@ -124,8 +134,8 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
               <div
                 style={{
                   display: 'inline-block',
-                  background: t.accent,
-                  color: t.btnText,
+                  background: tt.accent,
+                  color: tt.btnText,
                   fontSize: 9,
                   fontWeight: 900,
                   letterSpacing: '0.1em',
@@ -144,7 +154,7 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
                 fontWeight: 700,
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: t.body,
+                color: tt.body,
                 marginBottom: 7,
               }}
             >
@@ -156,7 +166,7 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
               style={{
                 fontSize: 12,
                 fontWeight: 700,
-                color: t.body,
+                color: tt.body,
                 opacity: tier.was ? 0.6 : 0,
                 textDecoration: 'line-through',
                 lineHeight: 1.2,
@@ -165,27 +175,27 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
             >
               {tier.was ?? tier.price}
             </div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: t.accent, lineHeight: 1.05, marginBottom: 7 }}>
+            <div style={{ fontSize: 22, fontWeight: 900, color: tt.accent, lineHeight: 1.05, marginBottom: 7 }}>
               {tier.price}
             </div>
-            {tier.detail ? <div style={{ fontSize: 11, lineHeight: 1.45, color: t.body }}>{tier.detail}</div> : null}
+            {tier.detail ? <div style={{ fontSize: 11, lineHeight: 1.45, color: tt.body }}>{tier.detail}</div> : null}
             {tier.unit ? (
-              <div style={{ fontSize: 11, fontWeight: 700, color: t.accent, paddingTop: 3 }}>{tier.unit}</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: tt.accent, paddingTop: 3 }}>{tier.unit}</div>
             ) : null}
             {tier.sub ? (
-              <div style={{ margin: '11px 4px 0', paddingTop: 9, borderTop: `1px solid ${t.rule}` }}>
-                <div style={{ fontSize: 9.5, fontWeight: 900, letterSpacing: '0.12em', textTransform: 'uppercase', color: t.body }}>
+              <div style={{ margin: '11px 4px 0', paddingTop: 9, borderTop: `1px solid ${tt.rule}` }}>
+                <div style={{ fontSize: 9.5, fontWeight: 900, letterSpacing: '0.12em', textTransform: 'uppercase', color: tt.body }}>
                   Subscribe
                 </div>
-                <div style={{ fontSize: 15, fontWeight: 900, color: t.accent, lineHeight: 1.15, paddingTop: 3 }}>
+                <div style={{ fontSize: 15, fontWeight: 900, color: tt.accent, lineHeight: 1.15, paddingTop: 3 }}>
                   {tier.sub.price}
                 </div>
-                <div style={{ fontSize: 10, fontWeight: 700, color: t.accent, paddingTop: 2 }}>{tier.sub.note}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: tt.accent, paddingTop: 2 }}>{tier.sub.note}</div>
               </div>
             ) : null}
             <div style={{ height: 13 }} />
             <Button
-              bg={bg}
+              bg={onGold ? 'beige' : bg}
               label="Buy now"
               href={tier.href}
               size="sm"
@@ -193,7 +203,8 @@ export function BundleOffer({ bg = 'forest', image, tiers, subscribe, raised = f
               fullWidth
             />
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {subscribe ? (

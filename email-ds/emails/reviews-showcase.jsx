@@ -55,7 +55,10 @@ const REVIEWS = window.MATE_LATTE_REVIEWS;
 const HERO = window.MATE_LATTE_HERO_REVIEW;
 
 const SECTION_1_ALT =
-  'Milonga. Five stars. ' + HERO.title + '. ' + HERO.quote.replace(/…/g, '') +
+  // An ellipsis before a new sentence becomes a full stop; one mid-sentence
+  // simply drops, so a screen reader hears the sentences as they read.
+  'Milonga. Five stars. ' + HERO.title + '. ' +
+  HERO.quote.replace(/…(?= [A-Z])/g, '.').replace(/…/g, '') +
   ' ' + HERO.name + ', verified buyer. Two hands raise two Milonga Mate Latte ' +
   'pouches against a clear blue sky. Five stars. Amazing! Priscilla: ' +
   REVIEWS[0].quote.replace(/[“”]/g, '');

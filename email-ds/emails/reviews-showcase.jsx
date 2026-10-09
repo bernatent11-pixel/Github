@@ -29,6 +29,8 @@ const CREAM = '#F0EFDF';
 // Section 1→2 geometry: the sky gap between the forearms, and how far the
 // first review card rises into the photograph's faded foot.
 const HAND_GAP = { x: 312 };
+const HERO_H = Math.round(600 * 2360 / 1328);   // the frame, unchanged
+const PHOTO_LIFT = 90;
 const CARD_RISE = 104;
 
 // Section 2's palette, in one place so the ground can be tried in another
@@ -95,11 +97,19 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
     // and the tree shade down into the email's dark green, so the photograph
     // turns into the reviews band rather than stopping on a hard edge. The
     // button sits on that green, centred under the picture.
-    h('div', { style: { position: 'relative', zIndex: 0, background: S2.ground } },
+    // THE PHOTOGRAPH SITS PHOTO_LIFT UNITS HIGHER than the frame (Bernat,
+    // 2026-10-09): the pouches and hands belong to Katya's review above them,
+    // not to the cards below, so the picture is pulled up toward the type and
+    // the gap it leaves at the foot fades into the gold ground. The frame
+    // keeps its height, so nothing below moves. The right pouch now starts
+    // beside the name row rather than under it; the left one stays well
+    // clear of it.
+    h('div', { style: { position: 'relative', zIndex: 0, background: S2.ground,
+      height: HERO_H, overflow: 'hidden' } },
       h('img', { src: '../public/product/pouches-sky-tall.jpg', alt: SECTION_1_ALT,
-        style: { display: 'block', width: 600, height: 'auto' } }),
-      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 190,
-        background: `linear-gradient(180deg, ${S2.fade}0) 0%, ${S2.fade}0.6) 40%, ${S2.fade}0.92) 72%, ${S2.ground} 100%)` } }),
+        style: { display: 'block', width: 600, height: 'auto', marginTop: -PHOTO_LIFT } }),
+      h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 190 + PHOTO_LIFT,
+        background: `linear-gradient(180deg, ${S2.fade}0) 0%, ${S2.fade}0.6) 30%, ${S2.fade}0.92) 52%, ${S2.ground} 70%)` } }),
 
 
       h('div', { style: { position: 'absolute', top: 30, left: 0, right: 0, textAlign: 'center' } },

@@ -40,7 +40,10 @@ const CARD_RISE = 104;
 const S2 = {
   ground: '#E3BC62',
   fade: 'rgba(227,188,98,',
-  card: 'linear-gradient(180deg, #F6F4E8 0%, #F0EFDF 60%, #E9E6D2 100%)',
+  // Dark green cards (Bernat, 2026-10-09), so their type follows the
+  // dark-green map: white headline and quote, gold name and stars.
+  card: 'linear-gradient(180deg, #0A5A31 0%, #004D27 55%, #00401F 100%)',
+  title: '#FFFFFF', name: '#E3BC62', stars: '#E3BC62', quote: '#FFFFFF',
   btnBg: 'gold',
 };
 const FONT = 'Gotham, Montserrat, sans-serif';
@@ -143,18 +146,18 @@ function ReviewsShowcase({ shopHref = '#shop' }) {
           // units under the first card onto flat beige, so nothing may reach
           // that far — and the live cards beneath carry no shadow at all.
           boxShadow: i === 0
-            ? '0 -18px 22px rgba(0,26,13,0.22), 0 2px 4px rgba(0,53,27,0.14), inset 0 1px 0 rgba(255,246,214,0.75)'
-            : '0 2px 4px rgba(0,53,27,0.14), inset 0 1px 0 rgba(255,246,214,0.75)' } },
+            ? '0 -18px 22px rgba(0,26,13,0.22), 0 2px 4px rgba(0,53,27,0.14), inset 0 1px 0 rgba(255,255,255,0.14)'
+            : '0 2px 4px rgba(0,53,27,0.14), inset 0 1px 0 rgba(255,255,255,0.14)' } },
           // balance, so a long headline breaks into two even rows instead of
           // a full line and a one-word stub.
           h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 24, lineHeight: 1.1,
-            textTransform: 'uppercase', color: FOREST, letterSpacing: '0.01em', textWrap: 'balance' } },
+            textTransform: 'uppercase', color: S2.title, letterSpacing: '0.01em', textWrap: 'balance' } },
             r.title.replace(/\s+!/, '!')),
           h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 11.5, letterSpacing: '0.16em',
-            textTransform: 'uppercase', color: FOREST, opacity: 0.78, marginTop: 8 } }, r.name),
-          h('div', { style: { fontSize: 16, letterSpacing: '4px', color: FOREST, marginTop: 12 } }, '★★★★★'),
+            textTransform: 'uppercase', color: S2.name, marginTop: 8 } }, r.name),
+          h('div', { style: { fontSize: 16, letterSpacing: '4px', color: S2.stars, marginTop: 12 } }, '★★★★★'),
           h('div', { style: { fontFamily: FONT, fontStyle: 'italic', fontWeight: 500, fontSize: 15.5,
-            lineHeight: 1.55, color: FOREST, marginTop: 14 } }, r.quote),
+            lineHeight: 1.55, color: S2.quote, marginTop: 14 } }, r.quote),
         ))),
 
       h('div', { style: { marginTop: 36, textAlign: 'center' } },

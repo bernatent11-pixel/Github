@@ -60,11 +60,12 @@ const VERSIONS = [
 ];
 
 const SECTION_1_ALT =
-  'Milonga. Sober October, your way. Taking a month off alcohol doesn’t mean ' +
-  'taking a month off your plans. Alcohol-free, hemp-derived THC and CBD in a ' +
-  'cold can of yerba mate, made for game nights, dinners and everything in ' +
-  'between. A hand pulls a can of Milonga Citrus Mango from a fridge shelf ' +
-  'stocked with Peach Ginger, Citrus Mango and Açaí Mint. Shop the cans.';
+  'Milonga. Sober October, your way. Taking a break from alcohol doesn’t mean ' +
+  'taking a break from the fun. Keep your plans, skip the booze, and enjoy a ' +
+  'refreshing can of yerba mate. Made for game nights, dinner parties, and every ' +
+  'moment in between, without sacrificing how you feel the next day. A hand ' +
+  'pulls a can of Milonga Citrus Mango from a fridge shelf stocked with Peach ' +
+  'Ginger, Citrus Mango and Açaí Mint. Shop the cans.';
 
 // The bundle builder's savings ladder and the box Bernat built on the site
 // (see section 3).
@@ -202,15 +203,15 @@ function SoberOctober({ shopHref = '#shop' }) {
         // type carries its own shadow for the rest. The foot fades only in
         // the last fifth, so the cards begin on photograph, not on green.
         background: 'linear-gradient(180deg, rgba(0,53,27,0.80) 0%, rgba(0,53,27,0.66) 26%, rgba(0,53,27,0.36) 40%, rgba(0,53,27,0) 52%, rgba(0,77,39,0) 80%, rgba(0,77,39,0.7) 93%, #004D27 100%)' } }),
-      h('div', { style: { position: 'absolute', top: 30, left: 40, right: 40, textAlign: 'center',
+      h('div', { style: { position: 'absolute', top: 20, left: 36, right: 36, textAlign: 'center',
         textShadow: '0 2px 10px rgba(0,26,13,0.7), 0 1px 2px rgba(0,26,13,0.6)' } },
         h(M.Logo, { tone: 'gold', variant: 'primary', height: 70 }),
-        h('div', { style: { marginTop: 22 } },
+        h('div', { style: { marginTop: 16 } },
           h(M.Headline, { line1: 'Sober October,', line2: 'your way.', bg: 'forest',
             size: 40, align: 'center', color: '#FFFFFF', line2Color: GOLD, italic: true })),
         h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16, lineHeight: 1.5,
-          color: '#FFFFFF', margin: '16px auto 0', maxWidth: 470 } },
-          'Taking a month off alcohol doesn’t mean taking a month off your plans. Alcohol-free, hemp-derived THC and CBD in a cold can of yerba mate, made for game nights, dinners and everything in between.'),
+          color: '#FFFFFF', margin: '12px auto 0', maxWidth: 500 } },
+          'Taking a break from alcohol doesn’t mean taking a break from the fun. Keep your plans, skip the booze, and enjoy a refreshing can of yerba mate. Made for game nights, dinner parties, and every moment in between, without sacrificing how you feel the next day.'),
       ),
       // The button sits just under the hand and its can (Bernat), on the
       // shelf lip, so the eye runs title → hand → button. The cans behind it
@@ -248,7 +249,7 @@ function SoberOctober({ shopHref = '#shop' }) {
       h(M.Headline, { line1: 'Build your own', line2: 'bundle & save.', bg: 'beige', size: 40, align: 'center', italic: true }),
       h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16, lineHeight: 1.5,
         color: '#12331F', maxWidth: 460, margin: '16px auto 0' } },
-        'Mix the cans, the Mate Latte and the variety packs in one box. The more you add, the more you save: free shipping from $45 and up to $100 off.'),
+        'Build your perfect Milonga bundle. Mix and match your favorite flavors and doses in one box. The more you add, the more you save, with free shipping on orders over $45 and up to $100 off.'),
 
       // The panel.
       h('div', { style: { marginTop: 30, textAlign: 'left', background: '#FFFFFF', borderRadius: 28,

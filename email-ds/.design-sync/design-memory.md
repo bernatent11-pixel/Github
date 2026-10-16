@@ -79,6 +79,7 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-30 | Colour | **The Mate Latte palette runs in three tiers.** Core — forest `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`, white, black — is the only tier that sets a ground, carries type or fills a button. Support — `forestDeep` `#00351B`, `forestNight` `#002D17`, `goldSoft` `#EFD9A0`, `goldDeep` `#C9A24E`, `cream` `#FBF8EF`, `ink` `#12331F`, `inkSoft` `#3B5344` — gives depth, paper and body ink. Canopy — `canopyLight` `#88CF7F` → `canopySage` `#62BD6F` → `canopyFern` `#4CAB55` → `canopyMid` `#297F49` → `canopyShadow` `#0D5D32` → `canopyTrunk` `#002D17` — is illustration only, never type or a ground. The duller inks the asset files are exported in (`#284E2D`, `#C2A15C`, `#407246`) are not tokens. Contrast table in `references/design-system.md` §1 | Bernat, asked for the whole palette in the system |
 
 ---
+| 2026-10-16 | Claims | **Yerba mate may carry "Healthy gut, immune system".** Bernat and the founder approved it, 100% confirmed: use it as written and do not flag or swap it. Every other health claim is still out under the standing rule | Bernat, on the Lion's Mane on-the-go ingredient diagram |
 
 ## Log
 
@@ -460,6 +461,16 @@ previously designed dividers were kept instead. Only the background-less icons, 
 and the forest canopy were taken from that asset drop.
 
 ---
+
+### 2026-10-16 — an approved claim (new area: Claims)
+
+On the on-the-go ingredient diagram, "Healthy gut, immune system" was swapped out under the
+no-health-claims rule. Bernat put it back: he and the founder approve it for yerba mate, confirmed,
+and asked not to be pushed back on it. Stored so no later session swaps or flags it. **New area,
+`Claims`**: none of the existing areas covers what may be said, only how it looks. The approval is
+narrow: this one line, for yerba mate; "boost metabolism", "mood support" and "stress support"
+were not approved and stay out. `references/design-system.md` still lists the general claim limits
+without this exception.
 
 ## Campaign-specific choices — *not* rules
 

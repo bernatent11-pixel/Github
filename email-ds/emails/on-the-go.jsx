@@ -58,18 +58,19 @@ function canEdge(f, side) {
 // centre (cy, units from the can's top) and where its arrow leaves the can
 // (f, a fraction of the can's height, on the card's side).
 // BENEFIT LINES are Bernat's except four, swapped under the standing
-// no-health-claims rule (his to reverse): "healthy gut, immune system" and
-// "boost metabolism" (Yerba Mate) give way to "No jitters, no crash", from
-// the product file; "antioxidants and vitamins" narrows to "Natural
+// no-health-claims rule (his to reverse): "boost metabolism" (Yerba Mate)
+// gives way to "No jitters, no crash", from the product file; "antioxidants and vitamins" narrows to "Natural
 // antioxidants"; "mood support" (Lion's Mane) becomes "Mental clarity", also
 // the product file's; "relaxation and stress support" (L-Theanine) becomes
-// "Relaxed, steady focus".
-const CAN_TOP = 150; // room above the can for the first card
+// "Relaxed, steady focus". "Healthy gut, immune system" was swapped too and
+// is BACK: Bernat confirmed on 2026-10-16 that he and the founder approve
+// it for Yerba Mate. Not to be flagged again.
+const CAN_TOP = 172; // room above the can for the first card
 const CARD_W = 168;
 const CARD_X = 10;
 const CALLOUTS = [
-  { side: 'left', cy: -60, f: 0.06, mark: 'yerba-mate', name: 'Yerba Mate',
-    lines: ['Clean, sustained energy', 'Natural antioxidants', 'No jitters, no crash'] },
+  { side: 'left', cy: -68, f: 0.06, mark: 'yerba-mate', name: 'Yerba Mate',
+    lines: ['Clean, sustained energy', 'Natural antioxidants', 'Healthy gut, immune system', 'No jitters, no crash'] },
   { side: 'left', cy: 150, f: 0.29, mark: 'l-theanine', name: 'L-Theanine',
     lines: ['Calm & balance', 'Relaxed, steady focus'] },
   { side: 'right', cy: 360, f: 0.69, mark: 'lions-mane', name: 'Lion’s Mane',
@@ -81,7 +82,7 @@ const DIAGRAM_H = CAN_TOP + 580 + 95;
 
 const SECTION_2_ALT =
   'A can of Milonga Yerba Mate in Peach Ginger. Yerba mate: clean, sustained ' +
-  'energy, natural antioxidants, no jitters, no crash. Lion’s Mane: focus and ' +
+  'energy, natural antioxidants, healthy gut, immune system, no jitters, no crash. Lion’s Mane: focus and ' +
   'concentration, cognitive support, mental clarity. L-Theanine: calm and ' +
   'balance, relaxed, steady focus. Clean ingredients: organic, plant-based, ' +
   'non-GMO, no artificial sweeteners.';

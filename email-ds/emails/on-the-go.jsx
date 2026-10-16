@@ -1,4 +1,4 @@
-// FOCUSED MIND, ENERGIZED, ON THE GO — the Lion's Mane cans, a lifestyle
+// CLEAR MIND, CLEAN ENERGY, ON THE GO — the Lion's Mane cans, a lifestyle
 // email about drinking them on the move.
 //
 // Copy is Bernat's, word for word (title, paragraph, button). No build
@@ -22,7 +22,7 @@ const HEAD = 190;
 const CTA_TOP = HEAD + 790;
 
 const SECTION_1_ALT =
-  'Milonga. Focused mind, energized, on the go. Find your flow and feel ready ' +
+  'Milonga. Clear mind, clean energy, on the go. Find your flow and feel ready ' +
   'for whatever the day brings. Smooth, balanced energy to help you feel ' +
   'focused, clear-headed, and in your element. A hand lifts a can of Milonga ' +
   'Yerba Mate in Açaí Mint from a fridge shelf between other cans. Get it now.';
@@ -44,8 +44,8 @@ function OnTheGo({ shopHref = '#shop' }) {
         textShadow: '0 2px 10px rgba(0,26,13,0.6), 0 1px 2px rgba(0,26,13,0.5)' } },
         h(M.Logo, { tone: 'gold', variant: 'primary', height: 70 }),
         h('div', { style: { marginTop: 20 } },
-          h('div', { style: title }, 'Focused mind'),
-          h('div', { style: title }, 'energized'),
+          h('div', { style: title }, 'Clear mind'),
+          h('div', { style: title }, 'Clean energy'),
           h('div', { style: { ...title, color: GOLD, fontStyle: 'italic', fontWeight: 800, marginTop: 2 } }, 'on the go')),
         h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16, lineHeight: 1.5,
           color: '#FFFFFF', margin: '14px auto 0', maxWidth: 480 } },

@@ -12,10 +12,11 @@ const FONT = 'Gotham, Montserrat, sans-serif';
 
 // The fridge photograph is 1333 x 2000, drawn 600 wide: 900 units tall.
 const PHOTO_H = 900;
-// Forest above the photograph. The hand enters the frame about 170 units
-// down and the type needs about 330, so the section starts on green and the
-// photograph's dark top shelf feathers up into it — the type sits across the
-// seam and the hand stays clear.
+// Room above the photograph. The hand enters the frame about 170 units
+// down and the type needs about 330, so the fridge is extended HEAD units
+// upward from its own top rows (can-acai-mint-fridge-tall.jpg) and a dark
+// grade in the photograph's own warm near-black — not green (Bernat) —
+// holds the type and lets go above the hand.
 const HEAD = 190;
 // The button: under the can, on the glass of the shelf it was lifted from.
 const CTA_TOP = HEAD + 790;
@@ -32,13 +33,13 @@ function OnTheGo({ shopHref = '#shop' }) {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · THE OPENER ────────────────────────────────────────────────────
-    h('div', { style: { position: 'relative', height: HEAD + PHOTO_H, overflow: 'hidden', background: FOREST } },
-      h('img', { src: '../public/product/can-acai-mint-fridge.jpg', alt: SECTION_1_ALT,
-        style: { position: 'absolute', top: HEAD, left: 0, display: 'block', width: 600, height: 'auto' } }),
-      // Forest fades into the photograph across its top shelf, and back out
-      // at its foot so the button sits on green-dark glass.
-      h('div', { style: { position: 'absolute', left: 0, right: 0, top: HEAD - 1, height: PHOTO_H + 1,
-        background: `linear-gradient(180deg, ${FOREST} 0%, rgba(0,77,39,0.86) 7%, rgba(0,77,39,0.55) 14%, rgba(0,53,27,0.18) 21%, rgba(0,53,27,0) 27%, rgba(0,53,27,0) 78%, rgba(0,53,27,0.55) 88%, rgba(0,45,23,0.85) 100%)` } }),
+    h('div', { style: { position: 'relative', height: HEAD + PHOTO_H, overflow: 'hidden', background: '#0D0B09' } },
+      h('img', { src: '../public/product/can-acai-mint-fridge-tall.jpg', alt: SECTION_1_ALT,
+        style: { position: 'absolute', top: 0, left: 0, display: 'block', width: 600, height: 'auto' } }),
+      // The dark grade: the fridge's own warm near-black at the head, clear
+      // by the hand. The foot still darkens so the button sits on dark glass.
+      h('div', { style: { position: 'absolute', inset: 0,
+        background: 'linear-gradient(180deg, rgba(13,11,9,0.94) 0%, rgba(13,11,9,0.86) 12%, rgba(13,11,9,0.66) 22%, rgba(13,11,9,0.32) 29%, rgba(13,11,9,0) 36%, rgba(0,53,27,0) 82%, rgba(0,53,27,0.55) 91%, rgba(0,45,23,0.85) 100%)' } }),
       h('div', { style: { position: 'absolute', top: 30, left: 36, right: 36, textAlign: 'center',
         textShadow: '0 2px 10px rgba(0,26,13,0.6), 0 1px 2px rgba(0,26,13,0.5)' } },
         h(M.Logo, { tone: 'gold', variant: 'primary', height: 70 }),

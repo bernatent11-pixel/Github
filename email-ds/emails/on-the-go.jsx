@@ -57,6 +57,13 @@ function canEdge(f, side) {
 // Clean ingredients below its foot on the right. Each callout gives its card
 // centre (cy, units from the can's top) and where its arrow leaves the can
 // (f, a fraction of the can's height, on the card's side).
+// BENEFIT LINES are Bernat's except four, swapped under the standing
+// no-health-claims rule (his to reverse): "healthy gut, immune system" and
+// "boost metabolism" (Yerba Mate) give way to "No jitters, no crash", from
+// the product file; "antioxidants and vitamins" narrows to "Natural
+// antioxidants"; "mood support" (Lion's Mane) becomes "Mental clarity", also
+// the product file's; "relaxation and stress support" (L-Theanine) becomes
+// "Relaxed, steady focus".
 const CAN_TOP = 150; // room above the can for the first card
 const CARD_W = 168;
 const CARD_X = 10;

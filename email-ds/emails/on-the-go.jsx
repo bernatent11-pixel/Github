@@ -2,7 +2,8 @@
 // email about drinking them on the move.
 //
 // Copy is Bernat's, word for word (title, paragraph, button). No build
-// record yet. Further sections to follow; for now the opener and the footer.
+// record yet. Three sections: the opener, what is in the can, and the two
+// moments (desk and track) the can serves.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
@@ -130,6 +131,79 @@ function Column(items, side) {
     items.map((c, i) => Callout(c, i, side)));
 }
 
+// ── Section 3 · two moments, one can ───────────────────────────────────────
+// A two-circle Venn on forest paper, after Bernat's idea: the track
+// photograph in the left circle, the workspace in the right, and the Lion's
+// Mane can standing in the gold lens where they overlap — the thing both
+// moments share. The copy around it is Claude's draft from his brief
+// (clean energy & focus; mind focused, body energized, while calm).
+const FOREST_PAPER = {
+  backgroundColor: FOREST,
+  backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
+  backgroundSize: '320px 320px',
+};
+const VENN_R = 158;
+const VENN_OVERLAP = 84;
+const VENN_C1 = 300 - VENN_R + VENN_OVERLAP / 2; // left circle's centre x
+const VENN_C2 = 300 + VENN_R - VENN_OVERLAP / 2;
+const VENN_H = VENN_R * 2;
+const MID_CAN_H = 270;
+// THE TRACK IS ON THE LEFT, THE DESK ON THE RIGHT. Each photograph's own can
+// has to stay clear of the can in the lens: the track's is centred in its
+// frame, but the desk's sits right of centre, so the desk takes the right
+// circle, where "right of centre" is away from the overlap.
+const USES = [
+  { x: VENN_C1, eyebrow: 'Exercise', name: 'On the move',
+    note: 'Clean energy for the warm-up, the last lap and everything after.' },
+  { x: VENN_C2, eyebrow: 'Productivity', name: 'At your desk',
+    note: 'Clear, steady focus for deep work, back-to-back calls and long afternoons.' },
+];
+
+const SECTION_3_ALT =
+  'Wherever the day takes you. Mind focused, body energized. Two different ' +
+  'moments, one shared feeling: clean energy and focus that keeps your mind ' +
+  'clear and your body energized, while you stay calm. Two overlapping ' +
+  'circles: in one, a hand holds up a can of Milonga Peach Ginger on a ' +
+  'running track; in the other, a woman in a linen suit rests her hand on a ' +
+  'can of Milonga Citrus Mango beside her laptop. Where they overlap stands ' +
+  'a can of Milonga Yerba Mate: clean energy and focus. Exercise, on the ' +
+  'move: clean energy for the warm-up, the last lap and everything after. ' +
+  'Productivity, at your desk: clear, steady focus for deep work, ' +
+  'back-to-back calls and long afternoons. Get it now.';
+
+function Venn() {
+  const cy = VENN_R;
+  const img = (href, cx, clip) => h('image', { href, x: cx - VENN_R, y: 0, width: VENN_H, height: VENN_H,
+    preserveAspectRatio: 'xMidYMid slice', clipPath: `url(#${clip})` });
+  return h('div', { style: { position: 'relative', height: VENN_H + 24 } },
+    h('svg', { width: 600, height: VENN_H, viewBox: `0 0 600 ${VENN_H}`, style: { position: 'absolute', top: 0, left: 0 } },
+      h('defs', null,
+        h('clipPath', { id: 'otg-c1' }, h('circle', { cx: VENN_C1, cy, r: VENN_R })),
+        h('clipPath', { id: 'otg-c2' }, h('circle', { cx: VENN_C2, cy, r: VENN_R })),
+        h('linearGradient', { id: 'otg-gold', x1: 0, y1: 0, x2: 0, y2: 1 },
+          h('stop', { offset: '0%', stopColor: '#EBCB7E' }),
+          h('stop', { offset: '60%', stopColor: '#E3BC62' }),
+          h('stop', { offset: '100%', stopColor: '#D8AE52' }))),
+      img('../public/product/can-peach-ginger-track-circle.jpg', VENN_C1, 'otg-c1'),
+      img('../public/product/can-citrus-mango-desk-circle.jpg', VENN_C2, 'otg-c2'),
+      // The lens — what the two share — filled gold.
+      h('circle', { cx: VENN_C2, cy, r: VENN_R, fill: 'url(#otg-gold)', clipPath: 'url(#otg-c1)' }),
+      h('circle', { cx: VENN_C1, cy, r: VENN_R - 1.5, fill: 'none', stroke: GOLD, strokeWidth: 3 }),
+      h('circle', { cx: VENN_C2, cy, r: VENN_R - 1.5, fill: 'none', stroke: GOLD, strokeWidth: 3 })),
+    // The can stands in front of the lens, its base on the pill.
+    h('img', { src: '../public/product/can-peach-ginger-lm-upright.png', alt: '',
+      style: { position: 'absolute', left: 300 - (MID_CAN_H * 334 / 888) / 2, top: cy - MID_CAN_H / 2 - 6,
+        height: MID_CAN_H, width: 'auto', display: 'block',
+        filter: 'drop-shadow(0 16px 16px rgba(0,26,13,0.45)) drop-shadow(0 2px 4px rgba(0,26,13,0.3))' } }),
+    h('div', { style: { position: 'absolute', left: 0, right: 0, top: cy + MID_CAN_H / 2 - 18, textAlign: 'center' } },
+      h('span', { style: { display: 'inline-block', borderRadius: 999, padding: '9px 16px',
+        background: 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)',
+        boxShadow: '0 8px 18px rgba(0,26,13,0.35), inset 0 1px 0 rgba(255,246,214,0.7)',
+        fontFamily: FONT, fontWeight: 900, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase',
+        color: FOREST } }, 'Clean energy & focus')),
+  );
+}
+
 function OnTheGo({ shopHref = '#shop' }) {
   const title = { fontFamily: FONT, fontWeight: 900, fontSize: 44, lineHeight: 1.02,
     letterSpacing: '0.01em', textTransform: 'uppercase', color: '#FFFFFF' };
@@ -180,6 +254,30 @@ function OnTheGo({ shopHref = '#shop' }) {
         Column(LEFT, 'left'),
         Column(RIGHT, 'right'),
       ),
+    ),
+
+    // ── 3 · TWO MOMENTS, ONE CAN ─────────────────────────────────────────
+    // Forest paper closes the email: white titles, gold accents, white body.
+    h('div', { style: { ...FOREST_PAPER, padding: '60px 0 64px', textAlign: 'center' } },
+      h('div', { style: { padding: '0 32px' } },
+        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12, letterSpacing: '0.2em',
+          textTransform: 'uppercase', color: GOLD, marginBottom: 14 } }, 'Wherever the day takes you'),
+        h(M.Headline, { line1: 'Mind focused,', line2: 'body energized.', bg: 'forest', size: 40, align: 'center',
+          color: '#FFFFFF', line2Color: GOLD, italic: true }),
+        h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16, lineHeight: 1.5,
+          color: '#FFFFFF', maxWidth: 480, margin: '16px auto 0' } },
+          'Two different moments, one shared feeling: clean energy and focus that keeps your mind clear and your body energized, while you stay calm.')),
+      h('div', { role: 'img', 'aria-label': SECTION_3_ALT, style: { marginTop: 40 } }, Venn()),
+      h('div', { style: { position: 'relative', height: 122, marginTop: 6 } },
+        USES.map((u, i) => h('div', { key: i, style: { position: 'absolute', top: 0, left: u.x - 120, width: 240 } },
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 11.5, letterSpacing: '0.2em',
+            textTransform: 'uppercase', color: GOLD } }, u.eyebrow),
+          h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 22, lineHeight: 1.1, textTransform: 'uppercase',
+            color: '#FFFFFF', marginTop: 6 } }, u.name),
+          h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 14.5, lineHeight: 1.45,
+            color: '#FFFFFF', marginTop: 8, padding: '0 6px' } }, u.note)))),
+      h('div', { style: { marginTop: 18 } },
+        h(M.Button, { label: 'Get it now', href: shopHref, bg: 'forest', size: 'lg' })),
     ),
 
     h(M.Footer, { bg: 'beige', social: [{ label: 'Instagram', href: '#' }, { label: 'Shop', href: '#' }] }),

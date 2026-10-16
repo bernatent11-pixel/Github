@@ -29,58 +29,54 @@ const SECTION_1_ALT =
 
 
 // ── Section 2 · what is in the can ─────────────────────────────────────────
-// The tilted Peach Ginger can (can-peach-ginger-lm-tilt.png, trimmed to
-// 474 x 886) stands in the middle, CAN_H tall. Its top leans right, so the
-// open ground is upper-left and lower-right: the four callouts zig-zag —
-// left, right, left, right — so every arrow has room to run.
+// The Peach Ginger can stands in the middle, CAN_H tall, with two callouts
+// on its left and two on its right, all four inside the can's own height —
+// beside it, never above or below (Bernat). Bernat's render leans 12°, which
+// leaves no room beside its lower-left and upper-right, so the can is stood
+// upright (can-peach-ginger-lm-upright.png: the same render rotated -12° and
+// trimmed, 334 x 888). Upright, its sides are straight: the left edge sits 3
+// file px in, the right 328 — so every arrow is one straight hairline of the
+// same length, from the can's edge to its card.
 //
-// THE ARROWS TOUCH THE CAN (design memory, T8). Each starts on the can's own
-// silhouette at its card's height; SILHOUETTE is the can's left and right
-// edge, in file pixels, measured from the PNG's alpha every 5% of its height.
-const CAN = { w: 474, h: 886 };
-const CAN_H = 520;
+// THE ARROWS TOUCH THE CAN (design memory, T8): each one ends ON the
+// silhouette, a dot on the can, an open chevron at the card.
+const CAN = { w: 334, h: 888, edgeL: 3, edgeR: 328 };
+const CAN_H = 490;
 const CAN_K = CAN_H / CAN.h;
 const CAN_LEFT = 300 - (CAN.w * CAN_K) / 2;
-const SILHOUETTE = [[156, 422], [156, 422], [140, 472], [131, 467], [122, 459], [113, 449], [103, 439], [94, 429],
-  [85, 419], [76, 409], [67, 399], [58, 389], [49, 379], [40, 369], [30, 359], [21, 349], [13, 339], [3, 329],
-  [11, 319], [48, 306], [48, 306]];
-// The can's edge, in design units from the diagram's left, at a fraction f
-// of its height.
-function canEdge(f, side) {
-  const i = Math.min(19, Math.floor(f * 20)), t = f * 20 - i;
-  const v = SILHOUETTE[i][side] + (SILHOUETTE[i + 1][side] - SILHOUETTE[i][side]) * t;
-  return CAN_LEFT + v * CAN_K;
-}
+const CAN_EDGE_L = CAN_LEFT + CAN.edgeL * CAN_K + 2; // a touch inside the edge
+const CAN_EDGE_R = CAN_LEFT + CAN.edgeR * CAN_K - 2;
 // THE CARDS ARE WIDE ENOUGH TO READ ON A PHONE (Klaviyo scales the image to
-// about 0.6), which a 600 frame with a tilted can only allows if the outer
-// two sit beyond the can's ends: Yerba Mate above its top-left shoulder,
-// Clean ingredients below its foot on the right. Each callout gives its card
-// centre (cy, units from the can's top) and where its arrow leaves the can
-// (f, a fraction of the can's height, on the card's side).
-// BENEFIT LINES are Bernat's except four, swapped under the standing
+// about 0.6) and the arrows still get room to run.
+const CARD_W = 160;
+const CARD_X = 12;
+const ARROW_L = CAN_EDGE_L - (CARD_X + CARD_W);
+const ARROW_R = (600 - CARD_X - CARD_W) - CAN_EDGE_R;
+// BENEFIT LINES are Bernat's except three, swapped under the standing
 // no-health-claims rule (his to reverse): "boost metabolism" (Yerba Mate)
-// gives way to "No jitters, no crash", from the product file; "antioxidants and vitamins" narrows to "Natural
-// antioxidants"; "mood support" (Lion's Mane) becomes "Mental clarity", also
-// the product file's; "relaxation and stress support" (L-Theanine) becomes
-// "Relaxed, steady focus". "Healthy gut, immune system" was swapped too and
-// is BACK: Bernat confirmed on 2026-10-16 that he and the founder approve
-// it for Yerba Mate. Not to be flagged again.
-const CAN_TOP = 172; // room above the can for the first card
-const CARD_W = 168;
-const CARD_X = 10;
-const CALLOUTS = [
-  { side: 'left', cy: -68, f: 0.06, mark: 'yerba-mate', name: 'Yerba Mate',
+// gives way to "No jitters, no crash", from the product file; "antioxidants
+// and vitamins" narrows to "Natural antioxidants"; "mood support" (Lion's
+// Mane) becomes "Mental clarity", also the product file's; "relaxation and
+// stress support" (L-Theanine) becomes "Relaxed, steady focus". "Healthy
+// gut, immune system" is Bernat's and STAYS: he confirmed on 2026-10-16 that
+// he and the founder approve it for Yerba Mate. Not to be flagged again.
+const LEFT = [
+  { mark: 'yerba-mate', name: 'Yerba Mate',
     lines: ['Clean, sustained energy', 'Natural antioxidants', 'Healthy gut, immune system', 'No jitters, no crash'] },
-  { side: 'left', cy: 150, f: 0.29, mark: 'l-theanine', name: 'L-Theanine',
+  { mark: 'l-theanine', name: 'L-Theanine',
     lines: ['Calm & balance', 'Relaxed, steady focus'] },
-  { side: 'right', cy: 360, f: 0.69, mark: 'lions-mane', name: 'Lion’s Mane',
+];
+const RIGHT = [
+  { mark: 'lions-mane', name: 'Lion’s Mane',
     lines: ['Focus & concentration', 'Cognitive support', 'Mental clarity'] },
-  { side: 'right', cy: 580, f: 0.9, mark: 'clean', name: 'Clean ingredients',
+  { mark: 'clean', name: 'Clean ingredients',
     lines: ['Organic, plant-based', 'Non-GMO', 'No artificial sweeteners'] },
 ];
-const DIAGRAM_H = CAN_TOP + 580 + 95;
 
 const SECTION_2_ALT =
+  'Everything your body requires. Everything you need to feel your best, all ' +
+  'in one can. Clean energy, sharper focus, a sense of calm, and plant-based ' +
+  'ingredients to support your everyday well-being. ' +
   'A can of Milonga Yerba Mate in Peach Ginger. Yerba mate: clean, sustained ' +
   'energy, natural antioxidants, healthy gut, immune system, no jitters, no crash. Lion’s Mane: focus and ' +
   'concentration, cognitive support, mental clarity. L-Theanine: calm and ' +
@@ -94,12 +90,23 @@ const SPROUT = h('svg', { width: 20, height: 20, viewBox: '0 0 24 24' },
   h('path', { d: 'M12 12 C12 7.5 9 5 4.5 5 C4.5 9.5 7.5 12 12 12 Z', fill: '#F0EFDF' }),
   h('path', { d: 'M12 14.5 C12 10.5 14.8 8.5 19.5 8.5 C19.5 12.5 16.5 14.5 12 14.5 Z', fill: '#F0EFDF' }));
 
-function Callout(c, i) {
-  const left = c.side === 'left';
-  return h('div', { key: i, style: { position: 'absolute', top: CAN_TOP + c.cy,
-    [left ? 'left' : 'right']: CARD_X, width: CARD_W, transform: 'translateY(-50%)', boxSizing: 'border-box',
+// A callout card, carrying its own arrow: a straight hairline from the
+// card's inner edge at its middle to the can's edge.
+function Callout(c, i, side) {
+  const left = side === 'left';
+  const len = left ? ARROW_L : ARROW_R;
+  return h('div', { key: i, style: { position: 'relative', width: CARD_W, boxSizing: 'border-box', textAlign: 'left',
     background: '#FFFFFF', borderRadius: 20, padding: '15px 14px 15px',
     border: '1px solid rgba(0,77,39,0.10)', boxShadow: '0 10px 22px rgba(0,53,27,0.10), 0 2px 5px rgba(0,53,27,0.07)' } },
+    h('svg', { width: len, height: 14, viewBox: `0 0 ${len} 14`, style: { position: 'absolute', top: '50%',
+      [left ? 'left' : 'right']: '100%', marginTop: -7, overflow: 'visible' } },
+      left
+        ? [h('path', { key: 'l', d: `M 7 7 H ${len}`, stroke: FOREST, strokeWidth: 1.6, strokeLinecap: 'round' }),
+           h('path', { key: 'c', d: 'M 13 2 L 7 7 L 13 12', fill: 'none', stroke: FOREST, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }),
+           h('circle', { key: 'd', cx: len, cy: 7, r: 3.4, fill: FOREST, stroke: '#FFFFFF', strokeWidth: 1.4 })]
+        : [h('path', { key: 'l', d: `M 0 7 H ${len - 7}`, stroke: FOREST, strokeWidth: 1.6, strokeLinecap: 'round' }),
+           h('path', { key: 'c', d: `M ${len - 13} 2 L ${len - 7} 7 L ${len - 13} 12`, fill: 'none', stroke: FOREST, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }),
+           h('circle', { key: 'd', cx: 0, cy: 7, r: 3.4, fill: FOREST, stroke: '#FFFFFF', strokeWidth: 1.4 })]),
     h('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
       h('span', { style: { flex: 'none', width: 34, height: 34, borderRadius: 999, background: FOREST,
         display: 'flex', alignItems: 'center', justifyContent: 'center' } },
@@ -116,22 +123,11 @@ function Callout(c, i) {
   );
 }
 
-// One arrow: from a dot on the can's edge, a soft S-curve out to the card's
-// inner edge at its middle, ending in an open chevron just short of it.
-function Arrow(c, i) {
-  const left = c.side === 'left';
-  const dir = left ? -1 : 1; // outward from the can
-  const y0 = CAN_TOP + c.f * CAN_H;
-  const x0 = canEdge(c.f, left ? 0 : 1) - dir * 3;
-  const y1 = CAN_TOP + c.cy;
-  const x1 = left ? CARD_X + CARD_W + 9 : 600 - CARD_X - CARD_W - 9;
-  const k = Math.abs(x1 - x0) * 0.6;
-  const d = `M ${x0} ${y0} C ${x0 + dir * k} ${y0}, ${x1 - dir * k} ${y1}, ${x1} ${y1}`;
-  return h('g', { key: i },
-    h('path', { d, fill: 'none', stroke: FOREST, strokeWidth: 1.6, strokeLinecap: 'round' }),
-    h('circle', { cx: x0, cy: y0, r: 3.4, fill: FOREST, stroke: '#FFFFFF', strokeWidth: 1.4 }),
-    h('path', { d: `M ${x1 - dir * 6} ${y1 - 5} L ${x1} ${y1} L ${x1 - dir * 6} ${y1 + 5}`, fill: 'none',
-      stroke: FOREST, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }));
+// A column of two callouts, spread over the can's height.
+function Column(items, side) {
+  return h('div', { style: { position: 'absolute', top: 0, height: CAN_H, [side]: CARD_X, width: CARD_W,
+    display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' } },
+    items.map((c, i) => Callout(c, i, side)));
 }
 
 function OnTheGo({ shopHref = '#shop' }) {
@@ -166,16 +162,23 @@ function OnTheGo({ shopHref = '#shop' }) {
     ),
 
     // ── 2 · WHAT IS IN THE CAN ────────────────────────────────────────────
-    // Beige, the can big in the middle, four white callouts with an arrow
-    // from the can to each.
-    h('div', { style: { position: 'relative', padding: '40px 0 40px' } },
-      h('div', { style: { position: 'relative', height: DIAGRAM_H } },
-        h('img', { src: '../public/product/can-peach-ginger-lm-tilt.png', alt: SECTION_2_ALT,
-          style: { position: 'absolute', top: CAN_TOP, left: CAN_LEFT, height: CAN_H, width: 'auto', display: 'block',
+    // Beige. The section title in the campaign's anatomy — eyebrow, headline
+    // with its second line set apart (by slant: beige takes no gold type),
+    // paragraph — then the can in the middle with two callouts either side.
+    h('div', { style: { padding: '56px 0 60px', textAlign: 'center' } },
+      h('div', { style: { padding: '0 32px' } },
+        h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12, letterSpacing: '0.2em',
+          textTransform: 'uppercase', color: FOREST, marginBottom: 14 } }, 'Inside every can'),
+        h(M.Headline, { line1: 'Everything your', line2: 'body requires', bg: 'beige', size: 40, align: 'center', italic: true }),
+        h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 16, lineHeight: 1.5,
+          color: '#12331F', maxWidth: 480, margin: '16px auto 0' } },
+          'Everything you need to feel your best, all in one can. Clean energy, sharper focus, a sense of calm, and plant-based ingredients to support your everyday well-being.')),
+      h('div', { style: { position: 'relative', height: CAN_H, marginTop: 40 } },
+        h('img', { src: '../public/product/can-peach-ginger-lm-upright.png', alt: SECTION_2_ALT,
+          style: { position: 'absolute', top: 0, left: CAN_LEFT, height: CAN_H, width: 'auto', display: 'block',
             filter: 'drop-shadow(0 22px 22px rgba(0,53,27,0.22))' } }),
-        h('svg', { width: 600, height: DIAGRAM_H, style: { position: 'absolute', top: 0, left: 0, overflow: 'visible' } },
-          CALLOUTS.map(Arrow)),
-        CALLOUTS.map(Callout),
+        Column(LEFT, 'left'),
+        Column(RIGHT, 'right'),
       ),
     ),
 

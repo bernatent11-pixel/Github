@@ -12,7 +12,7 @@
 // never "before bed".
 //
 // All copy is Claude's first draft from Bernat's brief. No build record yet.
-// Two photographs are still to come: the hero and the mocktail.
+// Photographs: Bernat's dinner table (section 1) and mocktail (section 2).
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 
@@ -42,20 +42,22 @@ function PhotoSlot({ w, h: hh, brief, dark, radius = 0 }) {
 // ── The mocktail ─────────────────────────────────────────────────────────
 // One can per glass, so each mocktail carries exactly the dose on the can's
 // label; no alcohol in the recipe.
+// THE RECIPE FOLLOWS THE PHOTOGRAPH Bernat sent: a wine glass over ice, an
+// orange wheel on the rim, mango and lime beside it.
 const RECIPE = {
-  name: ['Mango Chili', 'Sunset'],
-  intro: 'Sweet mango, a squeeze of lime and a chili-lime rim. Five minutes, one can.',
+  name: ['Citrus Mango', 'Sunset Spritz'],
+  intro: 'Mango, a squeeze of lime and an orange wheel, poured over ice. Five minutes, one can.',
   ingredients: [
     '1 can Milonga Citrus Mango, 5mg or 10mg, chilled',
     '2 oz mango nectar',
     '½ oz fresh lime juice',
-    'Tajín and a lime wedge, for the rim',
-    'Ice and a sprig of mint',
+    'Plenty of ice',
+    'An orange wheel, to garnish',
   ],
   steps: [
-    ['Rim', 'Run the lime wedge around the glass and dip it in Tajín.'],
-    ['Build', 'Fill with ice, then add the mango nectar and lime juice.'],
-    ['Top', 'Pour in the Milonga, stir gently and finish with mint.'],
+    ['Chill', 'Fill a wine glass to the top with ice.'],
+    ['Build', 'Add the mango nectar and the lime juice.'],
+    ['Top', 'Pour in the Milonga, stir gently and add the orange wheel.'],
   ],
   note: 'One can per glass, so every mocktail carries exactly the dose on the label.',
 };
@@ -71,6 +73,23 @@ const STRENGTHS = [
     line: 'A fuller wind-down. For when you know how you take it and want a little more.',
     can: '../public/product/can-infused-10mg-studio.png', href: '#shop-10mg', cta: 'Shop Regular' },
 ];
+
+// The dinner photograph: 1333 x 2000 plus 444px of extended head, drawn 600
+// wide = 1100 units; the section keeps the first HERO_H of it.
+const HERO_H = 960;
+// The can's foot in the photograph sits about 755 units down.
+const CTA_TOP = 812;
+
+const SECTION_1_ALT =
+  'Milonga. After hours. Home at last, time to unwind. The laptop’s closed and ' +
+  'dinner’s on the table. Milonga Citrus Mango brings hemp-derived THC and CBD ' +
+  'to a cold can of yerba mate, made for slow dinners and easy evenings at ' +
+  'home. Two hands pass a can of Milonga Citrus Mango, 10mg THC and 10mg CBD, ' +
+  'across a candlelit dinner table. Shop Citrus Mango.';
+const SECTION_2_PHOTO_ALT =
+  'The Citrus Mango Sunset Spritz in a wine glass over ice with an orange ' +
+  'wheel, beside a can of Milonga Citrus Mango, 10mg THC and 10mg CBD, with ' +
+  'fresh mango and lime.';
 
 const COMPLIANCE =
   'DRAFT — confirm with counsel before sending. Must be 21+ to purchase. ' +
@@ -116,21 +135,30 @@ function Unwind({ shopHref = '#shop' }) {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · HOME AT LAST ──────────────────────────────────────────────────
-    // The loud moment: the evening photograph full-bleed, the type over its
-    // head on a dark scrim. Until the photograph exists, a slot.
-    h('div', { style: { position: 'relative', height: 820, overflow: 'hidden',
-      background: 'linear-gradient(180deg, #002D17 0%, #00351B 55%, #004D27 100%)' } },
-      h('div', { style: { position: 'absolute', left: 24, right: 24, top: 400, bottom: 110 } },
-        PhotoSlot({ w: '100%', h: '100%', dark: true, radius: 18,
-          brief: 'Hero photo, full bleed: dinner at home in warm evening light. A Citrus Mango infused can and the Mango Chili Sunset on the table.' })),
-      h('div', { style: { position: 'absolute', top: 34, left: 36, right: 36, textAlign: 'center' } },
+    // The loud moment: Bernat's dinner photograph full-bleed — a Citrus Mango
+    // 10mg passed across a candlelit table. Its head is busy (plates, a hand,
+    // candles) and the can starts about 265 units down, so the photo is
+    // extended 200 units upward from its own top rows (unwind-dinner-tall.jpg)
+    // and a warm near-black grade holds the type there, clear by the can.
+    // The button sits under the can, on a soft dark pool over the olives.
+    h('div', { style: { position: 'relative', height: HERO_H, overflow: 'hidden', background: '#0D0B09' } },
+      h('img', { src: '../public/product/unwind-dinner-tall.jpg', alt: SECTION_1_ALT,
+        style: { position: 'absolute', top: 0, left: 0, width: 600, height: 'auto', display: 'block' } }),
+      h('div', { style: { position: 'absolute', inset: 0,
+        background: 'linear-gradient(180deg, rgba(13,11,9,0.95) 0%, rgba(13,11,9,0.88) 18%, rgba(13,11,9,0.68) 30%, rgba(13,11,9,0.3) 38%, rgba(13,11,9,0) 45%, rgba(13,11,9,0) 76%, rgba(13,11,9,0.5) 88%, rgba(13,11,9,0.82) 100%)' } }),
+      h('div', { style: { position: 'absolute', top: 30, left: 36, right: 36, textAlign: 'center',
+        textShadow: '0 2px 10px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.45)' } },
         h(M.Logo, { tone: 'gold', variant: 'primary', height: 70 }),
-        h('div', { style: { marginTop: 20 } }, eyebrow('After hours', GOLD)),
+        h('div', { style: { marginTop: 18 } }, eyebrow('After hours', GOLD)),
         h(M.Headline, { line1: 'Home at last,', line2: 'time to unwind.', bg: 'forest', size: 40, align: 'center',
           color: '#FFFFFF', line2Color: GOLD, italic: true }),
         para('The laptop’s closed and dinner’s on the table. Milonga Citrus Mango brings hemp-derived THC and CBD to a cold can of yerba mate, made for slow dinners and easy evenings at home.', '#FFFFFF')),
-      h('div', { style: { position: 'absolute', bottom: 38, left: 0, right: 0, textAlign: 'center' } },
-        h(M.Button, { label: 'Shop Citrus Mango', href: shopHref, bg: 'forest', size: 'lg' })),
+      h('div', { style: { position: 'absolute', top: CTA_TOP - 34, left: 0, right: 0, height: 120,
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13,11,9,0.7) 0%, rgba(13,11,9,0.4) 55%, rgba(13,11,9,0) 100%)' } }),
+      h('div', { style: { position: 'absolute', top: CTA_TOP, left: 0, right: 0, textAlign: 'center' } },
+        h('div', { style: { display: 'inline-block', borderRadius: 999,
+          boxShadow: '0 10px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4)' } },
+          h(M.Button, { label: 'Shop Citrus Mango', href: shopHref, bg: 'forest', size: 'lg' }))),
     ),
 
     // ── 2 · THE MOCKTAIL ──────────────────────────────────────────────────
@@ -143,7 +171,9 @@ function Unwind({ shopHref = '#shop' }) {
         para(RECIPE.intro, INK, 440)),
       h('div', { style: { display: 'flex', gap: 18, marginTop: 30, alignItems: 'stretch' } },
         h('div', { style: { flex: '0 0 236px' } },
-          PhotoSlot({ w: 236, h: 330, radius: 24, brief: 'Mocktail photo: the Mango Chili Sunset in a Tajín-rimmed glass, the Citrus Mango can beside it.' })),
+          h('img', { src: '../public/product/mocktail-citrus-mango-10mg.jpg', alt: SECTION_2_PHOTO_ALT,
+            style: { width: 236, height: 330, objectFit: 'cover', borderRadius: 24, display: 'block',
+              boxShadow: '0 14px 28px rgba(0,53,27,0.14), 0 2px 6px rgba(0,53,27,0.08)' } })),
         h('div', { style: { flex: 1, background: '#FFFFFF', borderRadius: 24, padding: '22px 20px',
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
           border: '1px solid rgba(0,77,39,0.12)', boxShadow: '0 14px 28px rgba(0,53,27,0.10), 0 2px 6px rgba(0,53,27,0.07)' } },

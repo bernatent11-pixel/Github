@@ -42,22 +42,27 @@ function PhotoSlot({ w, h: hh, brief, dark, radius = 0 }) {
 // ── The mocktail ─────────────────────────────────────────────────────────
 // One can per glass, so each mocktail carries exactly the dose on the can's
 // label; no alcohol in the recipe.
-// THE RECIPE FOLLOWS THE PHOTOGRAPH Bernat sent: a wine glass over ice, an
-// orange wheel on the rim, mango and lime beside it.
+// THE RECIPE FOLLOWS THE PHOTOGRAPH Bernat sent — a wine glass over ice,
+// an orange wheel on the rim — and layers more flavour on the can's citrus
+// and mango (Bernat): passion fruit, fresh orange, lime, honey-ginger and
+// basil. Nothing in it contains alcohol (no bitters).
 const RECIPE = {
   name: ['Citrus Mango', 'Sunset Spritz'],
-  intro: 'Mango, a squeeze of lime and an orange wheel, poured over ice. Five minutes, one can.',
+  intro: 'Passion fruit, fresh orange and a touch of honey-ginger and basil, lifted by Citrus Mango. Five minutes, one can.',
   ingredients: [
     '1 can Milonga Citrus Mango, 5mg or 10mg, chilled',
-    '2 oz mango nectar',
+    '1 oz passion fruit purée',
+    '1 oz fresh orange juice',
     '½ oz fresh lime juice',
-    'Plenty of ice',
-    'An orange wheel, to garnish',
+    '¼ oz honey-ginger syrup',
+    '3 fresh basil leaves',
+    'Ice and an orange wheel',
   ],
+  syrup: 'Honey-ginger syrup: stir equal parts honey and hot water with a little grated ginger, then cool.',
   steps: [
-    ['Chill', 'Fill a wine glass to the top with ice.'],
-    ['Build', 'Add the mango nectar and the lime juice.'],
-    ['Top', 'Pour in the Milonga, stir gently and add the orange wheel.'],
+    ['Muddle', 'Press the basil into the honey-ginger syrup at the bottom of a wine glass.'],
+    ['Build', 'Fill with ice, add the passion fruit, orange and lime, and stir.'],
+    ['Top', 'Pour in the Milonga, stir gently and finish with the orange wheel.'],
   ],
   note: 'One can per glass, so every mocktail carries exactly the dose on the label.',
 };
@@ -81,11 +86,13 @@ const HERO_H = 960;
 const CTA_TOP = 812;
 
 const SECTION_1_ALT =
-  'Milonga. After hours. Home at last, time to unwind. The laptop’s closed and ' +
-  'dinner’s on the table. Milonga Citrus Mango brings hemp-derived THC and CBD ' +
-  'to a cold can of yerba mate, made for slow dinners and easy evenings at ' +
-  'home. Two hands pass a can of Milonga Citrus Mango, 10mg THC and 10mg CBD, ' +
-  'across a candlelit dinner table. Shop Citrus Mango.';
+  'Milonga. After hours. Home at last, time to unwind. Dinner is served, the ' +
+  'day is done, and it’s time to slow things down. Mix your Milonga Citrus ' +
+  'Mango can into a refreshing mocktail and ease into the evening with bright ' +
+  'citrus, tropical mango, and a little moment just for you. Perfect for ' +
+  'dinner, post-dinner, and everything in between. Two hands pass a can of ' +
+  'Milonga Citrus Mango, 10mg THC and 10mg CBD, across a candlelit dinner ' +
+  'table. Shop Citrus Mango.';
 const SECTION_2_PHOTO_ALT =
   'The Citrus Mango Sunset Spritz in a wine glass over ice with an orange ' +
   'wheel, beside a can of Milonga Citrus Mango, 10mg THC and 10mg CBD, with ' +
@@ -145,16 +152,16 @@ function Unwind({ shopHref = '#shop' }) {
       h('img', { src: '../public/product/unwind-dinner-tall.jpg', alt: SECTION_1_ALT,
         style: { position: 'absolute', top: 0, left: 0, width: 600, height: 'auto', display: 'block' } }),
       h('div', { style: { position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(13,11,9,0.95) 0%, rgba(13,11,9,0.88) 18%, rgba(13,11,9,0.68) 30%, rgba(13,11,9,0.3) 38%, rgba(13,11,9,0) 45%, rgba(13,11,9,0) 76%, rgba(13,11,9,0.5) 88%, rgba(13,11,9,0.82) 100%)' } }),
+        background: 'linear-gradient(180deg, rgba(13,11,9,0.80) 0%, rgba(13,11,9,0.70) 18%, rgba(13,11,9,0.50) 31%, rgba(13,11,9,0.2) 40%, rgba(13,11,9,0) 47%, rgba(13,11,9,0) 78%, rgba(13,11,9,0.36) 89%, rgba(13,11,9,0.64) 100%)' } }),
       h('div', { style: { position: 'absolute', top: 30, left: 36, right: 36, textAlign: 'center',
         textShadow: '0 2px 10px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.45)' } },
         h(M.Logo, { tone: 'gold', variant: 'primary', height: 70 }),
         h('div', { style: { marginTop: 18 } }, eyebrow('After hours', GOLD)),
         h(M.Headline, { line1: 'Home at last,', line2: 'time to unwind.', bg: 'forest', size: 40, align: 'center',
           color: '#FFFFFF', line2Color: GOLD, italic: true }),
-        para('The laptop’s closed and dinner’s on the table. Milonga Citrus Mango brings hemp-derived THC and CBD to a cold can of yerba mate, made for slow dinners and easy evenings at home.', '#FFFFFF')),
+        para('Dinner is served, the day is done, and it’s time to slow things down. Mix your Milonga Citrus Mango can into a refreshing mocktail and ease into the evening with bright citrus, tropical mango, and a little moment just for you. Perfect for dinner, post-dinner, and everything in between.', '#FFFFFF')),
       h('div', { style: { position: 'absolute', top: CTA_TOP - 34, left: 0, right: 0, height: 120,
-        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13,11,9,0.7) 0%, rgba(13,11,9,0.4) 55%, rgba(13,11,9,0) 100%)' } }),
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13,11,9,0.55) 0%, rgba(13,11,9,0.3) 55%, rgba(13,11,9,0) 100%)' } }),
       h('div', { style: { position: 'absolute', top: CTA_TOP, left: 0, right: 0, textAlign: 'center' } },
         h('div', { style: { display: 'inline-block', borderRadius: 999,
           boxShadow: '0 10px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4)' } },
@@ -168,11 +175,11 @@ function Unwind({ shopHref = '#shop' }) {
       h('div', { style: { textAlign: 'center' } },
         eyebrow('Mocktail recipe', FOREST),
         h(M.Headline, { line1: RECIPE.name[0], line2: RECIPE.name[1], bg: 'beige', size: 40, align: 'center', italic: true }),
-        para(RECIPE.intro, INK, 440)),
+        para(RECIPE.intro.split('honey-ginger').flatMap((t, i) => i ? [h('span', { key: i, style: { whiteSpace: 'nowrap' } }, 'honey-ginger'), t] : [t]), INK, 440)),
       h('div', { style: { display: 'flex', gap: 18, marginTop: 30, alignItems: 'stretch' } },
         h('div', { style: { flex: '0 0 236px' } },
           h('img', { src: '../public/product/mocktail-citrus-mango-10mg.jpg', alt: SECTION_2_PHOTO_ALT,
-            style: { width: 236, height: 330, objectFit: 'cover', borderRadius: 24, display: 'block',
+            style: { width: 236, height: '100%', minHeight: 330, objectFit: 'cover', borderRadius: 24, display: 'block',
               boxShadow: '0 14px 28px rgba(0,53,27,0.14), 0 2px 6px rgba(0,53,27,0.08)' } })),
         h('div', { style: { flex: 1, background: '#FFFFFF', borderRadius: 24, padding: '22px 20px',
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
@@ -180,8 +187,10 @@ function Unwind({ shopHref = '#shop' }) {
           h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 13, letterSpacing: '0.16em',
             textTransform: 'uppercase', color: FOREST } }, 'You’ll need'),
           RECIPE.ingredients.map((t, i) => h('div', { key: i, style: { display: 'flex', gap: 10, alignItems: 'baseline',
-            marginTop: i ? 11 : 14, fontFamily: FONT, fontWeight: 600, fontSize: 14.5, lineHeight: 1.35, color: FOREST } },
+            marginTop: i ? 8 : 12, fontFamily: FONT, fontWeight: 600, fontSize: 14, lineHeight: 1.3, color: FOREST } },
             h('span', { style: { flex: 'none', width: 7, height: 7, borderRadius: 999, background: GOLD, transform: 'translateY(-2px)' } }), t)),
+          h('div', { style: { marginTop: 14, paddingTop: 12, borderTop: '1px solid rgba(0,77,39,0.12)',
+            fontFamily: FONT, fontWeight: 500, fontStyle: 'italic', fontSize: 12.5, lineHeight: 1.4, color: INK } }, RECIPE.syrup),
         ),
       ),
       // The three steps across (Process Strip).

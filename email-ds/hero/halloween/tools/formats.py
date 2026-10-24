@@ -114,8 +114,9 @@ def place(img, scale, ox, oy, size, interp=cv2.INTER_AREA):
     return out
 
 
-def build(size, parts, products, k, seed):
-    """parts: [(mask, scale, ox, oy)] in output pixels at k=1; products: (scale, ox, oy)."""
+def build(size, parts, products, k, seed, overlay=None):
+    """parts: [(mask, scale, ox, oy)] in output pixels at k=1; products: (scale, ox, oy);
+    overlay: optional callable(k) -> (premultiplied RGBA, x, y), drawn last."""
     w, h = size[0] * k, size[1] * k
     fsum = np.zeros((h, w, 3), np.float32); wsum = np.zeros((h, w), np.float32)
     detail = np.zeros((h, w, 3), np.float32); cover = np.zeros((h, w), np.float32)
@@ -139,20 +140,61 @@ def build(size, parts, products, k, seed):
     layer = place(pm, s, ox, oy, (w, h))
     a = layer[..., 3:] / 255
     img = img * (1 - a) + layer[..., :3]
+    if overlay:
+        ov, x, y = overlay(k)
+        layer = place(ov, 1.0, x * k, y * k, (w, h), interp=cv2.INTER_NEAREST)
+        a = layer[..., 3:] / 255
+        img = img * (1 - a) + layer[..., :3]
     return np.clip(img, 0, 255).astype(np.uint8)
 
 
-def save(name, size, parts, products):
+def save(name, size, parts, products, prefix='halloween-hero', overlay=None):
     """The exact size and 2x, each as a JPEG at the encoder's maximum (quality
     100, 4:4:4 — OpenCV would subsample chroma, so Pillow writes them); 2x also
     as a lossless PNG."""
     for k in (1, 2):
-        img = Image.fromarray(cv2.cvtColor(build(size, parts, products, k, seed=7), cv2.COLOR_BGR2RGB))
-        stem = os.path.join(OUT, f'halloween-hero-{size[0] * k}x{size[1] * k}')
-        img.save(stem + '.jpg', quality=100, subsampling=0, optimize=True)
+        img = Image.fromarray(cv2.cvtColor(build(size, parts, products, k, seed=7, overlay=overlay),
+                                           cv2.COLOR_BGR2RGB))
+        img.save(os.path.join(OUT, f'{prefix}-{size[0] * k}x{size[1] * k}.jpg'),
+                 quality=100, subsampling=0, optimize=True)
         if k == 2:
-            img.save(os.path.join(OUT, f'halloween-hero-{size[0]}x{size[1]}@2x.png'), optimize=True)
+            img.save(os.path.join(OUT, f'{prefix}-{size[0]}x{size[1]}@2x.png'), optimize=True)
     print('wrote', name, size)
+
+
+def canva_type(pdf, clip, px_per_pt, recolour=None):
+    """The type layer of a Canva PDF — vector words, rasterised shadows, the
+    button — as premultiplied RGBA (BGR order), with no background. The page is
+    rendered twice, its full-page picture swapped for black and then for white;
+    the difference between the two is exactly each pixel's coverage.
+    recolour: [(from_rgb, to_rgb, rect_pt)] swaps a flat ink inside a rectangle of
+    the page, shadows untouched — the rectangle keeps a button that shares the
+    ink from changing with the headline."""
+    import io, pymupdf
+
+    def render(fill):
+        doc = pymupdf.open(pdf)
+        page = doc[0]
+        full = [i[0] for i in page.get_images(full=True)
+                if any(abs(r.width - page.rect.width) < 1 and abs(r.height - page.rect.height) < 1
+                       for r in page.get_image_rects(i[0]))]
+        buf = io.BytesIO(); Image.new('RGB', (8, 8), fill).save(buf, 'PNG')
+        page.replace_image(full[0], stream=buf.getvalue())
+        pix = page.get_pixmap(matrix=pymupdf.Matrix(px_per_pt, px_per_pt), clip=pymupdf.Rect(*clip),
+                              alpha=False, colorspace=pymupdf.csRGB)
+        return np.frombuffer(pix.samples, np.uint8).reshape(pix.height, pix.width, 3).astype(np.float32)
+
+    on_black, on_white = render((0, 0, 0)), render((255, 255, 255))
+    a = np.clip(1 - (on_white - on_black).mean(-1) / 255, 0, 1)
+    rgb = np.clip(on_black / np.maximum(a, 1e-4)[..., None], 0, 255)      # straight colour
+    for src, dst, (x0, y0, x1, y1) in (recolour or []):
+        near = np.abs(rgb - np.array(src, np.float32)).max(-1) < 40
+        inside = np.zeros_like(near)
+        inside[max(0, round((y0 - clip[1]) * px_per_pt)):round((y1 - clip[1]) * px_per_pt),
+               max(0, round((x0 - clip[0]) * px_per_pt)):round((x1 - clip[0]) * px_per_pt)] = True
+        rgb[near & inside] = dst
+    out = np.dstack([rgb[..., ::-1] * a[..., None], a * 255])               # premultiplied, BGR
+    return out.astype(np.float32)
 
 
 # ---------------------------------------------------------------- 1920 x 800
@@ -182,3 +224,30 @@ s_d = 800 / 880
 save('portrait', (800, 1200),
      [(decor_p, s_d, 0, 0), (cluster_p, s_c, -left * s_c, oy_c)],
      (s_c, -left * s_c, oy_c))
+
+# ------------------------------------------------- 800 x 1200, mobile hero
+# The desktop Canva design for a phone. Its type block (headline, offer lines,
+# SHOP NOW) is lifted out of the PDF whole and set across the top, so the words,
+# sizes, colours and shadows match desktop exactly; the cluster sits below it as
+# in the portrait. A red maple and a peach hang into the top-right corner, beside
+# the short first line.
+PDF = os.path.join(SRC, 'canva-trick-or-treat.pdf')
+TYPE_CLIP = (148, 118, 794, 440)                 # the whole type block, shadows included (pt)
+TYPE_W, TYPE_X, TYPE_Y = 720, 40, 52             # its width and top-left on the 800px canvas
+pt = TYPE_W / (TYPE_CLIP[2] - TYPE_CLIP[0])
+corner = np.zeros((H1, W1), bool); corner[:125, 160:540] = True
+s_k = 0.91
+
+
+def type_overlay(recolour=None):
+    return lambda k: (canva_type(PDF, TYPE_CLIP, pt * k, recolour), TYPE_X, TYPE_Y)
+
+
+mobile_parts = [(corner, s_k, 800 - 540 * s_k, 0), (cluster_p, s_c, -left * s_c, oy_c)]
+save('mobile', (800, 1200), mobile_parts, (s_c, -left * s_c, oy_c),
+     prefix='halloween-hero-mobile', overlay=type_overlay())
+# The same with the headline in white: the desktop's orange headline measures
+# 1.86:1 on this backdrop (large type needs 3:1); white measures about 4:1.
+save('mobile, white headline', (800, 1200), mobile_parts, (s_c, -left * s_c, oy_c),
+     prefix='halloween-hero-mobile-white-headline',
+     overlay=type_overlay([((255, 151, 69), (255, 255, 255), (148, 118, 794, 301))]))   # headline only

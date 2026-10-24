@@ -20,6 +20,8 @@ would only be enlarged.
 | `out/halloween-hero-1920x800.jpg` | 1920×800 | Wide banner |
 | `out/halloween-hero-1600x2400.jpg` · `-800x1200@2x.png` | 1600×2400 | Portrait, 2× |
 | `out/halloween-hero-800x1200.jpg` | 800×1200 | Portrait: copy space on top, products below |
+| `out/halloween-hero-mobile-800x1200.jpg` · `-1600x2400.jpg` · `@2x.png` | 800×1200 | **Mobile hero**: the desktop Canva type (Trick or Treat Yourself, up to 30% off, SHOP NOW) across the top, the products below |
+| `out/halloween-hero-mobile-white-headline-*.jpg` | 800×1200 | The same with the headline in white: the desktop's orange headline is 1.86:1 on this backdrop, white about 4:1 |
 | `out/halloween-hero-email.jpg` | 1200×1185 | Email: the product cluster only, for a 600px slot |
 | `out/canva/trick-or-treat-3840x1600.jpg` · `-1920x800.jpg` | | Bernat's Canva design (`source/canva-trick-or-treat.pdf`), rendered with the lossless banner swapped in under the type |
 
@@ -59,7 +61,7 @@ Needs Python with `numpy`, `opencv-python-headless` and `Pillow`.
 | Sprites | `tools/cut_sprites.py` | Cuts the five ghosts, the gourd and the loose fruit out whole (GrabCut, seeded by difference from the backdrop) so each can be placed as a layer |
 | Compose | `tools/compose.py` | Lays out `slots.json`: cans with a burnt-orange shadow, warm rim and light warm grade; ghosts with their bloom. Each ghost the AI cans had sliced is slid until its cut edge hides behind a real can |
 | Packshot keying | `tools/key_flat_bg.py` | Cuts a can off a flat studio colour (the lavender, peach and yellow functional-can shots) |
-| Formats | `tools/formats.py` | Re-cuts the hero for 1920×800 and 800×1200: the cluster and the decor are scaled and placed separately, the backdrop regrown between them by push-pull, the detail added back on top |
+| Formats | `tools/formats.py` | Re-cuts the hero for 1920×800 and 800×1200, and builds the mobile hero: the cluster and the decor are scaled and placed separately, the backdrop regrown between them by push-pull, the detail added back on top. The mobile hero's type is lifted out of the Canva PDF as one transparent layer (rendered over black, then white; the difference is each pixel's coverage), so it matches desktop exactly |
 | Canva → JPG | `tools/pdf_to_jpg.py` | Renders a Canva PDF at any width; `--background` swaps Canva's recompressed copy of the banner for the lossless master first, so the type (vector) and the picture are both sharp at 2× |
 | Pouch | `tools/cut_pouch.py` | Cuts the pouch off its white sweep and drops the latte glass that stood in front of it; the hidden strip of forest art is rebuilt from the pouch's own left edge, mirrored and tone-matched row by row |
 

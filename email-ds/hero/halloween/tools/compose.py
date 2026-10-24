@@ -119,7 +119,9 @@ SPRITES = {s['id']: s for s in json.load(open(os.path.join(ROOT, 'source', 'refe
 
 plate = Image.open(os.path.join(ROOT, 'source', 'plate.png')).convert('RGB')
 W, H = plate.size
-canvas = plate.resize((W * S, H * S), Image.LANCZOS).convert('RGBA')
+# Every layer goes onto its own transparent sheet first, so other formats
+# (tools/formats.py) can move the whole cluster without re-deriving it.
+canvas = Image.new('RGBA', (W * S, H * S), (0, 0, 0, 0))
 
 cans = {L['id']: can_layer(L) for L in cfg['layers'] if L['kind'] == 'can'}
 layers = [tuck(L, cans) if L['kind'] == 'sprite' else L for L in cfg['layers']]
@@ -140,7 +142,11 @@ for L in sorted(layers, key=lambda L: L['z']):
 
 out = os.path.join(ROOT, 'out')
 os.makedirs(out, exist_ok=True)
-rgb = canvas.convert('RGB')
+os.makedirs(os.path.join(ROOT, 'build'), exist_ok=True)
+canvas.save(os.path.join(ROOT, 'build', 'products@2x.png'))
+base = plate.resize((W * S, H * S), Image.LANCZOS).convert('RGBA')
+base.alpha_composite(canvas)
+rgb = base.convert('RGB')
 rgb.save(os.path.join(out, 'halloween-hero@2x.png'), optimize=True)
 rgb.resize((W, H), Image.LANCZOS).save(os.path.join(out, 'halloween-hero.jpg'), quality=92, subsampling=0)
 # Email: the full banner at 600px would shrink each can to ~56px and the labels

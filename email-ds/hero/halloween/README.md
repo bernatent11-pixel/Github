@@ -12,6 +12,13 @@ actual artwork, scaled and rotated once, never redrawn.
 | `out/halloween-hero@2x.png` | 4000×2232 | Master, same frame as the reference at 2× |
 | `out/halloween-hero.jpg` | 2000×1116 | Web banner, drop-in for the reference |
 | `out/halloween-hero-email.jpg` | 1200×1185 | Email: the product cluster only, for a 600px slot |
+| `out/halloween-hero-1920x800.jpg` | 1920×800 | Wide banner (`@2x.png`: 3840×1600) |
+| `out/halloween-hero-800x1200.jpg` | 800×1200 | Portrait: copy space on top, products below (`@2x.png`: 1600×2400) |
+
+The two re-cut formats aren't crops: 1920×800 is wider than the master and
+would lose the cans top and bottom, and 800×1200 is portrait. `tools/formats.py`
+rebuilds each from the cluster and the fall decoration as separate pieces, split
+along a seam that runs through open backdrop, and regrows the orange between them.
 
 The full lineup, every label the real artwork:
 
@@ -44,6 +51,7 @@ Needs Python with `numpy`, `opencv-python-headless` and `Pillow`.
 | Sprites | `tools/cut_sprites.py` | Cuts the five ghosts, the gourd and the loose fruit out whole (GrabCut, seeded by difference from the backdrop) so each can be placed as a layer |
 | Compose | `tools/compose.py` | Lays out `slots.json`: cans with a burnt-orange shadow, warm rim and light warm grade; ghosts with their bloom. Each ghost the AI cans had sliced is slid until its cut edge hides behind a real can |
 | Packshot keying | `tools/key_flat_bg.py` | Cuts a can off a flat studio colour (the lavender, peach and yellow functional-can shots) |
+| Formats | `tools/formats.py` | Re-cuts the hero for 1920×800 and 800×1200: the cluster and the decor are scaled and placed separately, the backdrop regrown between them by push-pull, the detail added back on top |
 | Pouch | `tools/cut_pouch.py` | Cuts the pouch off its white sweep and drops the latte glass that stood in front of it; the hidden strip of forest art is rebuilt from the pouch's own left edge, mirrored and tone-matched row by row |
 
 ## Changing the lineup

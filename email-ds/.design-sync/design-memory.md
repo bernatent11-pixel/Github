@@ -77,11 +77,32 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Blocks | In T8 each callout is **one rounded white shape holding its icon, label and note**. On an open ground five bare rows read as a list; giving each an edge turns them into objects the hairlines connect to, which is what makes the section read as a diagram | Bernat |
 | 2026-09-18 | Type | **Every section title in a campaign uses the same anatomy: eyebrow in small caps, a headline whose second line is set apart, then the paragraph.** Where the ground forbids the accent colour, set the second line apart by SLANT instead — the contrast is weight and slant, not colour, which is why it holds anywhere | Bernat |
 | 2026-09-30 | Colour | **The Mate Latte palette runs in three tiers.** Core — forest `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`, white, black — is the only tier that sets a ground, carries type or fills a button. Support — `forestDeep` `#00351B`, `forestNight` `#002D17`, `goldSoft` `#EFD9A0`, `goldDeep` `#C9A24E`, `cream` `#FBF8EF`, `ink` `#12331F`, `inkSoft` `#3B5344` — gives depth, paper and body ink. Canopy — `canopyLight` `#88CF7F` → `canopySage` `#62BD6F` → `canopyFern` `#4CAB55` → `canopyMid` `#297F49` → `canopyShadow` `#0D5D32` → `canopyTrunk` `#002D17` — is illustration only, never type or a ground. The duller inks the asset files are exported in (`#284E2D`, `#C2A15C`, `#407246`) are not tokens. Contrast table in `references/design-system.md` §1 | Bernat, asked for the whole palette in the system |
+| 2026-10-16 | Claims | **Yerba mate may carry "Healthy gut, immune system".** Bernat and the founder approved it, 100% confirmed: use it as written and do not flag or swap it. Every other health claim is still out under the standing rule | Bernat, on the Lion's Mane on-the-go ingredient diagram |
+| 2026-10-24 | Images | **The product is never AI-rendered.** A generated scene carries the real packshot, composited, so every word on a can or pouch is the actual artwork and readable at the size it ships. A model redraws a label each time it renders one and invents the small print, which puts invented specs on the pack | Bernat, on the Halloween hero |
 
 ---
-| 2026-10-16 | Claims | **Yerba mate may carry "Healthy gut, immune system".** Bernat and the founder approved it, 100% confirmed: use it as written and do not flag or swap it. Every other health claim is still out under the standing rule | Bernat, on the Lion's Mane on-the-go ingredient diagram |
 
 ## Log
+
+**2026-10-24 — real packshots in an AI scene.** Bernat sent an AI-rendered Halloween hero
+(orange glow, ghosts, autumn leaves, the full lineup) and asked that the products appear clearly
+with readable packaging. Every can in the render had invented small print: "NATURAL BREWED
+CAPFEINE", and an Açaí Mint can that mixed the functional and infused labels. A better prompt
+doesn't fix this, because a model redraws the label every time it renders the can. So the scene
+keeps its art and loses its products. The plate is the reference with the seven products erased
+and refilled from the glow at each hole's own edge, and the real packshots are composited on top.
+Built in `email-ds/hero/halloween/`, and `run.sh` rebuilds it.
+
+**Technique worth keeping.** In that render the ghosts sat *behind* the cans, so erasing a can
+slices a ghost. Each ghost is cut out as a layer that records its sliced side and the slant of the
+cut, and the compositor slides it until that side hides behind a real can. Two things were found
+by looking rather than reasoning. The ghosts' lit flanks are backdrop-orange, so a colour test
+loses them; seed the matte by *difference from the backdrop* instead. And the slice runs at the
+old can's tilt, so search for it along that slant, not straight down.
+
+**Observed, not a rule:** a 16:9 banner with the products on one side can't carry readable labels
+at 600px (the cans come out about 56px wide). The email gets its own crop of the cluster.
+
 
 **2026-09-30 — the whole palette goes in.** Bernat asked for every colour of the Mate Latte
 branding in the system. The five core hexes were already the brand spec; everything else was

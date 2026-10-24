@@ -1,0 +1,258 @@
+{
+  "_note": "Everything in reference.png (2000x1116) that the plate builder and sprite cutter need. products = the seven AI-rendered products to erase (tilt in degrees, positive when the can's bottom swings right). scrub = fruit and fragments a product had sliced; removed so nothing floats with a straight edge. sprites = the ghosts, the gourd and the top peach, cut out whole to be placed as layers; `cut` is the side a product sliced (it must sit behind a can) and `cut_tilt` the slant of that slice.",
+  "products": [
+    {
+      "id": "TL",
+      "who": "Functional Citrus Mango (AI)",
+      "shape": "can",
+      "cx": 1180,
+      "cy": 272,
+      "length": 395,
+      "width": 168,
+      "tilt": 15
+    },
+    {
+      "id": "TC",
+      "who": "Functional Peach Ginger (AI)",
+      "shape": "can",
+      "cx": 1466,
+      "cy": 190,
+      "length": 330,
+      "width": 152,
+      "tilt": 0
+    },
+    {
+      "id": "TR",
+      "who": "Functional Açaí Mint (AI)",
+      "shape": "can",
+      "cx": 1745,
+      "cy": 292,
+      "length": 395,
+      "width": 168,
+      "tilt": -14
+    },
+    {
+      "id": "PO",
+      "who": "Mate Latte pouch (AI)",
+      "shape": "box",
+      "box": [
+        1290,
+        343,
+        1618,
+        818
+      ]
+    },
+    {
+      "id": "BL",
+      "who": "Infused Peach Ginger (AI)",
+      "shape": "can",
+      "cx": 1188,
+      "cy": 850,
+      "length": 400,
+      "width": 168,
+      "tilt": 15
+    },
+    {
+      "id": "BC",
+      "who": "Infused, flavour hidden (AI)",
+      "shape": "can",
+      "cx": 1462,
+      "cy": 990,
+      "length": 290,
+      "width": 168,
+      "tilt": 0
+    },
+    {
+      "id": "BR",
+      "who": "Infused Açaí Mint (AI)",
+      "shape": "can",
+      "cx": 1730,
+      "cy": 845,
+      "length": 405,
+      "width": 168,
+      "tilt": -14
+    }
+  ],
+  "scrub": [
+    {
+      "id": "ginger-top",
+      "box": [
+        1555,
+        190,
+        1650,
+        318
+      ],
+      "why": "sliced by the AI TC product"
+    },
+    {
+      "id": "mango-slice",
+      "box": [
+        1272,
+        232,
+        1372,
+        322
+      ],
+      "why": "sliced by the AI PO product"
+    },
+    {
+      "id": "mint-bottom",
+      "box": [
+        1292,
+        838,
+        1358,
+        918
+      ],
+      "why": "sliced by the AI BC product"
+    },
+    {
+      "id": "blueberry-bottom",
+      "box": [
+        1566,
+        832,
+        1624,
+        918
+      ],
+      "why": "sliced by the AI BC product"
+    },
+    {
+      "id": "tr-slivers",
+      "box": [
+        1812,
+        280,
+        1878,
+        422
+      ],
+      "why": "sliced by the AI TR product"
+    },
+    {
+      "id": "straw-bits",
+      "box": [
+        1108,
+        476,
+        1252,
+        532
+      ],
+      "why": "leftover fragment"
+    },
+    {
+      "id": "sliver-a",
+      "box": [
+        1242,
+        636,
+        1272,
+        684
+      ],
+      "why": "leftover fragment"
+    },
+    {
+      "id": "sliver-b",
+      "box": [
+        1634,
+        668,
+        1664,
+        706
+      ],
+      "why": "leftover fragment"
+    }
+  ],
+  "sprites": [
+    {
+      "id": "ghost-left",
+      "kind": "ghost",
+      "box": [
+        988,
+        198,
+        1142,
+        418
+      ],
+      "cut": "right",
+      "cut_tilt": 15
+    },
+    {
+      "id": "ghost-top-centre",
+      "kind": "ghost",
+      "box": [
+        1248,
+        52,
+        1408,
+        252
+      ],
+      "not": [
+        [
+          1394,
+          52,
+          1408,
+          252
+        ]
+      ],
+      "cut": "right",
+      "cut_tilt": 0
+    },
+    {
+      "id": "ghost-centre",
+      "kind": "ghost",
+      "box": [
+        1552,
+        492,
+        1728,
+        698
+      ]
+    },
+    {
+      "id": "ghost-bottom-left",
+      "kind": "ghost",
+      "box": [
+        988,
+        782,
+        1142,
+        1008
+      ],
+      "cut": "right",
+      "cut_tilt": 15
+    },
+    {
+      "id": "ghost-gourd",
+      "kind": "ghost",
+      "box": [
+        1788,
+        812,
+        1952,
+        1022
+      ],
+      "cut": "left",
+      "cut_tilt": -14
+    },
+    {
+      "id": "gourd",
+      "kind": "object",
+      "box": [
+        1105,
+        474,
+        1306,
+        652
+      ],
+      "core": [
+        1210,
+        545,
+        1280,
+        615
+      ]
+    },
+    {
+      "id": "peach-top",
+      "kind": "object",
+      "box": [
+        1570,
+        60,
+        1692,
+        176
+      ],
+      "core": [
+        1605,
+        90,
+        1660,
+        145
+      ]
+    }
+  ]
+}

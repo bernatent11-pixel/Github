@@ -62,6 +62,10 @@ for sp in spec['sprites']:
     else:
         cx0, cy0, cx1, cy1 = sp['core']
         big = np.zeros(crop.shape[:2], np.uint8); big[cy0 - y0:cy1 - y0, cx0 - x0:cx1 - x0] = 1
+        # only what in that box is plainly not backdrop — a wedge or a branching
+        # root never fills its box, and a forced-foreground corner of backdrop
+        # would travel with the sprite as a visible square
+        big &= (diff_all[y0:y1, x0:x1] > 45).astype(np.uint8)
     diff = diff_all[y0:y1, x0:x1]
     if sp['kind'] == 'ghost':
         mask[(diff > 35) & ~can_paint] = cv2.GC_PR_FGD

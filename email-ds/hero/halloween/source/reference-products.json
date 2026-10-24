@@ -129,7 +129,7 @@
       "box": [
         1108,
         476,
-        1252,
+        1276,
         532
       ],
       "why": "leftover fragment"
@@ -153,6 +153,26 @@
         706
       ],
       "why": "leftover fragment"
+    },
+    {
+      "id": "peach-left",
+      "box": [
+        1004,
+        528,
+        1124,
+        642
+      ],
+      "why": "would peek out from behind the functional Peach Ginger can as a sliver"
+    },
+    {
+      "id": "red-leaf-left",
+      "box": [
+        980,
+        676,
+        1052,
+        808
+      ],
+      "why": "hidden behind the functional Peach Ginger can except its tip"
     }
   ],
   "sprites": [
@@ -252,6 +272,86 @@
         90,
         1660,
         145
+      ]
+    },
+    {
+      "id": "ginger",
+      "kind": "object",
+      "box": [
+        1818,
+        538,
+        1934,
+        644
+      ],
+      "core": [
+        1850,
+        565,
+        1900,
+        615
+      ]
+    },
+    {
+      "id": "lime",
+      "kind": "object",
+      "box": [
+        1870,
+        680,
+        1964,
+        774
+      ],
+      "core": [
+        1898,
+        708,
+        1938,
+        748
+      ]
+    },
+    {
+      "id": "blueberries",
+      "kind": "object",
+      "box": [
+        1726,
+        510,
+        1820,
+        614
+      ],
+      "core": [
+        1742,
+        540,
+        1786,
+        598
+      ]
+    },
+    {
+      "id": "red-leaf-right",
+      "kind": "object",
+      "box": [
+        1882,
+        292,
+        1964,
+        424
+      ],
+      "core": [
+        1905,
+        322,
+        1935,
+        392
+      ]
+    },
+    {
+      "id": "mint-right",
+      "kind": "object",
+      "box": [
+        1822,
+        428,
+        1930,
+        532
+      ],
+      "core": [
+        1852,
+        458,
+        1900,
+        502
       ]
     }
   ]

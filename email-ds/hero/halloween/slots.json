@@ -1,16 +1,16 @@
 {
-  "_how": "The hero's layers, in reference.png pixel space (2000x1116); the render is out_scale times that. Layers draw in z order, low first. A can: `product` is the packshot, cx/cy its centre, `width` its body width, `tilt` degrees (positive = the can's bottom swings right). `native_*` describe the packshot as delivered: an upright front-on can is tilt 0 and its PNG width; one shot at an angle gives its own tilt, body width and body length. A sprite is a cut-out from source/sprites/: x/y its top-left, `flip` mirrors it, and `tuck` names the can its sliced side hides behind — compose.py slides it sideways until that edge is covered, so x is a starting point. `pending` lists where the reference had the products still to come. `email_crop` is the x range (reference pixels) kept for the 600px email version.",
+  "_how": "The hero's layers, in reference.png pixel space (2000x1116); the render is out_scale times that. Layers draw in z order, low first. A can (the pouch uses the same fields): `product` is the packshot, cx/cy its centre, `width` its body width, `tilt` degrees (positive = the can's bottom swings right). `native_*` describe the packshot as delivered: an upright front-on can is tilt 0 and its PNG width; one shot at an angle gives its own tilt, body width and body length. A sprite is a cut-out from source/sprites/: x/y its top-left, `flip` mirrors it, and `tuck` names the can its sliced side hides behind — compose.py slides it sideways until that edge is covered, so x is a starting point. `email_crop` is the x range (reference pixels) kept for the 600px email version.",
   "out_scale": 2,
   "email_crop": [
-    970,
+    870,
     2000
   ],
   "layers": [
     {
       "kind": "sprite",
       "id": "ghost-left",
-      "x": 996,
-      "y": 196,
+      "x": 990,
+      "y": 60,
       "scale": 1.0,
       "z": 1,
       "tuck": "TL"
@@ -18,26 +18,17 @@
     {
       "kind": "sprite",
       "id": "ghost-top-centre",
-      "x": 1284,
-      "y": 40,
+      "x": 1405,
+      "y": 92,
       "scale": 1.0,
-      "flip": true,
       "z": 1,
-      "tuck": "TL"
-    },
-    {
-      "kind": "sprite",
-      "id": "peach-top",
-      "x": 1452,
-      "y": 70,
-      "scale": 0.92,
-      "z": 1
+      "tuck": "TR"
     },
     {
       "kind": "sprite",
       "id": "ghost-bottom-left",
-      "x": 1000,
-      "y": 770,
+      "x": 985,
+      "y": 846,
       "scale": 1.0,
       "z": 1,
       "tuck": "BL"
@@ -45,34 +36,97 @@
     {
       "kind": "sprite",
       "id": "ghost-gourd",
-      "x": 1748,
-      "y": 838,
+      "x": 1722,
+      "y": 852,
       "scale": 1.0,
       "z": 1,
       "tuck": "BR"
     },
     {
+      "kind": "sprite",
+      "id": "ghost-centre",
+      "x": 1105,
+      "y": 470,
+      "scale": 0.82,
+      "z": 1
+    },
+    {
+      "kind": "sprite",
+      "id": "peach-top",
+      "x": 1772,
+      "y": 36,
+      "scale": 0.9,
+      "z": 1
+    },
+    {
+      "kind": "sprite",
+      "id": "red-leaf-right",
+      "x": 1905,
+      "y": 150,
+      "scale": 0.9,
+      "z": 1
+    },
+    {
+      "kind": "sprite",
+      "id": "blueberries",
+      "x": 1622,
+      "y": 498,
+      "scale": 0.95,
+      "z": 1
+    },
+    {
+      "kind": "sprite",
+      "id": "ginger",
+      "x": 1322,
+      "y": 26,
+      "scale": 0.85,
+      "z": 1
+    },
+    {
+      "kind": "sprite",
+      "id": "lime",
+      "x": 1896,
+      "y": 968,
+      "scale": 0.95,
+      "z": 1
+    },
+    {
       "kind": "can",
       "id": "TL",
-      "label": "Citrus Mango 10mg",
-      "product": "../../public/product/can-citrus-mango-10mg-packshot.png",
-      "cx": 1235,
-      "cy": 290,
-      "tilt": 13,
-      "width": 188,
-      "native_tilt": 0,
-      "native_width": 550,
+      "label": "Citrus Mango functional energy",
+      "product": "../../public/product/can-citrus-mango-energy-packshot.png",
+      "cx": 1205,
+      "cy": 250,
+      "tilt": -9,
+      "width": 164,
+      "native_tilt": -12.5,
+      "native_width": 532,
+      "native_length": 1420,
       "z": 2
     },
     {
       "kind": "can",
-      "id": "TR",
+      "id": "ML",
+      "label": "Peach Ginger functional energy",
+      "product": "../../public/product/can-peach-ginger-energy-packshot.png",
+      "cx": 975,
+      "cy": 560,
+      "tilt": -3,
+      "width": 164,
+      "native_tilt": -12.5,
+      "native_width": 532,
+      "native_length": 1420,
+      "z": 2
+    },
+    {
+      "kind": "can",
+      "id": "BL",
       "label": "Açaí Mint functional energy",
       "product": "../../public/product/can-acai-mint-energy-packshot.png",
-      "cx": 1675,
-      "cy": 292,
-      "tilt": -13,
-      "width": 184,
+      "cx": 1205,
+      "cy": 868,
+      "tilt": 9,
+      "width": 164,
       "native_tilt": -11.9,
       "native_width": 531,
       "native_length": 1420,
@@ -80,13 +134,26 @@
     },
     {
       "kind": "can",
-      "id": "BL",
+      "id": "TR",
+      "label": "Citrus Mango 10mg",
+      "product": "../../public/product/can-citrus-mango-10mg-packshot.png",
+      "cx": 1655,
+      "cy": 250,
+      "tilt": 9,
+      "width": 164,
+      "native_tilt": 0,
+      "native_width": 550,
+      "z": 2
+    },
+    {
+      "kind": "can",
+      "id": "MR",
       "label": "Peach Ginger 10mg",
       "product": "../../public/product/can-peach-ginger-10mg-packshot.png",
-      "cx": 1235,
-      "cy": 835,
-      "tilt": 13,
-      "width": 188,
+      "cx": 1885,
+      "cy": 560,
+      "tilt": 3,
+      "width": 164,
       "native_tilt": 0,
       "native_width": 550,
       "z": 2
@@ -96,59 +163,34 @@
       "id": "BR",
       "label": "Açaí Mint 10mg",
       "product": "../../public/product/can-acai-mint-10mg-packshot.png",
-      "cx": 1675,
-      "cy": 835,
-      "tilt": -13,
-      "width": 188,
+      "cx": 1655,
+      "cy": 868,
+      "tilt": -9,
+      "width": 164,
       "native_tilt": 0,
       "native_width": 550,
       "z": 2
     },
     {
-      "kind": "sprite",
-      "id": "ghost-centre",
-      "x": 1378,
-      "y": 520,
-      "scale": 1.0,
+      "kind": "can",
+      "id": "PO",
+      "label": "Mate Latte, Vanilla",
+      "product": "../../public/product/pouch-mate-latte-vanilla-packshot.png",
+      "cx": 1430,
+      "cy": 560,
+      "tilt": 0,
+      "width": 300,
+      "native_tilt": 0,
+      "native_width": 894,
       "z": 3
     },
     {
       "kind": "sprite",
       "id": "gourd",
-      "x": 1360,
-      "y": 860,
+      "x": 1352,
+      "y": 842,
       "scale": 0.9,
       "z": 3
-    }
-  ],
-  "pending": [
-    {
-      "id": "TC",
-      "reference": "Functional Peach Ginger can",
-      "cx": 1466,
-      "cy": 195,
-      "tilt": 0
-    },
-    {
-      "id": "PO",
-      "reference": "Mate Latte pouch",
-      "cx": 1454,
-      "cy": 580,
-      "tilt": 0
-    },
-    {
-      "id": "BC",
-      "reference": "Functional or infused can, flavour hidden",
-      "cx": 1462,
-      "cy": 990,
-      "tilt": 0
-    },
-    {
-      "id": "TL-functional",
-      "reference": "Functional Citrus Mango can (the reference's top left)",
-      "cx": 1180,
-      "cy": 272,
-      "tilt": 15
     }
   ]
 }

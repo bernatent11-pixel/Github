@@ -103,6 +103,16 @@ old can's tilt, so search for it along that slant, not straight down.
 **Observed, not a rule:** a 16:9 banner with the products on one side can't carry readable labels
 at 600px (the cans come out about 56px wide). The email gets its own crop of the cluster.
 
+**Same day, the full lineup.** Seven products didn't fit the reference's ring legibly: its centre
+column stacked can, pouch and can, so one can hid behind the pouch and the other ran off the frame.
+The pouch now has the centre column to itself, with the functional cans down the left, the 10mg cans
+down the right, and flavours in matching rows. That layout is a campaign choice, not a rule. Two
+packshot techniques worth keeping. When something stands in front of a product in the supplied
+shot (here, a latte glass over the pouch's edge), rebuild the hidden strip from the product's own
+opposite edge, mirrored and tone-matched per row, instead of inventing it. And a foil pouch shot on
+white carries a 1–2px white catch-light on its seal; on a coloured ground that reads as an outline,
+so edge pixels brighter than the foil just inside them take the inside colour.
+
 
 **2026-09-30 — the whole palette goes in.** Bernat asked for every colour of the Mate Latte
 branding in the system. The five core hexes were already the brand spec; everything else was

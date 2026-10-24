@@ -4,7 +4,7 @@ Every label in the output is the packshot's own pixels — scaled and rotated
 once, never redrawn — which is the point: the reference's products were AI
 renders and their small print was invented.
 
-  python3 tools/compose.py   -> out/halloween-hero@2x.png    (4000x2232, the master)
+  python3 tools/compose.py   -> out/halloween-hero@2x.png    (4000x2232, the master; also as -4000x2232.jpg)
                                 out/halloween-hero.jpg       (2000x1116, same frame as the reference)
                                 out/halloween-hero-email.jpg (1200 wide, the product cluster only)
 
@@ -147,12 +147,15 @@ canvas.save(os.path.join(ROOT, 'build', 'products@2x.png'))
 base = plate.resize((W * S, H * S), Image.LANCZOS).convert('RGBA')
 base.alpha_composite(canvas)
 rgb = base.convert('RGB')
+# JPEGs at the encoder's maximum: quality 100, no chroma subsampling (4:4:4)
+JPG = dict(quality=100, subsampling=0, optimize=True)
 rgb.save(os.path.join(out, 'halloween-hero@2x.png'), optimize=True)
-rgb.resize((W, H), Image.LANCZOS).save(os.path.join(out, 'halloween-hero.jpg'), quality=92, subsampling=0)
+rgb.save(os.path.join(out, f'halloween-hero-{rgb.width}x{rgb.height}.jpg'), **JPG)
+rgb.resize((W, H), Image.LANCZOS).save(os.path.join(out, 'halloween-hero.jpg'), **JPG)
 # Email: the full banner at 600px would shrink each can to ~56px and the labels
 # stop reading. Crop to the cluster instead — 1200px wide for a 600px slot.
 x0, x1 = cfg['email_crop']
 email = rgb.crop((x0 * S, 0, x1 * S, H * S))
 email.resize((1200, round(1200 * email.height / email.width)), Image.LANCZOS).save(
-    os.path.join(out, 'halloween-hero-email.jpg'), quality=90, subsampling=0)
+    os.path.join(out, 'halloween-hero-email.jpg'), **JPG)
 print('wrote', os.path.join(out, 'halloween-hero@2x.png'), rgb.size)

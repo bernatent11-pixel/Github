@@ -14,12 +14,13 @@ by push-pull from the placed parts' own backdrop, so there's no edge where
 they meet; the parts' detail (objects, the wind swirl, grain) is added back on
 top, fading out across open backdrop near a seam.
 
-  python3 tools/formats.py      -> out/halloween-hero-1920x800.jpg (+ @2x .png)
-                                   out/halloween-hero-800x1200.jpg (+ @2x .png)
+  python3 tools/formats.py      -> out/halloween-hero-1920x800.jpg, -3840x1600.jpg (+ @2x .png)
+                                   out/halloween-hero-800x1200.jpg, -1600x2400.jpg (+ @2x .png)
 Needs build/products@2x.png, written by tools/compose.py.
 """
 import os
 import numpy as np, cv2
+from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -142,14 +143,15 @@ def build(size, parts, products, k, seed):
 
 
 def save(name, size, parts, products):
+    """The exact size and 2x, each as a JPEG at the encoder's maximum (quality
+    100, 4:4:4 — OpenCV would subsample chroma, so Pillow writes them); 2x also
+    as a lossless PNG."""
     for k in (1, 2):
-        img = build(size, parts, products, k, seed=7)
-        suffix = '' if k == 1 else '@2x'
-        path = os.path.join(OUT, f'halloween-hero-{size[0]}x{size[1]}{suffix}')
-        if k == 1:
-            cv2.imwrite(path + '.jpg', img, [cv2.IMWRITE_JPEG_QUALITY, 92])
-        else:
-            cv2.imwrite(path + '.png', img)
+        img = Image.fromarray(cv2.cvtColor(build(size, parts, products, k, seed=7), cv2.COLOR_BGR2RGB))
+        stem = os.path.join(OUT, f'halloween-hero-{size[0] * k}x{size[1] * k}')
+        img.save(stem + '.jpg', quality=100, subsampling=0, optimize=True)
+        if k == 2:
+            img.save(os.path.join(OUT, f'halloween-hero-{size[0]}x{size[1]}@2x.png'), optimize=True)
     print('wrote', name, size)
 
 

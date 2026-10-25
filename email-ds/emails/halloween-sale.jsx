@@ -37,7 +37,13 @@ const GOLD_FILL = 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%
 // section 2 carries straight on from it.
 const ORANGE = '#DA5813';
 
-const SALE_END = 'October 31 at 11:59 PM ET'; // TO CONFIRM with Bernat
+const SALE_END = 'Monday, November 2 at 11:59 PM ET'; // Bernat: ends Monday Nov 2 (time assumed)
+
+// HTML MODE (window.HTML_MODE): the same email with every button left out
+// and each image slice marked (data-slice), so scripts/make-halloween-html.mjs
+// can cut the slices and rebuild the buttons as live HTML between them.
+const HTML_MODE = !!window.HTML_MODE;
+const slice = (name) => (HTML_MODE ? { 'data-slice': name } : {});
 
 // The lineup picture is 1333 x 2000, drawn 600 wide: 900 units.
 const HERO_H = 900;
@@ -78,22 +84,22 @@ const TIERS = [
 // Regular 10mg ones; Light 5mg is noted on its own line.
 const SALE = [
   { name: 'Lion’s Mane cans', img: '../public/product/can-peach-ginger-energy-packshot.png', upTo: '25%',
-    price: '$60.48', was: '$75.60', per: '24-pack', href: '#lions-mane', cta: 'Shop Lion’s Mane',
+    price: '$60.48', was: '$75.60', per: '24-pack', href: 'https://milonga.life/products/lion-s-mane', cta: 'Shop Lion’s Mane',
     packs: [['12-pack', '15%', '$42.84', '$50.40'], ['24-pack', '20%', '$60.48', '$75.60'], ['48-pack', '25%', '$113.40', '$151.20']] },
   { name: 'Regular 10mg', img: '../public/product/can-acai-mint-10mg-packshot.png', upTo: '25%',
-    price: '$213.75', was: '$285.00', per: '48-pack', href: '#regular-10mg', cta: 'Shop Regular',
+    price: '$213.75', was: '$285.00', per: '48-pack', href: 'https://milonga.life/products/cannabis-regular-10mg', cta: 'Shop Regular',
     packs: [['12-pack', '15%', '$66.30', '$78.00'], ['24-pack', '20%', '$119.20', '$149.00'], ['48-pack', '25%', '$213.75', '$285.00']] },
   { name: 'Sober October Lion’s Mane Variety Pack', box: '../public/product/variety-24-lions-mane.jpg', upTo: '25%',
-    price: '$56.70', was: '$75.60', per: '24-pack, 8 of each flavor', href: '#lions-mane-variety', cta: 'Shop variety',
+    price: '$56.70', was: '$75.60', per: '24-pack, 8 of each flavor', href: 'https://milonga.life/products/lions-mane-variety-pack', cta: 'Shop variety',
     alt: 'A 24 variety pack of Milonga Lion’s Mane cans with ghosts and autumn leaves on green.',
     packs: [['12-pack', null, '$50.40'], ['24-pack', '25%', '$56.70', '$75.60'], ['48-pack', null, '$151.20']] },
   { name: 'Sober October Cannabis Variety Pack', box: '../public/product/variety-24-social-mate.jpg', upTo: '25%',
-    price: '$111.75', was: '$149.00', per: 'Regular 10mg 24-pack, 8 of each flavor', href: '#cannabis-variety', cta: 'Shop variety',
+    price: '$111.75', was: '$149.00', per: 'Regular 10mg 24-pack, 8 of each flavor', href: 'https://milonga.life/products/variety', cta: 'Shop variety',
     alt: 'A 24 variety pack of Milonga Social Mate cans, 10mg THC and 10mg CBD, with ghosts and autumn leaves on cream.',
     packs: [['12-pack', null, '$78.00'], ['24-pack', '25%', '$111.75', '$149.00'], ['48-pack', null, '$285.00']],
     note: ['Also in Light 5mg: ', ...['12-pack $66.00', '24-pack $125.00', '48-pack $237.00'].flatMap((t, k) => [k ? ' · ' : null, h('span', { key: k, style: { whiteSpace: 'nowrap' } }, t)])] },
 ];
-const LATTE = { name: 'The Mate Latte', img: '../public/product/pouch-mate-latte-vanilla-packshot.png', href: '#mate-latte',
+const LATTE = { name: 'The Mate Latte', img: '../public/product/pouch-mate-latte-vanilla-packshot.png', href: 'https://milonga.life/products/the-original-mate-latte',
   packs: [['30 servings', '10%', '$62.98', '$69.98'], ['60 servings', '15%', '$118.96', '$139.96']] };
 
 const COMPLIANCE =
@@ -212,10 +218,10 @@ function PriceRow([pack, save, price, was], k) {
 }
 
 function SaleCard(p, i) {
-  return h('div', { key: i, style: { width: 'calc(50% - 7px)', boxSizing: 'border-box', background: '#FFFFFF',
-    borderRadius: 22, padding: '16px 14px 18px', textAlign: 'center', position: 'relative',
-    display: 'flex', flexDirection: 'column',
-    boxShadow: '0 16px 30px rgba(0,26,13,0.30), 0 3px 8px rgba(0,26,13,0.2)' } },
+  return h('div', { key: i, style: { width: HTML_MODE ? 'auto' : 'calc(50% - 7px)', flex: HTML_MODE ? 1 : 'none', boxSizing: 'border-box', background: '#FFFFFF',
+    borderRadius: HTML_MODE ? '22px 22px 0 0' : 22, padding: HTML_MODE ? '16px 14px 6px' : '16px 14px 18px',
+    textAlign: 'center', position: 'relative', display: 'flex', flexDirection: 'column',
+    boxShadow: HTML_MODE ? 'none' : '0 16px 30px rgba(0,26,13,0.30), 0 3px 8px rgba(0,26,13,0.2)' } },
     h('span', { style: { position: 'absolute', top: 12, left: 12, zIndex: 1, background: FOREST, color: GOLD, borderRadius: 999,
       padding: '5px 9px', fontFamily: FONT, fontWeight: 900, fontSize: 10.5, letterSpacing: '0.1em',
       textTransform: 'uppercase', boxShadow: '0 3px 8px rgba(0,26,13,0.25)' } }, 'Up to ' + p.upTo),
@@ -235,17 +241,17 @@ function SaleCard(p, i) {
       p.packs.map((r, k) => PriceRow(r, k))),
     p.note ? h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 11, lineHeight: 1.4, color: INK_SOFT,
       marginTop: 4, textAlign: 'left' } }, p.note) : null,
-    h('div', { style: { marginTop: 'auto', paddingTop: 14 } }, h(M.Button, { label: p.cta, href: p.href, bg: 'beige', size: 'md' })));
+    HTML_MODE ? null : h('div', { style: { marginTop: 'auto', paddingTop: 14 } }, h(M.Button, { label: p.cta, href: p.href, bg: 'beige', size: 'md' })));
 }
 
-function HalloweenSale({ shopHref = '#shop', packHref = '#party-pack' }) {
+function HalloweenSale({ shopHref = 'https://milonga.life', packHref = 'https://milonga.life/products/halloween-party-pack-bundle' }) {
   return h(M.EmailShell, { bg: 'beige' },
 
     // ── 1 · TRICK OR TREAT YOURSELF ───────────────────────────────────────
     // Bernat's orange lineup. The products start about 340 units down, so
     // the white logo, the title, the offer and the button sit in its open
     // head; its foot fades into the flat ORANGE the next block continues.
-    h('div', { style: { position: 'relative', height: HERO_H, overflow: 'hidden', background: ORANGE } },
+    h('div', { ...slice('s1-hero'), style: { position: 'relative', height: HERO_H, overflow: 'hidden', background: ORANGE } },
       h('img', { src: '../public/product/halloween-orange-lineup.jpg', alt: SECTION_1_ALT,
         style: { position: 'absolute', top: 0, left: 0, width: 600, height: 'auto', display: 'block' } }),
       h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 60,
@@ -258,20 +264,24 @@ function HalloweenSale({ shopHref = '#shop', packHref = '#party-pack' }) {
           h('div', { style: { fontStyle: 'italic', fontWeight: 800, marginTop: 3 } }, 'treat yourself')),
         h('div', { style: { display: 'inline-block', marginTop: 12, background: FOREST, borderRadius: 999, padding: '9px 20px',
           fontFamily: FONT, fontWeight: 900, fontSize: 17, letterSpacing: '0.08em', textTransform: 'uppercase', color: GOLD,
-          boxShadow: '0 8px 18px rgba(90,25,0,0.35)' } }, 'Up to 30% off sitewide'),
-        h('div', { style: { marginTop: 10 } },
-          h('div', { style: { display: 'inline-block', borderRadius: 999, boxShadow: '0 10px 22px rgba(90,25,0,0.4)' } },
-            h(M.Button, { label: 'Shop the sale', href: shopHref, bg: 'forest', size: 'lg' })))),
+          boxShadow: '0 8px 18px rgba(90,25,0,0.35)' } }, 'Up to 30% off sitewide')),
     ),
 
-    // The timer band: its own block, so Klaviyo's live countdown drops in.
-    h('div', { style: { background: ORANGE, padding: '10px 20px 34px', textAlign: 'center' } },
+    // THE BUTTON SITS BETWEEN THE PICTURE AND THE TIMER (Bernat), on the
+    // flat orange the picture's foot fades into.
+    HTML_MODE ? null : h('div', { style: { background: ORANGE, padding: '4px 20px 26px', textAlign: 'center' } },
+      h('div', { style: { display: 'inline-block', borderRadius: 999, boxShadow: '0 10px 22px rgba(90,25,0,0.4)' } },
+        h(M.Button, { label: 'Shop the sale', href: shopHref, bg: 'forest', size: 'lg' }))),
+
+    // The timer band: its own block, so a live countdown drops in.
+    HTML_MODE ? null : h('div', { style: { background: ORANGE, padding: '10px 20px 34px', textAlign: 'center' } },
       eyebrow('Sale ends in', '#FFFFFF', 14), Timer()),
 
     // ── 2 · THE HALLOWEEN PARTY PACK ──────────────────────────────────────
     // The same orange (Bernat). On it the type is white; everything that
     // carries detail sits on white or gold so it reads.
-    h('div', { style: { background: ORANGE, padding: '26px 24px 56px', textAlign: 'center' } },
+    h('div', { style: { background: ORANGE, padding: HTML_MODE ? '0 24px 0' : '26px 24px 56px', textAlign: 'center' } },
+     h('div', { ...slice('s2-head'), style: { padding: HTML_MODE ? '26px 0 0' : 0 } },
       h('div', { style: { height: 1, background: 'rgba(255,255,255,0.35)', margin: '0 40px 40px' } }),
       eyebrow('Limited edition', '#FFFFFF'),
       h('div', { style: { textShadow: TITLE_SHADOW, fontFamily: FONT, fontWeight: 900, fontSize: 40, lineHeight: 1.02,
@@ -283,37 +293,47 @@ function HalloweenSale({ shopHref = '#shop', packHref = '#party-pack' }) {
         alt: 'The Milonga Halloween Party Pack: 12 Lion’s Mane cans and 12 Social Mate cans in a Milonga box, with a cream Milonga bucket hat, jack-o’-lanterns, ghosts and witches under a full moon.',
         style: { display: 'block', width: 552, height: 'auto', borderRadius: 26, marginTop: 28,
           boxShadow: '0 20px 40px rgba(90,25,0,0.35), 0 4px 10px rgba(90,25,0,0.2)' } }),
-      h('div', { style: { display: 'flex', gap: 14, marginTop: 26, alignItems: 'stretch' } }, MATES.map(MateCard)),
-      h('div', { style: { display: 'flex', gap: 14, marginTop: 38 } }, TIERS.map(TierCard)),
-      h('div', { style: { marginTop: 28 } },
+      h('div', { style: { height: 26 } })),
+      h('div', { ...slice('s2-body') },
+        h('div', { style: { display: 'flex', gap: 14, alignItems: 'stretch', paddingBottom: 38 } }, MATES.map(MateCard)),
+        h('div', { style: { display: 'flex', gap: 14, paddingBottom: HTML_MODE ? 30 : 0 } }, TIERS.map(TierCard))),
+      HTML_MODE ? null : h('div', { style: { marginTop: 28 } },
         h('div', { style: { display: 'inline-block', borderRadius: 999, boxShadow: '0 10px 22px rgba(90,25,0,0.35)' } },
           h(M.Button, { label: 'Get the Party Pack', href: packHref, bg: 'beige', size: 'lg' }))),
-      h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 13, color: '#FFFFFF', marginTop: 14 } },
+      HTML_MODE ? null : h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 13, color: '#FFFFFF', marginTop: 14 } },
         'Social Mate is 21+. New to it? Start with half a can.'),
     ),
 
     // ── 3 · EVERYTHING ELSE ───────────────────────────────────────────────
     // Forest paper: the two variety-pack boxes, each card its ladder, every
     // pack's price and its own button; the Mate Latte on a slim card below.
-    h('div', { style: { backgroundColor: FOREST, backgroundImage: 'url(../public/brand/textures/tile-paper-forest.jpg)',
-      backgroundSize: '320px 320px', padding: '58px 22px 54px', textAlign: 'center' } },
+    // In HTML mode the ground is flat forest: the live rows between the slices
+    // are flat, and a paper grain would show a seam at every join.
+    h('div', { style: { backgroundColor: FOREST, backgroundImage: HTML_MODE ? 'none' : 'url(../public/brand/textures/tile-paper-forest.jpg)',
+      backgroundSize: '320px 320px', padding: HTML_MODE ? '0 22px 0' : '58px 22px 54px', textAlign: 'center' } },
+     h('div', { ...slice('s3-head'), style: { padding: HTML_MODE ? '58px 0 30px' : 0 } },
       eyebrow('Sitewide', GOLD),
       h(M.Headline, { line1: 'Everything else,', line2: 'up to 25% off.', bg: 'forest', size: 40, align: 'center',
         color: '#FFFFFF', line2Color: GOLD, italic: true }),
-      para('The bigger the pack, the bigger the saving. Stock the fridge for Halloween and the month ahead.', '#FFFFFF', 440),
-      h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 30, alignItems: 'stretch' } }, SALE.map(SaleCard)),
-      h('div', { style: { display: 'flex', alignItems: 'center', gap: 16, marginTop: 14, background: '#FFFFFF', borderRadius: 24,
-        padding: '16px 18px', textAlign: 'left', boxShadow: '0 16px 30px rgba(0,26,13,0.30), 0 3px 8px rgba(0,26,13,0.2)' } },
+      para('The bigger the pack, the bigger the saving. Stock the fridge for Halloween and the month ahead.', '#FFFFFF', 440)),
+      HTML_MODE
+        ? [0, 2].map((r) => h('div', { key: r, ...slice('s3-row-' + r / 2), style: { display: 'flex', gap: 14, alignItems: 'stretch' } },
+            SALE.slice(r, r + 2).map((p, k) => SaleCard(p, r + k))))
+        : h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 30, alignItems: 'stretch' } }, SALE.map(SaleCard)),
+      h('div', { ...slice('s3-latte'), style: { display: 'flex', alignItems: 'center', gap: 16, marginTop: 14, background: '#FFFFFF',
+        borderRadius: HTML_MODE ? '24px 24px 0 0' : 24,
+        padding: HTML_MODE ? '16px 18px 4px' : '16px 18px', textAlign: 'left',
+        boxShadow: HTML_MODE ? 'none' : '0 16px 30px rgba(0,26,13,0.30), 0 3px 8px rgba(0,26,13,0.2)' } },
         h('img', { src: LATTE.img, alt: 'A pouch of Milonga Mate Latte, Vanilla.', style: { flex: 'none', height: 120, width: 'auto', display: 'block' } }),
         h('div', { style: { flex: 1 } },
           h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 16, textTransform: 'uppercase', color: FOREST } }, LATTE.name),
           h('div', { style: { marginTop: 4 } }, LATTE.packs.map((p, k) => PriceRow(p, k))),
-          h('div', { style: { marginTop: 8 } }, h(M.Button, { label: 'Shop Mate Latte', href: LATTE.href, bg: 'beige', size: 'md' })))),
-      h('div', { style: { fontFamily: FONT, fontWeight: 700, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase',
+          HTML_MODE ? null : h('div', { style: { marginTop: 8 } }, h(M.Button, { label: 'Shop Mate Latte', href: LATTE.href, bg: 'beige', size: 'md' })))),
+      HTML_MODE ? null : h('div', { style: { fontFamily: FONT, fontWeight: 700, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase',
         color: GOLD, marginTop: 26 } }, 'Sale ends ' + SALE_END),
     ),
 
-    h(M.Footer, { bg: 'beige', compliance: COMPLIANCE,
+    HTML_MODE ? null : h(M.Footer, { bg: 'beige', compliance: COMPLIANCE,
       social: [{ label: 'Instagram', href: '#' }, { label: 'Shop', href: '#' }] }),
   );
 }

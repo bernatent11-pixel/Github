@@ -48,11 +48,22 @@ const SECTION_1_ALT =
   'autumn leaves: the Lion’s Mane cans and the Social Mate 10mg cans in Citrus ' +
   'Mango, Peach Ginger and Açaí Mint around a pouch of Mate Latte.';
 
+// Each mate: its can, a line on when, and its benefits as pill-shaped
+// "buttons", an icon on each (Bernat). Benefits stay within the claim limits:
+// energy, focus, calm, uplifting — the can's own words — never an effect
+// promise.
 const MATES = [
-  { when: 'By day', icon: 'sun', name: 'Lion’s Mane Mate', benefit: 'Clean energy, focus and calm for costume-making, pumpkin carving and getting ready.',
-    spec: '100mg natural caffeine · 1,000mg Lion’s Mane · 220mg L-Theanine' },
-  { when: 'By night', icon: 'moon', name: 'Social Mate', benefit: 'An uplifting herbal experience for when the party starts, no alcohol needed.',
-    spec: ['10mg THC + 10mg CBD ', h('span', { key: 'h', style: { whiteSpace: 'nowrap' } }, '(hemp-derived)'), ' · 110mg natural caffeine · 220mg L-Theanine'] },
+  { when: 'By day', name: 'Lion’s Mane Mate', can: '../public/product/can-citrus-mango-energy-packshot.png',
+    line: 'For costume-making, pumpkin carving and getting ready.',
+    pills: [['yerba-mate', '100mg natural caffeine', 'Clean, sustained energy'],
+      ['lions-mane', '1,000mg Lion’s Mane', 'Focus & concentration'],
+      ['l-theanine', '220mg L-Theanine', 'Calm & balance']] },
+  { when: 'By night', name: 'Social Mate', can: '../public/product/can-citrus-mango-10mg-packshot.png',
+    line: 'For when the party starts, no alcohol needed.',
+    pills: [['THC', '10mg THC', 'An uplifting herbal experience'],
+      ['CBD', '10mg CBD', 'Smooth & balanced'],
+      ['yerba-mate', '110mg natural caffeine', 'Natural, steady energy'],
+      ['l-theanine', '220mg L-Theanine', 'Calm & balance']] },
 ];
 const TIERS = [
   { name: 'Party Pack', size: '24-pack', price: '$103.80', was: '$138.40', save: '25%',
@@ -60,15 +71,27 @@ const TIERS = [
   { name: 'Party Pack XL', size: '48-pack', price: '$167.72', was: '$239.60', save: '30%',
     contents: ['24 cans of Lion’s Mane', '24 cans of Social Mate', '2 Milonga bucket hats'], best: true },
 ];
-const LINES = [
-  { name: 'Lion’s Mane Mate', img: '../public/product/variety-24-lions-mane.jpg', href: '#lions-mane', cta: 'Shop Lion’s Mane',
-    alt: 'A 24 variety pack of Milonga Lion’s Mane cans in Açaí Mint, Peach Ginger and Citrus Mango, with ghosts and autumn leaves on green.',
-    packs: [['12-pack', '15%', '$42.84', '$50.40'], ['24-pack', '20%', '$60.48', '$75.60'], ['48-pack', '25%', '$113.40', '$151.20']],
-    variety: ['Variety 24-pack', '25%', '$56.70', '$75.60'] },
-  { name: 'Social Mate 10mg', img: '../public/product/variety-24-social-mate.jpg', href: '#social-mate', cta: 'Shop Social Mate',
-    alt: 'A 24 variety pack of Milonga Social Mate cans, 10mg THC and 10mg CBD, in Açaí Mint, Peach Ginger and Citrus Mango, with ghosts and autumn leaves on cream.',
-    packs: [['12-pack', '15%', '$66.30', '$78.00'], ['24-pack', '20%', '$119.20', '$149.00'], ['48-pack', '25%', '$213.75', '$285.00']],
-    variety: ['Variety 24-pack', '25%', '$111.75', '$149.00'] },
+// Section 3: four cards in the grid Bernat liked — badge, picture, name,
+// headline price — each with every pack's price beneath and its own button.
+// The variety packs are only discounted at 24; their 12s and 48s are shown
+// at full price, as Shopify has them. The cannabis variety prices are the
+// Regular 10mg ones; Light 5mg is noted on its own line.
+const SALE = [
+  { name: 'Lion’s Mane cans', img: '../public/product/can-peach-ginger-energy-packshot.png', upTo: '25%',
+    price: '$60.48', was: '$75.60', per: '24-pack', href: '#lions-mane', cta: 'Shop Lion’s Mane',
+    packs: [['12-pack', '15%', '$42.84', '$50.40'], ['24-pack', '20%', '$60.48', '$75.60'], ['48-pack', '25%', '$113.40', '$151.20']] },
+  { name: 'Regular 10mg', img: '../public/product/can-acai-mint-10mg-packshot.png', upTo: '25%',
+    price: '$213.75', was: '$285.00', per: '48-pack', href: '#regular-10mg', cta: 'Shop Regular',
+    packs: [['12-pack', '15%', '$66.30', '$78.00'], ['24-pack', '20%', '$119.20', '$149.00'], ['48-pack', '25%', '$213.75', '$285.00']] },
+  { name: 'Sober October Lion’s Mane Variety Pack', box: '../public/product/variety-24-lions-mane.jpg', upTo: '25%',
+    price: '$56.70', was: '$75.60', per: '24-pack, 8 of each flavor', href: '#lions-mane-variety', cta: 'Shop variety',
+    alt: 'A 24 variety pack of Milonga Lion’s Mane cans with ghosts and autumn leaves on green.',
+    packs: [['12-pack', null, '$50.40'], ['24-pack', '25%', '$56.70', '$75.60'], ['48-pack', null, '$151.20']] },
+  { name: 'Sober October Cannabis Variety Pack', box: '../public/product/variety-24-social-mate.jpg', upTo: '25%',
+    price: '$111.75', was: '$149.00', per: 'Regular 10mg 24-pack, 8 of each flavor', href: '#cannabis-variety', cta: 'Shop variety',
+    alt: 'A 24 variety pack of Milonga Social Mate cans, 10mg THC and 10mg CBD, with ghosts and autumn leaves on cream.',
+    packs: [['12-pack', null, '$78.00'], ['24-pack', '25%', '$111.75', '$149.00'], ['48-pack', null, '$285.00']],
+    note: ['Also in Light 5mg: ', ...['12-pack $66.00', '24-pack $125.00', '48-pack $237.00'].flatMap((t, k) => [k ? ' · ' : null, h('span', { key: k, style: { whiteSpace: 'nowrap' } }, t)])] },
 ];
 const LATTE = { name: 'The Mate Latte', img: '../public/product/pouch-mate-latte-vanilla-packshot.png', href: '#mate-latte',
   packs: [['30 servings', '10%', '$62.98', '$69.98'], ['60 servings', '15%', '$118.96', '$139.96']] };
@@ -102,6 +125,18 @@ const ICONS = {
     h('path', { d: 'M17.5 3.5v2.4M16.3 4.7h2.4', stroke: GOLD, strokeWidth: 1.6, strokeLinecap: 'round' })),
 };
 
+// THC rises, CBD settles — the same glyphs as Sober October, cream on forest.
+const GL = { fill: 'none', stroke: '#F0EFDF', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' };
+const GLYPHS = {
+  THC: h('svg', { width: 18, height: 18, viewBox: '0 0 24 24' },
+    h('path', { ...GL, d: 'M4 18 L10 12 L13.5 15 L19 8.5' }), h('path', { ...GL, d: 'M14.5 8 H19.5 V13' }),
+    h('path', { ...GL, strokeWidth: 1.8, d: 'M6 4.5 V8 M4.25 6.25 H7.75' })),
+  CBD: h('svg', { width: 18, height: 18, viewBox: '0 0 24 24' },
+    h('path', { ...GL, d: 'M3 8 C6 5.5 8.5 5.5 12 8 S18 10.5 21 8' }),
+    h('path', { ...GL, d: 'M3 13 C6 10.5 8.5 10.5 12 13 S18 15.5 21 13' }),
+    h('path', { ...GL, d: 'M3 18 C6 15.5 8.5 15.5 12 18 S18 20.5 21 18' })),
+};
+
 // The countdown, as drawn for the layout: four tiles on the orange.
 function Timer() {
   const u = [['06', 'Days'], ['12', 'Hours'], ['00', 'Mins'], ['00', 'Secs']];
@@ -118,20 +153,32 @@ function Timer() {
     ]));
 }
 
-// By Day / By Night: a pill per mate — the icon chip, then what it does.
-function MatePill(m, i) {
-  return h('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: 14, marginTop: i ? 12 : 0,
-    background: '#FFFFFF', borderRadius: 999, padding: '12px 22px 12px 12px', textAlign: 'left',
-    boxShadow: '0 12px 24px rgba(90,25,0,0.22), 0 2px 5px rgba(90,25,0,0.15)' } },
-    h('div', { style: { flex: 'none', width: 108, height: 84, borderRadius: 999, background: FOREST,
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 5 } },
-      ICONS[m.icon],
-      h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12, letterSpacing: '0.14em',
-        textTransform: 'uppercase', color: GOLD } }, m.when)),
-    h('div', { style: { flex: 1 } },
-      h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 15, textTransform: 'uppercase', color: FOREST } }, m.name),
-      h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 13.5, lineHeight: 1.4, color: INK, marginTop: 4 } }, m.benefit),
-      h('div', { style: { fontFamily: FONT, fontWeight: 700, fontSize: 11.5, lineHeight: 1.4, color: FOREST, marginTop: 5 } }, m.spec)));
+// By Day / By Night: a white card per mate — its can and name, then each
+// benefit in a pill with its icon.
+function BenefitPill([icon, title, note], k) {
+  return h('div', { key: k, style: { display: 'flex', alignItems: 'center', gap: 9, marginTop: k ? 8 : 0,
+    background: 'rgba(0,77,39,0.07)', border: '1px solid rgba(0,77,39,0.14)', borderRadius: 999,
+    padding: '6px 12px 6px 6px', textAlign: 'left' } },
+    h('span', { style: { flex: 'none', width: 30, height: 30, borderRadius: 999, background: FOREST,
+      display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+      GLYPHS[icon] || h(M.BrandIcon, { mark: icon, ink: 'cream', size: 20, alt: '' })),
+    h('div', null,
+      h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 12, lineHeight: 1.2, color: FOREST } }, title),
+      h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 11, lineHeight: 1.25, color: INK_SOFT, marginTop: 1 } }, note)));
+}
+
+function MateCard(m, i) {
+  return h('div', { key: i, style: { flex: 1, background: '#FFFFFF', borderRadius: 24, padding: '20px 14px 18px',
+    textAlign: 'center', boxShadow: '0 16px 30px rgba(90,25,0,0.25), 0 3px 8px rgba(90,25,0,0.15)' } },
+    h('div', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, background: FOREST, borderRadius: 999,
+      padding: '6px 12px', fontFamily: FONT, fontWeight: 900, fontSize: 11, letterSpacing: '0.16em',
+      textTransform: 'uppercase', color: GOLD } },
+      h('span', { style: { display: 'inline-flex', transform: 'scale(0.75)', margin: '-4px -2px' } }, ICONS[i ? 'moon' : 'sun']), m.when),
+    h('img', { src: m.can, alt: '', style: { height: 180, width: 'auto', display: 'block', margin: '14px auto 0',
+      filter: 'drop-shadow(0 12px 12px rgba(0,53,27,0.25))' } }),
+    h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 17, textTransform: 'uppercase', color: FOREST, marginTop: 14 } }, m.name),
+    h('div', { style: { fontFamily: FONT, fontWeight: 500, fontSize: 13, lineHeight: 1.4, color: INK, marginTop: 6, minHeight: 36 } }, m.line),
+    h('div', { style: { marginTop: 12 } }, m.pills.map(BenefitPill)));
 }
 
 function TierCard(t, i) {
@@ -154,30 +201,41 @@ function TierCard(t, i) {
 }
 
 // One price row: pack, saving, struck full price, sale price.
-function PriceRow([pack, save, price, was], k, last) {
+function PriceRow([pack, save, price, was], k) {
   return h('div', { key: k, style: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 6,
     padding: '9px 0', borderTop: k ? '1px solid rgba(0,77,39,0.10)' : 'none' } },
     h('div', { style: { fontFamily: FONT, fontWeight: 800, fontSize: 13, color: FOREST } },
       pack.split(' ').flatMap((w, j) => [j ? ' ' : null, h('span', { key: j, style: { whiteSpace: 'nowrap' } }, w)]),
-      h('span', { style: { fontWeight: 700, fontSize: 11, color: INK_SOFT, marginLeft: 5 } }, '−' + save)),
-    h('div', { style: { fontFamily: FONT, fontSize: 12, whiteSpace: 'nowrap' } }, strike(was, INK_SOFT),
+      save ? h('span', { style: { fontWeight: 700, fontSize: 11, color: INK_SOFT, marginLeft: 5 } }, '−' + save) : null),
+    h('div', { style: { fontFamily: FONT, fontSize: 12, whiteSpace: 'nowrap' } }, was ? strike(was, INK_SOFT) : null,
       h('span', { style: { fontWeight: 900, fontSize: 15, color: FOREST, marginLeft: 6 } }, price)));
 }
 
-function LineCard(l, i) {
-  return h('div', { key: i, style: { flex: 1, background: '#FFFFFF', borderRadius: 24, overflow: 'hidden', textAlign: 'center',
+function SaleCard(p, i) {
+  return h('div', { key: i, style: { width: 'calc(50% - 7px)', boxSizing: 'border-box', background: '#FFFFFF',
+    borderRadius: 22, padding: '16px 14px 18px', textAlign: 'center', position: 'relative',
+    display: 'flex', flexDirection: 'column',
     boxShadow: '0 16px 30px rgba(0,26,13,0.30), 0 3px 8px rgba(0,26,13,0.2)' } },
-    h('img', { src: l.img, alt: l.alt, style: { display: 'block', width: '100%', height: 'auto' } }),
-    h('div', { style: { padding: '16px 14px 20px' } },
-      h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 16, textTransform: 'uppercase', color: FOREST } }, units(l.name)),
-      h('div', { style: { display: 'inline-block', marginTop: 10, background: FOREST, color: GOLD, borderRadius: 999,
-        padding: '6px 12px', fontFamily: FONT, fontWeight: 900, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' } },
-        'Up to 25% off'),
-      h('div', { style: { marginTop: 10, textAlign: 'left' } },
-        l.packs.map((p, k) => PriceRow(p, k)),
-        h('div', { style: { marginTop: 4, background: 'rgba(227,188,98,0.18)', borderRadius: 12, padding: '0 10px' } },
-          PriceRow(l.variety, 0))),
-      h('div', { style: { marginTop: 16 } }, h(M.Button, { label: l.cta, href: l.href, bg: 'beige', size: 'md' }))));
+    h('span', { style: { position: 'absolute', top: 12, left: 12, zIndex: 1, background: FOREST, color: GOLD, borderRadius: 999,
+      padding: '5px 9px', fontFamily: FONT, fontWeight: 900, fontSize: 10.5, letterSpacing: '0.1em',
+      textTransform: 'uppercase', boxShadow: '0 3px 8px rgba(0,26,13,0.25)' } }, 'Up to ' + p.upTo),
+    p.box
+      ? h('img', { src: p.box, alt: p.alt, style: { display: 'block', width: '100%', height: 'auto', borderRadius: 16 } })
+      : h('div', { style: { height: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' } },
+          h('img', { src: p.img, alt: '', style: { height: 180, width: 'auto', display: 'block',
+            filter: 'drop-shadow(0 10px 10px rgba(0,53,27,0.22))' } })),
+    h('div', { style: { fontFamily: FONT, fontWeight: 900, fontSize: 14.5, lineHeight: 1.2, textTransform: 'uppercase',
+      color: FOREST, marginTop: 12, minHeight: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+      h('div', null, units(p.name))),
+    h('div', { style: { fontFamily: FONT, fontSize: 13, marginTop: 6 } },
+      strike(p.was, INK_SOFT), ' ',
+      h('span', { style: { fontWeight: 900, fontSize: 20, color: FOREST, marginLeft: 4 } }, p.price)),
+    h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 11.5, color: INK_SOFT, marginTop: 2 } }, p.per),
+    h('div', { style: { marginTop: 10, borderTop: '1px solid rgba(0,77,39,0.12)', textAlign: 'left' } },
+      p.packs.map((r, k) => PriceRow(r, k))),
+    p.note ? h('div', { style: { fontFamily: FONT, fontWeight: 600, fontSize: 11, lineHeight: 1.4, color: INK_SOFT,
+      marginTop: 4, textAlign: 'left' } }, p.note) : null,
+    h('div', { style: { marginTop: 'auto', paddingTop: 14 } }, h(M.Button, { label: p.cta, href: p.href, bg: 'beige', size: 'md' })));
 }
 
 function HalloweenSale({ shopHref = '#shop', packHref = '#party-pack' }) {
@@ -225,7 +283,7 @@ function HalloweenSale({ shopHref = '#shop', packHref = '#party-pack' }) {
         alt: 'The Milonga Halloween Party Pack: 12 Lion’s Mane cans and 12 Social Mate cans in a Milonga box, with a cream Milonga bucket hat, jack-o’-lanterns, ghosts and witches under a full moon.',
         style: { display: 'block', width: 552, height: 'auto', borderRadius: 26, marginTop: 28,
           boxShadow: '0 20px 40px rgba(90,25,0,0.35), 0 4px 10px rgba(90,25,0,0.2)' } }),
-      h('div', { style: { marginTop: 26 } }, MATES.map(MatePill)),
+      h('div', { style: { display: 'flex', gap: 14, marginTop: 26, alignItems: 'stretch' } }, MATES.map(MateCard)),
       h('div', { style: { display: 'flex', gap: 14, marginTop: 38 } }, TIERS.map(TierCard)),
       h('div', { style: { marginTop: 28 } },
         h('div', { style: { display: 'inline-block', borderRadius: 999, boxShadow: '0 10px 22px rgba(90,25,0,0.35)' } },
@@ -243,7 +301,7 @@ function HalloweenSale({ shopHref = '#shop', packHref = '#party-pack' }) {
       h(M.Headline, { line1: 'Everything else,', line2: 'up to 25% off.', bg: 'forest', size: 40, align: 'center',
         color: '#FFFFFF', line2Color: GOLD, italic: true }),
       para('The bigger the pack, the bigger the saving. Stock the fridge for Halloween and the month ahead.', '#FFFFFF', 440),
-      h('div', { style: { display: 'flex', gap: 14, marginTop: 30, alignItems: 'stretch' } }, LINES.map(LineCard)),
+      h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 30, alignItems: 'stretch' } }, SALE.map(SaleCard)),
       h('div', { style: { display: 'flex', alignItems: 'center', gap: 16, marginTop: 14, background: '#FFFFFF', borderRadius: 24,
         padding: '16px 18px', textAlign: 'left', boxShadow: '0 16px 30px rgba(0,26,13,0.30), 0 3px 8px rgba(0,26,13,0.2)' } },
         h('img', { src: LATTE.img, alt: 'A pouch of Milonga Mate Latte, Vanilla.', style: { flex: 'none', height: 120, width: 'auto', display: 'block' } }),

@@ -188,10 +188,11 @@ ${row(FOREST, `<div style="font-family:${FONT};font-size:13px;font-weight:800;le
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
 <tr><td align="center" bgcolor="${BEIGE}" style="background:${BEIGE};padding:34px 30px 36px;font-family:${FONT};color:${FOREST};">
 <a href="${LINK.home}" target="_blank"><img src="${url('footer-logo.png')}" width="${Math.round(logoMeta.width * 64 / logoMeta.height)}" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
-<div style="padding-top:18px;font-size:13px;font-weight:900;letter-spacing:3px;text-transform:uppercase;"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">Shop milonga.life</a></div>
-<div style="padding-top:14px;font-size:12px;font-weight:700;color:${FOREST};">{% web_view %} &nbsp;·&nbsp; {% unsubscribe %}</div>
+<div style="padding-top:18px;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
+<div style="padding-top:18px;"><a href="{% unsubscribe_url %}" target="_blank" style="display:inline-block;padding:10px 24px;border:1.5px solid ${FOREST};border-radius:999px;font-family:${FONT};font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${FOREST};text-decoration:none;">Unsubscribe</a></div>
+<div style="padding-top:12px;font-size:11px;font-weight:600;color:#3B5344;">{% web_view %}</div>
 <div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:600;color:#3B5344;">${COMPLIANCE}</div>
-<div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:600;color:#3B5344;">{{ organization.name }} · {{ organization.full_address }}</div>
+<div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${FOREST};"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">Milonga.life</a> · <a href="mailto:connect@milonga.life" style="color:${FOREST};text-decoration:none;">connect@milonga.life</a></div>
 </td></tr>
 
 </table>

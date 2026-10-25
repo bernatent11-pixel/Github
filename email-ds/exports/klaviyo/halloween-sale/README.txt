@@ -23,7 +23,8 @@ LINKS
 - Shop variety (Lion's Mane)                 -> https://milonga.life/products/lions-mane-variety-pack
 - Shop variety (Cannabis)                    -> https://milonga.life/products/variety
 - Shop Mate Latte                            -> https://milonga.life/products/the-original-mate-latte
-- Footer logo and "Shop milonga.life"        -> https://milonga.life
+- Footer logo and "milonga.life"             -> https://milonga.life
+- Unsubscribe button                         -> Klaviyo unsubscribe link ({% unsubscribe_url %})
 
 MAKE THE TIMER LIVE (about 2 minutes)
 Klaviyo has no built-in countdown, so the live timer is an image from a timer

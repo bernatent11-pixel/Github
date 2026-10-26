@@ -16,7 +16,8 @@ email out of these real components.
 - **Blueprints** — full ready-to-adapt emails: `PromoEmail`, `EducationalEmail`, `StorytellingEmail`, `LaunchEmail`
 
 Brand palette — forest `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`,
-white. Type — **Gotham** (bundled) with a Montserrat → Helvetica fallback for
+white, plus support tints and the canopy greens (all in `src/tokens.ts`; the full
+table with contrast ratios is in the `email-design` skill's `design-system.md`). Type — **Gotham** (bundled) with a Montserrat → Helvetica fallback for
 email clients that strip web fonts. Image slots (`product` / `lifestyle` /
 `studio`) render on-brand placeholders you replace with real photography later.
 

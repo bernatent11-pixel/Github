@@ -76,10 +76,75 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-09-18 | Images | **Ask for a cutout before engineering around a backdrop.** A transparent PNG sits on a real brand colour with no seam, no vignette and no correction. Flat-fielding (model the backdrop with a heavy blur, push each pixel by target − model weighted by how much it looks like backdrop) is the fallback when only a JPEG exists | Bernat |
 | 2026-09-18 | Blocks | In T8 each callout is **one rounded white shape holding its icon, label and note**. On an open ground five bare rows read as a list; giving each an edge turns them into objects the hairlines connect to, which is what makes the section read as a diagram | Bernat |
 | 2026-09-18 | Type | **Every section title in a campaign uses the same anatomy: eyebrow in small caps, a headline whose second line is set apart, then the paragraph.** Where the ground forbids the accent colour, set the second line apart by SLANT instead — the contrast is weight and slant, not colour, which is why it holds anywhere | Bernat |
+| 2026-09-30 | Colour | **The Mate Latte palette runs in three tiers.** Core — forest `#004D27`, gold `#E3BC62`, leaf `#057441`, beige `#F0EFDF`, white, black — is the only tier that sets a ground, carries type or fills a button. Support — `forestDeep` `#00351B`, `forestNight` `#002D17`, `goldSoft` `#EFD9A0`, `goldDeep` `#C9A24E`, `cream` `#FBF8EF`, `ink` `#12331F`, `inkSoft` `#3B5344` — gives depth, paper and body ink. Canopy — `canopyLight` `#88CF7F` → `canopySage` `#62BD6F` → `canopyFern` `#4CAB55` → `canopyMid` `#297F49` → `canopyShadow` `#0D5D32` → `canopyTrunk` `#002D17` — is illustration only, never type or a ground. The duller inks the asset files are exported in (`#284E2D`, `#C2A15C`, `#407246`) are not tokens. Contrast table in `references/design-system.md` §1 | Bernat, asked for the whole palette in the system |
+| 2026-10-16 | Claims | **Yerba mate may carry "Healthy gut, immune system".** Bernat and the founder approved it, 100% confirmed: use it as written and do not flag or swap it. Every other health claim is still out under the standing rule | Bernat, on the Lion's Mane on-the-go ingredient diagram |
+| 2026-10-24 | Images | **The product is never AI-rendered.** A generated scene carries the real packshot, composited, so every word on a can or pouch is the actual artwork and readable at the size it ships. A model redraws a label each time it renders one and invents the small print, which puts invented specs on the pack | Bernat, on the Halloween hero |
 
 ---
 
 ## Log
+
+**2026-10-24 — real packshots in an AI scene.** Bernat sent an AI-rendered Halloween hero
+(orange glow, ghosts, autumn leaves, the full lineup) and asked that the products appear clearly
+with readable packaging. Every can in the render had invented small print: "NATURAL BREWED
+CAPFEINE", and an Açaí Mint can that mixed the functional and infused labels. A better prompt
+doesn't fix this, because a model redraws the label every time it renders the can. So the scene
+keeps its art and loses its products. The plate is the reference with the seven products erased
+and refilled from the glow at each hole's own edge, and the real packshots are composited on top.
+Built in `email-ds/hero/halloween/`, and `run.sh` rebuilds it.
+
+**Technique worth keeping.** In that render the ghosts sat *behind* the cans, so erasing a can
+slices a ghost. Each ghost is cut out as a layer that records its sliced side and the slant of the
+cut, and the compositor slides it until that side hides behind a real can. Two things were found
+by looking rather than reasoning. The ghosts' lit flanks are backdrop-orange, so a colour test
+loses them; seed the matte by *difference from the backdrop* instead. And the slice runs at the
+old can's tilt, so search for it along that slant, not straight down.
+
+**Observed, not a rule:** a 16:9 banner with the products on one side can't carry readable labels
+at 600px (the cans come out about 56px wide). The email gets its own crop of the cluster.
+
+**Same day, the full lineup.** Seven products didn't fit the reference's ring legibly: its centre
+column stacked can, pouch and can, so one can hid behind the pouch and the other ran off the frame.
+The pouch now has the centre column to itself, with the functional cans down the left, the 10mg cans
+down the right, and flavours in matching rows. That layout is a campaign choice, not a rule. Two
+packshot techniques worth keeping. When something stands in front of a product in the supplied
+shot (here, a latte glass over the pouch's edge), rebuild the hidden strip from the product's own
+opposite edge, mirrored and tone-matched per row, instead of inventing it. And a foil pouch shot on
+white carries a 1–2px white catch-light on its seal; on a coloured ground that reads as an outline,
+so edge pixels brighter than the foil just inside them take the inside colour.
+
+
+**2026-09-30 — the whole palette goes in.** Bernat asked for every colour of the Mate Latte
+branding in the system. The five core hexes were already the brand spec; everything else was
+scattered — support shades as one-off literals in `theme.ts`, the canopy greens only inside a PNG.
+Now all of it is named in `tokens.ts` and `tokens.css`, and `references/design-system.md` §1 carries
+the full table with contrast ratios.
+
+**Where each tier came from — measured, not recalled.** The canopy greens are the flat layer colours
+of `canopy-band.png`, the scene already shifted onto `#004D27`. The support tints were already live in
+`tokens.ts` and the gold gradients; `forestNight` is the canopy's trunk colour and `goldDeep` the gold
+gradient's bottom stop, now tokens instead of literals. Nothing was invented to fill a slot.
+
+**The asset files disagree with the spec.** Every file in the Drive's *Milonga Mate Latte Assets*
+folder — icons, textures, the original canopy, the divider — is inked `#284E2D` / `#C2A15C` /
+`#407246` / `#F0EFDF`: the core colours rendered duller, the signature of a CMYK-document export.
+Earlier sessions corrected the logos, textures, canopy band and Klaviyo discs to the core hexes. **The
+`BrandIcon` PNGs were never corrected**, so today a gold icon (`#C2A15C`) sits beside a gold button
+(`#E3BC62`) in two different golds. Recorded as `artworkInks`, deliberately outside `colors` so they
+cannot be picked for type or a fill. Open: recolour the 28 icon PNGs to the core hexes — a one-line
+script, but it changes how every existing email renders, so it waits for Bernat's yes.
+
+**A contrast problem in an existing rule, flagged not changed.** The 2026-08 rule *"Gold bg → beige
+titles, white body, beige icons"* puts white body copy on gold at **1.8:1** and beige titles at
+**1.6:1**. The floor for body copy is 4.5:1. Dark green on gold measures 5.6:1. That rule is Bernat's
+and stands until he says otherwise, but the numbers are now in the reference next to it. Open: gold
+page body copy — keep white, or move to dark green.
+
+**Deliberately not taken.** The parent Milonga brandbook palette (`#016F3B`, `#7BBA49`, `#F7F5E7`,
+`#F6EB64`, `#B6D26E` and the flavour colours of the can line). The logo exports in the Mate Latte
+folder still carry the parent's `#006F3B` / `#7AB949`; the repo's lockups were recoloured to
+`#004D27` / `#057441` and stay that way. No packaging colours either — the only source was product
+photography, and a hex read off a photograph of a pouch is lighting, not a brand colour.
 
 **2026-09-18 — matching a title's aesthetic across two grounds.** Bernat asked for section two's
 title to share section one's aesthetic "not same colors because of the background". What carries
@@ -427,6 +492,16 @@ previously designed dividers were kept instead. Only the background-less icons, 
 and the forest canopy were taken from that asset drop.
 
 ---
+
+### 2026-10-16 — an approved claim (new area: Claims)
+
+On the on-the-go ingredient diagram, "Healthy gut, immune system" was swapped out under the
+no-health-claims rule. Bernat put it back: he and the founder approve it for yerba mate, confirmed,
+and asked not to be pushed back on it. Stored so no later session swaps or flags it. **New area,
+`Claims`**: none of the existing areas covers what may be said, only how it looks. The approval is
+narrow: this one line, for yerba mate; "boost metabolism", "mood support" and "stress support"
+were not approved and stay out. `references/design-system.md` still lists the general claim limits
+without this exception.
 
 ## Campaign-specific choices — *not* rules
 

@@ -34,10 +34,15 @@ pink Himalayan salt.
 
 ## Price & offers
 
-- 1 bag — **$29.99**
-- 2 bags — **10% off**
-- 3 bags — **15% off**
-- **Subscribe — an extra 15% off**
+As shown in Shopify on 2026-10-09 (The Original Mate Latte – Vanilla):
+
+- 1 bag — **$34.99** ($2.33 / serving)
+- 2 bags — **$62.98, save 10%** ($2.10 / serving)
+- 4 bags — **$118.96, save 15%** ($1.98 / serving)
+- **Subscribe — Mate Mornings Club, 30% off** ($24.49 / bag)
+
+Earlier campaigns used $29.99 with 2- and 3-bag tiers and a 15% subscription;
+those prices are retired.
 
 Sold on the **Shopify store, Amazon, and TikTok Shop**.
 

@@ -2,16 +2,30 @@
    Shipped as the design-sync cssEntry so designs built with the DS can
    reference the brand palette directly via var(--milonga-*). */
 :root {
+  /* Core — the brand spec */
   --milonga-forest: #004D27;
-  --milonga-forest-deep: #00351B;
-  --milonga-leaf: #057441;
   --milonga-gold: #E3BC62;
-  --milonga-gold-soft: #EFD9A0;
+  --milonga-leaf: #057441;
   --milonga-beige: #F0EFDF;
-  --milonga-cream: #FBF8EF;
   --milonga-white: #FFFFFF;
+  --milonga-black: #000000;
+
+  /* Support — tints and shades of the core */
+  --milonga-forest-deep: #00351B;
+  --milonga-forest-night: #002D17;
+  --milonga-gold-soft: #EFD9A0;
+  --milonga-gold-deep: #C9A24E;
+  --milonga-cream: #FBF8EF;
   --milonga-ink: #12331F;
   --milonga-ink-soft: #3B5344;
+
+  /* Canopy — forest-scene greens, back layer to front. Illustration only */
+  --milonga-canopy-light: #88CF7F;
+  --milonga-canopy-sage: #62BD6F;
+  --milonga-canopy-fern: #4CAB55;
+  --milonga-canopy-mid: #297F49;
+  --milonga-canopy-shadow: #0D5D32;
+  --milonga-canopy-trunk: #002D17;
 
   --milonga-font: "Gotham", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 

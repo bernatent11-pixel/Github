@@ -20,13 +20,94 @@ file wins — memory is newer and came from Bernat directly.
 
 ## 1. Colour and the contrast map
 
-| Colour | Hex | Role |
+The full Mate Latte palette runs in three tiers. Token names are the ones in
+`email-ds/src/tokens.ts`; the CSS variable is `--milonga-` plus the name in kebab case.
+
+### Core — the brand spec
+
+The only colours that set a page background, carry type or fill a button.
+
+| Colour | Token | Hex | Role |
+|---|---|---|---|
+| Dark green (forest) | `forest` | `#004D27` | Backgrounds, buttons, icons |
+| Gold | `gold` | `#E3BC62` | Titles, buttons, icons, accents |
+| Leaf green | `leaf` | `#057441` | Secondary — buttons, trees, leaves |
+| Beige / cream | `beige` | `#F0EFDF` | Titles and text, paper, secondary background |
+| White | `white` | `#FFFFFF` | Body copy on dark backgrounds |
+| Black | `black` | `#000000` | Body copy on beige |
+
+### Support — tints and shades of the core
+
+For depth, paper and body ink. Never a page background on their own.
+
+| Colour | Token | Hex | Role |
+|---|---|---|---|
+| Deep forest | `forestDeep` | `#00351B` | Bottom stop of green gradients (buttons, numerals, bars) |
+| Forest night | `forestNight` | `#002D17` | The darkest green — shadows, the canopy's trunks |
+| Soft gold | `goldSoft` | `#EFD9A0` | Top stop of gold gradients; the gold logo's second tone |
+| Deep gold | `goldDeep` | `#C9A24E` | Bottom stop of gold gradients |
+| Paper cream | `cream` | `#FBF8EF` | The founder-note sheet; lifted surfaces on beige |
+| Ink | `ink` | `#12331F` | Near-black green body copy where pure black is too hard |
+| Soft ink | `inkSoft` | `#3B5344` | Secondary copy, captions, notes |
+
+### Canopy — the forest scene
+
+The illustrated forest, back layer to front. **Illustration only** — never type, never a page
+background, never a button. They exist so anything drawn next to the canopy (a leaf, a chart bar
+in a botanical section, a divider ornament) comes from the same set rather than a green picked by
+eye.
+
+| Layer | Token | Hex |
 |---|---|---|
-| Dark green (forest) | `#004D27` | Backgrounds, buttons, icons |
-| Gold | `#E3BC62` | Titles, buttons, icons, accents |
-| Leaf green | `#057441` | Secondary — buttons, trees, leaves |
-| Beige / cream | `#F0EFDF` | Titles and text, paper, secondary background |
-| White | `#FFFFFF` | Body copy on dark backgrounds |
+| Back hills | `canopyLight` | `#88CF7F` |
+| | `canopySage` | `#62BD6F` |
+| | `canopyFern` | `#4CAB55` |
+| | `canopyMid` | `#297F49` |
+| Front hills | `canopyShadow` | `#0D5D32` |
+| Ground | `forest` | `#004D27` |
+| Trunks | `canopyTrunk` | `#002D17` |
+
+### Artwork inks — what the delivered files are inked in
+
+Not tokens. Measured from the brand asset files (icon PNGs, textures, the original canopy): they
+are the core colours rendered duller, the signature of an export from a CMYK document.
+
+| Core | Core hex | Artwork ink | Where it shows |
+|---|---|---|---|
+| Forest | `#004D27` | `#284E2D` | Forest icons, forest texture, canopy source, divider |
+| Gold | `#E3BC62` | `#C2A15C` | Gold icons, gold texture, divider |
+| Leaf | `#057441` | `#407246` | Leaf icons, divider |
+| Beige | `#F0EFDF` | `#F0EFDF` | Cream icons — identical |
+
+**Why it matters:** the `BrandIcon` PNGs are still in these inks, so a gold icon sits next to a
+gold button in two different golds (`#C2A15C` against `#E3BC62`). The logos, textures, canopy band
+and Klaviyo discs have already been corrected to the core hexes; the icons have not. Match to
+`artworkInks` only when something must sit flush against uncorrected art.
+
+### What each colour can carry
+
+WCAG contrast of every palette colour as type on each page ground. 4.5:1 is the floor for body
+copy; 3:1 for type at 24px and up.
+
+| Type colour | on Forest | on Gold | on Beige | on Cream |
+|---|---|---|---|---|
+| `forest` | — | 5.6 | 8.7 | 9.5 |
+| `forestDeep` | 1.4 | 7.6 | 11.9 | 13.0 |
+| `leaf` | 1.7 | 3.3 | 5.1 | 5.5 |
+| `gold` | 5.6 | — | 1.6 | 1.7 |
+| `goldSoft` | 7.2 | 1.3 | 1.2 | 1.3 |
+| `beige` | 8.7 | 1.6 | — | 1.1 |
+| `white` | 10.0 | 1.8 | 1.2 | 1.1 |
+| `black` | 2.1 | 11.6 | 18.1 | 19.8 |
+| `ink` | 1.4 | 7.7 | 11.9 | 13.0 |
+| `inkSoft` | 1.2 | 4.6 | 7.2 | 7.9 |
+| `canopyShadow` | 1.3 | 4.4 | 6.9 | 7.5 |
+| `canopyMid` | 2.0 | 2.8 | 4.3 | 4.7 |
+| `canopyFern` · `Sage` · `Light` | 3.5 · 4.3 · 5.4 | ≤ 1.6 | ≤ 2.5 | ≤ 2.7 |
+
+The table is the reason the canopy greens are illustration-only, and why gold never sets type on
+beige or cream. **It also shows the one live weakness in the contrast map below:** white and beige
+type on a gold page measure 1.8 and 1.6 — far under the floor. Dark green on gold measures 5.6.
 
 **The contrast map is the heart of the system.** Given the email's background, every element's
 colour is already decided — nothing is picked by eye:

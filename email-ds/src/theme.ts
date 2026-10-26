@@ -84,7 +84,7 @@ export const onBg: Record<EmailBg, OnBg> = {
     shadow: '0 6px 18px rgba(0, 26, 13, 0.38)',
     shadowLg: '0 14px 34px rgba(0, 26, 13, 0.48)',
     sheen: 'rgba(255, 255, 255, 0.14)',
-    accentGradient: `linear-gradient(180deg, ${colors.goldSoft} 0%, ${colors.gold} 55%, #C9A24E 100%)`,
+    accentGradient: `linear-gradient(180deg, ${colors.goldSoft} 0%, ${colors.gold} 55%, ${colors.goldDeep} 100%)`,
     accentWash: 'rgba(227, 188, 98, 0.20)',
     textShadow: '0 2px 10px rgba(0, 26, 13, 0.45)',
     numberGradient: `linear-gradient(180deg, ${colors.goldSoft} 0%, ${colors.gold} 60%, #BE9743 100%)`,

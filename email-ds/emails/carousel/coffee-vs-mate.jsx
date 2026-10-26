@@ -4,97 +4,99 @@
 // A six-row table is a reference document; a slide is a glance. So the table
 // becomes three slides of one contrast each, which is also how the argument
 // actually lands in conversation.
+//
+// EVERY SLIDE IS A PHOTOGRAPH NOW, and that changes what the comparison can
+// be. It was a block of type filling a green field; on a picture it has to be
+// a caption — small, at the head of the frame, with the photograph carrying
+// the rest. The order is still the argument: coffee first and dimmed, the
+// Mate Latte second and brighter, because the last thing read is the thing
+// remembered.
 const M = window.MilongaEmailDS;
 const h = React.createElement;
 const S = (p, ...kids) => h(M.Slide, p, ...kids);
 
-const FOREST = '#004D27';
 const CREAM = '#F0EFDF';
 const GOLD = '#E3BC62';
+const HALO = '0 0 3px rgba(0,26,13,0.9), 0 1px 4px rgba(0,26,13,0.85), 0 3px 14px rgba(0,26,13,0.7), 0 8px 30px rgba(0,26,13,0.5)';
 
-// One contrast, at the size a comparison has to be read at.
+const IMG = {
+  still: '../public/product/vs-stilllife.jpg',
+  cafe: '../public/product/vs-cafe-table.jpg',
+  laptop: '../public/product/vs-laptop.jpg',
+  balcony: '../public/product/vs-balcony.jpg',
+  courtyard: '../public/product/vs-courtyard.jpg',
+};
+
+// One contrast, as a caption on a photograph.
 //
-// THE SPLIT IS HORIZONTAL, and that is the whole fix. The first pass put two
-// columns side by side, which is how a table reads on a wide screen — but a
-// slide is 4:5, so each column got 250 units of width, every answer wrapped
-// after three words, and the type could not go past 27 without breaking. Half
-// the slide sat empty above and below it.
-//
-// Stacked, each answer gets the full 508 units and runs on one or two lines at
-// 40, and the rule between them is the length of the frame. The order is the
-// argument: coffee first and dimmed, the Mate Latte second, brighter and a
-// size larger, because the last thing read is the thing remembered.
-function Versus(label, coffee, mate) {
+// The block runs at a third of the size it did on the flat slides — label 15,
+// answers 25 and 27 against 18, 38 and 44 — because it is no longer the slide.
+// It sits directly under the title and stops at about 40% of the frame, so
+// the lower two thirds are photograph and nothing else.
+function Versus(src, focus, scrim, label, coffee, mate) {
   const block = (who, text, ink, body, size) => h('div', null,
-    h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900, fontSize: 18,
-      letterSpacing: '0.18em', textTransform: 'uppercase', color: ink, marginBottom: 16 } }, who),
+    h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 900, fontSize: 15,
+      letterSpacing: '0.2em', textTransform: 'uppercase', color: ink, marginBottom: 9,
+      textShadow: HALO } }, who),
     h('div', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500, fontSize: size,
-      lineHeight: 1.2, color: body } }, text),
+      lineHeight: 1.22, color: body, maxWidth: 420, textShadow: HALO } }, text),
   );
-  // The subject sits at the head of the frame like every other title in the
-  // set, and the two answers take everything under it. Centring the whole
-  // block instead left the top third and the bottom third empty at once —
-  // the stack is only about 360 units tall and the frame is 750.
-  return h(M.Slide, { bg: 'forest', textured: true, align: 'top', padX: 50, padY: 62 },
-    h(M.SlideTitle, { line1: label, size: 54, lead: 1.0, color: CREAM }),
-    h('div', { style: { flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' } },
-      block('Coffee', coffee, 'rgba(240,239,223,0.42)', 'rgba(240,239,223,0.58)', 38),
-      h('div', { style: { height: 52, borderBottom: '1px solid rgba(227,188,98,0.34)', marginBottom: 52 } }),
-      block('Mate Latte', mate, GOLD, CREAM, 44),
-    ),
+  return h(M.Slide, { src, focus, scrim, scrimAt: 'top', align: 'top', padX: 46, padY: 52 },
+    h(M.SlideTitle, { line1: label, size: 54, lead: 1.0, color: CREAM, halo: 'hold' }),
+    h('div', { style: { height: 26 } }),
+    block('Coffee', coffee, 'rgba(240,239,223,0.6)', 'rgba(240,239,223,0.72)', 25),
+    h('div', { style: { height: 20, borderBottom: '1px solid rgba(227,188,98,0.45)', marginBottom: 20, maxWidth: 420 } }),
+    block('Mate Latte', mate, GOLD, CREAM, 27),
   );
 }
 
 function CarouselCoffeeVsMate() {
   return h('div', null,
 
-    // 1 · THE HOOK, on the product. This was type alone on an empty beige
-    // field, which is the one thing a feed will not stop for. The jar shot
-    // has the whole upper half of its frame as plain warm wall, so the type
-    // takes that and the jar keeps the foot.
+    // 1 · THE HOOK. The wider framing of the studio still life, which needs no
+    // rebuilding: measured, the first row that is not flat backdrop is 31.7%
+    // down the file, so even after the crop the title and its paragraph have
+    // all the room they need.
     //
-    // Forest green, no scrim. That wall measures around 200 — far too light
-    // for cream — and on a light ground the contrast map sends the ink dark
-    // rather than sending a wash over the picture.
-    //
-    // The source is 1200 x 1440 against a 600 x 750 frame, so height binds
-    // and only 25 design units of width are lost. There is no crop to tune
-    // here; the picture is very nearly all there.
-    S({ src: '../public/product/iced-callout-bg.jpg', align: 'top', padX: 44, padY: 50 },
+    // 18% rather than the top. The source is 832 x 1248 against a 600 x 750
+    // frame, so 150 design units of height overflow; at a top crop all 150
+    // comes off the foot and the composition sits as low as it can. 18 of
+    // them off the head lifts it 27 units, which still leaves 258 of clear
+    // green above it against the 217 the type occupies.
+    S({ src: IMG.still, focus: 'center 18%', align: 'top', padX: 46, padY: 54 },
       h(M.SlideTitle, { line1: 'Meet your coffee’s', line2: 'competition.',
-        size: 34, size2: 54, lead: 0.98, color: FOREST, color2: FOREST }),
-      h(M.SlideBody, { text: 'Same morning cup.\nA completely different afternoon.',
-        size: 18, color: '#1A1A1A', measure: 440, top: 20 }),
+        size: 34, size2: 54, lead: 0.98, color: CREAM, color2: GOLD, halo: 'hold' }),
+      h(M.SlideBody, { text: 'Turn your everyday morning cup into a better start to your day.',
+        size: 19, color: '#FFFFFF', measure: 400, top: 22, halo: 'strong' }),
     ),
 
-    Versus('The feeling', 'A spike, then a crash', 'Steady, even energy'),
-    Versus('Focus', 'Sharp, then scattered', 'Clear and sustained'),
-    Versus('Calm', 'Jittery on an empty stomach', 'L-Theanine balances it'),
+    Versus(IMG.cafe, 'center top', 0.34, 'Energy',
+      'A spike, then a crash', 'Smooth, sustained energy'),
+    Versus(IMG.laptop, 'center 22%', 0.34, 'Focus',
+      'Awake, then scattered', 'Clear-headed & focused'),
+    Versus(IMG.balcony, 'center top', 0.34, 'Calm',
+      'Jittery, anxious, unsteady', 'Balanced, calm, and steady'),
 
-    // 5 · THE ASK. Title, the three facts as a bulleted list under the gold
-    // Milonga hand — the same bullet the site and the other closers use — and
-    // the scoop shot taking the foot of the frame so the slide ends on the
-    // product rather than on a colour.
-    S({ bg: 'forest', textured: true, align: 'top', padX: 50, padY: 54 },
-      h(M.SlideTitle, { line1: 'Upgrade your', line2: 'morning cup.',
-        size: 46, lead: 0.98, color: CREAM, color2: GOLD }),
-      h('div', { style: { marginTop: 22 } },
-        ['100mg natural caffeine', 'Lion’s Mane + L-Theanine', 'Ready in 30 seconds'].map((t, i) =>
-          h('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: 11, marginBottom: 8 } },
-            h('img', { src: '../public/logo/mark-gold.png', alt: '',
-              style: { height: 23, width: 'auto', flex: 'none', display: 'block' } }),
-            h('span', { style: { fontFamily: 'Gotham, Montserrat, sans-serif', fontWeight: 500,
-              fontSize: 17, letterSpacing: '0.08em', textTransform: 'uppercase',
-              lineHeight: 1.2, color: CREAM } }, t),
-          )),
-      ),
-      h(M.SlideCta, { label: 'Shop the Mate Latte', bg: 'forest', align: 'left' }),
-      h('img', { src: '../public/product/pouch-hand-pour-big.png',
-        alt: 'A scoop of Milonga Mate Latte powder being poured into a glass beside the pouch',
-        // Flush left, bleeding right: the pouch touches the edge of its own
-        // file, so a negative offset would slice its front face off.
-        style: { position: 'absolute', left: 0, bottom: 0, width: 620,
-                 height: 'auto', display: 'block' } }),
+    // 5 · THE CLOSE, on the photograph. No bullets and no button: the four
+    // slides before this one have already made every point, and the last
+    // frame's job is to leave the reader with the feeling rather than a spec
+    // sheet.
+    //
+    // This frame needs the heaviest hand in the set at 0.42. The others put
+    // their type on one kind of ground; here the head of the picture is white
+    // stucco on the left and tree canopy on the right, so cream has to hold
+    // across a 200 and a 60 in the same line, and a halo alone will not do it.
+    S({ src: IMG.courtyard, focus: 'center top', scrim: 0.42, scrimAt: 'top',
+        align: 'top', padX: 46, padY: 52 },
+      h(M.SlideTitle, { line1: 'Everything your', line2: 'mornings need.',
+        size: 34, size2: 50, lead: 0.98, color: CREAM, color2: GOLD, halo: 'hold' }),
+      // Two blocks rather than one with a blank line between them. A blank
+      // line is a whole 27-unit row at this leading, which read as a gap
+      // between two ideas; 13 reads as a breath inside one.
+      h(M.SlideBody, { text: 'Don’t you think it’s time to make an upgrade? Think about it…',
+        size: 19, color: '#FFFFFF', measure: 450, top: 22, halo: 'strong' }),
+      h(M.SlideBody, { text: 'Clean sustained energy, clear headed and focused, while staying calm and steady.',
+        size: 19, color: '#FFFFFF', measure: 450, top: 13, halo: 'strong' }),
     ),
   );
 }

@@ -1,8 +1,8 @@
 // SET THE TONE FOR YOUR DAY — feed carousel.
 //
 // The email's callout diagram listed five benefits against one photograph.
-// Five items is a slide too many to read at a swipe, so the strongest three
-// carry their own slides and the rest go in the closing spec line.
+// Five items is a slide too many to read at a swipe, so the strongest two
+// carry their own slides and the rest go in the closing line.
 //
 // BOTH PHOTOGRAPHS IN THIS SET ARE LIGHT. Measured at the foot of the frame
 // they run 135 and 141 — brighter than the type sitting on them — and the fix
@@ -15,12 +15,27 @@ const h = React.createElement;
 const S = (p, ...kids) => h(M.Slide, p, ...kids);
 
 const FOREST = '#004D27';
+const CREAM = '#F0EFDF';
+const GOLD = '#E3BC62';
 
-function Benefit(line1, line2, note) {
-  return h(M.Slide, { bg: 'beige', textured: true, align: 'center', padX: 54 },
-    h(M.SlideTitle, { line1, line2, size: 56, lead: 0.94, align: 'center',
+// A benefit, with a product cutout taking the foot of the frame.
+//
+// The type-only version of these slides put a centred block in the middle of
+// an empty field and left the top third and the bottom third doing nothing.
+// Anchoring the words at the head and giving the picture everything under
+// them fills the frame and gives the pair the same shape as every other slide
+// in the account.
+//
+// THE CUTOUTS ENTER FROM OPPOSITE EDGES, which is the house rhythm: a cutout
+// with air on all four sides is a sticker, and alternating which edge it
+// crosses is what stops two slides of the same construction reading as one
+// slide shown twice.
+function Benefit(line1, line2, note, img, alt, pos) {
+  return h(M.Slide, { bg: 'beige', textured: true, align: 'top', padX: 50, padY: 58 },
+    h(M.SlideTitle, { line1, line2, size: 40, size2: 56, lead: 0.96,
       color: FOREST, color2: FOREST }),
-    h(M.SlideBody, { text: note, size: 25, color: '#000000', align: 'center', measure: 460, top: 30 }),
+    h(M.SlideBody, { text: note, size: 21, color: '#1A1A1A', measure: 330, top: 24 }),
+    h('img', { src: img, alt, style: { position: 'absolute', ...pos, display: 'block' } }),
   );
 }
 
@@ -39,15 +54,33 @@ function CarouselSetTheTone() {
         size: 52, lead: 0.96, color: FOREST, color2: FOREST }),
     ),
 
-    S({ bg: 'forest', textured: true, align: 'center', padX: 54 },
-      h(M.SlideBody, { text: 'Before the day gets busy,\ntake a moment to slow down.',
-        size: 31, align: 'center', measure: 460, top: 0, color: '#E3BC62' }),
-      h(M.SlideBody, { text: 'Clean caffeine, a clear head and a calm start — in thirty seconds, hot or iced.',
-        size: 22, align: 'center', measure: 430, top: 28 }),
+    // 2 · THE INVITATION. It was two paragraphs floating in the middle of a
+    // green field with no title at all — the only slide in the account
+    // without the house anatomy. Eyebrow, two-line headline, paragraph, and
+    // the cup taking the foot.
+    S({ bg: 'forest', textured: true, align: 'top', padX: 52, padY: 64 },
+      h(M.SlideEyebrow, { text: 'Thirty seconds' }),
+      h(M.SlideTitle, { line1: 'Before the day', line2: 'gets busy.',
+        size: 34, size2: 54, lead: 0.96, color: CREAM, color2: GOLD }),
+      h(M.SlideBody, { text: 'Take a moment to slow down. Clean caffeine, a clear head and a calm start — hot or iced.',
+        size: 20, color: '#FFFFFF', measure: 420, top: 24 }),
+      h('img', { src: '../public/product/latte-cup-top.png',
+        alt: 'A cup of Milonga Mate Latte seen from above',
+        style: { position: 'absolute', left: '50%', bottom: -150, width: 520,
+                 marginLeft: -260, display: 'block' } }),
     ),
 
-    Benefit('Clean, sustained', 'energy.', 'For walking into work already on your second gear.'),
-    Benefit('Mental clarity', '& focus.', 'For when your brain clocks in before you do.'),
+    Benefit('Clean, sustained', 'energy.',
+      'For walking into work already on your second gear.',
+      '../public/product/jar-golden-vanilla.png',
+      'A hand holding a glass jar of iced Milonga Mate Latte',
+      { right: -120, bottom: -60, width: 560 }),
+
+    Benefit('Mental clarity', '& focus.',
+      'For when your brain clocks in before you do.',
+      '../public/product/pouch-hand-float.png',
+      'A hand holding out the Milonga Mate Latte pouch',
+      { left: -140, bottom: -20, width: 660 }),
 
     // 5 · THE ASK. Crop to the top instead, because here the empty ground is
     // the wall ABOVE the jar. Everything moves down 75 units and the type

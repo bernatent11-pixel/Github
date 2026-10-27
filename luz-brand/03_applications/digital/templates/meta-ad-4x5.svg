@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350">
+  <rect width="1080" height="1350" fill="#F0EFDF"/>
+  <rect x="0" y="0" width="1080" height="837" fill="#EFD9A0"/>
+  <text x="540" y="418.5" text-anchor="middle" font-family="Hanken Grotesk, Arial, sans-serif" font-size="28" fill="#12331F" opacity=".7">[ PRODUCT / LIFESTYLE SHOT ]</text>
+  <rect y="837" width="1080" height="1350" fill="#004D27"/>
+  <text x="540" y="947" text-anchor="middle" font-family="Bodoni Moda, Georgia, serif" font-size="77" fill="#E3BC62">Your alternative is still coffee.</text>
+  <text x="540" y="1022" text-anchor="middle" font-family="Hanken Grotesk, Arial, sans-serif" font-size="34" fill="#F0EFDF">This isn’t. 100 mg of mate energy, zero coffee.</text>
+  <rect x="390" y="1200" width="300" height="86" rx="43" fill="#E3BC62"/>
+  <text x="540" y="1255" text-anchor="middle" font-family="Hanken Grotesk, Arial, sans-serif" font-weight="700" font-size="34" fill="#004D27">TRY LUZ</text>
+</svg>

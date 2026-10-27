@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+    <rect width="1600" height="1000" fill="#004D27"/>
+    <g opacity=".16"><g transform="scale(2.2)"></g></g>
+    <g transform="translate(550,370) scale(0.4664179104477612)"><g fill="#E3BC62">
+    <path d="M0,0 L134,0 L134,15 L110,15 Q102,15 100,33
+          L34,33 Q32,15 24,15 L0,15 Z M34,15 h66 v370 h-66 Z M0,400 L0,385 L24,385 Q32,385 34,367
+          L100,367 Q102,385 110,385 L134,385 L134,400 Z M100,400 L100,370
+     L252,370 Q276,366 280,288
+     Q287,280 286,400 Z"/>
+    <g transform="translate(350,0)"><path d="
+   M0,0 L134,0 L134,15 L110,15 Q102,15 100,33
+          L34,33 Q32,15 24,15 L0,15 Z M232,0 L366,0 L366,15 L342,15 Q334,15 332,33
+          L266,33 Q264,15 256,15 L232,15 Z
+   M34,15 h66 v221 h-66 Z
+   M266,15 h66 v221 h-66 Z
+   M34,236 A149,164 0 0 0 332,236
+   L266,236 A83,144 0 0 1 100,236 Z"/></g>
+    <g transform="translate(796,0)"><path d="
+   M6,0 L272,0 L272,38 L86,362 L266,362
+   L266,292 L286,292 L286,400
+   L0,400 L0,362 L186,38 L6,38
+   L6,108 L-14,108 L-14,0 Z"/></g>
+  </g></g>
+    <text x="800" y="680" text-anchor="middle" font-family="Hanken Grotesk, Arial, sans-serif" font-weight="600" font-size="34" letter-spacing="18" fill="#E3BC62">GOLDEN CLARITY</text>
+    <g transform="translate(130,850) scale(0.42)"><g><defs><clipPath id="riseclip"><rect x="-166" y="-166" width="332" height="166"/></clipPath></defs>
+      <g clip-path="url(#riseclip)"><g fill="#E3BC62"><circle r="86"/><path d="M97.7,56.7
+      L151.8,67.4
+      L155.0,59.6
+      L109.2,29.0 Z M29.0,109.2
+      L59.6,155.0
+      L67.4,151.8
+      L56.7,97.7 Z M-56.7,97.7
+      L-67.4,151.8
+      L-59.6,155.0
+      L-29.0,109.2 Z M-109.2,29.0
+      L-155.0,59.6
+      L-151.8,67.4
+      L-97.7,56.7 Z M-97.7,-56.7
+      L-151.8,-67.4
+      L-155.0,-59.6
+      L-109.2,-29.0 Z M-29.0,-109.2
+      L-59.6,-155.0
+      L-67.4,-151.8
+      L-56.7,-97.7 Z M56.7,-97.7
+      L67.4,-151.8
+      L59.6,-155.0
+      L29.0,-109.2 Z M109.2,-29.0
+      L155.0,-59.6
+      L151.8,-67.4
+      L97.7,-56.7 Z "/></g></g>
+      <rect x="-166" y="-7" width="332" height="14" fill="#E3BC62"/></g></g>
+    <text x="1540" y="940" text-anchor="end" font-family="Hanken Grotesk, Arial, sans-serif" font-size="22" fill="#F0EFDF">[ interior: pattern-rayos tile + “La ronda starts here. Pass it on.” ]</text>
+  </svg>

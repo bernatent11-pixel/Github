@@ -1,0 +1,16 @@
+/* LUZ design tokens — generated */
+:root{
+  --luz-forest: #004D27;
+  --luz-gold: #E3BC62;
+  --luz-leaf: #057441;
+  --luz-beige: #F0EFDF;
+  --luz-white: #FFFFFF;
+  --luz-forestDeep: #00351B;
+  --luz-goldSoft: #EFD9A0;
+  --luz-cream: #FBF8EF;
+  --luz-ink: #12331F;
+  --luz-font-display: "Bodoni Moda", Georgia, serif;
+  --luz-font-text: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --luz-radius-card: 16px; --luz-radius-button: 999px;
+  --luz-shadow-soft: 0 10px 30px rgba(0,53,27,.12);
+}

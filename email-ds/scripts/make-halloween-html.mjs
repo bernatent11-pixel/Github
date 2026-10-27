@@ -31,7 +31,7 @@ const LINK = {
 };
 
 const SUBJECT = 'Trick Or Treat Yourself 🎃👻';
-const PREVIEW = 'Up to 30% off the Halloween Party Pack and up to 25% off everything, until Monday, November 2.';
+// Preview text is set in the Klaviyo campaign, never in the HTML.
 const SALE_END = 'Monday, November 2 at 11:59 PM ET';
 
 const ORANGE = '#DA5813';
@@ -130,16 +130,13 @@ const COMPLIANCE =
   'evaluated by the Food and Drug Administration.';
 
 // ── 3. The template ──────────────────────────────────────────────────────
-const html = `<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="x-apple-disable-message-reformatting">
-<title>${SUBJECT}</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
-<style>
-  body { margin:0; padding:0; background:${BEIGE}; }
+// A BODY-ONLY FRAGMENT for a Klaviyo HTML block (EMAIL_QA.md): Klaviyo wraps
+// the block in its own document, so no doctype, <html>, <head>, <meta>,
+// <title> or <body>, and no hidden preview-text div — the preview text is
+// set in the campaign. The one <style> block sits in the fragment: the font,
+// three resets and the phone rule; everything else is inline.
+const html = `<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,800;0,900;1,800&display=swap');
   table { border-collapse:collapse; }
   img { -ms-interpolation-mode:bicubic; }
   a { color:inherit; }
@@ -148,10 +145,6 @@ const html = `<!DOCTYPE html>
     .card-btn { font-size:10px !important; letter-spacing:1px !important; padding:11px 12px !important; }
   }
 </style>
-</head>
-<body style="margin:0;padding:0;background:${BEIGE};">
-<!-- Preview text -->
-<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:${BEIGE};">${PREVIEW}&#8199;&#65279;&#847;&#8199;&#65279;&#847;&#8199;&#65279;&#847;&#8199;&#65279;&#847;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BEIGE}" style="background:${BEIGE};">
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
@@ -189,7 +182,7 @@ ${row(FOREST, `<div style="font-family:${FONT};font-size:13px;font-weight:800;le
 <tr><td align="center" bgcolor="${BEIGE}" style="background:${BEIGE};padding:34px 30px 36px;font-family:${FONT};color:${FOREST};">
 <a href="${LINK.home}" target="_blank"><img src="${url('footer-logo.png')}" width="${Math.round(logoMeta.width * 64 / logoMeta.height)}" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
 <div style="padding-top:18px;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
-<div style="padding-top:18px;"><a href="{% unsubscribe_url %}" target="_blank" style="display:inline-block;padding:10px 24px;border:1.5px solid ${FOREST};border-radius:999px;font-family:${FONT};font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${FOREST};text-decoration:none;">Unsubscribe</a></div>
+<div style="padding-top:18px;"><a href="{% unsubscribe_link %}" target="_blank" style="display:inline-block;padding:10px 24px;border:1.5px solid ${FOREST};border-radius:999px;font-family:${FONT};font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${FOREST};text-decoration:none;">Unsubscribe</a></div>
 <div style="padding-top:12px;font-size:11px;font-weight:600;color:#3B5344;">{% web_view %}</div>
 <div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:600;color:#3B5344;">${COMPLIANCE}</div>
 <div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${FOREST};"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">Milonga.life</a> · <a href="mailto:connect@milonga.life" style="color:${FOREST};text-decoration:none;">connect@milonga.life</a></div>
@@ -198,8 +191,12 @@ ${row(FOREST, `<div style="font-family:${FONT};font-size:13px;font-weight:800;le
 </table>
 </td></tr>
 </table>
-</body>
-</html>
 `;
+const { validate, report } = await import('./validate-klaviyo-email.mjs');
+const problems = validate(html);
+if (problems.length) {
+  console.error(report(problems, 'halloween-sale.html (not written)'));
+  process.exit(1);
+}
 fs.writeFileSync(`${OUT}/halloween-sale.html`, html);
 console.log('wrote', `${OUT}/halloween-sale.html`, (html.length / 1024).toFixed(1) + ' KB');

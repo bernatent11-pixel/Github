@@ -16,7 +16,8 @@
   "scripts": {
     "build": "node build.mjs && tsc -p tsconfig.build.json",
     "assets": "node scripts/make-logos.mjs",
-    "preview": "node build.mjs && node scripts/build-preview.mjs"
+    "preview": "node build.mjs && node scripts/build-preview.mjs",
+    "qa:email": "node scripts/validate-klaviyo-email.mjs"
   },
   "peerDependencies": {
     "react": ">=18",

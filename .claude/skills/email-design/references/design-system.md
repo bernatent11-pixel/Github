@@ -316,6 +316,20 @@ The React build is the design. What ships to Klaviyo has to survive email client
 Because of all this, Milonga campaigns usually ship as **images** — see the export step in
 `saving-and-handoff.md`.
 
+**Live HTML for a Klaviyo HTML block** (buttons, footer, any text) follows `email-ds/EMAIL_QA.md`:
+
+- **A body fragment, not a document.** Klaviyo wraps the block in its own page: no doctype,
+  `<html>`, `<head>`, `<meta>`, `<title>` or `<body>`, and no hidden preview-text div (preview text
+  is set in the campaign). One `<style>` block for resets and the phone rule; the rest inline
+- **Only allowlisted Klaviyo tags** — `{% unsubscribe %}` / `{% unsubscribe 'text' %}` /
+  `{% unsubscribe_link %}`, the same three for `manage_preferences` and `web_view`,
+  `{{ organization.name }}`, `{{ organization.full_address }}`, and profile fields only with
+  `|default:'…'`. The bare tags print a whole link; inside `href="…"` use the `_link` form.
+  **One unknown tag fails the whole send** (Halloween 2026: `{% unsubscribe_url %}`, 0 of 2,086
+  delivered). Never invent one
+- **Gate:** `node scripts/validate-klaviyo-email.mjs <file>` must pass, then the render check;
+  generators run the validator and refuse to write a failing file
+
 ---
 
 ## 10. Review it the way it will be seen

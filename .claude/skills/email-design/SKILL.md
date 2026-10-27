@@ -158,7 +158,10 @@ see **Remembering** above.
 **"Final" means Bernat approved it**, not that you think it's done. On approval, run the whole of
 `references/saving-and-handoff.md`. In short:
 
-1. **Export** — full-length PNG, plus the two-image Klaviyo split via `scripts/split-for-klaviyo.mjs`
+1. **Export** — full-length PNG, plus the two-image Klaviyo split via `scripts/split-for-klaviyo.mjs`.
+   Any live HTML for a Klaviyo HTML block is a body fragment and must pass
+   `scripts/validate-klaviyo-email.mjs` (then `--render`) before handover — see `email-ds/EMAIL_QA.md`.
+   One invented template tag skips every recipient
 2. **Save** to `/Email Marketing Agent/campaigns/designs/[Month]/YYYY-MM-week-N/`, mirroring the
    copy document's month and week exactly
 3. **Fill the AS BUILT section** of the matching build record — including every word of copy baked

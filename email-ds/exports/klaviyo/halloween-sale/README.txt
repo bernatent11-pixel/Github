@@ -1,19 +1,20 @@
 TRICK OR TREAT YOURSELF - Klaviyo HTML template
 ===============================================
 
-File:     halloween-sale.html   (paste the whole file)
+File:     halloween-sale.html   (a body fragment for a Klaviyo HTML block)
 Subject:  Trick Or Treat Yourself 🎃👻
-Preview:  Up to 30% off the Halloween Party Pack and up to 25% off everything, until Monday, November 2.
-          (The preview text is also built into the HTML.)
+Preview:  set it in the campaign settings only (the HTML carries no preview text).
 Sale end: Monday, November 2, 2026 at 11:59 PM ET (time assumed; change SALE_END
           in scripts/make-halloween-html.mjs and rebuild if it is different)
 
-PASTE IT INTO KLAVIYO
-1. Content > Templates > Create template > choose the HTML / code editor.
-2. Delete what is there, paste the full contents of halloween-sale.html, save.
-3. In the campaign, pick this template and set the subject and preview above.
-All images already live in your Klaviyo image library (named halloween-sale-*),
-so nothing needs uploading.
+CHECK, THEN PASTE IT INTO KLAVIYO  (full checklist: email-ds/EMAIL_QA.md)
+1. cd email-ds && node scripts/validate-klaviyo-email.mjs exports/klaviyo/halloween-sale/halloween-sale.html
+   It must print PASS. (Optional ground truth: add --render with KLAVIYO_API_KEY set.)
+2. In the campaign's email, add an HTML block, delete what is in it, paste the
+   whole file, save. All images already live in the Klaviyo image library
+   (named halloween-sale-*), so nothing needs uploading.
+3. Set the subject and preview text in the campaign settings.
+4. Preview & test as a real profile, send yourself a test, click every link, then schedule.
 
 LINKS
 - Shop the sale button and the top picture  -> https://milonga.life
@@ -24,7 +25,7 @@ LINKS
 - Shop variety (Cannabis)                    -> https://milonga.life/products/variety
 - Shop Mate Latte                            -> https://milonga.life/products/the-original-mate-latte
 - Footer logo and "milonga.life"             -> https://milonga.life
-- Unsubscribe button                         -> Klaviyo unsubscribe link ({% unsubscribe_url %})
+- Unsubscribe button                         -> Klaviyo unsubscribe link (the unsubscribe_link tag)
 
 MAKE THE TIMER LIVE (about 2 minutes)
 Klaviyo has no built-in countdown, so the live timer is an image from a timer
@@ -35,7 +36,8 @@ service that redraws every time the email is opened. Sendtric is free:
 2. Copy the timer's image URL.
 3. In halloween-sale.html find the line starting with  <!-- TIMER:
    - remove  <!-- TIMER:  at the start and  -->  at the end of that line
-   - replace YOUR-TIMER-URL with the timer's image URL.
+   - replace YOUR-TIMER-URL with the timer's image URL
+   - run the validator again before pasting.
 4. Keep the "Ends Monday, November 2 at 11:59 PM ET" pill under it: it is
    what readers see if images are off. (Or delete the pill if you prefer the
    timer alone.)

@@ -81,6 +81,7 @@ it overrides the skill's reference files, because it is newer and came from him 
 | 2026-10-24 | Images | **The product is never AI-rendered.** A generated scene carries the real packshot, composited, so every word on a can or pouch is the actual artwork and readable at the size it ships. A model redraws a label each time it renders one and invents the small print, which puts invented specs on the pack | Bernat, on the Halloween hero |
 
 ---
+| 2026-10-27 | Export | **Live HTML for a Klaviyo HTML block is a body fragment and uses only allowlisted tags.** No doctype, `<html>`, `<head>`, `<meta>`, `<title>`, `<body>` or preview-text div; tags only `{% unsubscribe %}` / `{% unsubscribe 'text' %}` / `{% unsubscribe_link %}`, the same for `manage_preferences` and `web_view`, `{{ organization.name }}`, `{{ organization.full_address }}`, profile fields only with `\|default:'…'`. Bare tags print a whole link; inside `href` use `_link`. Must pass `scripts/validate-klaviyo-email.mjs` and its `--render` check before handover (`EMAIL_QA.md`) | Bernat, after the Halloween send failed |
 
 ## Log
 
@@ -502,6 +503,18 @@ and asked not to be pushed back on it. Stored so no later session swaps or flags
 narrow: this one line, for yerba mate; "boost metabolism", "mood support" and "stress support"
 were not approved and stay out. `references/design-system.md` still lists the general claim limits
 without this exception.
+
+### 2026-10-27 — the Halloween send that never went (Export)
+
+"Trick or Treat Yourself! Sweet Savings 🎃" was skipped for all 2,086 recipients with Klaviyo's
+*Email Syntax Error*. The footer Claude wrote used `{% unsubscribe_url %}`, which is not a Klaviyo
+tag; the Django-based engine fails the whole render on one unknown tag. Klaviyo's renderer
+confirmed it (400, "check included django syntax"); the fixed file renders. The file was also a
+full HTML document with a hidden preview-text div contradicting the campaign's preview field.
+Rule added: fragments only, allowlisted tags only, validator plus render check as a gate, and the
+generators refuse to write a failing file. `references/design-system.md` §9 and
+`saving-and-handoff.md` §3 updated to match. The same audit found `href="{% web_view %}"` (a link
+inside a link) in the Original Mate Latte build; fixed to `{% web_view_link %}`.
 
 ## Campaign-specific choices — *not* rules
 

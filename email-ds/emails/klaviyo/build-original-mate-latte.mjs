@@ -76,7 +76,7 @@ function iconRow(icon, heading, text, { discSize = 46, headSize = 18 } = {}) {
     : `${esc(head)}<span style="color:${GOLD};">${tail ? ' ' + esc(tail) : ''}</span>`;
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
     <td width="${discSize + 14}" valign="top" style="width:${discSize + 14}px;padding:11px 0;">
-      <img src="${icon}" width="${discSize}" height="${discSize}" alt="" style="display:block;width:${discSize}px;height:${discSize}px;border:0;" />
+      <img src="${icon}" width="${discSize}" height="${discSize}" alt="" role="presentation" style="display:block;width:${discSize}px;height:${discSize}px;border:0;" />
     </td>
     <td valign="middle" style="padding:11px 0;">
       <div style="font-family:${FONT};font-size:${headSize}px;line-height:1.2;font-weight:900;text-transform:uppercase;letter-spacing:0.02em;color:${BEIGE};">${headHtml}</div>
@@ -311,25 +311,20 @@ rows.push(
       `<div style="font-family:${FONT};font-size:10.5px;line-height:1.75;color:rgba(255,255,255,0.78);text-align:center;">
         {{ organization.name }}<br />
         {{ organization.full_address }}<br />
-        {% unsubscribe 'Unsubscribe' %} &middot; <a href="{% web_view %}" style="color:rgba(255,255,255,0.78);">View in browser</a>
+        {% unsubscribe 'Unsubscribe' %} &middot; <a href="{% web_view_link %}" style="color:rgba(255,255,255,0.78);">View in browser</a>
       </div>` +
       spacer(30),
     '0 30px',
   ),
 );
 
-const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="x-apple-disable-message-reformatting" />
-<title>The Original Mate Latte</title>
-<style type="text/css">
-  body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+// A BODY-ONLY FRAGMENT for a Klaviyo HTML block (see EMAIL_QA.md): Klaviyo
+// supplies the document, so no doctype, <html>, <head>, <meta>, <title> or
+// <body>, and no hidden preview-text div: preview text is set in the campaign.
+const html = `<style type="text/css">
+  table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
   table,td{mso-table-lspace:0pt;mso-table-rspace:0pt;}
   img{-ms-interpolation-mode:bicubic;border:0;outline:none;text-decoration:none;}
-  body{margin:0!important;padding:0!important;width:100%!important;background-color:${FOREST};}
   a{color:${GOLD};}
   /* One column on phones: the price options and the comparison stay readable. */
   @media only screen and (max-width:620px){
@@ -337,19 +332,24 @@ const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "ht
     .m-pad{padding-left:18px!important;padding-right:18px!important;}
   }
 </style>
-<!--[if mso]><style type="text/css">body,table,td,div,span,a{font-family:Arial,Helvetica,sans-serif!important;}</style><![endif]-->
-</head>
-<body style="margin:0;padding:0;background-color:${FOREST};">
-<div style="display:none;font-size:1px;color:${FOREST};line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">Organic yerba mate, 500mg Lion's Mane and 200mg L-Theanine in a creamy vanilla latte. 90 calories, 3g sugar.</div>
+<!--[if mso]><style type="text/css">table,td,div,span,a{font-family:Arial,Helvetica,sans-serif!important;}</style><![endif]-->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${FOREST}" style="background-color:${FOREST};">
   <tr><td align="center" style="padding:0;">
     <table role="presentation" width="${W}" class="m-full" cellpadding="0" cellspacing="0" border="0" bgcolor="${FOREST}" style="width:${W}px;max-width:${W}px;background-color:${FOREST};">
       ${rows.join('\n      ')}
     </table>
   </td></tr>
-</table>
-</body>
-</html>`;
+</table>`;
 
+// Nothing reaches the export unless it passes the pre-flight check.
+const { validate, report } = await import('../../scripts/validate-klaviyo-email.mjs');
+const problems = validate(html);
+if (problems.length) {
+  console.error(report(problems, 'original-mate-latte.html (not written)'));
+  process.exit(1);
+}
 writeFileSync(new URL('./original-mate-latte.html', import.meta.url), html);
+// The compact copy: same markup, each line trimmed, blank lines dropped.
+const min = html.split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
+writeFileSync(new URL('./original-mate-latte.min.html', import.meta.url), min);
 console.log('wrote original-mate-latte.html —', Math.round(html.length / 1024) + 'KB');

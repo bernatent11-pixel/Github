@@ -69,6 +69,17 @@ Re-stitch the two slices and look at the seam before shipping them. If it's visi
 
 **In Klaviyo:** two image blocks stacked, both 100% width, no padding or spacing between them.
 
+**Live HTML (an HTML block with real buttons, footer or text):** the file is a body fragment and
+must pass the pre-flight check before it is handed over:
+
+```bash
+node scripts/validate-klaviyo-email.mjs <email.html>            # local, must print PASS
+KLAVIYO_API_KEY=… node scripts/validate-klaviyo-email.mjs <email.html> --render   # Klaviyo's renderer
+```
+
+Then follow `email-ds/EMAIL_QA.md`: preview as a real profile, test send, schedule. A generator that
+writes email HTML calls `validate()` itself and exits non-zero instead of writing a failing file.
+
 ---
 
 ## 4. Fill the AS BUILT section of the build record

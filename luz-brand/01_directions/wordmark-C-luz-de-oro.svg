@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 280"><rect width="560" height="280" fill="#1D1710"/>
+  <defs><mask id="beam"><rect width="560" height="280" fill="#fff"/>
+    <g transform="rotate(20 390 140)"><rect x="383" y="-60" width="14" height="400" fill="#000"/></g>
+  </mask></defs>
+  <g mask="url(#beam)" fill="#E0A33B"><path d="M70,48 h38 v146 h66 v38 h-104 Z" fill-rule="evenodd"/><path d="M202,48 h104 v159 q0,30 -30,30 h-44 q-30,0 -30,-30 Z
+    M240,48 h28 v139 q0,12 -12,12 h-4 q-12,0 -12,-12 Z" fill-rule="evenodd"/><path d="M334,48 h112 v32 l-70,120 h70 v32 h-112 v-32 l70,-120 h-70 Z" fill-rule="evenodd"/></g></svg>

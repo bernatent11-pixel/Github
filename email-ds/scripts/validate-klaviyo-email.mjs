@@ -31,7 +31,11 @@ const TAG_ALLOW = [
   /^manage_preferences$/, /^manage_preferences\s+'[^'"]*'$/, /^manage_preferences_link$/,
   /^web_view$/, /^web_view\s+'[^'"]*'$/, /^web_view_link$/,
 ];
-const UNSUBSCRIBE = [/^unsubscribe$/, /^unsubscribe\s+'[^'"]*'$/, /^unsubscribe_link$/];
+// Klaviyo's campaign check only confirms the full-link forms. A hand-made
+// <a href="{% unsubscribe_link %}"> renders, yet the Halloween clone was still
+// blocked with "unable to confirm the unsubscribe link … template syntax
+// errors", so the URL-only form does not count as the email's unsubscribe.
+const UNSUBSCRIBE = [/^unsubscribe$/, /^unsubscribe\s+'[^'"]*'$/];
 // Tags that print a full <a> element, so they must never sit inside an attribute.
 const LINK_ELEMENT_TAG = /^(unsubscribe|manage_preferences|web_view)(\s+'[^'"]*')?$/;
 // {{ … }} variables that need no default.
@@ -53,6 +57,7 @@ export function validate(html) {
   }
 
   let unsubscribeFound = false;
+  let unsubscribeLinkOnly = -1;
   const opener = /\{%|\{\{/g;
   const consumed = []; // [start, end) ranges of well-formed tags
   for (let m; (m = opener.exec(html));) {
@@ -81,6 +86,7 @@ export function validate(html) {
         continue;
       }
       if (UNSUBSCRIBE.some((re) => re.test(inner))) unsubscribeFound = true;
+      else if (inner === 'unsubscribe_link' && unsubscribeLinkOnly < 0) unsubscribeLinkOnly = start;
       // A tag that prints a whole <a> cannot live inside an attribute value.
       const before = html.slice(Math.max(0, start - 200), start);
       if (LINK_ELEMENT_TAG.test(inner) && /=\s*["'][^"'<>]*$/.test(before)) {
@@ -100,8 +106,11 @@ export function validate(html) {
         (m[0] === '}}' ? ' (in CSS, put a space between the two braces: "} }").' : '.'));
     }
   }
-  if (!unsubscribeFound) {
-    add(0, 'no-unsubscribe', 'No unsubscribe tag. Add {% unsubscribe %} or a link with href="{% unsubscribe_link %}" ' +
+  if (!unsubscribeFound && unsubscribeLinkOnly >= 0) {
+    add(unsubscribeLinkOnly, 'unsubscribe-full-tag', 'The only unsubscribe is href="{% unsubscribe_link %}". Klaviyo\'s ' +
+      'campaign check does not confirm that form; use {% unsubscribe \'Unsubscribe\' %} and style the element around it.');
+  } else if (!unsubscribeFound) {
+    add(0, 'no-unsubscribe', 'No unsubscribe tag. Add {% unsubscribe \'Unsubscribe\' %} ' +
       '(CAN-SPAM, and Klaviyo requires one).');
   }
 

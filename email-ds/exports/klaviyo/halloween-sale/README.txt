@@ -25,7 +25,7 @@ LINKS
 - Shop variety (Cannabis)                    -> https://milonga.life/products/variety
 - Shop Mate Latte                            -> https://milonga.life/products/the-original-mate-latte
 - Footer logo and "milonga.life"             -> https://milonga.life
-- Unsubscribe button                         -> Klaviyo unsubscribe link (the unsubscribe_link tag)
+- Unsubscribe button                         -> Klaviyo's own unsubscribe link (the full unsubscribe tag)
 
 MAKE THE TIMER LIVE (about 2 minutes)
 Klaviyo has no built-in countdown, so the live timer is an image from a timer

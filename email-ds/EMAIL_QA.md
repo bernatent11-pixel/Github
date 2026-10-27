@@ -19,7 +19,7 @@ Must print `PASS`. On `FAIL`, fix every line it lists. Never paste around it. It
 - every `{% %}` tag is on the allowlist (below); every `{{ }}` has a `|default:` filter
   (except `organization.*`); no unbalanced `{% %}` / `{{ }}`; no `{#`; no curly quotes in tags
 - a link tag like `{% web_view %}` (which prints a whole `<a>`) is never inside an `href`
-- an unsubscribe tag is present
+- the unsubscribe is the full `{% unsubscribe 'Unsubscribe' %}` tag (see below)
 - the file is a **body fragment**: no doctype, `<html>`, `<head>`, `<body>`, `<meta>`, `<title>`
 - every `<img>` has alt text (empty alt only with `role="presentation"`), every `<a>` a real href
 
@@ -58,7 +58,7 @@ Only now. Set subject and preview text in the campaign settings; preview text is
 | Tag | Prints |
 |---|---|
 | `{% unsubscribe %}` · `{% unsubscribe 'text' %}` | a whole unsubscribe `<a>` link |
-| `{% unsubscribe_link %}` | the unsubscribe URL only, for `href="…"` |
+| `{% unsubscribe_link %}` | the unsubscribe URL only. Renders, but **not enough on its own**: see below |
 | `{% manage_preferences %}` · `{% manage_preferences 'text' %}` | a whole preferences `<a>` link |
 | `{% manage_preferences_link %}` | the preferences URL only |
 | `{% web_view %}` · `{% web_view 'text' %}` | a whole "view in browser" `<a>` link |
@@ -68,6 +68,27 @@ Only now. Set subject and preview text in the campaign settings; preview text is
 
 A tag that is not here is not used. Do not guess one: confirm it in Klaviyo's docs, prove it
 through the render check, then add it to the allowlist in `scripts/validate-klaviyo-email.mjs`.
+
+### The unsubscribe must be the full tag
+
+Klaviyo's campaign review only confirms the unsubscribe when it is the full tag. The Halloween
+clone used `<a href="{% unsubscribe_link %}">Unsubscribe</a>`. That template rendered without
+error, yet the campaign still said *"We're unable to confirm the unsubscribe link in this campaign
+due to template syntax errors."* So put `{% unsubscribe 'Unsubscribe' %}` in the footer and style
+the element around it:
+
+```html
+<!-- in the <style> block -->
+.unsub-pill a { color:#004D27 !important; text-decoration:none !important; }
+
+<!-- in the footer -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr>
+  <td class="unsub-pill" style="border:1.5px solid #004D27;border-radius:999px;padding:10px 24px;">{% unsubscribe 'Unsubscribe' %}</td>
+</tr></table>
+```
+
+Klaviyo renders it as `<a class="unsubscribe-link" clicktracking="off" href="…">Unsubscribe</a>`.
+The validator fails an email whose only unsubscribe is the `_link` form (`unsubscribe-full-tag`).
 
 ## Structure of an HTML block
 

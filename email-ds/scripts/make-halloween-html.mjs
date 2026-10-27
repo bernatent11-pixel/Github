@@ -134,12 +134,20 @@ const COMPLIANCE =
 // the block in its own document, so no doctype, <html>, <head>, <meta>,
 // <title> or <body>, and no hidden preview-text div — the preview text is
 // set in the campaign. The one <style> block sits in the fragment: the font,
-// three resets and the phone rule; everything else is inline.
+// three resets, the colour of the two links Klaviyo's footer tags print, and
+// the phone rule; everything else is inline.
+//
+// The unsubscribe is the full {% unsubscribe 'Unsubscribe' %} tag, not a
+// hand-made <a href="{% unsubscribe_link %}">: the second renders, but
+// Klaviyo's campaign check refused it ("unable to confirm the unsubscribe
+// link … template syntax errors"). The pill shape sits on the <td> around it.
 const html = `<style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,800;0,900;1,800&display=swap');
   table { border-collapse:collapse; }
   img { -ms-interpolation-mode:bicubic; }
   a { color:inherit; }
+  .unsub-pill a { color:#004D27 !important; text-decoration:none !important; }
+  .web-view-line a { color:#3B5344 !important; }
   @media only screen and (max-width:620px) {
     .wrap { width:100% !important; }
     .card-btn { font-size:10px !important; letter-spacing:1px !important; padding:11px 12px !important; }
@@ -182,8 +190,8 @@ ${row(FOREST, `<div style="font-family:${FONT};font-size:13px;font-weight:800;le
 <tr><td align="center" bgcolor="${BEIGE}" style="background:${BEIGE};padding:34px 30px 36px;font-family:${FONT};color:${FOREST};">
 <a href="${LINK.home}" target="_blank"><img src="${url('footer-logo.png')}" width="${Math.round(logoMeta.width * 64 / logoMeta.height)}" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
 <div style="padding-top:18px;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
-<div style="padding-top:18px;"><a href="{% unsubscribe_link %}" target="_blank" style="display:inline-block;padding:10px 24px;border:1.5px solid ${FOREST};border-radius:999px;font-family:${FONT};font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${FOREST};text-decoration:none;">Unsubscribe</a></div>
-<div style="padding-top:12px;font-size:11px;font-weight:600;color:#3B5344;">{% web_view %}</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${FOREST};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
+<div class="web-view-line" style="padding-top:12px;font-size:11px;font-weight:600;color:#3B5344;">{% web_view %}</div>
 <div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:600;color:#3B5344;">${COMPLIANCE}</div>
 <div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${FOREST};"><a href="${LINK.home}" target="_blank" style="color:${FOREST};text-decoration:none;">Milonga.life</a> · <a href="mailto:connect@milonga.life" style="color:${FOREST};text-decoration:none;">connect@milonga.life</a></div>
 </td></tr>

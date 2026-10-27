@@ -325,6 +325,10 @@ Because of all this, Milonga campaigns usually ship as **images** — see the ex
   `{% unsubscribe_link %}`, the same three for `manage_preferences` and `web_view`,
   `{{ organization.name }}`, `{{ organization.full_address }}`, and profile fields only with
   `|default:'…'`. The bare tags print a whole link; inside `href="…"` use the `_link` form.
+  **The unsubscribe is always the full `{% unsubscribe 'Unsubscribe' %}` tag**, styled from the
+  element around it (a pill `<td>` plus a `.unsub-pill a` colour rule), never a hand-made
+  `<a href="{% unsubscribe_link %}">`: that renders, but Klaviyo's campaign check refuses it
+  ("unable to confirm the unsubscribe link … template syntax errors")
   **One unknown tag fails the whole send** (Halloween 2026: `{% unsubscribe_url %}`, 0 of 2,086
   delivered). Never invent one
 - **Gate:** `node scripts/validate-klaviyo-email.mjs <file>` must pass, then the render check;

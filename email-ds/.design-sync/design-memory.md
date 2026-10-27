@@ -82,6 +82,7 @@ it overrides the skill's reference files, because it is newer and came from him 
 
 ---
 | 2026-10-27 | Export | **Live HTML for a Klaviyo HTML block is a body fragment and uses only allowlisted tags.** No doctype, `<html>`, `<head>`, `<meta>`, `<title>`, `<body>` or preview-text div; tags only `{% unsubscribe %}` / `{% unsubscribe 'text' %}` / `{% unsubscribe_link %}`, the same for `manage_preferences` and `web_view`, `{{ organization.name }}`, `{{ organization.full_address }}`, profile fields only with `\|default:'…'`. Bare tags print a whole link; inside `href` use `_link`. Must pass `scripts/validate-klaviyo-email.mjs` and its `--render` check before handover (`EMAIL_QA.md`) | Bernat, after the Halloween send failed |
+| 2026-10-27 | Export | **The unsubscribe is always the full `{% unsubscribe 'Unsubscribe' %}` tag**, with the pill style on the `<td>` around it and a `.unsub-pill a` colour rule. A hand-made `<a href="{% unsubscribe_link %}">` rendered but Klaviyo's campaign check still refused it ("unable to confirm the unsubscribe link … template syntax errors"). The validator enforces it | Bernat, Halloween clone still blocked |
 
 ## Log
 

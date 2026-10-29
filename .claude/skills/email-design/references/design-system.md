@@ -84,6 +84,21 @@ gold button in two different golds (`#C2A15C` against `#E3BC62`). The logos, tex
 and Klaviyo discs have already been corrected to the core hexes; the icons have not. Match to
 `artworkInks` only when something must sit flush against uncorrected art.
 
+### Flavor banners — the Energy cans
+
+Not tokens. The median of each flavor banner on the Yerba Mate Energy can renders, light lettering
+excluded. Use them where a section or a product shot has to match its can.
+
+| Flavor | Hex | Packshot on its banner colour (`email-ds/public/product/`) |
+|---|---|---|
+| Soursop · Guanabana | `#658835` | `can-soursop-guanabana-energy-flavor-bg` |
+| Peach Ginger | `#D47935` | `can-peach-ginger-energy-flavor-bg` |
+| Citrus Mango | `#DEA82B` | `can-citrus-mango-energy-flavor-bg` |
+| Açaí Mint | `#563572` | `can-acai-mint-energy-flavor-bg` |
+
+Each packshot is a 2000×2000 `.png` master plus a `.jpg` for email. The banner melts into the
+background by design, so the silver rims carry the silhouette.
+
 ### What each colour can carry
 
 WCAG contrast of every palette colour as type on each page ground. 4.5:1 is the floor for body

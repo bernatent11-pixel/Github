@@ -1,0 +1,216 @@
+<!-- ═══ MILONGA · HALLOWEEN WELCOME POP-UP · 15% OFF THE FIRST ORDER ═══════
+     Paste this whole block into Shopify: Online Store → Themes → Customize →
+     Footer → Add section → Custom Liquid (or into theme.liquid, just before
+     </body>). Signs people up to Klaviyo's "Newsletter Subscribers List!"
+     (XCBbqf), which starts the live Welcome Flow, then shows WELCOME15.
+     Built by scripts/make-popup.mjs from popup.src.html; edit that file. -->
+<div id="mlg-pop" class="mlg-pop" role="dialog" aria-modal="true" aria-labelledby="mlg-pop-title" aria-hidden="true">
+  <div class="mlg-pop__scrim" data-mlg-close></div>
+  <div class="mlg-pop__card">
+    <button type="button" class="mlg-pop__x" data-mlg-close aria-label="Close">&times;</button>
+    <div class="mlg-pop__art" role="img" aria-label="The Milonga lineup on an orange Halloween backdrop with friendly ghosts and autumn leaves: Lion’s Mane and Social Mate cans in Citrus Mango, Peach Ginger and Açaí Mint around a pouch of Mate Latte."></div>
+    <div class="mlg-pop__panel">
+      <img class="mlg-pop__mark" src="%IMG%/mark-white.png" alt="Milonga" width="57" height="60">
+
+      <form class="mlg-pop__step mlg-pop__form" novalidate>
+        <div class="mlg-pop__eyebrow">Trick or treat yourself</div>
+        <h2 id="mlg-pop-title" class="mlg-pop__big">15% off</h2>
+        <div class="mlg-pop__sub">your first order</div>
+        <p class="mlg-pop__body">Join the Milonga email list and the treat is on us. No tricks.</p>
+        <label class="mlg-pop__sr" for="mlg-pop-email">Email address</label>
+        <input id="mlg-pop-email" class="mlg-pop__input" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Your email address" required>
+        <div class="mlg-pop__err" role="alert" aria-live="polite"></div>
+        <button type="submit" class="mlg-pop__btn">Unlock 15% off</button>
+        <button type="button" class="mlg-pop__no" data-mlg-close>No thanks</button>
+        <p class="mlg-pop__fine">By signing up you agree to receive marketing emails from Milonga. Unsubscribe anytime. One use per customer, on one-time purchases.</p>
+      </form>
+
+      <div class="mlg-pop__step mlg-pop__done" hidden>
+        <div class="mlg-pop__eyebrow">You’re in</div>
+        <div class="mlg-pop__big mlg-pop__big--done">Treat unlocked</div>
+        <p class="mlg-pop__body">Use this code at checkout for 15% off your first order.</p>
+        <button type="button" class="mlg-pop__code" aria-label="Copy the code WELCOME15">
+          <span class="mlg-pop__code-txt">WELCOME15</span><span class="mlg-pop__code-hint">Tap to copy</span>
+        </button>
+        <a class="mlg-pop__btn" href="/collections/all">Shop now</a>
+        <p class="mlg-pop__fine">One use per customer, on one-time purchases.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,800&display=swap');
+  .mlg-pop { --o:#DB5513; --forest:#004D27; --gold:#E3BC62; --beige:#F0EFDF; --deep:#00351B;
+    position:fixed; inset:0; z-index:2147483000; display:none; align-items:center; justify-content:center;
+    padding:16px; font-family:'Montserrat','Helvetica Neue',Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  .mlg-pop.is-open { display:flex; }
+  .mlg-pop *, .mlg-pop *::before, .mlg-pop *::after { box-sizing:border-box; }
+  .mlg-pop__scrim { position:absolute; inset:0; background:rgba(0,30,15,.62); opacity:0; transition:opacity .3s ease; }
+  .mlg-pop.is-in .mlg-pop__scrim { opacity:1; }
+  .mlg-pop__card { position:relative; display:flex; width:900px; max-width:100%; height:540px; max-height:calc(100vh - 32px);
+    background:var(--o); border-radius:26px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.35);
+    transform:translateY(18px) scale(.98); opacity:0; transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .3s ease; }
+  .mlg-pop.is-in .mlg-pop__card { transform:none; opacity:1; }
+
+  .mlg-pop__art { flex:0 0 540px; background:var(--o) url('%IMG%/lineup.jpg') center/cover no-repeat;
+    -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent); mask-image:linear-gradient(90deg,#000 88%,transparent); }
+  .mlg-pop__panel { position:relative; flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:34px 30px 26px 10px; text-align:center; color:#fff; overflow:hidden; }
+  .mlg-pop__mark { position:relative; display:block; height:48px; width:auto; margin:0 auto 14px; }
+  .mlg-pop__step { position:relative; width:100%; display:flex; flex-direction:column; align-items:center; }
+  .mlg-pop__step[hidden] { display:none; }
+
+  .mlg-pop__eyebrow { font-size:13px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:#fff; }
+  .mlg-pop__big { margin:6px 0 0; font-size:76px; line-height:.92; font-weight:900; letter-spacing:-1px; text-transform:uppercase;
+    color:var(--gold); text-shadow:0 3px 0 rgba(0,53,27,.35); white-space:nowrap; }
+  .mlg-pop__big--done { font-size:40px; line-height:1; white-space:normal; margin-top:8px; }
+  .mlg-pop__sub { margin-top:6px; font-size:22px; font-weight:800; font-style:italic; color:#fff; }
+  .mlg-pop__body { margin:14px 0 18px; max-width:280px; font-size:15px; line-height:1.45; font-weight:600; color:#fff; }
+
+  .mlg-pop__input { width:100%; max-width:300px; height:50px; padding:0 20px; border:2px solid #fff; border-radius:999px;
+    background:#fff; color:var(--forest); font:600 15px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; outline:none; text-align:center; }
+  .mlg-pop__input::placeholder { color:#6E7F74; }
+  .mlg-pop__input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(227,188,98,.55); }
+  .mlg-pop__input[aria-invalid="true"] { border-color:var(--deep); }
+  .mlg-pop__err { min-height:18px; margin:6px 0 2px; font-size:12px; font-weight:800; color:var(--deep); }
+
+  .mlg-pop__btn { display:inline-flex; align-items:center; justify-content:center; width:100%; max-width:300px; height:52px;
+    border:0; border-radius:999px; background:var(--gold); color:var(--forest); cursor:pointer; text-decoration:none;
+    font:800 15px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:2px; text-transform:uppercase;
+    box-shadow:0 4px 0 #C9A24E; transition:transform .12s ease, box-shadow .12s ease; }
+  .mlg-pop__btn:hover { transform:translateY(-1px); }
+  .mlg-pop__btn:active { transform:translateY(2px); box-shadow:0 2px 0 #C9A24E; }
+  .mlg-pop__btn[disabled] { opacity:.7; cursor:wait; }
+  .mlg-pop__btn:focus-visible, .mlg-pop__no:focus-visible, .mlg-pop__x:focus-visible, .mlg-pop__code:focus-visible { outline:3px solid #fff; outline-offset:3px; }
+  .mlg-pop__no { margin-top:12px; padding:4px 8px; border:0; background:none; color:#fff; cursor:pointer;
+    font:700 12px/1.2 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase;
+    text-decoration:underline; text-underline-offset:3px; opacity:.9; }
+  .mlg-pop__fine { margin:14px 0 0; max-width:300px; font-size:10.5px; line-height:1.45; font-weight:600; color:rgba(255,255,255,.85); }
+
+  .mlg-pop__code { display:flex; flex-direction:column; align-items:center; gap:4px; width:100%; max-width:300px; margin:0 0 16px;
+    padding:14px 16px; border:2px dashed var(--gold); border-radius:18px; background:var(--deep); color:#fff; cursor:pointer; }
+  .mlg-pop__code-txt { font:900 30px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:4px; }
+  .mlg-pop__code-hint { font:700 11px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); }
+
+  .mlg-pop__x { position:absolute; top:12px; right:12px; z-index:3; width:38px; height:38px; border:0; border-radius:50%;
+    background:rgba(0,53,27,.82); color:#fff; font:400 26px/38px Arial,sans-serif; cursor:pointer; padding:0; }
+  .mlg-pop__sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+  /* Phone and narrow tablet: art on top as a band, panel below */
+  @media (max-width:820px) {
+    .mlg-pop { padding:12px; }
+    .mlg-pop__card { flex-direction:column; width:420px; height:auto; max-height:calc(100vh - 24px); overflow-y:auto; }
+    .mlg-pop__art { flex:0 0 auto; height:300px; background-position:50% 45%; background-size:cover;
+      -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent); mask-image:linear-gradient(180deg,#000 80%,transparent); }
+    .mlg-pop__panel { padding:0 24px 22px; margin-top:-22px; overflow:visible; }
+    .mlg-pop__mark { height:40px; margin-bottom:10px; }
+    .mlg-pop__big { font-size:62px; }
+    .mlg-pop__sub { font-size:19px; }
+    .mlg-pop__body { margin:10px 0 14px; font-size:14px; }
+  }
+  @media (max-height:740px) and (max-width:820px) { .mlg-pop__art { height:210px; } }
+  @media (prefers-reduced-motion:reduce) { .mlg-pop__scrim, .mlg-pop__card { transition:none; } }
+</style>
+
+<script>
+(function () {
+  // Settings
+  var COMPANY_ID = 'TwvSnK';        // Klaviyo public API key (safe to publish)
+  var LIST_ID = 'XCBbqf';           // "Newsletter Subscribers List!" — starts the Welcome Flow
+  var SOURCE = 'Halloween welcome pop-up';
+  var DELAY_MS = 6000;              // open after 6 seconds…
+  var SCROLL_SHARE = 0.4;           // …or after 40% of the page is scrolled, whichever is first
+  var SNOOZE_DAYS = 7;              // after "No thanks", stay hidden this long
+  var KEY = 'mlg_pop_halloween15';
+
+  var root = document.getElementById('mlg-pop');
+  if (!root) return;
+  var form = root.querySelector('.mlg-pop__form');
+  var done = root.querySelector('.mlg-pop__done');
+  var input = root.querySelector('#mlg-pop-email');
+  var err = root.querySelector('.mlg-pop__err');
+  var btn = form.querySelector('.mlg-pop__btn');
+  var lastFocus = null, opened = false;
+
+  function store(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function suppressed() {
+    if (/[?&]mlg_pop=1\b/.test(location.search)) return false;           // force it on for testing
+    if (/[?&](_kx|utm_source=klaviyo)\b/i.test(location.search)) return true; // came from one of our emails
+    if (/\/(checkout|cart)\b/.test(location.pathname)) return true;
+    var v = stored();
+    if (v === 'joined') return true;
+    if (v && +v > Date.now()) return true;
+    return false;
+  }
+
+  function open() {
+    if (opened) return; opened = true;
+    lastFocus = document.activeElement;
+    root.classList.add('is-open'); root.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(function () { root.classList.add('is-in'); });
+    setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 350);
+    document.addEventListener('keydown', onKey);
+  }
+  function close() {
+    root.classList.remove('is-in'); root.setAttribute('aria-hidden', 'true');
+    setTimeout(function () { root.classList.remove('is-open'); }, 300);
+    document.removeEventListener('keydown', onKey);
+    if (stored() !== 'joined') store(String(Date.now() + SNOOZE_DAYS * 864e5));
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function onKey(e) {
+    if (e.key === 'Escape') return close();
+    if (e.key !== 'Tab') return;
+    var f = [].filter.call(root.querySelectorAll('button, input, a[href]'), function (el) { return el.offsetParent !== null; });
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+  [].forEach.call(root.querySelectorAll('[data-mlg-close]'), function (el) { el.addEventListener('click', close); });
+
+  function fail(msg) { err.textContent = msg; input.setAttribute('aria-invalid', 'true'); input.focus(); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (input.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail('Please enter a valid email address.');
+    err.textContent = ''; input.removeAttribute('aria-invalid');
+    btn.disabled = true; btn.textContent = 'One moment…';
+    fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + COMPANY_ID, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/vnd.api+json', revision: '2024-10-15' },
+      body: JSON.stringify({ data: { type: 'subscription', attributes: {
+        custom_source: SOURCE,
+        profile: { data: { type: 'profile', attributes: { email: email,
+          subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } } } } }
+      }, relationships: { list: { data: { type: 'list', id: LIST_ID } } } } })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('Klaviyo ' + r.status);
+      store('joined');
+      form.hidden = true; done.hidden = false;
+      var c = done.querySelector('.mlg-pop__code'); if (c) c.focus();
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Unlock 15% off';
+      fail('Something went wrong. Please try again.');
+    });
+  });
+
+  var code = done.querySelector('.mlg-pop__code');
+  code.addEventListener('click', function () {
+    var hint = code.querySelector('.mlg-pop__code-hint');
+    var ok = function () { hint.textContent = 'Copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText('WELCOME15').then(ok, function () {});
+  });
+
+  window.MilongaPopup = { open: open, close: close };
+  if (suppressed()) return;
+  var t = setTimeout(open, DELAY_MS);
+  window.addEventListener('scroll', function onScroll() {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    if (h > 0 && scrollY / h >= SCROLL_SHARE) { clearTimeout(t); window.removeEventListener('scroll', onScroll); open(); }
+  }, { passive: true });
+})();
+</script>
+<!-- ═══ END MILONGA POP-UP ═══ -->

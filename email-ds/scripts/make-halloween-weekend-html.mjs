@@ -29,6 +29,7 @@ const SALE_END = 'Monday, November 2 at 11:59 PM ET';
 
 const PURPLE = '#3A1F55';
 const NIGHT = '#2C1743';
+const ORANGE = '#DA5813'; // the last section: the Halloween sale's peach-ginger orange
 const FOREST = '#004D27';
 const GOLD = '#E3BC62';
 const BEIGE = '#F0EFDF';
@@ -116,7 +117,7 @@ const footCell = (px, content) =>
   `<div style="padding:8px 6px 20px;">${content}</div></td>`;
 const cardButton = (label, href) => button(label, href, { fill: FOREST, ink: '#FFFFFF', size: 12, pad: '13px 18px', cls: 'card-btn' });
 const cardFeet = (a, b) =>
-  `<tr><td bgcolor="${NIGHT}" style="background:${NIGHT};padding:0;">` +
+  `<tr><td bgcolor="${ORANGE}" style="background:${ORANGE};padding:0;">` +
   `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>` +
   gap(22) + footCell(271, cardButton(...a)) + gap(14) + footCell(271, cardButton(...b)) + gap(22) +
   `</tr></table></td></tr>`;
@@ -169,10 +170,10 @@ ${row(PURPLE, button('Get the Party Pack', LINK.pack, { size: 16, pad: '17px 40p
 
 <!-- ── 3 · THE SOBER OCTOBER VARIETY PACKS ─────────────────────── -->
 ${img('s3-head')}
-<tr><td bgcolor="${NIGHT}" style="background:${NIGHT};padding:0;font-size:0;line-height:0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>${half('s3-row-l', LINK.lionsManeVariety)}${half('s3-row-r', LINK.cannabisVariety)}</tr></table></td></tr>
+<tr><td bgcolor="${ORANGE}" style="background:${ORANGE};padding:0;font-size:0;line-height:0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>${half('s3-row-l', LINK.lionsManeVariety)}${half('s3-row-r', LINK.cannabisVariety)}</tr></table></td></tr>
 ${cardFeet(['Shop variety', LINK.lionsManeVariety], ['Shop variety', LINK.cannabisVariety])}
-${row(NIGHT, `<div style="font-family:${FONT};font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${GOLD};padding-bottom:18px;">Halloween weekend ends <span style="white-space:nowrap;">${SALE_END}</span></div>` +
-  button('Shop the sale', LINK.home), '30px 22px 52px')}
+${row(ORANGE, `<div style="font-family:${FONT};font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#FFFFFF;padding-bottom:18px;">Halloween weekend ends <span style="white-space:nowrap;">${SALE_END}</span></div>` +
+  button('Shop the sale', LINK.home, { fill: FOREST, ink: '#FFFFFF' }), '30px 22px 52px')}
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
 <tr><td align="center" bgcolor="${BEIGE}" style="background:${BEIGE};padding:34px 30px 36px;font-family:${FONT};color:${FOREST};">

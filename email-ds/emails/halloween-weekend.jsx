@@ -26,10 +26,14 @@ const INK = '#12331F';
 const INK_SOFT = '#3B5344';
 const FONT = 'Gotham, Montserrat, sans-serif';
 const GOLD_FILL = 'linear-gradient(180deg, #EBCB7E 0%, #E3BC62 55%, #D8AE52 100%)';
-// The Party Pack picture's open sky, sampled; NIGHT is the deeper band
-// the variety packs sit on.
+// The Party Pack picture's open sky, sampled; NIGHT is the deeper purple of
+// the timer box.
 const PURPLE = '#3A1F55';
 const NIGHT = '#2C1743';
+// The last section is on the peach-ginger orange of the Halloween sale's
+// lineup (Bernat). Gold does not read on it, so its type is white.
+const ORANGE = '#DA5813';
+const ORANGE_SHADOW = '0 3px 14px rgba(90,25,0,0.45), 0 1px 3px rgba(90,25,0,0.35)';
 
 const SALE_END = 'Monday, November 2 at 11:59 PM ET';
 
@@ -190,7 +194,7 @@ function VarietyCard(p, i) {
   return h('div', { key: i, style: { flex: 1, boxSizing: 'border-box', background: '#FFFFFF',
     borderRadius: HTML_MODE ? '22px 22px 0 0' : 22, padding: HTML_MODE ? '14px 14px 6px' : '14px 14px 18px',
     textAlign: 'center', position: 'relative', display: 'flex', flexDirection: 'column',
-    boxShadow: HTML_MODE ? 'none' : CARD_SHADOW } },
+    boxShadow: HTML_MODE ? 'none' : '0 16px 30px rgba(90,25,0,0.30), 0 3px 8px rgba(90,25,0,0.2)' } },
     h('span', { style: { position: 'absolute', top: 10, left: 10, zIndex: 1, background: FOREST, color: GOLD, borderRadius: 999,
       padding: '5px 9px', fontFamily: FONT, fontWeight: 900, fontSize: 10.5, letterSpacing: '0.1em',
       textTransform: 'uppercase', boxShadow: '0 3px 8px rgba(0,26,13,0.25)' } }, '25% off the 24'),
@@ -247,18 +251,19 @@ function HalloweenWeekend({ shopHref = 'https://milonga.life', packHref = 'https
         'Social Mate is 21+. New to it? Start with half a can.')),
 
     // ── 3 · THE SOBER OCTOBER VARIETY PACKS ──
-    h('div', { style: { background: NIGHT, padding: HTML_MODE ? '0 22px 24px' : '56px 22px 50px', textAlign: 'center' } },
+    h('div', { style: { background: ORANGE, padding: HTML_MODE ? '0 22px 24px' : '56px 22px 50px', textAlign: 'center' } },
       h('div', { ...slice('s3-head'), style: { padding: HTML_MODE ? '56px 0 28px' : '0 0 28px' } },
-        eyebrow('Sober October, last call', GOLD),
-        h('div', { style: { textShadow: TITLE_SHADOW, fontFamily: FONT, fontWeight: 900, fontSize: 38, lineHeight: 1.04,
+        eyebrow('Sober October, last call', '#FFFFFF'),
+        h('div', { style: { textShadow: ORANGE_SHADOW, fontFamily: FONT, fontWeight: 900, fontSize: 38, lineHeight: 1.04,
           textTransform: 'uppercase', color: '#FFFFFF' } },
           h('div', null, 'Every flavor,'),
-          h('div', { style: { fontStyle: 'italic', fontWeight: 800, marginTop: 3, color: GOLD } }, 'one box.')),
+          h('div', { style: { fontStyle: 'italic', fontWeight: 800, marginTop: 3 } }, 'one box.')),
         para('The Sober October variety packs: 8 of each flavor in the 24-pack, 25% off until Monday. Find your favorite before the sale ends.', '#FFFFFF', 450)),
       h('div', { ...slice('s3-row'), style: { display: 'flex', gap: 14, alignItems: 'stretch' } }, VARIETY.map(VarietyCard)),
       HTML_MODE ? null : h('div', { style: { fontFamily: FONT, fontWeight: 800, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase',
-        color: GOLD, marginTop: 30 } }, 'Halloween weekend ends ', h('span', { style: { whiteSpace: 'nowrap' } }, SALE_END)),
-      HTML_MODE ? null : h('div', { style: { marginTop: 18 } }, btn('Shop the sale', shopHref))),
+        color: '#FFFFFF', marginTop: 30 } }, 'Halloween weekend ends ', h('span', { style: { whiteSpace: 'nowrap' } }, SALE_END)),
+      HTML_MODE ? null : h('div', { style: { marginTop: 18 } }, h('div', { style: { display: 'inline-block', borderRadius: 999, boxShadow: '0 10px 22px rgba(90,25,0,0.35)' } },
+        h(M.Button, { label: 'Shop the sale', href: shopHref, bg: 'beige', size: 'lg' })))),
 
     HTML_MODE ? null : h(M.Footer, { bg: 'beige', compliance: COMPLIANCE,
       social: [{ label: 'Instagram', href: '#' }, { label: 'Shop', href: '#' }] }),

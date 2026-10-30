@@ -19,8 +19,8 @@ footer tags ({% unsubscribe 'Unsubscribe' %}, {% web_view %},
 LINKS
 - Top picture, Shop the Halloween sale, Shop the sale -> https://milonga.life
 - Party Pack pictures and Get the Party Pack           -> https://milonga.life/products/halloween-party-pack-bundle
-- Shop variety (Lion's Mane)                           -> https://milonga.life/products/lions-mane-variety-pack
-- Shop variety (Cannabis)                              -> https://milonga.life/products/variety
+- Lion's Mane variety card and its Shop variety     -> https://milonga.life/products/lions-mane-variety-pack
+- Cannabis variety card and its Shop variety        -> https://milonga.life/products/variety
 
 PRICES (Shopify, read 2026-10-30)
 - Party Pack 24  $103.80 (was $138.40, 25% off) · Party Pack XL 48  $167.72 (was $239.60, 30% off)
@@ -36,7 +36,8 @@ s1-hero   Milonga. It's Halloween weekend. Party Pack up to 30% off, ends Monday
 s2-head   Limited edition, last weekend. The Halloween Party Pack. Costumes by day, the party by night. Our two mates in one box, plus the Milonga bucket hat, up to 30% off until Monday. The Party Pack box of Lion's Mane and Social Mate cans with a Milonga bucket hat, jack-o'-lanterns, ghosts and witches under a full moon.
 s2-body   By day, Lion's Mane Mate: 100mg natural caffeine, 1,000mg Lion's Mane, 220mg L-Theanine. By night, Social Mate: 10mg THC, 10mg CBD, 110mg natural caffeine, 220mg L-Theanine. Party Pack, 24-pack: $103.80, was $138.40, save 25%: 12 cans of Lion's Mane, 12 cans of Social Mate, 1 Milonga bucket hat. Party Pack XL, 48-pack: $167.72, was $239.60, save 30%: 24 cans of Lion's Mane, 24 cans of Social Mate, 2 Milonga bucket hats.
 s3-head   Sober October, last call. Every flavor, one box. The Sober October variety packs: 8 of each flavor in the 24-pack, 25% off until Monday.
-s3-row    Sober October Lion's Mane Variety Pack: 12-pack $50.40; 24-pack $56.70, was $75.60; 48-pack $151.20. Sober October Cannabis Variety Pack, Regular 10mg: 12-pack $78.00; 24-pack $111.75, was $149.00; 48-pack $285.00.
+s3-row-l  Sober October Lion's Mane Variety Pack, 25% off the 24-pack: 12-pack $50.40; 24-pack $56.70, was $75.60; 48-pack $151.20.
+s3-row-r  Sober October Cannabis Variety Pack, Regular 10mg, 25% off the 24-pack: 12-pack $78.00; 24-pack $111.75, was $149.00; 48-pack $285.00.
 
 SUBJECT LINES / PREVIEW TEXT
 1. It's Officially Halloween Weekend 🎃👻

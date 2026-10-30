@@ -58,6 +58,14 @@ for (const r of rects) {
   slices[r.name] = { file };
   console.log(r.name, 1200 + 'x' + (bottom - top));
 }
+// The variety row holds two cards; cut it down the middle of the gap between
+// them (22 | 271 | 14 | 271 | 22, so x = 300) so each card is its own image
+// and links to its own product.
+for (const [side, left] of [['l', 0], ['r', 600]]) {
+  await sharp(`${IMG}/s3-row.jpg`).extract({ left, top: 0, width: 600, height: (await sharp(`${IMG}/s3-row.jpg`).metadata()).height })
+    .jpeg({ quality: 86, chromaSubsampling: '4:4:4' }).toFile(`${IMG}/s3-row-${side}.jpg`);
+}
+fs.unlinkSync(`${IMG}/s3-row.jpg`);
 fs.copyFileSync('public/logo/lockup-milonga-green.png', `${IMG}/footer-logo.png`);
 const logoMeta = await sharp(`${IMG}/footer-logo.png`).metadata();
 
@@ -71,7 +79,8 @@ const ALT = {
   's2-head': 'Limited edition, last weekend. The Halloween Party Pack. Costumes by day, the party by night. Our two mates in one box, plus the Milonga bucket hat, up to 30% off until Monday. The Party Pack box of Lion’s Mane and Social Mate cans with a Milonga bucket hat, jack-o’-lanterns, ghosts and witches under a full moon.',
   's2-body': 'By day, Lion’s Mane Mate: 100mg natural caffeine, 1,000mg Lion’s Mane, 220mg L-Theanine. By night, Social Mate: 10mg THC, 10mg CBD, 110mg natural caffeine, 220mg L-Theanine. Party Pack, 24-pack: $103.80, was $138.40, save 25%: 12 cans of Lion’s Mane, 12 cans of Social Mate, 1 Milonga bucket hat. Party Pack XL, 48-pack: $167.72, was $239.60, save 30%: 24 cans of Lion’s Mane, 24 cans of Social Mate, 2 Milonga bucket hats.',
   's3-head': 'Sober October, last call. Every flavor, one box. The Sober October variety packs: 8 of each flavor in the 24-pack, 25% off until Monday.',
-  's3-row': 'Sober October Lion’s Mane Variety Pack: 12-pack $50.40; 24-pack $56.70, was $75.60; 48-pack $151.20. Sober October Cannabis Variety Pack, Regular 10mg: 12-pack $78.00; 24-pack $111.75, was $149.00; 48-pack $285.00.',
+  's3-row-l': 'Sober October Lion’s Mane Variety Pack, 25% off the 24-pack: 12-pack $50.40; 24-pack $56.70, was $75.60; 48-pack $151.20.',
+  's3-row-r': 'Sober October Cannabis Variety Pack, Regular 10mg, 25% off the 24-pack: 12-pack $78.00; 24-pack $111.75, was $149.00; 48-pack $285.00.',
 };
 const LINK_OF = { 's1-hero': LINK.home, 's2-head': LINK.pack, 's2-body': LINK.pack };
 
@@ -81,6 +90,11 @@ const img = (name) => {
   const href = LINK_OF[name];
   return `<tr><td style="padding:0;font-size:0;line-height:0;">${href ? `<a href="${href}" target="_blank" style="text-decoration:none;">${inner}</a>` : inner}</td></tr>`;
 };
+
+// Half of a two-card row: its own image, linked to its own product.
+const half = (name, href) =>
+  `<td width="50%" valign="top" style="width:50%;padding:0;font-size:0;line-height:0;"><a href="${href}" target="_blank" style="text-decoration:none;">` +
+  `<img src="${url(`${name}.jpg`)}" width="300" alt="${ALT[name].replace(/"/g, '&quot;')}" style="display:block;width:100%;max-width:300px;height:auto;border:0;outline:none;text-decoration:none;"></a></td>`;
 
 // A bulletproof button: a rounded cell with a padded link inside it.
 const button = (label, href, { fill = GOLD, ink = FOREST, size = 15, pad = '16px 34px', cls = '' } = {}) =>
@@ -155,7 +169,7 @@ ${row(PURPLE, button('Get the Party Pack', LINK.pack, { size: 16, pad: '17px 40p
 
 <!-- ── 3 · THE SOBER OCTOBER VARIETY PACKS ─────────────────────── -->
 ${img('s3-head')}
-${img('s3-row')}
+<tr><td bgcolor="${NIGHT}" style="background:${NIGHT};padding:0;font-size:0;line-height:0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>${half('s3-row-l', LINK.lionsManeVariety)}${half('s3-row-r', LINK.cannabisVariety)}</tr></table></td></tr>
 ${cardFeet(['Shop variety', LINK.lionsManeVariety], ['Shop variety', LINK.cannabisVariety])}
 ${row(NIGHT, `<div style="font-family:${FONT};font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${GOLD};padding-bottom:18px;">Halloween weekend ends <span style="white-space:nowrap;">${SALE_END}</span></div>` +
   button('Shop the sale', LINK.home), '30px 22px 52px')}

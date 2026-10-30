@@ -362,7 +362,7 @@
       max-width: var(--mlg-hero-p-w);
       margin: 0;
       font-family: var(--mlg-hero-font);
-      font-weight: 400;
+      font-weight: 600;
       font-size: var(--mlg-hero-fs-text);
       line-height: var(--mlg-hero-lh-text);
       color: var(--mlg-hero-text);
@@ -562,7 +562,7 @@
       --mlg-ti-pad-bot:   clamp(calc(19px * 0.7), calc(19vw / 14.4), calc(19px * 1.3333));
       --mlg-ti-pad-x:     clamp(32.7px, 3.194vw, 61.3px);
       --mlg-ti-max:       1797px; /* row stops growing past 1920px (1348 x 1.333) */
-      --mlg-ti-col-text:  41.32%;
+      --mlg-ti-col-text:  51%;    /* fits the two-line heading */
       --mlg-ti-col-media: 44.81%;
       --mlg-ti-gap:       clamp(10.7px, 1.042vw, 20px);
       --mlg-ti-stack-gap: 0px;
@@ -570,7 +570,7 @@
       --mlg-ti-ratio:     604 / 625;
 
       /* type */
-      --mlg-ti-fs-heading: clamp(calc(52px * 0.7), calc(52vw / 14.4), calc(52px * 1.3333));
+      --mlg-ti-fs-heading: clamp(calc(52px * 0.7), calc(50vw / 14.4), calc(52px * 1.3333));
       --mlg-ti-fs-text:    clamp(calc(15px * 0.9), calc(15vw / 14.4), calc(15px * 1.3333));
       --mlg-ti-lh-heading: 1.1154;    /* 58 / 52 */
       --mlg-ti-ls-heading: 0.0096em;  /* 0.5 / 52 */
@@ -637,12 +637,13 @@
 
     .mlg-ti .mlg-ti__text {
       width: 100%;
+      max-width: calc(var(--mlg-ti-fs-text) * 37);
     }
 
     .mlg-ti .mlg-ti__text p {
       margin: 0;
       font-family: var(--mlg-ti-font);
-      font-weight: 400;
+      font-weight: 600;
       font-size: var(--mlg-ti-fs-text);
       line-height: var(--mlg-ti-lh-text);
       color: var(--mlg-ti-text);
@@ -688,6 +689,23 @@
       fill: rgba(14, 58, 32, 0.25);
     }
 
+    /* caffeine chart: shows only the chart part of the comparison image (its own
+       heading and paragraph are cropped out, the section has its own copy) */
+    .mlg-ti .mlg-ti__media--chart {
+      aspect-ratio: 1800 / 1280;
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    .mlg-ti .mlg-ti__media--chart .mlg-ti__img {
+      inset: auto;
+      top: -4.6875%;
+      left: -109.4444%;
+      width: 213.3333%;
+      height: auto;
+      object-fit: fill;
+    }
+
     /* ============================ 1024px AND BELOW ============================ */
     @media screen and (max-width: 1024px) {
       #mlg-ti-story {
@@ -695,8 +713,8 @@
         --mlg-ti-pad-top:    clamp(calc(58px * 0.6), calc(58vw * 0.8 / 10.24), calc(58px * 0.8));
         --mlg-ti-pad-bot:    clamp(calc(19px * 0.6), calc(19vw * 0.8 / 10.24), calc(19px * 0.8));
         --mlg-ti-pad-x:      clamp(24px, 3.125vw, 32px);
-        --mlg-ti-col-text:   44%;
-        --mlg-ti-col-media:  50%;
+        --mlg-ti-col-text:   53%;
+        --mlg-ti-col-media:  44%;
         --mlg-ti-gap:        12px;
         --mlg-ti-radius:     clamp(calc(12px * 0.75), calc(12vw / 10.24), 12px);
         --mlg-ti-fs-heading: clamp(calc(52px * 0.548), calc(52vw * 0.731 / 10.24), calc(52px * 0.731));
@@ -717,7 +735,7 @@
         --mlg-ti-stack-gap:  clamp(21.3px, 6.41vw, 32.5px);
         --mlg-ti-radius:     0px;
         --mlg-ti-ratio:      340 / 351;
-        --mlg-ti-fs-heading: clamp(calc(32px * 0.85), calc(32vw / 3.9), calc(32px * 1.3));
+        --mlg-ti-fs-heading: clamp(18px, 6.5vw, 33px); /* each heading line fits on one line */
         --mlg-ti-fs-text:    clamp(calc(11px * 0.85), calc(11vw / 3.9), calc(11px * 1.3));
         --mlg-ti-lh-heading: 1.2188;    /* 39 / 32 */
         --mlg-ti-ls-heading: 0.0104em;  /* 0.33 / 32 */
@@ -786,6 +804,7 @@
       --mlg-buy-muted:    #667068;
       --mlg-buy-gold:     #D6AB50;
       --mlg-buy-selected: #FFF8DF;
+      --mlg-buy-photo-bg: #F3ECDF; /* matches the product shot's background */
 
       /* section - photo: 662 tall, card 590 at 68 from top / 55 from right */
       --mlg-buy-pt:        68;
@@ -945,6 +964,37 @@
       fill: rgba(14, 58, 32, 0.2);
     }
 
+    /* product shot: shown whole on a background that matches it, so it fills the
+       width like the old full-bleed photo; its side edges fade into that colour */
+    .mlg-buy .mlg-buy__media--shot {
+      background-color: var(--mlg-buy-photo-bg, #F3ECDF);
+    }
+
+    .mlg-buy .mlg-buy__media--shot picture {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      width: auto;
+      height: auto;
+    }
+
+    .mlg-buy .mlg-buy__media--shot .mlg-buy__img {
+      width: auto;
+      max-width: 100%;
+      height: 100%;
+      object-fit: contain;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+    }
+
+    @media screen and (min-width: 1025px) {
+      /* desktop: centred in the space to the left of the card */
+      .mlg-buy.mlg-buy--photo .mlg-buy__media--shot picture {
+        right: calc((var(--mlg-buy-card-w) + var(--mlg-buy-px)) * var(--mlg-buy-u));
+      }
+    }
+
     /* soft fade from the section above, as in Figma */
     .mlg-buy .mlg-buy__media::after {
       content: '';
@@ -1005,7 +1055,7 @@
     .mlg-buy .mlg-buy__intro-text {
       margin: 0;
       font-family: var(--mlg-buy-font);
-      font-weight: 400;
+      font-weight: 700;
       font-size: calc(var(--mlg-buy-fs-intro) * var(--mlg-buy-u));
       line-height: var(--mlg-buy-lh-intro);
       color: var(--mlg-buy-muted);
@@ -1736,7 +1786,7 @@
     .mlg-ing .mlg-ing__desc p {
       margin: 0;
       font-family: var(--mlg-ing-font);
-      font-weight: 400;
+      font-weight: 600;
       font-size: calc(var(--mlg-ing-fs-desc) * var(--mlg-ing-u));
       line-height: var(--mlg-ing-lh-desc);
       color: var(--mlg-ing-text);
@@ -2085,6 +2135,57 @@
       transform: translate(-50%, -50%);
     }
 
+    /* sound button on the video */
+    .mlg-steps .mlg-steps__sound {
+      position: absolute;
+      right: calc(14 * var(--mlg-steps-u));
+      bottom: calc(14 * var(--mlg-steps-u));
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      margin: 0;
+      padding: 8px 14px 8px 12px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(14, 58, 32, 0.8);
+      box-shadow: 0 4px 14px rgba(2, 8, 5, 0.25);
+      font-family: var(--mlg-steps-font);
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: #FFFDF7;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .mlg-steps .mlg-steps__sound[hidden] {
+      display: none;
+    }
+
+    .mlg-steps .mlg-steps__sound svg {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+    }
+
+    .mlg-steps .mlg-steps__sound-on,
+    .mlg-steps .mlg-steps__sound--on .mlg-steps__sound-off {
+      display: none;
+    }
+
+    .mlg-steps .mlg-steps__sound--on .mlg-steps__sound-on {
+      display: inline;
+    }
+
+    .mlg-steps .mlg-steps__sound:focus-visible {
+      outline: 2px solid #ECC96F;
+      outline-offset: 2px;
+    }
+
     /* ---------------------------------- STEPS --------------------------------- */
     .mlg-steps .mlg-steps__slider {
       grid-area: steps;
@@ -2167,7 +2268,7 @@
     .mlg-steps .mlg-steps__desc {
       margin: 0;
       font-family: var(--mlg-steps-font);
-      font-weight: 500;
+      font-weight: 600;
       font-size: calc(var(--mlg-steps-fs-text) * var(--mlg-steps-u));
       line-height: var(--mlg-steps-lh-text);
       color: var(--mlg-steps-step);
@@ -2510,7 +2611,7 @@
     .mlg-cmp .mlg-cmp__text {
       margin: 0;
       font-family: var(--mlg-cmp-font);
-      font-weight: 400;
+      font-weight: 600;
       font-size: calc(var(--mlg-cmp-fs-text) * var(--mlg-cmp-u));
       line-height: var(--mlg-cmp-lh-text);
       color: var(--mlg-cmp-heading);
@@ -2527,7 +2628,7 @@
       align-items: flex-start;
       width: calc(1280 * var(--mlg-cmp-tu));
       margin: 0 auto;
-      padding-top: calc(8 * var(--mlg-cmp-tu));
+      padding-top: calc(13 * var(--mlg-cmp-tu)); /* the Milonga card rises 13 above the table */
     }
 
     .mlg-cmp .mlg-cmp__labels,
@@ -2545,6 +2646,10 @@
     .mlg-cmp .mlg-cmp__col {
       width: calc(var(--mlg-cmp-col-w) * var(--mlg-cmp-tu));
       border-left: 1px solid rgba(11, 59, 37, 0.08);
+    }
+
+    .mlg-cmp .mlg-cmp__col--last {
+      border-radius: 0 calc(14 * var(--mlg-cmp-tu)) calc(14 * var(--mlg-cmp-tu)) 0;
     }
 
     .mlg-cmp .mlg-cmp__colhead {
@@ -2625,12 +2730,14 @@
     }
 
     /* ------------------------------ MILONGA CARD ------------------------------ */
+    /* Milonga card: sits right after the row labels and overhangs the table by 13 (its padding + frame
+       border) at the top and bottom, so its header and rows line up exactly with the table's */
     .mlg-cmp .mlg-cmp__brand {
       flex: 1 1 auto;
-      height: calc(644 * var(--mlg-cmp-tu));
-      margin-top: calc(-8 * var(--mlg-cmp-tu));
+      height: calc((var(--mlg-cmp-head-h) + var(--mlg-cmp-row-h) * 5 + 26) * var(--mlg-cmp-tu));
+      margin-top: calc(-13 * var(--mlg-cmp-tu));
       padding: calc(9 * var(--mlg-cmp-tu));
-      border-radius: 0 calc(18 * var(--mlg-cmp-tu)) calc(18 * var(--mlg-cmp-tu)) 0;
+      border-radius: calc(13 * var(--mlg-cmp-tu));
       background-color: var(--mlg-cmp-card);
       box-shadow: 0 calc(12 * var(--mlg-cmp-tu)) calc(22 * var(--mlg-cmp-tu)) rgba(16, 43, 27, 0.14);
     }
@@ -2639,17 +2746,20 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      padding: calc(13 * var(--mlg-cmp-tu)) calc(12 * var(--mlg-cmp-tu)) calc(20 * var(--mlg-cmp-tu));
-      border: calc(4 * var(--mlg-cmp-tu)) solid var(--mlg-cmp-gold);
-      border-radius: calc(14 * var(--mlg-cmp-tu));
+      /* the gold frame is drawn as an inset shadow: browsers round border widths to whole pixels,
+         which would nudge the rows off the table's lines at some screen sizes */
+      padding: calc(4 * var(--mlg-cmp-tu)) calc(16 * var(--mlg-cmp-tu));
+      border: 0;
+      border-radius: calc(10 * var(--mlg-cmp-tu));
+      box-shadow: inset 0 0 0 calc(4 * var(--mlg-cmp-tu)) var(--mlg-cmp-gold);
     }
 
     .mlg-cmp .mlg-cmp__brand-head {
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: calc(145 * var(--mlg-cmp-tu));
-      padding-top: calc(3.55 * var(--mlg-cmp-tu));
+      height: calc(var(--mlg-cmp-head-h) * var(--mlg-cmp-tu));
+      padding-top: calc(16.55 * var(--mlg-cmp-tu));
     }
 
     .mlg-cmp .mlg-cmp__pouch {
@@ -2691,7 +2801,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: calc(88 * var(--mlg-cmp-tu));
+      height: calc(var(--mlg-cmp-row-h) * var(--mlg-cmp-tu));
       margin: 0;
       padding: calc(12 * var(--mlg-cmp-tu)) calc(5 * var(--mlg-cmp-tu));
       border-top: 1px solid #477052;
@@ -2718,11 +2828,12 @@
       color: var(--mlg-cmp-card-tx);
     }
 
-    /* VS badge on the seam between the table and the card */
+    /* VS badge on the seam between the Milonga card and the Coffee column, centred on the
+       header row so it sits between the two names and never covers a table value */
     .mlg-cmp .mlg-cmp__vs {
       position: absolute;
-      top: calc(151 * var(--mlg-cmp-tu));
-      left: calc(897 * var(--mlg-cmp-tu));
+      top: calc((13 + (var(--mlg-cmp-head-h) - 76) / 2) * var(--mlg-cmp-tu));
+      left: calc((1280 - var(--mlg-cmp-col-w) * 3 - 38) * var(--mlg-cmp-tu));
       z-index: 2;
       display: flex;
       align-items: center;
@@ -2870,7 +2981,7 @@
     }
 
     .mlg-cmp.mlg-cmp--in .mlg-cmp__brand {
-      animation: mlg-cmp-fade 0.8s ease-out 0.55s backwards;
+      animation: mlg-cmp-fade 0.8s ease-out 0.2s backwards;
     }
 
     .mlg-cmp.mlg-cmp--in .mlg-cmp__vs {
@@ -3952,10 +4063,10 @@
     <!-- ============ TEXT-IMAGE (mlg-ti-story) ============ -->
     <section id="mlg-ti-story" class="mlg-ti">
       <div class="mlg-ti__inner">
-        <div class="mlg-ti__content"><h2 class="mlg-ti__title"><span class="mlg-ti__title-line">Coffee spikes.</span>
-              <span class="mlg-ti__title-line mlg-ti__title-line--accent">Mate holds.</span></h2><div class="mlg-ti__text"><p>Coffee dumps its caffeine fast and alone, so you spike and crash. Mate delivers it slower, paired with L-theanine and Lion’s Mane, so the focus arrives and stays.</p></div></div>
+        <div class="mlg-ti__content"><h2 class="mlg-ti__title"><span class="mlg-ti__title-line">A coffee alternative</span>
+              <span class="mlg-ti__title-line mlg-ti__title-line--accent">that actually works</span></h2><div class="mlg-ti__text"><p>Same amount of caffeine as a cup of coffee. Same energy from that familiar morning brew, but without the jitters &amp; acidity that comes with coffee.</p></div></div>
 
-        <div class="mlg-ti__media"><img src="https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=1800" alt="Making a Milonga Mate Latte at home" srcset="https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=400 400w, https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=600 600w, https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=800 800w, https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=1000 1000w, https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=1200 1200w, https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=1500 1500w, https://milonga.life/cdn/shop/files/ba4bc555997ec86aafe2ed9d89163f9ad1474262.webp?v=1792762664&amp;width=1800 1800w" class="mlg-ti__img" sizes="(max-width: 767px) 88vw, (max-width: 1024px) 47vw, 42vw" loading="lazy" style="--mlg-ti-fp: 50% 50%;" width="1800" height="2143"></div>
+        <div class="mlg-ti__media mlg-ti__media--chart"><img src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=2400" alt="Caffeine per serving: Mate Latte 100mg from yerba mate, coffee about 95mg, mushroom coffee about 48mg, matcha about 45mg, black tea about 35mg. Typical amounts, varies by brand." srcset="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=1200 1200w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=1600 1600w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=2000 2000w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=2400 2400w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=3000 3000w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Milonga-Caffeine-Comparison-4K_2.webp?v=1793383056&amp;width=3840 3840w" class="mlg-ti__img" sizes="(max-width: 767px) 194vw, (max-width: 1024px) 107vw, 94vw" loading="lazy" width="3840" height="1446"></div>
       </div>
     </section>
     <script>mlgAnim('mlg-ti-story', 'mlg-ti');</script>
@@ -4067,8 +4178,8 @@
             <p class="mlg-buy__meta" data-mlg-field="once-meta">30 servings · $2.10 per serving</p>
             <button type="button" class="mlg-buy__btn" data-mlg-buy="once" data-label="Buy Now">Buy Now</button>
           </div>
-        </div><p class="mlg-buy__guarantee">30-day money-back guarantee · Ships within 24 hours · Cancel anytime, one click</p><div class="mlg-buy__pay"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow_3.webp?v=1793117164" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow_2.webp?v=1793117170" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Shadow_1.webp?v=1793117172" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow_1.webp?v=1793117174" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow.webp?v=1793117177" alt="" loading="lazy" decoding="async"></div><p class="mlg-buy__error" role="alert" data-mlg-error hidden></p></div>
-        <div class="mlg-buy__media"><picture><source media="(max-width: 767px)" srcset="https://milonga.life/cdn/shop/files/image_1466.webp?v=1792767314&width=375 375w, https://milonga.life/cdn/shop/files/image_1466.webp?v=1792767314&width=390 390w" sizes="100vw"><img src="https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=3072" alt="Milonga Mate Latte pouch with a mate latte" srcset="https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=750 750w, https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=1100 1100w, https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=1500 1500w, https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=1920 1920w, https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=2400 2400w, https://milonga.life/cdn/shop/files/cd8a6790c076e2d2ed7550b502502f077dff5e1b.webp?v=1792766281&amp;width=3072 3072w" class="mlg-buy__img" sizes="100vw" loading="lazy" style="--mlg-buy-fp-d: 50% 50%; --mlg-buy-fp-m: 50% 50%;" width="3072" height="1391"></picture></div></mlg-buy>
+        </div><p class="mlg-buy__guarantee">30-day money-back guarantee · Ships within 24 hours · Cancel anytime, one click</p><div class="mlg-buy__pay"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/master.svg" alt="Mastercard" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/american_express.svg" alt="American Express" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/apple_pay.svg" alt="Apple Pay" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/google_pay.svg" alt="Google Pay" width="38" height="24" loading="lazy" decoding="async"></div><p class="mlg-buy__error" role="alert" data-mlg-error hidden></p></div>
+        <div class="mlg-buy__media mlg-buy__media--shot"><picture><img src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/pouch-latte-ingredients-scene_1.webp?v=1793382899&amp;width=1500" alt="Milonga Mate Latte pouch with a mate latte, Lion’s Mane, yerba mate leaves and L-theanine" srcset="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/pouch-latte-ingredients-scene_1.webp?v=1793382899&amp;width=600 600w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/pouch-latte-ingredients-scene_1.webp?v=1793382899&amp;width=900 900w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/pouch-latte-ingredients-scene_1.webp?v=1793382899&amp;width=1200 1200w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/pouch-latte-ingredients-scene_1.webp?v=1793382899&amp;width=1500 1500w, https://cdn.shopify.com/s/files/1/0841/2699/0646/files/pouch-latte-ingredients-scene_1.webp?v=1793382899&amp;width=2000 2000w" class="mlg-buy__img" sizes="(max-width: 767px) 100vw, (max-width: 1024px) 63vw, 46vw" loading="lazy" width="2000" height="2000"></picture></div></mlg-buy>
     <script>mlgAnim('mlg-buy-shop', 'mlg-buy');</script>
 
     <!-- ============ INGREDIENTS (mlg-ing-ingredients) ============ -->
@@ -4151,7 +4262,7 @@
 
                   poster="https://milonga.life/cdn/shop/files/preview_images/0fb49400f66f4257a47d06c8aadd0543.thumbnail.0000000000_1920x.jpg?v=1792764962"
 
-              ></video></div>
+              ></video><button type="button" class="mlg-steps__sound" data-mlg-sound aria-pressed="false" aria-label="Turn sound on" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z" fill="currentColor"/><path class="mlg-steps__sound-off" d="M16 9.5l5 5M21 9.5l-5 5"/><path class="mlg-steps__sound-on" d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><span data-mlg-sound-label>Tap for sound</span></button></div>
 
         <div class="mlg-steps__slider">
           <ol class="mlg-steps__list" data-mlg-track aria-label="How to make it"><li class="mlg-steps__step" >
@@ -4220,7 +4331,27 @@
       <div class="mlg-cmp__scroll">
         <div class="mlg-cmp__table">
           <div class="mlg-cmp__labels" aria-hidden="true">
-            <div class="mlg-cmp__colhead"></div><div class="mlg-cmp__cell mlg-cmp__cell--label">Sensation</div><div class="mlg-cmp__cell mlg-cmp__cell--label">Ingredients</div><div class="mlg-cmp__cell mlg-cmp__cell--label">Caffeine</div><div class="mlg-cmp__cell mlg-cmp__cell--label">Taste</div><div class="mlg-cmp__cell mlg-cmp__cell--label">3 hours later</div></div><div class="mlg-cmp__col">
+            <div class="mlg-cmp__colhead"></div><div class="mlg-cmp__cell mlg-cmp__cell--label">Sensation</div><div class="mlg-cmp__cell mlg-cmp__cell--label">Ingredients</div><div class="mlg-cmp__cell mlg-cmp__cell--label">Caffeine</div><div class="mlg-cmp__cell mlg-cmp__cell--label">Taste</div><div class="mlg-cmp__cell mlg-cmp__cell--label">3 hours later</div></div><div class="mlg-cmp__brand">
+            <div class="mlg-cmp__brand-frame">
+              <div class="mlg-cmp__brand-head"><img src="https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=240" srcset="https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=80 80w, https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=120 120w, https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=160 160w, https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=240 240w" class="mlg-cmp__pouch" sizes="40px" loading="lazy" alt=""><h3 class="mlg-cmp__brand-name">Milonga</h3><p class="mlg-cmp__brand-sub">mate latte</p></div>
+              <dl class="mlg-cmp__brand-list"><div class="mlg-cmp__brand-row">
+                    <dt class="mlg-cmp__brand-label">Sensation</dt>
+                    <dd class="mlg-cmp__brand-value">Awake, focused &amp; calm</dd>
+                  </div><div class="mlg-cmp__brand-row">
+                    <dt class="mlg-cmp__brand-label">Ingredients</dt>
+                    <dd class="mlg-cmp__brand-value">Yerba mate + Lion’s mane + L‑theanine</dd>
+                  </div><div class="mlg-cmp__brand-row">
+                    <dt class="mlg-cmp__brand-label">Energy</dt>
+                    <dd class="mlg-cmp__brand-value">100mg natural caffeine, smooth &amp; steady</dd>
+                  </div><div class="mlg-cmp__brand-row">
+                    <dt class="mlg-cmp__brand-label">Taste</dt>
+                    <dd class="mlg-cmp__brand-value">Creamy, smooth vanilla latte</dd>
+                  </div><div class="mlg-cmp__brand-row">
+                    <dt class="mlg-cmp__brand-label">3h later</dt>
+                    <dd class="mlg-cmp__brand-value">Still going, no crash</dd>
+                  </div></dl>
+            </div>
+          </div><div class="mlg-cmp__col">
               <div class="mlg-cmp__colhead"><img src="https://milonga.life/cdn/shop/files/0f87746bf53f2f37bf5fee45c2362155b8f5be89.png?v=1792768284&amp;width=220" srcset="https://milonga.life/cdn/shop/files/0f87746bf53f2f37bf5fee45c2362155b8f5be89.png?v=1792768284&amp;width=60 60w, https://milonga.life/cdn/shop/files/0f87746bf53f2f37bf5fee45c2362155b8f5be89.png?v=1792768284&amp;width=110 110w, https://milonga.life/cdn/shop/files/0f87746bf53f2f37bf5fee45c2362155b8f5be89.png?v=1792768284&amp;width=165 165w, https://milonga.life/cdn/shop/files/0f87746bf53f2f37bf5fee45c2362155b8f5be89.png?v=1792768284&amp;width=220 220w" class="mlg-cmp__icon" sizes="55px" loading="lazy" alt="" width="220" height="183"><h3 class="mlg-cmp__name">Coffee</h3>
               </div>
               <dl class="mlg-cmp__list"><div class="mlg-cmp__cell" >
@@ -4258,7 +4389,7 @@
                     <dt class="mlg-cmp__sr">3 hours later</dt>
                     <dd class="mlg-cmp__value">Need another cup</dd>
                   </div></dl>
-            </div><div class="mlg-cmp__col">
+            </div><div class="mlg-cmp__col mlg-cmp__col--last">
               <div class="mlg-cmp__colhead"><img src="https://milonga.life/cdn/shop/files/807f8f02057f46d995fa3bead922bf0a994125b2.png?v=1792768309&amp;width=220" srcset="https://milonga.life/cdn/shop/files/807f8f02057f46d995fa3bead922bf0a994125b2.png?v=1792768309&amp;width=60 60w, https://milonga.life/cdn/shop/files/807f8f02057f46d995fa3bead922bf0a994125b2.png?v=1792768309&amp;width=110 110w, https://milonga.life/cdn/shop/files/807f8f02057f46d995fa3bead922bf0a994125b2.png?v=1792768309&amp;width=165 165w, https://milonga.life/cdn/shop/files/807f8f02057f46d995fa3bead922bf0a994125b2.png?v=1792768309&amp;width=220 220w" class="mlg-cmp__icon" sizes="55px" loading="lazy" alt="" width="220" height="183"><h3 class="mlg-cmp__name">Matcha</h3>
               </div>
               <dl class="mlg-cmp__list"><div class="mlg-cmp__cell" >
@@ -4277,27 +4408,7 @@
                     <dt class="mlg-cmp__sr">3 hours later</dt>
                     <dd class="mlg-cmp__value">Fading</dd>
                   </div></dl>
-            </div><div class="mlg-cmp__brand">
-            <div class="mlg-cmp__brand-frame">
-              <div class="mlg-cmp__brand-head"><img src="https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=240" srcset="https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=80 80w, https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=120 120w, https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=160 160w, https://milonga.life/cdn/shop/files/milonga_latte_pouch_no_bg.png?v=1793013017&amp;width=240 240w" class="mlg-cmp__pouch" sizes="40px" loading="lazy" alt=""><h3 class="mlg-cmp__brand-name">Milonga</h3><p class="mlg-cmp__brand-sub">mate latte</p></div>
-              <dl class="mlg-cmp__brand-list"><div class="mlg-cmp__brand-row">
-                    <dt class="mlg-cmp__brand-label">Sensation</dt>
-                    <dd class="mlg-cmp__brand-value">Awake, focused &amp; calm</dd>
-                  </div><div class="mlg-cmp__brand-row">
-                    <dt class="mlg-cmp__brand-label">Ingredients</dt>
-                    <dd class="mlg-cmp__brand-value">Yerba mate + Lion’s mane + L‑theanine</dd>
-                  </div><div class="mlg-cmp__brand-row">
-                    <dt class="mlg-cmp__brand-label">Energy</dt>
-                    <dd class="mlg-cmp__brand-value">100mg natural caffeine, smooth &amp; steady</dd>
-                  </div><div class="mlg-cmp__brand-row">
-                    <dt class="mlg-cmp__brand-label">Taste</dt>
-                    <dd class="mlg-cmp__brand-value">Creamy, smooth vanilla latte</dd>
-                  </div><div class="mlg-cmp__brand-row">
-                    <dt class="mlg-cmp__brand-label">3h later</dt>
-                    <dd class="mlg-cmp__brand-value">Still going, no crash</dd>
-                  </div></dl>
-            </div>
-          </div><span class="mlg-cmp__vs" aria-hidden="true">VS</span></div>
+            </div><span class="mlg-cmp__vs" aria-hidden="true">VS</span></div>
       </div><div class="mlg-cmp__photo" aria-hidden="true"><img src="https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=2880" srcset="https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=750 750w, https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=1100 1100w, https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=1500 1500w, https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=1920 1920w, https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=2400 2400w, https://milonga.life/cdn/shop/files/caaf3436c20627c9d44a7916b613dffc19bcd608.png?v=1792768237&amp;width=2880 2880w" class="mlg-cmp__photo-img" sizes="100vw" loading="lazy" alt="" style="--mlg-cmp-fp: 50% 50%;" width="2880" height="960"></div></section>
     <script>mlgAnim('mlg-cmp-compare', 'mlg-cmp');</script>
 
@@ -4730,7 +4841,7 @@
             <p class="mlg-buy__meta" data-mlg-field="once-meta">30 servings · $2.10 per serving</p>
             <button type="button" class="mlg-buy__btn" data-mlg-buy="once" data-label="Buy Now">Buy Now</button>
           </div>
-        </div><p class="mlg-buy__guarantee">30-day money-back guarantee · Ships within 24 hours · Cancel anytime, one click</p><div class="mlg-buy__pay"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow_3.webp?v=1793117164" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow_2.webp?v=1793117170" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Shadow_1.webp?v=1793117172" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow_1.webp?v=1793117174" alt="" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.shopify.com/s/files/1/0841/2699/0646/files/Background_Border_Shadow.webp?v=1793117177" alt="" loading="lazy" decoding="async"></div><p class="mlg-buy__error" role="alert" data-mlg-error hidden></p></div>
+        </div><p class="mlg-buy__guarantee">30-day money-back guarantee · Ships within 24 hours · Cancel anytime, one click</p><div class="mlg-buy__pay"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/master.svg" alt="Mastercard" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/american_express.svg" alt="American Express" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/apple_pay.svg" alt="Apple Pay" width="38" height="24" loading="lazy" decoding="async"><img class="mlg-buy__pay-icon" src="https://cdn.jsdelivr.net/gh/activemerchant/payment_icons@6e8633da0e985650049398703ed64efb01e4b7ad/app/assets/images/payment_icons/google_pay.svg" alt="Google Pay" width="38" height="24" loading="lazy" decoding="async"></div><p class="mlg-buy__error" role="alert" data-mlg-error hidden></p></div>
         </div></mlg-buy>
     <script>mlgAnim('mlg-buy-try', 'mlg-buy');</script>
   </main>
@@ -5173,10 +5284,15 @@
           this.track.scrollTo({ left: i * this.track.clientWidth, behavior: smooth && !this.reduce ? 'smooth' : 'auto' });
         }
 
-        // muted loop that plays while on screen and pauses off screen
+        // Plays while on screen and pauses off screen, so any sound stops when you scroll past.
+        // On screen it tries to play with sound; browsers only allow that once the visitor has
+        // tapped or clicked the page, so if they say no it plays silently and the sound button
+        // turns sound on with one tap. With reduced motion it doesn't autoplay (controls shown).
         watchVideo() {
           const video = this.querySelector('video');
           if (!video) return;
+          const btn = this.querySelector('[data-mlg-sound]');
+          const label = btn ? btn.querySelector('[data-mlg-sound-label]') : null;
           video.muted = true;
           video.defaultMuted = true;
           video.loop = true;
@@ -5187,18 +5303,63 @@
             video.controls = true;
             return;
           }
-          const play = () => {
+          let inView = false;
+          let mutedByVisitor = false;
+          const sync = () => {
+            if (!btn) return;
+            const on = !video.muted;
+            btn.hidden = false;
+            btn.classList.toggle('mlg-steps__sound--on', on);
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            btn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+            if (label) label.textContent = on ? 'Sound on' : 'Tap for sound';
+          };
+          const playMuted = () => {
+            video.muted = true;
+            sync();
             const attempt = video.play();
             if (attempt && attempt.catch) attempt.catch(() => { video.controls = true; });
           };
+          const play = () => {
+            if (!btn || mutedByVisitor) {
+              playMuted();
+              return;
+            }
+            video.muted = false;
+            const attempt = video.play();
+            if (!attempt || !attempt.then) {
+              sync();
+              return;
+            }
+            attempt.then(sync, (error) => {
+              // the browser won't start sound without a tap: play silently instead
+              if (inView && (!error || error.name === 'NotAllowedError')) playMuted();
+            });
+          };
+          if (btn) {
+            btn.addEventListener('click', () => {
+              if (video.muted) {
+                mutedByVisitor = false;
+                video.muted = false;
+                const attempt = video.play();
+                if (attempt && attempt.catch) attempt.catch(() => { video.muted = true; sync(); });
+              } else {
+                mutedByVisitor = true;
+                video.muted = true;
+              }
+              sync();
+            });
+            sync();
+          }
           if (!('IntersectionObserver' in window)) {
-            play();
+            playMuted();
             return;
           }
           if (this.observer) this.observer.disconnect();
           this.observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
-              if (entry.isIntersecting) play();
+              inView = entry.isIntersecting;
+              if (inView) play();
               else video.pause();
             });
           }, { threshold: 0.2 });

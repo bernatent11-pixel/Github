@@ -1,5 +1,6 @@
 // "If you want / You need" — a 9:16 story graphic for the Mate Latte, on the
-// gold of the Mate Latte banner. Built as an SVG with LIVE TEXT so it drops
+// gold of the Mate Latte banner, its content fitted into Bernat's safe box
+// (see BOX). Built as an SVG with LIVE TEXT so it drops
 // into Figma as editable text layers (Montserrat), plus a PNG for checking.
 //
 // Left column: words only. Right column: our branded circles (forest, cream
@@ -26,9 +27,14 @@ const ROWS = [
   { want: ['Delicious', 'flavor'], need: ['Vanilla, honey', '& monk fruit'], icon: 'hot' },
 ];
 
-// Geometry
-const TOP = 262;            // column headers baseline
-const GRID_TOP = 320, ROW_H = 236;
+// The safe box the content must sit in (Bernat's frame): 5.04%–94.30% of the
+// width, 12.56%–65.92% of the height of the 9:16 frame. The gold background
+// still fills the whole frame; only the content is fitted into the box.
+const BOX = { x: 0.0504 * W, y: 0.1256 * H, w: (0.9430 - 0.0504) * W, h: (0.6592 - 0.1256) * H };
+
+// Geometry, in content units (laid out at 1x, then scaled to fit BOX)
+const TOP = 70;             // column headers baseline
+const GRID_TOP = 120, ROW_H = 200;
 const GRID_BOTTOM = GRID_TOP + ROW_H * ROWS.length;
 const COL_X = 470;          // the vertical rule
 const LEFT_X = 92;          // left text
@@ -38,6 +44,15 @@ const RIGHT_X = 676;        // right text
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 async function svg() {
+  // Content extents in content units: rules span 70..W-70; the headers' cap
+  // tops sit ~46 above their baseline; the pouch (with its shadow) is lowest.
+  const pouchH = Math.round(270 * 1441 / 894);
+  const cx0 = 70, cx1 = W - 70, cy0 = TOP - 50, cy1 = GRID_BOTTOM + 30 + pouchH + 30;
+  const sc = Math.min(BOX.w / (cx1 - cx0), BOX.h / (cy1 - cy0));
+  const tx = BOX.x + (BOX.w - (cx1 - cx0) * sc) / 2 - cx0 * sc;
+  const ty = BOX.y + (BOX.h - (cy1 - cy0) * sc) / 2 - cy0 * sc;
+  const fit = `translate(${tx.toFixed(2)} ${ty.toFixed(2)}) scale(${sc.toFixed(4)})`;
+  console.log('content scale', sc.toFixed(3), 'box', BOX);
   const icons = {};
   for (const r of ROWS) icons[r.icon] = await b64(`public/brand/icons/${r.icon}-cream.png`, 140);
   const pouch = await b64('public/product/pouch-mate-latte-vanilla-packshot-corrected.png', 760);
@@ -98,6 +113,7 @@ async function svg() {
   <rect id="background" width="${W}" height="${H}" fill="url(#gold)"/>
   <rect id="floor-glow" x="0" y="${H - 700}" width="${W}" height="700" fill="url(#floor)"/>
 
+  <g id="content" transform="${fit}">
   <text id="header-want" x="${LEFT_X}" y="${TOP}" font-family="${FONT}" font-size="56" font-weight="900" fill="${FOREST}">If you want:</text>
   <text id="header-need" x="${CIRCLE_CX - R}" y="${TOP}" font-family="${FONT}" font-size="56" font-weight="900" fill="${FOREST}">You need:</text>
 
@@ -106,9 +122,10 @@ async function svg() {
   ${hRules}
 ${rows}
 
-  <text id="cta" x="${LEFT_X}" y="${GRID_BOTTOM + 190}" font-family="${FONT}" font-size="48" font-weight="600" fill="${FOREST}"><tspan x="${LEFT_X}" dy="0">Try </tspan><tspan font-weight="900">the Mate Latte</tspan><tspan x="${LEFT_X}" dy="62">for coffee-level</tspan><tspan x="${LEFT_X}" dy="62">energy + flavor…</tspan><tspan x="${LEFT_X}" dy="62" font-style="italic" font-weight="800">minus the jitters.</tspan></text>
+  <text id="cta" x="${LEFT_X}" y="${GRID_BOTTOM + 170}" font-family="${FONT}" font-size="48" font-weight="600" fill="${FOREST}"><tspan x="${LEFT_X}" dy="0">Try </tspan><tspan font-weight="900">the Mate Latte</tspan><tspan x="${LEFT_X}" dy="62">for coffee-level</tspan><tspan x="${LEFT_X}" dy="62">energy + flavor…</tspan><tspan x="${LEFT_X}" dy="62" font-style="italic" font-weight="800">minus the jitters.</tspan></text>
 
-  <image id="mate-latte-pouch" href="${pouch}" x="${W - 70 - 330}" y="${GRID_BOTTOM + 40}" width="330" height="${Math.round(330 * 1441 / 894)}" preserveAspectRatio="xMidYMid meet" filter="url(#shadow)"/>
+  <image id="mate-latte-pouch" href="${pouch}" x="${W - 70 - 270}" y="${GRID_BOTTOM + 30}" width="270" height="${Math.round(270 * 1441 / 894)}" preserveAspectRatio="xMidYMid meet" filter="url(#shadow)"/>
+  </g>
 </svg>
 `;
 }

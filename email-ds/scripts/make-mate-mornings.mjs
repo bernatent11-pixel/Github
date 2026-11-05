@@ -129,7 +129,7 @@ const hostedPath = `${OUT}/hosted.json`;
 const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath, 'utf8')) : {};
 const url = (f) => hosted[f] || `${RAW}/${f}`;
 const ALT = {
-  's1-hero': 'Milonga. 100mg of caffeine is a non-negotiable. Every other coffee alternative falls short… Try the Mate Latte for sustained energy without the crash. A pouch of Milonga Mate Latte, Vanilla, beside a tall glass of iced Mate Latte on green.',
+  's1-hero': 'Milonga. 100mg of caffeine is a non-negotiable. Every other coffee alternative falls short… Try the Mate Latte for sustained energy without the crash. A pouch of Milonga Mate Latte, Vanilla, beside a tall glass of Mate Latte on green.',
   's1-cta': 'Try it now',
   's2-hero': 'Everything your mornings need. If you want coffee-level energy, you need 100mg caffeine from yerba mate. If you want no jitters, you need L-Theanine. If you want enhanced focus, you need Lion’s Mane mushroom. If you want delicious flavor, you need vanilla, honey and monk fruit. Try the Mate Latte for coffee-level energy, focus and flavor, minus the jitters.',
   's2-cta': 'Experience it',

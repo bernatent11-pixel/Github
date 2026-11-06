@@ -1,0 +1,210 @@
+<!-- ═══ MILONGA · MYSTERY OFFER POP-UP · %VARIANT_LABEL% ═══════════════════
+     Signs people up to Klaviyo's "Mate Latte Signups" list (Vx3Tn4) with the
+     profile property source = "%SOURCE%". The Welcome flow on that list
+     reveals the offer; this pop-up never shows a code or hints at odds:
+     everyone gets the same offer.
+     Built by scripts/make-mystery-popups.mjs from popup.src.html; edit that. -->
+<div id="mlg-mo" class="mlg-mo" role="dialog" aria-modal="true" aria-labelledby="mlg-mo-title" aria-hidden="true">
+  <div class="mlg-mo__scrim" data-mlg-close></div>
+  <div class="mlg-mo__card">
+    <button type="button" class="mlg-mo__x" data-mlg-close aria-label="Close">&times;</button>
+    <div class="mlg-mo__art" role="img" aria-label="A pouch of Milonga Mate Latte, Vanilla, beside a tall glass of creamy Mate Latte on green."></div>
+    <div class="mlg-mo__panel">
+      <img class="mlg-mo__logo" src="%IMG%/logo-green.png" alt="Milonga" width="46" height="48">
+
+      <form class="mlg-mo__step mlg-mo__form" novalidate>
+        <div class="mlg-mo__eyebrow">%EYEBROW%</div>
+        <h2 id="mlg-mo-title" class="mlg-mo__title"><span class="mlg-mo__t1">Unlock a</span><span class="mlg-mo__t2">mystery offer</span></h2>
+        <div class="mlg-mo__seal" aria-hidden="true">?</div>
+        <p class="mlg-mo__body">%BODY%</p>
+        <label class="mlg-mo__sr" for="mlg-mo-email">Email address</label>
+        <input id="mlg-mo-email" class="mlg-mo__input" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Your email address" required>
+        <div class="mlg-mo__err" role="alert" aria-live="polite"></div>
+        <button type="submit" class="mlg-mo__btn">Unlock my offer</button>
+        <button type="button" class="mlg-mo__no" data-mlg-close>No thanks</button>
+        <p class="mlg-mo__fine">New customers only. One offer per person. By signing up you agree to receive marketing emails from Milonga. Unsubscribe anytime.</p>
+      </form>
+
+      <div class="mlg-mo__step mlg-mo__done" hidden>
+        <div class="mlg-mo__eyebrow">¡Listo!</div>
+        <h2 class="mlg-mo__title"><span class="mlg-mo__t1">Your offer is</span><span class="mlg-mo__t2">on its way</span></h2>
+        <p class="mlg-mo__body">Check your inbox: we just sent it to <strong class="mlg-mo__sent"></strong>. It’s good for 72 hours from now, so don’t let it sit too long.</p>
+        <button type="button" class="mlg-mo__btn" data-mlg-close>Keep exploring</button>
+        <p class="mlg-mo__fine">Can’t find it? Check your promotions or spam folder.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Tinos:ital,wght@0,400;1,700&display=swap');
+  .mlg-mo { --forest:#004D27; --deep:#00351B; --gold:#E3BC62; --cream:#FBF8EF; --ink:#12331F; --soft:#3B5344;
+    position:fixed; inset:0; z-index:2147483000; display:none; align-items:center; justify-content:center; padding:16px;
+    font-family:'Montserrat','Helvetica Neue',Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  .mlg-mo.is-open { display:flex; }
+  .mlg-mo *, .mlg-mo *::before, .mlg-mo *::after { box-sizing:border-box; }
+  .mlg-mo__scrim { position:absolute; inset:0; background:rgba(0,26,14,.6); opacity:0; transition:opacity .3s ease; }
+  .mlg-mo.is-in .mlg-mo__scrim { opacity:1; }
+  .mlg-mo__card { position:relative; display:flex; width:820px; max-width:100%; height:540px; max-height:calc(100vh - 32px);
+    background:var(--cream); border-radius:24px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.35);
+    transform:translateY(18px) scale(.98); opacity:0; transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .3s ease; }
+  .mlg-mo.is-in .mlg-mo__card { transform:none; opacity:1; }
+
+  .mlg-mo__art { flex:0 0 400px; background:#05593F url('%IMG%/hero.jpg') center 40%/cover no-repeat; }
+  .mlg-mo__panel { position:relative; flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:30px 38px 24px; text-align:center; color:var(--ink); overflow-y:auto; }
+  .mlg-mo__logo { display:block; height:44px; width:auto; margin:0 auto 12px; }
+  .mlg-mo__step { width:100%; display:flex; flex-direction:column; align-items:center; position:relative; }
+  .mlg-mo__step[hidden] { display:none; }
+
+  .mlg-mo__eyebrow { font-size:12px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:#A8822F; }
+  .mlg-mo__title { margin:10px 0 0; color:var(--forest); font-family:'Tinos','Times New Roman',Times,serif; font-weight:400; line-height:1; }
+  .mlg-mo__t1 { display:block; font-size:34px; }
+  .mlg-mo__t2 { display:block; font-size:50px; font-style:italic; font-weight:700; letter-spacing:-.5px; margin-top:2px; }
+  .mlg-mo__seal { position:absolute; top:28px; right:-6px; width:46px; height:46px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #F2D58F, #D8AE52 70%); color:var(--forest);
+    font:700 italic 28px/46px 'Tinos','Times New Roman',serif; box-shadow:0 6px 14px rgba(120,80,10,.3); transform:rotate(10deg); }
+  .mlg-mo__body { margin:14px 0 18px; max-width:320px; font-size:14.5px; line-height:1.5; font-weight:500; color:var(--soft); }
+  .mlg-mo__body strong { color:var(--forest); font-weight:700; overflow-wrap:anywhere; }
+
+  .mlg-mo__input { width:100%; max-width:320px; height:50px; padding:0 20px; border:1.5px solid rgba(0,77,39,.35); border-radius:999px;
+    background:#fff; color:var(--forest); font:600 15px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; outline:none; text-align:center; }
+  .mlg-mo__input::placeholder { color:#7C8B81; }
+  .mlg-mo__input:focus { border-color:var(--forest); box-shadow:0 0 0 3px rgba(0,77,39,.15); }
+  .mlg-mo__input[aria-invalid="true"] { border-color:#B3261E; }
+  .mlg-mo__err { min-height:18px; margin:6px 0 2px; font-size:12px; font-weight:700; color:#B3261E; }
+
+  .mlg-mo__btn { display:inline-flex; align-items:center; justify-content:center; width:100%; max-width:320px; height:52px;
+    border:0; border-radius:999px; background:var(--forest); color:#fff; cursor:pointer;
+    font:800 14.5px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:2px; text-transform:uppercase;
+    box-shadow:0 4px 0 var(--deep); transition:transform .12s ease, box-shadow .12s ease; }
+  .mlg-mo__btn:hover { transform:translateY(-1px); }
+  .mlg-mo__btn:active { transform:translateY(2px); box-shadow:0 2px 0 var(--deep); }
+  .mlg-mo__btn[disabled] { opacity:.7; cursor:wait; }
+  .mlg-mo__btn:focus-visible, .mlg-mo__no:focus-visible, .mlg-mo__x:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+  .mlg-mo__no { margin-top:10px; padding:4px 8px; border:0; background:none; color:var(--soft); cursor:pointer;
+    font:700 12px/1.2 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase;
+    text-decoration:underline; text-underline-offset:3px; }
+  .mlg-mo__fine { margin:12px 0 0; max-width:320px; font-size:10.5px; line-height:1.45; font-weight:500; color:#6E7D73; }
+
+  .mlg-mo__x { position:absolute; top:12px; right:12px; z-index:3; width:36px; height:36px; border:0; border-radius:50%;
+    background:rgba(0,53,27,.08); color:var(--forest); font:400 24px/36px Arial,sans-serif; cursor:pointer; padding:0; }
+  .mlg-mo__sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+  /* Phones: the product as a band on top, the form below. */
+  @media (max-width:760px) {
+    .mlg-mo { padding:12px; }
+    .mlg-mo__card { flex-direction:column; width:400px; height:auto; max-height:calc(100vh - 24px); overflow-y:auto; }
+    .mlg-mo__art { flex:0 0 auto; height:210px; background-position:center 38%; }
+    .mlg-mo__panel { padding:20px 22px 20px; overflow:visible; }
+    .mlg-mo__logo { display:none; }
+    .mlg-mo__x { background:rgba(255,255,255,.9); }
+    .mlg-mo__t1 { font-size:28px; } .mlg-mo__t2 { font-size:42px; }
+    .mlg-mo__seal { top:18px; right:2px; width:40px; height:40px; font-size:24px; line-height:40px; }
+    .mlg-mo__body { margin:10px 0 14px; font-size:14px; }
+  }
+  @media (max-height:700px) and (max-width:760px) { .mlg-mo__art { height:150px; } }
+  @media (prefers-reduced-motion:reduce) { .mlg-mo__scrim, .mlg-mo__card { transition:none; } }
+</style>
+
+<script>
+(function () {
+  var COMPANY_ID = 'TwvSnK';          // Klaviyo public API key (safe to publish)
+  var LIST_ID = 'Vx3Tn4';             // "Mate Latte Signups" — starts the Welcome flow
+  var SOURCE = '%SOURCE%';            // hidden field, saved on the profile as "source"
+  var DELAY_MS = %DELAY_MS%;          // open after this long…
+  var SCROLL_SHARE = %SCROLL_SHARE%;  // …or once this share of the page is scrolled
+  var EXIT_INTENT = %EXIT_INTENT%;    // desktop: also open when the cursor leaves for the tab bar
+  var SNOOZE_DAYS = 7;                // after "No thanks", stay hidden this long
+  var KEY = 'mlg_mo_' + SOURCE;
+
+  var root = document.getElementById('mlg-mo');
+  if (!root) return;
+  var form = root.querySelector('.mlg-mo__form');
+  var done = root.querySelector('.mlg-mo__done');
+  var input = root.querySelector('#mlg-mo-email');
+  var err = root.querySelector('.mlg-mo__err');
+  var btn = form.querySelector('.mlg-mo__btn');
+  var lastFocus = null, opened = false;
+
+  function store(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function suppressed() {
+    if (/[?&]mlg_pop=1\b/.test(location.search)) return false;               // force it on for testing
+    if (/[?&](_kx|utm_source=klaviyo)\b/i.test(location.search)) return true; // came from one of our emails
+    if (/\/(cart|checkout|account)\b/.test(location.pathname)) return true;
+    var v = stored();
+    if (v === 'joined') return true;
+    if (v && +v > Date.now()) return true;
+    return false;
+  }
+
+  function open() {
+    if (opened) return; opened = true;
+    lastFocus = document.activeElement;
+    root.classList.add('is-open'); root.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(function () { root.classList.add('is-in'); });
+    setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 350);
+    document.addEventListener('keydown', onKey);
+  }
+  function close() {
+    root.classList.remove('is-in'); root.setAttribute('aria-hidden', 'true');
+    setTimeout(function () { root.classList.remove('is-open'); }, 300);
+    document.removeEventListener('keydown', onKey);
+    if (stored() !== 'joined') store(String(Date.now() + SNOOZE_DAYS * 864e5));
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function onKey(e) {
+    if (e.key === 'Escape') return close();
+    if (e.key !== 'Tab') return;
+    var f = [].filter.call(root.querySelectorAll('button, input, a[href]'), function (el) { return el.offsetParent !== null; });
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+  [].forEach.call(root.querySelectorAll('[data-mlg-close]'), function (el) { el.addEventListener('click', close); });
+
+  function fail(msg) { err.textContent = msg; input.setAttribute('aria-invalid', 'true'); input.focus(); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (input.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail('Please enter a valid email address.');
+    err.textContent = ''; input.removeAttribute('aria-invalid');
+    btn.disabled = true; btn.textContent = 'One moment…';
+    fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + COMPANY_ID, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/vnd.api+json', revision: '2024-10-15' },
+      body: JSON.stringify({ data: { type: 'subscription', attributes: {
+        custom_source: 'Mystery offer pop-up · ' + SOURCE,
+        profile: { data: { type: 'profile', attributes: { email: email,
+          properties: { source: SOURCE },
+          subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } } } } }
+      }, relationships: { list: { data: { type: 'list', id: LIST_ID } } } } })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('Klaviyo ' + r.status);
+      store('joined');
+      done.querySelector('.mlg-mo__sent').textContent = email;
+      form.hidden = true; done.hidden = false;
+      var b = done.querySelector('.mlg-mo__btn'); if (b) b.focus();
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Unlock my offer';
+      fail('Something went wrong. Please try again.');
+    });
+  });
+
+  window.MilongaMysteryPopup = { open: open, close: close };
+  if (suppressed()) return;
+  var t = setTimeout(open, DELAY_MS);
+  window.addEventListener('scroll', function onScroll() {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    if (h > 0 && scrollY / h >= SCROLL_SHARE) { clearTimeout(t); window.removeEventListener('scroll', onScroll); open(); }
+  }, { passive: true });
+  if (EXIT_INTENT && matchMedia('(pointer:fine)').matches) {
+    document.addEventListener('mouseout', function onOut(e) {
+      if (!e.relatedTarget && e.clientY <= 0) { clearTimeout(t); document.removeEventListener('mouseout', onOut); open(); }
+    });
+  }
+})();
+</script>
+<!-- ═══ END MILONGA MYSTERY OFFER POP-UP ═══ -->

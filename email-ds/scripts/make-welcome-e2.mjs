@@ -24,14 +24,15 @@ const LINK = 'https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe
   + '&utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_mystery_offer&utm_content=e2_text_link';
 
 // The note. Each entry is a paragraph; [[text]] is the one link.
-// Facts used: three years of Milonga (flows brief); jitters, the 2pm crash,
-// grassy matcha and mushroom coffee (the product page); 30 seconds, hot or
-// iced; WELCOME15 = 15% off the first order, no end date (Shopify).
+// The story is Shadi's own (sent by Bernat, 2026-11-06): South Florida,
+// soccer, Argentina at 19, mate shared in gourds with teammates. Product
+// facts from the product page; WELCOME15 = 15% off the first order, no end
+// date (Shopify), so no deadline.
 const GREETING = 'Hey {{ first_name|default:\'there\' }},';
 const BODY = [
   'Shadi here, the guy behind Milonga. Quick story, I promise.',
-  'For the last three years I’ve been making yerba mate drinks, and every morning I ran into the same problem. Coffee gave me the energy, but it came with the jitters and the 2pm crash. Everything “healthier” I tried tasted like grass or like the forest floor.',
-  'So I made the drink I actually wanted in my mug every morning: a creamy vanilla latte with yerba mate for the energy, plus Lion’s Mane and L-theanine so it stays calm and clear. Thirty seconds, hot or iced. That’s the Mate Latte.',
+  'I grew up in South Florida playing soccer, and at 19 I moved to Argentina to chase a pro career. That’s where I found mate: a gourd passed around before practice and after meals with my teammates. It was never just the drink. It was slowing down, being present, having real conversations.',
+  'The Mate Latte is how I bring that into a busy morning. Yerba mate for the energy, plus Lion’s Mane and L-theanine so it stays calm and clear, in a creamy vanilla latte that’s ready in 30 seconds, hot or iced.',
   'Your code is still waiting, by the way: WELCOME15 takes 15% off your first order, and [[this link applies it for you]].',
   'And if you have a question, or you just want to tell me how your mornings go, hit reply. I read every one.',
 ];
@@ -76,7 +77,7 @@ if (problems.length) { console.error(problems); process.exit(1); }
 fs.writeFileSync(`${OUT}/welcome-e2.html`, html);
 
 // Text-only version: the link is written out after its words.
-const plain = (p) => p.replace(/\[\[(.+?)\]\]/, (_, t) => `${t}:\n${LINK}\n`);
+const plain = (p) => p.replace(/\[\[(.+?)\]\]\.?/, (_, t) => `${t}:\n${LINK}`);
 const txt = [GREETING, ...BODY.map(plain), SIGNOFF.join('\n'), '—', 'Don’t want these emails anymore? {% unsubscribe \'Unsubscribe\' %}', '{{ organization.name }} · {{ organization.full_address }}'].join('\n\n') + '\n';
 fs.writeFileSync(`${OUT}/welcome-e2.txt`, txt);
 

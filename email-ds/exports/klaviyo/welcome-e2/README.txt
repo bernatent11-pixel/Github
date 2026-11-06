@@ -21,20 +21,21 @@ THE ONE LINK
   (Shopify discount link: lands on the Mate Latte page with WELCOME15 already applied)
 
 FACTS USED
-  Three years of making yerba mate drinks (the flows brief, "three years with Milonga")
-  Jitters, the 2pm crash, grassy / forest-floor alternatives (the milonga.life product page)
-  Creamy vanilla latte, yerba mate + Lion's Mane + L-theanine, 30 seconds, hot or iced (product page)
+  Shadi's story as he tells it (sent by Bernat, 2026-11-06): grew up in South Florida playing soccer,
+  moved to Argentina at 19 for a pro career, found mate shared in gourds with teammates before practice
+  and after meals; slowing down, being present, real conversations
+  Yerba mate + Lion's Mane + L-theanine, creamy vanilla, 30 seconds, hot or iced (product page)
   WELCOME15: 15% off the first order, no end date, so no deadline is mentioned (Shopify)
 
 COPY (verbatim)
   Hey {{ first_name|default:'there' }},
   Shadi here, the guy behind Milonga. Quick story, I promise.
-  For the last three years I've been making yerba mate drinks, and every morning I ran into the same
-  problem. Coffee gave me the energy, but it came with the jitters and the 2pm crash. Everything
-  "healthier" I tried tasted like grass or like the forest floor.
-  So I made the drink I actually wanted in my mug every morning: a creamy vanilla latte with yerba mate
-  for the energy, plus Lion's Mane and L-theanine so it stays calm and clear. Thirty seconds, hot or
-  iced. That's the Mate Latte.
+  I grew up in South Florida playing soccer, and at 19 I moved to Argentina to chase a pro career.
+  That's where I found mate: a gourd passed around before practice and after meals with my teammates.
+  It was never just the drink. It was slowing down, being present, having real conversations.
+  The Mate Latte is how I bring that into a busy morning. Yerba mate for the energy, plus Lion's Mane
+  and L-theanine so it stays calm and clear, in a creamy vanilla latte that's ready in 30 seconds,
+  hot or iced.
   Your code is still waiting, by the way: WELCOME15 takes 15% off your first order, and this link
   applies it for you.
   And if you have a question, or you just want to tell me how your mornings go, hit reply. I read
@@ -45,5 +46,5 @@ COPY (verbatim)
 
 OTHER SUBJECT LINES (lowercase, the way he'd text)
   hey, it's shadi                       the short story of why the mate latte exists
-  quick story about my mornings         and a code that's still waiting for you
-  why i made the mate latte             it started with too many 2pm crashes
+  how mate found me in argentina        a gourd, a soccer team, and why i made the mate latte
+  why i made the mate latte             it started with a gourd in argentina

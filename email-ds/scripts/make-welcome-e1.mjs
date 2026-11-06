@@ -59,7 +59,7 @@ const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').repla
 // A pill button with an Outlook (VML) fallback.
 const button = (href, label, bg, ink, width) => `<!--[if mso]>
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${amp(href)}" style="height:56px;v-text-anchor:middle;width:${width}px;" arcsize="50%" stroke="f" fillcolor="${bg}"><w:anchorlock/><center style="color:${ink};font-family:Arial,sans-serif;font-size:16px;font-weight:bold;letter-spacing:2px;">${label}</center></v:roundrect>
-<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${bg === FOREST ? DEEP : '#C9A24E'};">${label}</a><!--<![endif]-->`;
+<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${bg === FOREST ? DEEP : '#C9A24E'};">${label}</a><!--<![endif]-->`;
 
 // The code, as a dashed coupon tag. Live text: long-press or select to copy.
 const codeTag = (border, fill, ink, capInk) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr>
@@ -110,14 +110,22 @@ function email(img) {
   @media only screen and (max-width:480px) {
     .wrap { width:100% !important; }
     .pad { padding-left:24px !important; padding-right:24px !important; }
-    .h-hero { font-size:72px !important; line-height:68px !important; }
-    .h-turn { font-size:34px !important; line-height:38px !important; }
+    .h-hero { font-size:64px !important; line-height:62px !important; }
+    .h-turn { font-size:32px !important; line-height:36px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .hero-in { padding-left:20px !important; padding-right:20px !important; }
     .code { font-size:24px !important; letter-spacing:4px !important; }
-    .btn { padding:19px 28px !important; }
-    .card { padding:36px 22px !important; }
-    .col { display:block !important; width:100% !important; padding:0 0 32px !important; }
+    .btn { padding:18px 24px !important; font-size:15px !important; letter-spacing:1.2px !important; }
+    .card { padding:36px 18px !important; }
+    .pad-card { padding-left:16px !important; padding-right:16px !important; }
+    .hero { height:774px !important; background-image:url('${img('hero-bg-mobile.jpg')}') !important; background-size:cover !important; background-position:center top !important; }
+    .hero-in { padding-top:24px !important; }
+    .hero-logo { width:68px !important; height:72px !important; }
+    .hero-gap { height:62px !important; line-height:62px !important; }
+    .eyebrow-hero { font-size:11px !important; letter-spacing:2px !important; }
+    .desk { display:none !important; }
+    .mob { display:block !important; max-height:none !important; overflow:visible !important; }
+    .col { display:block !important; width:100% !important; padding:0 0 28px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-hero { background-color:${HERO} !important; }
@@ -132,15 +140,15 @@ function email(img) {
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
 
 <!-- ── 1 · THE REVEAL (gold silk, forest type) ───────────────────────── -->
-<tr><td class="bg-hero" align="center" valign="top" height="1049" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:1049px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<tr><td class="bg-hero hero" align="center" valign="top" height="1049" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:1049px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1049px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-in" style="padding:32px 40px 0;font-family:${FONT};color:${FOREST};text-align:center;">
-<a href="${amp(L.home)}" target="_blank"><img src="${img('logo-green.png')}" width="85" height="90" alt="${ALT.logo}" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="height:122px;line-height:122px;font-size:0;">&nbsp;</div>
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('¡Listo! Your mystery offer is…')}</div>
+<a href="${amp(L.home)}" target="_blank"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="${ALT.logo}" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div class="hero-gap" style="height:122px;line-height:122px;font-size:0;">&nbsp;</div>
+<div class="eyebrow-hero" style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('¡Listo! Your mystery offer is…')}</div>
 <div class="h-hero" style="padding-top:8px;font-family:${SERIF};font-size:84px;line-height:78px;font-weight:700;letter-spacing:-1px;color:${FOREST};">15% off</div>
 <div class="h-turn" style="font-family:${SERIF};font-size:38px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">your first order.</div>
-<div style="padding:12px 0 18px;font-size:16px;line-height:22px;font-weight:500;color:${INK};">${keep(ent('We promised a surprise. Here’s your code:'))}</div>
+<div style="padding:12px 0 18px;font-size:16px;line-height:22px;font-weight:500;color:${INK};">${ent('We promised a surprise.')} <span style="white-space:nowrap;">${ent('Here’s your code:')}</span></div>
 ${codeTag(FOREST, TAG, FOREST, SOFT)}
 <div style="padding-top:18px;">${button(L.claim, 'Claim my 15% off', FOREST, BEIGE, 300)}</div>
 <div style="padding-top:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">&#10003;&nbsp; 30-day money-back guarantee</div>
@@ -160,14 +168,15 @@ ${codeTag(FOREST, TAG, FOREST, SOFT)}
 ${cols}
 </tr></table>
 </td></tr>
-<tr><td class="bg-s2a" bgcolor="${G2A}" style="background-color:${G2A};padding:16px 0 0;font-size:0;line-height:0;"><a href="${amp(L.product)}" target="_blank"><img src="${img('s2-product.jpg')}" width="600" alt="${ent(ALT.product)}" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a></td></tr>
+<tr><td class="bg-s2a" bgcolor="${G2A}" style="background-color:${G2A};padding:16px 0 0;font-size:0;line-height:0;"><div class="desk"><a href="${amp(L.product)}" target="_blank"><img src="${img('s2-product.jpg')}" width="600" alt="${ent(ALT.product)}" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a></div>
+<!--[if !mso]><!--><div class="mob" style="display:none;max-height:0;overflow:hidden;mso-hide:all;"><a href="${amp(L.product)}" target="_blank"><img src="${img('s2-product-mobile.jpg')}" width="390" alt="${ent(ALT.product)}" style="display:block;width:100%;height:auto;border:0;"></a></div><!--<![endif]--></td></tr>
 <tr><td class="pad bg-s2b" align="center" bgcolor="${G2B}" style="background-color:${G2B};padding:4px 20px 56px;font-family:${FONT};">
 <div style="padding-bottom:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">${ent('Plus, from the yerba mate')}</div>
 <div style="font-size:0;line-height:0;">${benefits}</div>
 </td></tr>
 
 <!-- ── 3 · THE OFFER, AGAIN (forest card on beige) ──────────────────── -->
-<tr><td class="pad bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:48px 24px 0;">
+<tr><td class="pad-card bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:48px 24px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td class="card bg-card" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:28px;padding:44px 40px 40px;font-family:${FONT};">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">${ent('It’s all yours')}</div>
@@ -177,7 +186,7 @@ ${cols}
 ${button(L.shop, 'Shop the Mate Latte', GOLD, FOREST, 300)}
 <div style="padding-top:28px;font-size:16px;line-height:24px;font-weight:500;color:#FFFFFF;">${ent('Planning on a cup every morning? Subscribe instead and save 30% on 30 or 60 servings, on every order.')} <strong style="color:${GOLD};">Skip, pause or cancel&nbsp;anytime.</strong></div>
 <div style="padding-top:12px;font-size:14px;line-height:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;"><a href="${amp(L.subscribe)}" target="_blank" style="color:${GOLD};text-decoration:underline;">${ent('See subscription options →')}</a></div>
-<div style="padding-top:28px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">Free shipping over $45 &middot; 30-day money-back guarantee</div>
+<div style="padding-top:28px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};"><span style="white-space:nowrap;">Free shipping over $45</span> &middot; <span style="white-space:nowrap;">30-day money-back guarantee</span></div>
 </td></tr></table>
 </td></tr>
 

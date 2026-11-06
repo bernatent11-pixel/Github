@@ -27,6 +27,22 @@ await sharp({ create: { width: W, height: H, channels: 3, background: '#F6DFAE' 
   .jpeg({ quality: 82, mozjpeg: true, chromaSubsampling: '4:4:4' }).toFile(`${OUT}/hero-bg.jpg`);
 console.log('hero-bg.jpg', W + 'x' + H, '(shows at 600x' + H / 2 + ')');
 
+// ── hero background, phone version ───────────────────────────────────────
+// On a phone the art shows at full width (~390px), so everything shrinks by
+// a third while the type does not. This version stretches the same plain band
+// further, so at 390px the reveal still fits between the top pouch and the
+// pouch and mug at the bottom, with nothing cropped off the sides.
+{
+  const ADDM = 775; // 2382 tall: 774px at 390
+  const band = await sharp(SRC).extract({ left: 0, top: A, width: W, height: B - A }).resize({ width: W, height: B - A + ADDM, fit: 'fill', kernel: 'cubic' }).toBuffer();
+  const HM = H0 + ADDM;
+  const full = await sharp({ create: { width: W, height: HM, channels: 3, background: '#F6DFAE' } })
+    .composite([{ input: top, left: 0, top: 0 }, { input: band, left: 0, top: A }, { input: bottom, left: 0, top: B + ADDM }]).png().toBuffer();
+  await sharp(full).resize({ width: 780 })
+    .jpeg({ quality: 82, mozjpeg: true, chromaSubsampling: '4:4:4' }).toFile(`${OUT}/hero-bg-mobile.jpg`);
+  console.log('hero-bg-mobile.jpg', '780x' + Math.round(HM * 780 / W), '(shows at 390x' + Math.round(HM * 390 / W) + ')');
+}
+
 // ── section 2: the pouch and the glass on green ──────────────────────────
 // Bernat's studio shot (src-s2-83.webp, 1116x2000): the products sit in the
 // middle of a flat green backdrop. The crop keeps the products; its top and
@@ -45,6 +61,9 @@ console.log('hero-bg.jpg', W + 'x' + H, '(shows at 600x' + H / 2 + ')');
   fade(0, Math.round(h * 0.12), topC, true);
   fade(Math.round(h * 0.9), h, botC, false);
   await sharp(data, { raw: info }).jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' }).toFile(`${OUT}/s2-product.jpg`);
+  // phone: the middle 64% of the width, so the products fill a 390px screen
+  const mx = Math.round(W2 * 0.18), mw = Math.round(W2 * 0.64);
+  await sharp(data, { raw: info }).extract({ left: mx, top: 0, width: mw, height: h }).resize({ width: 780 }).jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' }).toFile(`${OUT}/s2-product-mobile.jpg`);
   console.log('s2-product.jpg', W2 + 'x' + h, 'top green', hex(topC), 'bottom green', hex(botC));
 }
 

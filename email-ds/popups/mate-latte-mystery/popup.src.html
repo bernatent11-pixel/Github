@@ -1,109 +1,145 @@
 <!-- ═══ MILONGA · MYSTERY OFFER POP-UP · %VARIANT_LABEL% ═══════════════════
      Signs people up to Klaviyo's "Mate Latte Signups" list (Vx3Tn4) with the
-     profile property source = "%SOURCE%". The Welcome flow on that list
-     reveals the offer; this pop-up never shows a code or hints at odds:
-     everyone gets the same offer.
+     profile property source = "%SOURCE%", then reveals the offer on the
+     second step: 15% off the first order. The code itself is emailed by the
+     Welcome flow on that list. Everyone gets the same offer: no odds, no spin.
      Built by scripts/make-mystery-popups.mjs from popup.src.html; edit that. -->
 <div id="mlg-mo" class="mlg-mo" role="dialog" aria-modal="true" aria-labelledby="mlg-mo-title" aria-hidden="true">
   <div class="mlg-mo__scrim" data-mlg-close></div>
   <div class="mlg-mo__card">
+    <div class="mlg-mo__art" role="img" aria-label="A pouch of Milonga Mate Latte and three cans of Milonga yerba mate floating on swirls of gold silk."></div>
     <button type="button" class="mlg-mo__x" data-mlg-close aria-label="Close">&times;</button>
-    <div class="mlg-mo__art" role="img" aria-label="A pouch of Milonga Mate Latte, Vanilla, beside a tall glass of creamy Mate Latte on green."></div>
-    <div class="mlg-mo__panel">
-      <img class="mlg-mo__logo" src="%IMG%/logo-green.png" alt="Milonga" width="46" height="48">
+    <div class="mlg-mo__gap">
 
       <form class="mlg-mo__step mlg-mo__form" novalidate>
         <div class="mlg-mo__eyebrow">%EYEBROW%</div>
-        <h2 id="mlg-mo-title" class="mlg-mo__title"><span class="mlg-mo__t1">Unlock a</span><span class="mlg-mo__t2">mystery offer</span></h2>
-        <div class="mlg-mo__seal" aria-hidden="true">?</div>
+        <h2 id="mlg-mo-title" class="mlg-mo__title"><span class="mlg-mo__t1">You’ve got a</span><span class="mlg-mo__t2">mystery offer.</span></h2>
         <p class="mlg-mo__body">%BODY%</p>
         <label class="mlg-mo__sr" for="mlg-mo-email">Email address</label>
         <input id="mlg-mo-email" class="mlg-mo__input" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Your email address" required>
         <div class="mlg-mo__err" role="alert" aria-live="polite"></div>
         <button type="submit" class="mlg-mo__btn">Unlock my offer</button>
         <button type="button" class="mlg-mo__no" data-mlg-close>No thanks</button>
-        <p class="mlg-mo__fine">New customers only. One offer per person. By signing up you agree to receive marketing emails from Milonga. Unsubscribe anytime.</p>
+        <p class="mlg-mo__fine">New customers only. One per person. By signing up you agree to receive marketing emails from Milonga. Unsubscribe anytime.</p>
       </form>
 
       <div class="mlg-mo__step mlg-mo__done" hidden>
-        <div class="mlg-mo__eyebrow">¡Listo!</div>
-        <h2 class="mlg-mo__title"><span class="mlg-mo__t1">Your offer is</span><span class="mlg-mo__t2">on its way</span></h2>
-        <p class="mlg-mo__body">Check your inbox: we just sent it to <strong class="mlg-mo__sent"></strong>. It’s good for 72 hours from now, so don’t let it sit too long.</p>
-        <button type="button" class="mlg-mo__btn" data-mlg-close>Keep exploring</button>
-        <p class="mlg-mo__fine">Can’t find it? Check your promotions or spam folder.</p>
+        <div class="mlg-mo__eyebrow">¡Listo! You unlocked</div>
+        <div class="mlg-mo__reveal" aria-label="15% off">
+          <span class="mlg-mo__pct">15%</span><span class="mlg-mo__off">off</span>
+        </div>
+        <div class="mlg-mo__first">your first order</div>
+        <p class="mlg-mo__body">Your code is on its way to <strong class="mlg-mo__sent"></strong>. Pop it in at checkout and the first cup’s on a better deal.</p>
+        <button type="button" class="mlg-mo__btn" data-mlg-close>Start shopping</button>
+        <p class="mlg-mo__fine">Can’t find the email? Peek in your promotions or spam folder.</p>
       </div>
+
     </div>
   </div>
 </div>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Tinos:ital,wght@0,400;1,700&display=swap');
-  .mlg-mo { --forest:#004D27; --deep:#00351B; --gold:#E3BC62; --cream:#FBF8EF; --ink:#12331F; --soft:#3B5344;
+  .mlg-mo { --forest:#004D27; --deep:#00351B; --gold:#E3BC62; --ink:#12331F; --soft:#2F4A39;
     position:fixed; inset:0; z-index:2147483000; display:none; align-items:center; justify-content:center; padding:16px;
     font-family:'Montserrat','Helvetica Neue',Arial,sans-serif; -webkit-font-smoothing:antialiased; }
   .mlg-mo.is-open { display:flex; }
   .mlg-mo *, .mlg-mo *::before, .mlg-mo *::after { box-sizing:border-box; }
   .mlg-mo__scrim { position:absolute; inset:0; background:rgba(0,26,14,.6); opacity:0; transition:opacity .3s ease; }
   .mlg-mo.is-in .mlg-mo__scrim { opacity:1; }
-  .mlg-mo__card { position:relative; display:flex; width:820px; max-width:100%; height:540px; max-height:calc(100vh - 32px);
-    background:var(--cream); border-radius:24px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.35);
+
+  /* The card is the photo, at the photo's own shape. Everything inside is sized
+     in cqw (1% of the card's width), so it scales with the card and the copy
+     always lands in the same open gap between the pouch and the cans. */
+  .mlg-mo__card { position:relative; container-type:inline-size;
+    width:min(1000px, calc(100vw - 32px), calc((100vh - 32px) * 1800 / 1208)); aspect-ratio:1800 / 1208;
+    border-radius:24px; overflow:hidden; background:#EDCB86; box-shadow:0 30px 80px rgba(0,0,0,.35);
     transform:translateY(18px) scale(.98); opacity:0; transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .3s ease; }
   .mlg-mo.is-in .mlg-mo__card { transform:none; opacity:1; }
+  .mlg-mo__art { position:absolute; inset:0; background:url('%IMG%/bg.jpg') center/cover no-repeat; }
+  /* a soft light behind the copy so it reads over the silk */
+  .mlg-mo__art::after { content:''; position:absolute; left:28%; top:22%; width:48%; height:76%;
+    background:radial-gradient(closest-side, rgba(255,244,214,.62), rgba(255,244,214,0)); }
 
-  .mlg-mo__art { flex:0 0 400px; background:#05593F url('%IMG%/hero.jpg') center 40%/cover no-repeat; }
-  .mlg-mo__panel { position:relative; flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:30px 38px 24px; text-align:center; color:var(--ink); overflow-y:auto; }
-  .mlg-mo__logo { display:block; height:44px; width:auto; margin:0 auto 12px; }
-  .mlg-mo__step { width:100%; display:flex; flex-direction:column; align-items:center; position:relative; }
+  .mlg-mo__gap { position:absolute; left:36.5%; top:33%; width:30%; color:var(--ink); text-align:center; }
+  .mlg-mo__step { display:flex; flex-direction:column; align-items:center; }
   .mlg-mo__step[hidden] { display:none; }
 
-  .mlg-mo__eyebrow { font-size:12px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:#A8822F; }
-  .mlg-mo__title { margin:10px 0 0; color:var(--forest); font-family:'Tinos','Times New Roman',Times,serif; font-weight:400; line-height:1; }
-  .mlg-mo__t1 { display:block; font-size:34px; }
-  .mlg-mo__t2 { display:block; font-size:50px; font-style:italic; font-weight:700; letter-spacing:-.5px; margin-top:2px; }
-  .mlg-mo__seal { position:absolute; top:28px; right:-6px; width:46px; height:46px; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #F2D58F, #D8AE52 70%); color:var(--forest);
-    font:700 italic 28px/46px 'Tinos','Times New Roman',serif; box-shadow:0 6px 14px rgba(120,80,10,.3); transform:rotate(10deg); }
-  .mlg-mo__body { margin:14px 0 18px; max-width:320px; font-size:14.5px; line-height:1.5; font-weight:500; color:var(--soft); }
-  .mlg-mo__body strong { color:var(--forest); font-weight:700; overflow-wrap:anywhere; }
+  .mlg-mo__eyebrow { font-size:max(10px, 1.05cqw); font-weight:800; letter-spacing:.3cqw; text-transform:uppercase; color:#8A6420; }
+  .mlg-mo__title { margin:.8cqw 0 0; color:var(--forest); font-family:'Tinos','Times New Roman',Times,serif; font-weight:400; line-height:1; }
+  .mlg-mo__t1 { display:block; font-size:2.9cqw; }
+  .mlg-mo__t2 { display:block; font-size:3.9cqw; font-style:italic; font-weight:700; letter-spacing:-.04cqw; margin-top:.2cqw; white-space:nowrap; }
+  .mlg-mo__body { margin:1.2cqw 0 1.6cqw; font-size:max(12px, 1.38cqw); line-height:1.45; font-weight:600; color:var(--soft); }
+  .mlg-mo__body, .mlg-mo__fine { text-wrap:balance; }
+  .mlg-mo__body strong { color:var(--forest); font-weight:800; overflow-wrap:anywhere; }
 
-  .mlg-mo__input { width:100%; max-width:320px; height:50px; padding:0 20px; border:1.5px solid rgba(0,77,39,.35); border-radius:999px;
-    background:#fff; color:var(--forest); font:600 15px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; outline:none; text-align:center; }
-  .mlg-mo__input::placeholder { color:#7C8B81; }
-  .mlg-mo__input:focus { border-color:var(--forest); box-shadow:0 0 0 3px rgba(0,77,39,.15); }
+  .mlg-mo__input { width:100%; height:max(42px, 4.6cqw); padding:0 1.8cqw; border:1.5px solid rgba(0,77,39,.4); border-radius:999px;
+    background:rgba(255,255,255,.92); color:var(--forest); font:600 max(14px, 1.45cqw)/1 'Montserrat','Helvetica Neue',Arial,sans-serif;
+    outline:none; text-align:center; }
+  .mlg-mo__input::placeholder { color:#6F7F74; }
+  .mlg-mo__input:focus { border-color:var(--forest); box-shadow:0 0 0 3px rgba(0,77,39,.18); }
   .mlg-mo__input[aria-invalid="true"] { border-color:#B3261E; }
-  .mlg-mo__err { min-height:18px; margin:6px 0 2px; font-size:12px; font-weight:700; color:#B3261E; }
+  .mlg-mo__err { min-height:max(14px, 1.5cqw); margin:.4cqw 0 .2cqw; font-size:max(11px, 1.15cqw); font-weight:700; color:#A3211A; }
 
-  .mlg-mo__btn { display:inline-flex; align-items:center; justify-content:center; width:100%; max-width:320px; height:52px;
+  .mlg-mo__btn { display:inline-flex; align-items:center; justify-content:center; width:100%; height:max(44px, 4.8cqw);
     border:0; border-radius:999px; background:var(--forest); color:#fff; cursor:pointer;
-    font:800 14.5px/1 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:2px; text-transform:uppercase;
-    box-shadow:0 4px 0 var(--deep); transition:transform .12s ease, box-shadow .12s ease; }
+    font:800 max(12.5px, 1.35cqw)/1 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:.18cqw; text-transform:uppercase;
+    box-shadow:0 4px 0 var(--deep), 0 10px 22px rgba(0,53,27,.25); transition:transform .12s ease, box-shadow .12s ease; }
   .mlg-mo__btn:hover { transform:translateY(-1px); }
   .mlg-mo__btn:active { transform:translateY(2px); box-shadow:0 2px 0 var(--deep); }
   .mlg-mo__btn[disabled] { opacity:.7; cursor:wait; }
-  .mlg-mo__btn:focus-visible, .mlg-mo__no:focus-visible, .mlg-mo__x:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
-  .mlg-mo__no { margin-top:10px; padding:4px 8px; border:0; background:none; color:var(--soft); cursor:pointer;
-    font:700 12px/1.2 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase;
+  .mlg-mo__btn:focus-visible, .mlg-mo__no:focus-visible, .mlg-mo__x:focus-visible { outline:3px solid var(--forest); outline-offset:3px; }
+  .mlg-mo__no { margin-top:1cqw; padding:4px 8px; border:0; background:none; color:var(--soft); cursor:pointer;
+    font:700 max(11px, 1.1cqw)/1.2 'Montserrat','Helvetica Neue',Arial,sans-serif; letter-spacing:.14cqw; text-transform:uppercase;
     text-decoration:underline; text-underline-offset:3px; }
-  .mlg-mo__fine { margin:12px 0 0; max-width:320px; font-size:10.5px; line-height:1.45; font-weight:500; color:#6E7D73; }
+  .mlg-mo__fine { margin:1cqw 0 0; font-size:max(9.5px, .92cqw); line-height:1.4; font-weight:600; color:#5B5232; }
 
-  .mlg-mo__x { position:absolute; top:12px; right:12px; z-index:3; width:36px; height:36px; border:0; border-radius:50%;
-    background:rgba(0,53,27,.08); color:var(--forest); font:400 24px/36px Arial,sans-serif; cursor:pointer; padding:0; }
+  /* step 2: the reveal */
+  .mlg-mo__reveal { display:flex; align-items:baseline; justify-content:center; gap:.8cqw; margin-top:.4cqw;
+    color:var(--forest); font-family:'Tinos','Times New Roman',Times,serif; line-height:.95; }
+  .mlg-mo__pct { font-size:9.6cqw; font-weight:700; letter-spacing:-.3cqw; }
+  .mlg-mo__off { font-size:4.6cqw; font-style:italic; font-weight:700; }
+  .mlg-mo__first { margin-top:.2cqw; font-family:'Tinos','Times New Roman',Times,serif; font-style:italic; font-size:2.5cqw; color:var(--forest); }
+  .mlg-mo__done .mlg-mo__body { margin-top:1.4cqw; }
+
+  .mlg-mo__x { position:absolute; top:1.4cqw; right:1.4cqw; z-index:3; width:38px; height:38px; border:0; border-radius:50%;
+    background:rgba(255,255,255,.9); color:var(--forest); font:400 26px/38px Arial,sans-serif; cursor:pointer; padding:0;
+    box-shadow:0 2px 8px rgba(0,0,0,.15); }
   .mlg-mo__sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
-  /* Phones: the product as a band on top, the form below. */
-  @media (max-width:760px) {
+  /* Phones: the gap is too narrow to write in, so the whole photo sits on
+     top as a band (pouch and cans both in view) and the copy follows below
+     on gold that continues the silk. */
+  @media (max-width:700px) {
     .mlg-mo { padding:12px; }
-    .mlg-mo__card { flex-direction:column; width:400px; height:auto; max-height:calc(100vh - 24px); overflow-y:auto; }
-    .mlg-mo__art { flex:0 0 auto; height:210px; background-position:center 38%; }
-    .mlg-mo__panel { padding:20px 22px 20px; overflow:visible; }
-    .mlg-mo__logo { display:none; }
-    .mlg-mo__x { background:rgba(255,255,255,.9); }
-    .mlg-mo__t1 { font-size:28px; } .mlg-mo__t2 { font-size:42px; }
-    .mlg-mo__seal { top:18px; right:2px; width:40px; height:40px; font-size:24px; line-height:40px; }
+    .mlg-mo__card { width:min(400px, calc(100vw - 24px)); aspect-ratio:auto; max-height:calc(100vh - 24px); overflow-y:auto;
+      background:#EDC98A; }
+    .mlg-mo__art { position:relative; inset:auto; width:100%; aspect-ratio:1800 / 1208; background-size:100% auto; background-position:top center; }
+    .mlg-mo__art::after { left:0; top:auto; bottom:-1px; width:100%; height:45%;
+      background:linear-gradient(180deg, rgba(228,182,117,0), rgba(228,182,117,.7) 60%, #E4B675); }
+    .mlg-mo__gap { position:relative; left:auto; top:auto; width:auto; padding:6px 26px 22px;
+      background:linear-gradient(180deg, #E4B675 0, #F3D8A2 90px, #F5DEAC 55%, #EDC98A 100%); }
+    .mlg-mo__eyebrow { font-size:11px; letter-spacing:2.5px; }
+    .mlg-mo__title { margin-top:8px; }
+    .mlg-mo__t1 { font-size:28px; } .mlg-mo__t2 { font-size:38px; letter-spacing:-.4px; margin-top:2px; }
     .mlg-mo__body { margin:10px 0 14px; font-size:14px; }
+    .mlg-mo__input { height:50px; padding:0 18px; font-size:16px; }
+    .mlg-mo__err { min-height:16px; margin:5px 0 2px; font-size:12px; }
+    .mlg-mo__btn { height:52px; font-size:14px; letter-spacing:2px; }
+    .mlg-mo__no { margin-top:10px; font-size:12px; letter-spacing:1.5px; }
+    .mlg-mo__fine { margin-top:10px; font-size:10.5px; }
+    .mlg-mo__reveal { gap:8px; margin-top:2px; }
+    .mlg-mo__pct { font-size:88px; letter-spacing:-3px; } .mlg-mo__off { font-size:40px; }
+    .mlg-mo__first { font-size:24px; margin-top:2px; }
+    .mlg-mo__done .mlg-mo__body { margin-top:12px; }
+    .mlg-mo__done { padding-bottom:8px; }
+    .mlg-mo__x { top:10px; right:10px; width:34px; height:34px; font-size:24px; line-height:34px; }
   }
-  @media (max-height:700px) and (max-width:760px) { .mlg-mo__art { height:150px; } }
+  /* short phones (SE, mini, landscape-ish): a shorter photo band so the whole form fits */
+  @media (max-width:700px) and (max-height:740px) {
+    .mlg-mo__art { aspect-ratio:auto; height:27vh; background-size:cover; background-position:center 45%; }
+    .mlg-mo__t2 { font-size:34px; } .mlg-mo__body { margin:8px 0 12px; }
+  }
   @media (prefers-reduced-motion:reduce) { .mlg-mo__scrim, .mlg-mo__card { transition:none; } }
 </style>
 
@@ -126,6 +162,7 @@
   var err = root.querySelector('.mlg-mo__err');
   var btn = form.querySelector('.mlg-mo__btn');
   var lastFocus = null, opened = false;
+  var finePointer = window.matchMedia && matchMedia('(pointer:fine)').matches;
 
   function store(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
@@ -144,7 +181,8 @@
     lastFocus = document.activeElement;
     root.classList.add('is-open'); root.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(function () { root.classList.add('is-in'); });
-    setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 350);
+    // desktop: cursor straight into the field; phones: no surprise keyboard over the offer
+    setTimeout(function () { try { (finePointer ? input : root.querySelector('.mlg-mo__x')).focus({ preventScroll: true }); } catch (e) {} }, 350);
     document.addEventListener('keydown', onKey);
   }
   function close() {
@@ -171,7 +209,7 @@
     var email = (input.value || '').trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail('Please enter a valid email address.');
     err.textContent = ''; input.removeAttribute('aria-invalid');
-    btn.disabled = true; btn.textContent = 'One moment…';
+    btn.disabled = true; btn.textContent = 'Unlocking…';
     fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + COMPANY_ID, {
       method: 'POST',
       headers: { 'Content-Type': 'application/vnd.api+json', revision: '2024-10-15' },
@@ -200,7 +238,7 @@
     var h = document.documentElement.scrollHeight - innerHeight;
     if (h > 0 && scrollY / h >= SCROLL_SHARE) { clearTimeout(t); window.removeEventListener('scroll', onScroll); open(); }
   }, { passive: true });
-  if (EXIT_INTENT && matchMedia('(pointer:fine)').matches) {
+  if (EXIT_INTENT && finePointer) {
     document.addEventListener('mouseout', function onOut(e) {
       if (!e.relatedTarget && e.clientY <= 0) { clearTimeout(t); document.removeEventListener('mouseout', onOut); open(); }
     });

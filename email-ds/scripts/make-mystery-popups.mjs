@@ -1,4 +1,4 @@
-// The two "Unlock a mystery offer" pop-ups, built from
+// The two "You've got a mystery offer" pop-ups, built from
 // popups/mate-latte-mystery/popup.src.html:
 //   A) popup-ads-lp.html     — matelatte.milonga.life, cold Meta traffic,
 //                              one line on what the Mate Latte is
@@ -19,15 +19,15 @@ const VARIANTS = {
   ads_lp: {
     file: 'popup-ads-lp.html',
     label: 'ADS LANDING PAGE (matelatte.milonga.life)',
-    eyebrow: 'New here? Welcome',
-    body: 'Meet the Mate Latte: creamy vanilla yerba mate with 100mg of natural caffeine, ready in 30 seconds. Sign up and your offer lands in your inbox right away.',
+    eyebrow: 'Psst… new here?',
+    body: 'Your first creamy cup of Mate Latte just got a little sweeter. We can’t say how yet: drop your email and we’ll unwrap it for you in seconds.',
     delay: 10000, scroll: 0.5, exit: true,
   },
   main_site: {
     file: 'popup-main-site.html',
     label: 'MAIN WEBSITE (milonga.life)',
-    eyebrow: 'A little something for you',
-    body: 'Join the Milonga list and your offer lands in your inbox right away. It’s yours for 72 hours from the moment you sign up.',
+    eyebrow: 'Psst… this one’s for you',
+    body: 'Something good is hiding behind this button, and it has your name on it. Drop your email and we’ll unwrap it for you in seconds.',
     delay: 6000, scroll: 0.4, exit: true,
     liquid: ['{% unless customer and customer.orders_count > 0 %}', '{% endunless %}'],
   },
@@ -52,7 +52,9 @@ ${fill(v, (f) => `img/${f}`)}
 </body></html>`;
   fs.writeFileSync(`${DIR}/preview-${key}.html`, preview);
   if (hosted) {
-    let out = fill(v, (f) => { if (!hosted[f]) throw new Error('no hosted URL for ' + f); return hosted[f]; });
+    let missing = null;
+    let out = fill(v, (f) => { if (!hosted[f]) missing = f; return hosted[f]; });
+    if (missing) { console.log('skip', v.file, '(no hosted URL for', missing + ')'); console.log('wrote', `${DIR}/preview-${key}.html`); continue; }
     if (v.liquid) out = `${v.liquid[0]}\n${out}\n${v.liquid[1]}\n`;
     fs.writeFileSync(`${DIR}/${v.file}`, out);
     console.log('wrote', `${DIR}/${v.file}`);

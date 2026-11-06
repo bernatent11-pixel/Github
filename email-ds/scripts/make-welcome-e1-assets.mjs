@@ -12,11 +12,11 @@ fs.mkdirSync(OUT, { recursive: true });
 // ── hero background ─────────────────────────────────────────────────────
 // Bernat's art (src-hero-82.jpg, 1200x1607): a 15-serving pouch top-right,
 // the pouch and a mug of Mate Latte at the bottom, gold silk around an open
-// middle. At 600px that middle is ~255px tall and the reveal needs ~350, so
+// middle. At 600px that middle is ~255px tall and the reveal needs ~500, so
 // one plain band of the gradient (rows 530–650, no product, no bubble) is
-// stretched by 200 rows. The products and the silk around them are untouched.
+// stretched by ADD rows. The products and the silk around them are untouched.
 const SRC = 'exports/klaviyo/welcome-e1/src-hero-82.jpg';
-const A = 530, B = 650, ADD = 201; // 1808 tall: an even 904 at 600px
+const A = 530, B = 650, ADD = 491; // 2098 tall: an even 1049 at 600px
 const W = 1200, H0 = 1607;
 const top = await sharp(SRC).extract({ left: 0, top: 0, width: W, height: A }).toBuffer();
 const band = await sharp(SRC).extract({ left: 0, top: A, width: W, height: B - A }).resize({ width: W, height: B - A + ADD, fit: 'fill', kernel: 'cubic' }).toBuffer();

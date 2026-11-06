@@ -83,7 +83,6 @@ const BENEFITS = [
   { glyph: 'glyph-immune', label: 'Gut & immune support' },
   { glyph: 'glyph-metabolism', label: 'Metabolism support' },
 ];
-const STEPS = [['2.5 tbsp', 'of Mate Latte'], ['8 oz', 'milk or water'], ['30 sec', 'stir or froth']];
 
 function email(img) {
   const cols = INGREDIENTS.map((r) => `<td class="col" width="33%" valign="top" align="center" style="width:33%;padding:0 8px;font-family:${FONT};">
@@ -94,12 +93,6 @@ function email(img) {
 </td>`).join('\n');
 
   const benefits = BENEFITS.map((b) => `<span class="benefit" style="display:inline-block;margin:0 4px 10px;background-color:${GOLD};border-radius:999px;padding:9px 18px 9px 12px;font-family:${FONT};font-size:12px;line-height:24px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:${FOREST};white-space:nowrap;box-shadow:0 3px 0 #C9A24E;"><img src="${img(b.glyph + '.png')}" width="24" height="24" alt="" role="presentation" style="display:inline-block;width:24px;height:24px;vertical-align:middle;border:0;margin-right:7px;"><span style="vertical-align:middle;">${ent(b.label).replace(/&(?!amp;|[a-z]+;)/, '&amp;')}</span></span>`).join('');
-
-  const steps = STEPS.map(([big, cap], i) => `<td class="step" width="33%" valign="top" align="center" style="width:33%;padding:0 ${i === 1 ? 6 : 0}px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:20px;padding:18px 8px 16px;font-family:${FONT};">
-<div class="step-big" style="font-family:${SERIF};font-size:30px;line-height:34px;font-weight:700;color:${GOLD};white-space:nowrap;">${big}</div>
-<div class="step-cap" style="padding-top:6px;font-size:13px;line-height:17px;font-weight:500;color:#FFFFFF;">${ent(cap)}</div>
-</td></tr></table></td>`).join('\n');
 
   return `<!--
   WELCOME FLOW · EMAIL 1 · "${SUBJECT}"
@@ -124,10 +117,7 @@ function email(img) {
     .code { font-size:24px !important; letter-spacing:4px !important; }
     .btn { padding:19px 28px !important; }
     .card { padding:36px 22px !important; }
-    .step { padding:0 3px !important; }
     .col { display:block !important; width:100% !important; padding:0 0 32px !important; }
-    .step-big { font-size:19px !important; line-height:24px !important; }
-    .step-cap { font-size:12px !important; line-height:15px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-hero { background-color:${HERO} !important; }
@@ -142,8 +132,8 @@ function email(img) {
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
 
 <!-- ── 1 · THE REVEAL (gold silk, forest type) ───────────────────────── -->
-<tr><td class="bg-hero" align="center" valign="top" height="904" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:904px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
-<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:904px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<tr><td class="bg-hero" align="center" valign="top" height="1049" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:1049px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1049px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-in" style="padding:32px 40px 0;font-family:${FONT};color:${FOREST};text-align:center;">
 <a href="${amp(L.home)}" target="_blank"><img src="${img('logo-green.png')}" width="57" height="60" alt="${ALT.logo}" style="display:block;margin:0 auto;width:57px;height:60px;border:0;"></a>
 <div style="height:152px;line-height:152px;font-size:0;">&nbsp;</div>
@@ -153,6 +143,8 @@ function email(img) {
 <div style="padding:12px 0 18px;font-size:16px;line-height:22px;font-weight:500;color:${INK};">${keep(ent('We promised a surprise. Here’s your code:'))}</div>
 ${codeTag(FOREST, TAG, FOREST, SOFT)}
 <div style="padding-top:18px;">${button(L.claim, 'Claim my 15% off', FOREST, BEIGE, 300)}</div>
+<div style="padding-top:18px;max-width:400px;margin:0 auto;font-size:15px;line-height:22px;font-weight:500;color:${INK};">${ent('Or subscribe and')} <strong style="font-weight:700;color:${FOREST};">save 30% on 30 or 60&nbsp;servings</strong>, ${ent('plus a')} <strong style="font-weight:700;color:${FOREST};">free milk frother</strong> in your first&nbsp;box.</div>
+<div style="padding-top:10px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">&#10003;&nbsp; 30-day money-back guarantee</div>
 </div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
@@ -173,14 +165,6 @@ ${cols}
 <tr><td class="pad bg-s2b" align="center" bgcolor="${G2B}" style="background-color:${G2B};padding:4px 20px 56px;font-family:${FONT};">
 <div style="padding-bottom:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">${ent('Plus, from the yerba mate')}</div>
 <div style="font-size:0;line-height:0;">${benefits}</div>
-</td></tr>
-
-<!-- your first cup: 8 oz, always -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:40px 40px 0;font-family:${FONT};">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Your first cup &middot; hot or iced</div>
-<div style="padding:16px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-${steps}
-</tr></table></div>
 </td></tr>
 
 <!-- ── 3 · THE OFFER, AGAIN (forest card on beige) ──────────────────── -->

@@ -143,8 +143,7 @@ function email(img) {
 <div style="padding:12px 0 18px;font-size:16px;line-height:22px;font-weight:500;color:${INK};">${keep(ent('We promised a surprise. Here’s your code:'))}</div>
 ${codeTag(FOREST, TAG, FOREST, SOFT)}
 <div style="padding-top:18px;">${button(L.claim, 'Claim my 15% off', FOREST, BEIGE, 300)}</div>
-<div style="padding-top:18px;max-width:400px;margin:0 auto;font-size:15px;line-height:22px;font-weight:500;color:${INK};">${ent('Or subscribe and')} <strong style="font-weight:700;color:${FOREST};">save 30% on 30 or 60&nbsp;servings</strong>, ${ent('plus a')} <strong style="font-weight:700;color:${FOREST};">free milk frother</strong> in your first&nbsp;box.</div>
-<div style="padding-top:10px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">&#10003;&nbsp; 30-day money-back guarantee</div>
+<div style="padding-top:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">&#10003;&nbsp; 30-day money-back guarantee</div>
 </div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>

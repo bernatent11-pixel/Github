@@ -58,7 +58,6 @@ COPY IN THE EMAIL (verbatim)
   ¡Listo! Your mystery offer is… / 15% OFF / your first order.
   We promised a surprise. Here's your code:
   YOUR CODE: WELCOME15 · [CLAIM MY 15% OFF]
-  Or subscribe and save 30% on 30 or 60 servings, plus a free milk frother in your first box.
   ✓ 30-DAY MONEY-BACK GUARANTEE
   MEET THE MATE LATTE / Everything your / mornings need.
   Energy, focus, calm and something delicious, all in one cup. A creamy vanilla latte made with yerba mate,

@@ -44,7 +44,8 @@ const VARIANTS = {
     body: [
       'I’m Shadi, the founder of Milonga, and I wanted to share how all of this started.',
       'At 19, I moved from South Florida to Argentina to chase pro soccer, and that’s where I found mate: a naturally caffeinated tea that’s a tradition in parts of South America, the way coffee is here.',
-      'What got me was the ritual. One gourd, passed around the circle. **No phones, no distractions**, just friends and family slowing down and talking. And it gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
+      'What got me was the ritual. One gourd full of mate, passed around a circle. Just friends and family slowing down, talking and living in the moment. The mate is the heart of it, the thing everyone shares, with **no phones, no distractions, no outside noise.**',
+      'Then I dug a little deeper and found out mate also gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
       'Back in the US, I saw people stuck on coffee: the jitters, the acidity, the afternoon crash, and no ritual at all.',
       'So I made the Mate Latte, to bring that ritual into your morning. It **tastes like a creamy vanilla latte**, with no bitterness and no acidity, and it gives you **everything your morning needs** to feel awake, focused and calm. Thirty seconds, hot or iced.',
       'Your 15% is still waiting (code WELCOME15), and [[this link applies it for you]].',

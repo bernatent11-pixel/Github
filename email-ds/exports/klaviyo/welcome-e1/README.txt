@@ -60,10 +60,10 @@ COPY IN THE EMAIL (verbatim)
   Energy, focus, calm and something delicious, all in one cup. A creamy vanilla latte made with yerba mate,
   one of the healthiest caffeine sources in the world, for clean, sustained energy, while Lion's Mane and
   L-theanine keep you focused, clear and calm. Ready in 30 seconds, hot or iced.
-  Yerba mate · 100MG — Awake. Coffee-level energy, minus the jitters and crash.
+  Yerba Mate · 100MG — Awake. Coffee-level energy, minus the jitters and crash.
   Lion's Mane · 500MG — Focused. The mushroom we add for clear-headed mornings.
-  L-theanine · 200MG — Calm. Smooths the energy out so it feels steady. No spike, no crash, no jitters.
-  (Doses as printed on the pouch and in earlier approved Mate Latte emails.)
+  L-Theanine · 200MG — Calm. Smooths the energy out so it feels steady. No spike, no crash, no jitters.
+  (Ingredient names in Montserrat Bold. Doses as printed on the pouch and in earlier approved Mate Latte emails.)
   [pouch + glass photo]
   PLUS, FROM THE YERBA MATE: Antioxidants & vitamins · Gut & immune support · Metabolism support
   YOUR FIRST CUP · HOT OR ICED: 2.5 tbsp of Mate Latte · 8 oz milk or water · 30 sec stir or froth

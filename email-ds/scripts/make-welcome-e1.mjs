@@ -26,7 +26,8 @@ const HERO = '#F2D9A6'; // the hero photo's mid gold: its bgcolor while the imag
 const TAG = '#FBF1DC';
 const G2A = '#015940', G2B = '#017251'; // section 2: the studio photo's green above and below the products  // the code tag's fill on the gold
 // Type: titles in Times New Roman (regular, bold, bold italic); everything
-// else in Montserrat, bold (700) and medium (500) only.
+// else in Montserrat, bold (700) and medium (500) only. The ingredient names
+// in section 2 are Montserrat Bold (Bernat, 2026-11-06).
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 
@@ -70,9 +71,9 @@ const codeTag = (border, fill, ink, capInk) => `<table role="presentation" cellp
 // Section 2's three ingredients, in Bernat's order. Doses as printed on the
 // pouch and used in earlier approved Mate Latte emails.
 const INGREDIENTS = [
-  { disc: 'disc-gold-yerba-mate', name: 'Yerba mate', dose: '100mg', feel: 'Awake.', line: 'Coffee-level energy, minus the jitters and crash.' },
+  { disc: 'disc-gold-yerba-mate', name: 'Yerba Mate', dose: '100mg', feel: 'Awake.', line: 'Coffee-level energy, minus the jitters and crash.', nowrap: 'Coffee-level' },
   { disc: 'disc-gold-lions-mane', name: 'Lion’s Mane', dose: '500mg', feel: 'Focused.', line: 'The mushroom we add for clear-headed mornings.', nowrap: 'clear-headed' },
-  { disc: 'disc-gold-l-theanine', name: 'L-theanine', dose: '200mg', feel: 'Calm.', line: 'Smooths the energy out so it feels steady. No spike, no crash, no jitters.' },
+  { disc: 'disc-gold-l-theanine', name: 'L-Theanine', dose: '200mg', feel: 'Calm.', line: 'Smooths the energy out so it feels steady. No spike, no crash, no jitters.' },
 ];
 // What yerba mate brings along. "Gut & immune" is approved for yerba mate
 // (design memory 2026-10-16); "Metabolism support" was asked for by Bernat on
@@ -87,7 +88,7 @@ const STEPS = [['2.5 tbsp', 'of Mate Latte'], ['8 oz', 'milk or water'], ['30 se
 function email(img) {
   const cols = INGREDIENTS.map((r) => `<td class="col" width="33%" valign="top" align="center" style="width:33%;padding:0 8px;font-family:${FONT};">
 <img src="${img(r.disc + '.png')}" width="64" height="64" alt="${ent(ALT[r.disc])}" style="display:block;margin:0 auto;width:64px;height:64px;border:0;">
-<div style="padding-top:14px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;color:#FFFFFF;">${ent(r.name)}</div>
+<div style="padding-top:14px;font-family:${FONT};font-size:20px;line-height:26px;font-weight:700;color:#FFFFFF;">${ent(r.name)}</div>
 <div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">${r.dose}</div>
 <div style="padding-top:10px;font-size:16px;line-height:23px;font-weight:500;color:#FFFFFF;"><strong style="font-weight:700;color:${GOLD};">${r.feel}</strong> ${keep(ent(r.line)).replace(r.nowrap ?? '\u0000', `<span style="white-space:nowrap;">${r.nowrap}</span>`)}</div>
 </td>`).join('\n');

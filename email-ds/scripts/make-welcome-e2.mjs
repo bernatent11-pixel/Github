@@ -1,4 +1,4 @@
-// Welcome flow · Email 2 · Day 1 · a plain-text note from Shadi.
+// Plain-text notes from Shadi (Welcome E2, and the full "story behind Milonga").
 //
 // The brief: "Shadi from Milonga", replies to an inbox someone reads, no
 // images, no header, ONE link, a lowercase subject the way he'd text. Job: a
@@ -9,47 +9,74 @@
 //   exports/klaviyo/welcome-e2/welcome-e2.html   text-based HTML block (looks like a typed email)
 //   exports/klaviyo/welcome-e2/welcome-e2.txt    the same note for Klaviyo's text-only editor
 //   refine/welcome-e2.html                       preview under an inbox row
-// Usage: node scripts/make-welcome-e2.mjs
+// Usage: node scripts/make-welcome-e2.mjs [short|story]
 import fs from 'node:fs';
 import { validate } from './validate-klaviyo-email.mjs';
 
-const OUT = 'exports/klaviyo/welcome-e2';
+// Two versions of Shadi's note, picked by the first argument:
+//   short  (default)  Welcome E2, day 1: the quick story          -> exports/klaviyo/welcome-e2/
+//   story             the full story for people who just heard of us -> exports/klaviyo/welcome-story/
+// Shared facts. The story is Shadi's own (sent by Bernat, 2026-11-06): South
+// Florida, soccer, Argentina at 19, mate shared in gourds with teammates;
+// slowing down, being present, real conversations. Yerba mate explained for
+// someone who has never had it (a naturally caffeinated tea from a South
+// American plant; product page: South America's most-loved tea). Gut and
+// immune: approved claim (design memory 2026-10-16); antioxidants, vitamins,
+// "supports focus", no acidity / bitterness / grassiness, the 2pm crash: the
+// product page. WELCOME15 = 15% off the first order, no end date (Shopify),
+// so no deadline.
+const VARIANTS = {
+  short: {
+    out: 'exports/klaviyo/welcome-e2', file: 'welcome-e2', label: 'WELCOME FLOW · EMAIL 2 · DAY 1 · plain-text note',
+    subject: 'hey, it’s shadi', preheader: 'the short story of why the mate latte exists', slot: 'e2_text_link',
+    body: [
+      'It’s Shadi, the guy behind Milonga. Can I tell you a quick story?',
+      'At 19 I left South Florida for Argentina to chase pro soccer, and that’s where I found mate. If you’ve never had it: yerba mate is a naturally caffeinated tea made from the leaves of a South American plant, and down there it’s everywhere, the way coffee is here. My teammates passed a gourd (the traditional cup) around before practice and after every meal, everyone slowing down, actually talking. I was hooked.',
+      'And the more I learned about it, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system. Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕',
+      'The Mate Latte **tastes like a creamy vanilla latte. Honestly delicious.** No bitterness, no acidity, nothing grassy. It’s a ritual you actually look forward to, and it gives you **everything your morning needs**: awake, focused and calm, all at once. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm. Thirty seconds, hot or iced.',
+      'Your 15% is still waiting for you (code WELCOME15), and [[this link applies it for you]]. I really think you’re going to love it.',
+      'And if you have any questions, or just want to tell me how your mornings go, hit reply. I read every single one.',
+    ],
+  },
+  story: {
+    out: 'exports/klaviyo/welcome-story', file: 'welcome-story', label: 'SHADI · THE STORY BEHIND MILONGA · plain-text note for new subscribers',
+    subject: 'the story behind milonga', preheader: 'a soccer dream, a gourd in argentina, and your new morning', slot: 'story_text_link',
+    body: [
+      'I’m Shadi, the founder of Milonga. You just joined us, so I wanted to say hi properly and tell you how all of this started.',
+      'I grew up in South Florida, completely obsessed with soccer. At 19 I packed up and moved to Argentina to chase a pro career. New country, new team, big dreams. And that’s where I found mate.',
+      'If you’ve never heard of it: yerba mate is a naturally caffeinated tea made from the leaves of a South American plant. In Argentina it’s everywhere, the way coffee is here.',
+      'But what got me wasn’t just the drink. It was the ritual. Someone prepares the mate in a gourd (the traditional cup), sips it, refills it and passes it to the next person, and it goes around the circle again and again. Before practice, after meals, with friends, with family. **No phones, no distractions. Just people slowing down, being present and having real conversations.** I fell in love with that.',
+      'Then I started digging into yerba mate itself, and honestly, I couldn’t believe it. Clean, steady energy without the spike and the crash, plus antioxidants and vitamins that support your gut and immune system. Meanwhile, back home, everyone I knew was stuck choosing between coffee, with its jitters and 2pm crash, and alternatives that taste awful.',
+      'So I made the Mate Latte. I wanted to bring a little of that ritual into a normal, busy morning, in a cup you actually look forward to. It **tastes like a creamy vanilla latte, honestly delicious**, with no bitterness and no acidity. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm: **everything your morning needs**, ready in 30 seconds, hot or iced.',
+      'Maybe one day we’ll share a mate in person. Until then, this is my way of passing you the gourd. 🧉',
+      'Your 15% is still waiting for you (code WELCOME15), and [[this link applies it for you]].',
+      'And if you ever have a question, or just want to tell me how your mornings go, hit reply. I read every single one.',
+    ],
+  },
+};
+const V = VARIANTS[process.argv[2] ?? 'short'];
+if (!V) throw new Error('variant: short | story');
+const OUT = V.out;
 fs.mkdirSync(OUT, { recursive: true });
 
 export const FROM = 'Shadi from Milonga';
-export const SUBJECT = 'hey, it’s shadi';
-export const PREHEADER = 'the short story of why the mate latte exists';
+export const SUBJECT = V.subject;
+export const PREHEADER = V.preheader;
 
 const LINK = 'https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe-original-mate-latte'
-  + '&utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_mystery_offer&utm_content=e2_text_link';
+  + `&utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_mystery_offer&utm_content=${V.slot}`;
 
-// The note. Each entry is a paragraph; [[text]] is the one link.
-// The story is Shadi's own (sent by Bernat, 2026-11-06): South Florida,
-// soccer, Argentina at 19, mate shared in gourds with teammates; yerba mate
-// explained for someone who has never had it (a naturally caffeinated tea
-// from a South American plant; product page: South America's most-loved tea); then what
-// he learned about yerba mate (gut and immune: approved claim, design memory
-// 2026-10-16; antioxidants and vitamins: the product page). Product
-// facts from the product page; WELCOME15 = 15% off the first order, no end
-// date (Shopify), so no deadline.
+// Each body entry is a paragraph; [[text]] is the one link; **text** is set
+// bold in the HTML version (plain in the text-only one).
 const GREETING = 'Hey {{ first_name|default:\'there\' }}!';
-// **text** is set bold in the HTML version (plain in the text-only one).
-const BODY = [
-  'It’s Shadi, the guy behind Milonga. Can I tell you a quick story?',
-  'At 19 I left South Florida for Argentina to chase pro soccer, and that’s where I found mate. If you’ve never had it: yerba mate is a naturally caffeinated tea made from the leaves of a South American plant, and down there it’s everywhere, the way coffee is here. My teammates passed a gourd (the traditional cup) around before practice and after every meal, everyone slowing down, actually talking. I was hooked.',
-  'And the more I learned about it, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system. Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕',
-  'The Mate Latte **tastes like a creamy vanilla latte. Honestly delicious.** No bitterness, no acidity, nothing grassy. It’s a ritual you actually look forward to, and it gives you **everything your morning needs**: awake, focused and calm, all at once. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm. Thirty seconds, hot or iced.',
-  'Your 15% is still waiting for you (code WELCOME15), and [[this link applies it for you]]. I really think you’re going to love it.',
-  'And if you have any questions, or just want to tell me how your mornings go, hit reply. I read every single one.',
-];
+const BODY = V.body;
 const SIGNOFF = ['Un abrazo,', 'Shadi'];
-const PS = null;
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/’/g, '&rsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;');
 const linkHtml = (p) => ent(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/L-theanine/g, '<span style="white-space:nowrap;">L-theanine</span>').replace(/\[\[(.+?)\]\]/, (_, t) => `<a href="${LINK.replace(/&/g, '&amp;')}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${t}</a>`);
 
 const html = `<!--
-  WELCOME FLOW · EMAIL 2 · DAY 1 · plain-text note
+  ${V.label}
   From: ${FROM} (reply-to: an inbox Shadi or the team actually reads)
   Subject: ${SUBJECT}
   Preview text: ${PREHEADER}
@@ -80,18 +107,18 @@ ${BODY.map((p) => `<p style="margin:0 0 18px;">${linkHtml(p)}</p>`).join('\n')}
 `;
 const problems = validate(html);
 if (problems.length) { console.error(problems); process.exit(1); }
-fs.writeFileSync(`${OUT}/welcome-e2.html`, html);
+fs.writeFileSync(`${OUT}/${V.file}.html`, html);
 
 // Text-only version: the link is written out after its words.
 const plain = (p) => p.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[\[(.+?)\]\]\.?\s*/, (_, t) => `${t}:\n${LINK}\n\n`).trimEnd();
 const txt = [GREETING, ...BODY.map(plain), SIGNOFF.join('\n'), '—', 'Don’t want these emails anymore? {% unsubscribe \'Unsubscribe\' %}', '{{ organization.name }} · {{ organization.full_address }}'].join('\n\n') + '\n';
-fs.writeFileSync(`${OUT}/welcome-e2.txt`, txt);
+fs.writeFileSync(`${OUT}/${V.file}.txt`, txt);
 
 // Preview under an inbox row (the first name filled in, tags shown as Klaviyo prints them).
 const sample = html.replace(/\{\{ first_name\|default:'there' \}\}/g, 'Sam')
   .replace(/\{% unsubscribe 'Unsubscribe' %\}/, '<a href="#">Unsubscribe</a>')
   .replace(/\{\{ organization\.name \}\} &middot; \{\{ organization\.full_address \}\}/, 'Milonga &middot; [your address]');
-fs.writeFileSync('refine/welcome-e2.html', `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Welcome E2 · preview</title><style>
+fs.writeFileSync(`refine/${V.file}.html`, `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${V.file} · preview</title><style>
 body{margin:0;background:#2B3A31;padding:28px 0 60px}
 .inbox{width:600px;max-width:calc(100% - 24px);margin:0 auto 18px;font-family:Helvetica,Arial,sans-serif}
 .inbox .lab{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px}
@@ -105,4 +132,4 @@ body{margin:0;background:#2B3A31;padding:28px 0 60px}
 <div class="sub"><b>${ent(SUBJECT)}</b> <span>&mdash; ${PREHEADER}</span></div></div></div>
 ${sample}
 </body></html>`);
-console.log('wrote', `${OUT}/welcome-e2.html`, '(validator: pass)', `${OUT}/welcome-e2.txt`, 'refine/welcome-e2.html');
+console.log('wrote', `${OUT}/${V.file}.html`, '(validator: pass)', `${OUT}/${V.file}.txt`, `refine/${V.file}.html`);

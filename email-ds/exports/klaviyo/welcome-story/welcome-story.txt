@@ -1,0 +1,29 @@
+Hey {{ first_name|default:'there' }}!
+
+I’m Shadi, the founder of Milonga. You just joined us, so I wanted to say hi properly and tell you how all of this started.
+
+I grew up in South Florida, completely obsessed with soccer. At 19 I packed up and moved to Argentina to chase a pro career. New country, new team, big dreams. And that’s where I found mate.
+
+If you’ve never heard of it: yerba mate is a naturally caffeinated tea made from the leaves of a South American plant. In Argentina it’s everywhere, the way coffee is here.
+
+But what got me wasn’t just the drink. It was the ritual. Someone prepares the mate in a gourd (the traditional cup), sips it, refills it and passes it to the next person, and it goes around the circle again and again. Before practice, after meals, with friends, with family. No phones, no distractions. Just people slowing down, being present and having real conversations. I fell in love with that.
+
+Then I started digging into yerba mate itself, and honestly, I couldn’t believe it. Clean, steady energy without the spike and the crash, plus antioxidants and vitamins that support your gut and immune system. Meanwhile, back home, everyone I knew was stuck choosing between coffee, with its jitters and 2pm crash, and alternatives that taste awful.
+
+So I made the Mate Latte. I wanted to bring a little of that ritual into a normal, busy morning, in a cup you actually look forward to. It tastes like a creamy vanilla latte, honestly delicious, with no bitterness and no acidity. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm: everything your morning needs, ready in 30 seconds, hot or iced.
+
+Maybe one day we’ll share a mate in person. Until then, this is my way of passing you the gourd. 🧉
+
+Your 15% is still waiting for you (code WELCOME15), and this link applies it for you:
+https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe-original-mate-latte&utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_mystery_offer&utm_content=story_text_link
+
+And if you ever have a question, or just want to tell me how your mornings go, hit reply. I read every single one.
+
+Un abrazo,
+Shadi
+
+—
+
+Don’t want these emails anymore? {% unsubscribe 'Unsubscribe' %}
+
+{{ organization.name }} · {{ organization.full_address }}

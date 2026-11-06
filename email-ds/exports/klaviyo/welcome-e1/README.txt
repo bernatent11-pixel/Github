@@ -32,6 +32,8 @@ OFFER FACTS (checked in Shopify, 2026-11-06)
   WELCOME15: 15% off, one-time purchases only, once per customer, no end date
   Subscription (Mate Mornings Club): 30% off 30 and 60 servings, 15% off 15 servings
   Free shipping over $45 and the 30-day money-back guarantee: from the program brief
+  Free milk frother with a 30- or 60-serving subscription: Bernat, 2026-11-06 (not on the product page yet)
+  Product page (2026-11-06) says yerba mate 'supports a healthy gut, your immune system and your metabolism'
 
 TYPE
   Titles: Times New Roman (regular, bold, bold italic). Everything else: Montserrat bold (700) and medium (500).
@@ -39,7 +41,7 @@ TYPE
 IMAGES (Klaviyo CDN, hosted.json) AND ALT TEXT
   hero-bg.jpg           The first section's BACKGROUND (Bernat's art: a 15-serving pouch top right, a pouch
                         and a mug of Mate Latte at the bottom, gold silk). The reveal is live text on top of it.
-                        One plain band of the gradient is stretched 200px so the copy fits between the products.
+                        One plain band of the gradient is stretched (245px at email size) so the copy fits between the products.
                         Outlook desktop gets it through VML; clients that block background images show gold #F2D9A6.
   logo-green.png            Milonga
   s2-product.jpg            A pouch of Milonga Mate Latte, Vanilla, 15 servings, beside a tall glass of creamy
@@ -56,6 +58,8 @@ COPY IN THE EMAIL (verbatim)
   ¡Listo! Your mystery offer is… / 15% OFF / your first order.
   We promised a surprise. Here's your code:
   YOUR CODE: WELCOME15 · [CLAIM MY 15% OFF]
+  Or subscribe and save 30% on 30 or 60 servings, plus a free milk frother in your first box.
+  ✓ 30-DAY MONEY-BACK GUARANTEE
   MEET THE MATE LATTE / Everything your / mornings need.
   Energy, focus, calm and something delicious, all in one cup. A creamy vanilla latte made with yerba mate,
   one of the healthiest caffeine sources in the world, for clean, sustained energy, while Lion's Mane and
@@ -66,7 +70,6 @@ COPY IN THE EMAIL (verbatim)
   (Ingredient names in Montserrat Bold. Doses as printed on the pouch and in earlier approved Mate Latte emails.)
   [pouch + glass photo]
   PLUS, FROM THE YERBA MATE: Antioxidants & vitamins · Gut & immune support · Metabolism support
-  YOUR FIRST CUP · HOT OR ICED: 2.5 tbsp of Mate Latte · 8 oz milk or water · 30 sec stir or froth
   IT'S ALL YOURS / 15% OFF YOUR / first order. · WELCOME15 · [SHOP THE MATE LATTE]
   Planning on a cup every morning? Subscribe instead and save 30% on 30 or 60 servings, on every
   order. Skip, pause or cancel anytime. · SEE SUBSCRIPTION OPTIONS →

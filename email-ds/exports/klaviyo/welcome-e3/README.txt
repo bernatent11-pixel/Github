@@ -37,11 +37,13 @@ COPY (verbatim)
   LAST CALL / Your 15% off is / still waiting.
   This is the last email we'll send about it. If the Mate Latte's been on your mind, today's the day.
   YOUR CODE: WELCOME15 · [USE MY 15% OFF] · ✓ 30-DAY MONEY-BACK GUARANTEE
-  IN CASE YOU'RE STILL DECIDING / Everything your / mornings need.
-  ✓ 100mg natural caffeine from yerba mate: coffee-level energy, minus the jitters and crash.
-  ✓ Lion's Mane and L-theanine for mornings that feel focused, clear and calm.
-  ✓ Creamy vanilla that tastes like a latte. Not grassy, not bitter.
-  ✓ 30 seconds, hot or iced. Scoop, stir, done.
+  IN CASE YOU'RE STILL DECIDING / Mate Latte / vs. your coffee.
+  Comparison (Mate Latte | Coffee):
+    Caffeine       100mg, natural          | About 95mg   (FDA: 80-100mg in an 8 oz cup of coffee)
+    How it feels   Steady, no crash        | Jitters, then a crash   (as the product page says)
+    Focus          500mg Lion's Mane       | —
+    Calm           200mg L-theanine        | —
+    Taste          Creamy vanilla latte    | Bitter on its own
   Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings. Skip, pause or cancel anytime.
   SEE SUBSCRIPTION OPTIONS →
   Footer: WELCOME15 terms, caffeine/FDA line, unsubscribe, web view, organization address.

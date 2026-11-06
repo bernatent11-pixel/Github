@@ -34,11 +34,15 @@ const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;').replace(/¡/g, '&iexcl;');
 const amp = (s) => s.replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 
-const REASONS = [
-  ['100mg natural caffeine', 'from yerba mate: coffee-level energy, minus the jitters and crash.'],
-  ['Lion’s Mane and L-theanine', 'for mornings that feel focused, clear and calm.'],
-  ['Creamy vanilla', 'that tastes like a latte. Not grassy, not bitter.'],
-  ['30 seconds,', 'hot or iced. Scoop, stir, done.'],
+// Mate Latte vs. coffee. Ours from the pouch and the product page; coffee's
+// caffeine is the FDA's figure for an 8 oz cup (80–100mg); where coffee has
+// nothing to put in a row, an em dash (design memory 2026-09-15).
+const COMPARE = [
+  ['Caffeine', '100mg, natural', 'About 95mg'],
+  ['How it feels', 'Steady, no crash', 'Jitters, then a crash'],
+  ['Focus', '500mg Lion’s Mane', '—'],
+  ['Calm', '200mg L-theanine', '—'],
+  ['Taste', 'Creamy vanilla latte', 'Bitter on its own'],
 ];
 
 function email(img, code = CODE) {
@@ -51,8 +55,12 @@ function email(img, code = CODE) {
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${amp(href)}" style="height:56px;v-text-anchor:middle;width:${width}px;" arcsize="50%" stroke="f" fillcolor="${bg}"><w:anchorlock/><center style="color:${ink};font-family:Arial,sans-serif;font-size:16px;font-weight:bold;letter-spacing:2px;">${label}</center></v:roundrect>
 <![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${bg === FOREST ? DEEP : '#C9A24E'};">${label}</a><!--<![endif]-->`;
 
-  const reasons = REASONS.map(([b, rest]) => `<tr><td valign="top" width="28" style="width:28px;padding:0 0 14px;font-family:${FONT};font-size:16px;line-height:24px;font-weight:700;color:${FOREST};">&#10003;</td>
-<td valign="top" style="padding:0 0 14px;font-family:${FONT};font-size:16px;line-height:24px;font-weight:500;color:${INK};"><strong style="font-weight:700;color:${FOREST};">${ent(b)}</strong> ${ent(rest)}</td></tr>`).join('\n');
+  const compare = COMPARE.map(([label, ours, theirs]) => `<tr><td colspan="3" align="center" style="padding:18px 0 8px;font-family:${FONT};font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">${ent(label)}</td></tr>
+<tr>
+<td class="cmp" width="49%" align="center" valign="middle" bgcolor="${GOLD}" style="width:49%;background-color:${GOLD};border-radius:999px;padding:13px 10px;font-family:${FONT};font-size:15px;line-height:20px;font-weight:700;color:${FOREST};box-shadow:0 3px 0 #C9A24E;">${ent(ours)}</td>
+<td width="2%" style="width:2%;font-size:0;line-height:0;">&nbsp;</td>
+<td class="cmp" width="49%" align="center" valign="middle" style="width:49%;border:1.5px solid #B9B7A3;border-radius:999px;padding:12px 10px;font-family:${FONT};font-size:15px;line-height:20px;font-weight:500;color:${SOFT};">${ent(theirs)}</td>
+</tr>`).join('\n');
 
   return `<!--
   WELCOME FLOW · EMAIL 3 · "${SUBJECT}"
@@ -78,6 +86,8 @@ function email(img, code = CODE) {
     .code { font-size:20px !important; letter-spacing:2px !important; }
     .code-tag { padding:12px 20px 14px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
+    .pad-cmp { padding-left:16px !important; padding-right:16px !important; }
+    .cmp { font-size:14px !important; line-height:18px !important; padding-left:8px !important; padding-right:8px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-hero { background-color:${GREEN} !important; }
@@ -108,18 +118,23 @@ function email(img, code = CODE) {
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · STILL DECIDING? (beige) ─────────────────────────────────── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:56px 48px 0;font-family:${FONT};">
+<!-- ── 2 · MATE LATTE VS. COFFEE (beige) ─────────────────────────── -->
+<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:56px 40px 0;font-family:${FONT};">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('In case you’re still deciding')}</div>
-<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Everything your</div>
-<div class="h-sec" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">mornings need.</div>
+<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Mate Latte</div>
+<div class="h-sec" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">vs. your coffee.</div>
 </td></tr>
-<tr><td class="pad bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 56px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-${reasons}
+<tr><td class="pad-cmp bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:24px 40px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
+<tr>
+<td width="49%" align="center" style="width:49%;padding-bottom:2px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;color:${FOREST};">Mate Latte</td>
+<td width="2%" style="width:2%;font-size:0;">&nbsp;</td>
+<td width="49%" align="center" style="width:49%;padding-bottom:2px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:400;color:${SOFT};">Coffee</td>
+</tr>
+${compare}
 </table>
 </td></tr>
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:12px 48px 0;font-family:${FONT};">
+<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:32px 48px 0;font-family:${FONT};">
 <div style="font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings.')} <strong style="font-weight:700;color:${FOREST};">Skip, pause or cancel&nbsp;anytime.</strong></div>
 <div style="padding-top:12px;font-size:14px;line-height:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;"><a href="${amp(L.subscribe)}" target="_blank" style="color:${FOREST};text-decoration:underline;">${ent('See subscription options →')}</a></div>
 </td></tr>

@@ -25,6 +25,7 @@ FACTS USED
   moved to Argentina at 19 for a pro career, found mate shared in gourds with teammates before practice
   and after meals; slowing down, being present, real conversations
   Yerba mate + Lion's Mane + L-theanine, creamy vanilla, 30 seconds, hot or iced (product page)
+  Antioxidants and vitamins; supports gut and immune system (product page; gut/immune approved for yerba mate)
   WELCOME15: 15% off the first order, no end date, so no deadline is mentioned (Shopify)
 
 COPY (verbatim)
@@ -33,9 +34,12 @@ COPY (verbatim)
   I grew up in South Florida playing soccer, and at 19 I moved to Argentina to chase a pro career.
   That's where I found mate: a gourd passed around before practice and after meals with my teammates.
   It was never just the drink. It was slowing down, being present, having real conversations.
-  The Mate Latte is how I bring that into a busy morning. Yerba mate for the energy, plus Lion's Mane
-  and L-theanine so it stays calm and clear, in a creamy vanilla latte that's ready in 30 seconds,
-  hot or iced.
+  I fell in love with the tradition, and then I started digging into yerba mate itself. Wow. Clean,
+  steady energy, plus antioxidants and vitamins that support your gut and immune system. Meanwhile, back
+  home everyone was stuck between coffee and alternatives that taste awful and never give you that same
+  kick or that steady, lasting feeling.
+  So I made the Mate Latte: yerba mate for the energy, plus Lion's Mane and L-theanine so it stays calm
+  and clear, in a creamy vanilla latte that's ready in 30 seconds, hot or iced.
   Your code is still waiting, by the way: WELCOME15 takes 15% off your first order, and this link
   applies it for you.
   And if you have a question, or you just want to tell me how your mornings go, hit reply. I read

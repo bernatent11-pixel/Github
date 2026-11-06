@@ -25,14 +25,17 @@ const LINK = 'https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe
 
 // The note. Each entry is a paragraph; [[text]] is the one link.
 // The story is Shadi's own (sent by Bernat, 2026-11-06): South Florida,
-// soccer, Argentina at 19, mate shared in gourds with teammates. Product
+// soccer, Argentina at 19, mate shared in gourds with teammates; then what
+// he learned about yerba mate (gut and immune: approved claim, design memory
+// 2026-10-16; antioxidants and vitamins: the product page). Product
 // facts from the product page; WELCOME15 = 15% off the first order, no end
 // date (Shopify), so no deadline.
 const GREETING = 'Hey {{ first_name|default:\'there\' }},';
 const BODY = [
   'Shadi here, the guy behind Milonga. Quick story, I promise.',
   'I grew up in South Florida playing soccer, and at 19 I moved to Argentina to chase a pro career. That’s where I found mate: a gourd passed around before practice and after meals with my teammates. It was never just the drink. It was slowing down, being present, having real conversations.',
-  'The Mate Latte is how I bring that into a busy morning. Yerba mate for the energy, plus Lion’s Mane and L-theanine so it stays calm and clear, in a creamy vanilla latte that’s ready in 30 seconds, hot or iced.',
+  'I fell in love with the tradition, and then I started digging into yerba mate itself. Wow. Clean, steady energy, plus antioxidants and vitamins that support your gut and immune system. Meanwhile, back home everyone was stuck between coffee and alternatives that taste awful and never give you that same kick or that steady, lasting feeling.',
+  'So I made the Mate Latte: yerba mate for the energy, plus Lion’s Mane and L-theanine so it stays calm and clear, in a creamy vanilla latte that’s ready in 30 seconds, hot or iced.',
   'Your code is still waiting, by the way: WELCOME15 takes 15% off your first order, and [[this link applies it for you]].',
   'And if you have a question, or you just want to tell me how your mornings go, hit reply. I read every one.',
 ];

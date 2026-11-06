@@ -41,10 +41,14 @@ IMAGES (Klaviyo CDN, hosted.json) AND ALT TEXT
                         and a mug of Mate Latte at the bottom, gold silk). The reveal is live text on top of it.
                         One plain band of the gradient is stretched 200px so the copy fits between the products.
                         Outlook desktop gets it through VML; clients that block background images show gold #F2D9A6.
-  logo-green.png        Milonga
-  disc-yerba-mate.png   Yerba mate
-  disc-l-theanine.png   L-theanine
-  disc-lions-mane.png   Lion's Mane
+  logo-green.png            Milonga
+  s2-product.jpg            A pouch of Milonga Mate Latte, Vanilla, 15 servings, beside a tall glass of creamy
+                            Mate Latte dusted with cinnamon. (Bernat's studio shot; top and bottom fade into
+                            the section's two flat greens #015940 / #017251)
+  disc-gold-yerba-mate.png  Yerba mate
+  disc-gold-lions-mane.png  Lion's Mane
+  disc-gold-l-theanine.png  L-theanine
+  glyph-*.png               decorative icons inside the benefit pills (role="presentation"; the label is the text)
   Every headline, the code, the buttons and the copy are live text, so the email still reads
   and still has working buttons with images turned off.
 
@@ -52,14 +56,16 @@ COPY IN THE EMAIL (verbatim)
   ¡Listo! Your mystery offer is… / 15% OFF / your first order.
   We promised a surprise. Here's your code:
   YOUR CODE: WELCOME15 · [CLAIM MY 15% OFF]
-  MEET THE MATE LATTE / COFFEE-LEVEL ENERGY, / minus the jitters.
-  A creamy vanilla yerba mate latte made with organic yerba mate, Lion's Mane and L-theanine.
-  Not grassy, not bitter: it tastes like a vanilla latte. Ready in 30 seconds, hot or iced.
-  Pills: 100mg natural caffeine · 90 cal · 3g sugar · Dairy-free · No artificial sweeteners
-  Yerba mate · 100mg caffeine — Awake. Natural caffeine from organic yerba mate. Coffee-level energy, from a leaf.
-  L-theanine · 200mg — Calm. Smooths the energy out so it feels steady. No spike, no crash, no jitters.
-  Lion's Mane · 500mg — Clear. The mushroom we add for focused, clear-headed mornings.
+  MEET THE MATE LATTE / Everything your / mornings need.
+  Energy, focus, calm and something delicious, all in one cup. A creamy vanilla latte made with yerba mate,
+  one of the healthiest caffeine sources in the world, for clean, sustained energy, while Lion's Mane and
+  L-theanine keep you focused, clear and calm. Ready in 30 seconds, hot or iced.
+  Yerba mate · 100MG — Awake. Coffee-level energy, minus the jitters and crash.
+  Lion's Mane · 500MG — Focused. The mushroom we add for clear-headed mornings.
+  L-theanine · 200MG — Calm. Smooths the energy out so it feels steady. No spike, no crash, no jitters.
   (Doses as printed on the pouch and in earlier approved Mate Latte emails.)
+  [pouch + glass photo]
+  PLUS, FROM THE YERBA MATE: Antioxidants & vitamins · Gut & immune support · Metabolism support
   YOUR FIRST CUP · HOT OR ICED: 2.5 tbsp of Mate Latte · 8 oz milk or water · 30 sec stir or froth
   IT'S ALL YOURS / 15% OFF YOUR / first order. · WELCOME15 · [SHOP THE MATE LATTE]
   Planning on a cup every morning? Subscribe instead and save 30% on 30 or 60 servings, on every

@@ -69,13 +69,5 @@ for (const [k, d] of Object.entries(GLYPHS)) {
 }
 console.log('gold discs + 3 benefit glyphs');
 
-// ── ingredient discs ────────────────────────────────────────────────────
-const D = 112, G = 72; // 2x: a 56px disc with a 36px glyph
-for (const name of ['yerba-mate', 'l-theanine', 'lions-mane']) {
-  const glyph = await sharp(`public/brand/icons/${name}-cream.png`).resize({ width: G, height: G, fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
-  const disc = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${D}"><circle cx="${D / 2}" cy="${D / 2}" r="${D / 2}" fill="#004D27"/></svg>`);
-  await sharp(disc).composite([{ input: glyph, left: (D - G) / 2, top: (D - G) / 2 }]).png().toFile(`${OUT}/disc-${name}.png`);
-  console.log(`disc-${name}.png`);
-}
 fs.copyFileSync('public/logo/lockup-milonga-green.png', `${OUT}/logo-green.png`);
 console.log('logo-green.png', (await sharp(`${OUT}/logo-green.png`).metadata()).width + 'x' + (await sharp(`${OUT}/logo-green.png`).metadata()).height);

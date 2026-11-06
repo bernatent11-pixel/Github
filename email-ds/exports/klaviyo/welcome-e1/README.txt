@@ -22,7 +22,7 @@ SUBJECT LINE + PREVIEW TEXT (in use: option 1)
   5. Here's What Was Behind The Button 👀  No riddles: your code's inside, plus your first-cup recipe.
 
 LINKS (all UTM-tagged: utm_source=klaviyo, utm_medium=email, utm_campaign=welcome_mystery_offer)
-  Claim my 15% off / pouch image / Shop the Mate Latte
+  Claim my 15% off / Shop the Mate Latte
       https://milonga.life/discount/WELCOME15?redirect=/products/the-original-mate-latte
       (Shopify discount link: the code is already applied at checkout)
   See subscription options   https://milonga.life/products/the-original-mate-latte
@@ -33,9 +33,15 @@ OFFER FACTS (checked in Shopify, 2026-11-06)
   Subscription (Mate Mornings Club): 30% off 30 and 60 servings, 15% off 15 servings
   Free shipping over $45 and the 30-day money-back guarantee: from the program brief
 
+TYPE
+  Titles: Times New Roman (regular, bold, bold italic). Everything else: Montserrat bold (700) and medium (500).
+
 IMAGES (Klaviyo CDN, hosted.json) AND ALT TEXT
+  hero-bg.jpg           The first section's BACKGROUND (Bernat's art: a 15-serving pouch top right, a pouch
+                        and a mug of Mate Latte at the bottom, gold silk). The reveal is live text on top of it.
+                        One plain band of the gradient is stretched 200px so the copy fits between the products.
+                        Outlook desktop gets it through VML; clients that block background images show gold #F2D9A6.
   logo-green.png        Milonga
-  hero-art.jpg          A pouch of Milonga Mate Latte on swirls of gold silk.
   disc-yerba-mate.png   Yerba mate
   disc-l-theanine.png   L-theanine
   disc-lions-mane.png   Lion's Mane
@@ -44,15 +50,16 @@ IMAGES (Klaviyo CDN, hosted.json) AND ALT TEXT
 
 COPY IN THE EMAIL (verbatim)
   ¡Listo! Your mystery offer is… / 15% OFF / your first order.
-  We promised a surprise, so here it is: your code, ready whenever you are.
-  YOUR CODE: WELCOME15 · [CLAIM MY 15% OFF] · Already applied when you tap the button. Or enter it at checkout.
+  We promised a surprise. Here's your code:
+  YOUR CODE: WELCOME15 · [CLAIM MY 15% OFF]
   MEET THE MATE LATTE / COFFEE-LEVEL ENERGY, / minus the jitters.
   A creamy vanilla yerba mate latte made with organic yerba mate, Lion's Mane and L-theanine.
   Not grassy, not bitter: it tastes like a vanilla latte. Ready in 30 seconds, hot or iced.
   Pills: 100mg natural caffeine · 90 cal · 3g sugar · Dairy-free · No artificial sweeteners
-  YERBA MATE · AWAKE: 100mg of natural caffeine from organic yerba mate. Coffee-level energy, from a leaf.
-  L-THEANINE · CALM: Smooths the energy out so it feels steady. No spike, no crash, no jitters.
-  LION'S MANE · CLEAR: The mushroom we add for focused, clear-headed mornings.
+  Yerba mate · 100mg caffeine — Awake. Natural caffeine from organic yerba mate. Coffee-level energy, from a leaf.
+  L-theanine · 200mg — Calm. Smooths the energy out so it feels steady. No spike, no crash, no jitters.
+  Lion's Mane · 500mg — Clear. The mushroom we add for focused, clear-headed mornings.
+  (Doses as printed on the pouch and in earlier approved Mate Latte emails.)
   YOUR FIRST CUP · HOT OR ICED: 2.5 tbsp of Mate Latte · 8 oz milk or water · 30 sec stir or froth
   IT'S ALL YOURS / 15% OFF YOUR / first order. · WELCOME15 · [SHOP THE MATE LATTE]
   Planning on a cup every morning? Subscribe instead and save 30% on 30 or 60 servings, on every

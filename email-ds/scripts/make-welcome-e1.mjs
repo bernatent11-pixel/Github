@@ -135,8 +135,8 @@ function email(img) {
 <tr><td class="bg-hero" align="center" valign="top" height="1049" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:1049px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1049px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-in" style="padding:32px 40px 0;font-family:${FONT};color:${FOREST};text-align:center;">
-<a href="${amp(L.home)}" target="_blank"><img src="${img('logo-green.png')}" width="124" height="131" alt="${ALT.logo}" style="display:block;margin:0 auto;width:124px;height:131px;border:0;"></a>
-<div style="height:81px;line-height:81px;font-size:0;">&nbsp;</div>
+<a href="${amp(L.home)}" target="_blank"><img src="${img('logo-green.png')}" width="85" height="90" alt="${ALT.logo}" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div style="height:122px;line-height:122px;font-size:0;">&nbsp;</div>
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('¡Listo! Your mystery offer is…')}</div>
 <div class="h-hero" style="padding-top:8px;font-family:${SERIF};font-size:84px;line-height:78px;font-weight:700;letter-spacing:-1px;color:${FOREST};">15% off</div>
 <div class="h-turn" style="font-family:${SERIF};font-size:38px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">your first order.</div>

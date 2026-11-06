@@ -43,10 +43,9 @@ const VARIANTS = {
     subject: 'the story behind milonga', preheader: 'a soccer dream, a gourd in argentina, and your new morning', slot: 'story_text_link',
     body: [
       'I’m Shadi, the founder of Milonga, and I wanted to share how all of this started.',
-      'At 19, I left South Florida to chase a pro soccer career in Argentina, and that’s where I found mate: a naturally caffeinated tea from South America that people drink almost everywhere down there, the way we drink coffee here in the US.',
-      'But it was the ritual that got me. Someone prepares the mate in one gourd and passes it around the circle. **No phones, no distractions.** Just friends and family slowing down, talking and being present, with the mate at the center of it all.',
-      'The more I learned about mate, the more I loved it. Beyond the ritual, it gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
-      'Then I came back to the US and noticed what people were drinking every day: coffee that came with the jitters, the acidity and the afternoon crash, and that meant nothing more than a quick fix.',
+      'At 19, I moved from South Florida to Argentina to chase pro soccer, and that’s where I found mate: a naturally caffeinated tea that’s a tradition in parts of South America, the way coffee is here.',
+      'What got me was the ritual. One gourd, passed around the circle. **No phones, no distractions**, just friends and family slowing down and talking. And it gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
+      'Back in the US, I saw people stuck on coffee: the jitters, the acidity, the afternoon crash, and no ritual at all.',
       'So I made the Mate Latte, to bring that ritual into your morning. It **tastes like a creamy vanilla latte**, with no bitterness and no acidity, and it gives you **everything your morning needs** to feel awake, focused and calm. Thirty seconds, hot or iced.',
       'Your 15% is still waiting (code WELCOME15), and [[this link applies it for you]].',
       'Hit reply anytime. I read every one.',

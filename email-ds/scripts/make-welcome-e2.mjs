@@ -43,7 +43,7 @@ const SIGNOFF = ['Un abrazo,', 'Shadi'];
 const PS = null;
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/’/g, '&rsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;');
-const linkHtml = (p) => ent(p).replace(/\[\[(.+?)\]\]/, (_, t) => `<a href="${LINK.replace(/&/g, '&amp;')}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${t}</a>`);
+const linkHtml = (p) => ent(p).replace(/L-theanine/g, '<span style="white-space:nowrap;">L-theanine</span>').replace(/\[\[(.+?)\]\]/, (_, t) => `<a href="${LINK.replace(/&/g, '&amp;')}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${t}</a>`);
 
 const html = `<!--
   WELCOME FLOW · EMAIL 2 · DAY 1 · plain-text note

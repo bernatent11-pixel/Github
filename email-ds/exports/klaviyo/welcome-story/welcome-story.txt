@@ -1,14 +1,16 @@
 Hey {{ first_name|default:'there' }}!
 
-I’m Shadi, the founder of Milonga. Quick hi, and the story behind it all.
+I’m Shadi, the founder of Milonga, and I wanted to share how all of this started.
 
-At 19 I left South Florida for Argentina to chase pro soccer, and found mate: a naturally caffeinated tea from a South American plant that’s everywhere down there.
+At 19, I left South Florida to chase a pro soccer career in Argentina, and that’s where I found mate: a naturally caffeinated tea from South America that people drink almost everywhere down there, the way we drink coffee here in the US.
 
-But the ritual is what got me. One gourd, prepared and passed around the circle. No phones, no distractions, just slowing down and talking.
+But it was the ritual that got me. Someone prepares the mate in one gourd and passes it around the circle. No phones, no distractions. Just friends and family slowing down, talking and being present, with the mate at the center of it all.
 
-The more I learned about yerba mate, the more I loved it: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system.
+The more I learned about mate, the more I loved it. Beyond the ritual, it gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.
 
-So I made the Mate Latte, to bring that ritual into busy mornings. It tastes like a creamy vanilla latte, with no bitterness and no acidity, and it gives you everything your morning needs: awake, focused and calm. Thirty seconds, hot or iced.
+Then I came back to the US and noticed what people were drinking every day: coffee that came with the jitters, the acidity and the afternoon crash, and that meant nothing more than a quick fix.
+
+So I made the Mate Latte, to bring that ritual into your morning. It tastes like a creamy vanilla latte, with no bitterness and no acidity, and it gives you everything your morning needs to feel awake, focused and calm. Thirty seconds, hot or iced.
 
 Your 15% is still waiting (code WELCOME15), and this link applies it for you:
 https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe-original-mate-latte&utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_mystery_offer&utm_content=story_text_link

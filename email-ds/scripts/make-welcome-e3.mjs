@@ -34,15 +34,18 @@ const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;').replace(/¡/g, '&iexcl;');
 const amp = (s) => s.replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 
-// Mate Latte vs. coffee. Ours from the pouch and the product page; coffee's
-// caffeine is the FDA's figure for an 8 oz cup (80–100mg); where coffee has
-// nothing to put in a row, an em dash (design memory 2026-09-15).
+// The comparison, after Bernat's website chart: Milonga against coffee,
+// mushroom coffee and matcha. Our facts from the pouch and the product page.
+// Theirs are typical per-serving figures: coffee ~95mg (FDA: 80–100mg per
+// 8 oz), mushroom coffee ~35–50mg (common blends), matcha ~40–70mg (a 1–2g
+// serving). Kept short: on a phone the three right columns are ~75px wide.
+const RIVALS = [['coffee', 'Coffee'], ['mushroom', 'Mushroom coffee'], ['matcha', 'Matcha']];
 const COMPARE = [
-  ['Caffeine', '100mg, natural', 'About 95mg'],
-  ['How it feels', 'Steady, no crash', 'Jitters, then a crash'],
-  ['Focus', '500mg Lion’s Mane', '—'],
-  ['Calm', '200mg L-theanine', '—'],
-  ['Taste', 'Creamy vanilla latte', 'Bitter on its own'],
+  ['Sensation', 'Awake, focused & calm', ['Wired & jittery', 'Barely noticeable', 'Calm but subtle']],
+  ['Ingredients', 'Yerba mate + Lion’s Mane + L-theanine', ['Coffee beans', 'Coffee + mushrooms', 'Green tea powder']],
+  ['Caffeine', '100mg natural, smooth & steady', ['~95mg, spike then crash', '~35–50mg', '~40–70mg']],
+  ['Taste', 'Creamy vanilla latte', ['Bitter & acidic', 'Earthy', 'Grassy & earthy']],
+  ['3 hours later', 'Still going, no crash', ['Crashing', 'Need another cup', 'Fading']],
 ];
 
 function email(img, code = CODE) {
@@ -55,11 +58,30 @@ function email(img, code = CODE) {
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${amp(href)}" style="height:56px;v-text-anchor:middle;width:${width}px;" arcsize="50%" stroke="f" fillcolor="${bg}"><w:anchorlock/><center style="color:${ink};font-family:Arial,sans-serif;font-size:16px;font-weight:bold;letter-spacing:2px;">${label}</center></v:roundrect>
 <![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${bg === FOREST ? DEEP : '#C9A24E'};">${label}</a><!--<![endif]-->`;
 
-  const compare = COMPARE.map(([label, ours, theirs]) => `<tr><td colspan="3" align="center" style="padding:18px 0 8px;font-family:${FONT};font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">${ent(label)}</td></tr>
-<tr>
-<td class="cmp" width="49%" align="center" valign="middle" bgcolor="${GOLD}" style="width:49%;background-color:${GOLD};border-radius:999px;padding:13px 10px;font-family:${FONT};font-size:15px;line-height:20px;font-weight:700;color:${FOREST};box-shadow:0 3px 0 #C9A24E;">${ent(ours)}</td>
-<td width="2%" style="width:2%;font-size:0;line-height:0;">&nbsp;</td>
-<td class="cmp" width="49%" align="center" valign="middle" style="width:49%;border:1.5px solid #B9B7A3;border-radius:999px;padding:12px 10px;font-family:${FONT};font-size:15px;line-height:20px;font-weight:500;color:${SOFT};">${ent(theirs)}</td>
+  const T = '#E6E4CF', LINE = '#D2D0B8', G = GOLD; // table ground, hairlines, Milonga frame
+  const last = COMPARE.length - 1;
+  const mil = (i) => `background-color:${FOREST};border-left:3px solid ${G};border-right:3px solid ${G};${i === last ? `border-bottom:3px solid ${G};border-radius:0 0 18px 18px;` : ''}`;
+  const rival = (i, j) => `background-color:${T};border-top:1px solid ${LINE};${j ? `border-left:1px solid ${LINE};` : ''}${i === last && j === 2 ? 'border-radius:0 0 18px 0;' : ''}`;
+  const head = `<tr>
+<td class="cmp-mil" width="37%" align="center" valign="bottom" bgcolor="${FOREST}" style="width:37%;background-color:${FOREST};border:3px solid ${G};border-bottom:0;border-radius:18px 18px 0 0;padding:18px 8px 14px;font-family:${FONT};">
+<img class="cmp-pouch" src="${img('cmp-pouch.png')}" width="47" height="76" alt="Milonga Mate Latte pouch" style="display:block;margin:0 auto;width:47px;height:76px;border:0;">
+<div class="cmp-brand" style="padding-top:10px;font-size:18px;line-height:20px;font-weight:700;letter-spacing:3px;color:#FFFFFF;">MILONGA</div>
+<div style="font-family:${SERIF};font-size:16px;line-height:20px;font-weight:700;font-style:italic;color:${G};">mate latte</div>
+</td>
+${RIVALS.map(([k, name], j) => `<td class="cmp-r" width="21%" align="center" valign="bottom" bgcolor="${T}" style="width:21%;background-color:${T};${j ? `border-left:1px solid ${LINE};` : ''}${j === 2 ? 'border-radius:0 18px 0 0;' : ''}padding:18px 4px 14px;font-family:${FONT};">
+${j === 0 ? `<img class="cmp-vs" src="${img('cmp-vs.png')}" width="40" height="40" alt="versus" style="display:block;margin:0 auto 6px;width:40px;height:40px;border:0;">` : '<div class="cmp-vs-gap" style="height:46px;line-height:46px;font-size:0;">&nbsp;</div>'}
+<img src="${img('cmp-' + k + '.png')}" width="34" height="34" alt="" role="presentation" style="display:block;margin:0 auto;width:34px;height:34px;border:0;">
+<div class="cmp-name" style="padding-top:8px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${name}</div>
+</td>`).join('\n')}
+</tr>`;
+  const rows = COMPARE.map(([label, ours, theirs], i) => `<tr>
+<td class="cmp-mil" align="center" valign="middle" bgcolor="${FOREST}" style="${mil(i)}padding:0 10px;font-family:${FONT};">
+<div style="border-top:1px solid rgba(255,255,255,.18);padding:14px 2px ${i === last ? 18 : 14}px;">
+<div class="cmp-label" style="font-size:10px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${G};">${ent(label)}</div>
+<div class="cmp-ours" style="padding-top:4px;font-size:14px;line-height:19px;font-weight:700;color:#FFFFFF;">${ent(ours).replace(/(Lion&rsquo;s Mane|L-theanine|Yerba mate)/g, '<span style="white-space:nowrap;">$1</span>')}</div>
+</div>
+</td>
+${theirs.map((t, j) => `<td class="cmp-r cmp-cell" align="center" valign="middle" bgcolor="${T}" style="${rival(i, j)}padding:12px 6px;font-family:${FONT};font-size:13px;line-height:17px;font-weight:700;color:${FOREST};">${ent(t)}</td>`).join('\n')}
 </tr>`).join('\n');
 
   return `<!--
@@ -86,8 +108,15 @@ function email(img, code = CODE) {
     .code { font-size:20px !important; letter-spacing:2px !important; }
     .code-tag { padding:12px 20px 14px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
-    .pad-cmp { padding-left:16px !important; padding-right:16px !important; }
-    .cmp { font-size:14px !important; line-height:18px !important; padding-left:8px !important; padding-right:8px !important; }
+    .pad-cmp { padding-left:10px !important; padding-right:10px !important; }
+    .cmp-mil { padding-left:6px !important; padding-right:6px !important; }
+    .cmp-ours { font-size:12px !important; line-height:16px !important; }
+    .cmp-label { font-size:9px !important; letter-spacing:1.4px !important; }
+    .cmp-cell { font-size:11px !important; line-height:14px !important; padding:10px 3px !important; }
+    .cmp-name { font-size:9px !important; letter-spacing:.8px !important; line-height:12px !important; }
+    .cmp-brand { font-size:15px !important; letter-spacing:2px !important; }
+    .cmp-vs { width:32px !important; height:32px !important; }
+    .cmp-vs-gap { height:38px !important; line-height:38px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-hero { background-color:${GREEN} !important; }
@@ -118,20 +147,16 @@ function email(img, code = CODE) {
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · MATE LATTE VS. COFFEE (beige) ─────────────────────────── -->
+<!-- ── 2 · MATE LATTE VS. THE ALTERNATIVES (beige) ─────────────────── -->
 <tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:56px 40px 0;font-family:${FONT};">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('In case you’re still deciding')}</div>
-<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Mate Latte</div>
-<div class="h-sec" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">vs. your coffee.</div>
+<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Not all morning cups</div>
+<div class="h-sec" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">are created equal.</div>
 </td></tr>
-<tr><td class="pad-cmp bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:24px 40px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
-<tr>
-<td width="49%" align="center" style="width:49%;padding-bottom:2px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;color:${FOREST};">Mate Latte</td>
-<td width="2%" style="width:2%;font-size:0;">&nbsp;</td>
-<td width="49%" align="center" style="width:49%;padding-bottom:2px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:400;color:${SOFT};">Coffee</td>
-</tr>
-${compare}
+<tr><td class="pad-cmp bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 20px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;border-spacing:0;">
+${head}
+${rows}
 </table>
 </td></tr>
 <tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:32px 48px 0;font-family:${FONT};">

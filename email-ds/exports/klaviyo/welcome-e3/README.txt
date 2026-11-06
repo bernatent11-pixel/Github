@@ -29,6 +29,9 @@ LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=welcome_mystery_o
   Logo / milonga.life        https://milonga.life/
 
 IMAGES AND ALT TEXT
+  cmp-pouch.png   Milonga Mate Latte pouch (comparison header)
+  cmp-vs.png      versus
+  cmp-coffee/mushroom/matcha.png   decorative icons (role="presentation"; the column names are text)
   hero-bg.jpg     The opening section's BACKGROUND: Bernat's studio shot of the pouch and the glass on green.
                   Live text sits in the green above the products. Blocked images show green #025A41.
   logo-gold.png   Milonga
@@ -37,13 +40,17 @@ COPY (verbatim)
   LAST CALL / Your 15% off is / still waiting.
   This is the last email we'll send about it. If the Mate Latte's been on your mind, today's the day.
   YOUR CODE: WELCOME15 · [USE MY 15% OFF] · ✓ 30-DAY MONEY-BACK GUARANTEE
-  IN CASE YOU'RE STILL DECIDING / Mate Latte / vs. your coffee.
-  Comparison (Mate Latte | Coffee):
-    Caffeine       100mg, natural          | About 95mg   (FDA: 80-100mg in an 8 oz cup of coffee)
-    How it feels   Steady, no crash        | Jitters, then a crash   (as the product page says)
-    Focus          500mg Lion's Mane       | —
-    Calm           200mg L-theanine        | —
-    Taste          Creamy vanilla latte    | Bitter on its own
+  IN CASE YOU'RE STILL DECIDING / Not all morning cups / are created equal.
+  Comparison table (after the chart on milonga.life), live text:
+                  MILONGA mate latte                      | Coffee                  | Mushroom coffee    | Matcha
+    Sensation     Awake, focused & calm                   | Wired & jittery         | Barely noticeable  | Calm but subtle
+    Ingredients   Yerba mate + Lion's Mane + L-theanine   | Coffee beans            | Coffee + mushrooms | Green tea powder
+    Caffeine      100mg natural, smooth & steady          | ~95mg, spike then crash | ~35–50mg           | ~40–70mg
+    Taste         Creamy vanilla latte                    | Bitter & acidic         | Earthy             | Grassy & earthy
+    3 hours later Still going, no crash                   | Crashing                | Need another cup   | Fading
+  Competitor caffeine: typical per serving. Coffee: FDA, 80–100mg per 8 oz. Mushroom coffee: common
+  blends run ~35–50mg. Matcha: ~40–70mg for a 1–2g serving. "Anxious" from the website chart was
+  left out of coffee's row (a health-effect claim about coffee).
   Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings. Skip, pause or cancel anytime.
   SEE SUBSCRIPTION OPTIONS →
   Footer: WELCOME15 terms, caffeine/FDA line, unsubscribe, web view, organization address.

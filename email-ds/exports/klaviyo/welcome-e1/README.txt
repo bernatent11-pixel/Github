@@ -75,3 +75,10 @@ COPY IN THE EMAIL (verbatim)
   FREE SHIPPING OVER $45 · 30-DAY MONEY-BACK GUARANTEE
   Footer: WELCOME15: 15% off one-time purchases on your first order. One use per customer. Not
   valid on subscriptions. + caffeine/FDA line, unsubscribe, web view, organization address.
+
+PHONES (under 480px wide)
+  The email swaps in phone versions of the two photos: hero-bg-mobile.jpg (the same art with a taller
+  middle, so the reveal fits between the pouches and the mug at phone size, nothing cropped off the sides)
+  and s2-product-mobile.jpg (a tighter crop so the pouch and glass fill the screen). The logo, type,
+  card and button spacing also tighten. Email apps that ignore phone styles show the desktop layout
+  scaled down, which still reads.

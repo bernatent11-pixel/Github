@@ -25,7 +25,9 @@ const LINK = 'https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe
 
 // The note. Each entry is a paragraph; [[text]] is the one link.
 // The story is Shadi's own (sent by Bernat, 2026-11-06): South Florida,
-// soccer, Argentina at 19, mate shared in gourds with teammates; then what
+// soccer, Argentina at 19, mate shared in gourds with teammates; yerba mate
+// explained for someone who has never had it (a naturally caffeinated tea
+// from a South American plant; product page: South America's most-loved tea); then what
 // he learned about yerba mate (gut and immune: approved claim, design memory
 // 2026-10-16; antioxidants and vitamins: the product page). Product
 // facts from the product page; WELCOME15 = 15% off the first order, no end
@@ -34,8 +36,8 @@ const GREETING = 'Hey {{ first_name|default:\'there\' }}!';
 // **text** is set bold in the HTML version (plain in the text-only one).
 const BODY = [
   'It’s Shadi, the guy behind Milonga. Can I tell you a quick story?',
-  'At 19 I left South Florida for Argentina to chase pro soccer, and that’s where mate found me. A gourd passed around before practice and after every meal, everyone slowing down, actually talking. I was hooked, and the more I learned about yerba mate, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system.',
-  'Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕',
+  'At 19 I left South Florida for Argentina to chase pro soccer, and that’s where I found mate. If you’ve never had it: yerba mate is a naturally caffeinated tea made from the leaves of a South American plant, and down there it’s everywhere, the way coffee is here. My teammates passed a gourd (the traditional cup) around before practice and after every meal, everyone slowing down, actually talking. I was hooked.',
+  'And the more I learned about it, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system. Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕',
   'The Mate Latte **tastes like a creamy vanilla latte. Honestly delicious.** No bitterness, no acidity, nothing grassy. It’s a ritual you actually look forward to, and it gives you **everything your morning needs**: awake, focused and calm, all at once. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm. Thirty seconds, hot or iced.',
   'Your 15% is still waiting for you (code WELCOME15), and [[this link applies it for you]]. I really think you’re going to love it.',
   'And if you have any questions, or just want to tell me how your mornings go, hit reply. I read every single one.',

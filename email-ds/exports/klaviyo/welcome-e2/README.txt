@@ -36,9 +36,9 @@ COPY (verbatim, text-only version; the HTML sets the two **bold** phrases in bol
 
   It’s Shadi, the guy behind Milonga. Can I tell you a quick story?
 
-  At 19 I left South Florida for Argentina to chase pro soccer, and that’s where mate found me. A gourd passed around before practice and after every meal, everyone slowing down, actually talking. I was hooked, and the more I learned about yerba mate, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system.
+  At 19 I left South Florida for Argentina to chase pro soccer, and that’s where I found mate. If you’ve never had it: yerba mate is a naturally caffeinated tea made from the leaves of a South American plant, and down there it’s everywhere, the way coffee is here. My teammates passed a gourd (the traditional cup) around before practice and after every meal, everyone slowing down, actually talking. I was hooked.
 
-  Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕
+  And the more I learned about it, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system. Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕
 
   The Mate Latte tastes like a creamy vanilla latte. Honestly delicious. No bitterness, no acidity, nothing grassy. It’s a ritual you actually look forward to, and it gives you everything your morning needs: awake, focused and calm, all at once. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm. Thirty seconds, hot or iced.
 

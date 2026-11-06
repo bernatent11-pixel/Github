@@ -23,7 +23,8 @@ export const PREHEADER = 'We promised a surprise. Here it is, ready for your fir
 // ── colours (contrast map: forest type on the gold silk, beige page, forest card)
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344';
 const HERO = '#F2D9A6'; // the hero photo's mid gold: its bgcolor while the image loads or is blocked
-const TAG = '#FBF1DC';  // the code tag's fill on the gold
+const TAG = '#FBF1DC';
+const G2A = '#015940', G2B = '#017251'; // section 2: the studio photo's green above and below the products  // the code tag's fill on the gold
 // Type: titles in Times New Roman (regular, bold, bold italic); everything
 // else in Montserrat, bold (700) and medium (500) only.
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
@@ -39,13 +40,15 @@ const L = {
   shop: `${SITE}/discount/WELCOME15?redirect=${encodeURIComponent(PDP)}&${utm('e1_closing_button')}`,
   subscribe: `${SITE}${PDP}?${utm('e1_subscribe_link')}`,
   home: `${SITE}/?${utm('e1_logo')}`,
+  product: `${SITE}/discount/WELCOME15?redirect=${encodeURIComponent(PDP)}&${utm('e1_product_image')}`,
 };
 
 const ALT = {
   logo: 'Milonga',
-  'disc-yerba-mate': 'Yerba mate',
-  'disc-l-theanine': 'L-theanine',
-  'disc-lions-mane': 'Lion’s Mane',
+  'disc-gold-yerba-mate': 'Yerba mate',
+  'disc-gold-l-theanine': 'L-theanine',
+  'disc-gold-lions-mane': 'Lion’s Mane',
+  product: 'A pouch of Milonga Mate Latte, Vanilla, 15 servings, beside a tall glass of creamy Mate Latte dusted with cinnamon.',
 };
 
 const keep = (s) => s.replace(/ (\S+)$/, '&nbsp;$1'); // join the last two words
@@ -64,26 +67,32 @@ const codeTag = (border, fill, ink, capInk) => `<table role="presentation" cellp
 <div class="code" style="font-size:30px;line-height:36px;font-weight:700;letter-spacing:6px;color:${ink};">WELCOME15</div>
 </td></tr></table>`;
 
-// Doses as printed on the pouch and used in earlier approved Mate Latte emails.
-const ROWS = [
-  { disc: 'disc-yerba-mate', title: 'Yerba mate · 100mg caffeine', feel: 'Awake.', line: 'Natural caffeine from organic yerba mate. Coffee-level energy, from a leaf.' },
-  { disc: 'disc-l-theanine', title: 'L-theanine · 200mg', feel: 'Calm.', line: 'Smooths the energy out so it feels steady. No spike, no crash, no jitters.' },
-  { disc: 'disc-lions-mane', title: 'Lion’s Mane · 500mg', feel: 'Clear.', line: 'The mushroom we add for focused, clear-headed mornings.' },
+// Section 2's three ingredients, in Bernat's order. Doses as printed on the
+// pouch and used in earlier approved Mate Latte emails.
+const INGREDIENTS = [
+  { disc: 'disc-gold-yerba-mate', name: 'Yerba mate', dose: '100mg', feel: 'Awake.', line: 'Coffee-level energy, minus the jitters and crash.' },
+  { disc: 'disc-gold-lions-mane', name: 'Lion’s Mane', dose: '500mg', feel: 'Focused.', line: 'The mushroom we add for clear-headed mornings.', nowrap: 'clear-headed' },
+  { disc: 'disc-gold-l-theanine', name: 'L-theanine', dose: '200mg', feel: 'Calm.', line: 'Smooths the energy out so it feels steady. No spike, no crash, no jitters.' },
 ];
-const PILLS = ['100mg natural caffeine', '90 cal', '3g sugar', 'Dairy-free', 'No artificial sweeteners'];
+// What yerba mate brings along. "Gut & immune" is approved for yerba mate
+// (design memory 2026-10-16); "Metabolism support" was asked for by Bernat on
+// 2026-11-06 and is flagged to him for the founder's sign-off.
+const BENEFITS = [
+  { glyph: 'glyph-antioxidants', label: 'Antioxidants & vitamins' },
+  { glyph: 'glyph-immune', label: 'Gut & immune support' },
+  { glyph: 'glyph-metabolism', label: 'Metabolism support' },
+];
 const STEPS = [['2.5 tbsp', 'of Mate Latte'], ['8 oz', 'milk or water'], ['30 sec', 'stir or froth']];
 
 function email(img) {
-  const rows = ROWS.map((r, i) => `<tr><td style="padding:${i ? 20 : 0}px 0 20px;${i < ROWS.length - 1 ? `border-bottom:1px solid #CFCDB8;` : ''}">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td width="56" valign="top" style="width:56px;"><img src="${img(r.disc + '.png')}" width="56" height="56" alt="${ent(ALT[r.disc])}" style="display:block;width:56px;height:56px;border:0;"></td>
-<td valign="middle" style="padding-left:18px;font-family:${FONT};">
-<div style="font-family:${SERIF};font-size:22px;line-height:26px;font-weight:700;color:${FOREST};">${ent(r.title)}</div>
-<div style="padding-top:4px;font-size:16px;line-height:22px;font-weight:500;color:${INK};"><strong style="font-weight:700;color:${FOREST};">${r.feel}</strong> ${keep(ent(r.line))}</div>
-</td></tr></table>
-</td></tr>`).join('\n');
+  const cols = INGREDIENTS.map((r) => `<td class="col" width="33%" valign="top" align="center" style="width:33%;padding:0 8px;font-family:${FONT};">
+<img src="${img(r.disc + '.png')}" width="64" height="64" alt="${ent(ALT[r.disc])}" style="display:block;margin:0 auto;width:64px;height:64px;border:0;">
+<div style="padding-top:14px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;color:#FFFFFF;">${ent(r.name)}</div>
+<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">${r.dose}</div>
+<div style="padding-top:10px;font-size:16px;line-height:23px;font-weight:500;color:#FFFFFF;"><strong style="font-weight:700;color:${GOLD};">${r.feel}</strong> ${keep(ent(r.line)).replace(r.nowrap ?? '\u0000', `<span style="white-space:nowrap;">${r.nowrap}</span>`)}</div>
+</td>`).join('\n');
 
-  const pills = PILLS.map((p) => `<span style="display:inline-block;margin:0 3px 8px;border:1.5px solid ${FOREST};border-radius:999px;padding:7px 13px;font-family:${FONT};font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:${FOREST};white-space:nowrap;">${p}</span>`).join('');
+  const benefits = BENEFITS.map((b) => `<span class="benefit" style="display:inline-block;margin:0 4px 10px;background-color:${GOLD};border-radius:999px;padding:9px 18px 9px 12px;font-family:${FONT};font-size:12px;line-height:24px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:${FOREST};white-space:nowrap;box-shadow:0 3px 0 #C9A24E;"><img src="${img(b.glyph + '.png')}" width="24" height="24" alt="" style="display:inline-block;width:24px;height:24px;vertical-align:middle;border:0;margin-right:7px;"><span style="vertical-align:middle;">${ent(b.label).replace(/&(?!amp;|[a-z]+;)/, '&amp;')}</span></span>`).join('');
 
   const steps = STEPS.map(([big, cap], i) => `<td class="step" width="33%" valign="top" align="center" style="width:33%;padding:0 ${i === 1 ? 6 : 0}px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:20px;padding:18px 8px 16px;font-family:${FONT};">
@@ -115,6 +124,7 @@ function email(img) {
     .btn { padding:19px 28px !important; }
     .card { padding:36px 22px !important; }
     .step { padding:0 3px !important; }
+    .col { display:block !important; width:100% !important; padding:0 0 32px !important; }
     .step-big { font-size:19px !important; line-height:24px !important; }
     .step-cap { font-size:12px !important; line-height:15px !important; }
   }
@@ -122,6 +132,8 @@ function email(img) {
     .bg-hero { background-color:${HERO} !important; }
     .bg-page { background-color:${BEIGE} !important; }
     .bg-card { background-color:${FOREST} !important; }
+    .bg-s2a { background-color:${G2A} !important; }
+    .bg-s2b { background-color:${G2B} !important; }
   }
 </style>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BEIGE}" class="bg-page" style="background-color:${BEIGE};">
@@ -144,18 +156,22 @@ ${codeTag(FOREST, TAG, FOREST, SOFT)}
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · WHAT YOU JUST UNLOCKED (beige, forest type) ──────────────── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:56px 48px 0;font-family:${FONT};">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Meet the Mate Latte</div>
-<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Coffee-level energy,</div>
-<div class="h-sec" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">minus the jitters.</div>
-<div style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${keep(ent('A creamy vanilla yerba mate latte made with organic yerba mate, Lion’s Mane and L-theanine. Not grassy, not bitter: it tastes like a vanilla latte. Ready in 30 seconds, hot or iced.'))}</div>
-<div style="padding-top:20px;font-size:0;line-height:0;">${pills}</div>
+<!-- ── 2 · EVERYTHING YOUR MORNINGS NEED (the studio photo's green) ── -->
+<tr><td class="pad bg-s2a" align="center" bgcolor="${G2A}" style="background-color:${G2A};padding:64px 44px 0;font-family:${FONT};">
+<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">Meet the Mate Latte</div>
+<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:44px;line-height:46px;font-weight:400;color:#FFFFFF;">Everything your</div>
+<div class="h-sec" style="font-family:${SERIF};font-size:44px;line-height:48px;font-weight:700;font-style:italic;color:#FFFFFF;">mornings need.</div>
+<div style="padding-top:18px;font-size:16px;line-height:25px;font-weight:500;color:#FFFFFF;">${ent('Energy, focus, calm and something delicious, all in one cup. A creamy vanilla latte made with yerba mate, one of the healthiest caffeine sources in the world, for clean, sustained energy, while Lion’s Mane and L-theanine keep you focused, clear and calm. Ready in 30 seconds,')} <span style="white-space:nowrap;">hot or iced.</span></div>
 </td></tr>
-<tr><td class="pad bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:24px 48px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-${rows}
-</table>
+<tr><td class="pad bg-s2a" bgcolor="${G2A}" style="background-color:${G2A};padding:40px 24px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+${cols}
+</tr></table>
+</td></tr>
+<tr><td class="bg-s2a" bgcolor="${G2A}" style="background-color:${G2A};padding:16px 0 0;font-size:0;line-height:0;"><a href="${amp(L.product)}" target="_blank"><img src="${img('s2-product.jpg')}" width="600" alt="${ent(ALT.product)}" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a></td></tr>
+<tr><td class="pad bg-s2b" align="center" bgcolor="${G2B}" style="background-color:${G2B};padding:4px 20px 56px;font-family:${FONT};">
+<div style="padding-bottom:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">${ent('Plus, from the yerba mate')}</div>
+<div style="font-size:0;line-height:0;">${benefits}</div>
 </td></tr>
 
 <!-- your first cup: 8 oz, always -->

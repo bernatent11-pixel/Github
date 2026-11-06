@@ -26,24 +26,29 @@ FACTS USED
   and after meals; slowing down, being present, real conversations
   Yerba mate + Lion's Mane + L-theanine, creamy vanilla, 30 seconds, hot or iced (product page)
   Antioxidants and vitamins; supports gut and immune system (product page; gut/immune approved for yerba mate)
+  No bitterness / acidity / grassiness, awake + focused + calm (product page: coffee's 'acidic stomach', grassy matcha;
+  'awake, clear-headed, focused, and calm'). Bold in the HTML: 'tastes like a creamy vanilla latte. Honestly delicious.'
+  and 'everything your morning needs'
   WELCOME15: 15% off the first order, no end date, so no deadline is mentioned (Shopify)
 
-COPY (verbatim)
-  Hey {{ first_name|default:'there' }},
-  Shadi here, the guy behind Milonga. Quick story, I promise.
-  I grew up in South Florida playing soccer, and at 19 I moved to Argentina to chase a pro career.
-  That's where I found mate: a gourd passed around before practice and after meals with my teammates.
-  It was never just the drink. It was slowing down, being present, having real conversations.
-  I fell in love with the tradition, and then I started digging into yerba mate itself. Wow. Clean,
-  steady energy, plus antioxidants and vitamins that support your gut and immune system. Meanwhile, back
-  home everyone was stuck between coffee and alternatives that taste awful and never give you that same
-  kick or that steady, lasting feeling.
-  So I made the Mate Latte: yerba mate for the energy, plus Lion's Mane and L-theanine so it stays calm
-  and clear, in a creamy vanilla latte that's ready in 30 seconds, hot or iced.
-  Your code is still waiting, by the way: WELCOME15 takes 15% off your first order, and this link
-  applies it for you.
-  And if you have a question, or you just want to tell me how your mornings go, hit reply. I read
-  every one.
+COPY (verbatim, text-only version; the HTML sets the two **bold** phrases in bold)
+  Hey {{ first_name|default:'there' }}!
+
+  It’s Shadi, the guy behind Milonga. Can I tell you a quick story?
+
+  At 19 I left South Florida for Argentina to chase pro soccer, and that’s where mate found me. A gourd passed around before practice and after every meal, everyone slowing down, actually talking. I was hooked, and the more I learned about yerba mate, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system.
+
+  Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕
+
+  The Mate Latte tastes like a creamy vanilla latte. Honestly delicious. No bitterness, no acidity, nothing grassy. It’s a ritual you actually look forward to, and it gives you everything your morning needs: awake, focused and calm, all at once. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm. Thirty seconds, hot or iced.
+
+  Your 15% is still waiting for you (code WELCOME15), and this link applies it for you:
+  https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe-original-mate-latte&utm_source=klaviyo&utm_medium=email&utm_campaign=welcome_mystery_offer&utm_content=e2_text_link
+
+  I really think you’re going to love it.
+
+  And if you have any questions, or just want to tell me how your mornings go, hit reply. I read every single one.
+
   Un abrazo,
   Shadi
   Footer: Don't want these emails anymore? Unsubscribe · organization name and address

@@ -30,20 +30,21 @@ const LINK = 'https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe
 // 2026-10-16; antioxidants and vitamins: the product page). Product
 // facts from the product page; WELCOME15 = 15% off the first order, no end
 // date (Shopify), so no deadline.
-const GREETING = 'Hey {{ first_name|default:\'there\' }},';
+const GREETING = 'Hey {{ first_name|default:\'there\' }}!';
+// **text** is set bold in the HTML version (plain in the text-only one).
 const BODY = [
-  'Shadi here, the guy behind Milonga. Quick story, I promise.',
-  'I grew up in South Florida playing soccer, and at 19 I moved to Argentina to chase a pro career. That’s where I found mate: a gourd passed around before practice and after meals with my teammates. It was never just the drink. It was slowing down, being present, having real conversations.',
-  'I fell in love with the tradition, and then I started digging into yerba mate itself. Wow. Clean, steady energy, plus antioxidants and vitamins that support your gut and immune system. Meanwhile, back home everyone was stuck between coffee and alternatives that taste awful and never give you that same kick or that steady, lasting feeling.',
-  'So I made the Mate Latte: yerba mate for the energy, plus Lion’s Mane and L-theanine so it stays calm and clear, in a creamy vanilla latte that’s ready in 30 seconds, hot or iced.',
-  'Your code is still waiting, by the way: WELCOME15 takes 15% off your first order, and [[this link applies it for you]].',
-  'And if you have a question, or you just want to tell me how your mornings go, hit reply. I read every one.',
+  'It’s Shadi, the guy behind Milonga. Can I tell you a quick story?',
+  'At 19 I left South Florida for Argentina to chase pro soccer, and that’s where mate found me. A gourd passed around before practice and after every meal, everyone slowing down, actually talking. I was hooked, and the more I learned about yerba mate, the better it got: clean, steady energy, plus antioxidants and vitamins that support your gut and immune system.',
+  'Then I’d come home and watch everyone stuck between coffee and alternatives that taste awful. So I made the drink I wished existed. ☕',
+  'The Mate Latte **tastes like a creamy vanilla latte. Honestly delicious.** No bitterness, no acidity, nothing grassy. It’s a ritual you actually look forward to, and it gives you **everything your morning needs**: awake, focused and calm, all at once. Yerba mate for the energy, Lion’s Mane for focus, L-theanine for calm. Thirty seconds, hot or iced.',
+  'Your 15% is still waiting for you (code WELCOME15), and [[this link applies it for you]]. I really think you’re going to love it.',
+  'And if you have any questions, or just want to tell me how your mornings go, hit reply. I read every single one.',
 ];
 const SIGNOFF = ['Un abrazo,', 'Shadi'];
 const PS = null;
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/’/g, '&rsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;');
-const linkHtml = (p) => ent(p).replace(/L-theanine/g, '<span style="white-space:nowrap;">L-theanine</span>').replace(/\[\[(.+?)\]\]/, (_, t) => `<a href="${LINK.replace(/&/g, '&amp;')}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${t}</a>`);
+const linkHtml = (p) => ent(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/L-theanine/g, '<span style="white-space:nowrap;">L-theanine</span>').replace(/\[\[(.+?)\]\]/, (_, t) => `<a href="${LINK.replace(/&/g, '&amp;')}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${t}</a>`);
 
 const html = `<!--
   WELCOME FLOW · EMAIL 2 · DAY 1 · plain-text note
@@ -80,7 +81,7 @@ if (problems.length) { console.error(problems); process.exit(1); }
 fs.writeFileSync(`${OUT}/welcome-e2.html`, html);
 
 // Text-only version: the link is written out after its words.
-const plain = (p) => p.replace(/\[\[(.+?)\]\]\.?/, (_, t) => `${t}:\n${LINK}`);
+const plain = (p) => p.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[\[(.+?)\]\]\.?\s*/, (_, t) => `${t}:\n${LINK}\n\n`).trimEnd();
 const txt = [GREETING, ...BODY.map(plain), SIGNOFF.join('\n'), '—', 'Don’t want these emails anymore? {% unsubscribe \'Unsubscribe\' %}', '{{ organization.name }} · {{ organization.full_address }}'].join('\n\n') + '\n';
 fs.writeFileSync(`${OUT}/welcome-e2.txt`, txt);
 

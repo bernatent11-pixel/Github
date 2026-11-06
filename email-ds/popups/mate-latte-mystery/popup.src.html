@@ -1,8 +1,10 @@
 <!-- ═══ MILONGA · MYSTERY OFFER POP-UP · %VARIANT_LABEL% ═══════════════════
      Signs people up to Klaviyo's "Mate Latte Signups" list (Vx3Tn4) with the
      profile property source = "%SOURCE%", then reveals the offer on the
-     second step: 15% off the first order. The code itself is emailed by the
-     Welcome flow on that list. Everyone gets the same offer: no odds, no spin.
+     second step: 15% off the first order, with the code %CODE% on a tag
+     you tap to copy. "Start shopping" goes to the home page through Shopify's
+     discount link, so the code is already applied at checkout. Everyone gets
+     the same offer: no odds, no spin.
      Built by scripts/make-mystery-popups.mjs from popup.src.html; edit that. -->
 <div id="mlg-mo" class="mlg-mo" role="dialog" aria-modal="true" aria-labelledby="mlg-mo-title" aria-hidden="true">
   <div class="mlg-mo__scrim" data-mlg-close></div>
@@ -29,9 +31,12 @@
           <span class="mlg-mo__pct">15%</span><span class="mlg-mo__off">off</span>
         </div>
         <div class="mlg-mo__first">your first order</div>
-        <p class="mlg-mo__body">Your code is on its way to <strong class="mlg-mo__sent"></strong>. Pop it in at checkout and the first cup’s on a better deal.</p>
-        <button type="button" class="mlg-mo__btn" data-mlg-close>Start shopping</button>
-        <p class="mlg-mo__fine">Can’t find the email? Peek in your promotions or spam folder.</p>
+        <button type="button" class="mlg-mo__code" aria-label="Copy the code %CODE%">
+          <span class="mlg-mo__code-txt">%CODE%</span><span class="mlg-mo__code-cta">Copy</span>
+        </button>
+        <p class="mlg-mo__body mlg-mo__note">Tap to copy, then paste it at checkout. We’re also sending it to <strong class="mlg-mo__sent"></strong>.</p>
+        <a class="mlg-mo__btn" href="%SHOP_URL%">Start shopping</a>
+        <p class="mlg-mo__fine">One use per customer. Valid on one-time purchases.</p>
       </div>
 
     </div>
@@ -97,48 +102,65 @@
   /* step 2: the reveal */
   .mlg-mo__reveal { display:flex; align-items:baseline; justify-content:center; gap:.8cqw; margin-top:.4cqw;
     color:var(--forest); font-family:'Tinos','Times New Roman',Times,serif; line-height:.95; }
-  .mlg-mo__pct { font-size:9.6cqw; font-weight:700; letter-spacing:-.3cqw; }
-  .mlg-mo__off { font-size:4.6cqw; font-style:italic; font-weight:700; }
-  .mlg-mo__first { margin-top:.2cqw; font-family:'Tinos','Times New Roman',Times,serif; font-style:italic; font-size:2.5cqw; color:var(--forest); }
-  .mlg-mo__done .mlg-mo__body { margin-top:1.4cqw; }
+  .mlg-mo__pct { font-size:8.4cqw; font-weight:700; letter-spacing:-.3cqw; }
+  .mlg-mo__off { font-size:4.2cqw; font-style:italic; font-weight:700; }
+  .mlg-mo__first { margin-top:.1cqw; font-family:'Tinos','Times New Roman',Times,serif; font-style:italic; font-size:2.4cqw; color:var(--forest); }
+  /* the code tag: dashed like a coupon, tap anywhere on it to copy */
+  .mlg-mo__code { display:flex; align-items:center; justify-content:space-between; gap:1cqw; width:100%; height:max(46px, 4.8cqw);
+    margin-top:1.3cqw; padding:0 .5cqw 0 2cqw; border:2px dashed var(--forest); border-radius:999px; background:rgba(255,250,236,.92);
+    color:var(--forest); cursor:pointer; font-family:'Montserrat','Helvetica Neue',Arial,sans-serif; transition:background .15s ease; }
+  .mlg-mo__code:hover { background:#fff; }
+  .mlg-mo__code-txt { font-size:max(17px, 1.95cqw); font-weight:800; letter-spacing:.3cqw; }
+  .mlg-mo__code-cta { display:inline-flex; align-items:center; height:calc(100% - 10px); padding:0 1.6cqw; border-radius:999px;
+    background:var(--forest); color:#fff; font-size:max(11px, 1.1cqw); font-weight:800; letter-spacing:.15cqw; text-transform:uppercase; }
+  .mlg-mo__code.is-copied .mlg-mo__code-cta { background:#2E7D4F; }
+  .mlg-mo__code:focus-visible { outline:3px solid var(--forest); outline-offset:3px; }
+  .mlg-mo__done .mlg-mo__note { margin:1cqw 0 1.4cqw; font-size:max(12px, 1.25cqw); }
+  a.mlg-mo__btn { text-decoration:none; }
 
   .mlg-mo__x { position:absolute; top:1.4cqw; right:1.4cqw; z-index:3; width:38px; height:38px; border:0; border-radius:50%;
     background:rgba(255,255,255,.9); color:var(--forest); font:400 26px/38px Arial,sans-serif; cursor:pointer; padding:0;
     box-shadow:0 2px 8px rgba(0,0,0,.15); }
   .mlg-mo__sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
-  /* Phones: the gap is too narrow to write in, so the whole photo sits on
-     top as a band (pouch and cans both in view) and the copy follows below
-     on gold that continues the silk. */
+  /* Phones (tall enough): the portrait photo, cans top-right and pouch
+     bottom-left, with the copy in the open middle. The copy block is laid out
+     for an 820px-tall card and scaled to the real card height by the script
+     (--mlg-s), so it always lands in the same gap. */
   @media (max-width:700px) {
     .mlg-mo { padding:12px; }
-    .mlg-mo__card { width:min(400px, calc(100vw - 24px)); aspect-ratio:auto; max-height:calc(100vh - 24px); overflow-y:auto;
-      background:#EDC98A; }
-    .mlg-mo__art { position:relative; inset:auto; width:100%; aspect-ratio:1800 / 1208; background-size:100% auto; background-position:top center; }
+    .mlg-mo__card { container-type:normal; width:min(420px, calc(100vw - 24px)); height:min(860px, calc(100vh - 24px)); aspect-ratio:auto; background:#E9C27F; }
+    .mlg-mo__art { background-image:url('%IMG%/bg-mobile.jpg'); background-size:cover; background-position:center center; }
+    .mlg-mo__art::after { left:-15%; top:20%; width:130%; height:52%; }
+    .mlg-mo__gap { left:50%; top:23.5%; width:310px; transform:translateX(-50%) scale(var(--mlg-s, 1)); transform-origin:50% 0; }
+    .mlg-mo__eyebrow { font-size:10.5px; letter-spacing:2.4px; }
+    .mlg-mo__title { margin-top:6px; }
+    .mlg-mo__t1 { font-size:26px; } .mlg-mo__t2 { font-size:35px; letter-spacing:-.3px; margin-top:1px; }
+    .mlg-mo__body { margin:8px 0 12px; font-size:13.5px; line-height:1.42; }
+    .mlg-mo__input { height:46px; padding:0 18px; font-size:16px; }
+    .mlg-mo__err { min-height:14px; margin:3px 0 2px; font-size:11.5px; }
+    .mlg-mo__btn { height:48px; font-size:13.5px; letter-spacing:2px; }
+    .mlg-mo__no { margin-top:6px; font-size:11.5px; letter-spacing:1.5px; }
+    .mlg-mo__fine { margin-top:6px; font-size:9.5px; line-height:1.35; }
+    .mlg-mo__reveal { gap:6px; margin-top:2px; }
+    .mlg-mo__pct { font-size:76px; letter-spacing:-2.5px; } .mlg-mo__off { font-size:36px; }
+    .mlg-mo__first { font-size:22px; margin-top:0; }
+    .mlg-mo__code { height:48px; margin-top:12px; padding:0 5px 0 20px; }
+    .mlg-mo__code-txt { font-size:18px; letter-spacing:3px; }
+    .mlg-mo__code-cta { padding:0 16px; font-size:11.5px; letter-spacing:1.5px; }
+    .mlg-mo__done .mlg-mo__note { margin:9px 0 12px; font-size:13px; }
+    .mlg-mo__x { top:12px; right:12px; }
+  }
+  /* Short phones (SE, mini): not enough height for the gap, so the landscape
+     photo sits on top as a band and the copy follows below on matching gold. */
+  @media (max-width:700px) and (max-height:699px) {
+    .mlg-mo__card { height:auto; max-height:calc(100vh - 24px); overflow-y:auto; background:#EDC98A; }
+    .mlg-mo__art { position:relative; inset:auto; width:100%; height:24vh; background-image:url('%IMG%/bg.jpg'); background-position:center 45%; }
     .mlg-mo__art::after { left:0; top:auto; bottom:-1px; width:100%; height:45%;
       background:linear-gradient(180deg, rgba(228,182,117,0), rgba(228,182,117,.7) 60%, #E4B675); }
-    .mlg-mo__gap { position:relative; left:auto; top:auto; width:auto; padding:6px 26px 22px;
-      background:linear-gradient(180deg, #E4B675 0, #F3D8A2 90px, #F5DEAC 55%, #EDC98A 100%); }
-    .mlg-mo__eyebrow { font-size:11px; letter-spacing:2.5px; }
-    .mlg-mo__title { margin-top:8px; }
-    .mlg-mo__t1 { font-size:28px; } .mlg-mo__t2 { font-size:38px; letter-spacing:-.4px; margin-top:2px; }
-    .mlg-mo__body { margin:10px 0 14px; font-size:14px; }
-    .mlg-mo__input { height:50px; padding:0 18px; font-size:16px; }
-    .mlg-mo__err { min-height:16px; margin:5px 0 2px; font-size:12px; }
-    .mlg-mo__btn { height:52px; font-size:14px; letter-spacing:2px; }
-    .mlg-mo__no { margin-top:10px; font-size:12px; letter-spacing:1.5px; }
-    .mlg-mo__fine { margin-top:10px; font-size:10.5px; }
-    .mlg-mo__reveal { gap:8px; margin-top:2px; }
-    .mlg-mo__pct { font-size:88px; letter-spacing:-3px; } .mlg-mo__off { font-size:40px; }
-    .mlg-mo__first { font-size:24px; margin-top:2px; }
-    .mlg-mo__done .mlg-mo__body { margin-top:12px; }
-    .mlg-mo__done { padding-bottom:8px; }
-    .mlg-mo__x { top:10px; right:10px; width:34px; height:34px; font-size:24px; line-height:34px; }
-  }
-  /* short phones (SE, mini, landscape-ish): a shorter photo band so the whole form fits */
-  @media (max-width:700px) and (max-height:740px) {
-    .mlg-mo__art { aspect-ratio:auto; height:27vh; background-size:cover; background-position:center 45%; }
-    .mlg-mo__t2 { font-size:34px; } .mlg-mo__body { margin:8px 0 12px; }
+    .mlg-mo__gap { position:relative; left:auto; top:auto; width:auto; transform:none; padding:4px 24px 16px;
+      background:linear-gradient(180deg, #E4B675 0, #F3D8A2 80px, #F5DEAC 55%, #EDC98A 100%); }
+    .mlg-mo__x { top:8px; right:8px; width:34px; height:34px; font-size:24px; line-height:34px; }
   }
   @media (prefers-reduced-motion:reduce) { .mlg-mo__scrim, .mlg-mo__card { transition:none; } }
 </style>
@@ -163,6 +185,33 @@
   var btn = form.querySelector('.mlg-mo__btn');
   var lastFocus = null, opened = false;
   var finePointer = window.matchMedia && matchMedia('(pointer:fine)').matches;
+  var card = root.querySelector('.mlg-mo__card');
+  var gap = root.querySelector('.mlg-mo__gap');
+  var codeBtn = root.querySelector('.mlg-mo__code');
+  var CODE = '%CODE%';
+
+  // Phones: fit the copy block to the card's height (laid out for 820px).
+  function fit() {
+    var tall = matchMedia('(max-width:700px) and (min-height:700px)').matches;
+    gap.style.setProperty('--mlg-s', tall ? String(Math.min(1, card.clientHeight / 820)) : '1');
+  }
+  window.addEventListener('resize', function () { if (opened) fit(); });
+
+  // Tap the tag to copy the code.
+  function copied() {
+    codeBtn.classList.add('is-copied');
+    codeBtn.querySelector('.mlg-mo__code-cta').textContent = 'Copied ✓';
+    setTimeout(function () { codeBtn.classList.remove('is-copied'); codeBtn.querySelector('.mlg-mo__code-cta').textContent = 'Copy'; }, 2200);
+  }
+  function legacyCopy() {
+    var t = document.createElement('textarea'); t.value = CODE; t.setAttribute('readonly', '');
+    t.style.cssText = 'position:fixed;top:0;left:0;opacity:0;'; root.appendChild(t); t.select();
+    try { document.execCommand('copy'); } catch (e) {} root.removeChild(t); copied();
+  }
+  codeBtn.addEventListener('click', function () {
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(CODE).then(copied, legacyCopy);
+    else legacyCopy();
+  });
 
   function store(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
@@ -179,7 +228,7 @@
   function open() {
     if (opened) return; opened = true;
     lastFocus = document.activeElement;
-    root.classList.add('is-open'); root.setAttribute('aria-hidden', 'false');
+    root.classList.add('is-open'); root.setAttribute('aria-hidden', 'false'); fit();
     requestAnimationFrame(function () { root.classList.add('is-in'); });
     // desktop: cursor straight into the field; phones: no surprise keyboard over the offer
     setTimeout(function () { try { (finePointer ? input : root.querySelector('.mlg-mo__x')).focus({ preventScroll: true }); } catch (e) {} }, 350);
@@ -224,7 +273,7 @@
       store('joined');
       done.querySelector('.mlg-mo__sent').textContent = email;
       form.hidden = true; done.hidden = false;
-      var b = done.querySelector('.mlg-mo__btn'); if (b) b.focus();
+      codeBtn.focus();
     }).catch(function () {
       btn.disabled = false; btn.textContent = 'Unlock my offer';
       fail('Something went wrong. Please try again.');

@@ -15,6 +15,12 @@ const DIR = 'popups/mate-latte-mystery';
 const src = fs.readFileSync(`${DIR}/popup.src.html`, 'utf8');
 const hosted = fs.existsSync(`${DIR}/hosted.json`) ? JSON.parse(fs.readFileSync(`${DIR}/hosted.json`, 'utf8')) : null;
 
+// The offer revealed on step 2, and where "Start shopping" goes: the home page
+// (every product lives there) through Shopify's discount link, so the code is
+// already applied when they reach checkout.
+const CODE = 'WELCOME15';
+const SHOP_URL = `https://milonga.life/discount/${CODE}?redirect=%2F`;
+
 const VARIANTS = {
   ads_lp: {
     file: 'popup-ads-lp.html',
@@ -38,6 +44,7 @@ const fill = (v, img) => src
   .replaceAll('%EYEBROW%', v.eyebrow).replaceAll('%BODY%', v.body)
   .replaceAll('%DELAY_MS%', String(v.delay)).replaceAll('%SCROLL_SHARE%', String(v.scroll))
   .replaceAll('%EXIT_INTENT%', String(v.exit))
+  .replaceAll('%CODE%', CODE).replaceAll('%SHOP_URL%', SHOP_URL)
   .replace(/%IMG%\/([\w.-]+)/g, (m, f) => img(f));
 
 for (const [key, v] of Object.entries(VARIANTS)) {

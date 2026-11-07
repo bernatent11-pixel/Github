@@ -1,7 +1,8 @@
 // Cart abandonment · Mate Latte · Email 2 · "Did something come up?"
 //
 // A plain letter from Shadi, 1 day after Email 1. Job (flow PDF): name the
-// worries (taste, caffeine, subscription), remind pop-up signups of their
+// worries (taste, how it feels, caffeine, subscription), recommend the club,
+// remind pop-up signups of their
 // code, one link back to the cart. No discount for anyone else.
 //
 // Two versions, chosen by a flow split (no conditional tag in the template):
@@ -26,13 +27,17 @@ const LETTER = [
   ['p', 'Hey {{ first_name|default:\'there\' }},'],
   ['p', 'Shadi here, founder of Milonga 👋'],
   ['p', 'Saw your Mate Latte is still sitting in your cart. Totally get it, life happens LOL. Or maybe something made you pause?'],
-  ['p', 'Usually it’s one of these three, so let me answer them real quick:'],
+  ['p', 'Usually it’s one of these four, so let me answer them real quick:'],
   ['q', '“Will I actually like the taste?”'],
   ['p', 'It tastes like a creamy vanilla latte. Not grassy, not earthy, not “healthy.” Or as Bryant, one of our customers, put it: “The taste was what sold me first.”'],
+  ['q', '“What does it actually feel like?”'],
+  ['p', 'Awake, focused and calm, all at once. The energy comes in smooth instead of hitting you like a jolt, your head feels clear, and it carries you through the morning. Three hours later you’re still going, no crash, no hunting for a second cup.'],
   ['q', '“Is it a lot of caffeine?”'],
-  ['p', '100mg of natural caffeine from yerba mate, about what’s in a cup of coffee. The difference is the 200mg of L-theanine in there, which keeps the energy smooth and steady. No jitters, no crash.'],
+  ['p', '100mg of natural caffeine from yerba mate, about what’s in a cup of coffee. The difference is the 200mg of L-theanine in there, which keeps the energy smooth and steady. No jitters.'],
   ['q', '“Do I have to subscribe?”'],
-  ['p', 'Nope! One-time is totally fine. And if you do join the Mate Mornings Club (30% off 30 or 60 servings), you can skip, pause or cancel anytime. No strings.'],
+  ['p', 'Nope, you’re never forced to. One-time is totally fine. But honestly? It’s what I recommend, and it’s totally worth it.'],
+  ['p', 'The Mate Latte is an everyday thing. It’s your morning cup, so you want it on hand every day. With the Mate Mornings Club you save 30% on every order (30 or 60 servings), and it shows up at your door every month automatically, so you never have to think about reordering. On 30 servings that’s about $21 back in your pocket, every single month.'],
+  ['p', 'And you can skip, pause or cancel anytime, so no surprise charges you didn’t want. Basically, your monthly supply of Mate Latte on autopilot, while saving big. No stress.'],
   ['p', 'And if it’s just not for you, there’s a 30-day money-back guarantee.'],
   ['p', 'If it’s something else, just hit reply and tell me. I read every single one, promise.'],
   ['link', 'Your cart’s right here whenever you’re ready:', 'back to my cart'],

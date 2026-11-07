@@ -23,6 +23,9 @@ LINK (one): https://milonga.life/cart?utm_source=klaviyo&utm_medium=email&utm_ca
 
 FACTS USED
   Taste: Bryant's real review line "The taste was what sold me first." (same review as Browse E1)
+  Feel: "awake, focused and calm" and "three hours later still going, no crash" (same as the Welcome E3
+    comparison table; a feeling, not a health claim)
   Caffeine: 100mg natural caffeine from yerba mate, 200mg L-theanine (pouch); a cup of coffee ~95mg
+  Club saving: 30 servings $69.98 one-time vs $48.99 subscribed = $20.99, "about $21" a month
   Mate Mornings Club: 30% off 30 or 60 servings; skip, pause or cancel anytime (Shopify / product page)
   30-day money-back guarantee. WELCOME15: 15% off the first order, one-time purchases only (Shopify).

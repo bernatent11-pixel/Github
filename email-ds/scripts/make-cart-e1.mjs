@@ -47,7 +47,7 @@ const L = {
 
 // Prices from Shopify (2026-11-07): 15 $34.99 · 30 $69.98 · 60 $139.96.
 // Mate Mornings Club: 30% off 30 and 60 servings, 15% off 15, monthly.
-// 30 subscribed = $48.99 ($1.63 a cup); 15 one-time = $2.33 a cup.
+// Side by side, both 30 servings: one-time $69.98 ($2.33 a cup) vs subscribed $48.99 ($1.63 a cup).
 const C = JSON.parse(fs.readFileSync(`${OUT}/colors.json`, 'utf8'));
 const EDGE = [
   { disc: 'disc-gold-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
@@ -152,12 +152,12 @@ ${inner}
 </td>`;
   const bullet = (t, color) => `<div class="cmp-text" style="padding-top:8px;font-size:13px;line-height:18px;font-weight:500;color:${color};">${t}</div>`;
   const oneTime = card('l', `<div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">One-time</div>
-<div class="cmp-price" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:${FOREST};">$34.99</div>
-<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">15 servings</div>
+<div class="cmp-price" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:${FOREST};">$69.98</div>
+<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">30 servings</div>
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">$2.33 a cup</div>
 <div style="margin:16px auto 0;width:40px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
 ${bullet('Buy once, reorder when you <span style="white-space:nowrap;">run out</span>', INK)}
-${bullet('Also in 30 or 60 servings', INK)}
+${bullet('Also in 15 or 60 servings', INK)}
 <div style="padding-top:16px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.cart('c1_onetime_link'))}" target="_blank" style="color:${FOREST};text-decoration:underline;">Keep one-time&nbsp;&rarr;</a></div>`,
     `bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;`);
   const club = CLUB.map((c) => `<tr><td class="club-ico" width="20" valign="top" style="width:20px;padding:9px 8px 0 0;"><img src="${img(c.icon)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>

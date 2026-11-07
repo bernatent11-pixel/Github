@@ -42,7 +42,8 @@ LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=cart_abandon_mate
 PRICES (Shopify, checked 2026-11-07)
   One-time: 15 servings $34.99 ($2.33 a cup) · 30 $69.98 · 60 $139.96
   Mate Mornings Club: 30% off 30 and 60 servings, 15% off 15 servings
-  Shown: 30 servings subscribed $48.99 (was $69.98) = $1.63 a cup. 1 serving = 1 cup.
+  Shown side by side, both 30 servings: one-time $69.98 ($2.33 a cup) vs Mate Mornings Club
+  $48.99 (was $69.98) = $1.63 a cup. 1 serving = 1 cup.
   Club card benefits, as the product page words them: Save 30% on every order (30 or 60
   servings) · Delivered to your door every month · Skip, pause or cancel anytime.
   "Your Mate Latte every morning, all month long." = 30 servings, one a day, monthly delivery.

@@ -35,7 +35,7 @@ And if it’s just not for you, there’s a 30-day money-back guarantee.
 If it’s something else, just hit reply and tell me. I read every single one, promise.
 
 Your cart’s right here whenever you’re ready:
-https://milonga.life/cart?utm_source=klaviyo&utm_medium=email&utm_campaign=cart_abandon_mate_latte&utm_content=c2_link
+{{ event.extra.checkout_url|default:'https://milonga.life/cart' }}
 
 Un abrazo,
 Shadi from Milonga

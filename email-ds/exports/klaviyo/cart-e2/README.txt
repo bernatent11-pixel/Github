@@ -19,7 +19,9 @@ FLOW (Cart Abandon Flow, Mate Latte branch)
       NO  -> cart-e2        (no discount, per the flow plan)
   Smart Sending ON · exits on Checkout Started or Placed Order.
 
-LINK (one): https://milonga.life/cart?utm_source=klaviyo&utm_medium=email&utm_campaign=cart_abandon_mate_latte&utm_content=c2_link
+LINK (one): {{ event.extra.checkout_url|default:'https://milonga.life/cart' }}
+  Their exact abandoned checkout when the flow is triggered by Checkout Started; their Shopify cart
+  when it is triggered by Added to Cart. Keep "Add UTM tracking" ON in the message settings.
 
 FACTS USED
   Taste: Bryant's real review line "The taste was what sold me first." (same review as Browse E1)

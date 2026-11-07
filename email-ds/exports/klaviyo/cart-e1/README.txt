@@ -33,11 +33,17 @@ THE CART BLOCK (Klaviyo editor, between the two HTML blocks)
   text #12331F, price #004D27. White rows with rounded corners read best on the gold.
   Check it with Klaviyo's "Preview & test" against a real Added to Cart event before going live.
 
-LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=cart_abandon_mate_latte)
-  Back to my cart / hero photo / Keep one-time / Complete my order   https://milonga.life/cart
-      Shopify keeps the cart in the browser, so it opens full on the same device/browser.
-  Join the club   https://milonga.life/products/the-original-mate-latte  (choose the subscription there)
-  Logo / milonga.life   https://milonga.life/
+LINKS
+  Back to my cart / hero photo / Keep one-time / Complete my order
+      {{ event.extra.checkout_url|default:'https://milonga.life/cart' }}   (render-checked in Klaviyo)
+      Checkout Started trigger (Checkout Abandon flow): their exact abandoned checkout, same items,
+        on any device (Shopify's recovery link).
+      Added to Cart trigger (Cart Abandon flow): there is no checkout yet, so it opens their Shopify
+        cart, which keeps their items in the browser they shopped on.
+      UTMs: keep "Add UTM tracking" ON in the flow message settings (the recovery link has its own
+        query string, so none is added by hand).
+  Join the club   https://milonga.life/products/the-original-mate-latte?utm_…c1_subscribe_link (pick the subscription there)
+  Logo / milonga.life   https://milonga.life/?utm_…c1_logo
 
 PRICES (Shopify, checked 2026-11-07)
   One-time: 15 servings $34.99 ($2.33 a cup) · 30 $69.98 · 60 $139.96

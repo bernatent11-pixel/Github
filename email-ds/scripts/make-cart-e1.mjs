@@ -40,7 +40,13 @@ const SITE = 'https://milonga.life';
 const PDP = '/products/the-original-mate-latte';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=cart_abandon_mate_latte&utm_content=${slot}`;
 const L = {
-  cart: (slot) => `${SITE}/cart?${utm(slot)}`,
+  // Their own abandoned checkout: Checkout Started events carry its recovery
+  // link (event.extra.checkout_url: the exact items, on any device). An Added
+  // to Cart event has no checkout yet, so it falls back to the Shopify cart,
+  // which still holds their items in their browser. Render-checked in Klaviyo.
+  // No UTM appended by hand (the recovery link has its own query string): keep
+  // "Add UTM tracking" on in the flow message's settings.
+  cart: () => `{{ event.extra.checkout_url|default:'${SITE}/cart' }}`,
   subscribe: `${SITE}${PDP}?${utm('c1_subscribe_link')}`,
   home: `${SITE}/?${utm('c1_logo')}`,
 };

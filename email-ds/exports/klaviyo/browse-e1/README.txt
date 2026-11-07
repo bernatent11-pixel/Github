@@ -23,8 +23,15 @@ SUBJECT LINE + PREVIEW TEXT (sentence case)
     Still on your mind? Same here ☕
     About that Mate Latte you were eyeing… 👀
 
-LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=browse_abandon_mate_latte)
-  Take another look / photo   https://milonga.life/products/the-original-mate-latte  (no discount)
+LINKS
+  Take another look / photo   {{ event.URL|default:'https://milonga.life/products/the-original-mate-latte' }}
+                              the exact product page this person viewed (from the Viewed Product
+                              event that triggered the flow); the Mate Latte page if the event has
+                              no URL. No discount. Render-checked in Klaviyo.
+                              The Viewed Product event records the product page only, not the
+                              variant (15/30/60 servings), so the link opens the product page.
+                              UTMs: keep "Add UTM tracking" ON in this flow message's settings
+                              (the flow already has it on); it tags the link automatically.
   Logo / milonga.life         https://milonga.life/
 
 IMAGES AND ALT TEXT

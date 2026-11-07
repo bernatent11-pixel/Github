@@ -32,7 +32,11 @@ const SITE = 'https://milonga.life';
 const PDP = '/products/the-original-mate-latte';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=browse_abandon_mate_latte&utm_content=${slot}`;
 const L = {
-  pdp: `${SITE}${PDP}?${utm('b1_button')}`,
+  // the exact product page this person viewed (from the Viewed Product event
+  // that triggered the flow); the Mate Latte page if the event has no URL.
+  // No UTM appended by hand: event.URL may already carry a query string, so
+  // the flow message's own "Add UTM tracking" setting tags it instead.
+  pdp: `{{ event.URL|default:'${SITE}${PDP}' }}`,
   photo: `${SITE}${PDP}?${utm('b1_photo')}`,
   home: `${SITE}/?${utm('b1_logo')}`,
 };

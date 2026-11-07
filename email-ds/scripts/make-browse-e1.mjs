@@ -150,7 +150,7 @@ ${CALLOUTS.map((c) => `<td class="co" width="176" valign="top" style="width:176p
 <div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Their mornings,</div>
 <div class="h-sec" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">in their words.</div>
 </td></tr>
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 40px 0;">
+<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 40px 8px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
 ${reviews}
 </table>

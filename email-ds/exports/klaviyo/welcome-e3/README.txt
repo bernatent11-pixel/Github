@@ -14,8 +14,16 @@ HEADLINE
   "Your 15% off ends tonight." on the shared WELCOME15 code, per Bernat (2026-11-07). Note for the
   record: WELCOME15 has no end date in Shopify, so the code keeps working after this email.
 
-SUBJECT LINE + PREVIEW TEXT
-  Your 15% Off Ends Tonight ⏰     Your first cup is still 15% off with WELCOME15. Last call.
+SUBJECT LINE + PREVIEW TEXT (sentence case: only the first word capitalized, plus names)
+  In use: Your 15% off ends tonight ⏰ — Your first cup is still 15% off with WELCOME15. Last call.
+  Alternatives:
+    Last call on your mystery offer ⏳
+    Your code has a bedtime tonight 🌙
+    Coffee, matcha or mate? Decide tonight ⏰
+    Don't let your 15% slip away 🥺
+    One last nudge (then we'll stop) 👋
+    Before tonight: your first cup, 15% off ☕
+    Tonight's the night for your 15% 🌙
 
 LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=welcome_mystery_offer)
   Use my 15% off      https://milonga.life/discount/WELCOME15?redirect=/products/the-original-mate-latte (code applied)

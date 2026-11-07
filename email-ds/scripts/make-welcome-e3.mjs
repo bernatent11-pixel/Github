@@ -28,7 +28,7 @@ const COUPON = null; // the Klaviyo coupon's exact name, e.g. 'MATELATTE_WELCOME
 const CODE = PERSONAL ? (COUPON ? `{% coupon_code '${COUPON}' %}` : null) : 'WELCOME15';
 const SAMPLE = 'WELCOME15-7KQ2M'; // preview stand-in for a personal code
 
-export const SUBJECT = 'Your 15% Off Ends Tonight ⏰';
+export const SUBJECT = 'Your 15% off ends tonight ⏰';
 export const PREHEADER = PERSONAL ? 'Your personal code runs out tonight. Your first cup is still 15% off until then.' : 'Your first cup is still 15% off with WELCOME15. Last call.';
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344';

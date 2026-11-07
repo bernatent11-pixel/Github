@@ -17,7 +17,7 @@ const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath
 // the footer mark is already on Klaviyo's CDN (same file as every other email's footer)
 hosted['mark-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/0e781634-6907-42f6-b101-3c2c15371a99.png';
 
-export const SUBJECT = 'Your Mystery Offer Is Inside 🎁';
+export const SUBJECT = 'Your mystery offer is inside 🎁';
 export const PREHEADER = 'We promised a surprise. Here it is, ready for your first cup.';
 
 // ── colours (contrast map: forest type on the gold silk, beige page, forest card)

@@ -14,12 +14,16 @@ FLOW
                  on its way, so it shouldn't be held back by a campaign they got that morning.
                  Leave it ON for emails 2 and 3.
 
-SUBJECT LINE + PREVIEW TEXT (in use: option 1)
-  1. Your Mystery Offer Is Inside 🎁       We promised a surprise. Here it is, ready for your first cup.
-  2. Psst… We Unwrapped Your Offer ✨      15% off your first Mate Latte, and how to make it in 30 seconds.
-  3. The Surprise We Promised You 🤫       Your code is inside. Creamy vanilla yerba mate is waiting.
-  4. Your First Cup Just Got Sweeter ☕     Coffee-level energy, minus the jitters, now 15% off.
-  5. Here's What Was Behind The Button 👀  No riddles: your code's inside, plus your first-cup recipe.
+SUBJECT LINE + PREVIEW TEXT (sentence case: only the first word capitalized, plus names)
+  In use: Your mystery offer is inside 🎁 — We promised a surprise. Here it is, ready for your first cup.
+  Alternatives:
+    Psst… we unwrapped your surprise ✨
+    Okay, here's what was behind the button 👀
+    Mystery solved: it's 15% off ☕
+    We promised a surprise. Here it is 🎉
+    The wait's over, your offer is here 🎁
+    Your better mornings start right here ☀️
+    Good news for your morning cup ☕
 
 LINKS (all UTM-tagged: utm_source=klaviyo, utm_medium=email, utm_campaign=welcome_mystery_offer)
   Claim my 15% off / Shop the Mate Latte

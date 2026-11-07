@@ -1,5 +1,5 @@
-SUBJECT: Quick question
-PREVIEW: It's Shadi from Milonga. Got a minute?
+SUBJECT: Got a sec?
+PREVIEW: It's Shadi from Milonga. I wanted to ask you something.
 FROM: Shadi from Milonga
 
 Hey {{ first_name|default:'there' }},

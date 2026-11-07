@@ -20,8 +20,8 @@ const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath
 hosted['logo-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/b6a03046-605a-4e87-b22f-a530be1633e3.png';
 hosted['mark-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/0e781634-6907-42f6-b101-3c2c15371a99.png';
 
-export const SUBJECT = 'Still thinking about it? 👀';
-export const PREHEADER = 'The creamy vanilla latte you were checking out, and why people swap their coffee for it.';
+export const SUBJECT = 'Still thinking about it? 🤔';
+export const PREHEADER = 'Totally fair. Here’s what’s inside the creamy vanilla latte you were eyeing.';
 
 const WALL = '#E7BE7A'; // the photo's gold wall: the hero's bgcolor while the image loads or is blocked
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344';

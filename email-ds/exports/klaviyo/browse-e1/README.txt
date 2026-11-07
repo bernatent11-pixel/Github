@@ -1,4 +1,4 @@
-BROWSE ABANDONMENT · MATE LATTE BRANCH · EMAIL 1 · "Still thinking about it? 👀"
+BROWSE ABANDONMENT · MATE LATTE BRANCH · EMAIL 1 · "Still thinking about it? 🤔"
 ==================================================================================
 
 File to paste:  browse-e1.html  (one Klaviyo HTML block; validator passed)
@@ -16,7 +16,7 @@ WHERE IT GOES: a third branch in the existing live "Browse Abandon Flow" (YfQSyH
   From: Milonga <connect@milonga.life> · Smart Sending ON (the current flow has it off)
 
 SUBJECT LINE + PREVIEW TEXT (sentence case)
-  In use: Still thinking about it? 👀 — The creamy vanilla latte you were checking out, and why people swap their coffee for it.
+  In use: Still thinking about it? 🤔 — Totally fair. Here’s what’s inside the creamy vanilla latte you were eyeing.
   Alternatives:
     You left something creamy behind ☕
     Your morning coffee has competition 👀

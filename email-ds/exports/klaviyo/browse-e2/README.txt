@@ -1,4 +1,4 @@
-BROWSE ABANDONMENT · MATE LATTE BRANCH · EMAIL 2 · "Quick question"
+BROWSE ABANDONMENT · MATE LATTE BRANCH · EMAIL 2 · "Got a sec?"
 ===================================================================
 
 Files:  browse-e2.html  plain-letter HTML block (validator passed; one link; unsubscribe included)
@@ -11,7 +11,7 @@ FLOW
   Reply-to    an inbox Shadi (or the team) actually reads: the email asks for replies
   Smart Sending ON · exits if they add to cart, start checkout or order
 
-SUBJECT LINE + PREVIEW TEXT (in use: option 1)
+SUBJECT LINE + PREVIEW TEXT (in use: Got a sec? / It's Shadi from Milonga. I wanted to ask you something.)
   1. Quick question                      It's Shadi from Milonga. Got a minute?
   2. Can I ask you something?            Saw you checking out the Mate Latte. Two seconds, I promise.
   3. Hey, it's Shadi                     A quick hello from the guy who made your next morning cup.

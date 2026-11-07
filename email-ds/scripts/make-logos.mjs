@@ -70,6 +70,7 @@ async function saveMark(t, outfile) {
 const TREATMENTS = [
   ['#E3BC62', '#EFD9A0', 'gold'],   // gold two-tone — for dark green backgrounds
   ['#004D27', '#057441', 'green'],  // brand greens — for beige backgrounds
+  ['#004D27', '#7AB949', 'green-lightcrown'], // forest hand + the pouch's light green crown (Bernat, 2026-11-07)
   ['#F0EFDF', '#F0EFDF', 'beige'],  // cream — for gold and dark backgrounds
   ['#FFFFFF', '#FFFFFF', 'white'],
 ];

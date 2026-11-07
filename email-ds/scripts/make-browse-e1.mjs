@@ -49,7 +49,7 @@ const REVIEWS = [
 const CALLOUTS = [
   { dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy, straight from yerba mate.' },
   { dose: '200mg', name: 'L-theanine', line: 'An amino acid found in tea leaves. It smooths the energy out: calm focus, no jitters.' },
-  { dose: '500mg', name: 'Lion’s Mane', line: 'The mushroom we add for focused, clear-headed mornings.' },
+  { dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom we add for focused, clear-headed mornings.' },
 ];
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -119,11 +119,11 @@ function email(img) {
 <tr><td class="bg-hero hero" align="left" valign="top" height="1120" background="${img('hero-bg.jpg')}" bgcolor="${WALL}" style="height:1120px;background-color:${WALL};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1120px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${WALL}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-in" style="padding:36px 40px 0;font-family:${FONT};">
-<a href="${amp(L.home)}" target="_blank"><img class="hero-logo" src="${img('logo-green.png')}" width="72" height="76" alt="Milonga" style="display:block;width:72px;height:76px;border:0;"></a>
+<a href="${amp(L.home)}" target="_blank" style="display:block;text-align:center;"><img class="hero-logo" src="${img('logo-hero.png')}" width="72" height="76" alt="Milonga" style="display:block;margin:0 auto;width:72px;height:76px;border:0;"></a>
 <div style="padding-top:22px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">The Mate Latte</div>
 <div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:54px;line-height:56px;font-weight:400;color:${FOREST};">Still thinking</div>
 <div class="h-hero" style="font-family:${SERIF};font-size:54px;line-height:56px;font-weight:700;font-style:italic;color:${FOREST};">about it?</div>
-<div class="hero-intro" style="padding-top:14px;max-width:340px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Totally fair. Here’s what’s inside the creamy vanilla latte you were')} <span style="white-space:nowrap;">${ent('just looking at.')}</span></div>
+<div class="hero-intro" style="padding-top:14px;max-width:340px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Totally fair. Here’s what’s inside the creamy vanilla Mate Latte you were')} <span style="white-space:nowrap;">${ent('just looking at.')}</span></div>
 </div>
 <div class="hero-gap" style="height:571px;line-height:571px;font-size:0;">&nbsp;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>

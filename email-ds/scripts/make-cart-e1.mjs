@@ -142,7 +142,7 @@ ${open(C.heroBottom, 'bg-hero')}
      its top and bottom fade into the flat golds of the rows around it, and the
      same gold carries on under Klaviyo's cart block and the button) ── -->
 <tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.cart('c1_photo'))}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="Milonga. The Mate Latte pouch beside a latte, with loose yerba mate on a golden table" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
-${row(C.heroBottom, 'pad bg-hero', 'padding:6px 40px 22px;', `${eyebrow('You left something good behind')}
+${row(C.heroBottom, 'pad bg-hero', 'padding:6px 40px 10px;', `${eyebrow('You left something good behind')}
 ${title('Your Mate Latte', 'is waiting.', 'h-hero', 54, FOREST, 10)}
 <div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('We saved your cart, so it’s right where you left it.')} ${nw(ent('Here’s what’s inside:'))}</div>`)}
 
@@ -195,19 +195,18 @@ ${STYLE}
 ${open(BEIGE, 'bg-page')}
 
 <!-- ── 1 (continued) · the button, on the same gold as the cart above ── -->
-${row(C.heroBottom, 'pad bg-hero', 'padding:24px 40px 52px;', `${button(L.cart('c1_hero_button'), 'Back to my cart', 290)}
+${row(C.heroBottom, 'pad bg-hero', 'padding:14px 40px 52px;', `${button(L.cart('c1_hero_button'), 'Back to my cart', 290)}
 ${trust}`)}
 
 <!-- ── 2 · ONE-TIME OR THE MATE MORNINGS CLUB, SIDE BY SIDE ────────── -->
 ${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Pick what works for you')}
 ${title('One-time, or', 'join the club?', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 0;">
+<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 56px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 ${oneTime}
 ${subscribe}
 </tr></table>
 </td></tr>
-${row(BEIGE, 'pad bg-page', 'padding:14px 40px 56px;font-size:12px;line-height:18px;font-weight:500;color:' + SOFT + ';', `1 serving = 1 cup. Same creamy vanilla Mate Latte <span style="white-space:nowrap;">either way.</span>`)}
 
 <!-- ── 3 · ONE CUP, EVERYTHING YOU NEED (the pour photo; the title and the
      benefits sit on its table, below the cup) ── -->

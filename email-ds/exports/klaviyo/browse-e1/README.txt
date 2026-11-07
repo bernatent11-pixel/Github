@@ -28,7 +28,7 @@ LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=browse_abandon_ma
   Logo / milonga.life         https://milonga.life/
 
 IMAGES AND ALT TEXT
-  logo-green.png        Milonga
+  logo-hero.png         Milonga (forest hand, light green crown, centered)
   hero-bg.jpg           The first section's BACKGROUND (desktop). Bernat's photo of the pouch beside an iced Mate
                         Latte with milk pouring in, extended: the gold wall continues up to the top (the forearm
                         continued up and out of frame), the cream table continues down and fades into the email's
@@ -38,11 +38,11 @@ IMAGES AND ALT TEXT
 
 COPY (verbatim)
   THE MATE LATTE / Still thinking / about it?
-  Totally fair. Here's what's inside the creamy vanilla latte you were just looking at.
+  Totally fair. Here's what's inside the creamy vanilla Mate Latte you were just looking at.
   [background photo; three hand-drawn arrows out of the cup to three green cards:]
     100mg · natural caffeine · Coffee-level energy, straight from yerba mate.
     200mg · L-theanine · An amino acid found in tea leaves. It smooths the energy out: calm focus, no jitters.
-    500mg · Lion's Mane · The mushroom we add for focused, clear-headed mornings.
+    500mg · Lion's Mane · The functional mushroom we add for focused, clear-headed mornings.
   DON'T TAKE OUR WORD FOR IT / Their mornings, / in their words.
   ★★★★★ I'm speechless with the mate latte — "The taste was what sold me first. It's creamy, lightly sweet,
     and has a really nice vanilla flavor without tasting like an overly sugary coffee drink." BRYANT

@@ -28,15 +28,18 @@ LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=browse_abandon_ma
   Logo / milonga.life         https://milonga.life/
 
 IMAGES AND ALT TEXT
-  logo-green.png   Milonga
-  hero-diagram.jpg A pouch of Milonga Mate Latte beside a glass of iced Mate Latte, with milk pouring in. Three arrows
-                   point from the cup to what is inside it. (Bernat's photo; the cream table is extended below it so
-                   the arrows can land on the three live-text cards right under the image.)
+  logo-green.png        Milonga
+  hero-bg.jpg           The first section's BACKGROUND (desktop). Bernat's photo of the pouch beside an iced Mate
+                        Latte with milk pouring in, extended: the gold wall continues up to the top (the forearm
+                        continued up and out of frame), the cream table continues down and fades into the email's
+                        beige. Three hand-drawn arrows come out of the cup toward the three cards.
+  hero-bg-mobile.jpg    The same for phones (taller wall for the title, arrows aimed at the phone card positions).
+  Title, intro and the three cards are live text on top of the background. Blocked images show gold #E7BE7A.
 
 COPY (verbatim)
   THE MATE LATTE / Still thinking / about it?
   Totally fair. Here's what's inside the creamy vanilla latte you were just looking at.
-  [photo, three arrows out of the cup to three green cards:]
+  [background photo; three hand-drawn arrows out of the cup to three green cards:]
     100mg · natural caffeine · Coffee-level energy, straight from yerba mate.
     200mg · L-theanine · An amino acid found in tea leaves. It smooths the energy out: calm focus, no jitters.
     500mg · Lion's Mane · The mushroom we add for focused, clear-headed mornings.

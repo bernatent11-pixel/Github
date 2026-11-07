@@ -23,6 +23,7 @@ hosted['mark-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/
 export const SUBJECT = 'Still thinking about it? 👀';
 export const PREHEADER = 'The creamy vanilla latte you were checking out, and why people swap their coffee for it.';
 
+const WALL = '#E7BE7A'; // the photo's gold wall: the hero's bgcolor while the image loads or is blocked
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
@@ -89,7 +90,13 @@ function email(img) {
     .pad-photo { padding-left:16px !important; padding-right:16px !important; }
     .h-hero { font-size:44px !important; line-height:46px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
-    .co { padding:0 4px !important; }
+    .hero { height:940px !important; background-image:url('${img('hero-bg-mobile.jpg')}') !important; background-size:cover !important; background-position:center top !important; }
+    .hero-in { padding:28px 22px 0 !important; }
+    .hero-logo { width:57px !important; height:60px !important; }
+    .hero-intro { max-width:260px !important; font-size:15px !important; line-height:22px !important; }
+    .hero-gap { height:440px !important; line-height:440px !important; }
+    .co-lead { width:4px !important; }
+    .co { width:33% !important; padding:0 4px !important; }
     .co-card { padding:14px 6px 14px !important; }
     .co-big { font-size:24px !important; line-height:26px !important; }
     .co-name { font-size:12px !important; line-height:15px !important; }
@@ -99,6 +106,7 @@ function email(img) {
   }
   @media (prefers-color-scheme: dark) {
     .bg-page { background-color:${BEIGE} !important; }
+    .bg-hero { background-color:${WALL} !important; }
 
   }
 </style>
@@ -106,29 +114,30 @@ function email(img) {
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
 
-<!-- ── 1 · STILL THINKING ABOUT IT? ──────────────────────────────── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:40px 44px 0;font-family:${FONT};">
-<a href="${amp(L.home)}" target="_blank"><img src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:28px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">The Mate Latte</div>
+<!-- ── 1 · STILL THINKING ABOUT IT? (the photo is the section's background:
+     title on the gold wall, three arrows out of the cup, cards on the table) ── -->
+<tr><td class="bg-hero hero" align="left" valign="top" height="1120" background="${img('hero-bg.jpg')}" bgcolor="${WALL}" style="height:1120px;background-color:${WALL};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1120px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${WALL}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="hero-in" style="padding:36px 40px 0;font-family:${FONT};">
+<a href="${amp(L.home)}" target="_blank"><img class="hero-logo" src="${img('logo-green.png')}" width="72" height="76" alt="Milonga" style="display:block;width:72px;height:76px;border:0;"></a>
+<div style="padding-top:22px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">The Mate Latte</div>
 <div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:54px;line-height:56px;font-weight:400;color:${FOREST};">Still thinking</div>
-<div class="h-hero" style="font-family:${SERIF};font-size:54px;line-height:58px;font-weight:700;font-style:italic;color:${FOREST};">about it?</div>
-<div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Totally fair. Here’s what’s inside the creamy vanilla latte you were just')} <span style="white-space:nowrap;">${ent('looking at.')}</span></div>
-</td></tr>
-<!-- the photo, with three arrows out of the cup; they end on the three cards below -->
-<tr><td class="bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 0 0;font-size:0;line-height:0;">
-<a href="${amp(L.photo)}" target="_blank"><img src="${img('hero-diagram.jpg')}" width="600" alt="A pouch of Milonga Mate Latte beside a glass of iced Mate Latte, with milk pouring in. Three arrows point from the cup to what is inside it." style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a>
-</td></tr>
-<tr><td class="bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:0;">
+<div class="h-hero" style="font-family:${SERIF};font-size:54px;line-height:56px;font-weight:700;font-style:italic;color:${FOREST};">about it?</div>
+<div class="hero-intro" style="padding-top:14px;max-width:340px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Totally fair. Here’s what’s inside the creamy vanilla latte you were')} <span style="white-space:nowrap;">${ent('just looking at.')}</span></div>
+</div>
+<div class="hero-gap" style="height:571px;line-height:571px;font-size:0;">&nbsp;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-${CALLOUTS.map((c) => `<td class="co" width="33.33%" valign="top" style="width:33.33%;padding:0 8px;">
+<td class="co-lead" width="72" style="width:72px;font-size:0;line-height:0;">&nbsp;</td>
+${CALLOUTS.map((c) => `<td class="co" width="176" valign="top" style="width:176px;padding:0 6px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-<td class="co-card" align="center" valign="top" bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:20px;padding:18px 12px 18px;font-family:${FONT};">
-<div class="co-big" style="font-family:${SERIF};font-size:34px;line-height:36px;font-weight:700;color:${GOLD};">${c.dose}</div>
+<td class="co-card" align="center" valign="top" bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:20px;padding:16px 10px 16px;font-family:${FONT};">
+<div class="co-big" style="font-family:${SERIF};font-size:32px;line-height:34px;font-weight:700;color:${GOLD};">${c.dose}</div>
 <div class="co-name" style="padding-top:4px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">${ent(c.name)}</div>
-<div class="co-text" style="padding-top:8px;font-size:13px;line-height:18px;font-weight:500;color:#FFFFFF;">${ent(c.line)}</div>
+<div class="co-text" style="padding-top:6px;font-size:13px;line-height:18px;font-weight:500;color:#FFFFFF;">${ent(c.line)}</div>
 </td></tr></table>
 </td>`).join('\n')}
 </tr></table>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
 <!-- ── 3 · PROOF (real reviews) ───────────────────────────────────── -->

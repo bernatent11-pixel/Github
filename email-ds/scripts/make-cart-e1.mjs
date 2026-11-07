@@ -157,7 +157,6 @@ ${inner}
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">$2.33 a cup</div>
 <div style="margin:16px auto 0;width:40px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
 ${bullet('Buy once, reorder when you <span style="white-space:nowrap;">run out</span>', INK)}
-${bullet('Also in 15 or 60 servings', INK)}
 <div style="padding-top:16px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.cart('c1_onetime_link'))}" target="_blank" style="color:${FOREST};text-decoration:underline;">Keep one-time&nbsp;&rarr;</a></div>`,
     `bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;`);
   const club = CLUB.map((c) => `<tr><td class="club-ico" width="20" valign="top" style="width:20px;padding:9px 8px 0 0;"><img src="${img(c.icon)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>

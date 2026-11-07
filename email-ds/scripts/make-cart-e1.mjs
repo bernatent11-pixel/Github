@@ -138,7 +138,7 @@ ${open(C.heroBottom, 'bg-hero')}
 <tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.cart('c1_photo'))}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="Milonga. The Mate Latte pouch beside a latte, with loose yerba mate on a golden table" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
 ${row(C.heroBottom, 'pad bg-hero', 'padding:6px 40px 22px;', `${eyebrow('You left something good behind')}
 ${title('Your Mate Latte', 'is waiting.', 'h-hero', 54, FOREST, 10)}
-<div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('We saved your cart, so it’s right where you left it.')} ${nw('Here’s what’s inside:'.replace('’', '&rsquo;'))}</div>`)}
+<div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('We saved your cart, so it’s right where you left it.')} ${nw(ent('Here’s what’s inside:'))}</div>`)}
 
 ${close}`;
 }

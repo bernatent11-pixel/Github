@@ -1,0 +1,22 @@
+SUBJECT: Quick question
+PREVIEW: It's Shadi from Milonga. Got a minute?
+FROM: Shadi from Milonga
+
+Hey {{ first_name|default:'there' }},
+
+Shadi here, the founder of Milonga.
+
+I saw you were checking out the Mate Latte, so I wanted to say hi myself.
+
+Quick backstory: I've spent the last three years making yerba mate drinks with Milonga, and the whole time I kept wishing for one thing in the morning. Real energy that didn't leave me wired, in a cup I actually looked forward to. So we made it.
+
+That's the Mate Latte: creamy vanilla, 100mg of natural caffeine from yerba mate, and L-theanine so the energy feels steady, not jittery. Ready in 30 seconds, hot or iced.
+
+But honestly, I'd love to hear from you. What are you looking for in your mornings? More energy, less coffee, something that just tastes good? Hit reply and tell me. I read every one of these.
+
+And if you want to take another look, it's right here:
+https://milonga.life/products/the-original-mate-latte?utm_source=klaviyo&utm_medium=email&utm_campaign=browse_abandon_mate_latte&utm_content=b2_link
+
+Un abrazo,
+Shadi
+Founder, Milonga

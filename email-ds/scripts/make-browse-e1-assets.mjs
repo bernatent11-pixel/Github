@@ -2,9 +2,9 @@
 //
 // Bernat's photo (the pouch beside an iced Mate Latte, milk pouring in),
 // extended both ways so it can carry the whole first section:
-//   top    the gold wall continues up so the title sits on it. The hand that
-//          pours touches the photo's top edge, so the forearm is continued up
-//          and to the right (leaving the frame), not smeared straight up
+//   top    the gold wall continues up so the title sits on it, with the
+//          pouring forearm continued naturally out of frame (Higgsfield outpaint
+//          of the photo's top strip; the photo itself is untouched)
 //   bottom the cream table continues down and fades into the email's beige,
 //          so the rest of the email carries on from the table
 // plus three short hand-drawn arrows coming out of the cup.
@@ -26,39 +26,34 @@ async function compose({ W, T, B, lean, arrows, file }) {
   const out = Buffer.alloc(W * H * 3);
   ph.copy(out, T * W * 3);
 
-  // ── top: wall + forearm ───────────────────────────────────────────────
-  const top = new Float64Array(W * 3);
-  for (let y = 0; y < 4; y++) for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) top[x * 3 + c] += ph[(y * W + x) * 3 + c] / 4;
-  // wall colour from the left half (no hand there); arm = pixels far from it
-  const wall = [0, 0, 0]; let n = 0;
-  for (let x = 0; x < W * 0.6; x++) { for (let c = 0; c < 3; c++) wall[c] += top[x * 3 + c]; n++; }
-  for (let c = 0; c < 3; c++) wall[c] /= n;
-  const dist = (x) => Math.hypot(top[x * 3] - wall[0], top[x * 3 + 1] - wall[1], top[x * 3 + 2] - wall[2]);
-  const arm = new Float64Array(W); // 0 = wall, 1 = arm, soft edge
-  for (let x = 0; x < W; x++) arm[x] = Math.max(0, Math.min(1, (dist(x) - 14) / 16));
-  // the wall's own horizontal light falloff, read from row 0 where it is wall, else the mean
-  const wallRow = new Float64Array(W * 3);
-  for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) wallRow[x * 3 + c] = arm[x] < 0.05 ? top[x * 3 + c] : wall[c];
-  for (let pass = 0; pass < 3; pass++) { // smooth it
-    const tmp = Float64Array.from(wallRow);
-    for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) { let s = 0, k = 0; for (let d = -30; d <= 30; d++) { const xx = Math.min(W - 1, Math.max(0, x + d)); s += tmp[xx * 3 + c]; k++; } wallRow[x * 3 + c] = s / k; }
+  // ── top: the wall and the forearm, from a Higgsfield outpaint ─────────
+  // src-86-outpaint.png (1536x2752) is the photo's top strip outpainted to 9:16;
+  // the original strip sits at row OP_Y. Everything above it is real-looking
+  // wall with the forearm leaving the frame on the right. It is colour-matched
+  // to the photo, joined with a short crossfade, and (for the taller phone
+  // version) topped up with more of its own plain wall.
+  const OP = 'exports/klaviyo/browse-e1/src-86-outpaint.png', OP_W = 1536, OP_Y = 820;
+  const opH = Math.round(2752 * W / OP_W);
+  const { data: op } = await sharp(OP).resize({ width: W, height: opH, fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const y0 = Math.round(OP_Y * W / OP_W); // the photo's first row inside `op`
+  // colour match: mean difference over the overlapping strip (photo rows 0..120)
+  const diff = [0, 0, 0]; let cnt = 0;
+  for (let y = 0; y < 120; y++) for (let x = 0; x < W; x += 2) { for (let c = 0; c < 3; c++) diff[c] += ph[(y * W + x) * 3 + c] - op[((y0 + y) * W + x) * 3 + c]; cnt++; }
+  for (let c = 0; c < 3; c++) diff[c] /= cnt;
+  const opPix = (y, x, c) => Math.max(0, Math.min(255, op[(y * W + x) * 3 + c] + diff[c]));
+  for (let y = 0; y < T; y++) {
+    const sy = y0 - (T - y); // the matching row in the outpaint
+    for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) {
+      // above the outpaint's own top: repeat its first row (plain wall there)
+      out[(y * W + x) * 3 + c] = Math.round(opPix(Math.max(0, sy), x, c));
+    }
   }
-  for (let d = 1; d <= T; d++) {
-    const y = T - d; // rows going up
-    const shift = d * lean; // the forearm leans up and to the right
-    const fade = Math.min(1, d / 40); // first rows: continue the photo's own top row exactly
-    for (let x = 0; x < W; x++) {
-      const sx = x - shift, x0 = Math.floor(sx), t = sx - x0;
-      const pick = (xx, c) => (xx < 0 ? wallRow[c] : xx >= W ? wallRow[(W - 1) * 3 + c] : top[xx * 3 + c]);
-      const am = sx < 0 || sx >= W - 1 ? 0 : arm[x0] * (1 - t) + arm[x0 + 1] * t;
-      for (let c = 0; c < 3; c++) {
-        const skin = pick(x0, c) * (1 - t) + pick(x0 + 1, c) * t;
-        // a touch of shade as the forearm rises, so it reads round, not flat
-        const shade = 1 - 0.06 * Math.min(1, d / 300);
-        const v = am * skin * shade + (1 - am) * wallRow[x * 3 + c];
-        const photoTop = top[x * 3 + c];
-        out[(y * W + x) * 3 + c] = Math.round(fade < 1 ? photoTop * (1 - fade) + v * fade : v);
-      }
+  // crossfade the first 36 rows of the photo from the outpaint into the photo
+  for (let y = 0; y < 36; y++) {
+    const k = y / 35;
+    for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) {
+      const i = ((T + y) * W + x) * 3 + c;
+      out[i] = Math.round(opPix(y0 + y, x, c) * (1 - k) + ph[(y * W + x) * 3 + c] * k);
     }
   }
 
@@ -71,11 +66,6 @@ async function compose({ W, T, B, lean, arrows, file }) {
     const t = y / (B - 1), k = t * t * (3 - 2 * t);
     for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) out[((T + P + y) * W + x) * 3 + c] = Math.round(sm[x * 3 + c] * (1 - k) + BEIGE[c] * k);
   }
-
-  // soften the made-up part of the top (repeating a single row leaves faint
-  // streaks in the forearm); the last 40 rows blend into the real photo
-  const ext = await sharp(out, { raw: { width: W, height: H, channels: 3 } }).extract({ left: 0, top: 0, width: W, height: T - 40 }).blur(3.2).raw().toBuffer();
-  ext.copy(out, 0);
 
   // ── arrows: tapered, hand-drawn, out of the cup ───────────────────────
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">${arrows(T, W).join('')}</svg>`;

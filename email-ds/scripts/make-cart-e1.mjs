@@ -46,12 +46,19 @@ const L = {
 };
 
 // Prices from Shopify (2026-11-07): 15 $34.99 · 30 $69.98 · 60 $139.96.
-// Mate Mornings Club: 30% off 30 and 60 servings, 15% off 15.
+// Mate Mornings Club: 30% off 30 and 60 servings, 15% off 15, monthly.
 // 30 subscribed = $48.99 ($1.63 a cup); 15 one-time = $2.33 a cup.
+const C = JSON.parse(fs.readFileSync(`${OUT}/colors.json`, 'utf8'));
 const EDGE = [
-  { disc: 'disc-gold-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">minus the jitters.</span>' },
+  { disc: 'disc-gold-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
   { disc: 'disc-gold-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
   { disc: 'disc-gold-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
+];
+// The Mate Mornings Club's benefits, as the product page words them.
+const CLUB = [
+  { icon: 'icon-save.png', text: 'Save 30% on every order <span style="white-space:nowrap;">(30 or 60 servings)</span>' },
+  { icon: 'icon-delivery.png', text: 'Delivered to your door <span style="white-space:nowrap;">every month</span>' },
+  { icon: 'icon-pause.png', text: 'Skip, pause or cancel anytime' },
 ];
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -73,15 +80,16 @@ const STYLE = `<style>
     .wrap { width:100% !important; }
     .pad { padding-left:24px !important; padding-right:24px !important; }
     .pad-photo { padding-left:16px !important; padding-right:16px !important; }
+    .full { width:100% !important; height:auto !important; }
     .hero-logo { width:68px !important; height:72px !important; }
     .h-hero { font-size:44px !important; line-height:46px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
-    .photo { width:100% !important; height:auto !important; }
     .cmp-l { padding-right:4px !important; }
     .cmp-r { padding-left:4px !important; }
     .cmp-card { padding:18px 10px 18px !important; }
     .cmp-price { font-size:32px !important; line-height:34px !important; }
     .cmp-text { font-size:12px !important; line-height:17px !important; }
+    .club-ico { width:16px !important; padding-right:6px !important; }
     .edge { padding:0 4px !important; }
     .edge-disc { width:48px !important; height:48px !important; }
     .edge-dose { font-size:24px !important; line-height:26px !important; }
@@ -91,11 +99,14 @@ const STYLE = `<style>
   }
   @media (prefers-color-scheme: dark) {
     .bg-page { background-color:${BEIGE} !important; }
-    .bg-forest { background-color:${FOREST} !important; }
+    .bg-hero-top { background-color:${C.heroTop} !important; }
+    .bg-hero { background-color:${C.heroBottom} !important; }
+    .bg-wall { background-color:${C.finalTop} !important; }
+    .bg-table { background-color:${C.finalBottom} !important; }
   }
 </style>`;
 
-const open = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BEIGE}" class="bg-page" style="background-color:${BEIGE};">
+const open = (bg, cls) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${bg}" class="${cls}" style="background-color:${bg};">
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">`;
 const close = `</table>
@@ -104,35 +115,30 @@ const close = `</table>
 const eyebrow = (t, color = FOREST) => `<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${color};">${ent(t)}</div>`;
 const title = (a, b, cls, size, color = FOREST, pad = 12) => `<div class="${cls}" style="padding-top:${pad}px;font-family:${SERIF};font-size:${size}px;line-height:${size + 4}px;font-weight:400;color:${color};">${ent(a)}</div>
 <div class="${cls}" style="font-family:${SERIF};font-size:${size}px;line-height:${size + 4}px;font-weight:700;font-style:italic;color:${color};">${ent(b)}</div>`;
+const row = (bg, cls, style, inner) => `<tr><td class="${cls}" align="center" bgcolor="${bg}" style="background-color:${bg};${style}font-family:${FONT};">
+${inner}
+</td></tr>`;
+const trust = `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
 
 function top(img) {
   return `<!--
   CART ABANDONMENT · MATE LATTE · EMAIL 1 · "${SUBJECT}" · HTML BLOCK 1 of 2 (above the cart)
   Preview text: ${PREHEADER}
   Send: 1 hour after Added to Cart (Mate Latte in the cart). No discount.
-  Layout in Klaviyo: [this HTML block] -> [Klaviyo Dynamic Table block: the cart] -> [cart-e1-bottom.html]
+  Layout in Klaviyo: [this HTML block] -> [Klaviyo Dynamic Table block: the cart,
+  background ${C.heroBottom}] -> [cart-e1-bottom.html]
   GENERATED by scripts/make-cart-e1.mjs. Edit the script, not this file.
 -->
 ${STYLE}
-${open}
+${open(C.heroBottom, 'bg-hero')}
 
-<!-- ── 1 · YOUR MATE LATTE IS WAITING ──────────────────────────────── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:36px 40px 0;font-family:${FONT};">
-<a href="${amp(L.home)}" target="_blank"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:26px;">${eyebrow('You left something good behind')}</div>
+<!-- ── 1 · YOUR MATE LATTE IS WAITING (the photo is the section's background:
+     its top and bottom fade into the flat golds of the rows around it, and the
+     same gold carries on under Klaviyo's cart block and the button) ── -->
+<tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.cart('c1_photo'))}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="Milonga. The Mate Latte pouch beside a latte, with loose yerba mate on a golden table" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
+${row(C.heroBottom, 'pad bg-hero', 'padding:6px 40px 22px;', `${eyebrow('You left something good behind')}
 ${title('Your Mate Latte', 'is waiting.', 'h-hero', 54, FOREST, 10)}
-<div style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('We saved your cart, so it’s right where you left it.')} ${nw(ent('Your creamy vanilla mornings'))} ${nw('are one click away.')}</div>
-<div style="padding-top:26px;">${button(L.cart('c1_hero_button'), 'Back to my cart', 290)}</div>
-</td></tr>
-<tr><td class="pad-photo bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:34px 30px 0;">
-<a href="${amp(L.cart('c1_photo'))}" target="_blank"><img class="photo" src="${img('hero-photo.jpg')}" width="540" height="567" alt="An iced Mate Latte beside its pouch, a hand stirring it with a straw" style="display:block;width:540px;height:567px;border:0;border-radius:24px;"></a>
-</td></tr>
-
-<!-- ── 2 · YOUR CART (heading; Klaviyo's Dynamic Table block goes right below) ── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:52px 40px 18px;font-family:${FONT};">
-${eyebrow('Your cart')}
-${title('Right where', 'you left it.', 'h-sec', 40)}
-</td></tr>
+<div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('We saved your cart, so it’s right where you left it.')} ${nw('Here’s what’s inside:'.replace('’', '&rsquo;'))}</div>`)}
 
 ${close}`;
 }
@@ -150,26 +156,30 @@ ${inner}
 <div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">15 servings</div>
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">$2.33 a cup</div>
 <div style="margin:16px auto 0;width:40px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
+${bullet('Buy once, reorder when you <span style="white-space:nowrap;">run out</span>', INK)}
 ${bullet('Also in 30 or 60 servings', INK)}
-${bullet('No commitment', INK)}
 <div style="padding-top:16px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.cart('c1_onetime_link'))}" target="_blank" style="color:${FOREST};text-decoration:underline;">Keep one-time&nbsp;&rarr;</a></div>`,
     `bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;`);
+  const club = CLUB.map((c) => `<tr><td class="club-ico" width="20" valign="top" style="width:20px;padding:9px 8px 0 0;"><img src="${img(c.icon)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>
+<td class="cmp-text" valign="top" style="padding:8px 0 0;font-family:${FONT};font-size:13px;line-height:18px;font-weight:500;color:#FFFFFF;text-align:left;">${c.text}</td></tr>`).join('\n');
   const subscribe = card('r', `<div style="display:inline-block;background-color:${GOLD};border-radius:999px;padding:5px 12px;font-size:10px;line-height:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">Best value</div>
-<div style="padding-top:10px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">Subscribe &amp; save</div>
+<div style="padding-top:10px;font-family:${SERIF};font-size:20px;line-height:22px;font-weight:700;font-style:italic;color:${GOLD};">Mate Mornings Club</div>
 <div class="cmp-price" style="padding-top:8px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:#FFFFFF;">$48.99</div>
 <div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">30 servings <span style="font-weight:500;color:#CFE0D4;text-decoration:line-through;">$69.98</span></div>
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:#CFE0D4;">$1.63 a cup</div>
-<div style="margin:16px auto 0;width:40px;border-top:2px solid rgba(227,188,98,.6);font-size:0;line-height:0;">&nbsp;</div>
-${bullet(`30% off 30 or 60 servings ${nw('(15% off 15)')}`, '#FFFFFF')}
-${bullet('Skip, pause or cancel anytime', '#FFFFFF')}
-<div style="padding-top:16px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.subscribe)}" target="_blank" style="color:${GOLD};text-decoration:underline;">Switch &amp;&nbsp;save&nbsp;&rarr;</a></div>`,
+<div style="margin:16px auto 6px;width:40px;border-top:2px solid rgba(227,188,98,.6);font-size:0;line-height:0;">&nbsp;</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
+${club}
+</table>
+<div class="cmp-text" style="padding-top:12px;font-size:13px;line-height:18px;font-weight:700;color:${GOLD};">${ent('Your Mate Latte every morning,')} <span style="white-space:nowrap;">all month long.</span></div>
+<div style="padding-top:14px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.subscribe)}" target="_blank" style="color:${GOLD};text-decoration:underline;">Join the club&nbsp;&rarr;</a></div>`,
     `bgcolor="${FOREST}" style="background-color:${FOREST};border:3px solid ${GOLD};border-radius:22px;`);
 
   const edge = EDGE.map((e) => `<td class="edge" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
 <img class="edge-disc" src="${img(e.disc)}" width="56" height="56" alt="" role="presentation" style="display:block;margin:0 auto;width:56px;height:56px;border:0;">
-<div class="edge-dose" style="padding-top:12px;font-family:${SERIF};font-size:30px;line-height:32px;font-weight:700;color:${GOLD};">${e.dose}</div>
-<div class="edge-name" style="padding-top:4px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">${ent(e.name)}</div>
-<div class="edge-text" style="padding-top:6px;font-size:13px;line-height:18px;font-weight:500;color:#DCE8DF;">${ent(e.line)}</div>
+<div class="edge-dose" style="padding-top:12px;font-family:${SERIF};font-size:30px;line-height:32px;font-weight:700;color:${FOREST};">${e.dose}</div>
+<div class="edge-name" style="padding-top:4px;font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${ent(e.name)}</div>
+<div class="edge-text" style="padding-top:6px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">${ent(e.line)}</div>
 </td>`).join('\n');
 
   return `<!--
@@ -177,41 +187,40 @@ ${bullet('Skip, pause or cancel anytime', '#FFFFFF')}
   GENERATED by scripts/make-cart-e1.mjs. Edit the script, not this file.
 -->
 ${STYLE}
-${open}
+${open(BEIGE, 'bg-page')}
 
-<!-- ── 3 · ONE-TIME OR SUBSCRIBE, SIDE BY SIDE ─────────────────────── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:48px 40px 0;font-family:${FONT};">
-${eyebrow('Pick what works for you')}
-${title('One-time, or', 'subscribe &amp; save?', 'h-sec', 40)}
-</td></tr>
+<!-- ── 1 (continued) · the button, on the same gold as the cart above ── -->
+${row(C.heroBottom, 'pad bg-hero', 'padding:24px 40px 52px;', `${button(L.cart('c1_hero_button'), 'Back to my cart', 290)}
+${trust}`)}
+
+<!-- ── 2 · ONE-TIME OR THE MATE MORNINGS CLUB, SIDE BY SIDE ────────── -->
+${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Pick what works for you')}
+${title('One-time, or', 'join the club?', 'h-sec', 40)}`)}
 <tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 ${oneTime}
 ${subscribe}
 </tr></table>
 </td></tr>
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:14px 40px 0;font-family:${FONT};font-size:12px;line-height:18px;font-weight:500;color:${SOFT};">1 serving = 1 cup. Same creamy vanilla Mate Latte <span style="white-space:nowrap;">either way.</span></td></tr>
+${row(BEIGE, 'pad bg-page', 'padding:14px 40px 56px;font-size:12px;line-height:18px;font-weight:500;color:' + SOFT + ';', `1 serving = 1 cup. Same creamy vanilla Mate Latte <span style="white-space:nowrap;">either way.</span>`)}
 
-<!-- ── 4 · THE EDGE ─────────────────────────────────────────────────── -->
-<tr><td class="bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:48px 0 0;font-size:0;line-height:0;">&nbsp;</td></tr>
-<tr><td class="pad bg-forest" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};padding:48px 30px 44px;font-family:${FONT};">
-${eyebrow('Why it’s worth coming back for', GOLD)}
-${title('One cup,', 'everything you need.', 'h-sec', 40, '#FFFFFF')}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:30px;"><tr>
+<!-- ── 3 · ONE CUP, EVERYTHING YOU NEED (the pour photo; the title and the
+     benefits sit on its table, below the cup) ── -->
+<tr><td class="bg-wall" bgcolor="${C.finalTop}" style="background-color:${C.finalTop};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('final.jpg')}" width="600" height="${C.finalH}" alt="Milk pouring into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${C.finalH}px;border:0;"></td></tr>
+${row(C.finalBottom, 'pad bg-table', 'padding:6px 40px 30px;', `${eyebrow('Why it’s worth coming back for')}
+${title('One cup,', 'everything you need.', 'h-sec', 40)}`)}
+<tr><td class="pad-photo bg-table" bgcolor="${C.finalBottom}" style="background-color:${C.finalBottom};padding:0 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 ${edge}
 </tr></table>
-<div style="padding-top:28px;font-size:14px;line-height:21px;font-weight:500;color:#FFFFFF;">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')} <strong style="font-weight:700;color:${GOLD};">${nw('Ready in 30 seconds,')} ${nw('hot or iced.')}</strong></div>
 </td></tr>
-
-<!-- ── 5 · ONE BUTTON ──────────────────────────────────────────────── -->
-<tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:48px 40px 0;font-family:${FONT};">
-${title('Your cart’s all set.', 'Ready when you are.', 'h-sec', 34, FOREST, 0)}
+${row(C.finalBottom, 'pad bg-table', 'padding:26px 40px 0;', `<div style="font-size:14px;line-height:21px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')} <strong style="font-weight:700;color:${FOREST};">${nw('Ready in 30 seconds,')} ${nw('hot or iced.')}</strong></div>`)}
+${row(C.finalBottom, 'pad bg-table', 'padding:44px 40px 0;', `${title('Your cart’s all set.', 'Ready when you are.', 'h-sec', 34, FOREST, 0)}
 <div style="padding-top:26px;">${button(L.cart('c1_closing_button'), 'Complete my order', 320)}</div>
-<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>
-</td></tr>
+${trust}`)}
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
-<tr><td class="bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:48px 30px 40px;font-family:${FONT};color:${FOREST};">
+<tr><td class="bg-table" align="center" bgcolor="${C.finalBottom}" style="background-color:${C.finalBottom};padding:48px 30px 40px;font-family:${FONT};color:${FOREST};">
 <a href="${amp(L.home)}" target="_blank"><img src="${img('mark-green.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
 <div style="padding-top:18px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><a href="${amp(L.home)}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;border-collapse:separate;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${FOREST};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
@@ -224,14 +233,14 @@ ${close}`;
 }
 
 // A stand-in for Klaviyo's Dynamic Table block, for the preview only.
-const sampleCart = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${BEIGE}" style="background-color:${BEIGE};"><tr><td align="center">
+const sampleCart = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.heroBottom}" style="background-color:${C.heroBottom};"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;"><tr><td style="padding:0 16px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;background:#FFFFFF;border-radius:18px;outline:2px dashed #C9A24E;outline-offset:4px;"><tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;background:#FFFFFF;border-radius:18px;outline:2px dashed #7A5320;outline-offset:4px;"><tr>
 <td width="96" style="padding:16px;"><img src="../${OUT}/img/cart-pouch.png" width="64" height="96" alt="" style="display:block;width:64px;height:auto;"></td>
 <td style="padding:16px 0;font-family:${FONT};"><div style="font-size:15px;font-weight:700;color:${INK};">The Original Mate Latte - Vanilla</div><div style="padding-top:4px;font-size:13px;font-weight:500;color:${SOFT};">30 Servings &middot; Qty 1</div></td>
 <td align="right" style="padding:16px 20px;font-family:${FONT};font-size:15px;font-weight:700;color:${FOREST};">$69.98</td>
 </tr></table>
-<div style="padding:10px 0 0;font-family:${FONT};font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A8873C;text-align:center;">Sample row &middot; Klaviyo&rsquo;s Dynamic Table block shows their real cart here</div>
+<div style="padding:10px 0 0;font-family:${FONT};font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5A3A12;text-align:center;">Sample row &middot; Klaviyo&rsquo;s Dynamic Table block shows their real cart here</div>
 </td></tr></table></td></tr></table>`;
 
 // ── paste-ready blocks (hosted images) ─────────────────────────────────

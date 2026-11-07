@@ -30,8 +30,9 @@ LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=browse_abandon_ma
 IMAGES AND ALT TEXT
   logo-hero.png         Milonga (forest hand, light green crown, centered)
   hero-bg.jpg           The first section's BACKGROUND (desktop). Bernat's photo of the pouch beside an iced Mate
-                        Latte with milk pouring in, extended: the gold wall continues up to the top (the forearm
-                        continued up and out of frame), the cream table continues down and fades into the email's
+                        Latte with milk pouring in, extended: the gold wall continues up to the top, with the forearm
+                        leaving the frame naturally (Higgsfield outpaint of the photo's top strip, colour-matched and
+                        crossfaded; the photo itself is untouched), the cream table continues down and fades into the email's
                         beige. Three hand-drawn arrows come out of the cup toward the three cards.
   hero-bg-mobile.jpg    The same for phones (taller wall for the title, arrows aimed at the phone card positions).
   Title, intro and the three cards are live text on top of the background. Blocked images show gold #E7BE7A.

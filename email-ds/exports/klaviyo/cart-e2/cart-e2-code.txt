@@ -1,0 +1,35 @@
+SUBJECT: Did something come up?
+PREVIEW: It’s Shadi. Quick check-in about the Mate Latte in your cart.
+FROM: Shadi from Milonga
+
+Hey {{ first_name|default:'there' }},
+
+Shadi here, founder of Milonga 👋
+
+Saw your Mate Latte is still sitting in your cart. Totally get it, life happens LOL. Or maybe something made you pause?
+
+Usually it’s one of these three, so let me answer them real quick:
+
+“Will I actually like the taste?”
+
+It tastes like a creamy vanilla latte. Not grassy, not earthy, not “healthy.” Or as Bryant, one of our customers, put it: “The taste was what sold me first.”
+
+“Is it a lot of caffeine?”
+
+100mg of natural caffeine from yerba mate, about what’s in a cup of coffee. The difference is the 200mg of L-theanine in there, which keeps the energy smooth and steady. No jitters, no crash.
+
+“Do I have to subscribe?”
+
+Nope! One-time is totally fine. And if you do join the Mate Mornings Club (30% off 30 or 60 servings), you can skip, pause or cancel anytime. No strings.
+
+And if it’s just not for you, there’s a 30-day money-back guarantee.
+
+If it’s something else, just hit reply and tell me. I read every single one, promise.
+
+Your cart’s right here whenever you’re ready:
+https://milonga.life/cart?utm_source=klaviyo&utm_medium=email&utm_campaign=cart_abandon_mate_latte&utm_content=c2_link
+
+Un abrazo,
+Shadi from Milonga
+
+P.S. You signed up for our mystery offer, so your code WELCOME15 takes 15% off your first one-time order. Just pop it in at checkout.

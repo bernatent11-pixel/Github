@@ -1,4 +1,4 @@
-WELCOME FLOW · EMAIL 3 · last call on WELCOME15
+WELCOME FLOW · EMAIL 3 · "Your 15% off ends tonight" (WELCOME15)
 ===============================================
 
 File to paste:  welcome-e3.html  (one Klaviyo HTML block; validator passed)
@@ -10,18 +10,12 @@ FLOW
   From        Milonga <connect@milonga.life>
   Smart Sending ON
 
-WHY THERE IS NO DEADLINE
-  WELCOME15 has no end date, so the email never claims one. The urgency is all true: this is the
-  last email about the offer ("today's the day" is a nudge, not an expiry), and the subscription
-  saves more than the code. If WELCOME15 ever gets a real end date or personal expiring codes,
-  the copy can change to say so.
+HEADLINE
+  "Your 15% off ends tonight." on the shared WELCOME15 code, per Bernat (2026-11-07). Note for the
+  record: WELCOME15 has no end date in Shopify, so the code keeps working after this email.
 
-SUBJECT LINE + PREVIEW TEXT (in use: option 1)
-  1. Last Call On Your 15% Off ⏰           This is the last time we'll bring it up. Your first cup is still 15% off.
-  2. One Last Nudge About Your 15% 👀       After this, no more reminders. Your code's still waiting.
-  3. Still Thinking About It? ☕             Your 15% is still here, and so is your first creamy cup.
-  4. We Saved Your 15% Off 🎁               Last reminder: your code works on your first order.
-  5. Your Mornings, 15% Better ✨            One last reminder before we stop bringing it up.
+SUBJECT LINE + PREVIEW TEXT
+  Your 15% Off Ends Tonight ⏰     Your first cup is still 15% off with WELCOME15. Last call.
 
 LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=welcome_mystery_offer)
   Use my 15% off      https://milonga.life/discount/WELCOME15?redirect=/products/the-original-mate-latte (code applied)
@@ -37,7 +31,7 @@ IMAGES AND ALT TEXT
   logo-gold.png   Milonga
 
 COPY (verbatim)
-  LAST CALL / Your 15% off is / still waiting.
+  LAST CALL / Your 15% off / ends tonight.
   This is the last email we'll send about it. If the Mate Latte's been on your mind, today's the day.
   YOUR CODE: WELCOME15 · [USE MY 15% OFF] · ✓ 30-DAY MONEY-BACK GUARANTEE
   IN CASE YOU'RE STILL DECIDING / Not all morning cups / are created equal.

@@ -15,7 +15,7 @@ FLOW
                  Leave it ON for emails 2 and 3.
 
 SUBJECT LINE + PREVIEW TEXT (sentence case: only the first word capitalized, plus names)
-  In use: Your mystery offer is inside 🎁 — We promised a surprise. Here it is, ready for your first cup.
+  In use: Your mystery offer is inside 🎁 — No more guessing: it's 15% off your first creamy cup. Ready when you are.
   Alternatives:
     Psst… we unwrapped your surprise ✨
     Okay, here's what was behind the button 👀

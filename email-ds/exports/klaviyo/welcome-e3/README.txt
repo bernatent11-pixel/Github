@@ -15,7 +15,7 @@ HEADLINE
   record: WELCOME15 has no end date in Shopify, so the code keeps working after this email.
 
 SUBJECT LINE + PREVIEW TEXT (sentence case: only the first word capitalized, plus names)
-  In use: Your 15% off ends tonight ⏰ — Your first cup is still 15% off with WELCOME15. Last call.
+  In use: Last call on your mystery offer ⏳ — Your 15% off ends tonight, and we didn't want you to miss it.
   Alternatives:
     Last call on your mystery offer ⏳
     Your code has a bedtime tonight 🌙

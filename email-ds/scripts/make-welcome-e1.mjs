@@ -18,7 +18,7 @@ const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath
 hosted['mark-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/0e781634-6907-42f6-b101-3c2c15371a99.png';
 
 export const SUBJECT = 'Your mystery offer is inside 🎁';
-export const PREHEADER = 'We promised a surprise. Here it is, ready for your first cup.';
+export const PREHEADER = 'No more guessing: it’s 15% off your first creamy cup. Ready when you are.';
 
 // ── colours (contrast map: forest type on the gold silk, beige page, forest card)
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344';

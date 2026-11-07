@@ -51,6 +51,7 @@ COPY (verbatim)
   Competitor caffeine: typical per serving. Coffee: FDA, 80–100mg per 8 oz. Mushroom coffee: common
   blends run ~35–50mg. Matcha: ~40–70mg for a 1–2g serving. "Anxious" from the website chart was
   left out of coffee's row (a health-effect claim about coffee).
-  Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings. Skip, pause or cancel anytime.
-  SEE SUBSCRIPTION OPTIONS →
+  Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings (1 serving = 1 cup). Skip, pause or cancel anytime.
+  SEE SUBSCRIPTION OPTIONS →  (plain product page)
+  [USE MY 15% OFF]  (second button, code applied, utm_content=e3_closing_button)
   Footer: WELCOME15 terms, caffeine/FDA line, unsubscribe, web view, organization address.

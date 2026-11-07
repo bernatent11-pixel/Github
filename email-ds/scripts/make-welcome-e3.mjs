@@ -52,6 +52,7 @@ function email(img, code = CODE) {
   const L = {
     claim: `${SITE}/discount/${code}?redirect=${encodeURIComponent(PDP)}&${utm('e3_hero_button')}`,
     subscribe: `${SITE}${PDP}?${utm('e3_subscribe_link')}`,
+    buy: `${SITE}/discount/${code}?redirect=${encodeURIComponent(PDP)}&${utm('e3_closing_button')}`,
     home: `${SITE}/?${utm('e3_logo')}`,
   };
   const button = (href, label, bg, ink, width) => `<!--[if mso]>
@@ -160,8 +161,9 @@ ${rows}
 </table>
 </td></tr>
 <tr><td class="pad bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:32px 48px 0;font-family:${FONT};">
-<div style="font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings.')} <strong style="font-weight:700;color:${FOREST};">Skip, pause or cancel&nbsp;anytime.</strong></div>
+<div style="font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Planning on a cup every morning? Subscribe and save 30% on 30 or 60 servings')} <span style="white-space:nowrap;">(1 serving = 1&nbsp;cup).</span> <strong style="font-weight:700;color:${FOREST};">Skip, pause or cancel&nbsp;anytime.</strong></div>
 <div style="padding-top:12px;font-size:14px;line-height:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;"><a href="${amp(L.subscribe)}" target="_blank" style="color:${FOREST};text-decoration:underline;">${ent('See subscription options →')}</a></div>
+<div style="padding-top:32px;">${button(L.buy, 'Use my 15% off', FOREST, BEIGE, 280)}</div>
 </td></tr>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->

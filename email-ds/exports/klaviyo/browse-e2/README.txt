@@ -26,5 +26,9 @@ LINK (one)
 
 FACTS USED
   "three years making yerba mate drinks with Milonga" — from the flow plan ("three years with Milonga")
-  100mg natural caffeine from yerba mate, L-theanine, creamy vanilla, 30 seconds hot or iced — product page / pouch
+  100mg natural caffeine, 200mg L-theanine, 500mg Lion's Mane, creamy vanilla, 30 seconds hot or iced — product page / pouch
+  Yerba mate "antioxidants and vitamins" and "supports a healthy gut, your immune system and your metabolism"
+    — the product page's own wording (approved by Bernat). No cure / weight-loss / intelligence claims.
+  Comparison (coffee: jitters and a crash; mushroom coffee: ~35–50mg caffeine, earthy; matcha: calm but
+    subtle, grassy) — the same points as the Welcome E3 comparison table.
   No discount: the browse flow doesn't lead with one.

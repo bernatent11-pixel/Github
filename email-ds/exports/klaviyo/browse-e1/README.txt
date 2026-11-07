@@ -29,13 +29,17 @@ LINKS (UTM: utm_source=klaviyo, utm_medium=email, utm_campaign=browse_abandon_ma
 
 IMAGES AND ALT TEXT
   logo-green.png   Milonga
-  photo.jpg        A pouch of Milonga Mate Latte beside a tall glass of iced Mate Latte with a straw, in morning sun.
+  hero-diagram.jpg A pouch of Milonga Mate Latte beside a glass of iced Mate Latte, with milk pouring in. Three arrows
+                   point from the cup to what is inside it. (Bernat's photo; the cream table is extended below it so
+                   the arrows can land on the three live-text cards right under the image.)
 
 COPY (verbatim)
   THE MATE LATTE / Still thinking / about it?
-  Totally fair. Here's the quick version of the creamy vanilla latte you were just looking at.
-  WHAT MAKES IT DIFFERENT / 100mg / of natural caffeine from yerba mate. Coffee-level energy, in a latte.
-  + 200mg L-theanine / so it lands smooth: steady and focused, with no jitters and no crash.
+  Totally fair. Here's what's inside the creamy vanilla latte you were just looking at.
+  [photo, three arrows out of the cup to three green cards:]
+    100mg · natural caffeine · Coffee-level energy, straight from yerba mate.
+    200mg · L-theanine · An amino acid found in tea leaves. It smooths the energy out: calm focus, no jitters.
+    500mg · Lion's Mane · The mushroom we add for focused, clear-headed mornings.
   DON'T TAKE OUR WORD FOR IT / Their mornings, / in their words.
   ★★★★★ I'm speechless with the mate latte — "The taste was what sold me first. It's creamy, lightly sweet,
     and has a really nice vanilla flavor without tasting like an overly sugary coffee drink." BRYANT

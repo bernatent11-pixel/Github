@@ -29,7 +29,7 @@ hosted['disc-gold-lions-mane.png'] ??= 'https://cdn.klaviyomail.com/company/TwvS
 const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.png', 'mark-green.png': '../public/logo/mark-green.png' };
 for (const k of ['disc-gold-yerba-mate.png', 'disc-gold-l-theanine.png', 'disc-gold-lions-mane.png']) LOCAL[k] = `../exports/klaviyo/welcome-e1/img/${k}`;
 
-export const SUBJECT = 'You left something good behind';
+export const SUBJECT = 'You left something good behind ☕';
 export const PREHEADER = 'We saved your cart. Your creamy vanilla mornings are one click away.';
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE';

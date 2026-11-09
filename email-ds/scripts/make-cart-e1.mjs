@@ -104,6 +104,7 @@ const STYLE = `<style>
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
   @media (prefers-color-scheme: dark) {
+    .bg-white { background-color:#FFFFFF !important; }
     .bg-page { background-color:${BEIGE} !important; }
     .bg-hero-top { background-color:${C.heroTop} !important; }
     .bg-hero { background-color:${C.heroBottom} !important; }
@@ -112,7 +113,9 @@ const STYLE = `<style>
   }
 </style>`;
 
-const open = (bg, cls) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${bg}" class="${cls}" style="background-color:${bg};">
+// The page around the 600px email is plain white (Bernat, 2026-11-09); the
+// design keeps its own colours inside the 600px column.
+const open = () => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">`;
 const close = `</table>
@@ -237,8 +240,8 @@ ${close}`;
 }
 
 // A stand-in for Klaviyo's Dynamic Table block, for the preview only.
-const sampleCart = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.heroBottom}" style="background-color:${C.heroBottom};"><tr><td align="center">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;"><tr><td style="padding:0 16px;">
+const sampleCart = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="background-color:#FFFFFF;"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.heroBottom}" style="width:100%;max-width:600px;background-color:${C.heroBottom};"><tr><td style="padding:0 16px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;background:#FFFFFF;border-radius:18px;outline:2px dashed #7A5320;outline-offset:4px;"><tr>
 <td width="96" style="padding:16px;"><img src="../${OUT}/img/cart-pouch.png" width="64" height="96" alt="" style="display:block;width:64px;height:auto;"></td>
 <td style="padding:16px 0;font-family:${FONT};"><div style="font-size:15px;font-weight:700;color:${INK};">The Original Mate Latte - Vanilla</div><div style="padding-top:4px;font-size:13px;font-weight:500;color:${SOFT};">30 Servings &middot; Qty 1</div></td>
@@ -269,10 +272,10 @@ const font = fs.readFileSync('public/fonts/Montserrat.woff2').toString('base64')
 fs.writeFileSync('refine/cart-e1.html', `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cart E1 · preview</title><style>
 @font-face{font-family:Montserrat;src:url(data:font/woff2;base64,${font}) format('woff2');font-weight:100 900;font-style:normal}
-body{margin:0;background:#2B3A31;padding:28px 0 60px}
+body{margin:0;background:#FFFFFF;padding:28px 0 60px}
 .inbox{width:600px;max-width:calc(100% - 24px);margin:0 auto 18px;font-family:Montserrat,Arial,sans-serif}
-.inbox .lab{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px}
-.inbox .row{background:#fff;border-radius:12px;padding:13px 16px;display:grid;grid-template-columns:36px 1fr;column-gap:12px;align-items:center}
+.inbox .lab{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8A8A8A;margin-bottom:8px}
+.inbox .row{background:#fff;border:1px solid #E2E2E2;border-radius:12px;padding:13px 16px;display:grid;grid-template-columns:36px 1fr;column-gap:12px;align-items:center}
 .inbox .av{grid-row:1/span 2;width:36px;height:36px;border-radius:50%;background:#004D27;color:#F0EFDF;display:grid;place-items:center;font-weight:900;font-size:13px}
 .inbox .from{font-weight:700;font-size:13px;color:#12331F}.inbox .from span{font-weight:400;color:#808080}
 .inbox .sub{font-size:13px;line-height:1.4;color:#12331F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.inbox .sub b{font-weight:700}.inbox .sub span{color:#6b6b6b}

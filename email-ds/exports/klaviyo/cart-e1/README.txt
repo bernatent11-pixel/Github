@@ -29,6 +29,8 @@ THE CART BLOCK (Klaviyo editor, between the two HTML blocks)
   Table block -> Dynamic. Row collection: event.items · Row alias: item
   Columns: image = item.image · text = item.product_title, item.variant_title, Qty item.quantity
            price = item.presentment_price (dollars per unit; line_price/final_line_price are in CENTS)
+  Page: the area around the 600px email is white. In Klaviyo, also set the template's own
+  background (Styles > Background) to #FFFFFF so the whole page around the email is white.
   Style it to match: block background #D5A262 (the hero's gold), top/bottom padding 0-8px (keeps the
   text, cart and button close together), side padding 16-30px, Montserrat,
   text #12331F, price #004D27. White rows with rounded corners read best on the gold.

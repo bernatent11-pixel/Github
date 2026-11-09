@@ -30,6 +30,10 @@ const TAG_ALLOW = [
   /^unsubscribe$/, /^unsubscribe\s+'[^'"]*'$/, /^unsubscribe_link$/,
   /^manage_preferences$/, /^manage_preferences\s+'[^'"]*'$/, /^manage_preferences_link$/,
   /^web_view$/, /^web_view\s+'[^'"]*'$/, /^web_view_link$/,
+  // Order items, Mate Latte only (approved by Bernat 2026-11-09 for the order confirmation and
+  // shipping emails; render-checked in Klaviyo with a mixed order: only the Mate Latte lines print).
+  /^for item in event\.extra\.line_items$/, /^for item in event\.extra\.fulfillment\.line_items$/,
+  /^if 'Mate Latte' in item\.title$/, /^endif$/, /^endfor$/,
 ];
 // Klaviyo's campaign check only confirms the full-link forms. A hand-made
 // <a href="{% unsubscribe_link %}"> renders, yet the Halloween clone was still

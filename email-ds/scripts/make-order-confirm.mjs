@@ -4,8 +4,9 @@
 // shows how to track it: Shopify's own order status page (event.extra.order_status_url,
 // opens with no login, shows every item, the receipt and, once it ships, the carrier
 // and live tracking) and their Milonga account (milonga.life/account) for all orders.
-// No product names are printed (a mixed cart could hold any product), and no
-// {% for %} loop (not on the approved tag list): the order page lists every item.
+// The card lists the Mate Latte lines of the order only: a {% for %} over the order's
+// line items with {% if 'Mate Latte' in item.title %} (approved by Bernat 2026-11-09), so
+// other products in a mixed cart never print. Render-checked in Klaviyo.
 //
 // Writes:
 //   exports/klaviyo/order-confirm/order-confirm.html   ONE complete HTML email (code template)
@@ -20,6 +21,7 @@ const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath
 const SHARED = {
   'logo-beige.png': ['https://cdn.klaviyomail.com/company/TwvSnK/images/c267d1bd-4e34-4ee1-b901-eac7bc60b87d.png', '../exports/klaviyo/pp1-e3/img/logo-beige.png'],
   'mark-green.png': ['https://cdn.klaviyomail.com/company/TwvSnK/images/0e781634-6907-42f6-b101-3c2c15371a99.png', '../public/logo/mark-green.png'],
+  'cart-pouch.png': ['https://cdn.klaviyomail.com/company/TwvSnK/images/dd3e85e8-9b20-404f-99b8-4c8516057d55.png', '../exports/klaviyo/cart-e1/img/cart-pouch.png'],
 };
 for (const [f, [url]] of Object.entries(SHARED)) hosted[f] ??= url;
 const C = JSON.parse(fs.readFileSync(`${OUT}/colors.json`, 'utf8'));
@@ -40,6 +42,15 @@ const T = {
   total: "{{ event.extra.total_price|default:'' }}",
   // Shopify's order status page for this order: no login needed; shows tracking once it ships
   track: "{{ event.extra.order_status_url|default:'https://milonga.life/account' }}",
+};
+// one row per Mate Latte line in the order (title, size, quantity, price per bag)
+const ITEMS_OPEN = "{% for item in event.extra.line_items %}{% if 'Mate Latte' in item.title %}";
+const ITEMS_CLOSE = '{% endif %}{% endfor %}';
+const ITEM = {
+  title: "{{ item.title|default:'The Original Mate Latte - Vanilla' }}",
+  size: "{{ item.variant_title|default:'' }}",
+  qty: "{{ item.quantity|default:'1' }}",
+  price: "{{ item.price_set.presentment_money.amount|default:'' }}",
 };
 const L = { account: `${SITE}/account`, home: `${SITE}/?${utm('oc_logo')}` };
 const HELP = 'info@milongamate.com';
@@ -73,6 +84,9 @@ const STYLE = `<style>
     .card { padding:22px 18px !important; }
     .card-k { font-size:12px !important; }
     .card-v { font-size:20px !important; }
+    .item-img { width:60px !important; }
+    .item-title { font-size:14px !important; line-height:18px !important; }
+    .item-price { width:76px !important; font-size:17px !important; }
     .how { padding:0 4px !important; }
     .how-img { width:48px !important; height:48px !important; }
     .how-t { font-size:13px !important; line-height:17px !important; }
@@ -101,6 +115,21 @@ const row = (bg, cls, style, inner) => `<tr><td class="${cls}" align="center" bg
 ${inner}
 </td></tr>`;
 const lead = (t, color, extra = '') => `<div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${color};${extra}">${t}</div>`;
+
+function itemRow(img, v) {
+  return `<tr><td colspan="2" style="padding:0 0 14px;border-bottom:1px solid ${LINE};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+<td class="item-img" width="68" valign="middle" style="width:68px;padding:14px 0 0;"><img src="${img('cart-pouch.png')}" width="56" height="56" alt="The Mate Latte pouch" style="display:block;width:56px;height:56px;border:0;border-radius:12px;"></td>
+<td valign="middle" style="padding:14px 10px 0 4px;font-family:${FONT};word-break:break-word;overflow-wrap:anywhere;">
+<div class="item-title" style="font-size:15px;line-height:20px;font-weight:700;color:${INK};">${v.title}</div>
+<div style="padding-top:3px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">${v.size} &middot; Qty ${v.qty}</div>
+</td>
+<td class="item-price" width="92" align="right" valign="middle" style="width:92px;padding:14px 0 0;font-family:${SERIF};font-size:20px;line-height:22px;font-weight:700;color:${FOREST};">$${v.price}<div style="font-family:${FONT};font-size:11px;line-height:14px;font-weight:500;color:${SOFT};">each</div></td>
+</tr></table>
+</td></tr>`;
+}
+// the paste-ready file loops over the order; the preview swaps in sample lines
+let ITEM_ROWS = (img) => `${ITEMS_OPEN}${itemRow(img, ITEM)}${ITEMS_CLOSE}`;
 
 function body(img) {
   const kv = (k, v, last) => `<tr>
@@ -131,7 +160,9 @@ ${title('All the details,', 'in one place.', 'h-sec', 40)}`)}
 <tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:28px 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 <td class="card" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;padding:22px 28px;">
+<div class="card-k" style="font-family:${FONT};font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">Your Mate Latte</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;">
+${ITEM_ROWS(img)}
 ${kv('Order number', T.order)}
 ${kv('Order total', `$${T.total}`, true)}
 </table>
@@ -212,6 +243,9 @@ ${body(img)}
 
 // preview: sample order values in place of the tags
 const SAMPLE = { [T.name]: 'Bernat', [T.order]: '#3345', [T.total]: '69.98', [T.track]: 'https://milonga.life/account' };
+ITEM_ROWS = (img) => [
+  { title: 'The Original Mate Latte - Vanilla', size: '30 Servings', qty: '1', price: '69.98' },
+].map((v) => itemRow(img, v)).join('\n');
 const sample = (h) => Object.entries(SAMPLE).reduce((s, [k, v]) => s.split(k).join(v), h);
 const loc = (f) => SHARED[f]?.[1] || `../${OUT}/img/${f}`;
 const font = fs.readFileSync('public/fonts/Montserrat.woff2').toString('base64');

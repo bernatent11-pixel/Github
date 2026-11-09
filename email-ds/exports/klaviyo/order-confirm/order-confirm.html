@@ -30,6 +30,9 @@
     .card { padding:22px 18px !important; }
     .card-k { font-size:12px !important; }
     .card-v { font-size:20px !important; }
+    .item-img { width:60px !important; }
+    .item-title { font-size:14px !important; line-height:18px !important; }
+    .item-price { width:76px !important; font-size:17px !important; }
     .how { padding:0 4px !important; }
     .how-img { width:48px !important; height:48px !important; }
     .how-t { font-size:13px !important; line-height:17px !important; }
@@ -74,7 +77,18 @@
 <tr><td class="pad-photo bg-cream" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:28px 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 <td class="card" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid #D9D6BE;border-radius:22px;padding:22px 28px;">
+<div class="card-k" style="font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3B5344;">Your Mate Latte</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;">
+{% for item in event.extra.line_items %}{% if 'Mate Latte' in item.title %}<tr><td colspan="2" style="padding:0 0 14px;border-bottom:1px solid #D9D6BE;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+<td class="item-img" width="68" valign="middle" style="width:68px;padding:14px 0 0;"><img src="https://cdn.klaviyomail.com/company/TwvSnK/images/dd3e85e8-9b20-404f-99b8-4c8516057d55.png" width="56" height="56" alt="The Mate Latte pouch" style="display:block;width:56px;height:56px;border:0;border-radius:12px;"></td>
+<td valign="middle" style="padding:14px 10px 0 4px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;word-break:break-word;overflow-wrap:anywhere;">
+<div class="item-title" style="font-size:15px;line-height:20px;font-weight:700;color:#12331F;">{{ item.title|default:'The Original Mate Latte - Vanilla' }}</div>
+<div style="padding-top:3px;font-size:13px;line-height:18px;font-weight:500;color:#3B5344;">{{ item.variant_title|default:'' }} &middot; Qty {{ item.quantity|default:'1' }}</div>
+</td>
+<td class="item-price" width="92" align="right" valign="middle" style="width:92px;padding:14px 0 0;font-family:'Times New Roman',Times,Georgia,serif;font-size:20px;line-height:22px;font-weight:700;color:#004D27;">${{ item.price_set.presentment_money.amount|default:'' }}<div style="font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;line-height:14px;font-weight:500;color:#3B5344;">each</div></td>
+</tr></table>
+</td></tr>{% endif %}{% endfor %}
 <tr>
 <td class="card-k" align="left" valign="middle" style="padding:14px 0;border-bottom:1px solid #D9D6BE;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#3B5344;">Order number</td>
 <td class="card-v" align="right" valign="middle" style="padding:14px 0;border-bottom:1px solid #D9D6BE;font-family:'Times New Roman',Times,Georgia,serif;font-size:24px;line-height:28px;font-weight:700;color:#004D27;word-break:break-all;">{{ event.extra.name|default:'' }}</td>

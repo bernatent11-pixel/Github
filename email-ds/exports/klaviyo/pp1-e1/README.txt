@@ -20,7 +20,7 @@ FLOW: "Post Purchase · Mate Latte (one-time)", a NEW flow, separate from the ge
 SECTIONS
   1 Bernat's photo (pouch in hand over marble, latte beside it) is the section's BACKGROUND (hero-bg.jpg,
     600x980; 390x637 on phones). On it: white logo centered at the top; large white title "Your first cup, /
-    done right." (56px, 36px on phones) left-aligned + "Welcome to better mornings." (a soft dark fade over
+    done right." (76px, 48px on phones, set lower, clear of the logo) left-aligned + "Welcome to better mornings." (a soft dark fade over
     the top half keeps them readable); at the bottom right, over a soft dark fade on the bottom third:
     "Thank you for your order" in gold + the brand promise in white ("clean energy, focus and calm in a cup
     that tastes like a treat", product page) + what follows.
@@ -34,10 +34,10 @@ SECTIONS
       First thing in the morning · Your new morning ritual (balcony)
       When it's time to focus · Your deep-work partner (laptop; 100mg caffeine, about a cup of coffee)
       With your people · Better shared (friends after a run; one bag makes 15 cups)
-  5 Enjoy your first cup. / We'll be here for the next one. Soft club line + one button "Explore the club"
+  Footer on dark green (#004D27): beige mark, milonga.life, unsubscribe, web view, FDA line, address.
+    (No closing club section: this email only teaches the first cup; the club ask is E3.)
 
 LINKS (UTM utm_campaign=post_purchase_mate_latte)
-  Explore the club  https://milonga.life/products/the-original-mate-latte (pp1_club_button)
   Logo / milonga.life  https://milonga.life/ (pp1_logo)
 
 IMAGES (hosted.json has the Klaviyo CDN URLs)

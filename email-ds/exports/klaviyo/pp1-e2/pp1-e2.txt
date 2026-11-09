@@ -1,26 +1,32 @@
 SUBJECT: How’s it going?
-PREVIEW: It’s Shadi. A week in with your Mate Latte, I’d love to hear from you.
+PREVIEW: Not a promo. Just me, checking in on your first week with the Mate Latte.
 FROM: Shadi from Milonga
 
 Hey {{ first_name|default:'there' }},
 
-Shadi here, founder of Milonga 👋
+It’s Shadi, the founder of Milonga 👋
 
-It’s been about a week since your first order, so I wanted to check in. Not a sales email, just me.
+Real quick, this one isn’t a promo. I just wanted to say thank you, for real. You took a chance on a small brand and a drink you’d probably never tried before, and that means a lot to me.
 
-If your bag has landed, I hope you’ve had a few good mornings with it by now. So, how’s it going?
+It’s been about a week since you ordered, so if your bag has landed, I’m honestly so curious: how’s it going?
 
-I’d love to know two things:
+Has it found a spot in your mornings yet? Are you a hot person or an iced person? Oat milk, regular milk, a little cinnamon on top? Has anyone at home started “borrowing” some? 😅
 
-1. What do you like about it so far?
+I’d love to hear two things from you:
+
+1. What do you love about it so far?
 2. What would you change?
 
-Honestly, anything goes. The taste, the sweetness, how you make it, the bag, the shipping. Just hit reply, even if it’s one line. Every reply comes straight to me, I read every single one, and it helps us decide what to make better.
+No wrong answers, and you don’t have to be nice. If something’s off, the taste, the sweetness, the way it mixes, the shipping, I want to know. Just hit reply, even if it’s one line. It comes straight to my inbox, and I read every single one myself.
 
-And if you haven’t tried it iced yet, give it a go: 2.5 tablespoons in 8oz of cold milk, stir, pour it over ice. Same Mate Latte, a whole different drink.
+Little tip in case you haven’t tried it yet: make it iced. 2.5 tablespoons in 8oz of cold milk, stir, pour it over ice. Same Mate Latte, totally different vibe.
 
-One more thing. If you’re enjoying it, would you leave a quick review? It takes a minute, and it helps someone on the fence decide whether to give it a try.
+And if you’re loving it, could you do me a small favor and leave a quick review? It takes about a minute, and honestly, it’s the thing that helps a small brand like ours the most. Somebody on the fence will read it and give it a try because of you.
 Leave a review here: https://milonga.life/products/the-original-mate-latte?utm_source=klaviyo&utm_medium=email&utm_campaign=post_purchase_mate_latte&utm_content=pp2_review
 
+Thanks again for being here. It really does mean a lot.
+
 Un abrazo,
-Shadi from Milonga
+Shadi
+
+P.S. Seriously, hit reply. Even a quick “loving it” or “a bit too sweet for me” makes my day.

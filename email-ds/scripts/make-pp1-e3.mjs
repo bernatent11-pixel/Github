@@ -9,8 +9,10 @@
 // 5 never run out of good mornings (Bernat's windowsill photo) · footer.
 //
 // Writes:
-//   exports/klaviyo/pp1-e3/pp1-e3.html   ONE complete HTML email (Klaviyo code template)
-//   refine/pp1-e3.html                   preview under an inbox row
+//   exports/klaviyo/pp1-e3/pp1-e3.html         15-serving buyers  } ONE complete HTML email each
+//   exports/klaviyo/pp1-e3-30/pp1-e3-30.html   30-serving buyers  } (Klaviyo code template); the
+//   exports/klaviyo/pp1-e3-60/pp1-e3-60.html   60-serving buyers  } images live in pp1-e3/img
+//   refine/pp1-e3{,-30,-60}.html               previews under an inbox row
 // Usage: node scripts/make-pp1-e3-assets.mjs && node scripts/make-pp1-e3.mjs
 import fs from 'node:fs';
 import { validate } from './validate-klaviyo-email.mjs';
@@ -47,9 +49,49 @@ const L = {
   home: `${SITE}/?${utm('pp3_logo')}`,
 };
 
-// Prices from Shopify (2026-11-07): 15 $34.99 · 30 $69.98 · 60 $139.96.
+// Prices from Shopify (2026-11-07, re-checked 2026-11-09): 15 $34.99 · 30 $69.98 · 60 $139.96.
+// Club 30% off 30 and 60: $48.99 and $97.97 ($139.96 x 0.7 = $97.972). Every size works out to
+// $2.33 a cup one-time and $1.63 a cup in the club.
 // Mate Mornings Club: 30% off 30 and 60 servings, monthly. The cards move a 15-serving buyer up:
 // one-time 15 servings $34.99 ($2.33 a cup) vs the club's 30 servings $48.99 ($1.63 a cup) = twice the cups for $14 more.
+// Three versions, one per bag size they bought (a flow split sends each to its own):
+//   15  pp1-e3     the month graphic moves them from 15 to 30 servings
+//   30  pp1-e3-30  the month graphic is for people drinking two cups a day: 30 -> 60
+//   60  pp1-e3-60  no month graphic; the cards compare 60 servings one-time vs in the club
+const VERSIONS = [
+  {
+    key: '15', out: 'exports/klaviyo/pp1-e3', name: 'pp1-e3', day: 'day 11',
+    heroLead: '15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings',
+    month: {
+      t1: '15 cups go fast.', t2: 'Your month has 30 mornings.',
+      lead: `A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there’s <span style="white-space:nowrap;">no gap</span> <span style="white-space:nowrap;">and no reordering.</span>`,
+      rows: [['15 servings', '$34.99 one-time', 'Runs out mid-month', 'bar-15.png', 'Half of the month’s 30 days covered'],
+        ['30 servings', 'in the club, $48.99', 'Covers the whole month', 'bar-30.png', 'All 30 days of the month covered']],
+    },
+    one: { price: '$34.99', size: '15 servings', note: `About two weeks of mornings, then <span style="white-space:nowrap;">reorder yourself</span>` },
+    club: { badge: 'Double the cups', price: '$48.99', size: '30 servings', was: '$69.98', line: `Twice the cups, a whole month <span style="white-space:nowrap;">of mornings.</span>` },
+  },
+  {
+    key: '30', out: 'exports/klaviyo/pp1-e3-30', name: 'pp1-e3-30', day: 'about day 24',
+    heroLead: '30 cups go fast when they’re your daily ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh supply at your door every month, so your mornings',
+    month: {
+      t1: 'Two cups a day?', t2: 'Your month needs 60.',
+      lead: `If your Mate Latte has become your morning and your afternoon cup, a 30-serving bag lasts about two weeks. The <span style="white-space:nowrap;">60-serving bag</span> keeps you covered <span style="white-space:nowrap;">all month.</span>`,
+      rows: [['30 servings', 'at 2 cups a day', 'Runs out mid-month', 'bar-15.png', 'At two cups a day, half of the month covered'],
+        ['60 servings', 'in the club, $97.97', 'Covers the whole month', 'bar-30.png', 'At two cups a day, all 30 days covered']],
+    },
+    one: { price: '$69.98', size: '30 servings', note: `Buy once, reorder when <span style="white-space:nowrap;">you run out</span>` },
+    club: { badge: 'Best value', price: '$48.99', size: '30 servings', was: '$69.98', line: `Your Mate Latte every morning, <span style="white-space:nowrap;">all month long.</span>` },
+  },
+  {
+    key: '60', out: 'exports/klaviyo/pp1-e3-60', name: 'pp1-e3-60', day: 'about day 45',
+    heroLead: '60 cups go fast when they’re your daily ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh supply at your door every month, so your mornings',
+    month: null,
+    one: { price: '$139.96', size: '60 servings', note: `Buy once, reorder when <span style="white-space:nowrap;">you run out</span>` },
+    club: { badge: 'Best value', price: '$97.97', size: '60 servings', was: '$139.96', line: `Your Mate Latte every day, <span style="white-space:nowrap;">all month long.</span>` },
+  },
+];
+
 const CLUB = [
   { icon: 'icon-save.png', text: 'Save 30% on every order <span style="white-space:nowrap;">(30 or 60 servings)</span>' },
   { icon: 'icon-delivery.png', text: 'Delivered to your door <span style="white-space:nowrap;">every month</span>' },
@@ -134,7 +176,7 @@ ${inner}
 const lead = (t, color, extra = '') => `<div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${color};${extra}">${t}</div>`;
 const trust = (color = FOREST) => `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
 
-function body(img) {
+function body(img, V) {
   const monthRow = (label, price, verdict, vcolor, bar, alt) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td class="month-label" align="left" valign="bottom" style="font-family:${FONT};font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${label} <span class="month-price" style="font-size:13px;font-weight:500;color:${SOFT};"><span class="month-dot">&middot; </span>${price}</span></td>
 <td class="month-verdict" align="right" valign="bottom" style="font-family:${FONT};font-size:13px;line-height:17px;font-weight:700;color:${vcolor};">${verdict}</td>
@@ -147,25 +189,25 @@ ${inner}
 </td></tr></table>
 </td>`;
   const oneTime = card('l', `<div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">One-time</div>
-<div class="cmp-price" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:${FOREST};">$34.99</div>
-<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">15 servings</div>
+<div class="cmp-price" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:${FOREST};">${V.one.price}</div>
+<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">${V.one.size}</div>
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">$2.33 a cup</div>
 <div style="margin:16px auto 0;width:40px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
-<div class="cmp-text" style="padding-top:8px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">About two weeks of mornings, then ${nw('reorder yourself')}</div>
+<div class="cmp-text" style="padding-top:8px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">${V.one.note}</div>
 <div style="padding-top:18px;">${pill(L.onetime, 'Buy one-time', FOREST, BEIGE)}</div>`,
     `bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;`);
   const club = CLUB.map((c) => `<tr><td class="club-ico" width="20" valign="top" style="width:20px;padding:9px 8px 0 0;"><img src="${img(c.icon)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>
 <td class="cmp-text" valign="top" style="padding:8px 0 0;font-family:${FONT};font-size:13px;line-height:18px;font-weight:500;color:#FFFFFF;text-align:left;">${c.text}</td></tr>`).join('\n');
-  const subscribe = card('r', `<div style="display:inline-block;background-color:${GOLD};border-radius:999px;padding:5px 12px;font-size:10px;line-height:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">Double the cups</div>
+  const subscribe = card('r', `<div style="display:inline-block;background-color:${GOLD};border-radius:999px;padding:5px 12px;font-size:10px;line-height:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${V.club.badge}</div>
 <div style="padding-top:10px;font-family:${SERIF};font-size:20px;line-height:22px;font-weight:700;font-style:italic;color:${GOLD};">Mate Mornings Club</div>
-<div class="cmp-price" style="padding-top:8px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:#FFFFFF;">$48.99</div>
-<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">30 servings <span style="font-weight:500;color:${MINT};text-decoration:line-through;">$69.98</span></div>
+<div class="cmp-price" style="padding-top:8px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:#FFFFFF;">${V.club.price}</div>
+<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">${V.club.size} <span style="font-weight:500;color:${MINT};text-decoration:line-through;">${V.club.was}</span></div>
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${MINT};">$1.63 a cup</div>
 <div style="margin:16px auto 6px;width:40px;border-top:2px solid rgba(227,188,98,.6);font-size:0;line-height:0;">&nbsp;</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
 ${club}
 </table>
-<div class="cmp-text" style="padding-top:12px;font-size:13px;line-height:18px;font-weight:700;color:${GOLD};">${ent('Twice the cups, a whole month')} ${nw('of mornings.')}</div>
+<div class="cmp-text" style="padding-top:12px;font-size:13px;line-height:18px;font-weight:700;color:${GOLD};">${ent(V.club.line)}</div>
 <div style="padding-top:16px;">${pill(L.club, 'Join the club', GOLD, FOREST)}</div>`,
     `bgcolor="${FOREST}" style="background-color:${FOREST};border:3px solid ${GOLD};border-radius:22px;`);
 
@@ -174,6 +216,25 @@ ${club}
 <div class="how-t" style="padding-top:14px;font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${ent(s.t)}</div>
 <div class="how-d" style="padding-top:6px;font-size:13px;line-height:19px;font-weight:500;color:${INK};">${ent(s.d)}</div>
 </td>`).join('\n');
+
+  const monthSection = (m) => `<!-- ── 2 · YOUR BAG VS. YOUR MONTH: a month of mornings, one segment a day; their bag
+     covers half of it, the next size up (in the club) all of it ── -->
+${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Your bag vs. your month')}
+${title(m.t1, m.t2, 'h-sec', 40)}
+${lead(ent(m.lead), INK)}`)}
+<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 30px 56px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
+<td class="month-card" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;padding:28px 26px 24px;font-family:${FONT};">
+${monthRow(m.rows[0][0], m.rows[0][1], m.rows[0][2], '#9A6B2F', m.rows[0][3], m.rows[0][4])}
+<div style="height:26px;line-height:26px;font-size:0;">&nbsp;</div>
+${monthRow(m.rows[1][0], m.rows[1][1], m.rows[1][2], FOREST, m.rows[1][3], m.rows[1][4])}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;margin-top:10px;"><tr>
+${['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((w) => `<td class="month-wk" width="25%" align="center" style="width:25%;font-family:${FONT};font-size:11px;line-height:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8C8A78;">${w}</td>`).join('')}
+</tr></table>
+</td></tr></table>
+</td></tr>
+
+`;
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
@@ -191,31 +252,14 @@ ${club}
 </div>
 <div class="hero-gap" style="height:430px;line-height:430px;font-size:0;">&nbsp;</div>
 <div class="hero-bottom" style="padding:0 44px;font-family:${FONT};text-align:center;">
-<div class="hero-intro" style="font-size:15px;line-height:22px;font-weight:500;color:#FFFFFF;">${ent('15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings')} ${nw('never skip a beat.')}</div>
+<div class="hero-intro" style="font-size:15px;line-height:22px;font-weight:500;color:#FFFFFF;">${ent(V.heroLead)} ${nw('never skip a beat.')}</div>
 <div class="hero-cta" style="padding-top:22px;">${button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A')}</div>
 </div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · 15 SERVINGS VS 30: a month of mornings, one segment a day. The
-     15-serving bag covers half of it; the 30-serving bag (in the club) all of it ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Your bag vs. your month')}
-${title('15 cups go fast.', 'Your month has 30 mornings.', 'h-sec', 40)}
-${lead(`${ent('A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there’s')} ${nw('no gap')} ${nw('and no reordering.')}`, INK)}`)}
-<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 30px 56px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-<td class="month-card" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;padding:28px 26px 24px;font-family:${FONT};">
-${monthRow('15 servings', '$34.99 one-time', 'Runs out mid-month', '#9A6B2F', 'bar-15.png', 'Half of the month’s 30 days covered')}
-<div style="height:26px;line-height:26px;font-size:0;">&nbsp;</div>
-${monthRow('30 servings', 'in the club, $48.99', 'Covers the whole month', FOREST, 'bar-30.png', 'All 30 days of the month covered')}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;margin-top:10px;"><tr>
-${['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((w) => `<td class="month-wk" width="25%" align="center" style="width:25%;font-family:${FONT};font-size:11px;line-height:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8C8A78;">${w}</td>`).join('')}
-</tr></table>
-</td></tr></table>
-</td></tr>
-
-<!-- ── 3 · ONE-TIME OR THE CLUB, SIDE BY SIDE (the cards from cart E1) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:4px 40px 0;', `${eyebrow('Keep it going for less')}
+${V.month ? monthSection(V.month) : ''}<!-- ── 3 · ONE-TIME OR THE CLUB, SIDE BY SIDE (the cards from cart E1) ── -->
+${row(CREAM, 'pad bg-cream', V.month ? 'padding:4px 40px 0;' : 'padding:56px 40px 0;', `${eyebrow('Keep it going for less')}
 ${title('Same Mate Latte,', '30% less.', 'h-sec', 40)}`)}
 <tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:28px 30px 60px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
@@ -256,7 +300,7 @@ ${trust(FOREST)}`)}
 </table>`;
 }
 
-const doc = (img) => `<!doctype html>
+const doc = (img, V) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -264,36 +308,36 @@ const doc = (img) => `<!doctype html>
 <meta name="x-apple-disable-message-reformatting">
 <title>${SUBJECT}</title>
 <!--
-  POST-PURCHASE · ONE-TIME MATE LATTE BUYERS · EMAIL 3 · "${SUBJECT}"
+  POST-PURCHASE · ONE-TIME MATE LATTE BUYERS · EMAIL 3 · ${V.key}-SERVING BUYERS · "${SUBJECT}"
   Preview text: ${PREHEADER}
-  Send: day 11 after their first Mate Latte order; exits when they start a subscription.
+  Send: ${V.day} after their first Mate Latte order (${V.key} servings); exits when they start a subscription.
   GENERATED by scripts/make-pp1-e3.mjs. Edit the script, not this file.
 -->
 ${STYLE}
 </head>
 <body style="margin:0;padding:0;background-color:#FFFFFF;">
-${body(img)}
+${body(img, V)}
 </body>
 </html>
 `;
 
-{
+const font = fs.readFileSync('public/fonts/Montserrat.woff2').toString('base64');
+const loc = (f) => SHARED[f]?.[1] || `../${OUT}/img/${f}`;
+for (const V of VERSIONS) {
+  fs.mkdirSync(V.out, { recursive: true });
   const missing = new Set();
   const h = (f) => { if (!hosted[f]) missing.add(f); return hosted[f] || `MISSING:${f}`; };
-  const full = doc(h);
+  const full = doc(h, V);
   if (missing.size) console.log('not hosted yet:', [...missing].join(', '), '(paste-ready file not written)');
   else {
     const problems = validate(full).filter((p) => p.rule !== 'fragment-only');
     if (problems.length) { console.error(problems); process.exit(1); }
-    fs.writeFileSync(`${OUT}/pp1-e3.html`, full);
-    console.log('wrote', `${OUT}/pp1-e3.html`, '(validator: pass)');
+    fs.writeFileSync(`${V.out}/${V.name}.html`, full);
+    console.log('wrote', `${V.out}/${V.name}.html`, '(validator: pass)');
   }
-}
 
-const loc = (f) => SHARED[f]?.[1] || `../${OUT}/img/${f}`;
-const font = fs.readFileSync('public/fonts/Montserrat.woff2').toString('base64');
-fs.writeFileSync('refine/pp1-e3.html', `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Post-purchase E3 · preview</title><style>
+  fs.writeFileSync(`refine/${V.name}.html`, `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Post-purchase E3 (${V.key} servings) · preview</title><style>
 @font-face{font-family:Montserrat;src:url(data:font/woff2;base64,${font}) format('woff2');font-weight:100 900;font-style:normal}
 body{margin:0;background:#FFFFFF;padding:28px 0 60px}
 .inbox{width:600px;max-width:calc(100% - 24px);margin:0 auto 18px;font-family:Montserrat,Arial,sans-serif}
@@ -303,9 +347,10 @@ body{margin:0;background:#FFFFFF;padding:28px 0 60px}
 .inbox .from{font-weight:700;font-size:13px;color:#12331F}.inbox .from span{font-weight:400;color:#808080}
 .inbox .sub{font-size:13px;line-height:1.4;color:#12331F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.inbox .sub b{font-weight:700}.inbox .sub span{color:#6b6b6b}
 </style>${STYLE}</head><body>
-<div class="inbox"><div class="lab">Inbox preview</div><div class="row"><div class="av">M</div>
+<div class="inbox"><div class="lab">Inbox preview · ${V.key}-serving buyers</div><div class="row"><div class="av">M</div>
 <div class="from">Milonga <span>&lt;connect@milonga.life&gt;</span></div>
 <div class="sub"><b>${SUBJECT}</b> <span>&mdash; ${PREHEADER}</span></div></div></div>
-${body(loc)}
+${body(loc, V)}
 </body></html>`);
-console.log('wrote refine/pp1-e3.html');
+  console.log('wrote', `refine/${V.name}.html`);
+}

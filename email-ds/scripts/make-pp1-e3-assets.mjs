@@ -3,8 +3,8 @@
 //   hero.jpg      the pouch on deep green (studio shot); top and bottom fade into flat
 //                 greens, so the title row above and the button row below read as one photo
 //   logo-beige.png the Milonga lockup in beige, for the green hero
-//   cups.png      15 cups in a row: the ones already had (empty outlines) and the last few
-//                 still to go (full), for "15 cups go fast"
+//   bar-15.png    a month of mornings (30 day segments): the 15-serving bag covers half
+//   bar-30.png    ... and the 30-serving bag covers all of it, for "15 servings vs 30"
 //   step-*.png    gold discs with a forest line icon, for "how the club works"
 //   final.jpg     the kitchen counter: latte, iced latte, pouch and a nearly empty scoop;
 //                 its bottom fades into the cream of the closing text
@@ -60,20 +60,19 @@ await sharp('public/logo/lockup-milonga-beige.png').resize({ height: 180 }).png(
   colors.finalH = h / 2;
 }
 
-// 15 cups: 11 had (empty outlines), 4 still to go (full of latte). 2x for retina.
+// a month of mornings, one segment a day (30): the 15-serving bag fills half, the 30-serving
+// bag the whole month. 1040x40 (520x20 in the email; shown at the card's width).
 {
-  const N = 15, HAD = 11, CW = 56, GAP = 12, W = N * CW + (N - 1) * GAP, H = 64;
-  const cup = (x, full) => {
-    const body = `M${x + 6} 14 h36 l-3 36 a6 6 0 0 1 -6 5.5 h-18 a6 6 0 0 1 -6 -5.5 z`;
-    const handle = `M${x + 41.5} 22 h4 a7 7 0 0 1 0 14 h-5.2`;
-    return full
-      ? `<path d="${body}" fill="#D9B98C" stroke="#004D27" stroke-width="3" stroke-linejoin="round"/><path d="M${x + 7} 20 h34" stroke="#F3E6CF" stroke-width="5" stroke-linecap="round"/><path d="${handle}" fill="none" stroke="#004D27" stroke-width="3" stroke-linecap="round"/>`
-      : `<path d="${body}" fill="none" stroke="#C9C5AE" stroke-width="3" stroke-linejoin="round"/><path d="${handle}" fill="none" stroke="#C9C5AE" stroke-width="3" stroke-linecap="round"/>`;
+  const N = 30, W = 1040, H = 40, SEG = 28, GAP = (W - N * SEG) / (N - 1);
+  const bar = (filled, fill) => {
+    let r = '';
+    for (let i = 0; i < N; i++) r += `<rect x="${(i * (SEG + GAP)).toFixed(2)}" y="0" width="${SEG}" height="${H}" rx="7" fill="${i < filled ? fill : '#E4E0CC'}"/>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${r}</svg>`;
   };
-  let svg = '';
-  for (let i = 0; i < N; i++) svg += cup(i * (CW + GAP), i >= HAD);
-  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${svg}</svg>`)).png().toFile(`${OUT}/cups.png`);
-  colors.cupsW = W / 2; colors.cupsH = H / 2;
+  await sharp(Buffer.from(bar(15, '#C9A46E'))).png().toFile(`${OUT}/bar-15.png`);
+  await sharp(Buffer.from(bar(30, '#004D27'))).png().toFile(`${OUT}/bar-30.png`);
+  fs.rmSync(`${OUT}/cups.png`, { force: true });
+  colors.barW = W / 2; colors.barH = H / 2;
 }
 
 // how the club works: forest line icons on gold discs (112px = 56 in the email)

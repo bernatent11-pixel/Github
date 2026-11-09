@@ -4,7 +4,7 @@
 // when a 15-cup bag runs out. Subscribe and save so the ritual doesn't stop; skip,
 // pause or cancel anytime.
 //
-// Sections: 1 running low (the pouch on green) · 2 one bag, 15 cups (cup row) ·
+// Sections: 1 running low (the pouch on green) · 2 15 servings vs 30 (a month of mornings) ·
 // 3 one-time vs the Mate Mornings Club (the cards from cart E1) · 4 how the club works ·
 // 5 never run out of good mornings (the kitchen counter, a nearly empty scoop) · footer.
 //
@@ -80,7 +80,12 @@ const STYLE = `<style>
     .h-hero { font-size:44px !important; line-height:46px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
-    .cups { width:100% !important; height:auto !important; }
+    .month-card { padding:22px 16px 20px !important; }
+    .month-label { font-size:13px !important; line-height:17px !important; }
+    .month-price { display:block !important; font-size:11.5px !important; }
+    .month-dot { display:none !important; }
+    .month-verdict { font-size:11.5px !important; line-height:15px !important; }
+    .month-wk { font-size:9px !important; letter-spacing:.5px !important; }
     .cmp-l { padding-right:4px !important; }
     .cmp-r { padding-left:4px !important; }
     .cmp-card { padding:18px 10px 18px !important; }
@@ -120,6 +125,11 @@ const lead = (t, color, extra = '') => `<div class="lead" style="padding-top:16p
 const trust = (color = FOREST) => `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
 
 function body(img) {
+  const monthRow = (label, price, verdict, vcolor, bar, alt) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td class="month-label" align="left" valign="bottom" style="font-family:${FONT};font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${label} <span class="month-price" style="font-size:13px;font-weight:500;color:${SOFT};"><span class="month-dot">&middot; </span>${price}</span></td>
+<td class="month-verdict" align="right" valign="bottom" style="font-family:${FONT};font-size:13px;line-height:17px;font-weight:700;color:${vcolor};">${verdict}</td>
+</tr></table>
+<img class="month-bar" src="${img(bar)}" width="484" height="19" alt="${ent(alt)}" style="display:block;margin-top:10px;width:100%;max-width:484px;height:auto;border:0;">`;
   const card = (side, inner, style) => `<td class="${side === 'l' ? 'cmp-l' : 'cmp-r'}" width="50%" valign="top" style="width:50%;padding:${side === 'l' ? '0 6px 0 0' : '0 0 0 6px'};">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 <td class="cmp-card" align="center" valign="top" ${style} padding:24px 16px 22px;font-family:${FONT};">
@@ -168,16 +178,26 @@ ${lead(`${ent('15 cups go fast when they’re your morning ritual. Join the Mate
 <tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.photo)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="The Mate Latte pouch on deep green" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
 ${row(C.heroBottom, 'pad bg-hero', 'padding:0 40px 52px;', button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A'))}
 
-<!-- ── 2 · ONE BAG, 15 CUPS: the cups already had, and the last few ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Your bag, cup by cup')}
-${title('One bag, 15 cups.', 'They go fast.', 'h-sec', 40)}`)}
-${row(CREAM, 'pad bg-cream', 'padding:30px 48px 0;', `<img class="cups" src="${img('cups.png')}" width="${C.cupsW}" height="${C.cupsH}" alt="Fifteen cups: most of them already had, the last four still full" style="display:block;margin:0 auto;width:${C.cupsW}px;height:${C.cupsH}px;border:0;">`)}
-${row(CREAM, 'pad bg-cream', 'padding:0 40px 56px;', lead(`${ent('That’s about two weeks of mornings. If you’ve had one most days, you’re down to')} ${nw('your last few cups.')}`, INK))}
+<!-- ── 2 · 15 SERVINGS VS 30: a month of mornings, one segment a day. The
+     15-serving bag covers half of it; the 30-serving bag (in the club) all of it ── -->
+${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Your bag vs. your month')}
+${title('15 cups go fast.', 'Your month has 30 mornings.', 'h-sec', 40)}
+${lead(`${ent('A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there’s')} ${nw('no gap')} ${nw('and no reordering.')}`, INK)}`)}
+<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 30px 56px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
+<td class="month-card" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;padding:28px 26px 24px;font-family:${FONT};">
+${monthRow('15 servings', '$34.99 one-time', 'Runs out mid-month', '#9A6B2F', 'bar-15.png', 'Half of the month’s 30 days covered')}
+<div style="height:26px;line-height:26px;font-size:0;">&nbsp;</div>
+${monthRow('30 servings', 'in the club, $48.99', 'Covers the whole month', FOREST, 'bar-30.png', 'All 30 days of the month covered')}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;margin-top:10px;"><tr>
+${['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((w) => `<td class="month-wk" width="25%" align="center" style="width:25%;font-family:${FONT};font-size:11px;line-height:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8C8A78;">${w}</td>`).join('')}
+</tr></table>
+</td></tr></table>
+</td></tr>
 
 <!-- ── 3 · ONE-TIME OR THE CLUB, SIDE BY SIDE (the cards from cart E1) ── -->
 ${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Keep it going for less')}
-${title('Same Mate Latte,', '30% less.', 'h-sec', 40)}
-${lead(`${ent('A 15-serving bag lasts about two weeks. Go for 30 servings in the club and you’re covered')} ${nw('all month,')} ${nw('for less a cup.')}`, INK)}`)}
+${title('Same Mate Latte,', '30% less.', 'h-sec', 40)}`)}
 <tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 26px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 ${oneTime}

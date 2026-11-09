@@ -1,0 +1,26 @@
+SUBJECT: How’s it going?
+PREVIEW: It’s Shadi. A week in with your Mate Latte, I’d love to hear from you.
+FROM: Shadi from Milonga
+
+Hey {{ first_name|default:'there' }},
+
+Shadi here, founder of Milonga 👋
+
+It’s been about a week since your first order, so I wanted to check in. Not a sales email, just me.
+
+If your bag has landed, I hope you’ve had a few good mornings with it by now. So, how’s it going?
+
+I’d love to know two things:
+
+1. What do you like about it so far?
+2. What would you change?
+
+Honestly, anything goes. The taste, the sweetness, how you make it, the bag, the shipping. Just hit reply, even if it’s one line. Every reply comes straight to me, I read every single one, and it helps us decide what to make better.
+
+And if you haven’t tried it iced yet, give it a go: 2.5 tablespoons in 8oz of cold milk, stir, pour it over ice. Same Mate Latte, a whole different drink.
+
+One more thing. If you’re enjoying it, would you leave a quick review? It takes a minute, and it helps someone on the fence decide whether to give it a try.
+Leave a review here: https://milonga.life/products/the-original-mate-latte?utm_source=klaviyo&utm_medium=email&utm_campaign=post_purchase_mate_latte&utm_content=pp2_review
+
+Un abrazo,
+Shadi from Milonga

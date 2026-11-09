@@ -40,14 +40,21 @@ const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life', PDP = '/products/the-original-mate-latte';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=post_purchase_mate_latte&utm_content=${slot}`;
-const L = {
-  hero: `${SITE}${PDP}?${utm('pp3_hero_button')}`,
-  photo: `${SITE}${PDP}?${utm('pp3_hero_photo')}`,
-  onetime: `${SITE}${PDP}?${utm('pp3_onetime_link')}`,
-  club: `${SITE}${PDP}?${utm('pp3_club_card')}`,
-  final: `${SITE}${PDP}?${utm('pp3_final_button')}`,
+// Where the buttons go (Bernat, 2026-11-09): the Mate Latte page with the Mate Mornings Club
+// subscription (selling plan 8837562678: 30% off 30 and 60 servings) and the bag size already
+// picked. "Buy one-time" opens the same page on the same size with no subscription.
+// Variant ids (Shopify): 15 54302750212406 · 30 54302750245174 · 60 54302750277942.
+const VARIANT = { 15: '54302750212406', 30: '54302750245174', 60: '54302750277942' };
+const CLUB_PLAN = '8837562678';
+const clubUrl = (size, slot) => `${SITE}${PDP}?selling_plan=${CLUB_PLAN}&variant=${VARIANT[size]}&${utm(slot)}`;
+const oneUrl = (size, slot) => `${SITE}${PDP}?variant=${VARIANT[size]}&${utm(slot)}`;
+const linksFor = (V) => ({
+  hero: clubUrl(V.clubSize, 'pp3_hero_button'),
+  club: clubUrl(V.clubSize, 'pp3_club_card'),
+  final: clubUrl(V.clubSize, 'pp3_final_button'),
+  onetime: oneUrl(V.oneSize, 'pp3_onetime_link'),
   home: `${SITE}/?${utm('pp3_logo')}`,
-};
+});
 
 // Prices from Shopify (2026-11-07, re-checked 2026-11-09): 15 $34.99 · 30 $69.98 · 60 $139.96.
 // Club 30% off 30 and 60: $48.99 and $97.97 ($139.96 x 0.7 = $97.972). Every size works out to
@@ -60,7 +67,7 @@ const L = {
 //   60  pp1-e3-60  no month graphic; the cards compare 60 servings one-time vs in the club
 const VERSIONS = [
   {
-    key: '15', out: 'exports/klaviyo/pp1-e3', name: 'pp1-e3', day: 'day 11',
+    key: '15', out: 'exports/klaviyo/pp1-e3', name: 'pp1-e3', day: 'day 11', oneSize: 15, clubSize: 30,
     heroLead: '15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings',
     month: {
       t1: '15 cups go fast.', t2: 'Your month has 30 mornings.',
@@ -72,14 +79,14 @@ const VERSIONS = [
     club: { badge: 'Double the cups', price: '$48.99', size: '30 servings', was: '$69.98', line: `Twice the cups, a whole month <span style="white-space:nowrap;">of mornings.</span>` },
   },
   {
-    key: '30', out: 'exports/klaviyo/pp1-e3-30', name: 'pp1-e3-30', day: 'about day 24',
+    key: '30', out: 'exports/klaviyo/pp1-e3-30', name: 'pp1-e3-30', day: 'about day 24', oneSize: 30, clubSize: 30,
     heroLead: '30 cups go fast when they’re your daily ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh supply at your door every month, so your mornings',
     month: null,
     one: { price: '$69.98', size: '30 servings', note: `Buy once, reorder when <span style="white-space:nowrap;">you run out</span>` },
     club: { badge: 'Best value', price: '$48.99', size: '30 servings', was: '$69.98', line: `Your Mate Latte every morning, <span style="white-space:nowrap;">all month long.</span>` },
   },
   {
-    key: '60', out: 'exports/klaviyo/pp1-e3-60', name: 'pp1-e3-60', day: 'about day 45',
+    key: '60', out: 'exports/klaviyo/pp1-e3-60', name: 'pp1-e3-60', day: 'about day 45', oneSize: 60, clubSize: 60,
     heroLead: '60 cups go fast when they’re your daily ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh supply at your door every month, so your mornings',
     month: null,
     one: { price: '$139.96', size: '60 servings', note: `Buy once, reorder when <span style="white-space:nowrap;">you run out</span>` },
@@ -172,6 +179,7 @@ const lead = (t, color, extra = '') => `<div class="lead" style="padding-top:16p
 const trust = (color = FOREST) => `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
 
 function body(img, V) {
+  const L = linksFor(V);
   const monthRow = (label, price, verdict, vcolor, bar, alt) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td class="month-label" align="left" valign="bottom" style="font-family:${FONT};font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${label} <span class="month-price" style="font-size:13px;font-weight:500;color:${SOFT};"><span class="month-dot">&middot; </span>${price}</span></td>
 <td class="month-verdict" align="right" valign="bottom" style="font-family:${FONT};font-size:13px;line-height:17px;font-weight:700;color:${vcolor};">${verdict}</td>

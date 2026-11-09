@@ -59,8 +59,8 @@ const STYLE = `<style>
   table { border-collapse:collapse; }
   img { -ms-interpolation-mode:bicubic; }
   a { color:inherit; }
-  .unsub-pill a { color:#004D27 !important; text-decoration:none !important; }
-  .web-view-line a { color:#3B5344 !important; }
+  .unsub-pill a { color:${BEIGE} !important; text-decoration:none !important; }
+  .web-view-line a { color:${BEIGE} !important; }
   @media only screen and (max-width:480px) {
     .wrap { width:100% !important; }
     .pad { padding-left:24px !important; padding-right:24px !important; }
@@ -69,9 +69,10 @@ const STYLE = `<style>
     .hero { height:637px !important; background-size:cover !important; }
     .hero-top { padding:18px 24px 0 !important; }
     .hero-logo { width:57px !important; height:60px !important; }
-    .hero-title { font-size:36px !important; line-height:38px !important; }
+    .hero-title { font-size:48px !important; line-height:48px !important; }
+    .hero-title1 { padding-top:26px !important; }
     .hero-welcome { padding-top:4px !important; font-size:12px !important; line-height:16px !important; }
-    .hero-gap { height:326px !important; line-height:326px !important; }
+    .hero-gap { height:284px !important; line-height:284px !important; }
     .hero-lead { width:128px !important; }
     .hero-text { padding-right:16px !important; }
     .hero-eyebrow { font-size:9px !important; line-height:12px !important; letter-spacing:1.5px !important; }
@@ -95,6 +96,7 @@ const STYLE = `<style>
     .bg-table { background-color:${TABLE} !important; }
     .bg-wall { background-color:${WALL} !important; }
     .bg-cream { background-color:${CREAM} !important; }
+    .bg-forest { background-color:${FOREST} !important; }
   }
 </style>`;
 
@@ -147,11 +149,11 @@ function body(img) {
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:980px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};">
 <a href="${amp(L.home)}" target="_blank" style="display:block;text-align:center;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div class="hero-title" style="padding-top:14px;font-family:${SERIF};font-size:56px;line-height:58px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
-<div class="hero-title" style="font-family:${SERIF};font-size:56px;line-height:58px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
-<div class="hero-welcome" style="padding-top:10px;font-size:17px;line-height:23px;font-weight:500;color:#FFFFFF;">Welcome to better mornings.</div>
+<div class="hero-title hero-title1" style="padding-top:42px;font-family:${SERIF};font-size:76px;line-height:76px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:76px;line-height:76px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
+<div class="hero-welcome" style="padding-top:14px;font-size:18px;line-height:23px;font-weight:500;color:#FFFFFF;">Welcome to better mornings.</div>
 </div>
-<div class="hero-gap" style="height:546px;line-height:546px;font-size:0;">&nbsp;</div>
+<div class="hero-gap" style="height:430px;line-height:430px;font-size:0;">&nbsp;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 <td class="hero-lead" width="215" style="width:215px;font-size:0;line-height:0;">&nbsp;</td>
 <td class="hero-text" valign="top" style="padding:0 32px 0 0;font-family:${FONT};text-align:left;">
@@ -189,19 +191,16 @@ ${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('When to enjoy i
 ${title('Your first week', 'with Mate Latte.', 'h-sec', 40)}`)}
 ${MOMENTS.map((m, i) => moment(m, i % 2 === 1)).join('\n')}
 
-<!-- ── 5 · ONE SOFT BUTTON: THE CLUB ───────────────────────────────── -->
-${row(CREAM, 'pad bg-cream', 'padding:56px 40px 0;', `${title('Enjoy your first cup.', 'We’ll be here for the next one.', 'h-sec', 30, FOREST, 0)}
-${para(`Loving it already? Join the Mate Mornings Club and your Mate Latte arrives every month. Save 30% on 30 or 60 servings. ${nw('Skip, pause or cancel anytime.')}`, INK, 'padding-top:16px;font-size:15px;line-height:23px;')}
-<div style="padding-top:26px;">${button(L.club, 'Explore the club', 300)}</div>`)}
+<tr><td class="bg-cream" bgcolor="${CREAM}" height="56" style="height:56px;line-height:56px;font-size:0;background-color:${CREAM};">&nbsp;</td></tr>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
-<tr><td class="bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:52px 30px 40px;font-family:${FONT};color:${FOREST};">
-<a href="${amp(L.home)}" target="_blank"><img src="${img('mark-green.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
-<div style="padding-top:18px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><a href="${amp(L.home)}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;border-collapse:separate;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${FOREST};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
-<div class="web-view-line" style="padding-top:12px;font-size:11px;font-weight:500;color:${SOFT};">{% web_view %}</div>
-<div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:500;color:${SOFT};">Contains caffeine. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</div>
-<div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${FOREST};">{{ organization.name }} &middot; {{ organization.full_address }}</div>
+<tr><td class="bg-forest" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};padding:52px 30px 44px;font-family:${FONT};color:${BEIGE};">
+<a href="${amp(L.home)}" target="_blank"><img src="${img('mark-beige.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
+<div style="padding-top:18px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><a href="${amp(L.home)}" target="_blank" style="color:${BEIGE};text-decoration:none;">milonga.life</a></div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;border-collapse:separate;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${BEIGE};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
+<div class="web-view-line" style="padding-top:12px;font-size:11px;font-weight:500;color:${BEIGE};">{% web_view %}</div>
+<div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:500;color:#C9D3C4;">Contains caffeine. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</div>
+<div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${BEIGE};">{{ organization.name }} &middot; {{ organization.full_address }}</div>
 </td></tr>
 
 </table>

@@ -37,6 +37,8 @@ const jpg = { quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' };
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero-bg.jpg`);
 }
 await sharp('public/logo/lockup-milonga-white.png').resize({ height: 180 }).png().toFile(`${OUT}/logo-white.png`);
+// the mark in beige, for the dark green footer
+await sharp('public/logo/mark-beige.png').trim().resize({ height: 128 }).png().toFile(`${OUT}/mark-beige.png`);
 // how-to photo: Bernat's shot of a scoop going into a glass mug beside the pouch,
 // full width as the how-to section's background. Its cream wall (#F2E1D4) and
 // white table (#EBE5E7) are flat at the edges, so the title row above and the

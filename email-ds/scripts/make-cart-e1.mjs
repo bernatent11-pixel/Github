@@ -101,6 +101,7 @@ const STYLE = `<style>
     .edge-dose { font-size:24px !important; line-height:26px !important; }
     .edge-name { font-size:12px !important; line-height:15px !important; }
     .edge-text { font-size:11.5px !important; line-height:15px !important; }
+    .pill a { padding:10px 14px !important; font-size:11px !important; letter-spacing:1px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
   @media (prefers-color-scheme: dark) {
@@ -127,7 +128,12 @@ const title = (a, b, cls, size, color = FOREST, pad = 12) => `<div class="${cls}
 const row = (bg, cls, style, inner) => `<tr><td class="${cls}" align="center" bgcolor="${bg}" style="background-color:${bg};${style}font-family:${FONT};">
 ${inner}
 </td></tr>`;
-const trust = `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
+const trust = (color = FOREST) => `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
+// A small pill CTA inside the comparison cards (a padded table cell, so Outlook
+// keeps the colour too).
+const pill = (href, label, bg, ink) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr>
+<td class="pill" align="center" bgcolor="${bg}" style="background-color:${bg};border-radius:999px;"><a href="${amp(href)}" target="_blank" style="display:inline-block;padding:11px 20px;font-family:${FONT};font-size:12px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;">${label}</a></td>
+</tr></table>`;
 
 function top(img) {
   return `<!--
@@ -145,8 +151,8 @@ ${open(C.heroBottom, 'bg-hero')}
      its top and bottom fade into the flat golds of the rows around it, and the
      same gold carries on under Klaviyo's cart block and the button) ── -->
 <tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.cart('c1_photo'))}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="Milonga. The Mate Latte pouch beside a latte, with loose yerba mate on a golden table" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
-${row(C.heroBottom, 'pad bg-hero', 'padding:6px 40px 10px;', `${eyebrow('You left something good behind')}
-${title('Your Mate Latte', 'is waiting.', 'h-hero', 54, FOREST, 10)}
+${row(C.heroBottom, 'pad bg-hero', 'padding:6px 40px 10px;', `${eyebrow('You left something good behind', '#FFFFFF')}
+${title('Your Mate Latte', 'is waiting.', 'h-hero', 54, '#FFFFFF', 10)}
 <div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('We saved your cart, so it’s right where you left it.')} ${nw(ent('Here’s what’s inside:'))}</div>`)}
 
 ${close}`;
@@ -166,7 +172,7 @@ ${inner}
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">$2.33 a cup</div>
 <div style="margin:16px auto 0;width:40px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
 ${bullet('Buy once, reorder when you <span style="white-space:nowrap;">run out</span>', INK)}
-<div style="padding-top:16px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.cart('c1_onetime_link'))}" target="_blank" style="color:${FOREST};text-decoration:underline;">Keep one-time&nbsp;&rarr;</a></div>`,
+<div style="padding-top:18px;">${pill(L.cart('c1_onetime_link'), 'Keep one-time', FOREST, BEIGE)}</div>`,
     `bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;`);
   const club = CLUB.map((c) => `<tr><td class="club-ico" width="20" valign="top" style="width:20px;padding:9px 8px 0 0;"><img src="${img(c.icon)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>
 <td class="cmp-text" valign="top" style="padding:8px 0 0;font-family:${FONT};font-size:13px;line-height:18px;font-weight:500;color:#FFFFFF;text-align:left;">${c.text}</td></tr>`).join('\n');
@@ -180,7 +186,7 @@ ${bullet('Buy once, reorder when you <span style="white-space:nowrap;">run out</
 ${club}
 </table>
 <div class="cmp-text" style="padding-top:12px;font-size:13px;line-height:18px;font-weight:700;color:${GOLD};">${ent('Your Mate Latte every morning,')} <span style="white-space:nowrap;">all month long.</span></div>
-<div style="padding-top:14px;font-size:13px;line-height:18px;font-weight:700;"><a href="${amp(L.subscribe)}" target="_blank" style="color:${GOLD};text-decoration:underline;">Join the club&nbsp;&rarr;</a></div>`,
+<div style="padding-top:16px;">${pill(L.subscribe, 'Join the club', GOLD, FOREST)}</div>`,
     `bgcolor="${FOREST}" style="background-color:${FOREST};border:3px solid ${GOLD};border-radius:22px;`);
 
   const edge = EDGE.map((e) => `<td class="edge" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
@@ -199,7 +205,7 @@ ${open(BEIGE, 'bg-page')}
 
 <!-- ── 1 (continued) · the button, on the same gold as the cart above ── -->
 ${row(C.heroBottom, 'pad bg-hero', 'padding:14px 40px 52px;', `${button(L.cart('c1_hero_button'), 'Back to my cart', 290)}
-${trust}`)}
+${trust('#FFFFFF')}`)}
 
 <!-- ── 2 · ONE-TIME OR THE MATE MORNINGS CLUB, SIDE BY SIDE ────────── -->
 ${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Pick what works for you')}
@@ -224,7 +230,7 @@ ${edge}
 ${row(C.finalBottom, 'pad bg-table', 'padding:26px 40px 0;', `<div style="font-size:14px;line-height:21px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')} <strong style="font-weight:700;color:${FOREST};">${nw('Ready in 30 seconds,')} ${nw('hot or iced.')}</strong></div>`)}
 ${row(C.finalBottom, 'pad bg-table', 'padding:44px 40px 0;', `${title('Your cart’s all set.', 'Ready when you are.', 'h-sec', 34, FOREST, 0)}
 <div style="padding-top:26px;">${button(L.cart('c1_closing_button'), 'Complete my order', 320)}</div>
-${trust}`)}
+${trust()}`)}
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
 <tr><td class="bg-table" align="center" bgcolor="${C.finalBottom}" style="background-color:${C.finalBottom};padding:48px 30px 40px;font-family:${FONT};color:${FOREST};">

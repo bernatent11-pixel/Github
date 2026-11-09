@@ -26,8 +26,8 @@ SECTIONS
     that tastes like a treat", product page) + what follows.
   2 How to make it: Bernat's scoop photo is the whole section (howto-bg.jpg, full width). The title and the
     three steps sit on its cream wall colour (#F2E1D4), above the bag: Scoop 2.5 tbsp · Pour 8oz hot or cold
-    water or milk · Stir or froth (product page recipe). The photo's bottom fades into warm beige #F2EADE.
-  3 Hot or iced, / it's all yours. Continues on that warm beige (#F2EADE), no boxes: Bernat's hot mug and
+    water or milk · Stir or froth (product page recipe). The photo's bottom fades into warm beige #EFE8DF (the white table is warmed gradually into it, so there is no seam).
+  3 Hot or iced, / it's all yours. Continues on that warm beige (#EFE8DF), no boxes: Bernat's hot mug and
     iced glass with the background removed (Higgsfield; the small hot photo upscaled first), same size.
   4 When to enjoy it · Your first week / with Mate Latte. On dark green (#004D27): gold eyebrows, beige titles. Three moments, photo and text alternating
     (left, right, left; stacked on phones), Bernat's photos:

@@ -14,11 +14,16 @@ FLOW (Post-purchase, one-time Mate Latte buyers)
 
 SECTIONS
   1 Running low? · Your bag's / almost empty. On deep green; the studio pouch photo fades into the
-    flat greens above and below (hero.jpg). Gold "Join the club" button + free shipping / guarantee.
+    flat greens above and below (hero.jpg). Text: 15 cups go fast; in the club you save 30% on every
+    order, with a fresh bag every month. Gold "Join the club" button right under the pouch.
   2 Your bag, cup by cup · One bag, 15 cups. / They go fast. A row of 15 cups (cups.png): most
     already had, the last four still full (illustrative, no exact count claimed) + "about two weeks
     of mornings; if you've had one most days, you're down to your last few cups".
-  3 Keep it going for less · Same Mate Latte, / 30% less. The one-time vs club cards from cart E1.
+  3 Keep it going for less · Same Mate Latte, / 30% less. Moves a 15-serving buyer up to 30:
+    "A 15-serving bag lasts about two weeks. Go for 30 servings in the club and you're covered all month."
+    Cards: one-time 15 servings $34.99 ($2.33 a cup, about two weeks) vs Mate Mornings Club 30 servings
+    $48.99 (was $69.98; $1.63 a cup; badge "Double the cups") + "Twice the cups for just $14 more."
+    ($48.99 - $34.99 = $14.00.)
   4 How the club works · Easy to start, / easy to change. On forest green: Pick your size (30 or 60,
     30% off) · It shows up monthly · You're in control (skip, pause or cancel anytime).
   5 The kitchen counter photo (latte, iced latte, pouch, nearly empty scoop) fading into cream ·
@@ -29,6 +34,6 @@ LINKS (all to the Mate Latte page, where the subscription is picked; UTM post_pu
   pp3_hero_button · pp3_hero_photo · pp3_onetime_link · pp3_club_card · pp3_final_button · pp3_logo
 
 FACTS USED (Shopify / product page, checked 2026-11-07)
-  15 servings per bag (1 serving = 1 cup). One-time 30 servings $69.98 ($2.33 a cup);
+  15 servings per bag (1 serving = 1 cup). One-time 15 servings $34.99 ($2.33 a cup), 30 servings $69.98;
   Mate Mornings Club 30% off 30 or 60 servings: $48.99 for 30 ($1.63 a cup); monthly;
   skip, pause or cancel anytime. Free shipping over $45. 30-day money-back guarantee.

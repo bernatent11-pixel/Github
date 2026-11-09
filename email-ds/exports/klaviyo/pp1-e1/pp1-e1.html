@@ -39,7 +39,11 @@
     .step-d { font-size:12px !important; line-height:17px !important; }
     .drink-img { width:150px !important; height:154px !important; }
     .drink-text { font-size:12.5px !important; line-height:18px !important; }
-    .know { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
+    .m-img, .m-text { display:block !important; width:100% !important; }
+    .m-photo { width:100% !important; height:auto !important; }
+    .m-gap { display:none !important; }
+    .m-text { padding-top:16px !important; }
+    .m-title { font-size:26px !important; line-height:29px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
   @media (prefers-color-scheme: dark) {
@@ -77,15 +81,15 @@
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · HOW TO MAKE IT (Bernat's scoop photo is the whole section: the title
-     sits on its cream wall colour, the steps on its white table colour) ── -->
-<tr><td class="pad bg-wall" align="center" bgcolor="#F2E1D4" style="background-color:#F2E1D4;padding:52px 40px 6px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<!-- ── 2 · HOW TO MAKE IT (Bernat's scoop photo is the whole section: the title and
+     the three steps sit on its cream wall colour, above the bag; its table blends
+     into the hot/iced section below) ── -->
+<tr><td class="pad bg-wall" align="center" bgcolor="#F2E1D4" style="background-color:#F2E1D4;padding:52px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#004D27;">How to make it</div>
 <div class="h-sec" style="padding-top:12px;font-family:'Times New Roman',Times,Georgia,serif;font-size:40px;line-height:44px;font-weight:400;color:#004D27;">Three steps,</div>
 <div class="h-sec" style="font-family:'Times New Roman',Times,Georgia,serif;font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:#004D27;">thirty seconds.</div>
 </td></tr>
-<tr><td class="bg-wall" bgcolor="#F2E1D4" style="background-color:#F2E1D4;padding:0;font-size:0;line-height:0;"><img class="full" src="https://cdn.klaviyomail.com/company/TwvSnK/images/af3f6223-416f-4287-9846-efb8ba0a5c3b.jpeg" width="600" height="651" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;width:600px;height:651px;border:0;"></td></tr>
-<tr><td class="pad-photo bg-table" bgcolor="#EBE5E7" style="background-color:#EBE5E7;padding:10px 30px 20px;">
+<tr><td class="pad-photo bg-wall" bgcolor="#F2E1D4" style="background-color:#F2E1D4;padding:30px 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 <td class="step" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" valign="middle" width="44" height="44" bgcolor="#E3BC62" style="width:44px;height:44px;border-radius:22px;background-color:#E3BC62;font-family:'Times New Roman',Times,Georgia,serif;font-size:24px;line-height:44px;font-weight:700;color:#004D27;">1</td></tr></table>
@@ -104,9 +108,10 @@
 </td>
 </tr></table>
 </td></tr>
+<tr><td class="bg-wall" bgcolor="#F2E1D4" style="background-color:#F2E1D4;padding:0;font-size:0;line-height:0;"><img class="full" src="https://cdn.klaviyomail.com/company/TwvSnK/images/074621bd-4dc2-4719-912f-d1965639b0c3.jpeg" width="600" height="651" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;width:600px;height:651px;border:0;"></td></tr>
 
 <!-- ── 3 · HOT OR ICED (on the light table colour of the scoop photo above) ── -->
-<tr><td class="pad bg-table" align="center" bgcolor="#EBE5E7" style="background-color:#EBE5E7;padding:40px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<tr><td class="pad bg-table" align="center" bgcolor="#EBE5E7" style="background-color:#EBE5E7;padding:20px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#004D27;">Your way</div>
 <div class="h-sec" style="padding-top:12px;font-family:'Times New Roman',Times,Georgia,serif;font-size:40px;line-height:44px;font-weight:400;color:#004D27;">Hot or iced,</div>
 <div class="h-sec" style="font-family:'Times New Roman',Times,Georgia,serif;font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:#004D27;">it&rsquo;s all yours.</div>
@@ -126,33 +131,46 @@
 </tr></table>
 </td></tr>
 
-<!-- ── 4 · WHEN TO DRINK IT, WHAT TO EXPECT ────────────────────────── -->
+<!-- ── 4 · WHEN TO ENJOY IT: three moments, photo and text alternating sides
+     (dir="rtl" swaps the middle row on desktop; phones stack photo above text) ── -->
 <tr><td class="pad bg-cream" align="center" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:52px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#004D27;">Good to know</div>
+<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#004D27;">When to enjoy it</div>
 <div class="h-sec" style="padding-top:12px;font-family:'Times New Roman',Times,Georgia,serif;font-size:40px;line-height:44px;font-weight:400;color:#004D27;">Your first week</div>
 <div class="h-sec" style="font-family:'Times New Roman',Times,Georgia,serif;font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:#004D27;">with Mate Latte.</div>
 </td></tr>
 <tr><td class="pad-photo bg-cream" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:28px 30px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-<td class="know" width="50%" valign="top" style="width:50%;padding:0 6px 0 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;border:2px solid #D9D6BE;border-radius:20px;"><tr><td align="left" style="padding:22px 22px 22px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
-<img src="https://cdn.klaviyomail.com/company/TwvSnK/images/3deb3156-aa93-4b36-82ec-1c713ffd1ff8.png" width="28" height="28" alt="" role="presentation" style="display:block;width:28px;height:28px;border:0;">
-<div style="padding-top:12px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#004D27;">When to drink it</div>
-<div style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:#12331F;">In the morning, in place of your coffee, or early afternoon when you want a reset. It has <span style="white-space:nowrap;">100mg of caffeine,</span> about a cup of coffee, so treat it like one later in the day.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="ltr" style="table-layout:fixed;"><tr>
+<td class="m-img" width="250" valign="middle" dir="ltr" style="width:250px;padding:0;"><img class="m-photo" src="https://cdn.klaviyomail.com/company/TwvSnK/images/5ad0825c-ada6-410f-b3e3-b24bc1249c06.jpeg" width="250" height="312" alt="Holding a Mate Latte and the pouch on a sunny balcony" style="display:block;width:250px;height:312px;border:0;border-radius:18px;"></td>
+<td class="m-gap" width="26" style="width:26px;font-size:0;line-height:0;">&nbsp;</td>
+<td class="m-text" valign="middle" dir="ltr" style="text-align:left;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3B5344;">First thing in the morning</div>
+<div class="m-title" style="padding-top:8px;font-family:'Times New Roman',Times,Georgia,serif;font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:#004D27;">Your new morning ritual</div>
+<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:#12331F;">Make it your first cup of the day, in place of your coffee. Smooth, steady energy that comes in easy and a clear head to start the day. <span style="white-space:nowrap;">No jitters,</span> <span style="white-space:nowrap;">no crash.</span></div>
 </td></tr></table>
-</td>
-<td class="know" width="50%" valign="top" style="width:50%;padding:0 0 0 6px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;border:2px solid #D9D6BE;border-radius:20px;"><tr><td align="left" style="padding:22px 22px 22px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
-<img src="https://cdn.klaviyomail.com/company/TwvSnK/images/73e44cf8-5640-428c-9630-2928402c9f24.png" width="28" height="28" alt="" role="presentation" style="display:block;width:28px;height:28px;border:0;">
-<div style="padding-top:12px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#004D27;">What to expect</div>
-<div style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:#12331F;">Smooth, steady energy that comes in easy, a clear head and calm focus that carries you through the morning. <span style="white-space:nowrap;">No jitters,</span> <span style="white-space:nowrap;">no crash.</span></div>
+</td></tr>
+<tr><td class="pad-photo bg-cream" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:28px 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="table-layout:fixed;"><tr>
+<td class="m-img" width="250" valign="middle" dir="ltr" style="width:250px;padding:0;"><img class="m-photo" src="https://cdn.klaviyomail.com/company/TwvSnK/images/b3fd1cc5-460e-4fe2-b311-68e0645e5a6e.jpeg" width="250" height="312" alt="A Mate Latte and the pouch beside a laptop" style="display:block;width:250px;height:312px;border:0;border-radius:18px;"></td>
+<td class="m-gap" width="26" style="width:26px;font-size:0;line-height:0;">&nbsp;</td>
+<td class="m-text" valign="middle" dir="ltr" style="text-align:left;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3B5344;">When it&rsquo;s time to focus</div>
+<div class="m-title" style="padding-top:8px;font-family:'Times New Roman',Times,Georgia,serif;font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:#004D27;">Your deep-work partner</div>
+<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:#12331F;">A long work session ahead, or that early-afternoon slump? It brings calm focus that carries you through. It has <span style="white-space:nowrap;">100mg of caffeine,</span> about a cup of coffee, so treat it like one later in the day.</div>
 </td></tr></table>
-</td>
-</tr></table>
+</td></tr>
+<tr><td class="pad-photo bg-cream" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:28px 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="ltr" style="table-layout:fixed;"><tr>
+<td class="m-img" width="250" valign="middle" dir="ltr" style="width:250px;padding:0;"><img class="m-photo" src="https://cdn.klaviyomail.com/company/TwvSnK/images/61ce5b04-698e-4ffb-94fa-fbd0377217c1.jpeg" width="250" height="312" alt="Friends in running gear sharing cups of Mate Latte around a small table" style="display:block;width:250px;height:312px;border:0;border-radius:18px;"></td>
+<td class="m-gap" width="26" style="width:26px;font-size:0;line-height:0;">&nbsp;</td>
+<td class="m-text" valign="middle" dir="ltr" style="text-align:left;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3B5344;">With your people</div>
+<div class="m-title" style="padding-top:8px;font-family:'Times New Roman',Times,Georgia,serif;font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:#004D27;">Better shared</div>
+<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:#12331F;">After a morning run or a weekend catch-up, make a round for everyone. One bag makes <span style="white-space:nowrap;">15 cups,</span> <span style="white-space:nowrap;">hot or iced.</span></div>
+</td></tr></table>
 </td></tr>
 
 <!-- ── 5 · ONE SOFT BUTTON: THE CLUB ───────────────────────────────── -->
-<tr><td class="pad bg-cream" align="center" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:48px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<tr><td class="pad bg-cream" align="center" bgcolor="#F7F4EA" style="background-color:#F7F4EA;padding:56px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div class="h-sec" style="padding-top:0px;font-family:'Times New Roman',Times,Georgia,serif;font-size:30px;line-height:34px;font-weight:400;color:#004D27;">Enjoy your first cup.</div>
 <div class="h-sec" style="font-family:'Times New Roman',Times,Georgia,serif;font-size:30px;line-height:34px;font-weight:700;font-style:italic;color:#004D27;">We&rsquo;ll be here for the next one.</div>
 <div style="font-size:16px;line-height:24px;font-weight:500;color:#12331F;padding-top:16px;font-size:15px;line-height:23px;">Loving it already? Join the Mate Mornings Club and your Mate Latte arrives every month. Save 30% on 30 or 60 servings. <span style="white-space:nowrap;">Skip, pause or cancel anytime.</span></div>

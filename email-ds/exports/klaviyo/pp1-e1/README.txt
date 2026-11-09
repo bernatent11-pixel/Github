@@ -23,12 +23,16 @@ SECTIONS
     done right." left-aligned + "Welcome to better mornings." (a soft dark fade over the top half keeps them
     readable); under the bag, right of the hand: "Thank you for your order" + the brand promise
     ("clean energy, focus and calm in a cup that tastes like a treat", product page) + what follows.
-  2 How to make it: Bernat's scoop photo is the whole section (howto-bg.jpg, full width). The title sits on
-    its cream wall colour (#F2E1D4), the three steps on its white table colour (#EBE5E7):
-    Scoop 2.5 tbsp · Pour 8oz hot or cold water or milk · Stir or froth (product page recipe).
-  3 Hot or iced, / it's all yours. On the same white table colour (#EBE5E7), no boxes: Bernat's hot mug and
+  2 How to make it: Bernat's scoop photo is the whole section (howto-bg.jpg, full width). The title and the
+    three steps sit on its cream wall colour (#F2E1D4), above the bag: Scoop 2.5 tbsp · Pour 8oz hot or cold
+    water or milk · Stir or froth (product page recipe). The photo's table fades into #EBE5E7.
+  3 Hot or iced, / it's all yours. Continues on that table colour (#EBE5E7), no boxes: Bernat's hot mug and
     iced glass with the background removed (Higgsfield; the small hot photo upscaled first), same size.
-  4 Your first week / with Mate Latte. When to drink it · What to expect (feel language only)
+  4 When to enjoy it · Your first week / with Mate Latte. Three moments, photo and text alternating
+    (left, right, left; stacked on phones), Bernat's photos:
+      First thing in the morning · Your new morning ritual (balcony)
+      When it's time to focus · Your deep-work partner (laptop; 100mg caffeine, about a cup of coffee)
+      With your people · Better shared (friends after a run; one bag makes 15 cups)
   5 Enjoy your first cup. / We'll be here for the next one. Soft club line + one button "Explore the club"
 
 LINKS (UTM utm_campaign=post_purchase_mate_latte)
@@ -37,4 +41,5 @@ LINKS (UTM utm_campaign=post_purchase_mate_latte)
 
 IMAGES (hosted.json has the Klaviyo CDN URLs)
   hero-bg.jpg (src-hero-95.webp) · logo-white.png · howto-bg.jpg (src-scoop-96.webp) ·
-  drink-hot.png / drink-iced.png (src-hot.jpg / src-iced.jpg, background removed) · icon-sun / icon-sparkle
+  drink-hot.png / drink-iced.png (src-hot.jpg / src-iced.jpg, background removed) ·
+  moment-morning / moment-work / moment-friends.jpg (src-moment-*.webp)

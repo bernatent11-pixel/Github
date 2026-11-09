@@ -2,7 +2,7 @@
 //
 //   hero-bg.jpg   Bernat's photo as the opening section's background (text on it)
 //   logo-white.png the Milonga lockup in white, for the dark top of the photo
-//   howto.jpg     Bernat's photo of a scoop going into a glass mug, for the steps
+//   howto-bg.jpg  Bernat's scoop photo, full width: the how-to section's background
 //   hot.png       a hot Mate Latte from above (cutout), for the hot card
 //   iced.jpg      an iced Mate Latte in hand, square crop, for the iced card
 //   icon-*.png    line icons (forest, 2x) for "when to drink it" and "what to expect"
@@ -31,8 +31,17 @@ const jpg = { quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' };
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero-bg.jpg`);
 }
 await sharp('public/logo/lockup-milonga-white.png').resize({ height: 180 }).png().toFile(`${OUT}/logo-white.png`);
-// how-to photo: Bernat's shot of a scoop going into a glass mug beside the pouch
-await sharp('exports/klaviyo/pp1-e1/src-scoop-96.webp').extract({ left: 0, top: 520, width: 1493, height: 1400 }).resize({ width: 1040 }).jpeg(jpg).toFile(`${OUT}/howto.jpg`);
+// how-to photo: Bernat's shot of a scoop going into a glass mug beside the pouch,
+// full width as the how-to section's background. Its cream wall (#F2E1D4) and
+// white table (#EBE5E7) are flat at the edges, so the title row above and the
+// steps row below use those colours and the section reads as one photo.
+{
+  const WALL = [0xF2, 0xE1, 0xD4];
+  const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-scoop-96.webp').extract({ left: 0, top: 380, width: 1493, height: 1620 }).resize({ width: 1200, height: 1302, fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const w = info.width, F = Math.round(info.height * 0.12); // soften the top edge into the flat wall colour
+  for (let y = 0; y < F; y++) { const t = y / F, k = 1 - t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + WALL[c] * k); } }
+  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/howto-bg.jpg`);
+}
 await sharp('public/product/latte-cup-top.png').resize({ width: 400 }).png().toFile(`${OUT}/hot.png`);
 await sharp('public/product/iced-in-hand.jpg').extract({ left: 150, top: 450, width: 1100, height: 1100 }).resize({ width: 400 }).jpeg(jpg).toFile(`${OUT}/iced.jpg`);
 

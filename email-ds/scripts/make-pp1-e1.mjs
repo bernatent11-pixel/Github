@@ -23,7 +23,7 @@ const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.
 export const SUBJECT = 'Your first cup, done right ☕';
 export const PREHEADER = 'Thank you for your first order. Here’s how to make your first cup just right, hot or iced.';
 
-const TABLE = '#ECE5E7'; // the light table at the bottom of the scoop photo (howto.jpg)
+const WALL = '#F2E1D4', TABLE = '#EBE5E7'; // the scoop photo's cream wall and white table
 const DRINK_W = 200, DRINK_H = 240; // the hot and iced cutouts share this canvas
 const HERO_BG = '#B8A6A6'; // the photo's marble, behind it while it loads
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
@@ -60,11 +60,12 @@ const STYLE = `<style>
     .hero-top { padding:18px 24px 0 !important; }
     .hero-logo { width:57px !important; height:60px !important; }
     .hero-title { font-size:28px !important; line-height:31px !important; }
-    .hero-gap { height:368px !important; line-height:368px !important; }
-    .hero-lead { width:160px !important; }
+    .hero-welcome { padding-top:4px !important; font-size:12px !important; line-height:16px !important; }
+    .hero-gap { height:330px !important; line-height:330px !important; }
+    .hero-lead { width:150px !important; }
     .hero-text { padding-right:16px !important; }
     .hero-eyebrow { font-size:9px !important; line-height:12px !important; letter-spacing:1.5px !important; }
-    .hero-intro { padding-top:4px !important; font-size:12px !important; line-height:16px !important; }
+    .hero-intro { padding-top:4px !important; font-size:11.5px !important; line-height:15px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .step { padding:0 4px !important; }
     .step-t { font-size:14px !important; }
@@ -78,6 +79,7 @@ const STYLE = `<style>
     .bg-white { background-color:#FFFFFF !important; }
     .bg-page { background-color:${BEIGE} !important; }
     .bg-table { background-color:${TABLE} !important; }
+    .bg-wall { background-color:${WALL} !important; }
     .bg-cream { background-color:${CREAM} !important; }
   }
 </style>`;
@@ -120,38 +122,40 @@ function body(img) {
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · THANK YOU (Bernat's photo is the section's background: the white logo
-     centered at the top, the white title left-aligned on the darkened top, the
-     intro on the marble under the bag, right of the hand) ── -->
+<!-- ── 1 · YOUR FIRST CUP, DONE RIGHT (Bernat's photo is the section's background:
+     the white logo centered at the top, the white title left-aligned on the
+     darkened top, the thank-you and the brand promise on the marble under the bag) ── -->
 <tr><td class="hero" align="left" valign="top" height="980" background="${img('hero-bg.jpg')}" bgcolor="${HERO_BG}" style="height:980px;background-color:${HERO_BG};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:980px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};">
 <a href="${amp(L.home)}" target="_blank" style="display:block;text-align:center;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div class="hero-title" style="padding-top:18px;font-family:${SERIF};font-size:38px;line-height:42px;font-weight:400;color:#FFFFFF;">Thank you for</div>
-<div class="hero-title" style="font-family:${SERIF};font-size:38px;line-height:42px;font-weight:700;font-style:italic;color:#FFFFFF;">your first order.</div>
+<div class="hero-title" style="padding-top:18px;font-family:${SERIF};font-size:38px;line-height:42px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:38px;line-height:42px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
+<div class="hero-welcome" style="padding-top:8px;font-size:16px;line-height:22px;font-weight:500;color:#FFFFFF;">Welcome to better mornings.</div>
 </div>
-<div class="hero-gap" style="height:576px;line-height:576px;font-size:0;">&nbsp;</div>
+<div class="hero-gap" style="height:526px;line-height:526px;font-size:0;">&nbsp;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 <td class="hero-lead" width="255" style="width:255px;font-size:0;line-height:0;">&nbsp;</td>
 <td class="hero-text" valign="top" style="padding:0 36px 0 0;font-family:${FONT};text-align:left;">
-<div class="hero-eyebrow" style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${FOREST};">Your Mate Latte is on its way</div>
-<div class="hero-intro" style="padding-top:8px;font-size:15px;line-height:22px;font-weight:500;color:${INK};">${ent('We’re so glad you’re here. While your first bag makes its way to you, here’s how to make your first cup taste just right,')} ${nw('hot or iced.')}</div>
+<div class="hero-eyebrow" style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${FOREST};">Thank you for your order</div>
+<div class="hero-intro" style="padding-top:8px;font-size:15px;line-height:22px;font-weight:500;color:${INK};">${ent('We’re so glad you’re here. The Mate Latte is clean energy, focus and calm in a cup that tastes like a treat. Here’s everything you need to make it the right way, and the best moments')} ${nw('to enjoy it.')}</div>
 </td></tr></table>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · HOW TO MAKE IT: THREE STEPS ─────────────────────────────── -->
-${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('How to make it')}
+<!-- ── 2 · HOW TO MAKE IT (Bernat's scoop photo is the whole section: the title
+     sits on its cream wall colour, the steps on its white table colour) ── -->
+${row(WALL, 'pad bg-wall', 'padding:52px 40px 6px;', `${eyebrow('How to make it')}
 ${title('Three steps,', 'thirty seconds.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:26px 40px 0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="520" height="488" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;margin:0 auto;width:520px;height:488px;border:0;border-radius:22px;"></td></tr>
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:26px 30px 52px;">
+<tr><td class="bg-wall" bgcolor="${WALL}" style="background-color:${WALL};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('howto-bg.jpg')}" width="600" height="651" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;width:600px;height:651px;border:0;"></td></tr>
+<tr><td class="pad-photo bg-table" bgcolor="${TABLE}" style="background-color:${TABLE};padding:10px 30px 20px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${steps}
 </tr></table>
 </td></tr>
 
 <!-- ── 3 · HOT OR ICED (on the light table colour of the scoop photo above) ── -->
-${row(TABLE, 'pad bg-table', 'padding:52px 40px 0;', `${eyebrow('Your way')}
+${row(TABLE, 'pad bg-table', 'padding:40px 40px 0;', `${eyebrow('Your way')}
 ${title('Hot or iced,', 'it’s all yours.', 'h-sec', 40)}`)}
 <tr><td class="pad-photo bg-table" bgcolor="${TABLE}" style="background-color:${TABLE};padding:30px 30px 52px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>

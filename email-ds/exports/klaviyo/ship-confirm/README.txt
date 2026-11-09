@@ -15,8 +15,10 @@ FLOW
   Copy works for first orders, repeat orders and club renewals alike (no "first cup" wording).
 
 SECTIONS
-  1 Shipped · Your Mate Latte / is on its way. On forest green: "Good news, {first name}! Your order
-    {order} just left us..." Bernat's windowsill photo, framed. Gold "Track my package".
+  1 Bernat's photo of two pouches held up to a blue sky (src-hero-105.webp) is the section's
+    BACKGROUND (hero-bg.jpg, 600x904; 390x588 on phones). On the sky: beige logo, "Shipped", white
+    title "Your Mate Latte / is on its way." On the darkened bottom: "Good news, {first name}! Your
+    order {order} just left us..." + gold "Track my package".
   2 Your shipment · Everything you need / to follow it. Card: In this package (the Mate Latte lines of
     this shipment only) · Carrier · Tracking number · Order. "View my order".
   3 Where it is now · Packed, shipped / and almost there. Order confirmed (done) · Shipped (on its way

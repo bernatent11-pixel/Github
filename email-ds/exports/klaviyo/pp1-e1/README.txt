@@ -18,9 +18,11 @@ FLOW: "Post Purchase · Mate Latte (one-time)", a NEW flow, separate from the ge
   Latte buyers don't get both flows. Smart Sending ON.
 
 SECTIONS
-  1 Bernat's photo (pouch in hand over marble, a latte beside it), fading into light marble (#F3F0EF);
-    on it: logo · "Your Mate Latte is on its way" · Thank you for / your first order. · intro
-  2 How to make it: Three steps, / thirty seconds. Scoop 2.5 tbsp · Pour 8oz hot or cold water or milk ·
+  1 Bernat's photo (pouch in hand over marble, a latte beside it) is the section's BACKGROUND
+    (hero-bg.jpg, 600x980; 390x637 on phones). On it: the white logo centered at the top and the
+    white title "Thank you for / your first order." left-aligned (a soft dark fade over the top half
+    keeps them readable); under the bag, right of the hand: "Your Mate Latte is on its way" + intro.
+  2 How to make it: Three steps, / thirty seconds. Bernat's scoop photo (howto.jpg). Scoop 2.5 tbsp · Pour 8oz hot or cold water or milk ·
     Stir or froth (product page: "Mix 2.5 tbsp with 8oz of hot or cold water or milk. Ready in 30 seconds")
   3 Hot or iced, / it's all yours. Two cards with the hot and iced recipes
   4 Your first week / with Mate Latte. When to drink it (100mg caffeine, about a cup of coffee) ·
@@ -32,5 +34,5 @@ LINKS (UTM utm_campaign=post_purchase_mate_latte)
   Logo / milonga.life  https://milonga.life/ (pp1_logo)
 
 IMAGES (hosted.json has the Klaviyo CDN URLs)
-  hero.jpg (src-hero-95.webp, Bernat) · scoop.png (pouch-hand-pour-big.png) · hot.png (latte-cup-top.png) ·
+  hero-bg.jpg (src-hero-95.webp, Bernat) · logo-white.png · howto.jpg (src-scoop-96.webp, Bernat) · hot.png (latte-cup-top.png) ·
   iced.jpg (iced-in-hand.jpg) · icon-sun / icon-sparkle (drawn)

@@ -18,15 +18,17 @@ FLOW: "Post Purchase · Mate Latte (one-time)", a NEW flow, separate from the ge
   Latte buyers don't get both flows. Smart Sending ON.
 
 SECTIONS
-  1 Bernat's photo (pouch in hand over marble, a latte beside it) is the section's BACKGROUND
-    (hero-bg.jpg, 600x980; 390x637 on phones). On it: the white logo centered at the top and the
-    white title "Thank you for / your first order." left-aligned (a soft dark fade over the top half
-    keeps them readable); under the bag, right of the hand: "Your Mate Latte is on its way" + intro.
-  2 How to make it: Three steps, / thirty seconds. Bernat's scoop photo (howto.jpg). Scoop 2.5 tbsp · Pour 8oz hot or cold water or milk ·
-    Stir or froth (product page: "Mix 2.5 tbsp with 8oz of hot or cold water or milk. Ready in 30 seconds")
-  3 Hot or iced, / it's all yours. Two cards with the hot and iced recipes
-  4 Your first week / with Mate Latte. When to drink it (100mg caffeine, about a cup of coffee) ·
-    What to expect (feel language only: smooth, steady energy, clear head, calm focus, no jitters, no crash)
+  1 Bernat's photo (pouch in hand over marble, latte beside it) is the section's BACKGROUND (hero-bg.jpg,
+    600x980; 390x637 on phones). On it: white logo centered at the top; white title "Your first cup, /
+    done right." left-aligned + "Welcome to better mornings." (a soft dark fade over the top half keeps them
+    readable); under the bag, right of the hand: "Thank you for your order" + the brand promise
+    ("clean energy, focus and calm in a cup that tastes like a treat", product page) + what follows.
+  2 How to make it: Bernat's scoop photo is the whole section (howto-bg.jpg, full width). The title sits on
+    its cream wall colour (#F2E1D4), the three steps on its white table colour (#EBE5E7):
+    Scoop 2.5 tbsp · Pour 8oz hot or cold water or milk · Stir or froth (product page recipe).
+  3 Hot or iced, / it's all yours. On the same white table colour (#EBE5E7), no boxes: Bernat's hot mug and
+    iced glass with the background removed (Higgsfield; the small hot photo upscaled first), same size.
+  4 Your first week / with Mate Latte. When to drink it · What to expect (feel language only)
   5 Enjoy your first cup. / We'll be here for the next one. Soft club line + one button "Explore the club"
 
 LINKS (UTM utm_campaign=post_purchase_mate_latte)
@@ -34,5 +36,5 @@ LINKS (UTM utm_campaign=post_purchase_mate_latte)
   Logo / milonga.life  https://milonga.life/ (pp1_logo)
 
 IMAGES (hosted.json has the Klaviyo CDN URLs)
-  hero-bg.jpg (src-hero-95.webp, Bernat) · logo-white.png · howto.jpg (src-scoop-96.webp, Bernat) · hot.png (latte-cup-top.png) ·
-  iced.jpg (iced-in-hand.jpg) · icon-sun / icon-sparkle (drawn)
+  hero-bg.jpg (src-hero-95.webp) · logo-white.png · howto-bg.jpg (src-scoop-96.webp) ·
+  drink-hot.png / drink-iced.png (src-hot.jpg / src-iced.jpg, background removed) · icon-sun / icon-sparkle

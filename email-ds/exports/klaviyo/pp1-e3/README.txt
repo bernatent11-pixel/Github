@@ -13,9 +13,10 @@ FLOW (Post-purchase, one-time Mate Latte buyers)
   Exit on Create Subscription Event from Appstle. Smart Sending ON.
 
 SECTIONS
-  1 Running low? · Your bag's / almost empty. On forest green. Text: 15 cups go fast; in the club you
-    save 30% on every order, with a fresh bag every month. Bernat's pantry photo (a hand placing the
-    pouch on a shelf, src-hero-100.webp), framed with rounded corners; gold "Join the club" button under it.
+  1 Bernat's pantry photo (a hand placing the pouch on a shelf, src-hero-100.webp) is the section's
+    BACKGROUND (hero-bg.jpg, 600x904; 390x588 on phones). On its darkened top: beige logo, "Running low?",
+    white title "Your bag's / almost empty." On its darkened bottom: 15 cups go fast; in the club you save
+    30% on every order, with a fresh bag every month; gold "Join the club" button.
   2 Your bag vs. your month · 15 cups go fast. / Your month has 30 mornings. Moves 15-serving buyers to 30:
     "A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there's no gap
     and no reordering." A white card with two month bars (30 day segments each, bar-15.png / bar-30.png):
@@ -25,10 +26,10 @@ SECTIONS
     15 servings $34.99 ($2.33 a cup, about two weeks) vs Mate Mornings Club 30 servings $48.99 (was
     $69.98; $1.63 a cup; badge "Double the cups"; "Twice the cups, a whole month of mornings").
   4 How the club works · Easy to start, / easy to change. On gold, forest discs with gold icons:
-    Save 30% (30% off every order, on 30 or 60 servings) · It shows up monthly (a fresh supply at your
+    Save every month (30% off every order, on 30 or 60 servings) · It shows up monthly (a fresh supply at your
     door every month) · You're in control (skip, pause or cancel anytime; no surprises).
-  5 The kitchen counter photo (latte, iced latte, pouch, nearly empty scoop) fading into cream ·
-    Never run out of / good mornings. + "Join the club" + free shipping / guarantee.
+  5 Bernat's windowsill photo (a hand on the pouch in the morning sun, src-final-101.webp) fading into
+    cream · Never run out of / good mornings. + "Join the club" + free shipping / guarantee.
   Footer on cream.
 
 LINKS (all to the Mate Latte page, where the subscription is picked; UTM post_purchase_mate_latte)

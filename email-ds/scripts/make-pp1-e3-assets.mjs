@@ -1,11 +1,10 @@
 // Art for post-purchase (one-time buyers) email 3, "Your bag's almost empty".
 //
-//   hero.jpg      the pouch on deep green (studio shot); top and bottom fade into flat
-//                 greens, so the title row above and the button row below read as one photo
+//   hero.jpg      Bernat's pantry photo (the pouch going onto a shelf), framed on the green hero
 //   logo-beige.png the Milonga lockup in beige, for the green hero
 //   bar-15.png    a month of mornings (30 day segments): the 15-serving bag covers half
 //   bar-30.png    ... and the 30-serving bag covers all of it, for "15 servings vs 30"
-//   step-*.png    gold discs with a forest line icon, for "how the club works"
+//   step-*.png    forest discs with a gold line icon, for "how the club works" (on gold)
 //   final.jpg     the kitchen counter: latte, iced latte, pouch and a nearly empty scoop;
 //                 its bottom fades into the cream of the closing text
 //   colors.json   the flat colours the photo edges fade into
@@ -37,16 +36,12 @@ function fade(data, w, y0, y1, col, toward) {
 
 const colors = {};
 
-// hero: the pouch on green, 1200x1088 (600x544 in the email)
+// hero: Bernat's pantry shot (src-hero-100.webp: a hand placing the pouch on a pantry shelf),
+// framed with rounded corners on the forest-green hero. 1040x1175 (520x587 in the email).
 {
-  const { data, info } = await sharp('public/product/pouch-studio-green.png').removeAlpha()
-    .extract({ left: 250, top: 290, width: 1500, height: 1360 }).resize({ width: 1200, height: 1088 }).raw().toBuffer({ resolveWithObject: true });
-  const w = info.width, h = info.height;
-  const top = rowMean(data, w, 0, 12), bot = rowMean(data, w, h - 12, h);
-  fade(data, w, 0, Math.round(h * 0.18), top, false);
-  fade(data, w, h - Math.round(h * 0.07), h, bot, true); // short: the button sits right under the pouch
-  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero.jpg`);
-  colors.heroTop = hex(top); colors.heroBottom = hex(bot); colors.heroH = h / 2;
+  await sharp('exports/klaviyo/pp1-e3/src-hero-100.webp').extract({ left: 0, top: 330, width: 1328, height: 1500 })
+    .resize({ width: 1040, height: 1175 }).removeAlpha().jpeg(jpg).toFile(`${OUT}/hero.jpg`);
+  colors.heroTop = '#004D27'; colors.heroBottom = '#004D27'; colors.heroW = 520; colors.heroH = 587;
 }
 await sharp('public/logo/lockup-milonga-beige.png').resize({ height: 180 }).png().toFile(`${OUT}/logo-beige.png`);
 
@@ -76,17 +71,18 @@ await sharp('public/logo/lockup-milonga-beige.png').resize({ height: 180 }).png(
 }
 
 // how the club works: forest line icons on gold discs (112px = 56 in the email)
-const stroke = 'fill="none" stroke="#004D27" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
+const stroke = 'fill="none" stroke="#E3BC62" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
 const STEPS = {
-  // pick your size: a tag with a percent
-  size: `<path d="M3.5 12.2V5.5a2 2 0 012-2h6.7l8.3 8.3a2 2 0 010 2.8l-5.9 5.9a2 2 0 01-2.8 0z" ${stroke}/><circle cx="8" cy="8" r="1.3" ${stroke}/><path d="M10.5 15.5l5-5" ${stroke}/>`,
-  // it shows up monthly: a box with a calendar loop arrow
+  // save 30% on every order: a percent sign in a badge
+  save: `<circle cx="12" cy="12" r="8.5" ${stroke}/><path d="M9 15l6-6" ${stroke}/><circle cx="9.3" cy="9.3" r="1.3" ${stroke}/><circle cx="14.7" cy="14.7" r="1.3" ${stroke}/>`,
+  // a fresh supply every month: a box
   monthly: `<path d="M3.5 7.5l8.5-4 8.5 4v9l-8.5 4-8.5-4z" ${stroke}/><path d="M3.5 7.5l8.5 4 8.5-4M12 11.5v9" ${stroke}/>`,
   // you're in control: pause
   control: `<circle cx="12" cy="12" r="8.5" ${stroke}/><path d="M10 8.8v6.4M14 8.8v6.4" ${stroke}/>`,
 };
+for (const f of fs.readdirSync(OUT)) if (f.startsWith('step-')) fs.rmSync(`${OUT}/${f}`);
 for (const [k, d] of Object.entries(STEPS)) {
-  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112"><circle cx="56" cy="56" r="56" fill="#E3BC62"/><g transform="translate(28 28) scale(2.333)">${d}</g></svg>`)).png().toFile(`${OUT}/step-${k}.png`);
+  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112"><circle cx="56" cy="56" r="56" fill="#004D27"/><g transform="translate(28 28) scale(2.333)">${d}</g></svg>`)).png().toFile(`${OUT}/step-${k}.png`);
 }
 
 fs.writeFileSync('exports/klaviyo/pp1-e3/colors.json', JSON.stringify(colors, null, 2) + '\n');

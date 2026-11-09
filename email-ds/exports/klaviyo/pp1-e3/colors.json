@@ -1,7 +1,8 @@
 {
-  "heroTop": "#104F38",
-  "heroBottom": "#156747",
-  "heroH": 544,
+  "heroTop": "#004D27",
+  "heroBottom": "#004D27",
+  "heroW": 520,
+  "heroH": 587,
   "finalH": 510,
   "barW": 520,
   "barH": 20

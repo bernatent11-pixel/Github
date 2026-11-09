@@ -55,8 +55,8 @@ const CLUB = [
   { icon: 'icon-pause.png', text: 'Skip, pause or cancel anytime' },
 ];
 const HOW = [
-  { img: 'step-size.png', t: 'Pick your size', d: '30 or 60 servings, with 30% off <span style="white-space:nowrap;">every order.</span>' },
-  { img: 'step-monthly.png', t: 'It shows up monthly', d: 'A fresh bag at your door every month. <span style="white-space:nowrap;">No reordering.</span>' },
+  { img: 'step-save.png', t: 'Save 30%', d: '30% off every order, on 30 or <span style="white-space:nowrap;">60 servings.</span>' },
+  { img: 'step-monthly.png', t: 'It shows up monthly', d: 'A fresh supply at your door <span style="white-space:nowrap;">every month.</span>' },
   { img: 'step-control.png', t: 'You’re in control', d: 'Skip, pause or cancel anytime. <span style="white-space:nowrap;">No surprises.</span>' },
 ];
 
@@ -106,6 +106,7 @@ const STYLE = `<style>
     .bg-cream { background-color:${CREAM} !important; }
     .bg-page { background-color:${BEIGE} !important; }
     .bg-forest { background-color:${FOREST} !important; }
+    .bg-gold { background-color:${GOLD} !important; }
   }
 </style>`;
 
@@ -161,21 +162,20 @@ ${club}
 
   const how = HOW.map((s) => `<td class="how" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
 <img class="how-img" src="${img(s.img)}" width="56" height="56" alt="" role="presentation" style="display:block;margin:0 auto;width:56px;height:56px;border:0;">
-<div class="how-t" style="padding-top:14px;font-size:15px;line-height:19px;font-weight:700;color:${BEIGE};">${ent(s.t)}</div>
-<div class="how-d" style="padding-top:6px;font-size:13px;line-height:19px;font-weight:500;color:${MINT};">${ent(s.d)}</div>
+<div class="how-t" style="padding-top:14px;font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${ent(s.t)}</div>
+<div class="how-d" style="padding-top:6px;font-size:13px;line-height:19px;font-weight:500;color:${INK};">${ent(s.d)}</div>
 </td>`).join('\n');
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · RUNNING LOW? The pouch on green: the photo's top and bottom fade
-     into the flat greens of the title row above and the button row below ── -->
+<!-- ── 1 · RUNNING LOW? On forest green: the pantry photo, framed, then the button ── -->
 ${row(C.heroTop, 'pad bg-hero-top', 'padding:34px 40px 8px;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:30px;">${eyebrow('Running low?', GOLD)}</div>
 ${title('Your bag’s', 'almost empty.', 'h-hero', 54, BEIGE, 10)}
 ${lead(`${ent('15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings')} ${nw('never skip a beat.')}`, MINT)}`)}
-<tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.photo)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="The Mate Latte pouch on deep green" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
+<tr><td class="pad-photo bg-hero-top" align="center" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:26px 40px 30px;font-size:0;line-height:0;"><a href="${amp(L.photo)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="${C.heroW}" height="${C.heroH}" alt="A hand placing the Mate Latte pouch on a pantry shelf" style="display:block;margin:0 auto;width:${C.heroW}px;height:${C.heroH}px;border:0;border-radius:22px;"></a></td></tr>
 ${row(C.heroBottom, 'pad bg-hero', 'padding:0 40px 52px;', button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A'))}
 
 <!-- ── 2 · 15 SERVINGS VS 30: a month of mornings, one segment a day. The
@@ -196,20 +196,19 @@ ${['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((w) => `<td class="month-wk" widt
 </td></tr>
 
 <!-- ── 3 · ONE-TIME OR THE CLUB, SIDE BY SIDE (the cards from cart E1) ── -->
-${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Keep it going for less')}
+${row(CREAM, 'pad bg-cream', 'padding:4px 40px 0;', `${eyebrow('Keep it going for less')}
 ${title('Same Mate Latte,', '30% less.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 26px;">
+<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:28px 30px 60px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 ${oneTime}
 ${subscribe}
 </tr></table>
 </td></tr>
-${row(BEIGE, 'pad bg-page', 'padding:0 40px 56px;', `<div style="font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;font-style:italic;color:${FOREST};">${ent('Twice the cups for just $14 more.')}</div>`)}
 
 <!-- ── 4 · HOW THE CLUB WORKS ─────────────────────────────────────── -->
-${row(FOREST, 'pad bg-forest', 'padding:56px 40px 0;', `${eyebrow('How the club works', GOLD)}
-${title('Easy to start,', 'easy to change.', 'h-sec', 40, BEIGE)}`)}
-<tr><td class="pad-photo bg-forest" bgcolor="${FOREST}" style="background-color:${FOREST};padding:34px 30px 60px;">
+${row(GOLD, 'pad bg-gold', 'padding:56px 40px 0;', `${eyebrow('How the club works')}
+${title('Easy to start,', 'easy to change.', 'h-sec', 40)}`)}
+<tr><td class="pad-photo bg-gold" bgcolor="${GOLD}" style="background-color:${GOLD};padding:34px 30px 60px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${how}
 </tr></table>

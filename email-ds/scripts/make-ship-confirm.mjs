@@ -57,7 +57,7 @@ const ITEM = {
   qty: "{{ item.quantity|default:'1' }}",
 };
 const L = { home: `${SITE}/?${utm('sc_logo')}` };
-const HELP = 'info@milongamate.com';
+const HELP = 'orders@milongamate.com';
 
 const STEPS = [
   { img: 'step-confirmed.png', t: 'Order confirmed', s: 'Done', c: SOFT },
@@ -199,12 +199,7 @@ ${steps}
 </tr></table>
 </td></tr>
 
-<!-- ── 4 · WHEN IT LANDS: the recipe (product page) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('When it lands')}
-${title('30 seconds', 'to a great cup.', 'h-sec', 40)}
-${lead(`${ent('Scoop 2.5 tablespoons into 8oz of hot or cold milk or water, then stir or froth. Hot or iced, it’s ready in')} ${nw('30 seconds.')} ${ent('Tip: have your favorite milk and a frother ready')} ${nw('for day one.')}`, INK)}`)}
-
-<!-- ── 5 · NEED HELP? ── -->
+<!-- ── 4 · NEED HELP? ── -->
 ${row(CREAM, 'pad bg-cream', 'padding:48px 40px 0;', `<div style="margin:0 auto;width:60px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
 <div style="padding-top:28px;font-family:${SERIF};font-size:26px;line-height:30px;font-weight:700;font-style:italic;color:${FOREST};">Questions about your delivery?</div>
 <div style="padding-top:10px;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Just reply to this email, or write to us at')} <a href="mailto:${HELP}" style="color:${FOREST};font-weight:700;text-decoration:underline;">${HELP}</a>. ${ent('We’re happy to help.')}</div>`)}

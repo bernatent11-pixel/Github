@@ -27,7 +27,7 @@ SECTIONS
   3 What happens next · From our hands / to your door. Order confirmed · Packed and shipped · At your door.
   4 Track it anytime · Where's my order? Two easy ways to check:
     1. "Track my order" in this email (no login), 2. their Milonga account (outlined "Log in to my account").
-  5 Questions about your order? Reply, or info@milongamate.com (from the site footer).
+  5 Questions about your order? Reply, or orders@milongamate.com.
   Footer on cream.
 
 TAGS (Placed Order event, Shopify; render-checked in Klaviyo 2026-11-09, with an order and with none)
@@ -48,4 +48,4 @@ LINKS
   Log in to my account             https://milonga.life/account -> Shopify customer accounts
                                    (sign in with a one-time code sent to the order email)
   Logo / milonga.life              https://milonga.life/?utm_…oc_logo
-  Email                            mailto:info@milongamate.com
+  Email                            mailto:orders@milongamate.com

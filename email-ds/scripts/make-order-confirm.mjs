@@ -53,7 +53,7 @@ const ITEM = {
   price: "{{ item.price_set.presentment_money.amount|default:'' }}",
 };
 const L = { account: `${SITE}/account`, home: `${SITE}/?${utm('oc_logo')}` };
-const HELP = 'info@milongamate.com';
+const HELP = 'orders@milongamate.com';
 
 const STEPS = [
   { img: 'step-confirmed.png', t: 'Order confirmed', d: 'We’ve got it. You’re <span style="white-space:nowrap;">all set.</span>' },

@@ -23,9 +23,7 @@ SECTIONS
     this shipment only) · Carrier · Tracking number · Order. "View my order".
   3 Where it is now · Packed, shipped / and almost there. Order confirmed (done) · Shipped (on its way
     now) · At your door (coming soon).
-  4 When it lands · 30 seconds / to a great cup. The product-page recipe + "have your milk and a
-    frother ready for day one".
-  5 Questions about your delivery? Reply, or info@milongamate.com. Footer on cream.
+  4 Questions about your delivery? Reply, or orders@milongamate.com. Footer on cream.
 
 TAGS (Confirmed Shipment event; seen on a real UPS shipment 2026-11-09; render-checked in Klaviyo)
   {{ first_name|default:'there' }}

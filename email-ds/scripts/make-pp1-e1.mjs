@@ -59,8 +59,8 @@ const STYLE = `<style>
   table { border-collapse:collapse; }
   img { -ms-interpolation-mode:bicubic; }
   a { color:inherit; }
-  .unsub-pill a { color:${BEIGE} !important; text-decoration:none !important; }
-  .web-view-line a { color:${BEIGE} !important; }
+  .unsub-pill a { color:#004D27 !important; text-decoration:none !important; }
+  .web-view-line a { color:#3B5344 !important; }
   @media only screen and (max-width:480px) {
     .wrap { width:100% !important; }
     .pad { padding-left:24px !important; padding-right:24px !important; }
@@ -69,10 +69,10 @@ const STYLE = `<style>
     .hero { height:637px !important; background-size:cover !important; }
     .hero-top { padding:18px 24px 0 !important; }
     .hero-logo { width:57px !important; height:60px !important; }
-    .hero-title { font-size:48px !important; line-height:48px !important; }
+    .hero-title { font-size:42px !important; line-height:44px !important; }
     .hero-title1 { padding-top:26px !important; }
     .hero-welcome { padding-top:4px !important; font-size:12px !important; line-height:16px !important; }
-    .hero-gap { height:284px !important; line-height:284px !important; }
+    .hero-gap { height:292px !important; line-height:292px !important; }
     .hero-lead { width:128px !important; }
     .hero-text { padding-right:16px !important; }
     .hero-eyebrow { font-size:9px !important; line-height:12px !important; letter-spacing:1.5px !important; }
@@ -127,14 +127,14 @@ function body(img) {
 </td>`;
 
   // one moment: photo on one side, text on the other (flip = photo on the right)
-  const moment = (m, flip) => `<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:28px 30px 0;">
+  const moment = (m, flip) => `<tr><td class="pad-photo bg-forest" bgcolor="${FOREST}" style="background-color:${FOREST};padding:28px 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="${flip ? 'rtl' : 'ltr'}" style="table-layout:fixed;"><tr>
 <td class="m-img" width="250" valign="middle" dir="ltr" style="width:250px;padding:0;"><img class="m-photo" src="${img(m.img)}" width="250" height="312" alt="${m.alt}" style="display:block;width:250px;height:312px;border:0;border-radius:18px;"></td>
 <td class="m-gap" width="26" style="width:26px;font-size:0;line-height:0;">&nbsp;</td>
 <td class="m-text" valign="middle" dir="ltr" style="text-align:left;font-family:${FONT};">
-<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">${ent(m.when)}</div>
-<div class="m-title" style="padding-top:8px;font-family:${SERIF};font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:${FOREST};">${ent(m.title)}</div>
-<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${m.text}</div>
+<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">${ent(m.when)}</div>
+<div class="m-title" style="padding-top:8px;font-family:${SERIF};font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:${BEIGE};">${ent(m.title)}</div>
+<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:#DCE3D6;">${m.text}</div>
 </td></tr></table>
 </td></tr>`;
 
@@ -149,11 +149,11 @@ function body(img) {
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:980px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};">
 <a href="${amp(L.home)}" target="_blank" style="display:block;text-align:center;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div class="hero-title hero-title1" style="padding-top:42px;font-family:${SERIF};font-size:76px;line-height:76px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
-<div class="hero-title" style="font-family:${SERIF};font-size:76px;line-height:76px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
+<div class="hero-title hero-title1" style="padding-top:42px;font-family:${SERIF};font-size:64px;line-height:66px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:64px;line-height:66px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
 <div class="hero-welcome" style="padding-top:14px;font-size:18px;line-height:23px;font-weight:500;color:#FFFFFF;">Welcome to better mornings.</div>
 </div>
-<div class="hero-gap" style="height:430px;line-height:430px;font-size:0;">&nbsp;</div>
+<div class="hero-gap" style="height:450px;line-height:450px;font-size:0;">&nbsp;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 <td class="hero-lead" width="215" style="width:215px;font-size:0;line-height:0;">&nbsp;</td>
 <td class="hero-text" valign="top" style="padding:0 32px 0 0;font-family:${FONT};text-align:left;">
@@ -187,20 +187,20 @@ ${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'I
 
 <!-- ── 4 · WHEN TO ENJOY IT: three moments, photo and text alternating sides
      (dir="rtl" swaps the middle row on desktop; phones stack photo above text) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('When to enjoy it')}
-${title('Your first week', 'with Mate Latte.', 'h-sec', 40)}`)}
+${row(FOREST, 'pad bg-forest', 'padding:56px 40px 0;', `${eyebrow('When to enjoy it', GOLD)}
+${title('Your first week', 'with Mate Latte.', 'h-sec', 40, BEIGE)}`)}
 ${MOMENTS.map((m, i) => moment(m, i % 2 === 1)).join('\n')}
 
-<tr><td class="bg-cream" bgcolor="${CREAM}" height="56" style="height:56px;line-height:56px;font-size:0;background-color:${CREAM};">&nbsp;</td></tr>
+<tr><td class="bg-forest" bgcolor="${FOREST}" height="56" style="height:56px;line-height:56px;font-size:0;background-color:${FOREST};">&nbsp;</td></tr>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
-<tr><td class="bg-forest" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};padding:52px 30px 44px;font-family:${FONT};color:${BEIGE};">
-<a href="${amp(L.home)}" target="_blank"><img src="${img('mark-beige.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
-<div style="padding-top:18px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><a href="${amp(L.home)}" target="_blank" style="color:${BEIGE};text-decoration:none;">milonga.life</a></div>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;border-collapse:separate;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${BEIGE};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
-<div class="web-view-line" style="padding-top:12px;font-size:11px;font-weight:500;color:${BEIGE};">{% web_view %}</div>
-<div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:500;color:#C9D3C4;">Contains caffeine. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</div>
-<div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${BEIGE};">{{ organization.name }} &middot; {{ organization.full_address }}</div>
+<tr><td class="bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:52px 30px 40px;font-family:${FONT};color:${FOREST};">
+<a href="${amp(L.home)}" target="_blank"><img src="${img('mark-green.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
+<div style="padding-top:18px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><a href="${amp(L.home)}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;border-collapse:separate;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${FOREST};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
+<div class="web-view-line" style="padding-top:12px;font-size:11px;font-weight:500;color:${SOFT};">{% web_view %}</div>
+<div style="padding-top:18px;font-size:11px;line-height:1.55;font-weight:500;color:${SOFT};">Contains caffeine. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</div>
+<div style="padding-top:14px;font-size:11px;line-height:1.55;font-weight:700;color:${FOREST};">{{ organization.name }} &middot; {{ organization.full_address }}</div>
 </td></tr>
 
 </table>

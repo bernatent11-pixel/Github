@@ -20,7 +20,7 @@ FLOW: "Post Purchase · Mate Latte (one-time)", a NEW flow, separate from the ge
 SECTIONS
   1 Bernat's photo (pouch in hand over marble, latte beside it) is the section's BACKGROUND (hero-bg.jpg,
     600x980; 390x637 on phones). On it: white logo centered at the top; large white title "Your first cup, /
-    done right." (76px, 48px on phones, set lower, clear of the logo) left-aligned + "Welcome to better mornings." (a soft dark fade over
+    done right." (64px, 42px on phones, set lower, clear of the logo) left-aligned + "Welcome to better mornings." (a soft dark fade over
     the top half keeps them readable); at the bottom right, over a soft dark fade on the bottom third:
     "Thank you for your order" in gold + the brand promise in white ("clean energy, focus and calm in a cup
     that tastes like a treat", product page) + what follows.
@@ -29,12 +29,12 @@ SECTIONS
     water or milk · Stir or froth (product page recipe). The photo's bottom fades into warm beige #F2EADE.
   3 Hot or iced, / it's all yours. Continues on that warm beige (#F2EADE), no boxes: Bernat's hot mug and
     iced glass with the background removed (Higgsfield; the small hot photo upscaled first), same size.
-  4 When to enjoy it · Your first week / with Mate Latte. Three moments, photo and text alternating
+  4 When to enjoy it · Your first week / with Mate Latte. On dark green (#004D27): gold eyebrows, beige titles. Three moments, photo and text alternating
     (left, right, left; stacked on phones), Bernat's photos:
       First thing in the morning · Your new morning ritual (balcony)
       When it's time to focus · Your deep-work partner (laptop; 100mg caffeine, about a cup of coffee)
       With your people · Better shared (friends after a run; one bag makes 15 cups)
-  Footer on dark green (#004D27): beige mark, milonga.life, unsubscribe, web view, FDA line, address.
+  Footer on cream: green mark, milonga.life, unsubscribe, web view, FDA line, address.
     (No closing club section: this email only teaches the first cup; the club ask is E3.)
 
 LINKS (UTM utm_campaign=post_purchase_mate_latte)

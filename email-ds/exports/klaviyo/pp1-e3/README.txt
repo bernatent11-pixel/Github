@@ -13,19 +13,20 @@ FLOW (Post-purchase, one-time Mate Latte buyers)
   Exit on Create Subscription Event from Appstle. Smart Sending ON.
 
 SECTIONS
-  1 Running low? · Your bag's / almost empty. On deep green; the studio pouch photo fades into the
-    flat greens above and below (hero.jpg). Text: 15 cups go fast; in the club you save 30% on every
-    order, with a fresh bag every month. Gold "Join the club" button right under the pouch.
+  1 Running low? · Your bag's / almost empty. On forest green. Text: 15 cups go fast; in the club you
+    save 30% on every order, with a fresh bag every month. Bernat's pantry photo (a hand placing the
+    pouch on a shelf, src-hero-100.webp), framed with rounded corners; gold "Join the club" button under it.
   2 Your bag vs. your month · 15 cups go fast. / Your month has 30 mornings. Moves 15-serving buyers to 30:
     "A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there's no gap
     and no reordering." A white card with two month bars (30 day segments each, bar-15.png / bar-30.png):
     15 servings · $34.99 one-time -> half filled, "Runs out mid-month";
     30 servings · in the club, $48.99 -> all filled, "Covers the whole month"; Week 1-4 under them.
-  3 Keep it going for less · Same Mate Latte, / 30% less. Cards: one-time 15 servings $34.99 ($2.33 a cup, about two weeks) vs Mate Mornings Club 30 servings
-    $48.99 (was $69.98; $1.63 a cup; badge "Double the cups") + "Twice the cups for just $14 more."
-    ($48.99 - $34.99 = $14.00.)
-  4 How the club works · Easy to start, / easy to change. On forest green: Pick your size (30 or 60,
-    30% off) · It shows up monthly · You're in control (skip, pause or cancel anytime).
+  3 Keep it going for less · Same Mate Latte, / 30% less. On the same cream as section 2. Cards: one-time
+    15 servings $34.99 ($2.33 a cup, about two weeks) vs Mate Mornings Club 30 servings $48.99 (was
+    $69.98; $1.63 a cup; badge "Double the cups"; "Twice the cups, a whole month of mornings").
+  4 How the club works · Easy to start, / easy to change. On gold, forest discs with gold icons:
+    Save 30% (30% off every order, on 30 or 60 servings) · It shows up monthly (a fresh supply at your
+    door every month) · You're in control (skip, pause or cancel anytime; no surprises).
   5 The kitchen counter photo (latte, iced latte, pouch, nearly empty scoop) fading into cream ·
     Never run out of / good mornings. + "Join the club" + free shipping / guarantee.
   Footer on cream.

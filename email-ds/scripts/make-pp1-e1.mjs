@@ -36,7 +36,7 @@ const nw = (s) => `<span style="white-space:nowrap;">${s}</span>`;
 
 // the three steps (a real sequence, so they are numbered)
 const STEPS = [
-  { n: '1', t: 'Scoop', d: `${nw('2.5 tablespoons')} of Mate Latte into your mug or glass.` },
+  { n: '1', t: 'Scoop', d: `${nw('2.5 tablespoons')} of Mate Latte into your ${nw('mug or glass.')}` },
   { n: '2', t: 'Pour', d: `${nw('8oz of')} hot or cold water or milk. Milk makes it extra creamy.` },
   { n: '3', t: 'Stir or froth', d: `Stir it in, or froth it for a ${nw('café-style')} foam.` },
 ];

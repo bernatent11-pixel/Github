@@ -22,7 +22,7 @@ FLOW
 
 THE CART ROWS (in the HTML)
   Each row shows the FIRST item of the Added to Cart event's "items" list:
-    image {{ event.items.0.image }} · name {{ event.items.0.product_title }}
+    photo: our Mate Latte pouch (fixed image, so it shows in the editor too) · name {{ event.items.0.product_title }}
     size {{ event.items.0.variant_title }} · Qty {{ event.items.0.quantity }}
     price ${{ event.items.0.presentment_price }} (the price per bag as it sits in their cart, in
     dollars; seen in a real event as 69.98 for 30 servings. The other price fields are in cents.)
@@ -34,6 +34,9 @@ THE CART ROWS (in the HTML)
   ($40.8). The Mate Latte's prices ($34.99 / $69.98 / $139.96) all print in full.
   In the Checkout Abandon flow (Checkout Started) the items live elsewhere
   (event.extra.line_items), so there the rows fall back to the Mate Latte defaults.
+  Klaviyo's editor shows the {{ … }} tags as raw code (it has no cart to fill them with); the
+  layout is locked to 600px so it still looks tidy there. Use "Preview & test" with a profile that
+  has a recent Added to Cart event to see the real name, size, quantity and price.
   Page: set the code template's background to #FFFFFF (the email's <body> already is).
 
 LINKS

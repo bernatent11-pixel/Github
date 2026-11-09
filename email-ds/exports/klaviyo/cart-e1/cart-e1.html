@@ -31,7 +31,7 @@
     .edge-dose { font-size:24px !important; line-height:26px !important; }
     .edge-name { font-size:12px !important; line-height:15px !important; }
     .edge-text { font-size:11.5px !important; line-height:15px !important; }
-    .cart-price { font-size:18px !important; padding-right:14px !important; }
+    .cart-price { width:80px !important; font-size:18px !important; padding-right:14px !important; }
     .cart-title { font-size:14px !important; line-height:19px !important; }
     .pill a { padding:10px 14px !important; font-size:11px !important; letter-spacing:1px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
@@ -57,7 +57,7 @@
 -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
 <!-- ── 1 · YOUR MATE LATTE IS WAITING (the photo is the section's background:
      its top and bottom fade into the flat golds of the rows around it, and the
@@ -70,14 +70,14 @@
 <div style="padding-top:14px;font-size:16px;line-height:24px;font-weight:500;color:#12331F;">We saved your cart, so it&rsquo;s right where you left it. <span style="white-space:nowrap;">Here&rsquo;s what&rsquo;s inside:</span></div>
 </td></tr>
 <tr><td class="pad-photo bg-hero" bgcolor="#D5A262" style="background-color:#D5A262;padding:6px 30px 4px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;background-color:#FFFFFF;border-radius:18px;"><tr>
-<td class="cart-img" width="88" valign="middle" style="width:88px;padding:14px 0 14px 16px;"><a href="{{ event.extra.checkout_url|default:'https://milonga.life/cart' }}" target="_blank"><img src="{{ event.items.0.image|default:'https://cdn.klaviyomail.com/company/TwvSnK/images/dd3e85e8-9b20-404f-99b8-4c8516057d55.png' }}" width="72" height="72" alt="Your Mate Latte" style="display:block;width:72px;height:72px;border:0;border-radius:10px;object-fit:contain;"></a></td>
-<td valign="middle" style="padding:14px 18px 14px 14px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;table-layout:fixed;background-color:#FFFFFF;border-radius:18px;"><tr>
+<td class="cart-img" width="88" valign="middle" style="width:88px;padding:14px 0 14px 16px;"><a href="{{ event.extra.checkout_url|default:'https://milonga.life/cart' }}" target="_blank"><img src="https://cdn.klaviyomail.com/company/TwvSnK/images/dd3e85e8-9b20-404f-99b8-4c8516057d55.png" width="72" height="72" alt="Your Mate Latte" style="display:block;width:72px;height:72px;border:0;border-radius:10px;object-fit:contain;"></a></td>
+<td valign="middle" style="padding:14px 10px 14px 14px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;word-break:break-word;overflow-wrap:anywhere;">
 <div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3B5344;">In your cart</div>
 <div class="cart-title" style="padding-top:4px;font-size:16px;line-height:21px;font-weight:700;color:#12331F;">{{ event.items.0.product_title|default:'The Original Mate Latte - Vanilla' }}</div>
 <div style="padding-top:3px;font-size:13px;line-height:18px;font-weight:500;color:#3B5344;">{{ event.items.0.variant_title|default:'15 Servings' }} &middot; Qty {{ event.items.0.quantity|default:'1' }}</div>
 </td>
-<td class="cart-price" align="right" valign="middle" style="padding:14px 18px 14px 0;font-family:'Times New Roman',Times,Georgia,serif;font-size:22px;line-height:24px;font-weight:700;color:#004D27;white-space:nowrap;">${{ event.items.0.presentment_price|default:'34.99' }}</td>
+<td class="cart-price" width="96" align="right" valign="middle" style="width:96px;padding:14px 18px 14px 0;font-family:'Times New Roman',Times,Georgia,serif;font-size:22px;line-height:24px;font-weight:700;color:#004D27;word-break:break-word;overflow-wrap:anywhere;">${{ event.items.0.presentment_price|default:'34.99' }}</td>
 </tr></table>
 </td></tr>
 
@@ -90,7 +90,7 @@
 -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
 <!-- ── 1 (continued) · the button, on the same gold as the cart above ── -->
 <tr><td class="pad bg-hero" align="center" bgcolor="#D5A262" style="background-color:#D5A262;padding:14px 40px 52px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
@@ -186,14 +186,14 @@
 <div class="h-sec" style="font-family:'Times New Roman',Times,Georgia,serif;font-size:34px;line-height:38px;font-weight:700;font-style:italic;color:#004D27;">Ready when you are.</div>
 </td></tr>
 <tr><td class="pad-photo bg-table" bgcolor="#EDE4D9" style="background-color:#EDE4D9;padding:6px 30px 4px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;background-color:#FFFFFF;border-radius:18px;"><tr>
-<td class="cart-img" width="88" valign="middle" style="width:88px;padding:14px 0 14px 16px;"><a href="{{ event.extra.checkout_url|default:'https://milonga.life/cart' }}" target="_blank"><img src="{{ event.items.0.image|default:'https://cdn.klaviyomail.com/company/TwvSnK/images/dd3e85e8-9b20-404f-99b8-4c8516057d55.png' }}" width="72" height="72" alt="Your Mate Latte" style="display:block;width:72px;height:72px;border:0;border-radius:10px;object-fit:contain;"></a></td>
-<td valign="middle" style="padding:14px 18px 14px 14px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;table-layout:fixed;background-color:#FFFFFF;border-radius:18px;"><tr>
+<td class="cart-img" width="88" valign="middle" style="width:88px;padding:14px 0 14px 16px;"><a href="{{ event.extra.checkout_url|default:'https://milonga.life/cart' }}" target="_blank"><img src="https://cdn.klaviyomail.com/company/TwvSnK/images/dd3e85e8-9b20-404f-99b8-4c8516057d55.png" width="72" height="72" alt="Your Mate Latte" style="display:block;width:72px;height:72px;border:0;border-radius:10px;object-fit:contain;"></a></td>
+<td valign="middle" style="padding:14px 10px 14px 14px;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;word-break:break-word;overflow-wrap:anywhere;">
 <div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3B5344;">In your cart</div>
 <div class="cart-title" style="padding-top:4px;font-size:16px;line-height:21px;font-weight:700;color:#12331F;">{{ event.items.0.product_title|default:'The Original Mate Latte - Vanilla' }}</div>
 <div style="padding-top:3px;font-size:13px;line-height:18px;font-weight:500;color:#3B5344;">{{ event.items.0.variant_title|default:'15 Servings' }} &middot; Qty {{ event.items.0.quantity|default:'1' }}</div>
 </td>
-<td class="cart-price" align="right" valign="middle" style="padding:14px 18px 14px 0;font-family:'Times New Roman',Times,Georgia,serif;font-size:22px;line-height:24px;font-weight:700;color:#004D27;white-space:nowrap;">${{ event.items.0.presentment_price|default:'34.99' }}</td>
+<td class="cart-price" width="96" align="right" valign="middle" style="width:96px;padding:14px 18px 14px 0;font-family:'Times New Roman',Times,Georgia,serif;font-size:22px;line-height:24px;font-weight:700;color:#004D27;word-break:break-word;overflow-wrap:anywhere;">${{ event.items.0.presentment_price|default:'34.99' }}</td>
 </tr></table>
 </td></tr>
 
@@ -206,7 +206,7 @@
 -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
 <!-- ── 3 (continued) · the closing button, on the same cream as cart 2 above ── -->
 <tr><td class="pad bg-table" align="center" bgcolor="#EDE4D9" style="background-color:#EDE4D9;padding:14px 40px 0;font-family:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;">

@@ -106,7 +106,7 @@ const STYLE = `<style>
     .edge-dose { font-size:24px !important; line-height:26px !important; }
     .edge-name { font-size:12px !important; line-height:15px !important; }
     .edge-text { font-size:11.5px !important; line-height:15px !important; }
-    .cart-price { font-size:18px !important; padding-right:14px !important; }
+    .cart-price { width:80px !important; font-size:18px !important; padding-right:14px !important; }
     .cart-title { font-size:14px !important; line-height:19px !important; }
     .pill a { padding:10px 14px !important; font-size:11px !important; letter-spacing:1px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
@@ -125,7 +125,7 @@ const STYLE = `<style>
 // design keeps its own colours inside the 600px column.
 const open = () => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">`;
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">`;
 const close = `</table>
 </td></tr>
 </table>`;
@@ -270,7 +270,9 @@ ${close}`;
 // Their cart, in code: the first item of the Added to Cart event's items list.
 // Defaults (no event, or an empty list) show the Mate Latte pouch.
 const ITEM = {
-  image: "{{ event.items.0.image|default:'__POUCH__' }}",
+  // the photo is our own Mate Latte pouch (the same for every size), so it always
+  // loads, in Klaviyo's editor too, where a tag-built image shows as broken
+  image: '__POUCH__',
   title: "{{ event.items.0.product_title|default:'The Original Mate Latte - Vanilla' }}",
   size: "{{ event.items.0.variant_title|default:'15 Servings' }}",
   // the price per bag as it sits in their cart (dollars; the other price fields are in cents)
@@ -280,14 +282,14 @@ const ITEM = {
 function cartRow(img, bg, cls, pad, sample) {
   const v = sample ? { image: img('cart-pouch.png'), title: 'The Original Mate Latte - Vanilla', size: '30 Servings', qty: '1', price: '$69.98' } : { ...ITEM, image: ITEM.image.replace('__POUCH__', img('cart-pouch.png')) };
   return `<tr><td class="pad-photo ${cls}" bgcolor="${bg}" style="background-color:${bg};padding:${pad};">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;background-color:#FFFFFF;border-radius:18px;"><tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;table-layout:fixed;background-color:#FFFFFF;border-radius:18px;"><tr>
 <td class="cart-img" width="88" valign="middle" style="width:88px;padding:14px 0 14px 16px;"><a href="${amp(L.cart())}" target="_blank"><img src="${v.image}" width="72" height="72" alt="Your Mate Latte" style="display:block;width:72px;height:72px;border:0;border-radius:10px;object-fit:contain;"></a></td>
-<td valign="middle" style="padding:14px 18px 14px 14px;font-family:${FONT};">
+<td valign="middle" style="padding:14px 10px 14px 14px;font-family:${FONT};word-break:break-word;overflow-wrap:anywhere;">
 <div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">In your cart</div>
 <div class="cart-title" style="padding-top:4px;font-size:16px;line-height:21px;font-weight:700;color:${INK};">${v.title}</div>
 <div style="padding-top:3px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">${v.size} &middot; Qty ${v.qty}</div>
 </td>
-<td class="cart-price" align="right" valign="middle" style="padding:14px 18px 14px 0;font-family:${SERIF};font-size:22px;line-height:24px;font-weight:700;color:${FOREST};white-space:nowrap;">${v.price}</td>
+<td class="cart-price" width="96" align="right" valign="middle" style="width:96px;padding:14px 18px 14px 0;font-family:${SERIF};font-size:22px;line-height:24px;font-weight:700;color:${FOREST};word-break:break-word;overflow-wrap:anywhere;">${v.price}</td>
 </tr></table>
 </td></tr>`;
 }

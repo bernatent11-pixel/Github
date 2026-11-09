@@ -42,9 +42,16 @@ THE 15-SERVING VERSION, FOR REFERENCE
       cream · Never run out of / good mornings. + "Join the club" + free shipping / guarantee.
     Footer on cream.
   
-  LINKS (all to the Mate Latte page, where the subscription is picked; UTM post_purchase_mate_latte)
-    pp3_hero_button · pp3_hero_photo · pp3_onetime_link · pp3_club_card · pp3_final_button · pp3_logo
-  
+  LINKS (Bernat, 2026-11-09: the club buttons open the Mate Latte page with the Mate Mornings Club
+    subscription and the size already picked)
+    Join the club (hero, club card, last button):
+      15 and 30 versions: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174  (30 servings, club)
+      60 version:         https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750277942  (60 servings, club)
+    Buy one-time: the same page on their card's size, no subscription (?variant=54302750212406 / 54302750245174 / 54302750277942)
+    Each link ends with UTM tags (utm_campaign=post_purchase_mate_latte, utm_content=pp3_hero_button, pp3_club_card,
+    pp3_final_button, pp3_onetime_link); logo / milonga.life -> homepage (pp3_logo).
+    Selling plan 8837562678 = "Mate Mornings Club Subscription", 30% off, on the 30 and 60-serving variants (Shopify).
+
   FACTS USED (Shopify / product page, checked 2026-11-07)
     15 servings per bag (1 serving = 1 cup). One-time 15 servings $34.99 ($2.33 a cup), 30 servings $69.98;
     Mate Mornings Club 30% off 30 or 60 servings: $48.99 for 30 ($1.63 a cup); monthly;

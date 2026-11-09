@@ -1,8 +1,8 @@
 // Art for post-purchase (one-time buyers) email 1, "Your first cup, done right".
 //
-//   hero.jpg      Bernat's photo: the pouch in hand over marble, a latte beside it,
-//                 fading into light marble at the bottom (the title sits there)
-//   scoop.png     a hand scooping into a glass beside the pouch (cutout), for the steps
+//   hero-bg.jpg   Bernat's photo as the opening section's background (text on it)
+//   logo-white.png the Milonga lockup in white, for the dark top of the photo
+//   howto.jpg     Bernat's photo of a scoop going into a glass mug, for the steps
 //   hot.png       a hot Mate Latte from above (cutout), for the hot card
 //   iced.jpg      an iced Mate Latte in hand, square crop, for the iced card
 //   icon-*.png    line icons (forest, 2x) for "when to drink it" and "what to expect"
@@ -15,20 +15,24 @@ const OUT = 'exports/klaviyo/pp1-e1/img';
 fs.mkdirSync(OUT, { recursive: true });
 const jpg = { quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' };
 
-// hero: Bernat's photo (src-hero-95.webp: a hand holding the pouch over marble, a
-// latte beside it). Its bottom fades into light marble (#F3F0EF) so the logo,
-// the title and the intro sit on the same background, in rows below it.
+// hero-bg.jpg: Bernat's photo (src-hero-95.webp: the pouch in hand over marble, a
+// latte beside it) as the opening section's BACKGROUND. The live text sits on it:
+// the white logo centered at the top and the white title left-aligned (a soft dark
+// fade over the top half keeps them readable), the intro on the marble under the bag.
+// 1200x1960 = 600x980 on desktop; phones show the same image at 390x637.
 {
-  const MARBLE = [0xF3, 0xF0, 0xEF];
-  const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-hero-95.webp').extract({ left: 0, top: 260, width: 1116, height: 1488 }).resize({ width: 1200 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  const w = info.width, h = info.height, F = Math.round(h * 0.3);
-  for (let y = h - F; y < h; y++) {
-    const t = (y - (h - F)) / F, k = Math.pow(t * t * (3 - 2 * t), 0.9);
-    for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + MARBLE[c] * k); }
+  const W = 1200, H = 1960;
+  const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-hero-95.webp').extract({ left: 0, top: 0, width: 1116, height: 1823 }).resize({ width: W, height: H, fit: 'cover' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const S = Math.round(H * 0.5);
+  for (let y = 0; y < S; y++) {
+    const a = 0.62 * Math.pow(1 - y / S, 1.3);
+    for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) { const i = (y * W + x) * 3 + c; data[i] = Math.round(data[i] * (1 - a)); }
   }
-  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero.jpg`);
+  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero-bg.jpg`);
 }
-await sharp('public/product/pouch-hand-pour-big.png').resize({ width: 1000 }).png().toFile(`${OUT}/scoop.png`);
+await sharp('public/logo/lockup-milonga-white.png').resize({ height: 180 }).png().toFile(`${OUT}/logo-white.png`);
+// how-to photo: Bernat's shot of a scoop going into a glass mug beside the pouch
+await sharp('exports/klaviyo/pp1-e1/src-scoop-96.webp').extract({ left: 0, top: 520, width: 1493, height: 1400 }).resize({ width: 1040 }).jpeg(jpg).toFile(`${OUT}/howto.jpg`);
 await sharp('public/product/latte-cup-top.png').resize({ width: 400 }).png().toFile(`${OUT}/hot.png`);
 await sharp('public/product/iced-in-hand.jpg').extract({ left: 150, top: 450, width: 1100, height: 1100 }).resize({ width: 400 }).jpeg(jpg).toFile(`${OUT}/iced.jpg`);
 

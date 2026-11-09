@@ -23,7 +23,7 @@ const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.
 export const SUBJECT = 'Your first cup, done right ☕';
 export const PREHEADER = 'Thank you for your first order. Here’s how to make your first cup just right, hot or iced.';
 
-const MARBLE = '#F3F0EF'; // the light marble the hero photo fades into
+const HERO_BG = '#B8A6A6'; // the photo's marble, behind it while it loads
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
@@ -37,7 +37,7 @@ const nw = (s) => `<span style="white-space:nowrap;">${s}</span>`;
 
 // the three steps (a real sequence, so they are numbered)
 const STEPS = [
-  { n: '1', t: 'Scoop', d: `${nw('2.5 tablespoons')} of Mate Latte into your ${nw('mug or glass.')}` },
+  { n: '1', t: 'Scoop', d: `${nw('2.5 tablespoons')} of Mate Latte into your mug ${nw('or glass.')}` },
   { n: '2', t: 'Pour', d: `${nw('8oz of')} hot or cold water or milk. Milk makes it extra creamy.` },
   { n: '3', t: 'Stir or froth', d: `Stir it in, or froth it for a ${nw('café-style')} foam.` },
 ];
@@ -54,10 +54,16 @@ const STYLE = `<style>
     .pad { padding-left:24px !important; padding-right:24px !important; }
     .pad-photo { padding-left:16px !important; padding-right:16px !important; }
     .full { width:100% !important; height:auto !important; }
-    .hero-logo { width:68px !important; height:72px !important; }
-    .h-hero { font-size:44px !important; line-height:46px !important; }
+    .hero { height:637px !important; background-size:cover !important; }
+    .hero-top { padding:18px 24px 0 !important; }
+    .hero-logo { width:57px !important; height:60px !important; }
+    .hero-title { font-size:28px !important; line-height:31px !important; }
+    .hero-gap { height:368px !important; line-height:368px !important; }
+    .hero-lead { width:160px !important; }
+    .hero-text { padding-right:16px !important; }
+    .hero-eyebrow { font-size:9px !important; line-height:12px !important; letter-spacing:1.5px !important; }
+    .hero-intro { padding-top:4px !important; font-size:12px !important; line-height:16px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
-    .scoop { width:300px !important; height:auto !important; }
     .step { padding:0 4px !important; }
     .step-t { font-size:14px !important; }
     .step-d { font-size:12px !important; line-height:17px !important; }
@@ -68,7 +74,6 @@ const STYLE = `<style>
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
     .bg-page { background-color:${BEIGE} !important; }
-    .bg-marble { background-color:${MARBLE} !important; }
     .bg-forest { background-color:${FOREST} !important; }
     .bg-cream { background-color:${CREAM} !important; }
   }
@@ -112,18 +117,30 @@ function body(img) {
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · THANK YOU (Bernat's photo is the section's background: it fades
-     into light marble, and the logo, title and intro sit on that marble) ── -->
-<tr><td class="bg-marble" bgcolor="${MARBLE}" style="background-color:${MARBLE};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('hero.jpg')}" width="600" height="800" alt="A hand holding the Mate Latte pouch over a marble counter, a latte beside it" style="display:block;width:600px;height:800px;border:0;"></td></tr>
-${row(MARBLE, 'pad bg-marble', 'padding:0 40px 52px;', `<a href="${amp(L.home)}" target="_blank"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:24px;">${eyebrow('Your Mate Latte is on its way')}</div>
-${title('Thank you for', 'your first order.', 'h-hero', 52, FOREST, 10)}
-${para(`${ent('We’re so glad you’re here. While your first bag makes its way to you, here’s how to make your first cup taste exactly')} ${nw(ent('how it should, hot or iced.'))}`, INK, 'padding-top:16px;')}`)}
+<!-- ── 1 · THANK YOU (Bernat's photo is the section's background: the white logo
+     centered at the top, the white title left-aligned on the darkened top, the
+     intro on the marble under the bag, right of the hand) ── -->
+<tr><td class="hero" align="left" valign="top" height="980" background="${img('hero-bg.jpg')}" bgcolor="${HERO_BG}" style="height:980px;background-color:${HERO_BG};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:980px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};">
+<a href="${amp(L.home)}" target="_blank" style="display:block;text-align:center;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div class="hero-title" style="padding-top:18px;font-family:${SERIF};font-size:38px;line-height:42px;font-weight:400;color:#FFFFFF;">Thank you for</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:38px;line-height:42px;font-weight:700;font-style:italic;color:#FFFFFF;">your first order.</div>
+</div>
+<div class="hero-gap" style="height:576px;line-height:576px;font-size:0;">&nbsp;</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+<td class="hero-lead" width="255" style="width:255px;font-size:0;line-height:0;">&nbsp;</td>
+<td class="hero-text" valign="top" style="padding:0 36px 0 0;font-family:${FONT};text-align:left;">
+<div class="hero-eyebrow" style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${FOREST};">Your Mate Latte is on its way</div>
+<div class="hero-intro" style="padding-top:8px;font-size:15px;line-height:22px;font-weight:500;color:${INK};">${ent('We’re so glad you’re here. While your first bag makes its way to you, here’s how to make your first cup taste just right,')} ${nw('hot or iced.')}</div>
+</td></tr></table>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+</td></tr>
 
 <!-- ── 2 · HOW TO MAKE IT: THREE STEPS ─────────────────────────────── -->
 ${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('How to make it')}
 ${title('Three steps,', 'thirty seconds.', 'h-sec', 40)}`)}
-<tr><td class="bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:22px 30px 0;font-size:0;line-height:0;"><img class="scoop" src="${img('scoop.png')}" width="420" height="247" alt="A hand scooping Mate Latte powder into a glass beside the pouch" style="display:block;margin:0 auto;width:420px;height:247px;border:0;"></td></tr>
+<tr><td class="pad-photo bg-page" align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:26px 40px 0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="520" height="488" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;margin:0 auto;width:520px;height:488px;border:0;border-radius:22px;"></td></tr>
 <tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:26px 30px 52px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${steps}

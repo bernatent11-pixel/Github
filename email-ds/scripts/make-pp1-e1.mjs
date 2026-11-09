@@ -23,6 +23,8 @@ const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.
 export const SUBJECT = 'Your first cup, done right ☕';
 export const PREHEADER = 'Thank you for your first order. Here’s how to make your first cup just right, hot or iced.';
 
+const TABLE = '#ECE5E7'; // the light table at the bottom of the scoop photo (howto.jpg)
+const DRINK_W = 200, DRINK_H = 240; // the hot and iced cutouts share this canvas
 const HERO_BG = '#B8A6A6'; // the photo's marble, behind it while it loads
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
@@ -67,14 +69,15 @@ const STYLE = `<style>
     .step { padding:0 4px !important; }
     .step-t { font-size:14px !important; }
     .step-d { font-size:12px !important; line-height:17px !important; }
-    .hi { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
+    .drink-img { width:140px !important; height:168px !important; }
+    .drink-text { font-size:12.5px !important; line-height:18px !important; }
     .know { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
     .bg-page { background-color:${BEIGE} !important; }
-    .bg-forest { background-color:${FOREST} !important; }
+    .bg-table { background-color:${TABLE} !important; }
     .bg-cream { background-color:${CREAM} !important; }
   }
 </style>`;
@@ -97,12 +100,12 @@ function body(img) {
 <div class="step-d" style="padding-top:6px;font-size:13px;line-height:19px;font-weight:500;color:${INK};">${ent(s.d)}</div>
 </td>`).join('\n');
 
-  const card = (cls, w, pad, image, alt, name, text) => `<td class="${cls}" width="50%" valign="top" style="width:50%;padding:${pad};">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;background-color:#FFFFFF;border-radius:20px;"><tr><td align="center" style="padding:20px 18px 22px;font-family:${FONT};">
-<img src="${img(image)}" width="${w}" height="${w}" alt="${alt}" style="display:block;margin:0 auto;width:${w}px;height:${w}px;border:0;border-radius:${image === 'iced.jpg' ? 14 : 0}px;">
-<div style="padding-top:14px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;font-style:italic;color:${FOREST};">${name}</div>
-<div style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
-</td></tr></table>
+  // a drink on the open background: no box. Both images are cut out on the same
+  // transparent canvas (DRINK_W x DRINK_H, standing on its bottom edge), so they match in size.
+  const drink = (pad, image, alt, name, text) => `<td class="drink" width="50%" align="center" valign="top" style="width:50%;padding:${pad};font-family:${FONT};">
+<img class="drink-img" src="${img(image)}" width="${DRINK_W}" height="${DRINK_H}" alt="${alt}" style="display:block;margin:0 auto;width:${DRINK_W}px;height:${DRINK_H}px;border:0;">
+<div style="padding-top:16px;font-family:${SERIF};font-size:26px;line-height:30px;font-weight:700;font-style:italic;color:${FOREST};">${name}</div>
+<div class="drink-text" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
 </td>`;
 
   const know = (cls, pad, icon, head, text) => `<td class="${cls}" width="50%" valign="top" style="width:50%;padding:${pad};">
@@ -147,13 +150,13 @@ ${steps}
 </tr></table>
 </td></tr>
 
-<!-- ── 3 · HOT OR ICED ─────────────────────────────────────────────── -->
-${row(FOREST, 'pad bg-forest', 'padding:52px 40px 0;', `${eyebrow('Your way', GOLD)}
-${title('Hot or iced,', 'it’s all yours.', 'h-sec', 40, '#FFFFFF')}`)}
-<tr><td class="pad-photo bg-forest" bgcolor="${FOREST}" style="background-color:${FOREST};padding:28px 30px 52px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-${card('hi', 150, '0 6px 0 0', 'hot.png', 'A hot Mate Latte from above', 'Hot', `Heat ${nw('8oz of milk')} or water, add ${nw('2.5 tablespoons')} and froth until smooth. Cozy and creamy.`)}
-${card('hi', 150, '0 0 0 6px', 'iced.jpg', 'An iced Mate Latte in a glass jar', 'Iced', `Mix ${nw('2.5 tablespoons')} into ${nw('8oz of cold')} milk or water, then pour it over ice. Cold and refreshing.`)}
+<!-- ── 3 · HOT OR ICED (on the light table colour of the scoop photo above) ── -->
+${row(TABLE, 'pad bg-table', 'padding:52px 40px 0;', `${eyebrow('Your way')}
+${title('Hot or iced,', 'it’s all yours.', 'h-sec', 40)}`)}
+<tr><td class="pad-photo bg-table" bgcolor="${TABLE}" style="background-color:${TABLE};padding:30px 30px 52px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+${drink('0 10px 0 0', 'drink-hot.png', 'A hot Mate Latte in a glass mug', 'Hot', `Heat ${nw('8oz of milk')} or water, add ${nw('2.5 tablespoons')} and froth until smooth. Cozy and creamy.`)}
+${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'Iced', `Mix ${nw('2.5 tablespoons')} into ${nw('8oz of cold')} milk or water, then pour it over ice. Cold and refreshing.`)}
 </tr></table>
 </td></tr>
 

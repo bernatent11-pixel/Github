@@ -44,6 +44,16 @@ const STEPS = [
   { n: '3', t: 'Stir or froth', d: `Stir it in, or froth it for a ${nw('café-style')} foam.` },
 ];
 
+// when to enjoy it: three moments (Bernat's photos)
+const MOMENTS = [
+  { img: 'moment-morning.jpg', alt: 'Holding a Mate Latte and the pouch on a sunny balcony', when: 'First thing in the morning', title: 'Your new morning ritual',
+    text: `Make it your first cup of the day, in place of your coffee. Smooth, steady energy that comes in easy and a clear head to start the day. ${nw('No jitters,')} ${nw('no crash.')}` },
+  { img: 'moment-work.jpg', alt: 'A Mate Latte and the pouch beside a laptop', when: 'When it’s time to focus', title: 'Your deep-work partner',
+    text: `A long work session ahead, or that early-afternoon slump? It brings calm focus that carries you through. It has ${nw('100mg of caffeine,')} about a cup of coffee, so treat it like one later in the day.` },
+  { img: 'moment-friends.jpg', alt: 'Friends in running gear sharing cups of Mate Latte around a small table', when: 'With your people', title: 'Better shared',
+    text: `After a morning run or a weekend catch-up, make a round for everyone. One bag makes ${nw('15 cups,')} ${nw('hot or iced.')}` },
+];
+
 const STYLE = `<style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
   table { border-collapse:collapse; }
@@ -72,7 +82,11 @@ const STYLE = `<style>
     .step-d { font-size:12px !important; line-height:17px !important; }
     .drink-img { width:150px !important; height:154px !important; }
     .drink-text { font-size:12.5px !important; line-height:18px !important; }
-    .know { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
+    .m-img, .m-text { display:block !important; width:100% !important; }
+    .m-photo { width:100% !important; height:auto !important; }
+    .m-gap { display:none !important; }
+    .m-text { padding-top:16px !important; }
+    .m-title { font-size:26px !important; line-height:29px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
   @media (prefers-color-scheme: dark) {
@@ -110,13 +124,17 @@ function body(img) {
 <div class="drink-text" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
 </td>`;
 
-  const know = (cls, pad, icon, head, text) => `<td class="${cls}" width="50%" valign="top" style="width:50%;padding:${pad};">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;border:2px solid ${LINE};border-radius:20px;"><tr><td align="left" style="padding:22px 22px 22px;font-family:${FONT};">
-<img src="${img(icon)}" width="28" height="28" alt="" role="presentation" style="display:block;width:28px;height:28px;border:0;">
-<div style="padding-top:12px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">${head}</div>
-<div style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
+  // one moment: photo on one side, text on the other (flip = photo on the right)
+  const moment = (m, flip) => `<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:28px 30px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="${flip ? 'rtl' : 'ltr'}" style="table-layout:fixed;"><tr>
+<td class="m-img" width="250" valign="middle" dir="ltr" style="width:250px;padding:0;"><img class="m-photo" src="${img(m.img)}" width="250" height="312" alt="${m.alt}" style="display:block;width:250px;height:312px;border:0;border-radius:18px;"></td>
+<td class="m-gap" width="26" style="width:26px;font-size:0;line-height:0;">&nbsp;</td>
+<td class="m-text" valign="middle" dir="ltr" style="text-align:left;font-family:${FONT};">
+<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">${ent(m.when)}</div>
+<div class="m-title" style="padding-top:8px;font-family:${SERIF};font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:${FOREST};">${ent(m.title)}</div>
+<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${m.text}</div>
 </td></tr></table>
-</td>`;
+</td></tr>`;
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
@@ -143,19 +161,20 @@ function body(img) {
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 2 · HOW TO MAKE IT (Bernat's scoop photo is the whole section: the title
-     sits on its cream wall colour, the steps on its white table colour) ── -->
-${row(WALL, 'pad bg-wall', 'padding:52px 40px 6px;', `${eyebrow('How to make it')}
+<!-- ── 2 · HOW TO MAKE IT (Bernat's scoop photo is the whole section: the title and
+     the three steps sit on its cream wall colour, above the bag; its table blends
+     into the hot/iced section below) ── -->
+${row(WALL, 'pad bg-wall', 'padding:52px 40px 0;', `${eyebrow('How to make it')}
 ${title('Three steps,', 'thirty seconds.', 'h-sec', 40)}`)}
-<tr><td class="bg-wall" bgcolor="${WALL}" style="background-color:${WALL};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('howto-bg.jpg')}" width="600" height="651" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;width:600px;height:651px;border:0;"></td></tr>
-<tr><td class="pad-photo bg-table" bgcolor="${TABLE}" style="background-color:${TABLE};padding:10px 30px 20px;">
+<tr><td class="pad-photo bg-wall" bgcolor="${WALL}" style="background-color:${WALL};padding:30px 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${steps}
 </tr></table>
 </td></tr>
+<tr><td class="bg-wall" bgcolor="${WALL}" style="background-color:${WALL};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('howto-bg.jpg')}" width="600" height="651" alt="A scoop of Mate Latte powder going into a glass mug beside the pouch" style="display:block;width:600px;height:651px;border:0;"></td></tr>
 
 <!-- ── 3 · HOT OR ICED (on the light table colour of the scoop photo above) ── -->
-${row(TABLE, 'pad bg-table', 'padding:40px 40px 0;', `${eyebrow('Your way')}
+${row(TABLE, 'pad bg-table', 'padding:20px 40px 0;', `${eyebrow('Your way')}
 ${title('Hot or iced,', 'it’s all yours.', 'h-sec', 40)}`)}
 <tr><td class="pad-photo bg-table" bgcolor="${TABLE}" style="background-color:${TABLE};padding:30px 30px 52px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
@@ -164,18 +183,14 @@ ${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'I
 </tr></table>
 </td></tr>
 
-<!-- ── 4 · WHEN TO DRINK IT, WHAT TO EXPECT ────────────────────────── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Good to know')}
+<!-- ── 4 · WHEN TO ENJOY IT: three moments, photo and text alternating sides
+     (dir="rtl" swaps the middle row on desktop; phones stack photo above text) ── -->
+${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('When to enjoy it')}
 ${title('Your first week', 'with Mate Latte.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:28px 30px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-${know('know', '0 6px 0 0', 'icon-sun.png', 'When to drink it', `In the morning, in place of your coffee, or early afternoon when you want a reset. It has ${nw('100mg of caffeine,')} about a cup of coffee, so treat it like one later in the day.`)}
-${know('know', '0 0 0 6px', 'icon-sparkle.png', 'What to expect', `Smooth, steady energy that comes in easy, a clear head and calm focus that carries you through the morning. ${nw('No jitters,')} ${nw('no crash.')}`)}
-</tr></table>
-</td></tr>
+${MOMENTS.map((m, i) => moment(m, i % 2 === 1)).join('\n')}
 
 <!-- ── 5 · ONE SOFT BUTTON: THE CLUB ───────────────────────────────── -->
-${row(CREAM, 'pad bg-cream', 'padding:48px 40px 0;', `${title('Enjoy your first cup.', 'We’ll be here for the next one.', 'h-sec', 30, FOREST, 0)}
+${row(CREAM, 'pad bg-cream', 'padding:56px 40px 0;', `${title('Enjoy your first cup.', 'We’ll be here for the next one.', 'h-sec', 30, FOREST, 0)}
 ${para(`Loving it already? Join the Mate Mornings Club and your Mate Latte arrives every month. Save 30% on 30 or 60 servings. ${nw('Skip, pause or cancel anytime.')}`, INK, 'padding-top:16px;font-size:15px;line-height:23px;')}
 <div style="padding-top:26px;">${button(L.club, 'Explore the club', 300)}</div>`)}
 

@@ -40,6 +40,9 @@ await sharp('public/logo/lockup-milonga-white.png').resize({ height: 180 }).png(
   const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-scoop-96.webp').extract({ left: 0, top: 380, width: 1493, height: 1620 }).resize({ width: 1200, height: 1302, fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, F = Math.round(info.height * 0.12); // soften the top edge into the flat wall colour
   for (let y = 0; y < F; y++) { const t = y / F, k = 1 - t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + WALL[c] * k); } }
+  // and the bottom into the flat table colour, so the hot/iced section continues it exactly
+  const TABLE = [0xEB, 0xE5, 0xE7], h = info.height, B = Math.round(h * 0.06);
+  for (let y = h - B; y < h; y++) { const t = (y - (h - B)) / B, k = t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + TABLE[c] * k); } }
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/howto-bg.jpg`);
 }
 await sharp('public/product/latte-cup-top.png').resize({ width: 400 }).png().toFile(`${OUT}/hot.png`);
@@ -60,6 +63,12 @@ async function onCanvas(src, out, maxW, maxH) {
 const pick = (a, b) => (fs.existsSync(a) ? a : b);
 await onCanvas(pick('exports/klaviyo/pp1-e1/drink-hot-cutout.png', 'public/product/latte-cup-top.png'), `${OUT}/drink-hot.png`, 380, 400);
 await onCanvas(pick('exports/klaviyo/pp1-e1/drink-iced-cutout.png', 'public/product/iced-hand-cutout.png'), `${OUT}/drink-iced.png`, 380, 400);
+
+// "when to enjoy it" photos (Bernat): morning on the balcony, focus at the laptop,
+// a round for friends. 4:5 crops, 520x650 = 260x325 in the email.
+for (const [name, src, x, y] of [['morning', 'src-moment-morning-97.webp', 220, 700], ['work', 'src-moment-work-99.webp', 40, 470], ['friends', 'src-moment-friends-98.webp', 260, 480]]) {
+  await sharp(`exports/klaviyo/pp1-e1/${src}`).extract({ left: x, top: y, width: 900, height: 1125 }).resize({ width: 520 }).jpeg(jpg).toFile(`${OUT}/moment-${name}.jpg`);
+}
 
 const stroke = 'fill="none" stroke="#004D27" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
 const ICONS = {

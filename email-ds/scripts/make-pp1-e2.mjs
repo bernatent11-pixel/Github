@@ -26,7 +26,7 @@ const LETTER = [
   ['q', '1. What do you love about it?'],
   ['q', '2. What would you change?'],
   ['p', 'Just hit reply, even if it’s one line. I read every single one myself.'],
-  ['link', 'And if you’re enjoying it, a quick review would mean the world to a small brand like ours. It takes a minute.', 'Leave a review here'],
+  ['link', 'And one more thing: leave a quick, honest review and I’ll send you 15% off your next order as a thank you. It takes a minute, and it means the world to a small brand like ours.', 'Leave a review, get 15% off'],
   ['sign', 'Un abrazo,', 'Shadi'],
 ];
 

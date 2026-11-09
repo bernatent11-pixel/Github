@@ -14,13 +14,20 @@ FLOW (Post-purchase, one-time Mate Latte buyers)
   Exit on Create Subscription Event from Appstle. Smart Sending ON.
 
 JOB
-  A warm, personal check-in, not a sale: thanks them, asks for a reply (what they love, what they'd change), then a review. Short, signed just "Shadi".
+  A warm, personal check-in, not a sale: thanks them, asks for a reply (what they love, what they'd change), then a review
+  with a thank-you: 15% off their next order. Short, signed just "Shadi".
   No club pitch here; that's E3.
 
 LINK (one)
   Leave a review here -> https://milonga.life/products/the-original-mate-latte (utm_content=pp2_review)
   The product has both Judge.me and Okendo data in Shopify. If the active app gives a direct
   "write a review" link (or a review-request email), swap it in for a one-click review.
+
+REVIEW REWARD (15% off the next order)
+  The email promises it, so it has to happen automatically: set up the review app's reward
+  (Judge.me "Review incentives" / Okendo "Rewards") to send a 15% one-time code after any review.
+  Keep it for any honest review, good or bad: rewarding only positive reviews breaks FTC rules,
+  so the copy asks for an "honest review" and doesn't say "if you're enjoying it".
 
 FACTS USED
   "If your bag has landed": day 7 after the order may be close to delivery, so it doesn't assume.

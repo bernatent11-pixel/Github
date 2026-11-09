@@ -16,7 +16,7 @@ SECTIONS
   1 Bernat's pantry photo (a hand placing the pouch on a shelf, src-hero-100.webp) is the section's
     BACKGROUND (hero-bg.jpg, 600x904; 390x588 on phones). On its darkened top: beige logo, "Running low?",
     white title "Your bag's / almost empty." On its darkened bottom: 15 cups go fast; in the club you save
-    30% on every order, with a fresh bag every month; gold "Join the club" button.
+    30% on every order, with a fresh bag every month; gold "Join the club" button and "30-day money-back guarantee" under it.
   2 Your bag vs. your month · 15 cups go fast. / Your month has 30 mornings. Moves 15-serving buyers to 30:
     "A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there's no gap
     and no reordering." A white card with two month bars (30 day segments each, bar-15.png / bar-30.png):
@@ -29,7 +29,7 @@ SECTIONS
     Save every month (30% off every order, on 30 or 60 servings) · It shows up monthly (a fresh supply at your
     door every month) · You're in control (skip, pause or cancel anytime; no surprises).
   5 Bernat's windowsill photo (a hand on the pouch in the morning sun, src-final-101.webp) fading into
-    cream · Never run out of / good mornings. + "Join the club" + free shipping / guarantee.
+    cream · Never run out of / good mornings. + "Join the club" + "30-day money-back guarantee".
   Footer on cream.
 
 LINKS (Bernat, 2026-11-09: the club buttons open the Mate Latte page with the Mate Mornings Club
@@ -45,4 +45,4 @@ LINKS (Bernat, 2026-11-09: the club buttons open the Mate Latte page with the Ma
 FACTS USED (Shopify / product page, checked 2026-11-07)
   15 servings per bag (1 serving = 1 cup). One-time 15 servings $34.99 ($2.33 a cup), 30 servings $69.98;
   Mate Mornings Club 30% off 30 or 60 servings: $48.99 for 30 ($1.63 a cup); monthly;
-  skip, pause or cancel anytime. Free shipping over $45. 30-day money-back guarantee.
+  skip, pause or cancel anytime. 30-day money-back guarantee. (No free-shipping line, per Bernat.)

@@ -127,10 +127,11 @@ const STYLE = `<style>
     .hero-eyebrow { padding-top:14px !important; font-size:10px !important; line-height:13px !important; letter-spacing:2px !important; }
     .hero-title { font-size:34px !important; line-height:36px !important; }
     .hero-title1 { padding-top:6px !important; }
-    .hero-gap { height:262px !important; line-height:262px !important; }
+    .hero-gap { height:250px !important; line-height:250px !important; }
     .hero-bottom { padding:0 22px !important; }
     .hero-intro { font-size:11.5px !important; line-height:15px !important; }
     .hero-cta { padding-top:12px !important; }
+    .hero-trust { padding-top:8px !important; font-size:9px !important; line-height:12px !important; letter-spacing:1.5px !important; }
     .hero .btn { padding:12px 22px !important; font-size:12px !important; letter-spacing:1px !important; }
     .h-hero { font-size:44px !important; line-height:46px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
@@ -176,7 +177,7 @@ const row = (bg, cls, style, inner) => `<tr><td class="${cls}" align="center" bg
 ${inner}
 </td></tr>`;
 const lead = (t, color, extra = '') => `<div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${color};${extra}">${t}</div>`;
-const trust = (color = FOREST) => `<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};">${nw('Free shipping over $45')} &middot; ${nw('30-day money-back guarantee')}</div>`;
+const trust = (color = FOREST, cls = '') => `<div class="trust ${cls}" style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};">${nw('30-day money-back guarantee')}</div>`;
 
 function body(img, V) {
   const L = linksFor(V);
@@ -253,10 +254,11 @@ ${['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((w) => `<td class="month-wk" widt
 <div class="hero-title hero-title1" style="padding-top:8px;font-family:${SERIF};font-size:52px;line-height:54px;font-weight:400;color:#FFFFFF;">${ent('Your bag’s')}</div>
 <div class="hero-title" style="font-family:${SERIF};font-size:52px;line-height:54px;font-weight:700;font-style:italic;color:#FFFFFF;">almost empty.</div>
 </div>
-<div class="hero-gap" style="height:430px;line-height:430px;font-size:0;">&nbsp;</div>
+<div class="hero-gap" style="height:418px;line-height:418px;font-size:0;">&nbsp;</div>
 <div class="hero-bottom" style="padding:0 44px;font-family:${FONT};text-align:center;">
 <div class="hero-intro" style="font-size:15px;line-height:22px;font-weight:500;color:#FFFFFF;">${ent(V.heroLead)} ${nw('never skip a beat.')}</div>
 <div class="hero-cta" style="padding-top:22px;">${button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A')}</div>
+${trust('#FFFFFF', 'hero-trust')}
 </div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>

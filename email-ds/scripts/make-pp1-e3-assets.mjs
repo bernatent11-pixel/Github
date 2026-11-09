@@ -37,14 +37,14 @@ function fade(data, w, y0, y1, col, toward) {
 
 const colors = {};
 
-// hero: the pouch on green, 1200x1200 (600x600 in the email)
+// hero: the pouch on green, 1200x1088 (600x544 in the email)
 {
   const { data, info } = await sharp('public/product/pouch-studio-green.png').removeAlpha()
-    .extract({ left: 250, top: 290, width: 1500, height: 1500 }).resize({ width: 1200, height: 1200 }).raw().toBuffer({ resolveWithObject: true });
+    .extract({ left: 250, top: 290, width: 1500, height: 1360 }).resize({ width: 1200, height: 1088 }).raw().toBuffer({ resolveWithObject: true });
   const w = info.width, h = info.height;
   const top = rowMean(data, w, 0, 12), bot = rowMean(data, w, h - 12, h);
   fade(data, w, 0, Math.round(h * 0.18), top, false);
-  fade(data, w, h - Math.round(h * 0.16), h, bot, true);
+  fade(data, w, h - Math.round(h * 0.07), h, bot, true); // short: the button sits right under the pouch
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero.jpg`);
   colors.heroTop = hex(top); colors.heroBottom = hex(bot); colors.heroH = h / 2;
 }

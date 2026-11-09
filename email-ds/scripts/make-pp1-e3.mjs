@@ -47,7 +47,8 @@ const L = {
 };
 
 // Prices from Shopify (2026-11-07): 15 $34.99 · 30 $69.98 · 60 $139.96.
-// Mate Mornings Club: 30% off 30 and 60 servings, monthly. Both cards show 30 servings.
+// Mate Mornings Club: 30% off 30 and 60 servings, monthly. The cards move a 15-serving buyer up:
+// one-time 15 servings $34.99 ($2.33 a cup) vs the club's 30 servings $48.99 ($1.63 a cup) = twice the cups for $14 more.
 const CLUB = [
   { icon: 'icon-save.png', text: 'Save 30% on every order <span style="white-space:nowrap;">(30 or 60 servings)</span>' },
   { icon: 'icon-delivery.png', text: 'Delivered to your door <span style="white-space:nowrap;">every month</span>' },
@@ -126,16 +127,16 @@ ${inner}
 </td></tr></table>
 </td>`;
   const oneTime = card('l', `<div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">One-time</div>
-<div class="cmp-price" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:${FOREST};">$69.98</div>
-<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">30 servings</div>
+<div class="cmp-price" style="padding-top:12px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:${FOREST};">$34.99</div>
+<div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:${INK};">15 servings</div>
 <div class="cmp-text" style="padding-top:2px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">$2.33 a cup</div>
 <div style="margin:16px auto 0;width:40px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
-<div class="cmp-text" style="padding-top:8px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">Reorder yourself each time ${nw('you run out')}</div>
+<div class="cmp-text" style="padding-top:8px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">About two weeks of mornings, then ${nw('reorder yourself')}</div>
 <div style="padding-top:18px;">${pill(L.onetime, 'Buy one-time', FOREST, BEIGE)}</div>`,
     `bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${LINE};border-radius:22px;`);
   const club = CLUB.map((c) => `<tr><td class="club-ico" width="20" valign="top" style="width:20px;padding:9px 8px 0 0;"><img src="${img(c.icon)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>
 <td class="cmp-text" valign="top" style="padding:8px 0 0;font-family:${FONT};font-size:13px;line-height:18px;font-weight:500;color:#FFFFFF;text-align:left;">${c.text}</td></tr>`).join('\n');
-  const subscribe = card('r', `<div style="display:inline-block;background-color:${GOLD};border-radius:999px;padding:5px 12px;font-size:10px;line-height:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">Best value</div>
+  const subscribe = card('r', `<div style="display:inline-block;background-color:${GOLD};border-radius:999px;padding:5px 12px;font-size:10px;line-height:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">Double the cups</div>
 <div style="padding-top:10px;font-family:${SERIF};font-size:20px;line-height:22px;font-weight:700;font-style:italic;color:${GOLD};">Mate Mornings Club</div>
 <div class="cmp-price" style="padding-top:8px;font-family:${SERIF};font-size:40px;line-height:42px;font-weight:700;color:#FFFFFF;">$48.99</div>
 <div class="cmp-text" style="padding-top:6px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">30 servings <span style="font-weight:500;color:${MINT};text-decoration:line-through;">$69.98</span></div>
@@ -144,7 +145,7 @@ ${inner}
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
 ${club}
 </table>
-<div class="cmp-text" style="padding-top:12px;font-size:13px;line-height:18px;font-weight:700;color:${GOLD};">${ent('Your Mate Latte every morning,')} ${nw('all month long.')}</div>
+<div class="cmp-text" style="padding-top:12px;font-size:13px;line-height:18px;font-weight:700;color:${GOLD};">${ent('Twice the cups, a whole month')} ${nw('of mornings.')}</div>
 <div style="padding-top:16px;">${pill(L.club, 'Join the club', GOLD, FOREST)}</div>`,
     `bgcolor="${FOREST}" style="background-color:${FOREST};border:3px solid ${GOLD};border-radius:22px;`);
 
@@ -163,10 +164,9 @@ ${club}
 ${row(C.heroTop, 'pad bg-hero-top', 'padding:34px 40px 8px;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:30px;">${eyebrow('Running low?', GOLD)}</div>
 ${title('Your bag’s', 'almost empty.', 'h-hero', 54, BEIGE, 10)}
-${lead(`${ent('15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and a fresh bag shows up every month, so your mornings')} ${nw('never skip a beat.')}`, MINT)}`)}
+${lead(`${ent('15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings')} ${nw('never skip a beat.')}`, MINT)}`)}
 <tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><a href="${amp(L.photo)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="The Mate Latte pouch on deep green" style="display:block;width:600px;height:${C.heroH}px;border:0;"></a></td></tr>
-${row(C.heroBottom, 'pad bg-hero', 'padding:0 40px 52px;', `${button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A')}
-${trust(BEIGE)}`)}
+${row(C.heroBottom, 'pad bg-hero', 'padding:0 40px 52px;', button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A'))}
 
 <!-- ── 2 · ONE BAG, 15 CUPS: the cups already had, and the last few ── -->
 ${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Your bag, cup by cup')}
@@ -176,13 +176,15 @@ ${row(CREAM, 'pad bg-cream', 'padding:0 40px 56px;', lead(`${ent('That’s about
 
 <!-- ── 3 · ONE-TIME OR THE CLUB, SIDE BY SIDE (the cards from cart E1) ── -->
 ${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Keep it going for less')}
-${title('Same Mate Latte,', '30% less.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 56px;">
+${title('Same Mate Latte,', '30% less.', 'h-sec', 40)}
+${lead(`${ent('A 15-serving bag lasts about two weeks. Go for 30 servings in the club and you’re covered')} ${nw('all month,')} ${nw('for less a cup.')}`, INK)}`)}
+<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:28px 30px 26px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
 ${oneTime}
 ${subscribe}
 </tr></table>
 </td></tr>
+${row(BEIGE, 'pad bg-page', 'padding:0 40px 56px;', `<div style="font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;font-style:italic;color:${FOREST};">${ent('Twice the cups for just $14 more.')}</div>`)}
 
 <!-- ── 4 · HOW THE CLUB WORKS ─────────────────────────────────────── -->
 ${row(FOREST, 'pad bg-forest', 'padding:56px 40px 0;', `${eyebrow('How the club works', GOLD)}

@@ -28,6 +28,12 @@ const jpg = { quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' };
     const a = 0.62 * Math.pow(1 - y / S, 1.3);
     for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) { const i = (y * W + x) * 3 + c; data[i] = Math.round(data[i] * (1 - a)); }
   }
+  // and a soft dark fade over the bottom third, so the white thank-you text reads there
+  const Bt = Math.round(H * 0.34);
+  for (let y = H - Bt; y < H; y++) {
+    const a = 0.6 * Math.pow((y - (H - Bt)) / Bt, 1.2);
+    for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) { const i = (y * W + x) * 3 + c; data[i] = Math.round(data[i] * (1 - a)); }
+  }
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero-bg.jpg`);
 }
 await sharp('public/logo/lockup-milonga-white.png').resize({ height: 180 }).png().toFile(`${OUT}/logo-white.png`);
@@ -40,8 +46,8 @@ await sharp('public/logo/lockup-milonga-white.png').resize({ height: 180 }).png(
   const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-scoop-96.webp').extract({ left: 0, top: 380, width: 1493, height: 1620 }).resize({ width: 1200, height: 1302, fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, F = Math.round(info.height * 0.12); // soften the top edge into the flat wall colour
   for (let y = 0; y < F; y++) { const t = y / F, k = 1 - t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + WALL[c] * k); } }
-  // and the bottom into the flat table colour, so the hot/iced section continues it exactly
-  const TABLE = [0xEB, 0xE5, 0xE7], h = info.height, B = Math.round(h * 0.06);
+  // and the bottom into the warm beige of the hot/iced section, so it continues it exactly
+  const TABLE = [0xF2, 0xEA, 0xDE], h = info.height, B = Math.round(h * 0.12); // warm beige for hot/iced
   for (let y = h - B; y < h; y++) { const t = (y - (h - B)) / B, k = t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + TABLE[c] * k); } }
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/howto-bg.jpg`);
 }

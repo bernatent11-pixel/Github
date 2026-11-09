@@ -23,7 +23,7 @@ const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.
 export const SUBJECT = 'Your first cup, done right ☕';
 export const PREHEADER = 'Thank you for your first order. Here’s how to make your first cup just right, hot or iced.';
 
-const WALL = '#F2E1D4', TABLE = '#EBE5E7'; // the scoop photo's cream wall and white table
+const WALL = '#F2E1D4', TABLE = '#F2EADE'; // the scoop photo's cream wall; the warm beige its table fades into
 const DRINK_W = 200, DRINK_H = 205; // the hot and iced cutouts share this canvas
 const HERO_BG = '#B8A6A6'; // the photo's marble, behind it while it loads
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
@@ -69,10 +69,10 @@ const STYLE = `<style>
     .hero { height:637px !important; background-size:cover !important; }
     .hero-top { padding:18px 24px 0 !important; }
     .hero-logo { width:57px !important; height:60px !important; }
-    .hero-title { font-size:28px !important; line-height:31px !important; }
+    .hero-title { font-size:36px !important; line-height:38px !important; }
     .hero-welcome { padding-top:4px !important; font-size:12px !important; line-height:16px !important; }
-    .hero-gap { height:330px !important; line-height:330px !important; }
-    .hero-lead { width:150px !important; }
+    .hero-gap { height:326px !important; line-height:326px !important; }
+    .hero-lead { width:128px !important; }
     .hero-text { padding-right:16px !important; }
     .hero-eyebrow { font-size:9px !important; line-height:12px !important; letter-spacing:1.5px !important; }
     .hero-intro { padding-top:4px !important; font-size:11.5px !important; line-height:15px !important; }
@@ -147,16 +147,16 @@ function body(img) {
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:980px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};">
 <a href="${amp(L.home)}" target="_blank" style="display:block;text-align:center;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div class="hero-title" style="padding-top:18px;font-family:${SERIF};font-size:38px;line-height:42px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
-<div class="hero-title" style="font-family:${SERIF};font-size:38px;line-height:42px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
-<div class="hero-welcome" style="padding-top:8px;font-size:16px;line-height:22px;font-weight:500;color:#FFFFFF;">Welcome to better mornings.</div>
+<div class="hero-title" style="padding-top:14px;font-family:${SERIF};font-size:56px;line-height:58px;font-weight:400;color:#FFFFFF;">Your first cup,</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:56px;line-height:58px;font-weight:700;font-style:italic;color:#FFFFFF;">done right.</div>
+<div class="hero-welcome" style="padding-top:10px;font-size:17px;line-height:23px;font-weight:500;color:#FFFFFF;">Welcome to better mornings.</div>
 </div>
-<div class="hero-gap" style="height:526px;line-height:526px;font-size:0;">&nbsp;</div>
+<div class="hero-gap" style="height:546px;line-height:546px;font-size:0;">&nbsp;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-<td class="hero-lead" width="255" style="width:255px;font-size:0;line-height:0;">&nbsp;</td>
-<td class="hero-text" valign="top" style="padding:0 36px 0 0;font-family:${FONT};text-align:left;">
-<div class="hero-eyebrow" style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${FOREST};">Thank you for your order</div>
-<div class="hero-intro" style="padding-top:8px;font-size:15px;line-height:22px;font-weight:500;color:${INK};">${ent('We’re so glad you’re here. The Mate Latte is clean energy, focus and calm in a cup that tastes like a treat. Here’s everything you need to make it the right way, and the best moments')} ${nw('to enjoy it.')}</div>
+<td class="hero-lead" width="215" style="width:215px;font-size:0;line-height:0;">&nbsp;</td>
+<td class="hero-text" valign="top" style="padding:0 32px 0 0;font-family:${FONT};text-align:left;">
+<div class="hero-eyebrow" style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${GOLD};">Thank you for your order</div>
+<div class="hero-intro" style="padding-top:8px;font-size:15px;line-height:22px;font-weight:500;color:#FFFFFF;">${ent('We’re so glad you’re here. The Mate Latte is clean energy, focus and calm in a cup that tastes like a treat. Here’s everything you need to make it the right way, and the best moments')} ${nw('to enjoy it.')}</div>
 </td></tr></table>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>

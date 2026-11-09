@@ -23,7 +23,7 @@ const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.
 export const SUBJECT = 'Your first cup, done right ☕';
 export const PREHEADER = 'Thank you for your first order. Here’s how to make your first cup just right, hot or iced.';
 
-const WALL = '#F2E1D4', TABLE = '#F2EADE'; // the scoop photo's cream wall; the warm beige its table fades into
+const WALL = '#F2E1D4', TABLE = '#EFE8DF'; // the scoop photo's cream wall; the warm beige its table fades into
 const DRINK_W = 200, DRINK_H = 205; // the hot and iced cutouts share this canvas
 const HERO_BG = '#B8A6A6'; // the photo's marble, behind it while it loads
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
@@ -49,9 +49,9 @@ const MOMENTS = [
   { img: 'moment-morning.jpg', alt: 'Holding a Mate Latte and the pouch on a sunny balcony', when: 'First thing in the morning', title: 'Your new morning ritual',
     text: `Make it your first cup of the day, in place of your coffee. Smooth, steady energy that comes in easy and a clear head to start the day. ${nw('No jitters,')} ${nw('no crash.')}` },
   { img: 'moment-work.jpg', alt: 'A Mate Latte and the pouch beside a laptop', when: 'When it’s time to focus', title: 'Your deep-work partner',
-    text: `A long work session ahead, or that early-afternoon slump? It brings calm focus that carries you through. It has ${nw('100mg of caffeine,')} about a cup of coffee, so treat it like one later in the day.` },
+    text: `A long work session ahead, or that early-afternoon slump? Make a cup and settle in: steady energy and calm focus that stay with you until the last task is done. It has ${nw('100mg of caffeine,')} about a cup of coffee, so treat it like one later in the day.` },
   { img: 'moment-friends.jpg', alt: 'Friends in running gear sharing cups of Mate Latte around a small table', when: 'With your people', title: 'Better shared',
-    text: `After a morning run or a weekend catch-up, make a round for everyone. One bag makes ${nw('15 cups,')} ${nw('hot or iced.')}` },
+    text: `After a morning run or a weekend catch-up, make a round ${nw('for everyone.')}` },
 ];
 
 const STYLE = `<style>

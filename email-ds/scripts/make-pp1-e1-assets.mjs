@@ -48,8 +48,16 @@ await sharp('public/logo/mark-beige.png').trim().resize({ height: 128 }).png().t
   const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-scoop-96.webp').extract({ left: 0, top: 380, width: 1493, height: 1620 }).resize({ width: 1200, height: 1302, fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, F = Math.round(info.height * 0.12); // soften the top edge into the flat wall colour
   for (let y = 0; y < F; y++) { const t = y / F, k = 1 - t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + WALL[c] * k); } }
-  // and the bottom into the warm beige of the hot/iced section, so it continues it exactly
-  const TABLE = [0xF2, 0xEA, 0xDE], h = info.height, B = Math.round(h * 0.12); // warm beige for hot/iced
+  // The white table is a cool off-white (about #EBE5E7). The hot/iced section below is warm
+  // beige, so the table is warmed gradually toward that beige (nothing above the table changes),
+  // then its last rows fade into the flat beige, which evens out the light falling left to right.
+  const TABLE = [0xEF, 0xE8, 0xDF], TABLE_PHOTO = [0xEB, 0xE5, 0xE7], h = info.height;
+  const G0 = Math.round(h * 0.6), G1 = Math.round(h * 0.85);
+  for (let y = G0; y < h; y++) {
+    const t = Math.min(1, (y - G0) / (G1 - G0)), k = t * t * (3 - 2 * t);
+    for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.min(255, Math.round(data[i] * (1 + (TABLE[c] / TABLE_PHOTO[c] - 1) * k))); }
+  }
+  const B = Math.round(h * 0.2);
   for (let y = h - B; y < h; y++) { const t = (y - (h - B)) / B, k = t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + TABLE[c] * k); } }
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/howto-bg.jpg`);
 }

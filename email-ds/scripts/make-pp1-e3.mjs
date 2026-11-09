@@ -56,7 +56,7 @@ const L = {
 // one-time 15 servings $34.99 ($2.33 a cup) vs the club's 30 servings $48.99 ($1.63 a cup) = twice the cups for $14 more.
 // Three versions, one per bag size they bought (a flow split sends each to its own):
 //   15  pp1-e3     the month graphic moves them from 15 to 30 servings
-//   30  pp1-e3-30  the month graphic is for people drinking two cups a day: 30 -> 60
+//   30  pp1-e3-30  no month graphic; the cards compare 30 servings one-time vs in the club
 //   60  pp1-e3-60  no month graphic; the cards compare 60 servings one-time vs in the club
 const VERSIONS = [
   {
@@ -74,12 +74,7 @@ const VERSIONS = [
   {
     key: '30', out: 'exports/klaviyo/pp1-e3-30', name: 'pp1-e3-30', day: 'about day 24',
     heroLead: '30 cups go fast when they’re your daily ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh supply at your door every month, so your mornings',
-    month: {
-      t1: 'Two cups a day?', t2: 'Your month needs 60.',
-      lead: `If your Mate Latte has become your morning and your afternoon cup, a 30-serving bag lasts about two weeks. The <span style="white-space:nowrap;">60-serving bag</span> keeps you covered <span style="white-space:nowrap;">all month.</span>`,
-      rows: [['30 servings', 'at 2 cups a day', 'Runs out mid-month', 'bar-15.png', 'At two cups a day, half of the month covered'],
-        ['60 servings', 'in the club, $97.97', 'Covers the whole month', 'bar-30.png', 'At two cups a day, all 30 days covered']],
-    },
+    month: null,
     one: { price: '$69.98', size: '30 servings', note: `Buy once, reorder when <span style="white-space:nowrap;">you run out</span>` },
     club: { badge: 'Best value', price: '$48.99', size: '30 servings', was: '$69.98', line: `Your Mate Latte every morning, <span style="white-space:nowrap;">all month long.</span>` },
   },

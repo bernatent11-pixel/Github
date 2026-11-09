@@ -4,11 +4,7 @@ POST-PURCHASE · ONE-TIME BUYERS · MATE LATTE · EMAIL 3 · 30-SERVING BUYERS �
 The 30-serving version of pp1-e3 (same design, same hosted images). What differs:
   Hero line: "30 cups go fast when they're your daily ritual. Join the Mate Mornings Club and you save 30%
     on every order, with a fresh supply at your door every month, so your mornings never skip a beat."
-  Section 2, for people drinking two cups a day: "Your bag vs. your month · Two cups a day? / Your month
-    needs 60." "If your Mate Latte has become your morning and your afternoon cup, a 30-serving bag lasts
-    about two weeks. The 60-serving bag keeps you covered all month."
-    30 servings · at 2 cups a day -> half the month, "Runs out mid-month"
-    60 servings · in the club, $97.97 -> the whole month, "Covers the whole month"
+  No "your bag vs. your month" section.
   Cards: one-time 30 servings $69.98 ($2.33 a cup) vs club 30 servings $48.99 (was $69.98, $1.63 a cup),
     badge "Best value", "Your Mate Latte every morning, all month long."
   Send: about day 24 (a 30-serving bag at one cup a day lasts a month).

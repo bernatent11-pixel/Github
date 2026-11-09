@@ -12,8 +12,9 @@ FLOW
   No delay. Smart Sending OFF (it must always go out).
   Transactional: ask Klaviyo to mark the message transactional, so it also reaches people who never
   subscribed to marketing; until then it only goes to subscribed profiles.
-  Shopify still sends its own order confirmation. Turn that one off or restyle it under Shopify >
-  Settings > Notifications, so customers don't get two.
+  Shopify still sends its own order confirmation (Shopify > Settings > Notifications > Order
+  confirmation). Check there whether your plan lets you switch it off; if not, keep it short and
+  plain so the two don't feel like duplicates.
 
 SECTIONS
   1 Order confirmed · Thank you for / your order. On green with the studio pouch photo; "Hey {first name},

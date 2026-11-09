@@ -6,7 +6,7 @@
 //
 // Sections: 1 running low (the pouch on green) · 2 15 servings vs 30 (a month of mornings) ·
 // 3 one-time vs the Mate Mornings Club (the cards from cart E1) · 4 how the club works ·
-// 5 never run out of good mornings (the kitchen counter, a nearly empty scoop) · footer.
+// 5 never run out of good mornings (Bernat's windowsill photo) · footer.
 //
 // Writes:
 //   exports/klaviyo/pp1-e3/pp1-e3.html   ONE complete HTML email (Klaviyo code template)
@@ -33,6 +33,7 @@ export const PREHEADER = 'Keep your mornings going with the Mate Mornings Club. 
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const MINT = '#CFE0D4'; // soft text on green
+const HERO_BG = '#8C7B66'; // the pantry photo's tone, behind it while it loads
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life', PDP = '/products/the-original-mate-latte';
@@ -55,7 +56,7 @@ const CLUB = [
   { icon: 'icon-pause.png', text: 'Skip, pause or cancel anytime' },
 ];
 const HOW = [
-  { img: 'step-save.png', t: 'Save 30%', d: '30% off every order, on 30 or <span style="white-space:nowrap;">60 servings.</span>' },
+  { img: 'step-save.png', t: 'Save every month', d: '30% off every order, on 30 or <span style="white-space:nowrap;">60 servings.</span>' },
   { img: 'step-monthly.png', t: 'It shows up monthly', d: 'A fresh supply at your door <span style="white-space:nowrap;">every month.</span>' },
   { img: 'step-control.png', t: 'You’re in control', d: 'Skip, pause or cancel anytime. <span style="white-space:nowrap;">No surprises.</span>' },
 ];
@@ -76,7 +77,17 @@ const STYLE = `<style>
     .pad { padding-left:24px !important; padding-right:24px !important; }
     .pad-photo { padding-left:16px !important; padding-right:16px !important; }
     .full { width:100% !important; height:auto !important; }
-    .hero-logo { width:68px !important; height:72px !important; }
+    .hero { height:588px !important; background-size:cover !important; }
+    .hero-top { padding:18px 24px 0 !important; }
+    .hero-logo { width:57px !important; height:60px !important; }
+    .hero-eyebrow { padding-top:14px !important; font-size:10px !important; line-height:13px !important; letter-spacing:2px !important; }
+    .hero-title { font-size:34px !important; line-height:36px !important; }
+    .hero-title1 { padding-top:6px !important; }
+    .hero-gap { height:262px !important; line-height:262px !important; }
+    .hero-bottom { padding:0 22px !important; }
+    .hero-intro { font-size:11.5px !important; line-height:15px !important; }
+    .hero-cta { padding-top:12px !important; }
+    .hero .btn { padding:12px 22px !important; font-size:12px !important; letter-spacing:1px !important; }
     .h-hero { font-size:44px !important; line-height:46px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
@@ -101,8 +112,6 @@ const STYLE = `<style>
   }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
-    .bg-hero-top { background-color:${C.heroTop} !important; }
-    .bg-hero { background-color:${C.heroBottom} !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-page { background-color:${BEIGE} !important; }
     .bg-forest { background-color:${FOREST} !important; }
@@ -170,13 +179,23 @@ ${club}
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · RUNNING LOW? On forest green: the pantry photo, framed, then the button ── -->
-${row(C.heroTop, 'pad bg-hero-top', 'padding:34px 40px 8px;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:30px;">${eyebrow('Running low?', GOLD)}</div>
-${title('Your bag’s', 'almost empty.', 'h-hero', 54, BEIGE, 10)}
-${lead(`${ent('15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings')} ${nw('never skip a beat.')}`, MINT)}`)}
-<tr><td class="pad-photo bg-hero-top" align="center" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:26px 40px 30px;font-size:0;line-height:0;"><a href="${amp(L.photo)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="${C.heroW}" height="${C.heroH}" alt="A hand placing the Mate Latte pouch on a pantry shelf" style="display:block;margin:0 auto;width:${C.heroW}px;height:${C.heroH}px;border:0;border-radius:22px;"></a></td></tr>
-${row(C.heroBottom, 'pad bg-hero', 'padding:0 40px 52px;', button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A'))}
+<!-- ── 1 · RUNNING LOW? Bernat's pantry photo is the section's background: logo and title
+     on its darkened top, the line and the button on its darkened bottom ── -->
+<tr><td class="hero" align="center" valign="top" height="${C.heroH}" background="${img('hero-bg.jpg')}" bgcolor="${HERO_BG}" style="height:${C.heroH}px;background-color:${HERO_BG};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:${C.heroH}px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};text-align:center;">
+<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div class="hero-eyebrow" style="padding-top:24px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">Running low?</div>
+<div class="hero-title hero-title1" style="padding-top:8px;font-family:${SERIF};font-size:52px;line-height:54px;font-weight:400;color:#FFFFFF;">${ent('Your bag’s')}</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:52px;line-height:54px;font-weight:700;font-style:italic;color:#FFFFFF;">almost empty.</div>
+</div>
+<div class="hero-gap" style="height:430px;line-height:430px;font-size:0;">&nbsp;</div>
+<div class="hero-bottom" style="padding:0 44px;font-family:${FONT};text-align:center;">
+<div class="hero-intro" style="font-size:15px;line-height:22px;font-weight:500;color:#FFFFFF;">${ent('15 cups go fast when they’re your morning ritual. Join the Mate Mornings Club and you save 30% on every order, with a fresh bag at your door every month, so your mornings')} ${nw('never skip a beat.')}</div>
+<div class="hero-cta" style="padding-top:22px;">${button(L.hero, 'Join the club', 280, GOLD, FOREST, '#B8913A')}</div>
+</div>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+</td></tr>
 
 <!-- ── 2 · 15 SERVINGS VS 30: a month of mornings, one segment a day. The
      15-serving bag covers half of it; the 30-serving bag (in the club) all of it ── -->
@@ -214,9 +233,9 @@ ${how}
 </tr></table>
 </td></tr>
 
-<!-- ── 5 · NEVER RUN OUT (the kitchen counter, a nearly empty scoop; the
-     photo's bottom fades into the cream of the text) ── -->
-<tr><td class="bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('final.jpg')}" width="600" height="${C.finalH}" alt="A hot and an iced Mate Latte on a kitchen counter beside the pouch and a nearly empty scoop" style="display:block;width:600px;height:${C.finalH}px;border:0;"></td></tr>
+<!-- ── 5 · NEVER RUN OUT (Bernat's windowsill photo; its bottom fades into the
+     cream of the text) ── -->
+<tr><td class="bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('final.jpg')}" width="600" height="${C.finalH}" alt="A hand on the Mate Latte pouch on a sunny windowsill" style="display:block;width:600px;height:${C.finalH}px;border:0;"></td></tr>
 ${row(CREAM, 'pad bg-cream', 'padding:8px 40px 0;', `${title('Never run out of', 'good mornings.', 'h-sec', 40, FOREST, 0)}
 ${lead(`${ent('Join the Mate Mornings Club and your next bag is on its way, then')} ${nw('every month after that.')}`, INK)}
 <div style="padding-top:28px;">${button(L.final, 'Join the club', 280)}</div>

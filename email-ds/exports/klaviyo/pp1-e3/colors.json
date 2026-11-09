@@ -1,9 +1,6 @@
 {
-  "heroTop": "#004D27",
-  "heroBottom": "#004D27",
-  "heroW": 520,
-  "heroH": 587,
-  "finalH": 510,
+  "heroH": 904,
+  "finalH": 610,
   "barW": 520,
   "barH": 20
 }

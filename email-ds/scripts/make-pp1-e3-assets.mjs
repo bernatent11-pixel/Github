@@ -1,12 +1,12 @@
 // Art for post-purchase (one-time buyers) email 3, "Your bag's almost empty".
 //
-//   hero.jpg      Bernat's pantry photo (the pouch going onto a shelf), framed on the green hero
+//   hero-bg.jpg   Bernat's pantry photo (the pouch going onto a shelf): the opening section's background
 //   logo-beige.png the Milonga lockup in beige, for the green hero
 //   bar-15.png    a month of mornings (30 day segments): the 15-serving bag covers half
 //   bar-30.png    ... and the 30-serving bag covers all of it, for "15 servings vs 30"
 //   step-*.png    forest discs with a gold line icon, for "how the club works" (on gold)
-//   final.jpg     the kitchen counter: latte, iced latte, pouch and a nearly empty scoop;
-//                 its bottom fades into the cream of the closing text
+//   final.jpg     Bernat's windowsill shot (a hand on the pouch in the sun); its bottom fades
+//                 into the cream of the closing text
 //   colors.json   the flat colours the photo edges fade into
 //
 // Usage: node scripts/make-pp1-e3-assets.mjs
@@ -36,19 +36,30 @@ function fade(data, w, y0, y1, col, toward) {
 
 const colors = {};
 
-// hero: Bernat's pantry shot (src-hero-100.webp: a hand placing the pouch on a pantry shelf),
-// framed with rounded corners on the forest-green hero. 1040x1175 (520x587 in the email).
+// hero-bg.jpg: Bernat's pantry shot (src-hero-100.webp: a hand placing the pouch on a pantry
+// shelf) as the opening section's BACKGROUND, 1200x1808 (600x904; 390x588 on phones). The live
+// text sits on it: logo and title on a soft dark fade over the top, the line and the button on a
+// dark fade over the bottom jars.
 {
-  await sharp('exports/klaviyo/pp1-e3/src-hero-100.webp').extract({ left: 0, top: 330, width: 1328, height: 1500 })
-    .resize({ width: 1040, height: 1175 }).removeAlpha().jpeg(jpg).toFile(`${OUT}/hero.jpg`);
-  colors.heroTop = '#004D27'; colors.heroBottom = '#004D27'; colors.heroW = 520; colors.heroH = 587;
+  const { data, info } = await sharp('exports/klaviyo/pp1-e3/src-hero-100.webp').resize({ width: 1200, height: 1808, fit: 'cover' })
+    .removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const W = info.width, H = info.height;
+  const shade = (y, a) => { for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) { const i = (y * W + x) * 3 + c; data[i] = Math.round(data[i] * (1 - a)); } };
+  const T = Math.round(H * 0.4);
+  for (let y = 0; y < T; y++) shade(y, 0.66 * Math.pow(1 - y / T, 1.1));
+  const B = Math.round(H * 0.36);
+  for (let y = H - B; y < H; y++) shade(y, 0.72 * Math.pow((y - (H - B)) / B, 0.9));
+  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero-bg.jpg`);
+  fs.rmSync(`${OUT}/hero.jpg`, { force: true });
+  colors.heroH = H / 2;
 }
 await sharp('public/logo/lockup-milonga-beige.png').resize({ height: 180 }).png().toFile(`${OUT}/logo-beige.png`);
 
-// closing photo: the kitchen counter, 1200x1020 (600x510), bottom fades into cream
+// closing photo: Bernat's windowsill shot (src-final-101.webp: a hand on the pouch in morning sun,
+// a green pitcher, limes), 1200x1220 (600x610); its bottom fades into the cream of the text
 {
-  const { data, info } = await sharp('public/product/latte-counter.jpg')
-    .extract({ left: 0, top: 560, width: 1400, height: 1190 }).resize({ width: 1200, height: 1020 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { data, info } = await sharp('exports/klaviyo/pp1-e3/src-final-101.webp')
+    .extract({ left: 0, top: 430, width: 1328, height: 1350 }).resize({ width: 1200, height: 1220 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, h = info.height;
   fade(data, w, h - Math.round(h * 0.16), h, CREAM, true);
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/final.jpg`);

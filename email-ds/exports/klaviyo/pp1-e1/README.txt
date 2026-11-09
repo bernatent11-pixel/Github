@@ -19,14 +19,15 @@ FLOW: "Post Purchase · Mate Latte (one-time)", a NEW flow, separate from the ge
 
 SECTIONS
   1 Bernat's photo (pouch in hand over marble, latte beside it) is the section's BACKGROUND (hero-bg.jpg,
-    600x980; 390x637 on phones). On it: white logo centered at the top; white title "Your first cup, /
-    done right." left-aligned + "Welcome to better mornings." (a soft dark fade over the top half keeps them
-    readable); under the bag, right of the hand: "Thank you for your order" + the brand promise
-    ("clean energy, focus and calm in a cup that tastes like a treat", product page) + what follows.
+    600x980; 390x637 on phones). On it: white logo centered at the top; large white title "Your first cup, /
+    done right." (56px, 36px on phones) left-aligned + "Welcome to better mornings." (a soft dark fade over
+    the top half keeps them readable); at the bottom right, over a soft dark fade on the bottom third:
+    "Thank you for your order" in gold + the brand promise in white ("clean energy, focus and calm in a cup
+    that tastes like a treat", product page) + what follows.
   2 How to make it: Bernat's scoop photo is the whole section (howto-bg.jpg, full width). The title and the
     three steps sit on its cream wall colour (#F2E1D4), above the bag: Scoop 2.5 tbsp · Pour 8oz hot or cold
-    water or milk · Stir or froth (product page recipe). The photo's table fades into #EBE5E7.
-  3 Hot or iced, / it's all yours. Continues on that table colour (#EBE5E7), no boxes: Bernat's hot mug and
+    water or milk · Stir or froth (product page recipe). The photo's bottom fades into warm beige #F2EADE.
+  3 Hot or iced, / it's all yours. Continues on that warm beige (#F2EADE), no boxes: Bernat's hot mug and
     iced glass with the background removed (Higgsfield; the small hot photo upscaled first), same size.
   4 When to enjoy it · Your first week / with Mate Latte. Three moments, photo and text alternating
     (left, right, left; stacked on phones), Bernat's photos:

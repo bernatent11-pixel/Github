@@ -106,6 +106,8 @@ const STYLE = `<style>
     .edge-dose { font-size:24px !important; line-height:26px !important; }
     .edge-name { font-size:12px !important; line-height:15px !important; }
     .edge-text { font-size:11.5px !important; line-height:15px !important; }
+    .cart-price { font-size:18px !important; padding-right:14px !important; }
+    .cart-title { font-size:14px !important; line-height:19px !important; }
     .pill a { padding:10px 14px !important; font-size:11px !important; letter-spacing:1px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
@@ -270,11 +272,13 @@ ${close}`;
 const ITEM = {
   image: "{{ event.items.0.image|default:'__POUCH__' }}",
   title: "{{ event.items.0.product_title|default:'The Original Mate Latte - Vanilla' }}",
-  size: "{{ event.items.0.variant_title|default:'Vanilla' }}",
+  size: "{{ event.items.0.variant_title|default:'15 Servings' }}",
+  // the price per bag as it sits in their cart (dollars; the other price fields are in cents)
+  price: "${{ event.items.0.presentment_price|default:'34.99' }}",
   qty: "{{ event.items.0.quantity|default:'1' }}",
 };
 function cartRow(img, bg, cls, pad, sample) {
-  const v = sample ? { image: img('cart-pouch.png'), title: 'The Original Mate Latte - Vanilla', size: '30 Servings', qty: '1' } : { ...ITEM, image: ITEM.image.replace('__POUCH__', img('cart-pouch.png')) };
+  const v = sample ? { image: img('cart-pouch.png'), title: 'The Original Mate Latte - Vanilla', size: '30 Servings', qty: '1', price: '$69.98' } : { ...ITEM, image: ITEM.image.replace('__POUCH__', img('cart-pouch.png')) };
   return `<tr><td class="pad-photo ${cls}" bgcolor="${bg}" style="background-color:${bg};padding:${pad};">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-collapse:separate;background-color:#FFFFFF;border-radius:18px;"><tr>
 <td class="cart-img" width="88" valign="middle" style="width:88px;padding:14px 0 14px 16px;"><a href="${amp(L.cart())}" target="_blank"><img src="${v.image}" width="72" height="72" alt="Your Mate Latte" style="display:block;width:72px;height:72px;border:0;border-radius:10px;object-fit:contain;"></a></td>
@@ -282,7 +286,9 @@ function cartRow(img, bg, cls, pad, sample) {
 <div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">In your cart</div>
 <div class="cart-title" style="padding-top:4px;font-size:16px;line-height:21px;font-weight:700;color:${INK};">${v.title}</div>
 <div style="padding-top:3px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">${v.size} &middot; Qty ${v.qty}</div>
-</td></tr></table>
+</td>
+<td class="cart-price" align="right" valign="middle" style="padding:14px 18px 14px 0;font-family:${SERIF};font-size:22px;line-height:24px;font-weight:700;color:${FOREST};white-space:nowrap;">${v.price}</td>
+</tr></table>
 </td></tr>`;
 }
 

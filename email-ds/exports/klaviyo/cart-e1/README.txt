@@ -24,11 +24,14 @@ THE CART ROWS (in the HTML)
   Each row shows the FIRST item of the Added to Cart event's "items" list:
     image {{ event.items.0.image }} · name {{ event.items.0.product_title }}
     size {{ event.items.0.variant_title }} · Qty {{ event.items.0.quantity }}
+    price ${{ event.items.0.presentment_price }} (the price per bag as it sits in their cart, in
+    dollars; seen in a real event as 69.98 for 30 servings. The other price fields are in cents.)
   Each has a |default, so with no cart data it shows the Mate Latte pouch, "The Original Mate
-  Latte - Vanilla", "Vanilla · Qty 1". Render-checked in Klaviyo with a real cart and an empty one.
+  Latte - Vanilla", "15 Servings · Qty 1", "$34.99". Render-checked in Klaviyo with a real cart and an empty one.
   Limits: one item only (listing every item needs the {% for %} tag, which is not on our approved
   tag list; flagged to Bernat). In a mixed cart the first item may not be the Mate Latte.
-  No price on the row: the event stores it unformatted (e.g. 40.8) and the club price differs.
+  Price format: Klaviyo prints the number as stored, so a price ending in 0 would show one decimal
+  ($40.8). The Mate Latte's prices ($34.99 / $69.98 / $139.96) all print in full.
   In the Checkout Abandon flow (Checkout Started) the items live elsewhere
   (event.extra.line_items), so there the rows fall back to the Mate Latte defaults.
   Page: set the code template's background to #FFFFFF (the email's <body> already is).

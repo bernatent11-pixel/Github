@@ -14,8 +14,8 @@ FLOW (Post-purchase, one-time Mate Latte buyers)
   Exit on Create Subscription Event from Appstle. Smart Sending ON.
 
 JOB
-  A warm, personal check-in, not a sale: thanks them, asks for a reply (what they love, what they'd change), then a review. Signed just "Shadi", with a P.S. nudging the reply.
-  One small tip (try it iced, product page recipe). No club pitch here; that's E3.
+  A warm, personal check-in, not a sale: thanks them, asks for a reply (what they love, what they'd change), then a review. Short, signed just "Shadi".
+  No club pitch here; that's E3.
 
 LINK (one)
   Leave a review here -> https://milonga.life/products/the-original-mate-latte (utm_content=pp2_review)
@@ -23,5 +23,4 @@ LINK (one)
   "write a review" link (or a review-request email), swap it in for a one-click review.
 
 FACTS USED
-  Iced recipe: 2.5 tablespoons in 8oz of cold milk, stir, pour over ice (product page).
   "If your bag has landed": day 7 after the order may be close to delivery, so it doesn't assume.

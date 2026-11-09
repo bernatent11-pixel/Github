@@ -6,27 +6,19 @@ Hey {{ first_name|default:'there' }},
 
 It’s Shadi, the founder of Milonga 👋
 
-Real quick, this one isn’t a promo. I just wanted to say thank you, for real. You took a chance on a small brand and a drink you’d probably never tried before, and that means a lot to me.
+Not a promo, I promise. I just wanted to say thank you for taking a chance on us. It means a lot.
 
-It’s been about a week since you ordered, so if your bag has landed, I’m honestly so curious: how’s it going?
+If your bag has landed, I’m curious: how’s it going? Hot or iced? Oat milk or regular? 😄
 
-Has it found a spot in your mornings yet? Are you a hot person or an iced person? Oat milk, regular milk, a little cinnamon on top? Has anyone at home started “borrowing” some? 😅
+I’d love to hear two things:
 
-I’d love to hear two things from you:
-
-1. What do you love about it so far?
+1. What do you love about it?
 2. What would you change?
 
-No wrong answers, and you don’t have to be nice. If something’s off, the taste, the sweetness, the way it mixes, the shipping, I want to know. Just hit reply, even if it’s one line. It comes straight to my inbox, and I read every single one myself.
+Just hit reply, even if it’s one line. I read every single one myself.
 
-Little tip in case you haven’t tried it yet: make it iced. 2.5 tablespoons in 8oz of cold milk, stir, pour it over ice. Same Mate Latte, totally different vibe.
-
-And if you’re loving it, could you do me a small favor and leave a quick review? It takes about a minute, and honestly, it’s the thing that helps a small brand like ours the most. Somebody on the fence will read it and give it a try because of you.
+And if you’re enjoying it, a quick review would mean the world to a small brand like ours. It takes a minute.
 Leave a review here: https://milonga.life/products/the-original-mate-latte?utm_source=klaviyo&utm_medium=email&utm_campaign=post_purchase_mate_latte&utm_content=pp2_review
-
-Thanks again for being here. It really does mean a lot.
 
 Un abrazo,
 Shadi
-
-P.S. Seriously, hit reply. Even a quick “loving it” or “a bit too sweet for me” makes my day.

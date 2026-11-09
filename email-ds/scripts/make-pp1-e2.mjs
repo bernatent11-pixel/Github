@@ -20,18 +20,14 @@ const REVIEW = 'https://milonga.life/products/the-original-mate-latte?utm_source
 const LETTER = [
   ['p', 'Hey {{ first_name|default:\'there\' }},'],
   ['p', 'It’s Shadi, the founder of Milonga 👋'],
-  ['p', 'Real quick, this one isn’t a promo. I just wanted to say thank you, for real. You took a chance on a small brand and a drink you’d probably never tried before, and that means a lot to me.'],
-  ['p', 'It’s been about a week since you ordered, so if your bag has landed, I’m honestly so curious: how’s it going?'],
-  ['p', 'Has it found a spot in your mornings yet? Are you a hot person or an iced person? Oat milk, regular milk, a little cinnamon on top? Has anyone at home started “borrowing” some? 😅'],
-  ['p', 'I’d love to hear two things from you:'],
-  ['q', '1. What do you love about it so far?'],
+  ['p', 'Not a promo, I promise. I just wanted to say thank you for taking a chance on us. It means a lot.'],
+  ['p', 'If your bag has landed, I’m curious: how’s it going? Hot or iced? Oat milk or regular? 😄'],
+  ['p', 'I’d love to hear two things:'],
+  ['q', '1. What do you love about it?'],
   ['q', '2. What would you change?'],
-  ['p', 'No wrong answers, and you don’t have to be nice. If something’s off, the taste, the sweetness, the way it mixes, the shipping, I want to know. Just hit reply, even if it’s one line. It comes straight to my inbox, and I read every single one myself.'],
-  ['p', 'Little tip in case you haven’t tried it yet: make it iced. 2.5 tablespoons in 8oz of cold milk, stir, pour it over ice. Same Mate Latte, totally different vibe.'],
-  ['link', 'And if you’re loving it, could you do me a small favor and leave a quick review? It takes about a minute, and honestly, it’s the thing that helps a small brand like ours the most. Somebody on the fence will read it and give it a try because of you.', 'Leave a review here'],
-  ['p', 'Thanks again for being here. It really does mean a lot.'],
+  ['p', 'Just hit reply, even if it’s one line. I read every single one myself.'],
+  ['link', 'And if you’re enjoying it, a quick review would mean the world to a small brand like ours. It takes a minute.', 'Leave a review here'],
   ['sign', 'Un abrazo,', 'Shadi'],
-  ['ps', 'P.S. Seriously, hit reply. Even a quick “loving it” or “a bit too sweet for me” makes my day.'],
 ];
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -41,7 +37,7 @@ function html() {
   const rows = LETTER.map(([k, a, b], i) => {
     if (k === 'q') return `<p style="margin:0 0 ${LETTER[i + 1]?.[0] === 'q' ? 6 : 18}px;"><strong>${ent(a)}</strong></p>`;
     if (k === 'link') return P(`${ent(a)}<br><a href="${ent(REVIEW)}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(b)}</a>`);
-    if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`);
+    if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`, i === LETTER.length - 1);
     if (k === 'ps') return `<p style="margin:6px 0 0;">${ent(a)}</p>`;
     return P(ent(a));
   });

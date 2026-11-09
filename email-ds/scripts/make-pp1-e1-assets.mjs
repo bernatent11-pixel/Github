@@ -1,7 +1,7 @@
 // Art for post-purchase (one-time buyers) email 1, "Your first cup, done right".
 //
-//   hero.jpg      the kitchen counter: pouch, scoop, a hot and an iced Mate Latte
-//                 (public/product/latte-counter.jpg), cropped to the counter
+//   hero.jpg      Bernat's photo: the pouch in hand over marble, a latte beside it,
+//                 fading into light marble at the bottom (the title sits there)
 //   scoop.png     a hand scooping into a glass beside the pouch (cutout), for the steps
 //   hot.png       a hot Mate Latte from above (cutout), for the hot card
 //   iced.jpg      an iced Mate Latte in hand, square crop, for the iced card
@@ -15,7 +15,19 @@ const OUT = 'exports/klaviyo/pp1-e1/img';
 fs.mkdirSync(OUT, { recursive: true });
 const jpg = { quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' };
 
-await sharp('public/product/latte-counter.jpg').extract({ left: 0, top: 420, width: 1400, height: 1330 }).resize({ width: 1200 }).jpeg(jpg).toFile(`${OUT}/hero.jpg`);
+// hero: Bernat's photo (src-hero-95.webp: a hand holding the pouch over marble, a
+// latte beside it). Its bottom fades into light marble (#F3F0EF) so the logo,
+// the title and the intro sit on the same background, in rows below it.
+{
+  const MARBLE = [0xF3, 0xF0, 0xEF];
+  const { data, info } = await sharp('exports/klaviyo/pp1-e1/src-hero-95.webp').extract({ left: 0, top: 260, width: 1116, height: 1488 }).resize({ width: 1200 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const w = info.width, h = info.height, F = Math.round(h * 0.3);
+  for (let y = h - F; y < h; y++) {
+    const t = (y - (h - F)) / F, k = Math.pow(t * t * (3 - 2 * t), 0.9);
+    for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + MARBLE[c] * k); }
+  }
+  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/hero.jpg`);
+}
 await sharp('public/product/pouch-hand-pour-big.png').resize({ width: 1000 }).png().toFile(`${OUT}/scoop.png`);
 await sharp('public/product/latte-cup-top.png').resize({ width: 400 }).png().toFile(`${OUT}/hot.png`);
 await sharp('public/product/iced-in-hand.jpg').extract({ left: 150, top: 450, width: 1100, height: 1100 }).resize({ width: 400 }).jpeg(jpg).toFile(`${OUT}/iced.jpg`);

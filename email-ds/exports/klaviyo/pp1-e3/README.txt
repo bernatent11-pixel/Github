@@ -16,12 +16,12 @@ SECTIONS
   1 Running low? · Your bag's / almost empty. On deep green; the studio pouch photo fades into the
     flat greens above and below (hero.jpg). Text: 15 cups go fast; in the club you save 30% on every
     order, with a fresh bag every month. Gold "Join the club" button right under the pouch.
-  2 Your bag, cup by cup · One bag, 15 cups. / They go fast. A row of 15 cups (cups.png): most
-    already had, the last four still full (illustrative, no exact count claimed) + "about two weeks
-    of mornings; if you've had one most days, you're down to your last few cups".
-  3 Keep it going for less · Same Mate Latte, / 30% less. Moves a 15-serving buyer up to 30:
-    "A 15-serving bag lasts about two weeks. Go for 30 servings in the club and you're covered all month."
-    Cards: one-time 15 servings $34.99 ($2.33 a cup, about two weeks) vs Mate Mornings Club 30 servings
+  2 Your bag vs. your month · 15 cups go fast. / Your month has 30 mornings. Moves 15-serving buyers to 30:
+    "A 15-serving bag covers about two weeks. The 30-serving bag covers the whole month, so there's no gap
+    and no reordering." A white card with two month bars (30 day segments each, bar-15.png / bar-30.png):
+    15 servings · $34.99 one-time -> half filled, "Runs out mid-month";
+    30 servings · in the club, $48.99 -> all filled, "Covers the whole month"; Week 1-4 under them.
+  3 Keep it going for less · Same Mate Latte, / 30% less. Cards: one-time 15 servings $34.99 ($2.33 a cup, about two weeks) vs Mate Mornings Club 30 servings
     $48.99 (was $69.98; $1.63 a cup; badge "Double the cups") + "Twice the cups for just $14 more."
     ($48.99 - $34.99 = $14.00.)
   4 How the club works · Easy to start, / easy to change. On forest green: Pick your size (30 or 60,

@@ -36,6 +36,7 @@ export const PREHEADER = 'Here’s your tracking number. Good mornings are on th
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const MINT = '#CFE0D4';
+const HERO_BG = '#3C82D2'; // the photo's sky, behind it while it loads
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life';
@@ -80,8 +81,17 @@ const STYLE = `<style>
     .pad { padding-left:24px !important; padding-right:24px !important; }
     .pad-photo { padding-left:16px !important; padding-right:16px !important; }
     .full { width:100% !important; height:auto !important; }
-    .hero-logo { width:68px !important; height:72px !important; }
-    .h-hero { font-size:44px !important; line-height:46px !important; }
+    .hero { height:588px !important; background-size:cover !important; }
+    .hero-top { padding:18px 24px 0 !important; }
+    .hero-logo { width:57px !important; height:60px !important; }
+    .hero-eyebrow { padding-top:12px !important; font-size:10px !important; line-height:13px !important; letter-spacing:2px !important; }
+    .hero-title { font-size:32px !important; line-height:34px !important; }
+    .hero-title1 { padding-top:4px !important; }
+    .hero-gap { height:268px !important; line-height:268px !important; }
+    .hero-bottom { padding:0 22px !important; }
+    .hero-intro { font-size:11.5px !important; line-height:15px !important; }
+    .hero-cta { padding-top:12px !important; }
+    .hero .btn { padding:12px 22px !important; font-size:12px !important; letter-spacing:1px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
     .card { padding:22px 18px !important; }
@@ -142,13 +152,24 @@ function body(img) {
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · IT'S ON ITS WAY (forest green; Bernat's windowsill photo, framed) ── -->
-${row(FOREST, 'pad bg-forest', 'padding:34px 40px 8px;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:30px;">${eyebrow('Shipped', GOLD)}</div>
-${title('Your Mate Latte', 'is on its way.', 'h-hero', 54, BEIGE, 10)}
-${lead(`${ent('Good news,')} ${T.name}! ${ent('Your order')} ${T.order} ${ent('just left us and it’s headed your way. Here’s how to follow it')} ${nw('to your door.')}`, MINT)}`)}
-<tr><td class="pad-photo bg-forest" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};padding:26px 40px 30px;font-size:0;line-height:0;"><img class="full" src="${img('hero.jpg')}" width="520" height="400" alt="A hand on the Mate Latte pouch on a sunny windowsill" style="display:block;margin:0 auto;width:520px;height:400px;border:0;border-radius:22px;"></td></tr>
-${row(FOREST, 'pad bg-forest', 'padding:0 40px 52px;', button(T.track, 'Track my package', 320, GOLD, FOREST, '#B8913A'))}
+<!-- ── 1 · IT'S ON ITS WAY: Bernat's photo (two pouches held up to a blue sky) is the
+     section's background; logo and title on the sky, the line and the button on the
+     darkened bottom ── -->
+<tr><td class="hero" align="center" valign="top" height="904" background="${img('hero-bg.jpg')}" bgcolor="${HERO_BG}" style="height:904px;background-color:${HERO_BG};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:904px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO_BG}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="hero-top" style="padding:30px 40px 0;font-family:${FONT};text-align:center;">
+<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div class="hero-eyebrow" style="padding-top:22px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">Shipped</div>
+<div class="hero-title hero-title1" style="padding-top:8px;font-family:${SERIF};font-size:48px;line-height:50px;font-weight:400;color:#FFFFFF;">Your Mate Latte</div>
+<div class="hero-title" style="font-family:${SERIF};font-size:48px;line-height:50px;font-weight:700;font-style:italic;color:#FFFFFF;">is on its way.</div>
+</div>
+<div class="hero-gap" style="height:420px;line-height:420px;font-size:0;">&nbsp;</div>
+<div class="hero-bottom" style="padding:0 44px;font-family:${FONT};text-align:center;">
+<div class="hero-intro" style="font-size:15px;line-height:22px;font-weight:500;color:#FFFFFF;">${ent('Good news,')} ${T.name}! ${ent('Your order')} ${T.order} ${ent('just left us and it’s headed your way. Here’s how to follow it')} ${nw('to your door.')}</div>
+<div class="hero-cta" style="padding-top:22px;">${button(T.track, 'Track my package', 320, GOLD, FOREST, '#B8913A')}</div>
+</div>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+</td></tr>
 
 <!-- ── 2 · YOUR SHIPMENT: what's in the box (Mate Latte lines only), carrier,
      tracking number, order number ── -->

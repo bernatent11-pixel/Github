@@ -12,6 +12,8 @@ FLOW
   No delay. Smart Sending OFF (it must always go out).
   Transactional: ask Klaviyo to mark the message transactional, so it also reaches people who never
   subscribed to marketing; until then it only goes to subscribed profiles.
+  The "Packed and shipped: we'll email you" step is true once the shipping confirmation
+  (ship-confirm) flow is live.
   Shopify still sends its own order confirmation (Shopify > Settings > Notifications > Order
   confirmation). Check there whether your plan lets you switch it off; if not, keep it short and
   plain so the two don't feel like duplicates.
@@ -19,7 +21,8 @@ FLOW
 SECTIONS
   1 Order confirmed · Thank you for / your order. On green with the studio pouch photo; "Hey {first name},
     your Mate Latte is officially on its way to becoming your new morning ritual..." + gold "Track my order".
-  2 Your order · All the details, in one place. Card: Order number + Order total (from the order),
+  2 Your order · All the details, in one place. Card: Your Mate Latte (one row per Mate Latte line:
+    pouch photo, name, size, quantity, price per bag) + Order number + Order total,
     "Your order page has everything..." + "View my order".
   3 What happens next · From our hands / to your door. Order confirmed · Packed and shipped · At your door.
   4 Track it anytime · Where's my order? Two easy ways to check:
@@ -35,8 +38,10 @@ TAGS (Placed Order event, Shopify; render-checked in Klaviyo 2026-11-09, with an
       Shopify's order status page for this order. Opens with no login (the link carries a key);
       shows every item, the receipt, the address and, once fulfilled, the carrier + tracking number
       with live status. Used by "Track my order" and "View my order".
-  No product names are printed (a mixed cart could hold any product), and no {% for %} loop (not on
-  the approved tag list); the order page lists every item.
+  Items: {% for item in event.extra.line_items %}{% if 'Mate Latte' in item.title %} ... {% endif %}{% endfor %}
+    {{ item.title }} · {{ item.variant_title }} · Qty {{ item.quantity }} · ${{ item.price_set.presentment_money.amount }}
+    (each with a |default). Only the Mate Latte lines print; other products in a mixed order never show
+    (render-checked with a mixed order). Loop + if approved by Bernat 2026-11-09.
 
 LINKS
   Track my order / View my order   {{ event.extra.order_status_url }} (above)

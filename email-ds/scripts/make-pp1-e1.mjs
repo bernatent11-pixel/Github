@@ -24,7 +24,7 @@ export const SUBJECT = 'Your first cup, done right ☕';
 export const PREHEADER = 'Thank you for your first order. Here’s how to make your first cup just right, hot or iced.';
 
 const WALL = '#F2E1D4', TABLE = '#EBE5E7'; // the scoop photo's cream wall and white table
-const DRINK_W = 200, DRINK_H = 240; // the hot and iced cutouts share this canvas
+const DRINK_W = 200, DRINK_H = 205; // the hot and iced cutouts share this canvas
 const HERO_BG = '#B8A6A6'; // the photo's marble, behind it while it loads
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
@@ -70,7 +70,7 @@ const STYLE = `<style>
     .step { padding:0 4px !important; }
     .step-t { font-size:14px !important; }
     .step-d { font-size:12px !important; line-height:17px !important; }
-    .drink-img { width:140px !important; height:168px !important; }
+    .drink-img { width:150px !important; height:154px !important; }
     .drink-text { font-size:12.5px !important; line-height:18px !important; }
     .know { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }

@@ -1,21 +1,22 @@
 SUBJECT: before your next bag ships
-PREVIEW: A quick note from me, so your deliveries fit how you actually drink it.
+PREVIEW: Just making sure the timing works for you.
 FROM: Shadi from Milonga
 
 Hey {{ first_name|default:'there' }},
 
-It’s Shadi, the founder of Milonga 👋
+Shadi here 👋
 
-Thank you for joining the Mate Mornings Club. Having you with us really means a lot.
+I just wanted to say thanks for joining the Mate Mornings Club. Honestly, it means a lot to us.
 
-Your next bag ships in a few weeks, so I wanted to check in before it does. Is once a month the right rhythm for you?
+Your next bag ships in a few weeks, and before it does, I want to make sure the timing actually works for you.
 
-Running out early? Just reply to this email and I’ll move your next bag up.
-Have some left over? Skip a month. It takes a few seconds in your account.
+Some people go through it faster than they expected (two cups a day happens 😄). If that’s you, just reply and I’ll send your next bag sooner.
 
-Manage my subscription: https://milonga.life/apps/subscriptions
+And if you’ve still got plenty left, no problem at all. You can skip a month in your account. It only takes a moment. (https://milonga.life/apps/subscriptions)
 
-Either way, hit reply and tell me how your mornings are going. I read every single one myself.
+Either way, I’d love to hear how it’s going. What’s your go-to, hot or iced? Just hit reply. I read every one myself.
 
 Un abrazo,
 Shadi
+
+P.S. If the timing’s ever off, just tell me. That’s an easy fix.

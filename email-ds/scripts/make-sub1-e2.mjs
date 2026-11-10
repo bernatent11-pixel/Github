@@ -18,21 +18,21 @@ import { validate } from './validate-klaviyo-email.mjs';
 const OUT = 'exports/klaviyo/sub1-e2';
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'before your next bag ships';
-export const PREHEADER = 'A quick note from me, so your deliveries fit how you actually drink it.';
+export const PREHEADER = 'Just making sure the timing works for you.';
 // the Appstle subscription portal (magic-link login), the same as subscribers Email 1
 const PORTAL = 'https://milonga.life/apps/subscriptions';
 
-// [kind, text]. 'b' = a line with a bold lead-in ([bold, rest]). Plain text only; ent() makes it HTML.
+// [kind, text]. 'l' = a paragraph with an inline link ([before, link text, after]). Plain text only; ent() makes it HTML.
 const LETTER = [
   ['p', 'Hey {{ first_name|default:\'there\' }},'],
-  ['p', 'It’s Shadi, the founder of Milonga 👋'],
-  ['p', 'Thank you for joining the Mate Mornings Club. Having you with us really means a lot.'],
-  ['p', 'Your next bag ships in a few weeks, so I wanted to check in before it does. Is once a month the right rhythm for you?'],
-  ['b', 'Running out early?', 'Just reply to this email and I’ll move your next bag up.'],
-  ['b', 'Have some left over?', 'Skip a month. It takes a few seconds in your account.'],
-  ['link', '', 'Manage my subscription'],
-  ['p', 'Either way, hit reply and tell me how your mornings are going. I read every single one myself.'],
+  ['p', 'Shadi here 👋'],
+  ['p', 'I just wanted to say thanks for joining the Mate Mornings Club. Honestly, it means a lot to us.'],
+  ['p', 'Your next bag ships in a few weeks, and before it does, I want to make sure the timing actually works for you.'],
+  ['p', 'Some people go through it faster than they expected (two cups a day happens 😄). If that’s you, just reply and I’ll send your next bag sooner.'],
+  ['l', 'And if you’ve still got plenty left, no problem at all. You can', 'skip a month in your account', '. It only takes a moment.'],
+  ['p', 'Either way, I’d love to hear how it’s going. What’s your go-to, hot or iced? Just hit reply. I read every one myself.'],
   ['sign', 'Un abrazo,', 'Shadi'],
+  ['ps', 'P.S. If the timing’s ever off, just tell me. That’s an easy fix.'],
 ];
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -40,9 +40,8 @@ const P = (inner, last) => `<p style="margin:0 0 ${last ? 0 : 18}px;">${inner}</
 
 function html() {
   const rows = LETTER.map(([k, a, b], i) => {
-    if (k === 'b') return `<p style="margin:0 0 ${LETTER[i + 1]?.[0] === 'b' ? 10 : 12}px;"><strong>${ent(a)}</strong> ${ent(b)}</p>`;
-    if (k === 'link') return P(`<a href="${ent(PORTAL)}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(b)}</a>`);
-    if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`, i === LETTER.length - 1);
+    if (k === 'l') return P(`${ent(a)} <a href="${ent(PORTAL)}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(b)}</a>${ent(LETTER[i][3])}`);
+    if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`, LETTER[i + 1]?.[0] !== 'ps');
     if (k === 'ps') return `<p style="margin:6px 0 0;">${ent(a)}</p>`;
     return P(ent(a));
   });
@@ -90,8 +89,7 @@ ${rows.join('\n')}
 function text() {
   const out = [`SUBJECT: ${SUBJECT}`, `PREVIEW: ${PREHEADER}`, 'FROM: Shadi from Milonga', ''];
   LETTER.forEach(([k, a, b], i) => {
-    if (k === 'link') out.push(`${b}: ${PORTAL}`, '');
-    else if (k === 'b') out.push(`${a} ${b}`, ...(LETTER[i + 1]?.[0] === 'b' ? [] : ['']));
+    if (k === 'l') out.push(`${a} ${b}${LETTER[i][3]} (${PORTAL})`, '');
     else if (k === 'sign') out.push(a, b, '');
     else out.push(a, '');
   });

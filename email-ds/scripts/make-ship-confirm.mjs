@@ -60,9 +60,9 @@ const L = { home: `${SITE}/?${utm('sc_logo')}` };
 const HELP = 'orders@milongamate.com';
 
 const STEPS = [
-  { img: 'step-confirmed.png', t: 'Order confirmed', s: 'Done', c: SOFT },
-  { img: 'step-shipped.png', t: 'Shipped', s: 'On its way now', c: '#9A6B2F' },
-  { img: 'step-delivered.png', t: 'At your door', s: 'Coming soon', c: SOFT },
+  { img: 'step-confirmed.png', t: 'Order confirmed', s: 'Done', c: '#5E4A1C' },
+  { img: 'step-shipped.png', t: 'Shipped', s: 'On its way now', c: '#FFFFFF' },
+  { img: 'step-delivered.png', t: 'At your door', s: 'Coming soon', c: '#5E4A1C' },
 ];
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -110,6 +110,7 @@ const STYLE = `<style>
     .bg-forest { background-color:${FOREST} !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-page { background-color:${BEIGE} !important; }
+    .bg-gold { background-color:${GOLD} !important; }
   }
 </style>`;
 
@@ -191,9 +192,9 @@ ${row(CREAM, 'pad bg-cream', 'padding:22px 40px 56px;', `<div style="font-size:1
 <div style="padding-top:24px;">${button(T.page, 'View my order', 280)}</div>`)}
 
 <!-- ── 3 · WHERE IT IS NOW ── -->
-${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('Where it is now')}
+${row(GOLD, 'pad bg-gold', 'padding:52px 40px 0;', `${eyebrow('Where it is now')}
 ${title('Packed, shipped', 'and almost there.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:34px 30px 56px;">
+<tr><td class="pad-photo bg-gold" bgcolor="${GOLD}" style="background-color:${GOLD};padding:34px 30px 56px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${steps}
 </tr></table>

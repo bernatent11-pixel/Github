@@ -99,6 +99,7 @@ const STYLE = `<style>
     .bg-hero { background-color:${C.heroBottom} !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-page { background-color:${BEIGE} !important; }
+    .bg-gold { background-color:${GOLD} !important; }
   }
 </style>`;
 
@@ -172,9 +173,9 @@ ${row(CREAM, 'pad bg-cream', 'padding:22px 40px 56px;', `<div style="font-size:1
 <div style="padding-top:24px;">${button(T.track, 'View my order', 280)}</div>`)}
 
 <!-- ── 3 · WHAT HAPPENS NEXT ── -->
-${row(BEIGE, 'pad bg-page', 'padding:52px 40px 0;', `${eyebrow('What happens next')}
+${row(GOLD, 'pad bg-gold', 'padding:52px 40px 0;', `${eyebrow('What happens next')}
 ${title('From our hands', 'to your door.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-page" bgcolor="${BEIGE}" style="background-color:${BEIGE};padding:34px 30px 56px;">
+<tr><td class="pad-photo bg-gold" bgcolor="${GOLD}" style="background-color:${GOLD};padding:34px 30px 56px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${how}
 </tr></table>

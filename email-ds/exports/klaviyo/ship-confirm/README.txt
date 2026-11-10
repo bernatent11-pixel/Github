@@ -21,7 +21,7 @@ SECTIONS
     order {order} just left us..." + gold "Track my package".
   2 Your shipment · Everything you need / to follow it. Card: In this package (the Mate Latte lines of
     this shipment only) · Carrier · Tracking number · Order. "View my order".
-  3 Where it is now · Packed, shipped / and almost there. Order confirmed (done) · Shipped (on its way
+  3 Where it is now · Packed, shipped / and almost there. On gold (forest discs, "on its way now" in white): Order confirmed (done) · Shipped (on its way
     now) · At your door (coming soon).
   4 Questions about your delivery? Reply, or orders@milongamate.com. Footer on cream.
 

@@ -2,7 +2,7 @@
 //
 //   hero.jpg       the Mate Latte pouch on deep green (studio shot), top and bottom faded
 //                  into flat greens so the rows above and below read as one photo
-//   step-*.png     gold discs with a forest line icon: confirmed, shipped, delivered
+//   step-*.png     forest discs with a gold line icon (on the gold section): confirmed, shipped, delivered
 //   colors.json    the flat greens the photo fades into
 //
 // Usage: node scripts/make-order-confirm-assets.mjs
@@ -38,7 +38,7 @@ const colors = {};
   colors.heroTop = hex(top); colors.heroBottom = hex(bot); colors.heroH = h / 2;
 }
 
-const stroke = 'fill="none" stroke="#004D27" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
+const stroke = 'fill="none" stroke="#E3BC62" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
 const STEPS = {
   // order confirmed: a check in a circle
   confirmed: `<circle cx="12" cy="12" r="8.5" ${stroke}/><path d="M8.3 12.3l2.5 2.5 4.9-5.2" ${stroke}/>`,
@@ -48,7 +48,7 @@ const STEPS = {
   delivered: `<path d="M4 11.2L12 4.5l8 6.7" ${stroke}/><path d="M6.2 9.6v9.4h11.6V9.6" ${stroke}/><path d="M10.2 19v-5h3.6v5" ${stroke}/>`,
 };
 for (const [k, d] of Object.entries(STEPS)) {
-  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112"><circle cx="56" cy="56" r="56" fill="#E3BC62"/><g transform="translate(28 28) scale(2.333)">${d}</g></svg>`)).png().toFile(`${OUT}/step-${k}.png`);
+  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112"><circle cx="56" cy="56" r="56" fill="#004D27"/><g transform="translate(28 28) scale(2.333)">${d}</g></svg>`)).png().toFile(`${OUT}/step-${k}.png`);
 }
 fs.writeFileSync('exports/klaviyo/order-confirm/colors.json', JSON.stringify(colors, null, 2) + '\n');
 console.log(colors);

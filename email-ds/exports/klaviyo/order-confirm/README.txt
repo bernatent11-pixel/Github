@@ -24,7 +24,7 @@ SECTIONS
   2 Your order · All the details, in one place. Card: Your Mate Latte (one row per Mate Latte line:
     pouch photo, name, size, quantity, price per bag) + Order number + Order total,
     "Your order page has everything..." + "View my order".
-  3 What happens next · From our hands / to your door. Order confirmed · Packed and shipped · At your door.
+  3 What happens next · From our hands / to your door. On gold, forest discs with gold icons: Order confirmed · Packed and shipped · At your door.
   4 Track it anytime · Where's my order? Two easy ways to check:
     1. "Track my order" in this email (no login), 2. their Milonga account (outlined "Log in to my account").
   5 Questions about your order? Reply, or orders@milongamate.com.

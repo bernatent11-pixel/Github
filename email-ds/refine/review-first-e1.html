@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#2B3A31;padding:28px 0 60px}.inbox{width:600px;max-width:calc(100% - 24px);margin:0 auto 18px;font-family:Helvetica,Arial,sans-serif}.lab{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px}.row{background:#fff;border-radius:12px;padding:13px 16px;display:grid;grid-template-columns:36px 1fr;column-gap:12px;align-items:center}.av{grid-row:1/span 2;width:36px;height:36px;border-radius:50%;background:#004D27;color:#F0EFDF;display:grid;place-items:center;font-weight:900;font-size:13px}.from{font-weight:700;font-size:13px;color:#12331F}.sub{font-size:13px;line-height:1.4;color:#12331F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub span{color:#6b6b6b}</style></head><body><div class="inbox"><div class="lab">Inbox preview</div><div class="row"><div class="av">S</div><div class="from">Shadi from Milonga</div><div class="sub"><b>So, what do you think?</b> <span>&mdash; I&rsquo;ll thank you with 15% off your next order, whatever you think of it.</span></div></div></div><style>
+  .unsub-pill a { color:#6B6B6B !important; text-decoration:underline !important; }
+  .web-view-line a { color:#6B6B6B !important; }
+  @media only screen and (max-width:620px) { .wrap { width:100% !important; } .pad { padding:28px 22px !important; } }
+</style><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="background:#FFFFFF;">
+<tr><td align="center">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+<tr><td class="pad" align="left" style="padding:36px 32px 28px;font-family:Helvetica, Arial, sans-serif;font-size:16px;line-height:1.6;color:#1E1E1E;">
+
+<p style="margin:0 0 18px;">Hey {{ person.first_name|default:'there' }},</p>
+<p style="margin:0 0 18px;">Thank you for giving the Mate Latte a try. By now you probably know if it&rsquo;s earned a spot in your mornings.</p>
+<p style="margin:0 0 18px;">One favor: would you share what you think in a review? Two lines is plenty. Good or bad, I want the honest version.</p>
+<p style="margin:0 0 18px;">We&rsquo;re a small team, and your review is how the next person decides to give mate a shot. Not long ago, that was you.</p>
+<p style="margin:0 0 18px;"><a href="https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">Leave a quick review &rarr;</a></p>
+<p style="margin:0 0 18px;">To return the favor, I&rsquo;ll send you 15% off your next order as soon as you submit it.</p>
+<p style="margin:0 0 18px;">Gracias,<br>Shadi</p>
+<p style="margin:6px 0 0;">P.S. Something wrong with your order? Just hit reply. I read every one.</p>
+
+</td></tr>
+<tr><td class="pad" align="left" style="padding:0 32px 32px;font-family:Helvetica, Arial, sans-serif;font-size:12px;line-height:1.5;color:#6B6B6B;">
+<div class="unsub-pill">Don&rsquo;t want these emails anymore? {% unsubscribe 'Unsubscribe' %}</div>
+<div class="web-view-line" style="padding-top:6px;">{% web_view %}</div>
+<div style="padding-top:10px;">{{ organization.name }} &middot; {{ organization.full_address }}</div>
+</td></tr>
+</table>
+</td></tr>
+</table></body></html>

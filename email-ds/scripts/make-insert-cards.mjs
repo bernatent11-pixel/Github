@@ -203,26 +203,31 @@ ${foot(c)}`,
 
   // ── C · first club order ──
   // The job is keeping them: a new member cancels when the club feels like a trap or a surprise
-  // charge, so the card's loud block is the way OUT of a delivery, not another offer. "Taking a
-  // trip? Skip a month." is the line from the club's welcome email; the three numbered lines are
-  // the whole sign-in (the portal emails a link, there is no password to forget).
-  // The perks are the ones card B sold them on, word for word, so the promise and the welcome match.
+  // charge, so the card's loud block is how to manage the subscription, not another offer. It
+  // says twice, on purpose, that they can pause, skip or cancel (Bernat, 2026-11-10).
+  // The portal is Appstle's, at milonga.life/apps/subscriptions (checked live: it shows their
+  // subscriptions if signed in, otherwise asks for their email and sends a sign-in link, so there
+  // is no password to print or forget). That address is printed as text; the code goes through
+  // the /my-club redirect to the same page, so scans are counted and it can be re-aimed.
+  // The perks are the ones card B sold them on, so the promise and the welcome match.
   // No prices: they have just paid theirs.
   c: {
     code: 'C',
     eyebrow: 'The Mate Mornings Club',
     title: ['You&rsquo;re in.', 'Welcome.'],
-    lead: 'Your first club bag is here, with a fresh one to follow every month. First time making it? Scan to&nbsp;watch.',
+    lead: 'Your first Mornings Club order is here, with a fresh one every month. First time making it? Scan to&nbsp;watch.',
     watch: { qr: 'qr-video-c.svg', url: 'https://milonga.life/video-c', label: 'Watch the video' },
     perks: [
-      ['percent', 'Member price', 'Up to 30% off every&nbsp;order.'],
+      // "savings", not "offer": an offer sounds like a one-time promotion, and this is every order
+      ['percent', 'Member savings', 'Up to 30% off every&nbsp;order.'],
       ['star', 'Early access', 'First in line for new&nbsp;products.'],
       ['tag', 'Member deals', 'Exclusive store&nbsp;discounts.'],
     ],
-    note: 'Your subscription works around your life. Skip a delivery, pause for a while or cancel, all at <b>milonga.life/my&#8209;club</b>',
+    note: 'Your subscription works around your life. Skip a delivery, pause for a while or cancel, all at your own&nbsp;portal: <b>milonga.life/apps/subscriptions</b>',
     portal: {
-      qr: 'qr-my-club.svg', url: 'https://milonga.life/my-club', label: 'Manage my club',
-      title: ['Taking a trip?', 'Skip a month.'],
+      qr: 'qr-my-club.svg', url: 'https://milonga.life/my-club', label: 'Open my portal',
+      title: ['Taking a trip?', 'Manage your subscription.'],
+      line: 'Pause, skip or cancel anytime.',
       steps: ['Scan the code', 'Enter your subscription email', 'Tap the sign-in link we send you'],
     },
     review: {
@@ -236,9 +241,9 @@ ${foot(c)}`,
 ${c.perks.map(([icon, t, d]) => `<div class="perk"><div class="disc">${ICON[icon]}</div><h3>${t}</h3><p>${d}</p></div>`).join('\n')}
 </div>
 <p class="note">${c.note}</p>
-<div class="panel">
+<div class="panel manage">
 ${qr(c.portal, img)}
-<div class="copy"><h2 class="serif">${c.portal.title[0]}<em>${c.portal.title[1]}</em></h2><ol class="how">${c.portal.steps.map((t, i) => `<li><b>${i + 1}</b>${t}</li>`).join('')}</ol></div>
+<div class="copy"><h2 class="serif">${c.portal.title[0]}<em>${c.portal.title[1]}</em></h2><p class="line">${c.portal.line}</p><ol class="how">${c.portal.steps.map((t, i) => `<li><b>${i + 1}</b>${t}</li>`).join('')}</ol></div>
 </div>
 <div class="closer">
 <div class="copy"><h2 class="serif">${c.review.title[0]} <i>${c.review.title[1]}</i></h2><p>${c.review.text}</p></div>
@@ -282,12 +287,12 @@ const BACK_CSS = `
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
 
 /* card C's feature row: what members get, as the emails draw it (a forest disc, a gold glyph) */
-.back .perkrow { margin-top: 12pt; display: flex; gap: ${GAP}pt; }
+.back .perkrow { margin-top: 9pt; display: flex; gap: ${GAP}pt; }
 .back .perk { width: ${TILE_W}pt; }
-.back .perk .disc { width: 24pt; height: 24pt; border-radius: 50%; background: ${FOREST}; display: flex; align-items: center; justify-content: center; }
-.back .perk svg { width: 13pt; height: 13pt; fill: none; stroke: ${GOLD}; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.back .perk h3 { margin-top: 6pt; }
-.back .perkrow + .note { margin-top: 10pt; }
+.back .perk .disc { width: 21pt; height: 21pt; border-radius: 50%; background: ${FOREST}; display: flex; align-items: center; justify-content: center; }
+.back .perk svg { width: 11.5pt; height: 11.5pt; fill: none; stroke: ${GOLD}; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.back .perk h3 { margin-top: 5pt; }
+.back .perkrow + .note { margin-top: 6pt; }
 
 /* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
    filled gold with the old price struck through, so the colour makes the argument first */
@@ -310,9 +315,13 @@ const BACK_CSS = `
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: ${FOREST}; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .panel.perks h2 { font-size: 15pt; line-height: 15.5pt; }
+/* card C's title is a full sentence on its second line, so it sets smaller and never wraps */
+.back .panel.manage { margin-top: 9pt; gap: 10pt; padding: 7pt 8pt 7pt 10pt; }
+.back .panel.manage h2 { font-size: 13.5pt; line-height: 14.5pt; white-space: nowrap; }
+.back .panel.manage .line { margin: 2.5pt 0 0; font-weight: 700; font-size: 7.2pt; line-height: 9.6pt; color: ${FOREST}; }
 .back .panel .copy p { color: ${DEEP}; }
-.back .how { margin: 5pt 0 0; padding: 0; list-style: none; }
-.back .how li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.4pt; color: ${DEEP}; white-space: nowrap; }
+.back .how { margin: 3.5pt 0 0; padding: 0; list-style: none; }
+.back .how li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${DEEP}; white-space: nowrap; }
 .back .how b { flex: none; width: 8.4pt; height: 8.4pt; border-radius: 50%; background: ${FOREST}; color: ${GOLD}; font-weight: 700; font-size: 5.4pt; line-height: 8.4pt; text-align: center; }
 .back .ticks { margin: 4pt 0 0; padding: 0; list-style: none; }
 .back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.7pt; color: ${DEEP}; white-space: nowrap; }
@@ -367,9 +376,15 @@ async function render(name, pdfName) {
       const r = el.getBoundingClientRect();
       if (r.bottom > box.bottom - (27 * 96 / 72) + 0.5) out.push(`${el.className || el.tagName}: ends ${((r.bottom - box.top) * 72 / 96).toFixed(1)}pt`);
     }
+    // and nothing may run past the right-hand safe line, or out of the box that holds it
+    for (const el of card.querySelectorAll('.back h1, .back h2, .back li, .back p, .back .qr span, .back .line')) {
+      const range = document.createRange(); range.selectNodeContents(el);
+      const r = range.getBoundingClientRect(), holder = (el.closest('.panel, .cell, .perk, .step, .head') || card).getBoundingClientRect();
+      if (r.right > box.right - (27 * 96 / 72) + 0.5 || r.right > holder.right + 0.5) out.push(`"${el.textContent.trim().slice(0, 28)}" runs ${((r.right - Math.min(holder.right, box.right - 27 * 96 / 72)) * 72 / 96).toFixed(1)}pt too wide`);
+    }
     return out;
   });
-  if (overflow.length) console.log(`  ! ${name}: past the safe line ->`, overflow.join(' | '));
+  if (overflow.length) console.log(`  ! ${name}: outside the safe area ->`, overflow.join(' | '));
   await page.pdf({ path: `${OUT}/${pdfName}.pdf`, width: `${W / 72}in`, height: `${H / 72}in`, printBackground: true, pageRanges: '1' });
   await page.close();
 

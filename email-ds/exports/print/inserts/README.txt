@@ -65,11 +65,12 @@ WHERE THE QR CODES GO (checked live 2026-11-10: every one answers 301 and lands 
 
   CARD C
   WATCH THE VIDEO     milonga.life/video-c    the same promo video                    INTERIM, see below
-  MANAGE MY CLUB      milonga.life/my-club    the subscription portal (/apps/subscriptions, Appstle):
+  OPEN MY PORTAL      milonga.life/my-club    the subscription portal (/apps/subscriptions, Appstle):
                                               their subscriptions if signed in, otherwise it asks
-                                              for their email and sends a sign-in link. This one is
-                                              also printed on the card as text, because a member
-                                              may need it months after the code was last scanned.
+                                              for their email and sends a sign-in link. The card
+                                              also prints the portal's own address as text,
+                                              milonga.life/apps/subscriptions, because a member may
+                                              need it months after the code was last scanned.
   WRITE A REVIEW      milonga.life/review-c   the Mate Latte page at its Judge.me reviews
 
   The targets carry utm_source=insert, utm_medium=qr, utm_campaign=card_a / card_b / card_c and
@@ -155,26 +156,36 @@ CARD B · WHAT IS ON IT AND WHY
 
 CARD C · WHAT IS ON IT AND WHY
   Same skeleton again. The job is keeping them: a new member cancels when the club feels like a
-  trap or a surprise charge, so the gold panel is the way OUT of a delivery, not another offer.
-  Back    1 "You're in. / Welcome." + "Your first club bag is here, with a fresh one to follow
+  trap or a surprise charge, so the gold panel is how to manage the subscription, not another
+  offer, and the card says twice that they can pause, skip or cancel.
+  Back    1 "You're in. / Welcome." + "Your first Mornings Club order is here, with a fresh one
             every month. First time making it? Scan to watch." (the video code, top right).
-          2 What members get, as three forest discs: Member price (up to 30% off every order) ·
+          2 What members get, as three forest discs: Member savings (up to 30% off every order) ·
             Early access (first in line for new products) · Member deals (exclusive store
             discounts). The same perks card B sells, so the promise and the welcome match.
+            "Savings", not "offer": an offer sounds like a one-time promotion; this is every order.
           3 "Your subscription works around your life. Skip a delivery, pause for a while or
-            cancel, all at milonga.life/my-club"
-          4 The gold panel: "Taking a trip? Skip a month." (the line from the club's welcome email)
-            and the whole sign-in as three numbered lines: scan the code · enter your
+            cancel, all at your own portal: milonga.life/apps/subscriptions"
+          4 The gold panel: "Taking a trip? Manage your subscription." + "Pause, skip or cancel
+            anytime." and the whole sign-in as three numbered lines: scan the code · enter your
             subscription email · tap the sign-in link we send you. There is no password to print
             or forget.
           5 "Got a minute? Leave a review." and "Questions about your club? Write to us".
+  THE PORTAL LINK. milonga.life/apps/subscriptions is Appstle's customer portal on the store,
+  the same address the club welcome email uses (checked live 2026-11-10: it serves the Appstle
+  portal, which shows their subscriptions if signed in and otherwise asks for their email and
+  sends a sign-in link). It is printed as text. The QR code beside it goes to the same page
+  through milonga.life/my-club, so scans are counted and the code can be re-aimed.
+  Note: the site footer's "Subscription Management" link goes somewhere else, to the Shopify
+  customer-account page. Both reach the subscription; the card follows the email.
   No prices and no offer: they have just paid theirs. No how-to steps either; the video code and
   the line beside it cover the member who is new to the product.
   "Portal login info" can only ever be HOW to sign in: a printed card is the same for everyone,
   so it cannot carry anyone's own login.
   BEFORE CARD C PRINTS: the same two perks as card B, "early access" and "exclusive store
   discounts", have to exist for members, and the club welcome email (Subscribers E1) should list
-  them too. Today it lists savings, monthly delivery and control.
+  them too. Today it lists savings, monthly delivery and control. And walk the sign-in once from
+  a phone, signed out, to see the three steps are what a member actually meets.
 
 FACTS USED (Shopify, checked 2026-11-10)
   Recipe: 2.5 tablespoons in 8oz of hot or cold water or milk, about 30 seconds.

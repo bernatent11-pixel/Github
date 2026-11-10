@@ -36,12 +36,12 @@ img { display: block; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
 /* card C's feature row: what members get, as the emails draw it (a forest disc, a gold glyph) */
-.back .perkrow { margin-top: 12pt; display: flex; gap: 14pt; }
+.back .perkrow { margin-top: 9pt; display: flex; gap: 14pt; }
 .back .perk { width: 70.66666666666667pt; }
-.back .perk .disc { width: 24pt; height: 24pt; border-radius: 50%; background: #004D27; display: flex; align-items: center; justify-content: center; }
-.back .perk svg { width: 13pt; height: 13pt; fill: none; stroke: #E3BC62; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.back .perk h3 { margin-top: 6pt; }
-.back .perkrow + .note { margin-top: 10pt; }
+.back .perk .disc { width: 21pt; height: 21pt; border-radius: 50%; background: #004D27; display: flex; align-items: center; justify-content: center; }
+.back .perk svg { width: 11.5pt; height: 11.5pt; fill: none; stroke: #E3BC62; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.back .perk h3 { margin-top: 5pt; }
+.back .perkrow + .note { margin-top: 6pt; }
 
 /* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
    filled gold with the old price struck through, so the colour makes the argument first */
@@ -64,9 +64,13 @@ img { display: block; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: #004D27; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .panel.perks h2 { font-size: 15pt; line-height: 15.5pt; }
+/* card C's title is a full sentence on its second line, so it sets smaller and never wraps */
+.back .panel.manage { margin-top: 9pt; gap: 10pt; padding: 7pt 8pt 7pt 10pt; }
+.back .panel.manage h2 { font-size: 13.5pt; line-height: 14.5pt; white-space: nowrap; }
+.back .panel.manage .line { margin: 2.5pt 0 0; font-weight: 700; font-size: 7.2pt; line-height: 9.6pt; color: #004D27; }
 .back .panel .copy p { color: #00351B; }
-.back .how { margin: 5pt 0 0; padding: 0; list-style: none; }
-.back .how li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.4pt; color: #00351B; white-space: nowrap; }
+.back .how { margin: 3.5pt 0 0; padding: 0; list-style: none; }
+.back .how li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #00351B; white-space: nowrap; }
 .back .how b { flex: none; width: 8.4pt; height: 8.4pt; border-radius: 50%; background: #004D27; color: #E3BC62; font-weight: 700; font-size: 5.4pt; line-height: 8.4pt; text-align: center; }
 .back .ticks { margin: 4pt 0 0; padding: 0; list-style: none; }
 .back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.7pt; color: #00351B; white-space: nowrap; }
@@ -87,16 +91,16 @@ img { display: block; }
 <h1 class="serif">You&rsquo;re in.<em>Welcome.</em></h1>
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-video-c.svg" data-qr="https://milonga.life/video-c" alt="QR code: Watch the video"></div><span>Watch the video</span></div>
 </div>
-<p class="lead">Your first club bag is here, with a fresh one to follow every month. First time making it? Scan to&nbsp;watch.</p>
+<p class="lead">Your first Mornings Club order is here, with a fresh one every month. First time making it? Scan to&nbsp;watch.</p>
 <div class="perkrow">
-<div class="perk"><div class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="7.5" r="2.7"/><circle cx="16.5" cy="16.5" r="2.7"/><path d="M18 6L6 18"/></svg></div><h3>Member price</h3><p>Up to 30% off every&nbsp;order.</p></div>
+<div class="perk"><div class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="7.5" r="2.7"/><circle cx="16.5" cy="16.5" r="2.7"/><path d="M18 6L6 18"/></svg></div><h3>Member savings</h3><p>Up to 30% off every&nbsp;order.</p></div>
 <div class="perk"><div class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z"/></svg></div><h3>Early access</h3><p>First in line for new&nbsp;products.</p></div>
 <div class="perk"><div class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.6V5a1.5 1.5 0 0 1 1.5-1.5h6.6a1.5 1.5 0 0 1 1.06.44l7.4 7.4a1.5 1.5 0 0 1 0 2.12l-6.6 6.6a1.5 1.5 0 0 1-2.12 0l-7.4-7.4a1.5 1.5 0 0 1-.44-1.06z"/><circle cx="8" cy="8" r="1.3"/></svg></div><h3>Member deals</h3><p>Exclusive store&nbsp;discounts.</p></div>
 </div>
-<p class="note">Your subscription works around your life. Skip a delivery, pause for a while or cancel, all at <b>milonga.life/my&#8209;club</b></p>
-<div class="panel">
-<div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-my-club.svg" data-qr="https://milonga.life/my-club" alt="QR code: Manage my club"></div><span>Manage my club</span></div>
-<div class="copy"><h2 class="serif">Taking a trip?<em>Skip a month.</em></h2><ol class="how"><li><b>1</b>Scan the code</li><li><b>2</b>Enter your subscription email</li><li><b>3</b>Tap the sign-in link we send you</li></ol></div>
+<p class="note">Your subscription works around your life. Skip a delivery, pause for a while or cancel, all at your own&nbsp;portal: <b>milonga.life/apps/subscriptions</b></p>
+<div class="panel manage">
+<div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-my-club.svg" data-qr="https://milonga.life/my-club" alt="QR code: Open my portal"></div><span>Open my portal</span></div>
+<div class="copy"><h2 class="serif">Taking a trip?<em>Manage your subscription.</em></h2><p class="line">Pause, skip or cancel anytime.</p><ol class="how"><li><b>1</b>Scan the code</li><li><b>2</b>Enter your subscription email</li><li><b>3</b>Tap the sign-in link we send you</li></ol></div>
 </div>
 <div class="closer">
 <div class="copy"><h2 class="serif">Got a minute? <i>Leave a review.</i></h2><p>Tell us honestly how it&rsquo;s going. It helps a small brand more than you&rsquo;d&nbsp;think.</p></div>

@@ -1,7 +1,7 @@
 // Post-purchase · Mate Mornings Club SUBSCRIBERS · Email 1 · "Welcome to your morning upgrade"
 //
 // Sent when their first club order is delivered (flow plan, Flow 5). Welcomes them to the club,
-// makes the first cup easy, lists what membership means (prices and terms from Shopify's selling
+// makes the first cup easy (three steps, then hot or iced), lists what membership means (prices and terms from Shopify's selling
 // plans) and shows where to manage the subscription (Appstle, inside their Shopify account).
 //
 // Writes:
@@ -16,7 +16,9 @@ const hostedPath = `${OUT}/hosted.json`;
 const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath, 'utf8')) : {};
 const K = 'https://cdn.klaviyomail.com/company/TwvSnK/images/';
 const SHARED = {
-  'logo-beige.png': [`${K}c267d1bd-4e34-4ee1-b901-eac7bc60b87d.png`, '../exports/klaviyo/pp1-e3/img/logo-beige.png'],
+  'logo-green.png': [`${K}b6a03046-605a-4e87-b22f-a530be1633e3.png`, '../exports/klaviyo/welcome-e1/img/logo-green.png'],
+  'drink-hot.png': [`${K}eb720e35-e441-496a-a96c-5f30dc637591.png`, '../exports/klaviyo/pp1-e1/img/drink-hot.png'],
+  'drink-iced.png': [`${K}93430b07-73ca-42d5-947b-2da6b2c4fdd7.png`, '../exports/klaviyo/pp1-e1/img/drink-iced.png'],
   'mark-green.png': [`${K}0e781634-6907-42f6-b101-3c2c15371a99.png`, '../public/logo/mark-green.png'],
   'step-save.png': [`${K}a4357407-20fc-49b1-8769-bf58002d7677.png`, '../exports/klaviyo/pp1-e3/img/step-save.png'],
   'step-monthly.png': [`${K}24d6f5de-8675-4686-a18f-c65ec7fb0136.png`, '../exports/klaviyo/pp1-e3/img/step-monthly.png'],
@@ -34,18 +36,19 @@ const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=post_purchase_subscribers&utm_content=${slot}`;
-// Appstle's subscription page inside their Shopify customer account (the site footer's
-// "Subscription Management" link); they sign in with a code sent to their email.
-const PORTAL = 'https://shopify.com/84126990646/account/pages/019dbe72-e192-7fe5-9e91-82a0a1a8655f';
+// Appstle's subscription portal on the store (milonga.life/apps/subscriptions, "My Account"): it
+// opens their subscriptions, or asks for their email and sends a sign-in magic link.
+const PORTAL = 'https://milonga.life/apps/subscriptions';
 const L = { home: `${SITE}/?${utm('sub1_logo')}` };
 const HELP = 'orders@milongamate.com';
 
 // how to make it (product page: 2.5 tbsp in 8oz of hot or cold water or milk, 30 seconds)
 const STEPS = [
-  { n: '1', t: 'Scoop', d: '2.5 tablespoons into your mug <span style="white-space:nowrap;">or glass.</span>' },
-  { n: '2', t: 'Pour', d: '8oz of hot or cold milk <span style="white-space:nowrap;">or water.</span>' },
-  { n: '3', t: 'Stir or froth', d: 'Ready in 30 seconds, <span style="white-space:nowrap;">hot or iced.</span>' },
+  { img: 'step-scoop.png', t: 'Scoop', d: '2.5 tablespoons into your mug <span style="white-space:nowrap;">or glass.</span>' },
+  { img: 'step-pour.png', t: 'Pour', d: '8oz of hot or cold milk <span style="white-space:nowrap;">or water.</span>' },
+  { img: 'step-froth.png', t: 'Stir or froth', d: 'Ready in 30 seconds, <span style="white-space:nowrap;">hot or iced.</span>' },
 ];
+const DRINK_W = 200, DRINK_H = 205; // the hot and iced cutouts (pp1-e1) share this canvas
 // the club, as Shopify's selling plans set it: 30% off 30 and 60 servings, 15% off 15, monthly
 const PERKS = [
   { img: 'step-save.png', t: 'Save on every order', d: '30% off 30 or 60 servings, <span style="white-space:nowrap;">15% off 15.</span>' },
@@ -78,6 +81,8 @@ const STYLE = `<style>
     .how-t { font-size:13px !important; line-height:17px !important; }
     .how-d { font-size:11.5px !important; line-height:16px !important; }
     .bags { width:280px !important; height:auto !important; }
+    .drink-img { width:150px !important; height:154px !important; }
+    .drink-text { font-size:12.5px !important; line-height:18px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
   @media (prefers-color-scheme: dark) {
@@ -86,6 +91,8 @@ const STYLE = `<style>
     .bg-hero { background-color:${C.heroBottom} !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-gold { background-color:${GOLD} !important; }
+    .bg-wall { background-color:${C.wall} !important; }
+    .bg-table { background-color:${C.table} !important; }
   }
 </style>`;
 
@@ -102,8 +109,8 @@ const lead = (t, color, extra = '') => `<div class="lead" style="padding-top:16p
 
 function body(img) {
   const steps = STEPS.map((s) => `<td class="how" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" valign="middle" width="48" height="48" bgcolor="${GOLD}" style="width:48px;height:48px;border-radius:24px;background-color:${GOLD};font-family:${SERIF};font-size:24px;line-height:48px;font-weight:700;color:${FOREST};">${s.n}</td></tr></table>
-<div class="how-t" style="padding-top:12px;font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${ent(s.t)}</div>
+<img class="how-img" src="${img(s.img)}" width="56" height="56" alt="" role="presentation" style="display:block;margin:0 auto;width:56px;height:56px;border:0;">
+<div class="how-t" style="padding-top:14px;font-size:15px;line-height:19px;font-weight:700;color:${FOREST};">${ent(s.t)}</div>
 <div class="how-d" style="padding-top:6px;font-size:13px;line-height:19px;font-weight:500;color:${INK};">${ent(s.d)}</div>
 </td>`).join('\n');
   const perks = PERKS.map((s) => `<td class="how" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
@@ -112,25 +119,43 @@ function body(img) {
 <div class="how-d" style="padding-top:6px;font-size:13px;line-height:19px;font-weight:500;color:${INK};">${ent(s.d)}</div>
 </td>`).join('\n');
 
+  const drink = (pad, image, alt, name, text) => `<td class="drink" width="50%" align="center" valign="top" style="width:50%;padding:${pad};font-family:${FONT};">
+<img class="drink-img" src="${img(image)}" width="${DRINK_W}" height="${DRINK_H}" alt="${alt}" style="display:block;margin:0 auto;width:${DRINK_W}px;height:${DRINK_H}px;border:0;">
+<div style="padding-top:16px;font-family:${SERIF};font-size:26px;line-height:30px;font-weight:700;font-style:italic;color:${FOREST};">${name}</div>
+<div class="drink-text" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
+</td>`;
+
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · WELCOME TO THE CLUB (the studio still life; the photo's top and bottom fade
-     into the flat greens of the title row above and the button row below) ── -->
-${row(C.heroTop, 'pad bg-hero-top', 'padding:34px 40px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:30px;">${eyebrow('Welcome to the Mate Mornings Club', GOLD)}</div>
-${title('Welcome to your', 'morning upgrade.', 'h-hero', 52, '#FFFFFF', 10)}`)}
-<tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="A Mate Latte in a glass mug beside the pouch and a frother on deep green" style="display:block;width:600px;height:${C.heroH}px;border:0;"></td></tr>
-${row(C.heroBottom, 'pad bg-hero', 'padding:0 40px 56px;', `${lead(`${ent('Your first club bag is here, and you’re officially a member. From now on, a fresh supply shows up every month with your club savings on every order. Skip, pause or cancel')} ${nw('anytime.')}`, '#FFFFFF', 'padding-top:0;')}
-<div style="padding-top:28px;">${button(PORTAL, 'Manage my subscription', 340, GOLD, FOREST, '#B8913A')}</div>`)}
+<!-- ── 1 · WELCOME TO THE CLUB (Bernat's photo: two pouches, Lion's Mane, vanilla and a frothed
+     latte on warm cream; its top and bottom fade into the flat creams of the rows around it) ── -->
+${row(C.heroTop, 'pad bg-hero-top', 'padding:34px 40px 6px;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div style="padding-top:28px;">${eyebrow('Welcome to the Mate Mornings Club', FOREST)}</div>
+${title('Welcome to your', 'morning upgrade.', 'h-hero', 52, FOREST, 10)}`)}
+<tr><td class="bg-hero-top" bgcolor="${C.heroTop}" style="background-color:${C.heroTop};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('hero.jpg')}" width="600" height="${C.heroH}" alt="Two Mate Latte pouches, Lion's Mane, vanilla and a frothed latte" style="display:block;width:600px;height:${C.heroH}px;border:0;"></td></tr>
+${row(C.heroBottom, 'pad bg-hero', 'padding:4px 40px 56px;', `${lead(`${ent('Your first club bag is here, and you’re officially a member. From now on, a fresh supply shows up every month with your club savings on every order. Skip, pause or cancel')} ${nw('anytime.')}`, INK, 'padding-top:0;')}
+<div style="padding-top:28px;">${button(PORTAL, 'Manage my subscription', 340)}</div>`)}
 
-<!-- ── 2 · YOUR FIRST CLUB CUP (the product page's recipe) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('Your first club cup')}
+<!-- ── 2 · YOUR FIRST CLUB CUP (Bernat's pouring photo is the section's background: the title
+     and the three steps sit on its gold wall, its white table carries on into hot / iced) ── -->
+${row(C.wall, 'pad bg-wall', 'padding:52px 40px 0;', `${eyebrow('Your first club cup')}
 ${title('Three steps,', 'thirty seconds.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:32px 30px 56px;">
+<tr><td class="pad-photo bg-wall" bgcolor="${C.wall}" style="background-color:${C.wall};padding:32px 30px 8px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${steps}
+</tr></table>
+</td></tr>
+<tr><td class="bg-wall" bgcolor="${C.wall}" style="background-color:${C.wall};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="600" height="${C.howtoH}" alt="Milk poured into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${C.howtoH}px;border:0;"></td></tr>
+
+<!-- ── 2b · HOT OR ICED (on the table colour of the photo above; the cutouts from pp1-e1) ── -->
+${row(C.table, 'pad bg-table', 'padding:16px 40px 0;', `${eyebrow('Your way')}
+${title('Hot or iced,', 'it’s all yours.', 'h-sec', 40)}`)}
+<tr><td class="pad-photo bg-table" bgcolor="${C.table}" style="background-color:${C.table};padding:30px 30px 56px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+${drink('0 10px 0 0', 'drink-hot.png', 'A hot Mate Latte in a glass mug', 'Hot', `Heat ${nw('8oz of milk')} or water, add ${nw('2.5 tablespoons')} and froth until smooth. Cozy and creamy.`)}
+${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'Iced', `Mix ${nw('2.5 tablespoons')} into ${nw('8oz of cold')} milk or water, then pour it over ice. Cold and refreshing.`)}
 </tr></table>
 </td></tr>
 
@@ -146,7 +171,7 @@ ${perks}
 <!-- ── 4 · YOUR CLUB, YOUR WAY: where to manage it ── -->
 ${row(CREAM, 'pad bg-cream', 'padding:56px 40px 0;', `${eyebrow('Your club, your way')}
 ${title('Taking a trip?', 'Skip a month.', 'h-sec', 40)}
-${lead(`${ent('Your subscription works around your life. Skip a delivery, pause for a while or cancel, all from your subscription page. Sign in with the email you subscribed with and we’ll send you')} ${nw('a quick code.')}`, INK)}`)}
+${lead(`${ent('Your subscription works around your life. Skip a delivery, pause for a while or cancel, all from your subscription page. Not signed in? Enter the email you subscribed with and we’ll send you')} ${nw('a sign-in link.')}`, INK)}`)}
 <tr><td class="bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 40px 0;font-size:0;line-height:0;"><img class="bags" src="${img('bags.jpg')}" width="380" height="${C.bagsH}" alt="Three Mate Latte pouches" style="display:block;margin:0 auto;width:380px;height:${C.bagsH}px;border:0;"></td></tr>
 ${row(CREAM, 'pad bg-cream', 'padding:30px 40px 0;', button(PORTAL, 'Manage my subscription', 340))}
 

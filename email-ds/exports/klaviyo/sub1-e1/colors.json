@@ -1,6 +1,9 @@
 {
-  "heroTop": "#034433",
-  "heroBottom": "#0A5745",
-  "heroH": 662,
+  "heroTop": "#DBBDA8",
+  "heroBottom": "#EEDCD0",
+  "heroH": 510,
+  "wall": "#E4B77D",
+  "table": "#EDE5D9",
+  "howtoH": 570,
   "bagsH": 337
 }

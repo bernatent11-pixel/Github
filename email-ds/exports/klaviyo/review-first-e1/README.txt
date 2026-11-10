@@ -20,7 +20,10 @@ SUBJECT + PREVIEW
     they go to the from address.
 
 JOB
-  One ask: a review, about 110 words. No selling, no club pitch.
+  One ask: a review, about 120 words. No selling, no club pitch.
+  Written the way Shadi talks, after Corbin from BREZ's plain-text emails: it opens with something
+  about the writer, keeps one thought per paragraph, and asks without pressure. The phrases are
+  Shadi's own from the live letters ("LOL", "Hey ...!", "Gracias"), not BREZ's.
   The angle is the one only a first-time buyer has: not long ago they were the person deciding
   whether to try it, so their review is what the next person in that spot reads.
   The 15% is in the preview text and the last line, as a thank-you. Keep it out of the subject:
@@ -41,10 +44,12 @@ REVIEW REWARD (15% off the next order)
   Keep the reward for any honest review. Paying only for positive ones breaks the FTC's review rule.
 
 FACTS USED (checked in Klaviyo, 2026-11-10)
-  "By now": the email goes 5 days after someone enters the segment, and the segment needs 12+ days
-    since the last Mate Latte order. That is about 17 days after a new order, but longer for anyone
-    already in the segment, so the letter does not say "a couple of weeks".
-  "Not long ago, that was you": true of every first-time buyer; it says "the next person", not
+  "The drink I wished existed": Shadi's own line, from the welcome letter.
+  "I get a little nervous": a feeling written for Shadi. CONFIRM IT IS TRUE before this sends, or cut it.
+  "For a bit now": the email goes 5 days after someone enters the segment, and the segment needs
+    12+ days since the last Mate Latte order. That is about 17 days after a new order, but longer
+    for anyone already in the segment, so the letter does not say "a couple of weeks".
+  "Not long ago that was you": true of every first-time buyer; it says "the next person", not
     "the next coffee drinker", because not every buyer was one.
   The P.S. is about the order, on purpose. "If something wasn't right, hit reply" reads as "send
     complaints here instead of reviewing", next to a line that says good or bad is welcome.

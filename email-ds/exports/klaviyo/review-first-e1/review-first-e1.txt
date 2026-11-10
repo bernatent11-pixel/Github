@@ -2,17 +2,19 @@ SUBJECT: So, what do you think?
 PREVIEW: I’ll thank you with 15% off your next order, whatever you think of it.
 FROM: Shadi from Milonga
 
-Hey {{ person.first_name|default:'there' }},
+Hey {{ person.first_name|default:'there' }}!
 
-Thank you for giving the Mate Latte a try. By now you probably know if it’s earned a spot in your mornings.
+I made the Mate Latte because it’s the drink I wished existed. So when someone tries it for the first time, I get a little nervous LOL.
 
-One favor: would you share what you think in a review? Two lines is plenty. Good or bad, I want the honest version.
+You’ve had yours for a bit now. So... how is it?
 
-We’re a small team, and your review is how the next person decides to give mate a shot. Not long ago, that was you.
+Would you tell me in a quick review? Two lines is plenty, and I want the honest version, good or bad.
+
+We’re a small team, and your review is what the next person reads before giving mate a shot. Not long ago that was you!
 
 Leave a quick review: https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews
 
-To return the favor, I’ll send you 15% off your next order as soon as you submit it.
+To say thanks, I’ll send you 15% off your next order as soon as you submit it.
 
 Gracias,
 Shadi

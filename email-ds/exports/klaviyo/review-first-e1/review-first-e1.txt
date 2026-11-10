@@ -4,13 +4,13 @@ FROM: Shadi from Milonga
 
 Hey {{ person.first_name|default:'there' }}!
 
-I made the Mate Latte because it’s the drink I wished existed. So when someone tries it for the first time, I get a little nervous LOL.
+I made the Mate Latte because it’s the drink I wished existed. So when someone trusts us enough to try it, it means the world to me. Thank you.
 
-You’ve had yours for a bit now. So... how is it?
+I’d love to know what you think of it.
 
 Would you tell me in a quick review? Two lines is plenty, and I want the honest version, good or bad.
 
-We’re a small team, and your review is what the next person reads before giving mate a shot. Not long ago that was you!
+Your opinion matters to us. We’re a small team, and your review is what the next person reads before giving mate a shot. Not long ago, that was you.
 
 Leave a quick review: https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews
 

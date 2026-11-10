@@ -8,7 +8,7 @@
 //                 fades into the gold wall the title and steps sit on, its bottom into the table colour
 //                 the hot/iced section continues on. 1200x1140 (600x570).
 //   step-*.png    forest discs with a gold line icon: scoop, pour, froth (112px = 56 in the email)
-//   bags.jpg      the three pouches on the cream of their section. 760 wide (380).
+//   bags.jpg      Bernat's three pouches, their white turned into the section's cream. 760 wide (380).
 //   colors.json   the flat colours the photos fade into
 //
 // Usage: node scripts/make-sub1-e1-assets.mjs
@@ -50,7 +50,15 @@ const colors = {};
   const r = await faded('exports/klaviyo/sub1-e1/src-howto-107.webp', { left: 0, top: 0, width: 2000, height: 1900 }, 1200, 1140, 0.1, 0.12, 'howto.jpg');
   colors.wall = r.top; colors.table = r.bot; colors.howtoH = r.h;
 }
-await sharp('public/product/three-bags.png').trim().resize({ width: 760 }).flatten({ background: '#F7F4EA' }).jpeg(jpg).toFile(`${OUT}/bags.jpg`);
+// Bernat's three-pouch shot on white (src-bags-108.jpg): trimmed, then multiplied by the section's
+// cream so the white becomes exactly that cream (no box) and the pouches barely shift.
+{
+  const { data, info } = await sharp('exports/klaviyo/sub1-e1/src-bags-108.jpg').trim({ threshold: 12 }).resize({ width: 760 })
+    .removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const CR = [0xF7, 0xF4, 0xEA];
+  for (let i = 0; i < data.length; i++) data[i] = Math.round(data[i] * CR[i % 3] / 255);
+  await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/bags.jpg`);
+}
 { const m = await sharp(`${OUT}/bags.jpg`).metadata(); colors.bagsH = Math.round(m.height / 2); }
 
 const stroke = 'fill="none" stroke="#E3BC62" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';

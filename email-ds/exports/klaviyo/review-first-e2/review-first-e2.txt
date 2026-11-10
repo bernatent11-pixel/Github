@@ -1,0 +1,18 @@
+SUBJECT: One honest sentence?
+PREVIEW: 15% off your next order as a thank you. Last nudge on this one.
+FROM: Shadi from Milonga
+
+Hey {{ person.first_name|default:'there' }},
+
+It’s me again. Last nudge on this one.
+
+A few days ago I asked what you think of the Mate Latte. I know life gets busy. One honest sentence counts, good or bad, and it helps the next person decide.
+
+Leave a quick review: https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews
+
+Your 15% off lands in your inbox as soon as you submit it.
+
+And if reviews aren’t your thing, no hard feelings. Thank you for giving us a try.
+
+Gracias,
+Shadi

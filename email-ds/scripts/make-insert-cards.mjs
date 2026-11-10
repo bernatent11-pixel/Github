@@ -163,7 +163,9 @@ ${foot(c)}`,
     club: {
       qr: 'qr-club-b.svg', url: 'https://milonga.life/club-b', label: 'Join the club',
       title: ['Subscribe for', 'exclusive perks.'],
-      ticks: ['Early access to new products', 'Exclusive store discounts', 'Skip, pause or cancel anytime'],
+      // "up to": the club is 30% off 30 or 60 servings and 15% off 15 (Shopify's selling plans), so
+      // a flat "30% off every order" would be untrue for anyone who subscribes to the small size
+      ticks: ['Save up to 30% on every order', 'Early access to new products', 'Exclusive store discounts', 'Skip, pause or cancel anytime'],
     },
     review: {
       qr: 'qr-review-b.svg', url: 'https://milonga.life/review-b', label: 'Write a review',
@@ -181,7 +183,7 @@ ${c.compare.map((x) => `<div class="cell${x.badge ? ' club' : ''}">${x.badge ? `
 </div>`).join('\n')}
 </div>
 <p class="note">${c.note}</p>
-<div class="panel">
+<div class="panel perks">
 ${qr(c.club, img)}
 <div class="copy"><h2 class="serif">${c.club.title[0]}<em>${c.club.title[1]}</em></h2><ul class="ticks">${c.club.ticks.map((t) => `<li>${TICK}${t}</li>`).join('')}</ul></div>
 </div>
@@ -228,10 +230,10 @@ const BACK_CSS = `
 
 /* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
    filled gold with the old price struck through, so the colour makes the argument first */
-.back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
-.back .cell { position: relative; flex: 1; padding: 7pt 9pt 6pt; border-radius: 8pt; border: .8pt solid ${LINE}; }
+.back .compare { margin-top: 10pt; display: flex; gap: 8pt; }
+.back .cell { position: relative; flex: 1; padding: 6.5pt 9pt 6pt; border-radius: 8pt; border: .8pt solid ${LINE}; }
 .back .cell.club { border-color: ${GOLD}; background: ${GOLD}; }
-.back .cell img { position: absolute; right: 8pt; top: 9pt; height: 27pt; width: auto; }
+.back .cell img { position: absolute; right: 8pt; top: 8.5pt; height: 27pt; width: auto; }
 .back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: ${FOREST}; }
 .back .cell .above { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: ${INK}; }
 .back .cell .above s { font-family: ${SERIF}; font-weight: 400; font-size: 10.5pt; text-decoration: line-through; text-decoration-thickness: .7pt; color: ${DEEP}; }
@@ -239,20 +241,21 @@ const BACK_CSS = `
 .back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: ${INK}; white-space: nowrap; }
 .back .cell:not(.club) .label, .back .cell:not(.club) .above, .back .cell:not(.club) .price, .back .cell:not(.club) .line { color: ${SOFT}; }
 .back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: ${FOREST}; color: ${CREAM}; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-.back .note { margin: 4.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
+.back .note { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
 
 /* the gold panel: the one loud block on each card, whatever that cohort's main job is */
-.back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 12pt; }
+.back .panel { margin-top: 10pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 12pt; }
 .back .stars { display: flex; gap: 1.6pt; margin-bottom: 4.5pt; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: ${FOREST}; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
+.back .panel.perks h2 { font-size: 15pt; line-height: 15.5pt; }
 .back .panel .copy p { color: ${DEEP}; }
-.back .ticks { margin: 5pt 0 0; padding: 0; list-style: none; }
-.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10pt; color: ${DEEP}; white-space: nowrap; }
+.back .ticks { margin: 4pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.7pt; color: ${DEEP}; white-space: nowrap; }
 .back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: ${FOREST}; stroke: ${GOLD}; }
 
 /* the closing block: the quiet ask, pinned above the help line */
-.back .closer { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
+.back .closer { margin-top: auto; padding-top: 8pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
 .back .closer h2 { font-size: 13.5pt; line-height: 15pt; }
 .back .closer h2 i { font-weight: 700; font-style: italic; }
 

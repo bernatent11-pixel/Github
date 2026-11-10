@@ -119,13 +119,16 @@ CARD B · WHAT IS ON IT AND WHY
             next order costs less." That second sentence is the card's urgency, and it is true:
             there is no deadline and no bag running out, only that the saving starts with the
             next order.
-          4 The gold panel: "Subscribe for exclusive perks." + early access to new products ·
-            exclusive store discounts · skip, pause or cancel anytime.
+          4 The gold panel: "Subscribe for exclusive perks." + save up to 30% on every order ·
+            early access to new products · exclusive store discounts · skip, pause or cancel
+            anytime.
           5 "Got a minute? Leave a review." with NO 15% printed: a second discount on this card
             would compete with the one it is selling. Judge.me still sends the code to anyone who
             reviews.
-  The only "30%" on the card is the badge on the 30-serving example it belongs to (15 servings
-  is 15% off in the club), so nothing promises 30% on every size.
+  The perk says "up to 30%" on purpose. The club is 30% off 30 or 60 servings and 15% off 15,
+  so a flat "30% off every order" would be untrue for anyone who subscribes to the small size.
+  The "Save 30%" badge sits on the 30-serving example it belongs to. If the 15-serving plan
+  moves to 30% in Shopify, drop the "up to" (the ticks line in CARDS.b).
   No how-to steps: someone on their second bag knows how to make it. The video code stays, top
   right, because every card carries it.
   BEFORE CARD B PRINTS: "early access to new products" and "exclusive store discounts" are new

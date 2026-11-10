@@ -37,10 +37,10 @@ img { display: block; }
 
 /* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
    filled gold with the old price struck through, so the colour makes the argument first */
-.back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
-.back .cell { position: relative; flex: 1; padding: 7pt 9pt 6pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
+.back .compare { margin-top: 10pt; display: flex; gap: 8pt; }
+.back .cell { position: relative; flex: 1; padding: 6.5pt 9pt 6pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
 .back .cell.club { border-color: #E3BC62; background: #E3BC62; }
-.back .cell img { position: absolute; right: 8pt; top: 9pt; height: 27pt; width: auto; }
+.back .cell img { position: absolute; right: 8pt; top: 8.5pt; height: 27pt; width: auto; }
 .back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: #004D27; }
 .back .cell .above { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; }
 .back .cell .above s { font-family: 'Times New Roman','Liberation Serif',Times,Georgia,serif; font-weight: 400; font-size: 10.5pt; text-decoration: line-through; text-decoration-thickness: .7pt; color: #00351B; }
@@ -48,20 +48,21 @@ img { display: block; }
 .back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; white-space: nowrap; }
 .back .cell:not(.club) .label, .back .cell:not(.club) .above, .back .cell:not(.club) .price, .back .cell:not(.club) .line { color: #3B5344; }
 .back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: #004D27; color: #F7F4EA; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-.back .note { margin: 4.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
+.back .note { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
 /* the gold panel: the one loud block on each card, whatever that cohort's main job is */
-.back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: #E3BC62; display: flex; align-items: center; gap: 12pt; }
+.back .panel { margin-top: 10pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: #E3BC62; display: flex; align-items: center; gap: 12pt; }
 .back .stars { display: flex; gap: 1.6pt; margin-bottom: 4.5pt; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: #004D27; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
+.back .panel.perks h2 { font-size: 15pt; line-height: 15.5pt; }
 .back .panel .copy p { color: #00351B; }
-.back .ticks { margin: 5pt 0 0; padding: 0; list-style: none; }
-.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10pt; color: #00351B; white-space: nowrap; }
+.back .ticks { margin: 4pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.7pt; color: #00351B; white-space: nowrap; }
 .back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: #004D27; stroke: #E3BC62; }
 
 /* the closing block: the quiet ask, pinned above the help line */
-.back .closer { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
+.back .closer { margin-top: auto; padding-top: 8pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
 .back .closer h2 { font-size: 13.5pt; line-height: 15pt; }
 .back .closer h2 i { font-weight: 700; font-style: italic; }
 
@@ -93,9 +94,9 @@ img { display: block; }
 </div>
 </div>
 <p class="note">You might be the perfect fit for our subscription program. <b>Join today and your very next order costs&nbsp;less.</b></p>
-<div class="panel">
+<div class="panel perks">
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-club-b.svg" data-qr="https://milonga.life/club-b" alt="QR code: Join the club"></div><span>Join the club</span></div>
-<div class="copy"><h2 class="serif">Subscribe for<em>exclusive perks.</em></h2><ul class="ticks"><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Early access to new products</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive store discounts</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Skip, pause or cancel anytime</li></ul></div>
+<div class="copy"><h2 class="serif">Subscribe for<em>exclusive perks.</em></h2><ul class="ticks"><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Save up to 30% on every order</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Early access to new products</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive store discounts</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Skip, pause or cancel anytime</li></ul></div>
 </div>
 <div class="closer">
 <div class="copy"><h2 class="serif">Got a minute? <i>Leave a review.</i></h2><p>Tell us honestly how it&rsquo;s going. It helps a small brand more than you&rsquo;d&nbsp;think.</p></div>

@@ -240,11 +240,11 @@ ${foot(c)}`,
 <div class="perkrow">
 ${c.perks.map(([icon, t, d]) => `<div class="perk"><div class="disc">${ICON[icon]}</div><h3>${t}</h3><p>${d}</p></div>`).join('\n')}
 </div>
-<p class="note">${c.note}</p>
 <div class="panel manage">
 ${qr(c.portal, img)}
 <div class="copy"><h2 class="serif">${c.portal.title[0]}<em>${c.portal.title[1]}</em></h2><p class="line">${c.portal.line}</p><ol class="how">${c.portal.steps.map((t, i) => `<li><b>${i + 1}</b>${t}</li>`).join('')}</ol></div>
 </div>
+<p class="note">${c.note}</p>
 <div class="closer">
 <div class="copy"><h2 class="serif">${c.review.title[0]} <i>${c.review.title[1]}</i></h2><p>${c.review.text}</p></div>
 ${qr(c.review, img)}
@@ -292,7 +292,7 @@ const BACK_CSS = `
 .back .perk .disc { width: 21pt; height: 21pt; border-radius: 50%; background: ${FOREST}; display: flex; align-items: center; justify-content: center; }
 .back .perk svg { width: 11.5pt; height: 11.5pt; fill: none; stroke: ${GOLD}; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .back .perk h3 { margin-top: 5pt; }
-.back .perkrow + .note { margin-top: 6pt; }
+.back .panel + .note { margin-top: 6pt; }
 
 /* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
    filled gold with the old price struck through, so the colour makes the argument first */

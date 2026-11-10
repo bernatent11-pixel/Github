@@ -164,12 +164,12 @@ CARD C · WHAT IS ON IT AND WHY
             Early access (first in line for new products) · Member deals (exclusive store
             discounts). The same perks card B sells, so the promise and the welcome match.
             "Savings", not "offer": an offer sounds like a one-time promotion; this is every order.
-          3 "Your subscription works around your life. Skip a delivery, pause for a while or
-            cancel, all at your own portal: milonga.life/apps/subscriptions"
-          4 The gold panel: "Taking a trip? Manage your subscription." + "Pause, skip or cancel
+          3 The gold panel: "Taking a trip? Manage your subscription." + "Pause, skip or cancel
             anytime." and the whole sign-in as three numbered lines: scan the code · enter your
             subscription email · tap the sign-in link we send you. There is no password to print
             or forget.
+          4 Under the panel: "Your subscription works around your life. Skip a delivery, pause for
+            a while or cancel, all at your own portal: milonga.life/apps/subscriptions"
           5 "Got a minute? Leave a review." and "Questions about your club? Write to us".
   THE PORTAL LINK. milonga.life/apps/subscriptions is Appstle's customer portal on the store,
   the same address the club welcome email uses (checked live 2026-11-10: it serves the Appstle

@@ -2,7 +2,7 @@
 //
 // One FRONT shared by every cohort (the thank-you), and one BACK per cohort:
 //   A  first-time buyer          teach the first cup · ask for the review · introduce the club
-//   B  2+ orders, no club        sell the club (one-time vs club, per cup) · ask for the review
+//   B  2+ orders, no club        thank them · sell the club (one-time vs club) · ask for the review
 //   C  first club order          (next)
 // Every back is the same skeleton, so the three read as one set: title with a code top right,
 // a feature row, ONE gold panel holding that cohort's main job with a code on its left, a quiet
@@ -41,11 +41,10 @@ const SERIF = "'Times New Roman','Liberation Serif',Times,Georgia,serif";
 // facts (Shopify, checked 2026-11-10): the product page recipe; the club's selling plans are 30% off
 // 30 and 60 servings and 15% off 15, monthly; the review thank-you is the 15% the day-7 email promises
 const HELP = 'orders@milongamate.com';
-// CARD B PRINTS PRICES. One-time: $34.99 / $69.98 / $139.96 for 15 / 30 / 60 servings, $2.33 a cup
-// at every size. Club at 30% off 30 or 60: $48.99 / $97.97, $1.63 a cup. $69.98 - $48.99 = $20.99
-// back on a 30-serving bag; twelve of those is $251.88, "over $250 a year". If a price or the
-// club's discount changes, card B is wrong on paper: change PRICE and reprint.
-const PRICE = { oneCup: '$2.33', clubCup: '$1.63', oneBag: '$69.98', clubBag: '$48.99', back: '$20.99', year: '$250' };
+// CARD B PRINTS PRICES, for 30 servings (two 15-serving bags): one-time $69.98, $2.33 a cup; in
+// the club at 30% off $48.99, $1.63 a cup. If a price or the club's discount changes, card B is
+// wrong on paper: change PRICE and reprint.
+const PRICE = { oneBag: '$69.98', clubBag: '$48.99', oneCup: '$2.33', clubCup: '$1.63' };
 
 const FONTS = [['Gotham-Medium.otf', 500], ['Gotham-Bold.otf', 700]]
   .map(([f, w]) => `@font-face{font-family:Gotham;src:url(../public/fonts/${f}) format('opentype');font-weight:${w};font-style:normal}`).join('\n');
@@ -139,38 +138,45 @@ ${foot(c)}`,
   },
 
   // ── B · two or more orders, not in the club ──
-  // The one job is the club, so the gold panel is the club and the only number on the card is the
-  // club's. The argument is their own receipt: the same cup, $2.33 bought one at a time or $1.63
-  // in the club. The urgency is real, not invented: the bag in their hands is running down.
+  // Bernat's brief (2026-11-10): open on feeling, like the reference's second-order card; title
+  // the offer "Subscribe for exclusive perks"; show the same two bags at both prices with the old
+  // price struck through; "You might be the perfect fit for our subscription program"; add early
+  // access to new products and exclusive store discounts to what members get.
+  // The urgency is the one true thing about timing: join today and the very next order is the
+  // cheaper one. Nothing on the card claims a deadline or a bag running out.
+  // The only "30%" is the badge on the 30-serving example it belongs to (15 servings is 15% off),
+  // so the card never promises 30% on every size.
   // The review is asked for plainly, with no 15% reward printed: a second discount on this card
   // would compete with the one it is selling. (Judge.me still sends the code to anyone who reviews.)
   b: {
     code: 'B',
-    eyebrow: 'Thank you for another order',
-    title: ['You keep', 'coming back.'],
-    lead: 'So stop paying full price. Join the Mate Mornings Club and get the same Mate Latte for <b>30%&nbsp;less.</b>',
+    eyebrow: 'From all of us at Milonga',
+    title: ['You came back.', 'Thank you.'],
+    lead: 'A first order is curiosity. Coming back is trust, and to a small brand like ours, that means the&nbsp;world.',
     watch: { qr: 'qr-video-b.svg', url: 'https://milonga.life/video-b', label: 'Watch the video' },
+    art: ['two-bags.png', 'Two Mate Latte pouches, 30 servings'],
     compare: [
-      { label: 'One-time', cup: PRICE.oneCup, line: `${PRICE.oneBag} for 30 servings`, art: 'pouch.png', alt: 'One Mate Latte pouch' },
-      { label: 'In the club', cup: PRICE.clubCup, line: `${PRICE.clubBag} for 30 servings`, art: 'three-bags.png', alt: 'Three Mate Latte pouches', badge: 'Save 30%' },
+      { label: 'One-time', above: 'Full price', price: PRICE.oneBag, line: `30 servings &middot; ${PRICE.oneCup} a cup` },
+      { label: 'In the club', above: `<s>${PRICE.oneBag}</s>`, price: PRICE.clubBag, line: `30 servings &middot; ${PRICE.clubCup} a cup`, badge: 'Save 30%' },
     ],
-    note: `30% off 30 or 60 servings, 15% off 15. On a 30-serving bag that&rsquo;s <b>${PRICE.back} back every month,</b> over ${PRICE.year} a&nbsp;year.`,
+    note: 'You might be the perfect fit for our subscription program. <b>Join today and your very next order costs&nbsp;less.</b>',
     club: {
       qr: 'qr-club-b.svg', url: 'https://milonga.life/club-b', label: 'Join the club',
-      title: ['Join before this', 'bag runs out.'],
-      ticks: ['A fresh bag at your door every month', 'Skip, pause or cancel anytime', '30-day money-back guarantee'],
+      title: ['Subscribe for', 'exclusive perks.'],
+      ticks: ['Early access to new products', 'Exclusive store discounts', 'Skip, pause or cancel anytime'],
     },
     review: {
       qr: 'qr-review-b.svg', url: 'https://milonga.life/review-b', label: 'Write a review',
       title: ['Got a minute?', 'Leave a review.'],
-      text: 'Tell us honestly how it&rsquo;s going. It means the world to a small&nbsp;brand.',
+      text: 'Tell us honestly how it&rsquo;s going. It helps a small brand more than you&rsquo;d&nbsp;think.',
     },
     html: (c, img) => `${head(c, img)}
 <div class="compare">
 ${c.compare.map((x) => `<div class="cell${x.badge ? ' club' : ''}">${x.badge ? `<b class="badge">${x.badge}</b>` : ''}
-<img src="${img(x.art)}" alt="${x.alt}">
+<img src="${img(c.art[0])}" alt="${c.art[1]}">
 <div class="label">${x.label}</div>
-<div class="cup serif">${x.cup}<span>a cup</span></div>
+<div class="above">${x.above}</div>
+<div class="price serif">${x.price}</div>
 <div class="line">${x.line}</div>
 </div>`).join('\n')}
 </div>
@@ -220,20 +226,20 @@ const BACK_CSS = `
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
 
-/* card B's feature row: the same cup, bought two ways. Theirs is an outline, ours is filled gold,
-   so the colour makes the argument before a word is read */
+/* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
+   filled gold with the old price struck through, so the colour makes the argument first */
 .back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
-.back .cell { position: relative; flex: 1; padding: 8pt 9pt 7pt; border-radius: 8pt; border: .8pt solid ${LINE}; }
+.back .cell { position: relative; flex: 1; padding: 7pt 9pt 6pt; border-radius: 8pt; border: .8pt solid ${LINE}; }
 .back .cell.club { border-color: ${GOLD}; background: ${GOLD}; }
-.back .cell img { position: absolute; right: 6pt; top: 10pt; height: 24pt; width: auto; }
+.back .cell img { position: absolute; right: 8pt; top: 9pt; height: 27pt; width: auto; }
 .back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: ${FOREST}; }
-.back .cell .cup { margin-top: 3pt; font-weight: 700; font-size: 21pt; line-height: 22pt; letter-spacing: -.01em; white-space: nowrap; }
-.back .cell .cup span { margin-left: 2.5pt; font-family: ${SANS}; font-weight: 500; font-size: 6.6pt; letter-spacing: 0; color: ${INK}; }
-.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: ${INK}; }
-.back .cell:not(.club) .cup { color: ${SOFT}; }
-.back .cell:not(.club) .label, .back .cell:not(.club) .line, .back .cell:not(.club) .cup span { color: ${SOFT}; }
+.back .cell .above { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: ${INK}; }
+.back .cell .above s { font-family: ${SERIF}; font-weight: 400; font-size: 10.5pt; text-decoration: line-through; text-decoration-thickness: .7pt; color: ${DEEP}; }
+.back .cell .price { margin-top: 1pt; font-weight: 700; font-size: 21pt; line-height: 21pt; letter-spacing: -.01em; }
+.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: ${INK}; white-space: nowrap; }
+.back .cell:not(.club) .label, .back .cell:not(.club) .above, .back .cell:not(.club) .price, .back .cell:not(.club) .line { color: ${SOFT}; }
 .back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: ${FOREST}; color: ${CREAM}; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-.back .note { margin: 5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
+.back .note { margin: 4.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
 
 /* the gold panel: the one loud block on each card, whatever that cohort's main job is */
 .back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 12pt; }
@@ -241,8 +247,8 @@ const BACK_CSS = `
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: ${FOREST}; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .panel .copy p { color: ${DEEP}; }
-.back .ticks { margin: 6pt 0 0; padding: 0; list-style: none; }
-.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.6pt; color: ${DEEP}; white-space: nowrap; }
+.back .ticks { margin: 5pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10pt; color: ${DEEP}; white-space: nowrap; }
 .back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: ${FOREST}; stroke: ${GOLD}; }
 
 /* the closing block: the quiet ask, pinned above the help line */

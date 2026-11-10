@@ -53,13 +53,25 @@ for (const [name, [src, region]] of Object.entries(STEPS)) {
   console.log('wrote', `${OUT}/front-bg.jpg`, `(${w} x ${h} -> ${w} x ${fullH}, +${fullH - h} rows in the empty band)`);
 }
 
-// ── card B: the product, one bag and three ─────────────────────────────────────────────
-// The real packshot cutouts (never a rendered pouch), sized for the comparison cells: one bag for
-// buying one at a time, three for the club's bag a month. They print under half an inch tall, so
-// 3x that is plenty.
-await sharp('public/product/pouch-mate-latte-vanilla-packshot-corrected.png').trim().resize({ height: 420 }).png({ compressionLevel: 9 }).toFile(`${OUT}/pouch.png`);
-await sharp('public/product/three-bags.png').trim().resize({ height: 420 }).png({ compressionLevel: 9 }).toFile(`${OUT}/three-bags.png`);
-console.log('wrote', `${OUT}/pouch.png`, `${OUT}/three-bags.png`);
+// ── card B: two bags ───────────────────────────────────────────────────────────────────
+// Card B compares 30 servings bought one-time with 30 servings in the club, and 30 servings is
+// two 15-serving bags, so BOTH price cells show the same two bags (Bernat, 2026-11-10): same
+// product, same amount, two prices. Built from the real packshot cutout, never a rendered pouch:
+// one bag in front, a second set back behind its shoulder a touch smaller and darker. It prints
+// about a third of an inch tall, so 420 px is over 1000 dpi.
+{
+  const H = 420;
+  const front = await sharp('public/product/pouch-mate-latte-vanilla-packshot-corrected.png').trim().resize({ height: H }).png().toBuffer();
+  const { width: fw } = await sharp(front).metadata();
+  const bh = Math.round(H * 0.9);
+  const back = await sharp(front).resize({ height: bh }).modulate({ brightness: 0.9 }).png().toBuffer();
+  const { width: bw } = await sharp(back).metadata();
+  const shift = Math.round(fw * 0.6); // how far the front bag sits to the right of the back one
+  await sharp({ create: { width: shift + fw, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+    .composite([{ input: back, left: 0, top: Math.round((H - bh) * 0.35) }, { input: front, left: shift, top: 0 }])
+    .png({ compressionLevel: 9 }).toFile(`${OUT}/two-bags.png`);
+  console.log('wrote', `${OUT}/two-bags.png`, `(${shift + fw} x ${H}, back bag ${bw} wide)`);
+}
 
 // ── QR codes ───────────────────────────────────────────────────────────────────────────
 // Every code is a short vanity path on the store, NOT a deep link: a printed code can't be

@@ -35,20 +35,20 @@ img { display: block; }
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
-/* card B's feature row: the same cup, bought two ways. Theirs is an outline, ours is filled gold,
-   so the colour makes the argument before a word is read */
+/* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
+   filled gold with the old price struck through, so the colour makes the argument first */
 .back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
-.back .cell { position: relative; flex: 1; padding: 8pt 9pt 7pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
+.back .cell { position: relative; flex: 1; padding: 7pt 9pt 6pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
 .back .cell.club { border-color: #E3BC62; background: #E3BC62; }
-.back .cell img { position: absolute; right: 6pt; top: 10pt; height: 24pt; width: auto; }
+.back .cell img { position: absolute; right: 8pt; top: 9pt; height: 27pt; width: auto; }
 .back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: #004D27; }
-.back .cell .cup { margin-top: 3pt; font-weight: 700; font-size: 21pt; line-height: 22pt; letter-spacing: -.01em; white-space: nowrap; }
-.back .cell .cup span { margin-left: 2.5pt; font-family: 'Gotham','Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 500; font-size: 6.6pt; letter-spacing: 0; color: #12331F; }
-.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; }
-.back .cell:not(.club) .cup { color: #3B5344; }
-.back .cell:not(.club) .label, .back .cell:not(.club) .line, .back .cell:not(.club) .cup span { color: #3B5344; }
+.back .cell .above { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; }
+.back .cell .above s { font-family: 'Times New Roman','Liberation Serif',Times,Georgia,serif; font-weight: 400; font-size: 10.5pt; text-decoration: line-through; text-decoration-thickness: .7pt; color: #00351B; }
+.back .cell .price { margin-top: 1pt; font-weight: 700; font-size: 21pt; line-height: 21pt; letter-spacing: -.01em; }
+.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; white-space: nowrap; }
+.back .cell:not(.club) .label, .back .cell:not(.club) .above, .back .cell:not(.club) .price, .back .cell:not(.club) .line { color: #3B5344; }
 .back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: #004D27; color: #F7F4EA; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-.back .note { margin: 5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
+.back .note { margin: 4.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
 /* the gold panel: the one loud block on each card, whatever that cohort's main job is */
 .back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: #E3BC62; display: flex; align-items: center; gap: 12pt; }
@@ -56,8 +56,8 @@ img { display: block; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: #004D27; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .panel .copy p { color: #00351B; }
-.back .ticks { margin: 6pt 0 0; padding: 0; list-style: none; }
-.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.6pt; color: #00351B; white-space: nowrap; }
+.back .ticks { margin: 5pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10pt; color: #00351B; white-space: nowrap; }
 .back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: #004D27; stroke: #E3BC62; }
 
 /* the closing block: the quiet ask, pinned above the help line */

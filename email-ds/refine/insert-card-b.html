@@ -35,20 +35,20 @@ img { display: block; }
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
-/* card B's feature row: the same cup, bought two ways. Theirs is an outline, ours is filled gold,
-   so the colour makes the argument before a word is read */
+/* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
+   filled gold with the old price struck through, so the colour makes the argument first */
 .back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
-.back .cell { position: relative; flex: 1; padding: 8pt 9pt 7pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
+.back .cell { position: relative; flex: 1; padding: 7pt 9pt 6pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
 .back .cell.club { border-color: #E3BC62; background: #E3BC62; }
-.back .cell img { position: absolute; right: 6pt; top: 10pt; height: 24pt; width: auto; }
+.back .cell img { position: absolute; right: 8pt; top: 9pt; height: 27pt; width: auto; }
 .back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: #004D27; }
-.back .cell .cup { margin-top: 3pt; font-weight: 700; font-size: 21pt; line-height: 22pt; letter-spacing: -.01em; white-space: nowrap; }
-.back .cell .cup span { margin-left: 2.5pt; font-family: 'Gotham','Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 500; font-size: 6.6pt; letter-spacing: 0; color: #12331F; }
-.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; }
-.back .cell:not(.club) .cup { color: #3B5344; }
-.back .cell:not(.club) .label, .back .cell:not(.club) .line, .back .cell:not(.club) .cup span { color: #3B5344; }
+.back .cell .above { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; }
+.back .cell .above s { font-family: 'Times New Roman','Liberation Serif',Times,Georgia,serif; font-weight: 400; font-size: 10.5pt; text-decoration: line-through; text-decoration-thickness: .7pt; color: #00351B; }
+.back .cell .price { margin-top: 1pt; font-weight: 700; font-size: 21pt; line-height: 21pt; letter-spacing: -.01em; }
+.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; white-space: nowrap; }
+.back .cell:not(.club) .label, .back .cell:not(.club) .above, .back .cell:not(.club) .price, .back .cell:not(.club) .line { color: #3B5344; }
 .back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: #004D27; color: #F7F4EA; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-.back .note { margin: 5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
+.back .note { margin: 4.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
 /* the gold panel: the one loud block on each card, whatever that cohort's main job is */
 .back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: #E3BC62; display: flex; align-items: center; gap: 12pt; }
@@ -56,8 +56,8 @@ img { display: block; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: #004D27; }
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .panel .copy p { color: #00351B; }
-.back .ticks { margin: 6pt 0 0; padding: 0; list-style: none; }
-.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.6pt; color: #00351B; white-space: nowrap; }
+.back .ticks { margin: 5pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10pt; color: #00351B; white-space: nowrap; }
 .back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: #004D27; stroke: #E3BC62; }
 
 /* the closing block: the quiet ask, pinned above the help line */
@@ -71,32 +71,34 @@ img { display: block; }
 </style></head>
 <body><div class="card back">
 <div class="head">
-<div class="eyebrow">Thank you for another order</div>
-<h1 class="serif">You keep<em>coming back.</em></h1>
+<div class="eyebrow">From all of us at Milonga</div>
+<h1 class="serif">You came back.<em>Thank you.</em></h1>
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-video-b.svg" data-qr="https://milonga.life/video-b" alt="QR code: Watch the video"></div><span>Watch the video</span></div>
 </div>
-<p class="lead">So stop paying full price. Join the Mate Mornings Club and get the same Mate Latte for <b>30%&nbsp;less.</b></p>
+<p class="lead">A first order is curiosity. Coming back is trust, and to a small brand like ours, that means the&nbsp;world.</p>
 <div class="compare">
 <div class="cell">
-<img src="../exports/print/inserts/img/pouch.png" alt="One Mate Latte pouch">
+<img src="../exports/print/inserts/img/two-bags.png" alt="Two Mate Latte pouches, 30 servings">
 <div class="label">One-time</div>
-<div class="cup serif">$2.33<span>a cup</span></div>
-<div class="line">$69.98 for 30 servings</div>
+<div class="above">Full price</div>
+<div class="price serif">$69.98</div>
+<div class="line">30 servings &middot; $2.33 a cup</div>
 </div>
 <div class="cell club"><b class="badge">Save 30%</b>
-<img src="../exports/print/inserts/img/three-bags.png" alt="Three Mate Latte pouches">
+<img src="../exports/print/inserts/img/two-bags.png" alt="Two Mate Latte pouches, 30 servings">
 <div class="label">In the club</div>
-<div class="cup serif">$1.63<span>a cup</span></div>
-<div class="line">$48.99 for 30 servings</div>
+<div class="above"><s>$69.98</s></div>
+<div class="price serif">$48.99</div>
+<div class="line">30 servings &middot; $1.63 a cup</div>
 </div>
 </div>
-<p class="note">30% off 30 or 60 servings, 15% off 15. On a 30-serving bag that&rsquo;s <b>$20.99 back every month,</b> over $250 a&nbsp;year.</p>
+<p class="note">You might be the perfect fit for our subscription program. <b>Join today and your very next order costs&nbsp;less.</b></p>
 <div class="panel">
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-club-b.svg" data-qr="https://milonga.life/club-b" alt="QR code: Join the club"></div><span>Join the club</span></div>
-<div class="copy"><h2 class="serif">Join before this<em>bag runs out.</em></h2><ul class="ticks"><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>A fresh bag at your door every month</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Skip, pause or cancel anytime</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>30-day money-back guarantee</li></ul></div>
+<div class="copy"><h2 class="serif">Subscribe for<em>exclusive perks.</em></h2><ul class="ticks"><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Early access to new products</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive store discounts</li><li><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Skip, pause or cancel anytime</li></ul></div>
 </div>
 <div class="closer">
-<div class="copy"><h2 class="serif">Got a minute? <i>Leave a review.</i></h2><p>Tell us honestly how it&rsquo;s going. It means the world to a small&nbsp;brand.</p></div>
+<div class="copy"><h2 class="serif">Got a minute? <i>Leave a review.</i></h2><p>Tell us honestly how it&rsquo;s going. It helps a small brand more than you&rsquo;d&nbsp;think.</p></div>
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-review-b.svg" data-qr="https://milonga.life/review-b" alt="QR code: Write a review"></div><span>Write a review</span></div>
 </div>
 <div class="foot"><span>Something not right? Write to us first: <b>orders@milongamate.com</b></span><i>B</i></div>

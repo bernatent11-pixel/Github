@@ -21,7 +21,7 @@ FILES
   png/*-trimmed.png            what each side looks like after the cut (1200 x 1800)
   proof-card-a.jpg             both sides with the trim (pink) and safe (blue) lines drawn
   proof-card-b.jpg
-  img/                         the step photos, the front background, the pouch cutouts, the QR codes (vector SVG)
+  img/                         the step photos, the front background, the two-bag cutout, the QR codes (vector SVG)
   src-front-bg.jpg             Bernat's background for the front, as supplied (1200 x 1607)
 
 PRINT SPEC (the same as the reference files)
@@ -78,10 +78,9 @@ BEFORE ANYTHING IS PRINTED (the card promises these; none can be edited after th
   3 Scan all three codes on a printed proof with an iPhone and an Android before approving the run.
     The generator already reads each code back from the 600 dpi render and refuses to finish if
     one does not decode, but paper, ink and finish are the printer's.
-  4 CARD B PRINTS PRICES: $2.33 and $1.63 a cup, $69.98 and $48.99 for 30 servings, "$20.99
-    back every month, over $250 a year". They are today's Shopify prices and the club's 30%. If
-    either changes, card B is wrong on paper: change PRICE in the script and reprint. Print B in
-    smaller runs than A for that reason.
+  4 CARD B PRINTS PRICES: $69.98 and $48.99 for 30 servings, $2.33 and $1.63 a cup. They are
+    today's Shopify prices and the club's 30%. If either changes, card B is wrong on paper:
+    change PRICE in the script and reprint. Print B in smaller runs than A for that reason.
   Card C needs its own three paths (for example /review-c), each with utm_campaign=card_c.
 
 CARD A · WHAT IS ON IT AND WHY
@@ -110,19 +109,30 @@ CARD B · WHAT IS ON IT AND WHY
   Same skeleton as card A, so the two read as a set: title with the video code top right, a
   feature row, the gold panel with a code on its left, a quiet closing block with a code on its
   right, the help line. What changes is which job gets the gold.
-  Back    1 "You keep coming back." then the turn: "So stop paying full price... the same Mate
-            Latte for 30% less."
-          2 The same cup, bought two ways: ONE-TIME $2.33 a cup (outlined, grey) against IN THE
-            CLUB $1.63 a cup (filled gold, "Save 30%"), one pouch beside the first and three beside
-            the second. Under it, the terms in full: 30% off 30 or 60 servings, 15% off 15.
-          3 The gold panel is the club: "Join before this bag runs out." + monthly · skip, pause or
-            cancel anytime · 30-day money-back guarantee. The urgency is the bag in their hands,
-            not an invented deadline.
-          4 "Got a minute? Leave a review." with NO 15% printed: a second discount on this card
+  Back    1 It opens on feeling, not on the offer: "You came back. / Thank you." and "A first
+            order is curiosity. Coming back is trust, and to a small brand like ours, that means
+            the world."
+          2 The same two bags at two prices (30 servings is two 15-serving bags): ONE-TIME, full
+            price $69.98, $2.33 a cup (outlined, grey) against IN THE CLUB, $69.98 struck through,
+            $48.99, $1.63 a cup (filled gold, "Save 30%").
+          3 "You might be the perfect fit for our subscription program. Join today and your very
+            next order costs less." That second sentence is the card's urgency, and it is true:
+            there is no deadline and no bag running out, only that the saving starts with the
+            next order.
+          4 The gold panel: "Subscribe for exclusive perks." + early access to new products ·
+            exclusive store discounts · skip, pause or cancel anytime.
+          5 "Got a minute? Leave a review." with NO 15% printed: a second discount on this card
             would compete with the one it is selling. Judge.me still sends the code to anyone who
             reviews.
+  The only "30%" on the card is the badge on the 30-serving example it belongs to (15 servings
+  is 15% off in the club), so nothing promises 30% on every size.
   No how-to steps: someone on their second bag knows how to make it. The video code stays, top
   right, because every card carries it.
+  BEFORE CARD B PRINTS: "early access to new products" and "exclusive store discounts" are new
+  promises (Bernat, 2026-11-10). Neither is on the product page or in the club emails today, and
+  nothing in the store delivers them yet. They need a subscriber-only way to happen (a Klaviyo
+  segment of active club members for early access, a members-only discount), and the club
+  welcome email should say the same thing the card does.
 
 FACTS USED (Shopify, checked 2026-11-10)
   Recipe: 2.5 tablespoons in 8oz of hot or cold water or milk, about 30 seconds.
@@ -131,8 +141,7 @@ FACTS USED (Shopify, checked 2026-11-10)
   NOT USED: "Save 10% next time" from the planning diagram. No 10% offer exists on the store, and
   it would be the weakest number on a card that already carries 15% (review) and 30% (club).
   Prices (card B): one-time $34.99 / $69.98 / $139.96 for 15 / 30 / 60 servings, $2.33 a cup at
-  every size; in the club $48.99 / $97.97 for 30 / 60, $1.63 a cup. 30-day money-back guarantee
-  (the product page, as used in the post-purchase emails).
+  every size; in the club $48.99 / $97.97 for 30 / 60, $1.63 a cup.
   Help: orders@milongamate.com. No health or benefit claims on either card, so no FDA line.
 
 HOW THE RIGHT CARD GETS IN THE RIGHT BOX

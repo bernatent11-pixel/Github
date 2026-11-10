@@ -10,7 +10,7 @@ WHERE IT GOES IN KLAVIYO
   -> message "Repeat #1 - Tell people why" (template "Mate Latte Review - Repeat #1"). Replace the template's HTML and text.
 
 SUBJECT + PREVIEW
-  Can I ask you a favor? — But first, thank you for trusting us.
+  Can I ask you a favor? — I’ll thank you with 15% off your next order. It takes a minute.
   From name: Shadi from Milonga. REQUIRED: the message is set to "Milonga Yerba Mate", and the short
     letter has no "It's Shadi" line, so without this nobody knows who is writing until the sign-off.
   Reply-to: an inbox someone reads. People answer a personal letter.
@@ -19,8 +19,8 @@ JOB
   One ask: a review, from the customers a new buyer is most likely to believe. No selling, no club pitch.
   Short and warm on purpose, under 100 words: the thanks, the ask and why their opinion matters,
   the honest line, the link, the thank-you.
-  The 15% is a thank-you in the last line, never the headline: this audience has already been offered
-  it in every earlier review email and did not take it.
+  The 15% is in the preview text and the last line, as a thank-you. Keep it out of the subject:
+  the earlier review emails put it there ("Quick Review -> 15% Off Inside") and this audience did not act.
 
 LINK (one)
   https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews

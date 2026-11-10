@@ -1,5 +1,5 @@
 SUBJECT: Can I ask you a favor?
-PREVIEW: But first, thank you for trusting us.
+PREVIEW: I’ll thank you with 15% off your next order. It takes a minute.
 FROM: Shadi from Milonga
 
 Hey {{ person.first_name|default:'there' }},

@@ -30,7 +30,11 @@ const NAME = 'review-repeat-e1';
 const OUT = `exports/klaviyo/${NAME}`;
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'Can I ask you a favor?';
-export const PREHEADER = 'But first, thank you for trusting us.';
+// Must not repeat the letter's first line ("Thank you for trusting us..."): inboxes print the start of
+// the body right after a short preview, so an echo there reads twice in a row.
+// The 15% leads the preview (Bernat, 2026-11-10: "incentivize the 15% off"), early enough to survive a
+// one-line phone preview. The subject stays the personal question.
+export const PREHEADER = 'I’ll thank you with 15% off your next order. It takes a minute.';
 // Lands ON the reviews block, with "Write a review" in view. The id is judgeme_product_reviews:
 // "#judgeme" matches nothing on the page and leaves people at the top, 2,859px above the form on a phone.
 // No UTMs here: the flow message has Klaviyo's own tracking parameters switched on.
@@ -128,8 +132,8 @@ JOB
   One ask: a review, from the customers a new buyer is most likely to believe. No selling, no club pitch.
   Short and warm on purpose, under 100 words: the thanks, the ask and why their opinion matters,
   the honest line, the link, the thank-you.
-  The 15% is a thank-you in the last line, never the headline: this audience has already been offered
-  it in every earlier review email and did not take it.
+  The 15% is in the preview text and the last line, as a thank-you. Keep it out of the subject:
+  the earlier review emails put it there ("Quick Review -> 15% Off Inside") and this audience did not act.
 
 LINK (one)
   ${REVIEW}

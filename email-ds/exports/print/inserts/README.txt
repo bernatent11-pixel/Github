@@ -31,26 +31,40 @@ PRINT SPEC (the same as the reference files)
   src-front-bg.jpg and rerun for crisper small print on the pouches.
   Stock: an uncoated or matte card, 14-16 pt. Gloss fights the pouch and makes QR codes glare.
 
+WHERE THE THREE QR CODES GO (checked live 2026-11-10: each one answers 301 and lands on a 200)
+  Every code is a short path on the store, set up as a Shopify URL redirect (Online Store >
+  Navigation > View URL redirects). That is ON PURPOSE: a redirect can be re-aimed any day, a
+  printed code cannot. All three redirects exist now; before them /first-cup and /review were 404.
+
+  Label on the card   Code                    Lands on today
+  WATCH THE VIDEO     milonga.life/first-cup  the 32-second "Milonga Mate Latte Promo Video" in
+                                              Shopify Files (cdn.shopify.com/videos/c/o/v/
+                                              0fb49400f66f4257a47d06c8aadd0543.mp4)   INTERIM, see below
+  WRITE A REVIEW      milonga.life/review     the Mate Latte page, scrolled to its Judge.me reviews
+                                              and the "Write a review" button
+                                              (/products/the-original-mate-latte#judgeme_product_reviews)
+  JOIN THE CLUB       milonga.life/club       the Mate Latte product page
+                                              (/products/the-original-mate-latte)
+  The two product-page targets carry utm_source=insert, utm_medium=qr, utm_campaign=card_a and
+  utm_content=review / club, so scans show up in analytics as their own source.
+  Redirect ids: /first-cup 1163358896438 · /review 1163358929206 · /club 1163358961974.
+  To change where a code goes, edit that redirect's target. Never delete one: every printed card
+  carrying it would land on a 404.
+
 BEFORE ANYTHING IS PRINTED (the card promises these; none can be edited after the run)
-  1 Create two URL redirects in Shopify (Online Store > Navigation > View URL redirects).
-    Two of the three QR codes point at these short paths ON PURPOSE: a redirect can be re-aimed
-    any day, a printed code cannot. Neither exists yet, so today both 404.
-      /first-cup   the how-to video. THERE IS NO VIDEO ON THE STORE YET (the product page has ten
-                   photos and no video, and there is no how-to page). Until it is shot, aim this
-                   at the product page so the code never lands on a 404.
-      /review      the "write a review" form (Judge.me / Okendo), or the product page's reviews
-    End each target with ?utm_source=insert&utm_medium=qr&utm_campaign=card_a so scans show up
-    in analytics as their own source.
-    The third code (the club) needs nothing: it opens the Mate Latte product page directly,
-      https://milonga.life/products/the-original-mate-latte?utm_source=insert&utm_medium=qr&utm_campaign=card_a
-    which is live today. Do not change that product's handle without leaving Shopify's automatic
-    redirect on, or every printed card's club code breaks.
+  1 THE VIDEO IS A STAND-IN. There is no how-to video on the store: the product page has photos
+    only, and there is no how-to page. /first-cup points at the promo video because it is the one
+    video that shows the latte being made (about 8 of its 32 seconds, with "Hot or iced" and
+    "Ready in 30 seconds" on screen). It opens as a bare video file, with no page around it and
+    no way on to the shop. When the real how-to exists, put its address in the /first-cup redirect.
   2 The review reward has to be live. The card says "we'll email you 15% off your next order",
-    the same promise the day-7 email makes. Set the review app to send a one-time 15% code after
-    ANY review, good or bad (rewarding only good ones breaks FTC rules; the card says "honestly").
+    the same promise the day-7 email makes. Set Judge.me to send a one-time 15% code after ANY
+    review, good or bad (rewarding only good ones breaks FTC rules; the card says "honestly").
   3 Scan all three codes on a printed proof with an iPhone and an Android before approving the run.
     The generator already reads each code back from the 600 dpi render and refuses to finish if
     one does not decode, but paper, ink and finish are the printer's.
+  Cards B and C need their own three paths (for example /review-b), each with its own
+  utm_campaign, or their scans will be counted as card A's.
 
 CARD A · WHAT IS ON IT AND WHY
   Front   Bernat's background (gold satin, two pouches, a latte), with the Milonga mark and
@@ -60,17 +74,19 @@ CARD A · WHAT IS ON IT AND WHY
           one print run of fronts serves all three cards.
   Back    1 Your first cup, done right: Scoop 2.5 tbsp · Pour 8oz hot or cold milk or water ·
             Stir or froth (the product page recipe, the same photos as the post-purchase emails).
-            QR 1 (top right): the how-to video.
+            QR 1 (top right), "Watch the video".
           2 The gold panel, the loudest thing on the card because the review is this cohort's
-            first job: "Leave a review, get 15% off." QR 2.
+            first job: "Leave a review, get 15% off." QR 2, "Write a review".
           3 The club, introduced and nothing more: save up to 30%, monthly, skip / pause / cancel.
             No discount code, no price, no deadline. The day-11 email does the selling.
-            QR 3 ("Join the club"): the Mate Latte product page.
+            QR 3, "Join the club": the Mate Latte product page.
           4 "Something not right? Write to us first": an unhappy customer who emails is one who
             does not leave a one-star review.
           The small "A" bottom right is for whoever packs the box, so the right card goes in.
   Three QR codes is the ceiling for a card this size. They run top right, middle left, bottom
-  right, each at least 2 in from the next and each labelled, so a phone held to one frames one.
+  right, each at least 2 in from the next, so a phone held to one frames one.
+  All three are ONE style: the same 0.64 in code at the same density (29 x 29 modules), on a cream
+  tile inside a forest outline, with a three-word label under it in the same type.
 
 FACTS USED (Shopify, checked 2026-11-10)
   Recipe: 2.5 tablespoons in 8oz of hot or cold water or milk, about 30 seconds.

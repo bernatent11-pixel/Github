@@ -43,7 +43,6 @@ const FONTS = [['Gotham-Medium.otf', 500], ['Gotham-Bold.otf', 700]]
   .map(([f, w]) => `@font-face{font-family:Gotham;src:url(../public/fonts/${f}) format('opentype');font-weight:${w};font-style:normal}`).join('\n');
 
 const STAR = '<svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg>';
-const PLAY = '<svg viewBox="0 0 8 9" aria-hidden="true"><path d="M0 0l8 4.5L0 9z"/></svg>';
 
 const BASE = `
 @page { size: ${W}pt ${H}pt; margin: 0; }
@@ -91,55 +90,63 @@ const CARDS = {
     watch: { qr: 'qr-first-cup.svg', url: 'https://milonga.life/first-cup', label: 'Watch the video' },
     // QR 2, the card's one loud block: the review is this cohort's first job
     review: {
-      qr: 'qr-review.svg', url: 'https://milonga.life/review', show: 'milonga.life/review', title: ['Leave a review,', 'get 15% off.'],
+      qr: 'qr-review.svg', url: 'https://milonga.life/review', label: 'Write a review', title: ['Leave a review,', 'get 15% off.'],
       text: 'Tell us honestly how it&rsquo;s going and we&rsquo;ll email you 15% off your next order. It means the world to a small&nbsp;brand.',
     },
     // QR 3: the club, introduced and nothing more. No discount code, no price, no deadline (the
-    // day-11 email sells it). The code opens the Mate Latte product page (Bernat, 2026-11-10).
+    // day-11 email sells it). The code opens the Mate Latte product page (Bernat, 2026-11-10),
+    // through the /club redirect so it can be re-aimed like the other two.
     club: {
-      qr: 'qr-shop-a.svg', url: 'https://milonga.life/products/the-original-mate-latte?utm_source=insert&utm_medium=qr&utm_campaign=card_a', label: 'Join the club',
+      qr: 'qr-club.svg', url: 'https://milonga.life/club', label: 'Join the club',
       title: ['Want every bag', 'for less?'],
       text: 'Mate Mornings Club members save up to 30%, with a fresh bag at the door every month. Skip, pause or cancel&nbsp;anytime.',
     },
   },
 };
 
+// ONE QR code style, used for all three: forest modules on a cream tile inside a forest outline,
+// with a verb-first label under it. Same size, same density, same frame on the cream page and on
+// the gold panel, so the three read as a set and none looks like an afterthought.
+const qr = (q, img) => `<div class="qr"><div class="frame"><img src="${img(q.qr)}" data-qr="${q.url}" alt="QR code: ${q.label}"></div><span>${q.label}</span></div>`;
+
 const back = (c, img) => `<div class="card back">
 <div class="head">
 <div class="eyebrow">${c.eyebrow}</div>
 <h1 class="serif">${c.title[0]}<em>${c.title[1]}</em></h1>
-<div class="scan"><img src="${img(c.watch.qr)}" data-qr="${c.watch.url}" alt="QR code: the how-to video"><span>${PLAY}${c.watch.label}</span></div>
+${qr(c.watch, img)}
 </div>
 <p class="lead">${c.lead}</p>
 <div class="steps">
 ${c.steps.map(([file, t, d], i) => `<div class="step"><div class="tile"><img src="${img(file)}" alt=""><b>${i + 1}</b></div><h3>${t}</h3><p>${d}</p></div>`).join('\n')}
 </div>
 <div class="review">
-<div class="qrcol"><div class="qrbox"><img src="${img(c.review.qr)}" data-qr="${c.review.url}" alt="QR code: leave a review"></div><span class="url">${c.review.show}</span></div>
+${qr(c.review, img)}
 <div class="copy"><div class="stars">${STAR.repeat(5)}</div><h2 class="serif">${c.review.title[0]}<em>${c.review.title[1]}</em></h2><p>${c.review.text}</p></div>
 </div>
 <div class="club">
 <div class="copy"><h2 class="serif">${c.club.title[0]} <i>${c.club.title[1]}</i></h2><p>${c.club.text}</p></div>
-<div class="scan"><img src="${img(c.club.qr)}" data-qr="${c.club.url.replaceAll('&', '&amp;')}" alt="QR code: the Mate Latte page"><span>${c.club.label}</span></div>
+${qr(c.club, img)}
 </div>
 <div class="foot"><span>Something not right? Write to us first: <b>${HELP}</b></span><i>${c.code}</i></div>
 </div>`;
 
 const PAD_X = BLEED + 24, PAD_TOP = BLEED + 21, PAD_BOTTOM = BLEED + SAFE;
 const GAP = 14, TILE_W = (W - 2 * PAD_X - 2 * GAP) / 3, TILE_H = 52;
-const QR_PT = 52; // 0.72 in. The two short codes are 29 modules (0.63 mm each); the product page's is 41 (0.45 mm)
+// each code prints 0.64 in across: 29 modules at 1.59 pt (0.56 mm) each, with 3 modules of cream
+// around it inside the outline
+const QR_PT = 46, QR_PAD = 5, QR_BOX = QR_PT + 2 * QR_PAD + 1.6;
 const BACK_CSS = `
 .back { background: ${CREAM}; padding: ${PAD_TOP}pt ${PAD_X}pt ${PAD_BOTTOM}pt; display: flex; flex-direction: column; }
-.back .head { position: relative; padding-right: ${QR_PT + 12}pt; }
+.back .head { position: relative; padding-right: ${QR_BOX + 12}pt; }
 .back h1 { margin: 6pt 0 0; font-size: 26pt; line-height: 26.5pt; letter-spacing: -.01em; }
-.back .scan { position: relative; flex: none; width: ${QR_PT}pt; }
-.back .head .scan { position: absolute; right: 0; top: 0; }
-.back .scan img { width: ${QR_PT}pt; height: ${QR_PT}pt; }
-.back .scan span { position: absolute; right: 0; top: ${QR_PT + 4}pt; font-weight: 700; font-size: 4.9pt; line-height: 6pt; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; color: ${FOREST}; }
-.back .scan svg { display: inline-block; width: 3.6pt; height: 4pt; margin-right: 2.2pt; fill: ${FOREST}; }
+.back .qr { flex: none; width: ${QR_BOX}pt; }
+.back .qr .frame { padding: ${QR_PAD}pt; border: .8pt solid ${FOREST}; border-radius: 5pt; background: ${CREAM}; }
+.back .qr img { width: ${QR_PT}pt; height: ${QR_PT}pt; }
+.back .qr span { display: block; margin-top: 4pt; font-weight: 700; font-size: 4.8pt; line-height: 6pt; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; text-align: center; color: ${FOREST}; }
+.back .head .qr { position: absolute; right: 0; top: 0; }
 .back .lead { margin: 6pt 0 0; font-weight: 500; font-size: 8pt; line-height: 11.5pt; color: ${INK}; }
 
-.back .steps { margin-top: 12pt; display: flex; gap: ${GAP}pt; }
+.back .steps { margin-top: 11pt; display: flex; gap: ${GAP}pt; }
 .back .step { width: ${TILE_W}pt; }
 .back .tile { position: relative; width: ${TILE_W}pt; height: ${TILE_H}pt; }
 .back .tile img { width: 100%; height: 100%; object-fit: cover; border-radius: 7pt; }
@@ -150,24 +157,16 @@ const BACK_CSS = `
 
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
-.back .url, .back .copy p b { font-weight: 700; color: ${FOREST}; }
 
-.back .review { margin-top: 12pt; padding: 9pt 11pt 9pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 11pt; }
-.back .qrcol { flex: none; }
-.back .qrbox { padding: 5.5pt; border-radius: 5pt; background: ${CREAM}; }
-.back .qrbox img { width: ${QR_PT}pt; height: ${QR_PT}pt; }
-.back .qrcol .url { display: block; margin-top: 4pt; font-size: 5.1pt; line-height: 6pt; letter-spacing: .04em; text-align: center; }
+.back .review { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 12pt; }
 .back .stars { display: flex; gap: 1.6pt; margin-bottom: 4.5pt; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: ${FOREST}; }
 .back .review h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .review .copy p { color: ${DEEP}; }
 
-.back .club { margin-top: auto; padding-top: 11pt; display: flex; align-items: flex-start; justify-content: space-between; gap: 14pt; }
-.back .club .copy { padding-top: 4pt; }
+.back .club { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
 .back .club h2 { font-size: 13.5pt; line-height: 15pt; }
 .back .club h2 i { font-weight: 700; font-style: italic; }
-.back .club .scan { height: ${QR_PT + 10}pt; }
-.back .club .scan span { left: 0; text-align: center; }
 
 .back .foot { margin-top: 7pt; padding-top: 5pt; border-top: .6pt solid ${LINE}; display: flex; justify-content: space-between; align-items: baseline; font-weight: 500; font-size: 6.2pt; line-height: 8pt; color: ${SOFT}; }
 .back .foot b { font-weight: 700; color: ${FOREST}; }

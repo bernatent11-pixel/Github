@@ -54,18 +54,20 @@ for (const [name, [src, region]] of Object.entries(STEPS)) {
 }
 
 // ── QR codes ───────────────────────────────────────────────────────────────────────────
-// The video and the review point at short vanity paths on the store, NOT deep links: a printed
-// code can't be edited, so each is a Shopify URL redirect (Online Store > Navigation > URL
-// redirects) that can be re-aimed any time. The club code goes straight to the Mate Latte page,
-// which exists today and keeps its address (Shopify redirects a renamed product by itself); its
-// UTM tags are what make scans show up in analytics as their own source.
+// Every code is a short vanity path on the store, NOT a deep link: a printed code can't be
+// edited, so each one is a Shopify URL redirect (Online Store > Navigation > URL redirects) that
+// can be re-aimed any day without reprinting. Where each one lands is in the README.
+// All three are drawn at the SAME version (3: 29 x 29 modules) and error correction (M), so they
+// print at one density and read as one set; left to itself the shortest URL would drop to
+// version 2 and look coarser than the other two.
+export const QR_VERSION = 3;
 export const QR = {
   'qr-first-cup.svg': 'https://milonga.life/first-cup',
   'qr-review.svg': 'https://milonga.life/review',
-  'qr-shop-a.svg': 'https://milonga.life/products/the-original-mate-latte?utm_source=insert&utm_medium=qr&utm_campaign=card_a',
+  'qr-club.svg': 'https://milonga.life/club',
 };
 for (const [name, url] of Object.entries(QR)) {
-  const qr = QRCode.create(url, { errorCorrectionLevel: 'M' });
+  const qr = QRCode.create(url, { errorCorrectionLevel: 'M', version: QR_VERSION });
   const n = qr.modules.size;
   // one path, one module = one unit, no quiet zone (the layout adds it as padding)
   let d = '';

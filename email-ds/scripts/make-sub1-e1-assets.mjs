@@ -3,7 +3,7 @@
 //   hero.jpg      the studio still life (mug, pouch, frother on deep green), cropped from just above
 //                 the mug; its top and bottom fade into the flat greens of the rows around it, so the
 //                 title row above and the button row below read as one photo. 1200x1324 (600x662).
-//   bags.png      the three pouches (transparent), for "a fresh supply every month". 760 wide (380).
+//   bags.jpg      the three pouches on the cream of their section, for "a fresh supply every month". 760 wide (380).
 //   colors.json   the flat greens the photo fades into
 //
 // Usage: node scripts/make-sub1-e1-assets.mjs
@@ -37,8 +37,9 @@ const colors = {};
   await sharp(data, { raw: info }).sharpen({ sigma: 0.6 }).jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' }).toFile(`${OUT}/hero.jpg`);
   colors.heroTop = hex(top); colors.heroBottom = hex(bot); colors.heroH = h / 2;
 }
-await sharp('public/product/three-bags.png').trim().resize({ width: 760 }).png().toFile(`${OUT}/bags.png`);
-{ const m = await sharp(`${OUT}/bags.png`).metadata(); colors.bagsH = Math.round(m.height / 2); }
+await sharp('public/product/three-bags.png').trim().resize({ width: 760 }).flatten({ background: '#F7F4EA' }).jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' }).toFile(`${OUT}/bags.jpg`);
+fs.rmSync(`${OUT}/bags.png`, { force: true });
+{ const m = await sharp(`${OUT}/bags.jpg`).metadata(); colors.bagsH = Math.round(m.height / 2); }
 fs.writeFileSync('exports/klaviyo/sub1-e1/colors.json', JSON.stringify(colors, null, 2) + '\n');
 console.log(colors);
 for (const f of fs.readdirSync(OUT)) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }

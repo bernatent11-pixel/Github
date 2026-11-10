@@ -147,7 +147,7 @@ ${perks}
 ${row(CREAM, 'pad bg-cream', 'padding:56px 40px 0;', `${eyebrow('Your club, your way')}
 ${title('Taking a trip?', 'Skip a month.', 'h-sec', 40)}
 ${lead(`${ent('Your subscription works around your life. Skip a delivery, pause for a while or cancel, all from your subscription page. Sign in with the email you subscribed with and we’ll send you')} ${nw('a quick code.')}`, INK)}`)}
-<tr><td class="bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 40px 0;font-size:0;line-height:0;"><img class="bags" src="${img('bags.png')}" width="380" height="${C.bagsH}" alt="Three Mate Latte pouches" style="display:block;margin:0 auto;width:380px;height:${C.bagsH}px;border:0;"></td></tr>
+<tr><td class="bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 40px 0;font-size:0;line-height:0;"><img class="bags" src="${img('bags.jpg')}" width="380" height="${C.bagsH}" alt="Three Mate Latte pouches" style="display:block;margin:0 auto;width:380px;height:${C.bagsH}px;border:0;"></td></tr>
 ${row(CREAM, 'pad bg-cream', 'padding:30px 40px 0;', button(PORTAL, 'Manage my subscription', 340))}
 
 <!-- ── 5 · NEED HELP? ── -->

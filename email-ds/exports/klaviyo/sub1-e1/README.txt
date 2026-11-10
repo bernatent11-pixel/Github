@@ -27,7 +27,8 @@ SECTIONS
   3 Your club perks · Being a member / has its perks. On gold: Save on every order (30% off 30 or 60
     servings, 15% off 15) · A fresh supply, monthly · You're in control (skip, pause or cancel anytime).
   4 Your club, your way · Taking a trip? / Skip a month. Skip, pause or cancel from the subscription
-    page; not signed in? enter the email and get a sign-in link. Three pouches + "Manage my subscription".
+    page; not signed in? enter the email and get a sign-in link. Bernat's three-pouch shot (src-bags-108.jpg,
+    its white turned into the section's cream) + "Manage my subscription".
   5 Questions about your subscription? Reply, or orders@milongamate.com. Footer on cream.
 
 LINKS

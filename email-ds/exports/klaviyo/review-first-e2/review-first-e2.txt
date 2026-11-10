@@ -1,5 +1,5 @@
 SUBJECT: One honest sentence?
-PREVIEW: 15% off your next order as a thank you. Last nudge on this one.
+PREVIEW: That’s all it takes. 15% off your next order as my thank you.
 FROM: Shadi from Milonga
 
 Hey {{ person.first_name|default:'there' }},

@@ -28,8 +28,9 @@ const OUT = `exports/klaviyo/${NAME}`;
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'One honest sentence?';
 // The 15% leads the preview (Bernat, 2026-11-10: "incentivize the 15% off"), early enough to survive a
-// one-line phone preview. Worded differently from Email 1's preview, which these people did not act on.
-export const PREHEADER = '15% off your next order as a thank you. Last nudge on this one.';
+// one-line phone preview. It finishes the subject's question, and it must not repeat the letter's first
+// line ("It's me again. Last nudge on this one."): inboxes print the start of the body right after it.
+export const PREHEADER = 'That’s all it takes. 15% off your next order as my thank you.';
 // Lands ON the reviews block, with "Write a review" in view. The id is judgeme_product_reviews:
 // "#judgeme" matches nothing on the page and leaves people at the top, 2,859px above the form on a phone.
 // No UTMs here: the flow message has Klaviyo's own tracking parameters switched on.

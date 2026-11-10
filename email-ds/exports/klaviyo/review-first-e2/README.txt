@@ -15,7 +15,7 @@ WHERE IT GOES IN KLAVIYO
   Set the preview text on the flow message instead.
 
 SUBJECT + PREVIEW
-  One honest sentence? — 15% off your next order as a thank you. Last nudge on this one.
+  One honest sentence? — That’s all it takes. 15% off your next order as my thank you.
   From name: Shadi from Milonga. REQUIRED: "It's me again" only makes sense from the same person
     who sent Email 1, and the message is set to "Milonga Yerba Mate".
   Reply-to: an inbox someone reads.

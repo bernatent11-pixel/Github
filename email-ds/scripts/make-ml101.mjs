@@ -289,11 +289,11 @@ ${row(HOWTO.wall, 'pad bg-wall', 'padding:22px 44px 0;', `<div style="font-size:
 <tr><td class="bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:30px 0 0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="600" height="${HOWTO.h}" alt="Milk poured into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${HOWTO.h}px;border:0;"></td></tr>
 ${row(HOWTO.table, 'pad bg-table', 'padding:4px 40px 56px;', button(L.shop('ml_hero_button'), 'Shop the Mate Latte', 320))}
 
-<!-- ── 2 · HOW IT COMPARES (the welcome E3 table, on the photo's table colour) ── -->
-${row(HOWTO.table, 'pad bg-table', 'padding:0 40px 0;', `${eyebrow('How it compares')}
+<!-- ── 2 · HOW IT COMPARES (the welcome E3 table, on gold, between the light first and third sections) ── -->
+${row(GOLD, 'pad bg-gold', 'padding:56px 40px 0;', `${eyebrow('How it compares')}
 ${title('Not all morning cups', 'are created equal.', 'h-sec', 40)}`)}
-${CMP.replace(/#F0EFDF/g, HOWTO.table).replace(/bg-page/g, 'bg-table').replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
-${row(HOWTO.table, 'pad bg-table', 'padding:0 40px 56px;', '&nbsp;')}
+${CMP.replace(/#F0EFDF/g, GOLD).replace(/bg-page/g, 'bg-gold').replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
+${row(GOLD, 'pad bg-gold', 'padding:0 40px 56px;', '&nbsp;')}
 
 <!-- ── 3 · TRY IT ONCE, OR JOIN THE CLUB (the product page's buy box) ── -->
 ${row('#F2EDE1', 'pad bg-site', 'padding:56px 40px 0;', `${eyebrow('Pick your size')}

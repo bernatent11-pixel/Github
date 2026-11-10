@@ -15,7 +15,7 @@ SECTIONS
     beige icons, forest doses and names, dark text: 100mg natural caffeine · 200mg L-theanine ·
     500mg Lion's Mane; the yerba mate line; in forest: 90 calories · 3g sugar · Dairy-free · Ready in 30 seconds.
     Then the photo, and "Shop the Mate Latte" closing the section on the photo's table colour.
-  2 How it compares · Not all morning cups are created equal. The welcome E3 table.
+  2 How it compares · Not all morning cups are created equal. The welcome E3 table, on gold.
   3 Pick your size · Try it once, or join the club. The product page's buy box:
       INTERACTIVE in Apple Mail / iPhone Mail (and other clients that keep form inputs): tapping
       15 / 30 / 60 servings swaps the prices (hidden radio inputs + :checked CSS; a pre-checked

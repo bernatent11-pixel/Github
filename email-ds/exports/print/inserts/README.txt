@@ -17,50 +17,60 @@ FILES
   png/*-600dpi-bleed.png       flattened fallbacks, only if a printer refuses the PDF
   png/*-trimmed.png            what each side looks like after the cut (1200 x 1800)
   proof-card-a.jpg             both sides with the trim (pink) and safe (blue) lines drawn
-  img/                         the step photos, the canopy, the two QR codes (vector SVG)
+  img/                         the step photos, the front background, the three QR codes (vector SVG)
+  src-front-bg.jpg             Bernat's background for the front, as supplied (1200 x 1607)
 
 PRINT SPEC (the same as the reference files)
   Trim 4 x 6 in, portrait. Bleed 0.125 in on every side, so each PDF page is 4.25 x 6.25 in
   (306 x 450 pt). No crop marks. Nothing that matters sits closer than 0.25 in to the trim.
   Colour is RGB (sRGB); let the printer convert to CMYK and ask for a printed proof of the gold
   (#E3BC62) and the dark green (#004D27) before the full run. Type is live vector with the fonts
-  embedded; every image is 300 dpi or more at print size.
+  embedded; every image is 300 dpi or more at print size. The one exception to watch is the
+  front's background: it was supplied 1200 px wide, which is 282 dpi across the card before it is
+  resampled. Fine for satin, bubbles and a latte; if a larger original exists, drop it in as
+  src-front-bg.jpg and rerun for crisper small print on the pouches.
   Stock: an uncoated or matte card, 14-16 pt. Gloss fights the pouch and makes QR codes glare.
 
 BEFORE ANYTHING IS PRINTED (the card promises these; none can be edited after the run)
-  1 Create three URL redirects in Shopify (Online Store > Navigation > View URL redirects).
-    The QR codes and the printed URL point at these short paths ON PURPOSE: a redirect can be
-    re-aimed any day, a printed code cannot. None of the three exists yet, so today they 404.
+  1 Create two URL redirects in Shopify (Online Store > Navigation > View URL redirects).
+    Two of the three QR codes point at these short paths ON PURPOSE: a redirect can be re-aimed
+    any day, a printed code cannot. Neither exists yet, so today both 404.
       /first-cup   the how-to video. THERE IS NO VIDEO ON THE STORE YET (the product page has ten
                    photos and no video, and there is no how-to page). Until it is shot, aim this
                    at the product page so the code never lands on a 404.
       /review      the "write a review" form (Judge.me / Okendo), or the product page's reviews
-      /club        the Mate Latte page with the club picked:
-                   /products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174
     End each target with ?utm_source=insert&utm_medium=qr&utm_campaign=card_a so scans show up
     in analytics as their own source.
+    The third code (the club) needs nothing: it opens the Mate Latte product page directly,
+      https://milonga.life/products/the-original-mate-latte?utm_source=insert&utm_medium=qr&utm_campaign=card_a
+    which is live today. Do not change that product's handle without leaving Shopify's automatic
+    redirect on, or every printed card's club code breaks.
   2 The review reward has to be live. The card says "we'll email you 15% off your next order",
     the same promise the day-7 email makes. Set the review app to send a one-time 15% code after
     ANY review, good or bad (rewarding only good ones breaks FTC rules; the card says "honestly").
-  3 Scan both codes on a printed proof with an iPhone and an Android before approving the run.
+  3 Scan all three codes on a printed proof with an iPhone and an Android before approving the run.
     The generator already reads each code back from the 600 dpi render and refuses to finish if
     one does not decode, but paper, ink and finish are the printer's.
 
 CARD A · WHAT IS ON IT AND WHY
-  Front   The pouch as a card: its gold above, its forest below, morning light behind the trees.
-          "Thank you / Here's to better mornings." No offer and no cohort wording, so one print
-          run of fronts serves all three cards.
+  Front   Bernat's background (gold satin, two pouches, a latte), with the Milonga mark and
+          "Thank you / Here's to better mornings." in the clear middle. The picture was wider than
+          the card, so it was made taller rather than cropped: only an empty band of the gradient
+          was stretched, and both pouches keep every letter. No offer and no cohort wording, so
+          one print run of fronts serves all three cards.
   Back    1 Your first cup, done right: Scoop 2.5 tbsp · Pour 8oz hot or cold milk or water ·
             Stir or froth (the product page recipe, the same photos as the post-purchase emails).
             QR 1 (top right): the how-to video.
           2 The gold panel, the loudest thing on the card because the review is this cohort's
             first job: "Leave a review, get 15% off." QR 2.
           3 The club, introduced and nothing more: save up to 30%, monthly, skip / pause / cancel.
-            No code, no price, no deadline. The day-11 email does the selling.
+            No discount code, no price, no deadline. The day-11 email does the selling.
+            QR 3 ("Join the club"): the Mate Latte product page.
           4 "Something not right? Write to us first": an unhappy customer who emails is one who
             does not leave a one-star review.
           The small "A" bottom right is for whoever packs the box, so the right card goes in.
-  The two QR codes sit in opposite corners (4 in apart) so a phone can't grab the wrong one.
+  Three QR codes is the ceiling for a card this size. They run top right, middle left, bottom
+  right, each at least 2 in from the next and each labelled, so a phone held to one frames one.
 
 FACTS USED (Shopify, checked 2026-11-10)
   Recipe: 2.5 tablespoons in 8oz of hot or cold water or milk, about 30 seconds.

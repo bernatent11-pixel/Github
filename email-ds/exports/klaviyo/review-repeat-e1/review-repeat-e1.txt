@@ -1,14 +1,14 @@
 SUBJECT: Can I ask you a favor?
-PREVIEW: You’ve ordered the Mate Latte more than once. I’d love to know why.
+PREVIEW: But first, thank you for trusting us.
 FROM: Shadi from Milonga
 
 Hey {{ person.first_name|default:'there' }},
 
-You’ve ordered the Mate Latte more than once. For a small brand like ours, nothing means more.
+Thank you for trusting us, and for loving the Mate Latte enough to order it more than once. For a small brand like ours, that means everything.
 
-One favor: would you leave a review? I can tell people it’s good, but I made it. You’re the one they’ll believe.
+One favor: would you leave a review? I’d love to know what you think. Your opinion matters to us, and it helps a lot. Someone new will read it when they’re deciding whether to try the Mate Latte.
 
-What did it replace? How do you make yours? Honest is all I want, five stars or two.
+Honest is all I want, five stars or two.
 
 Leave a quick review: https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews
 

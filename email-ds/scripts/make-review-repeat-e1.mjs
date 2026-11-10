@@ -5,15 +5,19 @@
 // people a new customer is most likely to believe. No selling.
 //
 // What the copy is built on (checked 2026-11-10, see the README this script writes):
-//   - Short on purpose (Bernat, 2026-11-10: "Keep the email short"): about 80 words, no intro line,
-//     so the From name has to be "Shadi from Milonga" or the letter has no author until the sign-off.
+//   - Short and warm on purpose (Bernat, 2026-11-10: "Keep the email short", then "more emotional":
+//     thank them for the trust, say their opinion matters and that new people read it). Under 100
+//     words, no intro line, so the From name has to be "Shadi from Milonga" or the letter has no
+//     author until the sign-off.
+//   - "Loving the Mate Latte" assumes the verdict, so "Honest is all I want, five stars or two" stays:
+//     it is what keeps the 15% from reading as payment for praise.
 //   - These people have already had review asks (post-purchase E2, and the "Review Request" flow sends
 //     two after every delivery), all of them leading with 15% off. So this one leads with the reason;
 //     the 15% stays a thank-you at the end.
 //   - The 15% is sent by the "Review" flow the moment Judge.me records a review, any rating. So the
 //     letter says "once you submit it", never "once it's posted": new reviews are held before
 //     they publish, and a reward tied to publishing would read as "only if we approve it".
-//   - "You've ordered more than once" is true for subscribers too (renewals count as orders), which
+//   - "Order it more than once" is true for subscribers too (renewals count as orders), which
 //     is why nothing here says "reordering" or "came back".
 //
 // Writes exports/klaviyo/review-repeat-e1/review-repeat-e1.html (full document, for a code template)
@@ -26,7 +30,7 @@ const NAME = 'review-repeat-e1';
 const OUT = `exports/klaviyo/${NAME}`;
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'Can I ask you a favor?';
-export const PREHEADER = 'You’ve ordered the Mate Latte more than once. I’d love to know why.';
+export const PREHEADER = 'But first, thank you for trusting us.';
 // Lands ON the reviews block, with "Write a review" in view. The id is judgeme_product_reviews:
 // "#judgeme" matches nothing on the page and leaves people at the top, 2,859px above the form on a phone.
 // No UTMs here: the flow message has Klaviyo's own tracking parameters switched on.
@@ -35,9 +39,9 @@ const REVIEW = 'https://milonga.life/products/the-original-mate-latte?judgeme_re
 // [kind, text]. Plain text only; ent() makes it HTML.
 const LETTER = [
   ['p', 'Hey {{ person.first_name|default:\'there\' }},'],
-  ['p', 'You’ve ordered the Mate Latte more than once. For a small brand like ours, nothing means more.'],
-  ['p', 'One favor: would you leave a review? I can tell people it’s good, but I made it. You’re the one they’ll believe.'],
-  ['p', 'What did it replace? How do you make yours? Honest is all I want, five stars or two.'],
+  ['p', 'Thank you for trusting us, and for loving the Mate Latte enough to order it more than once. For a small brand like ours, that means everything.'],
+  ['p', 'One favor: would you leave a review? I’d love to know what you think. Your opinion matters to us, and it helps a lot. Someone new will read it when they’re deciding whether to try the Mate Latte.'],
+  ['p', 'Honest is all I want, five stars or two.'],
   ['link', 'Leave a quick review →'],
   ['p', 'As a thank you, I’ll send you 15% off once you submit it.'],
   ['sign', 'Gracias for sticking with us,', 'Shadi'],
@@ -122,7 +126,8 @@ SUBJECT + PREVIEW
 
 JOB
   One ask: a review, from the customers a new buyer is most likely to believe. No selling, no club pitch.
-  Kept short on purpose, about 80 words: the thanks, the ask and why, two prompts, the link, the thank-you.
+  Short and warm on purpose, under 100 words: the thanks, the ask and why their opinion matters,
+  the honest line, the link, the thank-you.
   The 15% is a thank-you in the last line, never the headline: this audience has already been offered
   it in every earlier review email and did not take it.
 
@@ -140,8 +145,10 @@ REVIEW REWARD (15% off the next order)
   Keep the reward for any honest review. Paying only for positive ones breaks the FTC's review rule.
 
 FACTS USED (checked in Klaviyo, 2026-11-10)
-  "You've ordered the Mate Latte more than once": the branch is Ordered Product >= 2. Subscription
-    renewals count, so the letter never says "reordering" or "came back".
+  "Order it more than once": the branch is Ordered Product >= 2. Subscription renewals count, so
+    the letter never says "reordering" or "came back".
+  "Loving the Mate Latte": an assumption, not a fact. Keep "Honest is all I want, five stars or two"
+    right after it, so the 15% never reads as payment for praise.
 
 BEFORE THE FLOW GOES LIVE
   1. Stop the double ask. The live "Review Request" flow (Delivered Shipment -> day 4 -> day 7, Smart

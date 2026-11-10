@@ -25,9 +25,9 @@ const SHARED = {
   'logo-beige.png': [`${OC}c267d1bd-4e34-4ee1-b901-eac7bc60b87d.png`, '../exports/klaviyo/pp1-e3/img/logo-beige.png'],
   'mark-green.png': [`${OC}0e781634-6907-42f6-b101-3c2c15371a99.png`, '../public/logo/mark-green.png'],
   'cart-pouch.png': [`${OC}dd3e85e8-9b20-404f-99b8-4c8516057d55.png`, '../exports/klaviyo/cart-e1/img/cart-pouch.png'],
-  'step-confirmed.png': [`${OC}8693bc27-1184-4016-a092-ce21f3f2b25f.png`, '../exports/klaviyo/order-confirm/img/step-confirmed.png'],
-  'step-shipped.png': [`${OC}9a9ff44e-0e0e-4c08-a73c-f9c8fa7eff5f.png`, '../exports/klaviyo/order-confirm/img/step-shipped.png'],
-  'step-delivered.png': [`${OC}5c7425af-2014-4fc1-9f75-064a5074a0cd.png`, '../exports/klaviyo/order-confirm/img/step-delivered.png'],
+  'step-confirmed.png': [`${OC}e0c8e45b-2cd4-4946-a228-c3eb189a58ed.png`, '../exports/klaviyo/order-confirm/img/step-confirmed.png'],
+  'step-shipped.png': [`${OC}91022ee9-6de4-475b-8a80-8497aa72d16c.png`, '../exports/klaviyo/order-confirm/img/step-shipped.png'],
+  'step-delivered.png': [`${OC}0463a317-9645-45e3-8377-687249e6ca11.png`, '../exports/klaviyo/order-confirm/img/step-delivered.png'],
 };
 for (const [f, [url]] of Object.entries(SHARED)) hosted[f] ??= url;
 

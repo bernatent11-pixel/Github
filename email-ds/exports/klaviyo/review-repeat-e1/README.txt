@@ -31,7 +31,7 @@ LINK (one)
 
 REVIEW REWARD (15% off the next order)
   Sent by the live "Review" flow when Judge.me records a review, whatever the rating. So the letter
-  says "once you submit it". Do not change it back to "once it's posted": new reviews are held
+  says "as soon as you submit it". Do not change it back to "once it's posted": new reviews are held
   before they publish, and a reward tied to publishing reads as "only if we approve it".
   Keep the reward for any honest review. Paying only for positive ones breaks the FTC's review rule.
 

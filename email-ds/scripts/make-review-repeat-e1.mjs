@@ -15,7 +15,7 @@
 //     two after every delivery), all of them leading with 15% off. So this one leads with the reason;
 //     the 15% stays a thank-you at the end.
 //   - The 15% is sent by the "Review" flow the moment Judge.me records a review, any rating. So the
-//     letter says "once you submit it", never "once it's posted": new reviews are held before
+//     letter says "as soon as you submit it", never "once it's posted": new reviews are held before
 //     they publish, and a reward tied to publishing would read as "only if we approve it".
 //   - "Order it more than once" is true for subscribers too (renewals count as orders), which
 //     is why nothing here says "reordering" or "came back".
@@ -43,7 +43,7 @@ const LETTER = [
   ['p', 'One favor: would you take a minute to share what you think in a review? Your opinion matters to us, and it helps a lot. Someone new will read it when they’re deciding whether to try the Mate Latte.'],
   ['p', 'Honest is all I want, five stars or two.'],
   ['link', 'Leave a quick review →'],
-  ['p', 'As a thank you, I’ll send you 15% off once you submit it.'],
+  ['p', 'To return the favor, I’ll send you 15% off your next order as soon as you submit it.'],
   ['sign', 'Gracias for sticking with us,', 'Shadi'],
 ];
 
@@ -140,7 +140,7 @@ LINK (one)
 
 REVIEW REWARD (15% off the next order)
   Sent by the live "Review" flow when Judge.me records a review, whatever the rating. So the letter
-  says "once you submit it". Do not change it back to "once it's posted": new reviews are held
+  says "as soon as you submit it". Do not change it back to "once it's posted": new reviews are held
   before they publish, and a reward tied to publishing reads as "only if we approve it".
   Keep the reward for any honest review. Paying only for positive ones breaks the FTC's review rule.
 

@@ -25,9 +25,9 @@ const hostedPath = `${OUT}/hosted.json`;
 const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath, 'utf8')) : {};
 const IMG = {
   'logo-green.png': [`${K}b6a03046-605a-4e87-b22f-a530be1633e3.png`, `${X}welcome-e1/img/logo-green.png`],
-  'disc-forest-yerba-mate.png': ['', '../exports/klaviyo/ml101/img/disc-forest-yerba-mate.png'],
-  'disc-forest-l-theanine.png': ['', '../exports/klaviyo/ml101/img/disc-forest-l-theanine.png'],
-  'disc-forest-lions-mane.png': ['', '../exports/klaviyo/ml101/img/disc-forest-lions-mane.png'],
+  'disc-beige-yerba-mate.png': ['', '../exports/klaviyo/ml101/img/disc-beige-yerba-mate.png'],
+  'disc-beige-l-theanine.png': ['', '../exports/klaviyo/ml101/img/disc-beige-l-theanine.png'],
+  'disc-beige-lions-mane.png': ['', '../exports/klaviyo/ml101/img/disc-beige-lions-mane.png'],
   'ico-percent.png': ['', '../exports/klaviyo/ml101/img/ico-percent.png'],
   'ico-truck.png': ['', '../exports/klaviyo/ml101/img/ico-truck.png'],
   'ico-pause.png': ['', '../exports/klaviyo/ml101/img/ico-pause.png'],
@@ -53,6 +53,7 @@ export const PREHEADER = 'What’s inside, how it compares, and the best way to 
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const MINT = '#CFE0D4';
+const COCOA = '#5A3714'; // warm dark brown for the doses on the gold wall
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life', PDP = '/products/the-original-mate-latte';
@@ -68,9 +69,9 @@ const L = {
 };
 
 const INSIDE = [
-  { disc: 'disc-forest-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
-  { disc: 'disc-forest-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
-  { disc: 'disc-forest-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
+  { disc: 'disc-beige-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
+  { disc: 'disc-beige-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
+  { disc: 'disc-beige-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
 ];
 const STEPS = [
   { img: 'step-scoop.png', t: 'Scoop', d: '2.5 tablespoons into your mug <span style="white-space:nowrap;">or glass.</span>' },
@@ -108,6 +109,13 @@ const STYLE = `<style>
   a { color:inherit; }
   .unsub-pill a { color:#004D27 !important; text-decoration:none !important; }
   .web-view-line a { color:#3B5344 !important; }
+  /* interactive buy box: only where the pre-checked #ml-k input survived (Apple Mail, iOS Mail) */
+  #ml-k:checked ~ .ml-inter { display:block !important; max-height:none !important; overflow:visible !important; }
+  #ml-k:checked ~ .ml-static { display:none !important; }
+  #ml-s15:checked ~ .ml-inter .ml-p30, #ml-s60:checked ~ .ml-inter .ml-p30 { display:none !important; }
+  #ml-s15:checked ~ .ml-inter .ml-p15, #ml-s60:checked ~ .ml-inter .ml-p60 { display:block !important; }
+  #ml-s15:checked ~ .ml-inter .ml-pill30, #ml-s60:checked ~ .ml-inter .ml-pill30 { background-color:#F2EDE1 !important; border-color:#1E1E1E !important; color:#1E1E1E !important; }
+  #ml-s15:checked ~ .ml-inter .ml-pill15, #ml-s60:checked ~ .ml-inter .ml-pill60 { background-color:#A3C94F !important; border-color:#A3C94F !important; color:#FFFFFF !important; }
   @media only screen and (max-width:480px) {
     .wrap { width:100% !important; }
     .pad { padding-left:24px !important; padding-right:24px !important; }
@@ -140,7 +148,7 @@ const STYLE = `<style>
     .cmp-vs-gap { height:38px !important; line-height:38px !important; }
     .bb { padding-left:20px !important; padding-right:20px !important; }
     .bb-title { font-size:26px !important; line-height:30px !important; }
-    .pill a { padding:10px 12px !important; font-size:11.5px !important; letter-spacing:.5px !important; }
+    .ml-pill { padding:10px 12px !important; font-size:11.5px !important; letter-spacing:.5px !important; }
     .opt { padding:16px 14px !important; }
     .opt-price { font-size:18px !important; }
     .opt-name { font-size:15px !important; }
@@ -197,36 +205,35 @@ ${items.map(cell).join('\n')}
 </td>`;
   const insideCell = (e) => `<td class="how" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
 <img class="how-img" src="${img(e.disc)}" width="56" height="56" alt="" role="presentation" style="display:block;margin:0 auto;width:56px;height:56px;border:0;">
-<div class="edge-dose" style="padding-top:12px;font-family:${SERIF};font-size:30px;line-height:32px;font-weight:700;color:${FOREST};">${e.dose}</div>
-<div class="how-t" style="padding-top:4px;font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${ent(e.name)}</div>
+<div class="edge-dose" style="padding-top:12px;font-family:${SERIF};font-size:32px;line-height:34px;font-weight:700;color:${COCOA};">${e.dose}</div>
+<div class="how-t" style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${ent(e.name)}</div>
 <div class="how-d" style="padding-top:6px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">${ent(e.line)}</div>
 </td>`;
 
-  // ── the product page's buy box, as an email (shown for 30 servings) ──
+  // ── the product page's buy box, as an email ──
+  // Apple Mail / iOS Mail: tapping 15, 30 or 60 swaps the prices (hidden radio inputs + :checked CSS;
+  // a pre-checked checkbox switches the interactive box on only where inputs survive). Gmail and the
+  // rest strip the inputs, so they get the static box: 30 servings, with each size pill a link.
   const SITEBG = '#F2EDE1', BLACK = '#1E1E1E', GREY = '#77736B', LIME = '#A3C94F';
-  const sizePill = (n, on) => `<td style="padding:0 8px 8px 0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-<td class="pill" bgcolor="${on ? LIME : SITEBG}" style="background-color:${on ? LIME : SITEBG};border:1.5px solid ${on ? LIME : BLACK};border-radius:999px;"><a href="${amp(L.club(n))}" target="_blank" style="display:inline-block;padding:11px 18px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;color:${on ? '#FFFFFF' : BLACK};text-decoration:none;">${n} servings</a></td>
-</tr></table></td>`;
+  const pillStyle = (on) => `display:inline-block;background-color:${on ? LIME : SITEBG};border:1.5px solid ${on ? LIME : BLACK};border-radius:999px;padding:10px 17px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;color:${on ? '#FFFFFF' : BLACK};text-decoration:none;cursor:pointer;`;
+  const pills = (mk) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr>
+${[15, 30, 60].map((n) => `<td style="padding:0 8px 8px 0;">${mk(n)}</td>`).join('')}
+</tr></table>`;
   const radio = (on) => `<span style="display:inline-block;width:16px;height:16px;border:2px solid ${BLACK};border-radius:50%;vertical-align:-4px;text-align:center;line-height:16px;font-size:0;">${on ? `<span style="display:inline-block;width:10px;height:10px;margin-top:3px;border-radius:50%;background-color:${BLACK};"></span>` : ''}</span>`;
   const li = (ico, t) => `<tr><td width="24" valign="top" style="width:24px;padding:6px 0 0;"><img src="${img(ico)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>
 <td class="opt-li" valign="top" style="padding:6px 0 0 4px;font-family:${FONT};font-size:14px;line-height:19px;font-weight:500;color:${BLACK};">${t}</td></tr>`;
-  const buyBox = `<tr><td class="pad bb bg-site" align="left" bgcolor="${SITEBG}" style="background-color:${SITEBG};padding:30px 40px 0;font-family:${FONT};">
-<div class="bb-title" style="font-family:${SERIF};font-size:30px;line-height:34px;font-weight:700;color:${BLACK};">The Original Mate Latte - Vanilla</div>
-<div style="padding-top:8px;font-size:14px;line-height:20px;font-weight:500;color:${GREY};">Pick your size:</div>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr>
-${sizePill(15, false)}${sizePill(30, true)}${sizePill(60, false)}
-</tr></table>
-<div style="padding-top:16px;font-size:17px;line-height:22px;font-weight:700;color:${BLACK};">Purchase Options</div>
+  // Purchase Options + Shop now for one size
+  const options = (z) => `<div style="padding-top:16px;font-size:17px;line-height:22px;font-weight:700;color:${BLACK};">Purchase Options</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border-collapse:separate;"><tr>
 <td class="opt" style="border:1.5px solid ${BLACK};border-radius:14px;padding:18px 20px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-<td valign="top" style="font-family:${FONT};"><a href="${amp(L.club(30))}" target="_blank" style="text-decoration:none;color:${BLACK};">${radio(true)}&nbsp;&nbsp;<span style="font-size:16px;line-height:22px;font-weight:700;">Subscribe &amp;</span>&nbsp;<span style="display:inline-block;background-color:#D2AE68;background-image:linear-gradient(90deg,#C49A4E,#E9D3A2);border-radius:999px;padding:4px 12px;font-size:13px;line-height:16px;font-weight:700;color:#FFFFFF;vertical-align:1px;">Save 30%</span></a></td>
-<td valign="top" align="right" width="132" style="width:132px;font-family:${FONT};"><a href="${amp(L.club(30))}" target="_blank" style="text-decoration:none;color:${BLACK};"><span class="opt-price" style="font-size:20px;line-height:24px;font-weight:700;">$48.99</span> <span style="font-size:14px;font-weight:500;color:${GREY};text-decoration:line-through;">$69.98</span></a>
-<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:500;color:${GREY};">$1.63 per serving</div></td>
+<td valign="top" style="font-family:${FONT};"><a href="${amp(L.club(z.n))}" target="_blank" style="text-decoration:none;color:${BLACK};">${radio(true)}&nbsp;&nbsp;<span style="font-size:16px;line-height:22px;font-weight:700;">Subscribe &amp;</span>&nbsp;<span style="display:inline-block;background-color:#D2AE68;background-image:linear-gradient(90deg,#C49A4E,#E9D3A2);border-radius:999px;padding:4px 12px;font-size:13px;line-height:16px;font-weight:700;color:#FFFFFF;vertical-align:1px;">Save ${z.off}</span></a></td>
+<td valign="top" align="right" width="140" style="width:140px;font-family:${FONT};"><a href="${amp(L.club(z.n))}" target="_blank" style="text-decoration:none;color:${BLACK};"><span class="opt-price" style="font-size:20px;line-height:24px;font-weight:700;">$${z.club}</span> <span style="font-size:14px;font-weight:500;color:${GREY};text-decoration:line-through;">$${z.once}</span></a>
+<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:500;color:${GREY};">$${z.cupClub} per serving</div></td>
 </tr></table>
 <div class="opt-name" style="padding-top:12px;font-size:17px;line-height:22px;font-weight:700;color:${BLACK};">Mate Mornings Club Subscription</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;">
-${li('ico-percent.png', 'Save 30% on every order')}
+${li('ico-percent.png', `Save ${z.off} on every order`)}
 ${li('ico-truck.png', 'Delivered to your door every 1 month')}
 ${li('ico-pause.png', 'Pause, skip, or cancel anytime')}
 </table>
@@ -234,15 +241,36 @@ ${li('ico-pause.png', 'Pause, skip, or cancel anytime')}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border-collapse:separate;"><tr>
 <td class="opt" style="border:1.5px solid ${BLACK};border-radius:14px;padding:18px 20px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-<td valign="middle" style="font-family:${FONT};"><a href="${amp(L.once(30))}" target="_blank" style="text-decoration:none;color:${BLACK};">${radio(false)}&nbsp;&nbsp;<span style="font-size:16px;line-height:22px;font-weight:700;">One Time Purchase</span></a></td>
-<td valign="top" align="right" width="132" style="width:132px;font-family:${FONT};"><a href="${amp(L.once(30))}" target="_blank" style="text-decoration:none;color:${BLACK};"><span class="opt-price" style="font-size:20px;line-height:24px;font-weight:700;">$69.98</span></a>
-<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:500;color:${GREY};">$2.33 per serving</div></td>
+<td valign="middle" style="font-family:${FONT};"><a href="${amp(L.once(z.n))}" target="_blank" style="text-decoration:none;color:${BLACK};">${radio(false)}&nbsp;&nbsp;<span style="font-size:16px;line-height:22px;font-weight:700;">One Time Purchase</span></a></td>
+<td valign="top" align="right" width="140" style="width:140px;font-family:${FONT};"><a href="${amp(L.once(z.n))}" target="_blank" style="text-decoration:none;color:${BLACK};"><span class="opt-price" style="font-size:20px;line-height:24px;font-weight:700;">$${z.once}</span></a>
+<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:500;color:${GREY};">$${z.cupOnce} per serving</div></td>
 </tr></table>
 </td></tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;border-collapse:separate;"><tr>
-<td align="center" style="border:1.5px solid ${BLACK};border-radius:999px;"><a href="${amp(L.club(30))}" target="_blank" style="display:block;padding:16px 20px;font-family:${FONT};font-size:16px;line-height:18px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:${BLACK};text-decoration:none;">Add to cart</a></td>
-</tr></table>
-<div style="padding-top:16px;font-size:13px;line-height:20px;font-weight:500;color:${GREY};">${ent('Also in')} <a href="${amp(L.club(15))}" target="_blank" style="color:${BLACK};font-weight:700;">15 servings</a> ($29.74 in the club, $34.99 one-time) ${ent('and')} <a href="${amp(L.club(60))}" target="_blank" style="color:${BLACK};font-weight:700;">60 servings</a> ($97.97 in the club, $139.96 one-time).</div>
+<td align="center" bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:999px;"><a href="${amp(L.club(z.n))}" target="_blank" style="display:block;padding:17px 20px;font-family:${FONT};font-size:16px;line-height:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};text-decoration:none;">Shop now</a></td>
+</tr></table>`;
+  const Z = Object.fromEntries(SIZES.map((z) => [z.n, z]));
+  const head = `<div class="bb-title" style="font-family:${SERIF};font-size:30px;line-height:34px;font-weight:700;color:${BLACK};">The Original Mate Latte - Vanilla</div>
+<div style="padding-top:8px;font-size:14px;line-height:20px;font-weight:500;color:${GREY};">Pick your size:</div>`;
+  const staticBox = `<div class="ml-static">
+${head}
+${pills((n) => `<a href="${amp(L.club(n))}" target="_blank" class="ml-pill" style="${pillStyle(n === 30)}">${n} servings</a>`)}
+${options(Z[30])}
+</div>`;
+  const interBox = `<div class="ml-inter" style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+${head}
+${pills((n) => `<label for="ml-s${n}" class="ml-pill ml-pill${n}" style="${pillStyle(n === 30)}">${n} servings</label>`)}
+${[15, 30, 60].map((n) => `<div class="ml-p ml-p${n}"${n === 30 ? '' : ' style="display:none;"'}>
+${options(Z[n])}
+</div>`).join('\n')}
+</div>`;
+  const buyBox = `<tr><td class="pad bb bg-site" align="left" bgcolor="${SITEBG}" style="background-color:${SITEBG};padding:30px 40px 0;font-family:${FONT};">
+<input type="checkbox" id="ml-k" checked style="display:none !important;mso-hide:all;">
+<input type="radio" name="ml-size" id="ml-s15" style="display:none !important;mso-hide:all;">
+<input type="radio" name="ml-size" id="ml-s30" checked style="display:none !important;mso-hide:all;">
+<input type="radio" name="ml-size" id="ml-s60" style="display:none !important;mso-hide:all;">
+${interBox}
+${staticBox}
 </td></tr>`;
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
@@ -252,18 +280,18 @@ ${li('ico-pause.png', 'Pause, skip, or cancel anytime')}
 <!-- ── 1 · ONE CUP, EVERYTHING YOU NEED (the pouring photo is the section's background: logo,
      title and the three ingredients on its gold wall, the photo below, its table carries on) ── -->
 ${row(HOWTO.wall, 'pad bg-wall', 'padding:34px 40px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:28px;">${eyebrow('Mate Latte 101')}</div>
+<div style="padding-top:28px;">${eyebrow('Mate Latte 101', '#FFFFFF')}</div>
 ${title('One cup,', 'everything you need.', 'h-hero', 50, FOREST, 10)}`)}
 <tr><td class="pad-photo bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:32px 30px 0;">
 ${three(INSIDE, insideCell)}
 </td></tr>
 ${row(HOWTO.wall, 'pad bg-wall', 'padding:22px 44px 0;', `<div style="font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')}</div>
-<div style="padding-top:14px;font-size:11.5px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${nw('90 calories')} &middot; ${nw('3g sugar')} &middot; ${nw('Dairy-free')} &middot; ${nw('Ready in 30 seconds')}</div>
-<div style="padding-top:26px;">${button(L.shop('ml_hero_button'), 'Shop the Mate Latte', 320)}</div>`)}
-<tr><td class="bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="600" height="${HOWTO.h}" alt="Milk poured into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${HOWTO.h}px;border:0;"></td></tr>
+<div style="padding-top:14px;font-size:11.5px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${COCOA};">${nw('90 calories')} &middot; ${nw('3g sugar')} &middot; ${nw('Dairy-free')} &middot; ${nw('Ready in 30 seconds')}</div>`)}
+<tr><td class="bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:30px 0 0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="600" height="${HOWTO.h}" alt="Milk poured into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${HOWTO.h}px;border:0;"></td></tr>
+${row(HOWTO.table, 'pad bg-table', 'padding:4px 40px 56px;', button(L.shop('ml_hero_button'), 'Shop the Mate Latte', 320))}
 
 <!-- ── 2 · HOW IT COMPARES (the welcome E3 table, on the photo's table colour) ── -->
-${row(HOWTO.table, 'pad bg-table', 'padding:16px 40px 0;', `${eyebrow('How it compares')}
+${row(HOWTO.table, 'pad bg-table', 'padding:0 40px 0;', `${eyebrow('How it compares')}
 ${title('Not all morning cups', 'are created equal.', 'h-sec', 40)}`)}
 ${CMP.replace(/#F0EFDF/g, HOWTO.table).replace(/bg-page/g, 'bg-table').replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
 ${row(HOWTO.table, 'pad bg-table', 'padding:0 40px 56px;', '&nbsp;')}

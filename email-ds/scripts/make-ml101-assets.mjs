@@ -1,6 +1,6 @@
 // Art for the "Mate Latte 101" campaign (everything else is reused from approved emails).
 //
-//   disc-forest-*.png  the three ingredient marks (brand icons, gold glyph) in forest discs, for the
+//   disc-beige-*.png   the three ingredient marks (brand icons, forest glyph) in beige discs, for the
 //                      first section, which sits on the pouring photo's gold wall. 112px (56 in email)
 //   ico-*.png          small line icons in near-black for the website-style purchase box:
 //                      percent, truck, pause. 36px (18 in email)
@@ -13,9 +13,10 @@ const OUT = 'exports/klaviyo/ml101/img';
 fs.mkdirSync(OUT, { recursive: true });
 for (const name of ['yerba-mate', 'l-theanine', 'lions-mane']) {
   const D = 112, G = 72;
-  const glyph = await sharp(`public/brand/icons/${name}-gold.png`).resize({ width: G, height: G, fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
-  const disc = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${D}"><circle cx="${D / 2}" cy="${D / 2}" r="${D / 2}" fill="#004D27"/></svg>`);
-  await sharp(disc).composite([{ input: glyph, left: (D - G) / 2, top: (D - G) / 2 }]).png().toFile(`${OUT}/disc-forest-${name}.png`);
+  const glyph = await sharp(`public/brand/icons/${name}-forest.png`).resize({ width: G, height: G, fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+  const disc = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${D}"><circle cx="${D / 2}" cy="${D / 2}" r="${D / 2}" fill="#F0EFDF"/></svg>`);
+  await sharp(disc).composite([{ input: glyph, left: (D - G) / 2, top: (D - G) / 2 }]).png().toFile(`${OUT}/disc-beige-${name}.png`);
+  fs.rmSync(`${OUT}/disc-forest-${name}.png`, { force: true });
 }
 const st = 'fill="none" stroke="#1E1E1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const ICONS = {

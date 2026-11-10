@@ -25,9 +25,9 @@ const hostedPath = `${OUT}/hosted.json`;
 const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath, 'utf8')) : {};
 const IMG = {
   'logo-green.png': [`${K}b6a03046-605a-4e87-b22f-a530be1633e3.png`, `${X}welcome-e1/img/logo-green.png`],
-  'disc-gold-yerba-mate.png': ['', '../exports/klaviyo/ml101/img/disc-gold-yerba-mate.png'],
-  'disc-gold-l-theanine.png': ['', '../exports/klaviyo/ml101/img/disc-gold-l-theanine.png'],
-  'disc-gold-lions-mane.png': ['', '../exports/klaviyo/ml101/img/disc-gold-lions-mane.png'],
+  'disc-beige-yerba-mate.png': ['', '../exports/klaviyo/ml101/img/disc-beige-yerba-mate.png'],
+  'disc-beige-l-theanine.png': ['', '../exports/klaviyo/ml101/img/disc-beige-l-theanine.png'],
+  'disc-beige-lions-mane.png': ['', '../exports/klaviyo/ml101/img/disc-beige-lions-mane.png'],
   'ico-percent.png': ['', '../exports/klaviyo/ml101/img/ico-percent.png'],
   'ico-truck.png': ['', '../exports/klaviyo/ml101/img/ico-truck.png'],
   'ico-pause.png': ['', '../exports/klaviyo/ml101/img/ico-pause.png'],
@@ -68,9 +68,9 @@ const L = {
 };
 
 const INSIDE = [
-  { disc: 'disc-gold-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
-  { disc: 'disc-gold-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
-  { disc: 'disc-gold-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
+  { disc: 'disc-beige-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
+  { disc: 'disc-beige-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
+  { disc: 'disc-beige-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
 ];
 const STEPS = [
   { img: 'step-scoop.png', t: 'Scoop', d: '2.5 tablespoons into your mug <span style="white-space:nowrap;">or glass.</span>' },

@@ -1,5 +1,5 @@
 SUBJECT: So, what do you think?
-PREVIEW: I’ll thank you with 15% off your next order, whatever you think of it.
+PREVIEW: I’ll thank you with 15% off your next order, whether you loved it or not.
 FROM: Shadi from Milonga
 
 Hey {{ person.first_name|default:'there' }}!

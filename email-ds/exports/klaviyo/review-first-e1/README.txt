@@ -13,7 +13,7 @@ WHERE IT GOES IN KLAVIYO
   Set the preview text on the flow message instead.
 
 SUBJECT + PREVIEW
-  So, what do you think? — I’ll thank you with 15% off your next order, whatever you think of it.
+  So, what do you think? — I’ll thank you with 15% off your next order, whether you loved it or not.
   From name: Shadi from Milonga. REQUIRED: the message is set to "Milonga Yerba Mate", and the letter
     has no "It's Shadi" line, so without this nobody knows who is writing until the sign-off.
   Reply-to: an inbox someone reads. The P.S. asks for replies; the message has no reply-to set, so

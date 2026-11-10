@@ -41,8 +41,9 @@ const OUT = `exports/klaviyo/${NAME}`;
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'So, what do you think?';
 // The 15% leads the preview (Bernat, 2026-11-10: "incentivize the 15% off"), early enough to survive a
-// one-line phone preview. "Whatever you think of it" says the reward is for any verdict.
-export const PREHEADER = 'I’ll thank you with 15% off your next order, whatever you think of it.';
+// one-line phone preview. "Whether you loved it or not" says the reward is for any verdict, without
+// repeating "what you think" a third time (it is in the subject and the body).
+export const PREHEADER = 'I’ll thank you with 15% off your next order, whether you loved it or not.';
 // Lands ON the reviews block, with "Write a review" in view. The id is judgeme_product_reviews:
 // "#judgeme" matches nothing on the page and leaves people at the top, 2,859px above the form on a phone.
 // No UTMs here: the flow message has Klaviyo's own tracking parameters switched on.

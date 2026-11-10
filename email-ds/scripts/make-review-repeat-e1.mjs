@@ -5,13 +5,19 @@
 // people a new customer is most likely to believe. No selling.
 //
 // What the copy is built on (checked 2026-11-10, see the README this script writes):
+//   - Short and warm on purpose (Bernat, 2026-11-10: "Keep the email short", then "more emotional":
+//     thank them for the trust, say their opinion matters and that new people read it). Under 100
+//     words, no intro line, so the From name has to be "Shadi from Milonga" or the letter has no
+//     author until the sign-off.
+//   - "Loving the Mate Latte" assumes the verdict, so "Honest is all I want, five stars or two" stays:
+//     it is what keeps the 15% from reading as payment for praise.
 //   - These people have already had review asks (post-purchase E2, and the "Review Request" flow sends
-//     two after every delivery), all of them leading with 15% off. So this one leads with the reason
-//     and says "I know we've asked before"; the 15% stays a thank-you at the end.
+//     two after every delivery), all of them leading with 15% off. So this one leads with the reason;
+//     the 15% stays a thank-you at the end.
 //   - The 15% is sent by the "Review" flow the moment Judge.me records a review, any rating. So the
-//     letter says "as soon as you submit it", never "once it's posted": new reviews are held before
+//     letter says "once you submit it", never "once it's posted": new reviews are held before
 //     they publish, and a reward tied to publishing would read as "only if we approve it".
-//   - "You've ordered more than once" is true for subscribers too (renewals count as orders), which
+//   - "Order it more than once" is true for subscribers too (renewals count as orders), which
 //     is why nothing here says "reordering" or "came back".
 //
 // Writes exports/klaviyo/review-repeat-e1/review-repeat-e1.html (full document, for a code template)
@@ -24,26 +30,20 @@ const NAME = 'review-repeat-e1';
 const OUT = `exports/klaviyo/${NAME}`;
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'Can I ask you a favor?';
-export const PREHEADER = 'You’ve ordered the Mate Latte more than once. I’d love to know why.';
+export const PREHEADER = 'But first, thank you for trusting us.';
 // Lands ON the reviews block, with "Write a review" in view. The id is judgeme_product_reviews:
 // "#judgeme" matches nothing on the page and leaves people at the top, 2,859px above the form on a phone.
 // No UTMs here: the flow message has Klaviyo's own tracking parameters switched on.
 const REVIEW = 'https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews';
 
-// [kind, text]. 'li' = one of the three prompts. Plain text only; ent() makes it HTML.
+// [kind, text]. Plain text only; ent() makes it HTML.
 const LETTER = [
   ['p', 'Hey {{ person.first_name|default:\'there\' }},'],
-  ['p', 'It’s Shadi, from Milonga.'],
-  ['p', 'You’ve ordered the Mate Latte more than once. For a small brand like ours, nothing means more. Thank you.'],
-  ['p', 'Now a favor: would you write us a review?'],
-  ['p', 'I know we’ve asked before. I’m asking again because when someone new is deciding whether to try it, I can say it’s good, but I made it, so of course I would. You’re the one they’ll believe.'],
-  ['p', 'It takes about a minute. Not sure what to say? Pick one:'],
-  ['li', 'What did it replace?'],
-  ['li', 'How do you make yours?'],
-  ['li', 'What would you tell a friend who’s on the fence?'],
-  ['p', 'Write it the way you’d tell that friend, including anything you’d change. I’d rather have the honest version than the polished one.'],
+  ['p', 'Thank you for trusting us, and for loving the Mate Latte enough to order it more than once. For a small brand like ours, that means everything.'],
+  ['p', 'One favor: would you leave a review? I’d love to know what you think. Your opinion matters to us, and it helps a lot. Someone new will read it when they’re deciding whether to try the Mate Latte.'],
+  ['p', 'Honest is all I want, five stars or two.'],
   ['link', 'Leave a quick review →'],
-  ['p', 'As a thank you, I’ll send you 15% off your next order as soon as you submit it. Any honest review counts, five stars or two.'],
+  ['p', 'As a thank you, I’ll send you 15% off once you submit it.'],
   ['sign', 'Gracias for sticking with us,', 'Shadi'],
 ];
 
@@ -52,7 +52,6 @@ const P = (inner, last) => `<p style="margin:0 0 ${last ? 0 : 18}px;">${inner}</
 
 function html() {
   const rows = LETTER.map(([k, a, b], i) => {
-    if (k === 'li') return `<p style="margin:0 0 ${LETTER[i + 1]?.[0] === 'li' ? 6 : 18}px;padding-left:28px;text-indent:-12px;">${ent('• ' + a)}</p>`;
     if (k === 'link') return P(`<a href="${ent(REVIEW)}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(a)}</a>`);
     if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`, i === LETTER.length - 1);
     return P(ent(a));
@@ -100,10 +99,9 @@ ${rows.join('\n')}
 
 function text() {
   const out = [`SUBJECT: ${SUBJECT}`, `PREVIEW: ${PREHEADER}`, 'FROM: Shadi from Milonga', ''];
-  LETTER.forEach(([k, a, b], i) => {
+  LETTER.forEach(([k, a, b]) => {
     if (k === 'link') out.push(`${a.replace(/\s*→$/, '')}: ${REVIEW}`, '');
     else if (k === 'sign') out.push(a, b, '');
-    else if (k === 'li') out.push(`- ${a}`, ...(LETTER[i + 1]?.[0] === 'li' ? [] : ['']));
     else out.push(a, '');
   });
   return out.join('\n');
@@ -122,11 +120,14 @@ WHERE IT GOES IN KLAVIYO
 
 SUBJECT + PREVIEW
   ${SUBJECT} — ${PREHEADER}
-  From name: Shadi from Milonga (the message is set to "Milonga Yerba Mate"; a letter signed Shadi should come from Shadi)
+  From name: Shadi from Milonga. REQUIRED: the message is set to "Milonga Yerba Mate", and the short
+    letter has no "It's Shadi" line, so without this nobody knows who is writing until the sign-off.
   Reply-to: an inbox someone reads. People answer a personal letter.
 
 JOB
   One ask: a review, from the customers a new buyer is most likely to believe. No selling, no club pitch.
+  Short and warm on purpose, under 100 words: the thanks, the ask and why their opinion matters,
+  the honest line, the link, the thank-you.
   The 15% is a thank-you in the last line, never the headline: this audience has already been offered
   it in every earlier review email and did not take it.
 
@@ -139,15 +140,15 @@ LINK (one)
 
 REVIEW REWARD (15% off the next order)
   Sent by the live "Review" flow when Judge.me records a review, whatever the rating. So the letter
-  says "as soon as you submit it". Do not change it back to "once it's posted": new reviews are held
+  says "once you submit it". Do not change it back to "once it's posted": new reviews are held
   before they publish, and a reward tied to publishing reads as "only if we approve it".
   Keep the reward for any honest review. Paying only for positive ones breaks the FTC's review rule.
 
 FACTS USED (checked in Klaviyo, 2026-11-10)
-  "You've ordered the Mate Latte more than once": the branch is Ordered Product >= 2. Subscription
-    renewals count, so the letter never says "reordering" or "came back".
-  "I know we've asked before": true for every repeat buyer. Post-purchase E2 asks on day 7, and the
-    "Review Request" flow sends two asks after every delivery.
+  "Order it more than once": the branch is Ordered Product >= 2. Subscription renewals count, so
+    the letter never says "reordering" or "came back".
+  "Loving the Mate Latte": an assumption, not a fact. Keep "Honest is all I want, five stars or two"
+    right after it, so the 15% never reads as payment for praise.
 
 BEFORE THE FLOW GOES LIVE
   1. Stop the double ask. The live "Review Request" flow (Delivered Shipment -> day 4 -> day 7, Smart

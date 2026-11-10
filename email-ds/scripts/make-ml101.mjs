@@ -1,20 +1,17 @@
-// Campaign · "Mate Latte 101": what it is, what's inside, how it compares, how to make it, when to
-// enjoy it, and the prices (one-time or the Mate Mornings Club) for every size.
+// Campaign · "Mate Latte 101": what it is (the three key ingredients), how it compares, and the prices,
+// one-time or in the Mate Mornings Club, laid out like the product page's purchase box.
 //
-// Built from sections already approved in other emails, with their hosted images:
-//   hero        the studio pouch on green (order confirmation)
-//   inside      the ingredient discs (welcome / cart emails) + the product page's approved wording
-//   compares    the Mate Latte vs coffee / mushroom coffee / matcha table (welcome E3), copied from
-//               its generated HTML so it stays identical
-//   make it     three steps on the pouring photo's gold wall + hot or iced (subscribers E1)
-//   enjoy it    the three moments on green (post-purchase E1)
-//   prices      15 / 30 / 60 servings, club or one-time (Shopify, checked 2026-11-09)
-//   perks       the club's three perks on gold (subscribers E1)
+//   1 the pouring photo is the first section's background: title "One cup, everything you need." and
+//     the three ingredients (forest discs) on its gold wall, the photo below; its table carries on into
+//   2 the comparison table (welcome E3), copied from its generated HTML so it stays identical
+//   3 "Try it once, or join the club": the product page's buy box, as an email (size pills, Purchase
+//     Options with the club and one-time, Add to cart); shown for 30 servings, the other sizes in a line
+//   4 the club's three perks on gold + "Join the club"
 //
 // Writes:
 //   exports/klaviyo/ml101/ml101.html   ONE complete HTML email (Klaviyo code template)
 //   refine/ml101.html                  preview under an inbox row
-// Usage: node scripts/make-ml101.mjs
+// Usage: node scripts/make-ml101-assets.mjs && node scripts/make-ml101.mjs
 import fs from 'node:fs';
 import { validate } from './validate-klaviyo-email.mjs';
 
@@ -23,13 +20,18 @@ fs.mkdirSync(OUT, { recursive: true });
 const K = 'https://cdn.klaviyomail.com/company/TwvSnK/images/';
 const X = '../exports/klaviyo/';
 // [hosted URL, local file for the preview]
+// hosted.json fills in the images made for this email once they are uploaded
+const hostedPath = `${OUT}/hosted.json`;
+const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath, 'utf8')) : {};
 const IMG = {
-  'logo-beige.png': [`${K}c267d1bd-4e34-4ee1-b901-eac7bc60b87d.png`, `${X}pp1-e3/img/logo-beige.png`],
+  'logo-green.png': [`${K}b6a03046-605a-4e87-b22f-a530be1633e3.png`, `${X}welcome-e1/img/logo-green.png`],
+  'disc-forest-yerba-mate.png': ['', '../exports/klaviyo/ml101/img/disc-forest-yerba-mate.png'],
+  'disc-forest-l-theanine.png': ['', '../exports/klaviyo/ml101/img/disc-forest-l-theanine.png'],
+  'disc-forest-lions-mane.png': ['', '../exports/klaviyo/ml101/img/disc-forest-lions-mane.png'],
+  'ico-percent.png': ['', '../exports/klaviyo/ml101/img/ico-percent.png'],
+  'ico-truck.png': ['', '../exports/klaviyo/ml101/img/ico-truck.png'],
+  'ico-pause.png': ['', '../exports/klaviyo/ml101/img/ico-pause.png'],
   'mark-green.png': [`${K}0e781634-6907-42f6-b101-3c2c15371a99.png`, '../public/logo/mark-green.png'],
-  'hero.jpg': [`${K}58d19159-6707-48f9-8ad5-5dc1ccaa964f.jpeg`, `${X}order-confirm/img/hero.jpg`],
-  'disc-gold-yerba-mate.png': [`${K}3f6c2de8-85cb-4fe0-9a93-38b08cff2575.png`, `${X}welcome-e1/img/disc-gold-yerba-mate.png`],
-  'disc-gold-l-theanine.png': [`${K}6f3cd229-74f8-4c52-b6fb-93d10911e05f.png`, `${X}welcome-e1/img/disc-gold-l-theanine.png`],
-  'disc-gold-lions-mane.png': [`${K}58b029ea-6b1e-4537-95d9-10aa3155bbde.png`, `${X}welcome-e1/img/disc-gold-lions-mane.png`],
   'cmp-pouch.png': [`${K}42ccdf16-bbbc-4246-ab82-8d5573d6f6f5.png`, `${X}welcome-e3/img/cmp-pouch.png`],
   'cmp-vs.png': [`${K}f6eca6ee-af15-4ad7-9f8d-ceb0d4be7327.png`, `${X}welcome-e3/img/cmp-vs.png`],
   'cmp-coffee.png': [`${K}31afe900-12dd-4189-9834-e73964cb59d7.png`, `${X}welcome-e3/img/cmp-coffee.png`],
@@ -39,20 +41,15 @@ const IMG = {
   'step-pour.png': [`${K}87c88a92-6119-41be-86c2-ac738e2e003d.png`, `${X}sub1-e1/img/step-pour.png`],
   'step-froth.png': [`${K}7e508d45-40cb-4cbf-88fc-18aadaccbf53.png`, `${X}sub1-e1/img/step-froth.png`],
   'howto.jpg': [`${K}b18e2a97-e510-421d-a1ec-d2a4da54e2f4.jpeg`, `${X}sub1-e1/img/howto.jpg`],
-  'drink-hot.png': [`${K}eb720e35-e441-496a-a96c-5f30dc637591.png`, `${X}pp1-e1/img/drink-hot.png`],
-  'drink-iced.png': [`${K}93430b07-73ca-42d5-947b-2da6b2c4fdd7.png`, `${X}pp1-e1/img/drink-iced.png`],
-  'moment-morning.jpg': [`${K}5ad0825c-ada6-410f-b3e3-b24bc1249c06.jpeg`, `${X}pp1-e1/img/moment-morning.jpg`],
-  'moment-work.jpg': [`${K}b3fd1cc5-460e-4fe2-b311-68e0645e5a6e.jpeg`, `${X}pp1-e1/img/moment-work.jpg`],
-  'moment-friends.jpg': [`${K}61ce5b04-698e-4ffb-94fa-fbd0377217c1.jpeg`, `${X}pp1-e1/img/moment-friends.jpg`],
   'step-save.png': [`${K}a4357407-20fc-49b1-8769-bf58002d7677.png`, `${X}pp1-e3/img/step-save.png`],
   'step-monthly.png': [`${K}24d6f5de-8675-4686-a18f-c65ec7fb0136.png`, `${X}pp1-e3/img/step-monthly.png`],
   'step-control.png': [`${K}037dde01-7474-4b70-b60e-0f9c4ca62916.png`, `${X}pp1-e3/img/step-control.png`],
 };
-const HERO = { top: '#104F38', bottom: '#156747', h: 544 };   // order-confirm colors.json
+for (const [f, v] of Object.entries(IMG)) if (!v[0] && hosted[f]) v[0] = hosted[f];
 const HOWTO = { wall: '#E4B77D', table: '#EDE5D9', h: 570 };  // sub1-e1 colors.json
 
 export const SUBJECT = 'Mate Latte 101 ☕';
-export const PREHEADER = 'What’s inside, how to make it, and the best way to save on every bag.';
+export const PREHEADER = 'What’s inside, how it compares, and the best way to save on every bag.';
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const MINT = '#CFE0D4';
@@ -71,9 +68,9 @@ const L = {
 };
 
 const INSIDE = [
-  { disc: 'disc-gold-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
-  { disc: 'disc-gold-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
-  { disc: 'disc-gold-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
+  { disc: 'disc-forest-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
+  { disc: 'disc-forest-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
+  { disc: 'disc-forest-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
 ];
 const STEPS = [
   { img: 'step-scoop.png', t: 'Scoop', d: '2.5 tablespoons into your mug <span style="white-space:nowrap;">or glass.</span>' },
@@ -141,7 +138,13 @@ const STYLE = `<style>
     .cmp-brand { font-size:15px !important; letter-spacing:2px !important; }
     .cmp-vs { width:32px !important; height:32px !important; }
     .cmp-vs-gap { height:38px !important; line-height:38px !important; }
-    .size-card { padding:20px 16px !important; }
+    .bb { padding-left:20px !important; padding-right:20px !important; }
+    .bb-title { font-size:26px !important; line-height:30px !important; }
+    .pill a { padding:10px 12px !important; font-size:11.5px !important; letter-spacing:.5px !important; }
+    .opt { padding:16px 14px !important; }
+    .opt-price { font-size:18px !important; }
+    .opt-name { font-size:15px !important; }
+    .opt-li { font-size:12.5px !important; }
     .size-n { font-size:26px !important; line-height:30px !important; }
     .price-club { font-size:30px !important; line-height:32px !important; }
     .size-btn a { padding:13px 14px !important; font-size:11.5px !important; letter-spacing:1px !important; }
@@ -149,8 +152,7 @@ const STYLE = `<style>
   }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
-    .bg-hero-top { background-color:${HERO.top} !important; }
-    .bg-hero { background-color:${HERO.bottom} !important; }
+    .bg-site { background-color:#F2EDE1 !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-page { background-color:${BEIGE} !important; }
     .bg-wall { background-color:${HOWTO.wall} !important; }
@@ -199,110 +201,86 @@ ${items.map(cell).join('\n')}
 <div class="how-t" style="padding-top:4px;font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${ent(e.name)}</div>
 <div class="how-d" style="padding-top:6px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">${ent(e.line)}</div>
 </td>`;
-  const drink = (pad, image, alt, name, text) => `<td class="drink" width="50%" align="center" valign="top" style="width:50%;padding:${pad};font-family:${FONT};">
-<img class="drink-img" src="${img(image)}" width="200" height="205" alt="${alt}" style="display:block;margin:0 auto;width:200px;height:205px;border:0;">
-<div style="padding-top:16px;font-family:${SERIF};font-size:26px;line-height:30px;font-weight:700;font-style:italic;color:${FOREST};">${name}</div>
-<div class="drink-text" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
-</td>`;
-  const moment = (m, flip) => `<tr><td class="pad-photo bg-forest" bgcolor="${FOREST}" style="background-color:${FOREST};padding:28px 30px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="${flip ? 'rtl' : 'ltr'}" style="table-layout:fixed;"><tr>
-<td class="m-img" width="250" valign="middle" dir="ltr" style="width:250px;padding:0;"><img class="m-photo" src="${img(m.img)}" width="250" height="312" alt="${m.alt}" style="display:block;width:250px;height:312px;border:0;border-radius:18px;"></td>
-<td class="m-gap" width="26" style="width:26px;font-size:0;line-height:0;">&nbsp;</td>
-<td class="m-text" valign="middle" dir="ltr" style="text-align:left;font-family:${FONT};">
-<div style="font-size:11px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">${ent(m.when)}</div>
-<div class="m-title" style="padding-top:8px;font-family:${SERIF};font-size:28px;line-height:31px;font-weight:700;font-style:italic;color:${BEIGE};">${ent(m.title)}</div>
-<div style="padding-top:10px;font-size:14px;line-height:21px;font-weight:500;color:#DCE3D6;">${ent(m.text)}</div>
-</td></tr></table>
-</td></tr>`;
-  // one size: club price up front, one-time beside it, two buttons
-  const size = (z) => `<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:0 30px 16px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
-<td class="size-card" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${z.n === 30 ? GOLD : LINE};border-radius:22px;padding:22px 24px;font-family:${FONT};">
+
+  // ── the product page's buy box, as an email (shown for 30 servings) ──
+  const SITEBG = '#F2EDE1', BLACK = '#1E1E1E', GREY = '#77736B', LIME = '#A3C94F';
+  const sizePill = (n, on) => `<td style="padding:0 8px 8px 0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>
+<td class="pill" bgcolor="${on ? LIME : SITEBG}" style="background-color:${on ? LIME : SITEBG};border:1.5px solid ${on ? LIME : BLACK};border-radius:999px;"><a href="${amp(L.club(n))}" target="_blank" style="display:inline-block;padding:11px 18px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;color:${on ? '#FFFFFF' : BLACK};text-decoration:none;">${n} servings</a></td>
+</tr></table></td>`;
+  const radio = (on) => `<span style="display:inline-block;width:16px;height:16px;border:2px solid ${BLACK};border-radius:50%;vertical-align:-4px;text-align:center;line-height:16px;font-size:0;">${on ? `<span style="display:inline-block;width:10px;height:10px;margin-top:3px;border-radius:50%;background-color:${BLACK};"></span>` : ''}</span>`;
+  const li = (ico, t) => `<tr><td width="24" valign="top" style="width:24px;padding:6px 0 0;"><img src="${img(ico)}" width="18" height="18" alt="" role="presentation" style="display:block;width:18px;height:18px;border:0;"></td>
+<td class="opt-li" valign="top" style="padding:6px 0 0 4px;font-family:${FONT};font-size:14px;line-height:19px;font-weight:500;color:${BLACK};">${t}</td></tr>`;
+  const buyBox = `<tr><td class="pad bb bg-site" align="left" bgcolor="${SITEBG}" style="background-color:${SITEBG};padding:30px 40px 0;font-family:${FONT};">
+<div class="bb-title" style="font-family:${SERIF};font-size:30px;line-height:34px;font-weight:700;color:${BLACK};">The Original Mate Latte - Vanilla</div>
+<div style="padding-top:8px;font-size:14px;line-height:20px;font-weight:500;color:${GREY};">Pick your size:</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr>
+${sizePill(15, false)}${sizePill(30, true)}${sizePill(60, false)}
+</tr></table>
+<div style="padding-top:16px;font-size:17px;line-height:22px;font-weight:700;color:${BLACK};">Purchase Options</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border-collapse:separate;"><tr>
+<td class="opt" style="border:1.5px solid ${BLACK};border-radius:14px;padding:18px 20px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-<td valign="top" align="left" style="font-family:${FONT};">
-<div class="size-n" style="font-family:${SERIF};font-size:30px;line-height:32px;font-weight:700;color:${FOREST};">${z.n} servings</div>
-<div style="padding-top:4px;font-size:13px;line-height:18px;font-weight:500;color:${SOFT};">${ent(z.lasts)}</div>
-</td>
-<td valign="top" align="right" width="150" style="width:150px;font-family:${FONT};">
-<div class="price-club" style="font-family:${SERIF};font-size:34px;line-height:34px;font-weight:700;color:${FOREST};">$${z.club}</div>
-<div style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;color:${SOFT};">in the club &middot; $${z.cupClub}/cup</div>
-</td>
+<td valign="top" style="font-family:${FONT};"><a href="${amp(L.club(30))}" target="_blank" style="text-decoration:none;color:${BLACK};">${radio(true)}&nbsp;&nbsp;<span style="font-size:16px;line-height:22px;font-weight:700;">Subscribe &amp;</span>&nbsp;<span style="display:inline-block;background-color:#D2AE68;background-image:linear-gradient(90deg,#C49A4E,#E9D3A2);border-radius:999px;padding:4px 12px;font-size:13px;line-height:16px;font-weight:700;color:#FFFFFF;vertical-align:1px;">Save 30%</span></a></td>
+<td valign="top" align="right" width="132" style="width:132px;font-family:${FONT};"><a href="${amp(L.club(30))}" target="_blank" style="text-decoration:none;color:${BLACK};"><span class="opt-price" style="font-size:20px;line-height:24px;font-weight:700;">$48.99</span> <span style="font-size:14px;font-weight:500;color:${GREY};text-decoration:line-through;">$69.98</span></a>
+<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:500;color:${GREY};">$1.63 per serving</div></td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;margin-top:16px;"><tr>
-<td width="50%" style="width:50%;padding-right:5px;">${pill(L.club(z.n), `Join &middot; save ${z.off}`, FOREST, BEIGE, FOREST)}</td>
-<td width="50%" style="width:50%;padding-left:5px;">${pill(L.once(z.n), `One-time $${z.once}`, '#FFFFFF', FOREST, FOREST)}</td>
+<div class="opt-name" style="padding-top:12px;font-size:17px;line-height:22px;font-weight:700;color:${BLACK};">Mate Mornings Club Subscription</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;">
+${li('ico-percent.png', 'Save 30% on every order')}
+${li('ico-truck.png', 'Delivered to your door every 1 month')}
+${li('ico-pause.png', 'Pause, skip, or cancel anytime')}
+</table>
+</td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border-collapse:separate;"><tr>
+<td class="opt" style="border:1.5px solid ${BLACK};border-radius:14px;padding:18px 20px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+<td valign="middle" style="font-family:${FONT};"><a href="${amp(L.once(30))}" target="_blank" style="text-decoration:none;color:${BLACK};">${radio(false)}&nbsp;&nbsp;<span style="font-size:16px;line-height:22px;font-weight:700;">One Time Purchase</span></a></td>
+<td valign="top" align="right" width="132" style="width:132px;font-family:${FONT};"><a href="${amp(L.once(30))}" target="_blank" style="text-decoration:none;color:${BLACK};"><span class="opt-price" style="font-size:20px;line-height:24px;font-weight:700;">$69.98</span></a>
+<div style="padding-top:2px;font-size:12px;line-height:16px;font-weight:500;color:${GREY};">$2.33 per serving</div></td>
 </tr></table>
 </td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;border-collapse:separate;"><tr>
+<td align="center" style="border:1.5px solid ${BLACK};border-radius:999px;"><a href="${amp(L.club(30))}" target="_blank" style="display:block;padding:16px 20px;font-family:${FONT};font-size:16px;line-height:18px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:${BLACK};text-decoration:none;">Add to cart</a></td>
+</tr></table>
+<div style="padding-top:16px;font-size:13px;line-height:20px;font-weight:500;color:${GREY};">${ent('Also in')} <a href="${amp(L.club(15))}" target="_blank" style="color:${BLACK};font-weight:700;">15 servings</a> ($29.74 in the club, $34.99 one-time) ${ent('and')} <a href="${amp(L.club(60))}" target="_blank" style="color:${BLACK};font-weight:700;">60 servings</a> ($97.97 in the club, $139.96 one-time).</div>
 </td></tr>`;
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · MEET THE MATE LATTE (the studio pouch on green; its edges fade into the flat greens) ── -->
-${row(HERO.top, 'pad bg-hero-top', 'padding:34px 40px 8px;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:30px;">${eyebrow('Mate Latte 101', GOLD)}</div>
-${title('Meet your new', 'morning ritual.', 'h-hero', 54, BEIGE, 10)}
-${lead(`${ent('A creamy vanilla latte made with organic South American yerba mate, Lion’s Mane and L-theanine. Clean energy, focus and calm in a cup that tastes like a treat,')} ${nw('ready in 30 seconds.')}`, MINT)}`)}
-<tr><td class="bg-hero-top" bgcolor="${HERO.top}" style="background-color:${HERO.top};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('hero.jpg')}" width="600" height="${HERO.h}" alt="The Mate Latte pouch on deep green" style="display:block;width:600px;height:${HERO.h}px;border:0;"></td></tr>
-${row(HERO.bottom, 'pad bg-hero', 'padding:0 40px 52px;', `${button(L.shop('ml_hero_button'), 'Shop the Mate Latte', 320, GOLD, FOREST, '#B8913A')}
-<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">${nw('30-day money-back guarantee')}</div>`)}
-
-<!-- ── 2 · WHAT'S INSIDE (doses from the pouch; benefits in the product page's wording) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow('What’s inside')}
-${title('One cup,', 'everything you need.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:32px 30px 0;">
+<!-- ── 1 · ONE CUP, EVERYTHING YOU NEED (the pouring photo is the section's background: logo,
+     title and the three ingredients on its gold wall, the photo below, its table carries on) ── -->
+${row(HOWTO.wall, 'pad bg-wall', 'padding:34px 40px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div style="padding-top:28px;">${eyebrow('Mate Latte 101')}</div>
+${title('One cup,', 'everything you need.', 'h-hero', 50, FOREST, 10)}`)}
+<tr><td class="pad-photo bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:32px 30px 0;">
 ${three(INSIDE, insideCell)}
 </td></tr>
-${row(CREAM, 'pad bg-cream', 'padding:26px 40px 56px;', `<div style="font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')}</div>
-<div style="padding-top:16px;font-size:12px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${SOFT};">${nw('90 calories')} &middot; ${nw('3g sugar')} &middot; ${nw('Dairy-free')} &middot; ${nw('No artificial sweeteners')}</div>`)}
-
-<!-- ── 3 · HOW IT COMPARES (the welcome E3 table) ── -->
-${row(BEIGE, 'pad bg-page', 'padding:56px 40px 0;', `${eyebrow('How it compares')}
-${title('Not all morning cups', 'are created equal.', 'h-sec', 40)}`)}
-${CMP.replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
-${row(BEIGE, 'pad bg-page', 'padding:0 40px 56px;', '&nbsp;')}
-
-<!-- ── 4 · HOW TO MAKE IT (the pouring photo is the background: steps on its gold wall,
-     its table carries on into hot or iced) ── -->
-${row(HOWTO.wall, 'pad bg-wall', 'padding:52px 40px 0;', `${eyebrow('How to make it')}
-${title('Three steps,', 'thirty seconds.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:32px 30px 8px;">
-${three(STEPS, iconCell)}
-</td></tr>
+${row(HOWTO.wall, 'pad bg-wall', 'padding:22px 44px 0;', `<div style="font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')}</div>
+<div style="padding-top:14px;font-size:11.5px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${nw('90 calories')} &middot; ${nw('3g sugar')} &middot; ${nw('Dairy-free')} &middot; ${nw('Ready in 30 seconds')}</div>
+<div style="padding-top:26px;">${button(L.shop('ml_hero_button'), 'Shop the Mate Latte', 320)}</div>`)}
 <tr><td class="bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="600" height="${HOWTO.h}" alt="Milk poured into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${HOWTO.h}px;border:0;"></td></tr>
-${row(HOWTO.table, 'pad bg-table', 'padding:16px 40px 0;', `${eyebrow('Your way')}
-${title('Hot or iced,', 'it’s all yours.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-table" bgcolor="${HOWTO.table}" style="background-color:${HOWTO.table};padding:30px 30px 56px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-${drink('0 10px 0 0', 'drink-hot.png', 'A hot Mate Latte in a glass mug', 'Hot', `Heat ${nw('8oz of milk')} or water, add ${nw('2.5 tablespoons')} and froth until smooth. Cozy and creamy.`)}
-${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'Iced', `Mix ${nw('2.5 tablespoons')} into ${nw('8oz of cold')} milk or water, then pour it over ice. Cold and refreshing.`)}
-</tr></table>
-</td></tr>
 
-<!-- ── 5 · WHEN TO ENJOY IT (the three moments, on green) ── -->
-${row(FOREST, 'pad bg-forest', 'padding:56px 40px 0;', `${eyebrow('When to enjoy it', GOLD)}
-${title('A cup for every', 'part of your day.', 'h-sec', 40, BEIGE)}`)}
-${MOMENTS.map((m, i) => moment(m, i % 2 === 1)).join('\n')}
-${row(FOREST, 'pad bg-forest', 'padding:0 40px 56px;', '&nbsp;')}
+<!-- ── 2 · HOW IT COMPARES (the welcome E3 table, on the photo's table colour) ── -->
+${row(HOWTO.table, 'pad bg-table', 'padding:16px 40px 0;', `${eyebrow('How it compares')}
+${title('Not all morning cups', 'are created equal.', 'h-sec', 40)}`)}
+${CMP.replace(/#F0EFDF/g, HOWTO.table).replace(/bg-page/g, 'bg-table').replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
+${row(HOWTO.table, 'pad bg-table', 'padding:0 40px 56px;', '&nbsp;')}
 
-<!-- ── 6 · PRICES: every size, in the club or one-time ── -->
-${row(CREAM, 'pad bg-cream', 'padding:56px 40px 0;', `${eyebrow('Pick your size')}
-${title('Try it once,', 'or join the club.', 'h-sec', 40)}
-${lead(`${ent('Every bag is the same Mate Latte. In the Mate Mornings Club it costs less and shows up every month. Skip, pause or cancel')} ${nw('anytime.')}`, INK)}`)}
-${row(CREAM, 'pad bg-cream', 'padding:28px 40px 0;', '')}
-${SIZES.map(size).join('\n')}
+<!-- ── 3 · TRY IT ONCE, OR JOIN THE CLUB (the product page's buy box) ── -->
+${row('#F2EDE1', 'pad bg-site', 'padding:56px 40px 0;', `${eyebrow('Pick your size')}
+${title('Try it once,', 'or join the club.', 'h-sec', 40)}`)}
+${buyBox}
+${row('#F2EDE1', 'pad bg-site', 'padding:0 40px 56px;', '&nbsp;')}
 
-<!-- ── 7 · WHY JOIN THE CLUB (on gold) ── -->
+<!-- ── 4 · THE MATE MORNINGS CLUB (on gold) ── -->
 ${row(GOLD, 'pad bg-gold', 'padding:56px 40px 0;', `${eyebrow('The Mate Mornings Club')}
 ${title('Being a member', 'has its perks.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-gold" bgcolor="${GOLD}" style="background-color:${GOLD};padding:34px 30px 60px;">
+<tr><td class="pad-photo bg-gold" bgcolor="${GOLD}" style="background-color:${GOLD};padding:34px 30px 0;">
 ${three(PERKS, iconCell)}
 </td></tr>
-
-<!-- ── 8 · CLOSING ── -->
-${row(CREAM, 'pad bg-cream', 'padding:56px 40px 0;', `${title('Your new morning ritual', 'starts here.', 'h-sec', 40, FOREST, 0)}
-<div style="padding-top:28px;">${button(L.shop('ml_final_button'), 'Shop the Mate Latte', 320)}</div>
+${row(GOLD, 'pad bg-gold', 'padding:34px 40px 60px;', `${button(L.club(30), 'Join the club', 300)}
 <div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">${nw('30-day money-back guarantee')}</div>`)}
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
@@ -341,7 +319,9 @@ ${body(img)}
 </html>
 `;
 
-{
+const missing = Object.keys(IMG).filter((f) => !IMG[f][0]);
+if (missing.length) console.log('not hosted yet:', missing.join(', '), '(paste-ready file not written)');
+else {
   const full = doc((f) => IMG[f][0]);
   const problems = validate(full).filter((p) => p.rule !== 'fragment-only');
   if (problems.length) { console.error(problems); process.exit(1); }

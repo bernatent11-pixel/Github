@@ -76,7 +76,8 @@ for (const [name, [src, region]] of Object.entries(STEPS)) {
 // ── QR codes ───────────────────────────────────────────────────────────────────────────
 // Every code is a short vanity path on the store, NOT a deep link: a printed code can't be
 // edited, so each one is a Shopify URL redirect (Online Store > Navigation > URL redirects) that
-// can be re-aimed any day without reprinting. Where each one lands is in the README.
+// can be re-aimed any day without reprinting. Where each one lands is in the README (the video
+// codes, for one, were re-aimed at the how-to page after the cards were designed).
 // All three are drawn at the SAME version (3: 29 x 29 modules) and error correction (M), so they
 // print at one density and read as one set; left to itself the shortest URL would drop to
 // version 2 and look coarser than the other two.

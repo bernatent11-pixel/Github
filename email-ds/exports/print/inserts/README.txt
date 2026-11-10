@@ -47,16 +47,16 @@ WHERE THE QR CODES GO (checked live 2026-11-10: every one answers 301 and lands 
 
   CARD A
   Label on the card   Code                    Lands on today
-  WATCH THE VIDEO     milonga.life/first-cup  the 32-second "Milonga Mate Latte Promo Video" in
-                                              Shopify Files (cdn.shopify.com/videos/c/o/v/
-                                              0fb49400f66f4257a47d06c8aadd0543.mp4)   INTERIM, see below
+  WATCH THE VIDEO     milonga.life/first-cup  the how-to page, preparematelatte.milonga.life
+                                              ("How To Prepare It": a hot video and an iced
+                                              video, each with its steps)
   WRITE A REVIEW      milonga.life/review     the Mate Latte page, scrolled to its Judge.me reviews
                                               and the "Write a review" button
                                               (/products/the-original-mate-latte#judgeme_product_reviews)
   JOIN THE CLUB       milonga.life/club       the Mate Latte product page
                                               (/products/the-original-mate-latte)
   CARD B
-  WATCH THE VIDEO     milonga.life/video-b    the same promo video                    INTERIM, see below
+  WATCH THE VIDEO     milonga.life/video-b    the how-to page, preparematelatte.milonga.life
   JOIN THE CLUB       milonga.life/club-b     the Mate Latte page with the Mate Mornings Club and
                                               30 servings already picked, the same place the
                                               "Join the club" email buttons go
@@ -64,7 +64,7 @@ WHERE THE QR CODES GO (checked live 2026-11-10: every one answers 301 and lands 
   WRITE A REVIEW      milonga.life/review-b   the Mate Latte page at its Judge.me reviews
 
   CARD C
-  WATCH THE VIDEO     milonga.life/video-c    the same promo video                    INTERIM, see below
+  WATCH THE VIDEO     milonga.life/video-c    the how-to page, preparematelatte.milonga.life
   OPEN MY PORTAL      milonga.life/my-club    the subscription portal (/apps/subscriptions, Appstle):
                                               their subscriptions if signed in, otherwise it asks
                                               for their email and sends a sign-in link. The card
@@ -74,7 +74,11 @@ WHERE THE QR CODES GO (checked live 2026-11-10: every one answers 301 and lands 
   WRITE A REVIEW      milonga.life/review-c   the Mate Latte page at its Judge.me reviews
 
   The targets carry utm_source=insert, utm_medium=qr, utm_campaign=card_a / card_b / card_c and
-  utm_content=review / club / portal, so scans show up in analytics as their own source.
+  utm_content=video / review / club / portal, so scans show up in analytics as their own source.
+  Checked again after the video codes were re-aimed (Bernat, 2026-11-10): all nine codes were
+  read back out of the three delivered PDFs, each path answered 301 three times out of three,
+  and each landed on a 200. The how-to page's own "Leave Review" button goes to the same
+  Judge.me address the review codes use.
   Redirect ids: /first-cup 1163358896438 · /review 1163358929206 · /club 1163358961974 ·
                 /video-b 1163359715638 · /club-b 1163359748406 · /review-b 1163359781174 ·
                 /video-c 1163360698678 · /my-club 1163360731446 · /review-c 1163360764214.
@@ -84,12 +88,15 @@ WHERE THE QR CODES GO (checked live 2026-11-10: every one answers 301 and lands 
   carrying it would land on a 404.
 
 BEFORE ANYTHING IS PRINTED (the card promises these; none can be edited after the run)
-  1 THE VIDEO IS A STAND-IN. There is no how-to video on the store: the product page has photos
-    only, and there is no how-to page. /first-cup, /video-b and /video-c point at the promo video
-    because it is the one video that shows the latte being made (about 8 of its 32 seconds, with
-    "Hot or iced" and "Ready in 30 seconds" on screen). It opens as a bare video file, with no
-    page around it and no way on to the shop. When the real how-to exists, put its address in all
-    three redirects.
+  1 THE HOW-TO PAGE AND THE STORE DISAGREE ON PRICE (seen 2026-11-10; the cards follow the store).
+    preparematelatte.milonga.life, where every video code now lands, sells from its own buy box:
+      2 bags $62.98, 4 bags $118.96, and "Subscribe & Save $24.49/mo, 15 servings, Save 30%".
+    Shopify has 30 servings at $69.98, 60 at $139.96, and the 15-serving club plan at 15% off
+    ($29.74); the 30% plan (8837562678) is attached to the 30 and 60-serving sizes only, yet the
+    page sends it with the 15-serving size. One of the two is wrong. Settle it before printing,
+    because card B prints the store's $69.98 and $48.99, and a member who scans the video code
+    will see the page's numbers. (The page's iced method also differs a little from card A's
+    steps: it dissolves the powder in 2 oz of hot water first. Card A follows the product page.)
   2 The review reward has to be live. The card says "we'll email you 15% off your next order",
     the same promise the day-7 email makes. Set Judge.me to send a one-time 15% code after ANY
     review, good or bad (rewarding only good ones breaks FTC rules; the card says "honestly").

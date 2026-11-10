@@ -12,8 +12,8 @@ SUBJECT + PREVIEW (placeholder, to pick)
 SECTIONS
   1 Mate Latte 101 · One cup, everything you need. The pouring photo (subscribers E1) is the section's
     background. On its gold wall: green logo, white eyebrow, forest title, the three ingredients with
-    beige icons, brown doses, forest names, dark text: 100mg natural caffeine · 200mg L-theanine ·
-    500mg Lion's Mane; the yerba mate line; 90 calories · 3g sugar · Dairy-free · Ready in 30 seconds.
+    beige icons, forest doses and names, dark text: 100mg natural caffeine · 200mg L-theanine ·
+    500mg Lion's Mane; the yerba mate line; in forest: 90 calories · 3g sugar · Dairy-free · Ready in 30 seconds.
     Then the photo, and "Shop the Mate Latte" closing the section on the photo's table colour.
   2 How it compares · Not all morning cups are created equal. The welcome E3 table.
   3 Pick your size · Try it once, or join the club. The product page's buy box:

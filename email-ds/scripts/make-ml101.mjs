@@ -53,7 +53,6 @@ export const PREHEADER = 'What’s inside, how it compares, and the best way to 
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const MINT = '#CFE0D4';
-const COCOA = '#5A3714'; // warm dark brown for the doses on the gold wall
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life', PDP = '/products/the-original-mate-latte';
@@ -205,7 +204,7 @@ ${items.map(cell).join('\n')}
 </td>`;
   const insideCell = (e) => `<td class="how" width="33%" align="center" valign="top" style="width:33%;padding:0 8px;font-family:${FONT};">
 <img class="how-img" src="${img(e.disc)}" width="56" height="56" alt="" role="presentation" style="display:block;margin:0 auto;width:56px;height:56px;border:0;">
-<div class="edge-dose" style="padding-top:12px;font-family:${SERIF};font-size:32px;line-height:34px;font-weight:700;color:${COCOA};">${e.dose}</div>
+<div class="edge-dose" style="padding-top:12px;font-family:${SERIF};font-size:32px;line-height:34px;font-weight:700;color:${FOREST};">${e.dose}</div>
 <div class="how-t" style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${ent(e.name)}</div>
 <div class="how-d" style="padding-top:6px;font-size:13px;line-height:18px;font-weight:500;color:${INK};">${ent(e.line)}</div>
 </td>`;
@@ -286,7 +285,7 @@ ${title('One cup,', 'everything you need.', 'h-hero', 50, FOREST, 10)}`)}
 ${three(INSIDE, insideCell)}
 </td></tr>
 ${row(HOWTO.wall, 'pad bg-wall', 'padding:22px 44px 0;', `<div style="font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')}</div>
-<div style="padding-top:14px;font-size:11.5px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${COCOA};">${nw('90 calories')} &middot; ${nw('3g sugar')} &middot; ${nw('Dairy-free')} &middot; ${nw('Ready in 30 seconds')}</div>`)}
+<div style="padding-top:14px;font-size:11.5px;line-height:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">${nw('90 calories')} &middot; ${nw('3g sugar')} &middot; ${nw('Dairy-free')} &middot; ${nw('Ready in 30 seconds')}</div>`)}
 <tr><td class="bg-wall" bgcolor="${HOWTO.wall}" style="background-color:${HOWTO.wall};padding:30px 0 0;font-size:0;line-height:0;"><img class="full" src="${img('howto.jpg')}" width="600" height="${HOWTO.h}" alt="Milk poured into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${HOWTO.h}px;border:0;"></td></tr>
 ${row(HOWTO.table, 'pad bg-table', 'padding:4px 40px 56px;', button(L.shop('ml_hero_button'), 'Shop the Mate Latte', 320))}
 

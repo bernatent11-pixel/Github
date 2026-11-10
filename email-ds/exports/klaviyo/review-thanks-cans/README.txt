@@ -15,11 +15,16 @@ ONE SECTION
   Background: Bernat's gold cans scene (src-bg-111.jpg) with the Mate Latte pouch replaced by three Lion's Mane cans (Acai Mint, Citrus Mango, Peach Ginger). The infused cans at the top are as in the original.
   In its empty middle: "Thank you" · Your review / made our day. · It means a lot to a small brand like
   ours. Here's 15% off your next order. · CODE: REVIEW15 · "Use my 15% off" (forest).
-  Footer on cream: the code's fine print, logo, unsubscribe, web view, FDA line, address.
+  Footer on cream: logo, unsubscribe, web view, FDA line, address (no fine print, Bernat 2026-11-10).
 
 LINK
   https://milonga.life/discount/REVIEW15?redirect=%2Fcollections%2Fdrinks
   /discount/REVIEW15 puts the code in the cart, then opens the page. No UTMs: the flow adds them.
+  Tested 2026-11-10: the link sets the discount_code cookie and the cart shows REVIEW15 applied (cans: Lion's
+  Mane 6-pack $25.20 -> $21.42, and the checkout showed "Order discount REVIEW15 -$3.78"; Mate Latte one-time
+  15 servings $34.99 -> $29.75). With extra UTM parameters on the link it still works.
+  It does NOT apply to the Mate Mornings Club (Shopify: the code is one-time purchases only). On the Mate Latte
+  page the buy box starts on "Subscribe & Save", so a shopper must pick "One Time Purchase" to get the 15%.
 
 THE CODE (Shopify, checked 2026-11-10)
   REVIEW15 · active, no end date · 15% off all items · one use per customer · one-time purchases only

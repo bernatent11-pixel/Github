@@ -1,7 +1,7 @@
 // Review Reward · the thank-you for leaving a review, with the 15% off (code REVIEW15)
 //
 // One section: Bernat's gold product scene is the background, the thank-you and the code sit in
-// its empty middle. Then the footer, which carries the code's fine print.
+// its empty middle. Then the footer.
 // Two versions, one per Klaviyo flow (both triggered by Judge.me "SubmittedReview"):
 //   review-thanks-ml     flow "Review Reward - Mate Latte" (live, V7GezY)      the Mate Latte scene
 //   review-thanks-cans   flow "Review Reward - Other Products" (draft, SNXWgD)  the cans scene with
@@ -110,10 +110,9 @@ function body(img, V) {
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── FOOTER (the code's fine print first) ── -->
-<tr><td class="bg-cream foot" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:44px 40px 40px;font-family:${FONT};color:${FOREST};">
-<div style="font-size:11px;line-height:1.6;font-weight:500;color:${SOFT};">${ent(`15% off one order with code ${CODE}, added for you when you tap the button. One use per customer, on one-time purchases (not subscriptions). Can’t be combined with other offers.`)}</div>
-<a href="${amp(L.home)}" target="_blank"><img src="${img('mark-green.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:30px auto 0;height:64px;width:auto;border:0;"></a>
+<!-- ── FOOTER ── -->
+<tr><td class="bg-cream foot" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:56px 40px 40px;font-family:${FONT};color:${FOREST};">
+<a href="${amp(L.home)}" target="_blank"><img src="${img('mark-green.png')}" width="61" height="64" alt="Milonga" style="display:block;margin:0 auto;height:64px;width:auto;border:0;"></a>
 <div style="padding-top:18px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><a href="${amp(L.home)}" target="_blank" style="color:${FOREST};text-decoration:none;">milonga.life</a></div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:18px auto 0;border-collapse:separate;"><tr><td class="unsub-pill" align="center" style="border:1.5px solid ${FOREST};border-radius:999px;padding:10px 24px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">{% unsubscribe 'Unsubscribe' %}</td></tr></table>
 <div class="web-view-line" style="padding-top:12px;font-size:11px;font-weight:500;color:${SOFT};">{% web_view %}</div>

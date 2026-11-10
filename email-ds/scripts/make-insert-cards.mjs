@@ -2,8 +2,11 @@
 //
 // One FRONT shared by every cohort (the thank-you), and one BACK per cohort:
 //   A  first-time buyer          teach the first cup · ask for the review · introduce the club
-//   B  2+ orders, no club        (next)
+//   B  2+ orders, no club        sell the club (one-time vs club, per cup) · ask for the review
 //   C  first club order          (next)
+// Every back is the same skeleton, so the three read as one set: title with a code top right,
+// a feature row, ONE gold panel holding that cohort's main job with a code on its left, a quiet
+// closing block with a code on its right, and the help line.
 //
 // The type system is the post-purchase emails' (serif two-line titles, regular then bold italic;
 // Gotham for everything else), so the card and the email that lands the same week read as one.
@@ -13,11 +16,11 @@
 // cut sits 0.25 in inside the trim. All measurements below are points (72 pt = 1 in).
 //
 // Writes, in exports/print/inserts/:
-//   insert-front.pdf · insert-card-a-back.pdf     vector masters for the printer (bleed included)
-//   insert-card-a.pdf                             both sides in one file (page 1 front, page 2 back)
+//   insert-front.pdf · insert-card-<x>-back.pdf   vector masters for the printer (bleed included)
+//   insert-card-<x>.pdf                           both sides in one file (page 1 front, page 2 back)
 //   png/*.png                                     600 dpi flattened fallbacks + trimmed proofs
-//   proof-card-a.jpg                              both sides side by side, trim and safe lines drawn
-// and refine/insert-front.html, refine/insert-card-a.html (open in a browser to edit by eye).
+//   proof-card-<x>.jpg                            both sides side by side, trim and safe lines drawn
+// and refine/insert-front.html, refine/insert-card-<x>.html (open in a browser to edit by eye).
 //
 // Usage: node scripts/make-insert-assets.mjs && node scripts/make-insert-cards.mjs
 import fs from 'node:fs';
@@ -36,13 +39,19 @@ const SANS = "'Gotham','Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif"
 const SERIF = "'Times New Roman','Liberation Serif',Times,Georgia,serif";
 
 // facts (Shopify, checked 2026-11-10): the product page recipe; the club's selling plans are 30% off
-// 30 and 60 servings and 15% off 15; the review thank-you is the 15% the day-7 email promises
+// 30 and 60 servings and 15% off 15, monthly; the review thank-you is the 15% the day-7 email promises
 const HELP = 'orders@milongamate.com';
+// CARD B PRINTS PRICES. One-time: $34.99 / $69.98 / $139.96 for 15 / 30 / 60 servings, $2.33 a cup
+// at every size. Club at 30% off 30 or 60: $48.99 / $97.97, $1.63 a cup. $69.98 - $48.99 = $20.99
+// back on a 30-serving bag; twelve of those is $251.88, "over $250 a year". If a price or the
+// club's discount changes, card B is wrong on paper: change PRICE and reprint.
+const PRICE = { oneCup: '$2.33', clubCup: '$1.63', oneBag: '$69.98', clubBag: '$48.99', back: '$20.99', year: '$250' };
 
 const FONTS = [['Gotham-Medium.otf', 500], ['Gotham-Bold.otf', 700]]
   .map(([f, w]) => `@font-face{font-family:Gotham;src:url(../public/fonts/${f}) format('opentype');font-weight:${w};font-style:normal}`).join('\n');
 
 const STAR = '<svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg>';
+const TICK = '<svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 const BASE = `
 @page { size: ${W}pt ${H}pt; margin: 0; }
@@ -75,7 +84,20 @@ const FRONT_CSS = `
 `;
 
 // ── BACKS · one per cohort ──────────────────────────────────────────────────────────────
+// ONE QR code style, used for every code on every card: forest modules on a cream tile inside a
+// forest outline, with a verb-first label under it. Same size, same density, same frame on the
+// cream page and on the gold panel, so they read as a set and none looks like an afterthought.
+const qr = (q, img) => `<div class="qr"><div class="frame"><img src="${img(q.qr)}" data-qr="${q.url}" alt="QR code: ${q.label}"></div><span>${q.label}</span></div>`;
+const head = (c, img) => `<div class="head">
+<div class="eyebrow">${c.eyebrow}</div>
+<h1 class="serif">${c.title[0]}<em>${c.title[1]}</em></h1>
+${qr(c.watch, img)}
+</div>
+<p class="lead">${c.lead}</p>`;
+const foot = (c) => `<div class="foot"><span>Something not right? Write to us first: <b>${HELP}</b></span><i>${c.code}</i></div>`;
+
 const CARDS = {
+  // ── A · first-time buyer ──
   a: {
     code: 'A',
     eyebrow: 'Thank you for your first order',
@@ -101,33 +123,72 @@ const CARDS = {
       title: ['Want every bag', 'for less?'],
       text: 'Mate Mornings Club members save up to 30%, with a fresh bag at the door every month. Skip, pause or cancel&nbsp;anytime.',
     },
-  },
-};
-
-// ONE QR code style, used for all three: forest modules on a cream tile inside a forest outline,
-// with a verb-first label under it. Same size, same density, same frame on the cream page and on
-// the gold panel, so the three read as a set and none looks like an afterthought.
-const qr = (q, img) => `<div class="qr"><div class="frame"><img src="${img(q.qr)}" data-qr="${q.url}" alt="QR code: ${q.label}"></div><span>${q.label}</span></div>`;
-
-const back = (c, img) => `<div class="card back">
-<div class="head">
-<div class="eyebrow">${c.eyebrow}</div>
-<h1 class="serif">${c.title[0]}<em>${c.title[1]}</em></h1>
-${qr(c.watch, img)}
-</div>
-<p class="lead">${c.lead}</p>
+    html: (c, img) => `${head(c, img)}
 <div class="steps">
 ${c.steps.map(([file, t, d], i) => `<div class="step"><div class="tile"><img src="${img(file)}" alt=""><b>${i + 1}</b></div><h3>${t}</h3><p>${d}</p></div>`).join('\n')}
 </div>
-<div class="review">
+<div class="panel">
 ${qr(c.review, img)}
 <div class="copy"><div class="stars">${STAR.repeat(5)}</div><h2 class="serif">${c.review.title[0]}<em>${c.review.title[1]}</em></h2><p>${c.review.text}</p></div>
 </div>
-<div class="club">
+<div class="closer">
 <div class="copy"><h2 class="serif">${c.club.title[0]} <i>${c.club.title[1]}</i></h2><p>${c.club.text}</p></div>
 ${qr(c.club, img)}
 </div>
-<div class="foot"><span>Something not right? Write to us first: <b>${HELP}</b></span><i>${c.code}</i></div>
+${foot(c)}`,
+  },
+
+  // ── B · two or more orders, not in the club ──
+  // The one job is the club, so the gold panel is the club and the only number on the card is the
+  // club's. The argument is their own receipt: the same cup, $2.33 bought one at a time or $1.63
+  // in the club. The urgency is real, not invented: the bag in their hands is running down.
+  // The review is asked for plainly, with no 15% reward printed: a second discount on this card
+  // would compete with the one it is selling. (Judge.me still sends the code to anyone who reviews.)
+  b: {
+    code: 'B',
+    eyebrow: 'Thank you for another order',
+    title: ['You keep', 'coming back.'],
+    lead: 'So stop paying full price. Join the Mate Mornings Club and get the same Mate Latte for <b>30%&nbsp;less.</b>',
+    watch: { qr: 'qr-video-b.svg', url: 'https://milonga.life/video-b', label: 'Watch the video' },
+    compare: [
+      { label: 'One-time', cup: PRICE.oneCup, line: `${PRICE.oneBag} for 30 servings`, art: 'pouch.png', alt: 'One Mate Latte pouch' },
+      { label: 'In the club', cup: PRICE.clubCup, line: `${PRICE.clubBag} for 30 servings`, art: 'three-bags.png', alt: 'Three Mate Latte pouches', badge: 'Save 30%' },
+    ],
+    note: `30% off 30 or 60 servings, 15% off 15. On a 30-serving bag that&rsquo;s <b>${PRICE.back} back every month,</b> over ${PRICE.year} a&nbsp;year.`,
+    club: {
+      qr: 'qr-club-b.svg', url: 'https://milonga.life/club-b', label: 'Join the club',
+      title: ['Join before this', 'bag runs out.'],
+      ticks: ['A fresh bag at your door every month', 'Skip, pause or cancel anytime', '30-day money-back guarantee'],
+    },
+    review: {
+      qr: 'qr-review-b.svg', url: 'https://milonga.life/review-b', label: 'Write a review',
+      title: ['Got a minute?', 'Leave a review.'],
+      text: 'Tell us honestly how it&rsquo;s going. It means the world to a small&nbsp;brand.',
+    },
+    html: (c, img) => `${head(c, img)}
+<div class="compare">
+${c.compare.map((x) => `<div class="cell${x.badge ? ' club' : ''}">${x.badge ? `<b class="badge">${x.badge}</b>` : ''}
+<img src="${img(x.art)}" alt="${x.alt}">
+<div class="label">${x.label}</div>
+<div class="cup serif">${x.cup}<span>a cup</span></div>
+<div class="line">${x.line}</div>
+</div>`).join('\n')}
+</div>
+<p class="note">${c.note}</p>
+<div class="panel">
+${qr(c.club, img)}
+<div class="copy"><h2 class="serif">${c.club.title[0]}<em>${c.club.title[1]}</em></h2><ul class="ticks">${c.club.ticks.map((t) => `<li>${TICK}${t}</li>`).join('')}</ul></div>
+</div>
+<div class="closer">
+<div class="copy"><h2 class="serif">${c.review.title[0]} <i>${c.review.title[1]}</i></h2><p>${c.review.text}</p></div>
+${qr(c.review, img)}
+</div>
+${foot(c)}`,
+  },
+};
+
+const back = (c, img) => `<div class="card back">
+${c.html(c, img)}
 </div>`;
 
 const PAD_X = BLEED + 24, PAD_TOP = BLEED + 21, PAD_BOTTOM = BLEED + SAFE;
@@ -145,6 +206,7 @@ const BACK_CSS = `
 .back .qr span { display: block; margin-top: 4pt; font-weight: 700; font-size: 4.8pt; line-height: 6pt; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; text-align: center; color: ${FOREST}; }
 .back .head .qr { position: absolute; right: 0; top: 0; }
 .back .lead { margin: 6pt 0 0; font-weight: 500; font-size: 8pt; line-height: 11.5pt; color: ${INK}; }
+.back .lead b, .back .note b { font-weight: 700; color: ${FOREST}; }
 
 .back .steps { margin-top: 11pt; display: flex; gap: ${GAP}pt; }
 .back .step { width: ${TILE_W}pt; }
@@ -158,15 +220,35 @@ const BACK_CSS = `
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
 
-.back .review { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 12pt; }
+/* card B's feature row: the same cup, bought two ways. Theirs is an outline, ours is filled gold,
+   so the colour makes the argument before a word is read */
+.back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
+.back .cell { position: relative; flex: 1; padding: 8pt 9pt 7pt; border-radius: 8pt; border: .8pt solid ${LINE}; }
+.back .cell.club { border-color: ${GOLD}; background: ${GOLD}; }
+.back .cell img { position: absolute; right: 6pt; top: 10pt; height: 24pt; width: auto; }
+.back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: ${FOREST}; }
+.back .cell .cup { margin-top: 3pt; font-weight: 700; font-size: 21pt; line-height: 22pt; letter-spacing: -.01em; white-space: nowrap; }
+.back .cell .cup span { margin-left: 2.5pt; font-family: ${SANS}; font-weight: 500; font-size: 6.6pt; letter-spacing: 0; color: ${INK}; }
+.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: ${INK}; }
+.back .cell:not(.club) .cup { color: ${SOFT}; }
+.back .cell:not(.club) .label, .back .cell:not(.club) .line, .back .cell:not(.club) .cup span { color: ${SOFT}; }
+.back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: ${FOREST}; color: ${CREAM}; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.back .note { margin: 5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
+
+/* the gold panel: the one loud block on each card, whatever that cohort's main job is */
+.back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: ${GOLD}; display: flex; align-items: center; gap: 12pt; }
 .back .stars { display: flex; gap: 1.6pt; margin-bottom: 4.5pt; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: ${FOREST}; }
-.back .review h2 { font-size: 16.5pt; line-height: 17pt; }
-.back .review .copy p { color: ${DEEP}; }
+.back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
+.back .panel .copy p { color: ${DEEP}; }
+.back .ticks { margin: 6pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.6pt; color: ${DEEP}; white-space: nowrap; }
+.back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: ${FOREST}; stroke: ${GOLD}; }
 
-.back .club { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
-.back .club h2 { font-size: 13.5pt; line-height: 15pt; }
-.back .club h2 i { font-weight: 700; font-style: italic; }
+/* the closing block: the quiet ask, pinned above the help line */
+.back .closer { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
+.back .closer h2 { font-size: 13.5pt; line-height: 15pt; }
+.back .closer h2 i { font-weight: 700; font-style: italic; }
 
 .back .foot { margin-top: 7pt; padding-top: 5pt; border-top: .6pt solid ${LINE}; display: flex; justify-content: space-between; align-items: baseline; font-weight: 500; font-size: 6.2pt; line-height: 8pt; color: ${SOFT}; }
 .back .foot b { font-weight: 700; color: ${FOREST}; }

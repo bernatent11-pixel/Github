@@ -53,6 +53,14 @@ for (const [name, [src, region]] of Object.entries(STEPS)) {
   console.log('wrote', `${OUT}/front-bg.jpg`, `(${w} x ${h} -> ${w} x ${fullH}, +${fullH - h} rows in the empty band)`);
 }
 
+// ── card B: the product, one bag and three ─────────────────────────────────────────────
+// The real packshot cutouts (never a rendered pouch), sized for the comparison cells: one bag for
+// buying one at a time, three for the club's bag a month. They print under half an inch tall, so
+// 3x that is plenty.
+await sharp('public/product/pouch-mate-latte-vanilla-packshot-corrected.png').trim().resize({ height: 420 }).png({ compressionLevel: 9 }).toFile(`${OUT}/pouch.png`);
+await sharp('public/product/three-bags.png').trim().resize({ height: 420 }).png({ compressionLevel: 9 }).toFile(`${OUT}/three-bags.png`);
+console.log('wrote', `${OUT}/pouch.png`, `${OUT}/three-bags.png`);
+
 // ── QR codes ───────────────────────────────────────────────────────────────────────────
 // Every code is a short vanity path on the store, NOT a deep link: a printed code can't be
 // edited, so each one is a Shopify URL redirect (Online Store > Navigation > URL redirects) that
@@ -61,10 +69,16 @@ for (const [name, [src, region]] of Object.entries(STEPS)) {
 // print at one density and read as one set; left to itself the shortest URL would drop to
 // version 2 and look coarser than the other two.
 export const QR_VERSION = 3;
+// Each card has its own three paths, so a scan can be told apart by cohort in analytics.
 export const QR = {
+  // card A
   'qr-first-cup.svg': 'https://milonga.life/first-cup',
   'qr-review.svg': 'https://milonga.life/review',
   'qr-club.svg': 'https://milonga.life/club',
+  // card B
+  'qr-video-b.svg': 'https://milonga.life/video-b',
+  'qr-club-b.svg': 'https://milonga.life/club-b',
+  'qr-review-b.svg': 'https://milonga.life/review-b',
 };
 for (const [name, url] of Object.entries(QR)) {
   const qr = QRCode.create(url, { errorCorrectionLevel: 'M', version: QR_VERSION });

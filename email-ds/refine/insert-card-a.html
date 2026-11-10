@@ -21,6 +21,7 @@ img { display: block; }
 .back .qr span { display: block; margin-top: 4pt; font-weight: 700; font-size: 4.8pt; line-height: 6pt; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; text-align: center; color: #004D27; }
 .back .head .qr { position: absolute; right: 0; top: 0; }
 .back .lead { margin: 6pt 0 0; font-weight: 500; font-size: 8pt; line-height: 11.5pt; color: #12331F; }
+.back .lead b, .back .note b { font-weight: 700; color: #004D27; }
 
 .back .steps { margin-top: 11pt; display: flex; gap: 14pt; }
 .back .step { width: 70.66666666666667pt; }
@@ -34,15 +35,35 @@ img { display: block; }
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
 
-.back .review { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: #E3BC62; display: flex; align-items: center; gap: 12pt; }
+/* card B's feature row: the same cup, bought two ways. Theirs is an outline, ours is filled gold,
+   so the colour makes the argument before a word is read */
+.back .compare { margin-top: 11pt; display: flex; gap: 8pt; }
+.back .cell { position: relative; flex: 1; padding: 8pt 9pt 7pt; border-radius: 8pt; border: .8pt solid #D9D6BE; }
+.back .cell.club { border-color: #E3BC62; background: #E3BC62; }
+.back .cell img { position: absolute; right: 6pt; top: 10pt; height: 24pt; width: auto; }
+.back .cell .label { font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .16em; text-transform: uppercase; color: #004D27; }
+.back .cell .cup { margin-top: 3pt; font-weight: 700; font-size: 21pt; line-height: 22pt; letter-spacing: -.01em; white-space: nowrap; }
+.back .cell .cup span { margin-left: 2.5pt; font-family: 'Gotham','Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 500; font-size: 6.6pt; letter-spacing: 0; color: #12331F; }
+.back .cell .line { margin-top: 2pt; font-weight: 500; font-size: 7pt; line-height: 9pt; color: #12331F; }
+.back .cell:not(.club) .cup { color: #3B5344; }
+.back .cell:not(.club) .label, .back .cell:not(.club) .line, .back .cell:not(.club) .cup span { color: #3B5344; }
+.back .badge { position: absolute; right: 8pt; top: -6.5pt; padding: 3.2pt 7pt 2.8pt; border-radius: 99pt; background: #004D27; color: #F7F4EA; font-weight: 700; font-size: 5.6pt; line-height: 7pt; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.back .note { margin: 5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: #12331F; }
+
+/* the gold panel: the one loud block on each card, whatever that cohort's main job is */
+.back .panel { margin-top: 11pt; padding: 8pt 11pt 8pt 10pt; border-radius: 9pt; background: #E3BC62; display: flex; align-items: center; gap: 12pt; }
 .back .stars { display: flex; gap: 1.6pt; margin-bottom: 4.5pt; }
 .back .stars svg { width: 7.8pt; height: 7.4pt; fill: #004D27; }
-.back .review h2 { font-size: 16.5pt; line-height: 17pt; }
-.back .review .copy p { color: #00351B; }
+.back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
+.back .panel .copy p { color: #00351B; }
+.back .ticks { margin: 6pt 0 0; padding: 0; list-style: none; }
+.back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.6pt; color: #00351B; white-space: nowrap; }
+.back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: #004D27; stroke: #E3BC62; }
 
-.back .club { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
-.back .club h2 { font-size: 13.5pt; line-height: 15pt; }
-.back .club h2 i { font-weight: 700; font-style: italic; }
+/* the closing block: the quiet ask, pinned above the help line */
+.back .closer { margin-top: auto; padding-top: 9pt; display: flex; align-items: center; justify-content: space-between; gap: 14pt; }
+.back .closer h2 { font-size: 13.5pt; line-height: 15pt; }
+.back .closer h2 i { font-weight: 700; font-style: italic; }
 
 .back .foot { margin-top: 7pt; padding-top: 5pt; border-top: .6pt solid #D9D6BE; display: flex; justify-content: space-between; align-items: baseline; font-weight: 500; font-size: 6.2pt; line-height: 8pt; color: #3B5344; }
 .back .foot b { font-weight: 700; color: #004D27; }
@@ -60,11 +81,11 @@ img { display: block; }
 <div class="step"><div class="tile"><img src="../exports/print/inserts/img/step-pour.jpg" alt=""><b>2</b></div><h3>Pour</h3><p>8oz of hot or cold milk or&nbsp;water.</p></div>
 <div class="step"><div class="tile"><img src="../exports/print/inserts/img/step-froth.jpg" alt=""><b>3</b></div><h3>Stir or froth</h3><p>Until smooth. Sip it hot or over&nbsp;ice.</p></div>
 </div>
-<div class="review">
+<div class="panel">
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-review.svg" data-qr="https://milonga.life/review" alt="QR code: Write a review"></div><span>Write a review</span></div>
 <div class="copy"><div class="stars"><svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg><svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg><svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg><svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg><svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg></div><h2 class="serif">Leave a review,<em>get 15% off.</em></h2><p>Tell us honestly how it&rsquo;s going and we&rsquo;ll email you 15% off your next order. It means the world to a small&nbsp;brand.</p></div>
 </div>
-<div class="club">
+<div class="closer">
 <div class="copy"><h2 class="serif">Want every bag <i>for less?</i></h2><p>Mate Mornings Club members save up to 30%, with a fresh bag at the door every month. Skip, pause or cancel&nbsp;anytime.</p></div>
 <div class="qr"><div class="frame"><img src="../exports/print/inserts/img/qr-club.svg" data-qr="https://milonga.life/club" alt="QR code: Join the club"></div><span>Join the club</span></div>
 </div>

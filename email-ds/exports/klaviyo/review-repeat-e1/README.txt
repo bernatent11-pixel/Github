@@ -11,11 +11,13 @@ WHERE IT GOES IN KLAVIYO
 
 SUBJECT + PREVIEW
   Can I ask you a favor? — You’ve ordered the Mate Latte more than once. I’d love to know why.
-  From name: Shadi from Milonga (the message is set to "Milonga Yerba Mate"; a letter signed Shadi should come from Shadi)
+  From name: Shadi from Milonga. REQUIRED: the message is set to "Milonga Yerba Mate", and the short
+    letter has no "It's Shadi" line, so without this nobody knows who is writing until the sign-off.
   Reply-to: an inbox someone reads. People answer a personal letter.
 
 JOB
   One ask: a review, from the customers a new buyer is most likely to believe. No selling, no club pitch.
+  Kept short on purpose, about 80 words: the thanks, the ask and why, two prompts, the link, the thank-you.
   The 15% is a thank-you in the last line, never the headline: this audience has already been offered
   it in every earlier review email and did not take it.
 
@@ -28,15 +30,13 @@ LINK (one)
 
 REVIEW REWARD (15% off the next order)
   Sent by the live "Review" flow when Judge.me records a review, whatever the rating. So the letter
-  says "as soon as you submit it". Do not change it back to "once it's posted": new reviews are held
+  says "once you submit it". Do not change it back to "once it's posted": new reviews are held
   before they publish, and a reward tied to publishing reads as "only if we approve it".
   Keep the reward for any honest review. Paying only for positive ones breaks the FTC's review rule.
 
 FACTS USED (checked in Klaviyo, 2026-11-10)
   "You've ordered the Mate Latte more than once": the branch is Ordered Product >= 2. Subscription
     renewals count, so the letter never says "reordering" or "came back".
-  "I know we've asked before": true for every repeat buyer. Post-purchase E2 asks on day 7, and the
-    "Review Request" flow sends two asks after every delivery.
 
 BEFORE THE FLOW GOES LIVE
   1. Stop the double ask. The live "Review Request" flow (Delivered Shipment -> day 4 -> day 7, Smart

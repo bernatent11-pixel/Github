@@ -1,0 +1,28 @@
+SUBJECT: Can I ask you a favor?
+PREVIEW: You’ve ordered the Mate Latte more than once. I’d love to know why.
+FROM: Shadi from Milonga
+
+Hey {{ person.first_name|default:'there' }},
+
+It’s Shadi, from Milonga.
+
+You’ve ordered the Mate Latte more than once. For a small brand like ours, nothing means more. Thank you.
+
+Now a favor: would you write us a review?
+
+I know we’ve asked before. I’m asking again because when someone new is deciding whether to try it, I can say it’s good, but I made it, so of course I would. You’re the one they’ll believe.
+
+It takes about a minute. Not sure what to say? Pick one:
+
+- What did it replace?
+- How do you make yours?
+- What would you tell a friend who’s on the fence?
+
+Write it the way you’d tell that friend, including anything you’d change. I’d rather have the honest version than the polished one.
+
+Leave a quick review: https://milonga.life/products/the-original-mate-latte?judgeme_review_source=shareable-link#judgeme_product_reviews
+
+As a thank you, I’ll send you 15% off your next order as soon as you submit it. Any honest review counts, five stars or two.
+
+Gracias for sticking with us,
+Shadi

@@ -11,19 +11,23 @@ SUBJECT + PREVIEW (placeholder, to pick)
 
 SECTIONS
   1 Mate Latte 101 · One cup, everything you need. The pouring photo (subscribers E1) is the section's
-    background: green logo, title and the three ingredients on its gold wall, in forest discs:
-    100mg natural caffeine · 200mg L-theanine · 500mg Lion's Mane, then "Plus yerba mate's antioxidants
-    and vitamins, which support a healthy gut, your immune system and your metabolism." + 90 calories ·
-    3g sugar · Dairy-free · Ready in 30 seconds + "Shop the Mate Latte"; the photo below.
-  2 How it compares · Not all morning cups are created equal. The welcome E3 table, on the photo's
-    table colour.
-  3 Pick your size · Try it once, or join the club. The product page's buy box as an email: "The
-    Original Mate Latte - Vanilla", size pills (30 selected, lime like the site), Purchase Options:
-    Subscribe & [Save 30%] $48.99 ~~$69.98~~ $1.63 per serving, Mate Mornings Club Subscription, its
-    three lines with icons; One Time Purchase $69.98 $2.33 per serving; ADD TO CART; then a line with
-    15 servings ($29.74 club / $34.99) and 60 servings ($97.97 / $139.96).
-    Links: size pills and "Subscribe" open that size with the club selected; "One Time Purchase" opens
-    30 servings with no subscription; ADD TO CART opens 30 servings with the club selected.
+    background. On its gold wall: green logo, white eyebrow, forest title, the three ingredients with
+    beige icons, brown doses, forest names, dark text: 100mg natural caffeine · 200mg L-theanine ·
+    500mg Lion's Mane; the yerba mate line; 90 calories · 3g sugar · Dairy-free · Ready in 30 seconds.
+    Then the photo, and "Shop the Mate Latte" closing the section on the photo's table colour.
+  2 How it compares · Not all morning cups are created equal. The welcome E3 table.
+  3 Pick your size · Try it once, or join the club. The product page's buy box:
+      INTERACTIVE in Apple Mail / iPhone Mail (and other clients that keep form inputs): tapping
+      15 / 30 / 60 servings swaps the prices (hidden radio inputs + :checked CSS; a pre-checked
+      checkbox turns the interactive box on only where the inputs survive). Render-checked in Klaviyo
+      (the inputs, labels and the <style> rules come through) and click-tested in a browser.
+      STATIC in Gmail and the rest (they strip inputs): 30 servings shown, each size pill a link.
+    Per size: Subscribe & [Save X%] club price, struck one-time price, per serving; the three club
+    lines; One Time Purchase price; "Shop now" (forest) -> the Mate Latte page with that size and the
+    club selected.
+      15  $29.74 (Save 15%) / $34.99 · $1.98 and $2.33 per serving
+      30  $48.99 (Save 30%) / $69.98 · $1.63 and $2.33
+      60  $97.97 (Save 30%) / $139.96 · $1.63 and $2.33
   4 The Mate Mornings Club · Being a member has its perks (on gold) + "Join the club" + guarantee.
   Footer on cream.
 
@@ -31,7 +35,7 @@ LINKS (UTM utm_campaign=mate_latte_101)
   Shop the Mate Latte  https://milonga.life/products/the-original-mate-latte
   Club     ?selling_plan=9479323958&variant=54302750212406 (15) · ?selling_plan=8837562678&variant=54302750245174 (30)
            ?selling_plan=8837562678&variant=54302750277942 (60)
-  One-time ?variant=54302750245174 (30)
+  One-time ?variant=54302750212406 / 54302750245174 / 54302750277942
 
 FACTS USED (Shopify, 2026-11-09)
   Prices 15 $34.99 · 30 $69.98 · 60 $139.96. Club: 15% off 15 ($29.74), 30% off 30 and 60 ($48.99,

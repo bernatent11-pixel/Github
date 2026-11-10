@@ -19,8 +19,11 @@ const OUT = 'exports/klaviyo/sub1-e2';
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'before your next bag ships';
 export const PREHEADER = 'Just making sure the timing works for you.';
-// the Appstle subscription portal (magic-link login), the same as subscribers Email 1
-const PORTAL = 'https://milonga.life/apps/subscriptions';
+// Each subscriber's own Appstle portal link, from the flow's trigger event (Appstle "Create
+// Subscription", property manageSubscriptionLink: milonga.life/apps/subscriptions/cp/<their token>),
+// which opens their subscription with no login. Falls back to the portal's login page.
+const PORTAL_FALLBACK = 'https://milonga.life/apps/subscriptions';
+const PORTAL = `{{ event.manageSubscriptionLink|default:'${PORTAL_FALLBACK}' }}`;
 
 // [kind, text]. 'l' = a paragraph with an inline link ([before, link text, after]). Plain text only; ent() makes it HTML.
 const LETTER = [
@@ -30,6 +33,7 @@ const LETTER = [
   ['p', 'Your next bag ships in a few weeks, and before it does, I want to make sure the timing actually works for you.'],
   ['p', 'Some people go through it faster than they expected (two cups a day happens 😄). If that’s you, just reply and I’ll send your next bag sooner.'],
   ['l', 'And if you’ve still got plenty left, no problem at all. You can', 'skip a month in your account', '. It only takes a moment.'],
+  ['link', '👉', 'Manage my subscription'],
   ['p', 'Either way, I’d love to hear how it’s going. What’s your go-to, hot or iced? Just hit reply. I read every one myself.'],
   ['sign', 'Un abrazo,', 'Shadi'],
   ['ps', 'P.S. If the timing’s ever off, just tell me. That’s an easy fix.'],
@@ -40,7 +44,8 @@ const P = (inner, last) => `<p style="margin:0 0 ${last ? 0 : 18}px;">${inner}</
 
 function html() {
   const rows = LETTER.map(([k, a, b], i) => {
-    if (k === 'l') return P(`${ent(a)} <a href="${ent(PORTAL)}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(b)}</a>${ent(LETTER[i][3])}`);
+    if (k === 'link') return P(`${ent(a)} <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(b)}</a>`);
+    if (k === 'l') return P(`${ent(a)} <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${ent(b)}</a>${ent(LETTER[i][3])}`);
     if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`, LETTER[i + 1]?.[0] !== 'ps');
     if (k === 'ps') return `<p style="margin:6px 0 0;">${ent(a)}</p>`;
     return P(ent(a));
@@ -89,7 +94,8 @@ ${rows.join('\n')}
 function text() {
   const out = [`SUBJECT: ${SUBJECT}`, `PREVIEW: ${PREHEADER}`, 'FROM: Shadi from Milonga', ''];
   LETTER.forEach(([k, a, b], i) => {
-    if (k === 'l') out.push(`${a} ${b}${LETTER[i][3]} (${PORTAL})`, '');
+    if (k === 'l') out.push(`${a} ${b}${LETTER[i][3]}`, '');
+    else if (k === 'link') out.push(`${a} ${b}: ${PORTAL}`, '');
     else if (k === 'sign') out.push(a, b, '');
     else out.push(a, '');
   });

@@ -21,6 +21,14 @@ THE TWO FIXES (checked 2026-11-10)
   30 and 60 servings 8837562678). So the letter does NOT say "ship every two weeks".
   Running out early -> "just reply and I'll send your next bag sooner" (whoever reads the replies changes the next
     order date in Appstle).
-  Plenty left -> "skip a month in your account" (inline link), the portal: https://milonga.life/apps/subscriptions
+  Plenty left -> "skip a month in your account" (inline link) + "👉 Manage my subscription".
+
+THE PORTAL LINK (both links)
+  {{ event.manageSubscriptionLink|default:'https://milonga.life/apps/subscriptions' }}
+  The flow "Post Purchase - First-Time Subscribers" (TDEpRY, live) is triggered by Appstle's "Create Subscription"
+  event, which carries each subscriber's own portal link (milonga.life/apps/subscriptions/cp/<their token>):
+  it opens their subscription straight away, no login code. If it is ever missing, the link falls back to the
+  portal's login page. Render-tested in Klaviyo 2026-11-10 (with the property: the personal link; without: the
+  fallback).
   If a 2-week delivery option is added in Appstle, change the first line to: "Running out early? You can
   switch to a delivery every two weeks in your account."

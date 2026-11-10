@@ -12,7 +12,9 @@ Your next bag ships in a few weeks, and before it does, I want to make sure the 
 
 Some people go through it faster than they expected (two cups a day happens 😄). If that’s you, just reply and I’ll send your next bag sooner.
 
-And if you’ve still got plenty left, no problem at all. You can skip a month in your account. It only takes a moment. (https://milonga.life/apps/subscriptions)
+And if you’ve still got plenty left, no problem at all. You can skip a month in your account. It only takes a moment.
+
+👉 Manage my subscription: {{ event.manageSubscriptionLink|default:'https://milonga.life/apps/subscriptions' }}
 
 Either way, I’d love to hear how it’s going. What’s your go-to, hot or iced? Just hit reply. I read every one myself.
 

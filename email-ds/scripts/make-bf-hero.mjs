@@ -21,14 +21,13 @@ html,body{margin:0;padding:0}
 .fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,14,10,.62) 0%,rgba(40,14,10,.50) 28%,rgba(40,14,10,.22) 44%,rgba(40,14,10,0) 54%)}
 .copy{position:absolute;left:118px;top:50%;transform:translateY(-50%);width:820px;color:#fff;text-shadow:0 2px 18px rgba(30,8,6,.25)}
 .eyebrow{font-family:Montserrat,Arial,sans-serif;font-weight:700;font-size:24px;letter-spacing:7px;text-transform:uppercase;color:${GOLD}}
-.t1{margin-top:18px;font-family:'Times New Roman',Times,'Liberation Serif',serif;font-weight:400;font-size:118px;line-height:112px}
+.t1{margin-top:0;font-family:'Times New Roman',Times,'Liberation Serif',serif;font-weight:400;font-size:118px;line-height:112px}
 .t2{font-family:'Times New Roman',Times,'Liberation Serif',serif;font-weight:700;font-style:italic;font-size:86px;line-height:96px}
 .t2 b{color:${GOLD};font-weight:700}
 .rule{margin:30px 0 0;width:84px;height:3px;background:${GOLD};border-radius:2px}
 .small{margin-top:24px;font-family:Montserrat,Arial,sans-serif;font-weight:500;font-size:28px;line-height:36px;color:#FFF6EC}
 </style></head><body><div class="hero"><div class="fade"></div>
 <div class="copy">
-  <div class="eyebrow">Milonga</div>
   <div class="t1">Black Friday</div>
   <div class="t2">Up to <b>30% off</b><br>site-wide.</div>
   <div class="rule"></div>

@@ -30,7 +30,9 @@ const NAME = 'review-repeat-e1';
 const OUT = `exports/klaviyo/${NAME}`;
 fs.mkdirSync(OUT, { recursive: true });
 export const SUBJECT = 'Can I ask you a favor?';
-export const PREHEADER = 'But first, thank you for trusting us.';
+// Must not repeat the letter's first line ("Thank you for trusting us..."): inboxes print the start of
+// the body right after a short preview, so an echo there reads twice in a row.
+export const PREHEADER = 'It’ll take you a minute, and it helps us more than you know.';
 // Lands ON the reviews block, with "Write a review" in view. The id is judgeme_product_reviews:
 // "#judgeme" matches nothing on the page and leaves people at the top, 2,859px above the form on a phone.
 // No UTMs here: the flow message has Klaviyo's own tracking parameters switched on.

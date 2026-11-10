@@ -10,7 +10,7 @@ WHERE IT GOES IN KLAVIYO
   -> message "Repeat #1 - Tell people why" (template "Mate Latte Review - Repeat #1"). Replace the template's HTML and text.
 
 SUBJECT + PREVIEW
-  Can I ask you a favor? — But first, thank you for trusting us.
+  Can I ask you a favor? — It’ll take you a minute, and it helps us more than you know.
   From name: Shadi from Milonga. REQUIRED: the message is set to "Milonga Yerba Mate", and the short
     letter has no "It's Shadi" line, so without this nobody knows who is writing until the sign-off.
   Reply-to: an inbox someone reads. People answer a personal letter.

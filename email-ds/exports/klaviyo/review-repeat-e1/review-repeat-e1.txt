@@ -1,5 +1,5 @@
 SUBJECT: Can I ask you a favor?
-PREVIEW: But first, thank you for trusting us.
+PREVIEW: It’ll take you a minute, and it helps us more than you know.
 FROM: Shadi from Milonga
 
 Hey {{ person.first_name|default:'there' }},

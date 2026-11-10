@@ -26,8 +26,9 @@
 //   - No "how it makes you feel" prompt: it invites health claims in reviews.
 //   - The 15% is sent by the "Review" flow the moment Judge.me records a review, any rating. So the
 //     letter says "as soon as you submit it", never "once it's posted".
-//   - The P.S. is about the order (something went wrong), not the opinion. Worded as "if something
-//     wasn't right, hit reply" it reads as "send complaints here instead of reviewing".
+//   - The P.S. is person to person (Bernat, 2026-11-10): "If you have any questions or concerns,
+//     just hit reply." Keep it that open. Worded as "if something wasn't right, hit reply" it reads
+//     as "send complaints here instead of reviewing".
 //
 // Writes exports/klaviyo/review-first-e1/review-first-e1.html (full document, for a code template)
 // + .txt + README.txt, preview in refine/.
@@ -57,7 +58,7 @@ const LETTER = [
   ['link', 'Leave a quick review →'],
   ['p', 'To say thanks, I’ll send you 15% off your next order as soon as you submit it.'],
   ['sign', 'Gracias,', 'Shadi'],
-  ['ps', 'P.S. Something wrong with your order? Just hit reply. I read every one.'],
+  ['ps', 'P.S. If you have any questions or concerns, just hit reply. I read every one myself.'],
 ];
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/→/g, '&rarr;');
@@ -175,8 +176,11 @@ FACTS USED (checked in Klaviyo, 2026-11-10)
     order, but longer for anyone already in the segment, so the letter gives no time span.
   "Not long ago, that was you": true of every first-time buyer; it says "the next person", not
     "the next coffee drinker", because not every buyer was one.
-  The P.S. is about the order, on purpose. "If something wasn't right, hit reply" reads as "send
-    complaints here instead of reviewing", next to a line that says good or bad is welcome.
+  The P.S. offers help with "any questions or concerns", person to person. Keep it that open:
+    "if something wasn't right, hit reply" reads as "send complaints here instead of reviewing",
+    next to a line that says good or bad is welcome.
+  "I read every one myself": Shadi's line from post-purchase E2. It has to stay true, so replies
+    must land in an inbox Shadi reads.
   No "how it makes you feel" prompt: it invites health claims in reviews.
 
 BEFORE THE FLOW GOES LIVE

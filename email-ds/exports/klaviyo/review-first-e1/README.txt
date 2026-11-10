@@ -52,8 +52,11 @@ FACTS USED (checked in Klaviyo, 2026-11-10)
     order, but longer for anyone already in the segment, so the letter gives no time span.
   "Not long ago, that was you": true of every first-time buyer; it says "the next person", not
     "the next coffee drinker", because not every buyer was one.
-  The P.S. is about the order, on purpose. "If something wasn't right, hit reply" reads as "send
-    complaints here instead of reviewing", next to a line that says good or bad is welcome.
+  The P.S. offers help with "any questions or concerns", person to person. Keep it that open:
+    "if something wasn't right, hit reply" reads as "send complaints here instead of reviewing",
+    next to a line that says good or bad is welcome.
+  "I read every one myself": Shadi's line from post-purchase E2. It has to stay true, so replies
+    must land in an inbox Shadi reads.
   No "how it makes you feel" prompt: it invites health claims in reviews.
 
 BEFORE THE FLOW GOES LIVE

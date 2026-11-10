@@ -40,7 +40,7 @@ const REVIEW = 'https://milonga.life/products/the-original-mate-latte?judgeme_re
 const LETTER = [
   ['p', 'Hey {{ person.first_name|default:\'there\' }},'],
   ['p', 'Thank you for trusting us, and for loving the Mate Latte enough to order it more than once. For a small brand like ours, that means everything.'],
-  ['p', 'One favor: would you leave a review? I’d love to know what you think. Your opinion matters to us, and it helps a lot. Someone new will read it when they’re deciding whether to try the Mate Latte.'],
+  ['p', 'One favor: would you take a minute to share what you think in a review? Your opinion matters to us, and it helps a lot. Someone new will read it when they’re deciding whether to try the Mate Latte.'],
   ['p', 'Honest is all I want, five stars or two.'],
   ['link', 'Leave a quick review →'],
   ['p', 'As a thank you, I’ll send you 15% off once you submit it.'],

@@ -91,6 +91,10 @@ export const QR = {
   'qr-video-b.svg': 'https://milonga.life/video-b',
   'qr-club-b.svg': 'https://milonga.life/club-b',
   'qr-review-b.svg': 'https://milonga.life/review-b',
+  // card C
+  'qr-video-c.svg': 'https://milonga.life/video-c',
+  'qr-my-club.svg': 'https://milonga.life/my-club',
+  'qr-review-c.svg': 'https://milonga.life/review-c',
 };
 for (const [name, url] of Object.entries(QR)) {
   const qr = QRCode.create(url, { errorCorrectionLevel: 'M', version: QR_VERSION });

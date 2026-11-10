@@ -3,7 +3,7 @@
 // One FRONT shared by every cohort (the thank-you), and one BACK per cohort:
 //   A  first-time buyer          teach the first cup · ask for the review · introduce the club
 //   B  2+ orders, no club        thank them · sell the club (one-time vs club) · ask for the review
-//   C  first club order          (next)
+//   C  first club order          welcome them · what members get · how to sign in and manage it
 // Every back is the same skeleton, so the three read as one set: title with a code top right,
 // a feature row, ONE gold panel holding that cohort's main job with a code on its left, a quiet
 // closing block with a code on its right, and the help line.
@@ -20,6 +20,7 @@
 //   insert-card-<x>.pdf                           both sides in one file (page 1 front, page 2 back)
 //   png/*.png                                     600 dpi flattened fallbacks + trimmed proofs
 //   proof-card-<x>.jpg                            both sides side by side, trim and safe lines drawn
+//   proof-set.jpg                                 every back side by side, as cut
 // and refine/insert-front.html, refine/insert-card-<x>.html (open in a browser to edit by eye).
 //
 // Usage: node scripts/make-insert-assets.mjs && node scripts/make-insert-cards.mjs
@@ -50,6 +51,12 @@ const FONTS = [['Gotham-Medium.otf', 500], ['Gotham-Bold.otf', 700]]
   .map(([f, w]) => `@font-face{font-family:Gotham;src:url(../public/fonts/${f}) format('opentype');font-weight:${w};font-style:normal}`).join('\n');
 
 const STAR = '<svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L10 15.2 3.9 18.6l1.4-6.8L.2 7.1l6.9-.8z"/></svg>';
+// perk icons, drawn as strokes so they print as vector at any size
+const ICON = {
+  percent: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="7.5" r="2.7"/><circle cx="16.5" cy="16.5" r="2.7"/><path d="M18 6L6 18"/></svg>',
+  star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z"/></svg>',
+  tag: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.6V5a1.5 1.5 0 0 1 1.5-1.5h6.6a1.5 1.5 0 0 1 1.06.44l7.4 7.4a1.5 1.5 0 0 1 0 2.12l-6.6 6.6a1.5 1.5 0 0 1-2.12 0l-7.4-7.4a1.5 1.5 0 0 1-.44-1.06z"/><circle cx="8" cy="8" r="1.3"/></svg>',
+};
 const TICK = '<svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6"/><path d="M3.2 6.2l1.9 1.9 3.7-4" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 const BASE = `
@@ -93,7 +100,7 @@ const head = (c, img) => `<div class="head">
 ${qr(c.watch, img)}
 </div>
 <p class="lead">${c.lead}</p>`;
-const foot = (c) => `<div class="foot"><span>Something not right? Write to us first: <b>${HELP}</b></span><i>${c.code}</i></div>`;
+const foot = (c) => `<div class="foot"><span>${c.help || 'Something not right? Write to us first:'} <b>${HELP}</b></span><i>${c.code}</i></div>`;
 
 const CARDS = {
   // ── A · first-time buyer ──
@@ -193,6 +200,52 @@ ${qr(c.review, img)}
 </div>
 ${foot(c)}`,
   },
+
+  // ── C · first club order ──
+  // The job is keeping them: a new member cancels when the club feels like a trap or a surprise
+  // charge, so the card's loud block is the way OUT of a delivery, not another offer. "Taking a
+  // trip? Skip a month." is the line from the club's welcome email; the three numbered lines are
+  // the whole sign-in (the portal emails a link, there is no password to forget).
+  // The perks are the ones card B sold them on, word for word, so the promise and the welcome match.
+  // No prices: they have just paid theirs.
+  c: {
+    code: 'C',
+    eyebrow: 'The Mate Mornings Club',
+    title: ['You&rsquo;re in.', 'Welcome.'],
+    lead: 'Your first club bag is here, with a fresh one to follow every month. First time making it? Scan to&nbsp;watch.',
+    watch: { qr: 'qr-video-c.svg', url: 'https://milonga.life/video-c', label: 'Watch the video' },
+    perks: [
+      ['percent', 'Member price', 'Up to 30% off every&nbsp;order.'],
+      ['star', 'Early access', 'First in line for new&nbsp;products.'],
+      ['tag', 'Member deals', 'Exclusive store&nbsp;discounts.'],
+    ],
+    note: 'Your subscription works around your life. Skip a delivery, pause for a while or cancel, all at <b>milonga.life/my&#8209;club</b>',
+    portal: {
+      qr: 'qr-my-club.svg', url: 'https://milonga.life/my-club', label: 'Manage my club',
+      title: ['Taking a trip?', 'Skip a month.'],
+      steps: ['Scan the code', 'Enter your subscription email', 'Tap the sign-in link we send you'],
+    },
+    review: {
+      qr: 'qr-review-c.svg', url: 'https://milonga.life/review-c', label: 'Write a review',
+      title: ['Got a minute?', 'Leave a review.'],
+      text: 'Tell us honestly how it&rsquo;s going. It helps a small brand more than you&rsquo;d&nbsp;think.',
+    },
+    help: 'Questions about your club? Write to us:',
+    html: (c, img) => `${head(c, img)}
+<div class="perkrow">
+${c.perks.map(([icon, t, d]) => `<div class="perk"><div class="disc">${ICON[icon]}</div><h3>${t}</h3><p>${d}</p></div>`).join('\n')}
+</div>
+<p class="note">${c.note}</p>
+<div class="panel">
+${qr(c.portal, img)}
+<div class="copy"><h2 class="serif">${c.portal.title[0]}<em>${c.portal.title[1]}</em></h2><ol class="how">${c.portal.steps.map((t, i) => `<li><b>${i + 1}</b>${t}</li>`).join('')}</ol></div>
+</div>
+<div class="closer">
+<div class="copy"><h2 class="serif">${c.review.title[0]} <i>${c.review.title[1]}</i></h2><p>${c.review.text}</p></div>
+${qr(c.review, img)}
+</div>
+${foot(c)}`,
+  },
 };
 
 const back = (c, img) => `<div class="card back">
@@ -222,11 +275,19 @@ const BACK_CSS = `
 .back .tile img { width: 100%; height: 100%; object-fit: cover; border-radius: 7pt; }
 .back .tile b { position: absolute; left: -4.4pt; top: -4.4pt; width: 16pt; height: 16pt; border-radius: 50%; background: ${FOREST}; box-shadow: 0 0 0 1.6pt ${CREAM};
   color: ${CREAM}; font-weight: 700; font-size: 7.6pt; line-height: 16pt; text-align: center; }
-.back .step h3 { margin: 7pt 0 0; font-weight: 700; font-size: 8.2pt; line-height: 10pt; color: ${FOREST}; }
-.back .step p { margin: 2.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
+.back .step h3, .back .perk h3 { margin: 7pt 0 0; font-weight: 700; font-size: 8.2pt; line-height: 10pt; color: ${FOREST}; }
+.back .step p, .back .perk p { margin: 2.5pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
 
 .back h2 { margin: 0; }
 .back .copy p { margin: 4pt 0 0; font-weight: 500; font-size: 7.2pt; line-height: 9.8pt; color: ${INK}; }
+
+/* card C's feature row: what members get, as the emails draw it (a forest disc, a gold glyph) */
+.back .perkrow { margin-top: 12pt; display: flex; gap: ${GAP}pt; }
+.back .perk { width: ${TILE_W}pt; }
+.back .perk .disc { width: 24pt; height: 24pt; border-radius: 50%; background: ${FOREST}; display: flex; align-items: center; justify-content: center; }
+.back .perk svg { width: 13pt; height: 13pt; fill: none; stroke: ${GOLD}; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.back .perk h3 { margin-top: 6pt; }
+.back .perkrow + .note { margin-top: 10pt; }
 
 /* card B's feature row: the same two bags at two prices. Theirs is an outline in grey, ours is
    filled gold with the old price struck through, so the colour makes the argument first */
@@ -250,6 +311,9 @@ const BACK_CSS = `
 .back .panel h2 { font-size: 16.5pt; line-height: 17pt; }
 .back .panel.perks h2 { font-size: 15pt; line-height: 15.5pt; }
 .back .panel .copy p { color: ${DEEP}; }
+.back .how { margin: 5pt 0 0; padding: 0; list-style: none; }
+.back .how li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 10.4pt; color: ${DEEP}; white-space: nowrap; }
+.back .how b { flex: none; width: 8.4pt; height: 8.4pt; border-radius: 50%; background: ${FOREST}; color: ${GOLD}; font-weight: 700; font-size: 5.4pt; line-height: 8.4pt; text-align: center; }
 .back .ticks { margin: 4pt 0 0; padding: 0; list-style: none; }
 .back .ticks li { display: flex; align-items: center; gap: 4.5pt; font-weight: 500; font-size: 7.2pt; line-height: 9.7pt; color: ${DEEP}; white-space: nowrap; }
 .back .ticks svg { flex: none; width: 7pt; height: 7pt; fill: ${FOREST}; stroke: ${GOLD}; }
@@ -374,3 +438,13 @@ for (const [k, c] of Object.entries(CARDS)) {
   console.log('wrote', `${OUT}/proof-card-${k}.jpg`);
 }
 await browser.close();
+
+// the three backs side by side, as they are after the cut: the quickest way to see them as a set
+{
+  const keys = Object.keys(CARDS), w = 600, h = 900, pad = 28;
+  const tiles = await Promise.all(keys.map((k) => sharp(`${OUT}/png/insert-card-${k}-back-trimmed.png`).resize(w, h).toBuffer()));
+  await sharp({ create: { width: keys.length * (w + pad) + pad, height: h + 2 * pad, channels: 3, background: '#DAD7CC' } })
+    .composite(tiles.map((input, i) => ({ input, left: pad + i * (w + pad), top: pad })))
+    .jpeg({ quality: 90 }).toFile(`${OUT}/proof-set.jpg`);
+  console.log('wrote', `${OUT}/proof-set.jpg`);
+}

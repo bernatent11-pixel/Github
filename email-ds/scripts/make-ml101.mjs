@@ -292,7 +292,7 @@ ${row(HOWTO.table, 'pad bg-table', 'padding:4px 40px 56px;', button(L.shop('ml_h
 <!-- ── 2 · HOW IT COMPARES (the welcome E3 table, on gold, between the light first and third sections) ── -->
 ${row(GOLD, 'pad bg-gold', 'padding:56px 40px 0;', `${eyebrow('How it compares')}
 ${title('Not all morning cups', 'are created equal.', 'h-sec', 40)}`)}
-${CMP.replace(/#F0EFDF/g, GOLD).replace(/bg-page/g, 'bg-gold').replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
+${CMP.replace(/solid #E3BC62/g, 'solid #FFFFFF').replace(/#F0EFDF/g, GOLD).replace(/bg-page/g, 'bg-gold').replace(/https:\/\/cdn\.klaviyomail\.com\/company\/TwvSnK\/images\/[0-9a-f-]+\.png/g, (u) => img(Object.keys(IMG).find((k) => IMG[k][0] === u)))}
 ${row(GOLD, 'pad bg-gold', 'padding:0 40px 56px;', '&nbsp;')}
 
 <!-- ── 3 · TRY IT ONCE, OR JOIN THE CLUB (the product page's buy box) ── -->

@@ -16,21 +16,24 @@ FLOW (Flow 5 in the LUZ plan: post-purchase, subscribers)
   Smart Sending ON. In the one-time flow, keep subscribers out (it already exits on subscription).
 
 SECTIONS
-  1 Welcome to the Mate Mornings Club · Welcome to your / morning upgrade. On deep green with the studio
-    still life (mug, pouch, frother); "Your first club bag is here, and you're officially a member..."
-    + gold "Manage my subscription".
-  2 Your first club cup · Three steps, thirty seconds. Scoop 2.5 tbsp · Pour 8oz hot or cold milk or
-    water · Stir or froth (product page recipe).
+  1 Welcome to the Mate Mornings Club · Welcome to your / morning upgrade. Bernat's photo (two pouches,
+    Lion's Mane, vanilla, a frothed latte on warm cream; src-hero-106.webp), its edges faded into the
+    creams of the rows around it; green logo, forest text; "Your first club bag is here, and you're
+    officially a member..." + "Manage my subscription".
+  2 Your first club cup · Three steps, thirty seconds. Bernat's pouring photo (src-howto-107.webp) is the
+    section's background: title and steps on its gold wall (icons: scoop, pour, froth; no numbers),
+    Scoop 2.5 tbsp · Pour 8oz hot or cold milk or water · Stir or froth; the photo's table carries on into
+  2b Your way · Hot or iced, it's all yours. The hot mug and iced glass cutouts from pp1-e1, with recipes.
   3 Your club perks · Being a member / has its perks. On gold: Save on every order (30% off 30 or 60
     servings, 15% off 15) · A fresh supply, monthly · You're in control (skip, pause or cancel anytime).
   4 Your club, your way · Taking a trip? / Skip a month. Skip, pause or cancel from the subscription
-    page; sign in with the email they subscribed with (one-time code). Three pouches + "Manage my
-    subscription".
+    page; not signed in? enter the email and get a sign-in link. Three pouches + "Manage my subscription".
   5 Questions about your subscription? Reply, or orders@milongamate.com. Footer on cream.
 
 LINKS
-  Manage my subscription (x2)  https://shopify.com/84126990646/account/pages/019dbe72-e192-7fe5-9e91-82a0a1a8655f
-      = the site footer's "Subscription Management" (Appstle inside Shopify customer accounts).
+  Manage my subscription (x2)  https://milonga.life/apps/subscriptions
+      = Appstle's subscription portal on the store ("My Account": their subscriptions, or an email
+        field that sends a sign-in magic link when they're signed out).
   Logo / milonga.life          https://milonga.life/?utm_…sub1_logo
   Email                        mailto:orders@milongamate.com
 

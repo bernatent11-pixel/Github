@@ -1,0 +1,21 @@
+SUBJECT: before your next bag ships
+PREVIEW: A quick note from me, so your deliveries fit how you actually drink it.
+FROM: Shadi from Milonga
+
+Hey {{ first_name|default:'there' }},
+
+It’s Shadi, the founder of Milonga 👋
+
+Thank you for joining the Mate Mornings Club. Having you with us really means a lot.
+
+Your next bag ships in a few weeks, so I wanted to check in before it does. Is once a month the right rhythm for you?
+
+Running out early? Just reply to this email and I’ll move your next bag up.
+Have some left over? Skip a month. It takes a few seconds in your account.
+
+Manage my subscription: https://milonga.life/apps/subscriptions
+
+Either way, hit reply and tell me how your mornings are going. I read every single one myself.
+
+Un abrazo,
+Shadi

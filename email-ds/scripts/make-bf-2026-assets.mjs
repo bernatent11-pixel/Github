@@ -53,6 +53,10 @@ for (const f of ['band.jpg', 'scene.jpg']) { const m = await sharp(`${OUT}/${f}`
   const left = await sharp(SRC).extract({ left: 0, top: 0, width: 760, height: H }).resize({ width: W }).raw().toBuffer({ resolveWithObject: true });
   const d = left.data;
   for (let i = 0; i < d.length; i += 3) { d[i] = Math.round(d[i] * 0.52 + 10); d[i + 1] = Math.round(d[i + 1] * 0.42 + 4); d[i + 2] = Math.round(d[i + 2] * 0.40 + 6); }
+  // the top 200px melt into one flat colour (#723A2D), which the strip under the hero ends on: no seam
+  // whatever the crop (the cell shows this image as cover)
+  const FLAT = [114, 58, 45];
+  for (let y = 0; y < 200; y++) { const t = Math.pow(1 - y / 200, 1.4); for (let x = 0; x < W; x++) { const i = (y * W + x) * 3; for (let c = 0; c < 3; c++) d[i + c] = Math.round(d[i + c] * (1 - t) + FLAT[c] * t); } }
   await sharp(d, { raw: left.info }).jpeg(JPG).toFile(`${OUT}/offers-bg.jpg`);
 }
 const PW = 1040, PH = 620;
@@ -86,3 +90,26 @@ await sharp('exports/klaviyo/bf-2026/src-gold-110.jpg').extract({ left: 0, top: 
   await sharp(g, { raw: { width: PW, height: PH, channels: 3 } }).composite([...comp, ...top]).jpeg(JPG).toFile(`${OUT}/cans-photo.jpg`);
 }
 for (const f of ['offers-bg.jpg', 'ml-photo.jpg', 'cans-photo.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }
+
+// ── the hero (Bernat, 2026-11-11): his finished Black Friday poster (src-hero-115.webp, 1333x2000, the
+// copy baked in) replaces the band + scene as section 1.
+//   hero.jpg     the poster, 1200x1800 (600x900 in email)
+//   cta-bg.jpg   the strip under it for the button: each column starts as the poster's bottom row and
+//                deepens into the top of the offers' background (#723A2D), so the poster flows into section 2.
+//                Shown at 100% x 100%, so its columns line up with the poster's at any width.
+await sharp('exports/klaviyo/bf-2026/src-hero-115.webp').resize(1200, 1800).jpeg(JPG).toFile(`${OUT}/hero.jpg`);
+{
+  const bottom = await sharp(`${OUT}/hero.jpg`).extract({ left: 0, top: 1797, width: 1200, height: 3 })
+    .resize(40, 1).resize(1200, 1, { kernel: 'cubic' }).removeAlpha().raw().toBuffer(); // softened, so no streaks
+  const CH = [114, 58, 45], SHH = 240, strip = Buffer.alloc(1200 * SHH * 3);
+  for (let y = 0; y < SHH; y++) {
+    const t = Math.pow(y / (SHH - 1), 0.9);
+    for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) strip[(y * 1200 + x) * 3 + c] = Math.round(bottom[x * 3 + c] * (1 - t) + CH[c] * t);
+  }
+  await sharp(strip, { raw: { width: 1200, height: SHH, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/cta-bg.jpg`);
+  // and the poster's last 50px ease into that same softened row, so the edge between them disappears
+  const hero = await sharp('exports/klaviyo/bf-2026/src-hero-115.webp').resize(1200, 1800).removeAlpha().raw().toBuffer();
+  for (let y = 1750; y < 1800; y++) { const t = Math.pow((y - 1750) / 49, 1.5); for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) { const i = (y * 1200 + x) * 3 + c; hero[i] = Math.round(hero[i] * (1 - t) + bottom[x * 3 + c] * t); } }
+  await sharp(hero, { raw: { width: 1200, height: 1800, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/hero.jpg`);
+}
+for (const f of ['hero.jpg', 'cta-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }

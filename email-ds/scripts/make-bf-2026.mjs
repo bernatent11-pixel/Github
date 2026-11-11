@@ -1,9 +1,9 @@
 // Campaign · Black Friday 2026 · the announcement
 //
 // Job: announce the Black Friday sale, led by the Monthly Starter Kits (subscriptions).
-//   1 the announcement on a bronze band (Bernat's scene's colours): logo, "Black Friday",
-//     Up to 40% off / site-wide., "Our biggest sale of the year.", "Shop the sale";
-//     then the scene (pouch, Lion's Mane cans, gourd, latte), the band's gradient fading into it
+//   1 Bernat's Black Friday poster (Black Friday / Up to 40% off site-wide. / Our biggest sale of the year.,
+//     the pouch, the Lion's Mane and infused cans, gourd, latte), then "Shop the sale" on a strip that
+//     carries the poster's bottom edge into section 2's chocolate
 //   2 Mate Latte, like the website's Black Friday block, on the scene's darkened ribbons:
 //     Up to 40% off / your Monthly Starter Kit, the pouch and a latte, three price cards (15 / 30 / 60),
 //     "Shop the Mate Latte"
@@ -34,8 +34,8 @@ const hosted = fs.existsSync(`${OUT}/hosted.json`) ? JSON.parse(fs.readFileSync(
 const IMG = {
   'logo-green.png': [`${K}b6a03046-605a-4e87-b22f-a530be1633e3.png`, '../exports/klaviyo/welcome-e1/img/logo-green.png'],
   'mark-green.png': [`${K}0e781634-6907-42f6-b101-3c2c15371a99.png`, '../public/logo/mark-green.png'],
-  'band.jpg': ['', `../${OUT}/img/band.jpg`],
-  'scene.jpg': ['', `../${OUT}/img/scene.jpg`],
+  'hero.jpg': ['', `../${OUT}/img/hero.jpg`],
+  'cta-bg.jpg': ['', `../${OUT}/img/cta-bg.jpg`],
   'offers-bg.jpg': ['', `../${OUT}/img/offers-bg.jpg`],
   'ml-photo.jpg': ['', `../${OUT}/img/ml-photo.jpg`],
   'cans-photo.jpg': ['', `../${OUT}/img/cans-photo.jpg`],
@@ -48,7 +48,7 @@ export const PREHEADER = 'Up to 40% off site-wide. The biggest savings of the ye
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', CREAM = '#F7F4EA';
 const PLUM = '#3A1830'; // the scene's ribbons
 const BAND = '#DDA27A'; // the band's middle, behind it while it loads
-const CHOC = '#5E2F28'; // the offers' darkened bronze, behind the ribbons while they load
+const CHOC = '#723A2D'; // the offers' darkened bronze, behind the ribbons while they load
 const CARD = '#FBF3EA', PILL = '#E9C46A';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
@@ -136,18 +136,12 @@ function body(img) {
 <tr><td align="center">
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
 
-<!-- ── 1 · BLACK FRIDAY · the copy on the bronze band, then the scene, which fades up into it ── -->
-<tr><td class="band" align="center" valign="top" background="${img('band.jpg')}" bgcolor="${BAND}" style="background-color:${BAND};background-image:url('${img('band.jpg')}');background-size:100% auto;background-position:center top;background-repeat:no-repeat;padding:36px 40px 8px;font-family:${FONT};">
-<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:420px;"><v:fill type="frame" src="${img('band.jpg')}" color="${BAND}" /><v:textbox inset="0,0,0,0"><![endif]-->
-<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:22px;font-size:13px;line-height:16px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:${PLUM};">Black Friday</div>
-<div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:60px;line-height:60px;font-weight:400;color:${FOREST};">${ent('Up to 40% off')}</div>
-<div class="h-hero" style="font-family:${SERIF};font-size:60px;line-height:62px;font-weight:700;font-style:italic;color:${FOREST};">site-wide.</div>
-<div class="lead" style="padding-top:14px;font-size:17px;line-height:25px;font-weight:500;color:${INK};">Our biggest sale of the year.</div>
-<div style="padding-top:24px;">${button(L.sale('bf_hero_button'), 'Shop the sale', 280)}</div>
-<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+<!-- ── 1 · BLACK FRIDAY · Bernat's poster (the copy is in the image; the alt text repeats it), then the
+     button on a strip that carries the poster's bottom edge down into the offers' chocolate ── -->
+<tr><td style="padding:0;font-size:0;line-height:0;"><a href="${amp(L.sale('bf_hero_image'))}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="900" alt="Black Friday. Up to 40% off site-wide. Our biggest sale of the year." style="display:block;width:600px;height:900px;border:0;font-family:${FONT};font-size:24px;line-height:32px;font-weight:700;color:#FFFFFF;text-align:center;background-color:${CHOC};"></a></td></tr>
+<tr><td class="bg-choc" align="center" background="${img('cta-bg.jpg')}" bgcolor="${CHOC}" style="background-color:${CHOC};background-image:url('${img('cta-bg.jpg')}');background-size:100% 100%;background-repeat:no-repeat;padding:26px 40px 44px;font-family:${FONT};">
+${button(L.sale('bf_hero_button'), 'Shop the sale', 280, PILL, '#2A1A14', '#B58E3A')}
 </td></tr>
-<tr><td style="padding:0;font-size:0;line-height:0;"><a href="${amp(L.sale('bf_scene'))}" target="_blank"><img class="full" src="${img('scene.jpg')}" width="600" height="545" alt="The Mate Latte pouch, Lion’s Mane cans, a mate gourd and a Mate Latte" style="display:block;width:600px;height:545px;border:0;"></a></td></tr>
 
 <!-- ── 2 + 3 · THE STARTER KITS (the website's Black Friday block, on the darkened ribbons) ── -->
 <tr><td class="offer bg-choc" align="center" valign="top" background="${img('offers-bg.jpg')}" bgcolor="${CHOC}" style="background-color:${CHOC};background-image:url('${img('offers-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0 30px 60px;font-family:${FONT};">
@@ -155,7 +149,7 @@ function body(img) {
 <!-- 2 · Mate Latte -->
 ${offer({
   padTop: 56,
-  pill: 'Black Friday',
+  pill: 'Mate Latte',
   title: `Up to <span style="color:${GOLD};font-style:italic;">40% off</span> ${nw('your Monthly')} ${nw('Starter Kit')}`,
   lead: `${ent('Biggest savings of the year on your first box of Mate Latte.')} ${nw('Free frother + scooper')} ${nw('with 30 & 60 servings.')}`,
   photo: img('ml-photo.jpg'), photoHref: L.ml(30), alt: 'The Mate Latte pouch and a frothy Mate Latte',
@@ -172,7 +166,7 @@ ${offer({
 <div style="padding-top:56px;font-size:0;line-height:0;"><div style="height:1px;line-height:1px;background-color:#B98A6A;font-size:0;">&nbsp;</div></div>
 ${offer({
   padTop: 50,
-  pill: 'Black Friday',
+  pill: 'The cans',
   title: `<span style="color:${GOLD};font-style:italic;">30% off</span> ${nw('your Monthly')} ${nw('Starter Kit')}`,
   lead: `${ent('Our Lion’s Mane and infused cans: 30% off your first box,')} ${nw('then 20% off every month.')}`,
   photo: img('cans-photo.jpg'), photoHref: L.cans, alt: 'Milonga Lion’s Mane and infused yerba mate cans',

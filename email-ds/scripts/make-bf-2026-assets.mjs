@@ -113,3 +113,92 @@ await sharp('exports/klaviyo/bf-2026/src-hero-115.webp').resize(1200, 1800).jpeg
   await sharp(hero, { raw: { width: 1200, height: 1800, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/hero.jpg`);
 }
 for (const f of ['hero.jpg', 'cta-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }
+
+// ── v3 (2026-11-11): product art for the price cards, the Starter Kit list ──
+//   bags-30.png / bags-60.png  2 and 4 Mate Latte pouches (transparent), between the struck price and "Save"
+//   cans-lm.png / cans-inf.png three Lion's Mane / three infused cans (transparent), for the 24-pack cards
+//   kit-*.png                  gold line icons for the Starter Kit list (percent, gift, truck, pause, card)
+//   kit-tools.jpg              the frother and the scooper, cropped from Bernat's scene (src-scene-113.jpg)
+{
+  const CW2 = 480, CH2 = 320; // 240x160 in email
+  const shadowOf = async (buf, op = 0.35, blur = 10) => {
+    const m = await sharp(buf).metadata(), a = await sharp(buf).extractChannel('alpha').raw().toBuffer();
+    const s = Buffer.alloc(m.width * m.height * 4);
+    for (let i = 0; i < m.width * m.height; i++) { s[i * 4] = 70; s[i * 4 + 1] = 40; s[i * 4 + 2] = 20; s[i * 4 + 3] = Math.round(a[i] * op); }
+    return sharp(s, { raw: { width: m.width, height: m.height, channels: 4 } }).blur(blur).png().toBuffer();
+  };
+  const group = async (items, out) => {
+    // the products, then one soft shadow built from all of them on the full canvas (so it is never clipped)
+    const ims = [];
+    for (const [file, h, x, y, rot] of items) ims.push({ input: await sharp(`public/product/${file}`).resize({ height: h }).rotate(rot, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer(), left: x, top: y });
+    const blank = { create: { width: CW2, height: CH2, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } };
+    const prod = await sharp(blank).composite(ims).png().toBuffer();
+    const a = await sharp(prod).extractChannel('alpha').raw().toBuffer();
+    const sh = Buffer.alloc(CW2 * CH2 * 4);
+    for (let y = 0; y < CH2; y++) for (let x = 0; x < CW2; x++) {
+      const sx = x - 6, sy = y - 9, v = sx >= 0 && sy >= 0 ? a[sy * CW2 + sx] : 0, i = (y * CW2 + x) * 4;
+      sh[i] = 70; sh[i + 1] = 40; sh[i + 2] = 20; sh[i + 3] = Math.round(v * 0.32);
+    }
+    const shadow = await sharp(sh, { raw: { width: CW2, height: CH2, channels: 4 } }).blur(9).png().toBuffer();
+    await sharp(await sharp(shadow).composite([{ input: prod }]).png().toBuffer()).png({ palette: true, quality: 90, effort: 10 }).toFile(`${OUT}/${out}`);
+  };
+  const P = 'pouch-mate-latte-vanilla-packshot-corrected.png';
+  await group([[P, 270, 92, 22, -6], [P, 280, 196, 18, 5]], 'bags-30.png');
+  await group([[P, 236, 30, 20, -9], [P, 246, 118, 8, -3], [P, 246, 206, 8, 3], [P, 236, 286, 20, 9]], 'bags-60.png');
+  await group([['can-acai-mint-energy-packshot.png', 250, 88, 40, -2], ['can-peach-ginger-energy-packshot.png', 250, 248, 40, 2], ['can-citrus-mango-energy-packshot.png', 270, 162, 22, 0]], 'cans-lm.png');
+  await group([['can-acai-mint-10mg-packshot.png', 250, 112, 40, -7], ['can-peach-ginger-10mg-packshot.png', 250, 262, 40, 7], ['can-citrus-mango-10mg-packshot.png', 272, 184, 22, 0]], 'cans-inf.png');
+
+  const st = 'fill="none" stroke="#B8862A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+  const ICONS = {
+    percent: `<path d="M6 18L18 6" ${st}/><circle cx="7.5" cy="7.5" r="2.3" ${st}/><circle cx="16.5" cy="16.5" r="2.3" ${st}/>`,
+    gift: `<rect x="3.5" y="8.5" width="17" height="4" rx="1" ${st}/><path d="M5 12.5v8h14v-8M12 8.5v12" ${st}/><path d="M12 8.5c-1.5-3.5-5.5-4-5.5-1.5S10 8.5 12 8.5zM12 8.5c1.5-3.5 5.5-4 5.5-1.5S14 8.5 12 8.5z" ${st}/>`,
+    truck: `<path d="M2.8 7h10.4v8.6H2.8z" ${st}/><path d="M13.2 10h3.9l3.1 3.1v2.5h-7" ${st}/><circle cx="6.6" cy="16.8" r="1.7" ${st}/><circle cx="16.4" cy="16.8" r="1.7" ${st}/>`,
+    pause: `<circle cx="12" cy="12" r="8.5" ${st}/><path d="M10 8.8v6.4M14 8.8v6.4" ${st}/>`,
+    card: `<rect x="3" y="6" width="18" height="12.5" rx="2" ${st}/><path d="M3 10h18M6.5 15h4" ${st}/>`,
+  };
+  for (const [k, d] of Object.entries(ICONS)) await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">${d}</svg>`)).png().toFile(`${OUT}/kit-${k}.png`);
+  await sharp('exports/klaviyo/bf-2026/src-scene-113.jpg').extract({ left: 730, top: 615, width: 530, height: 230 }).resize(1040, 451).jpeg(JPG).toFile(`${OUT}/kit-tools.jpg`);
+}
+for (const f of ['bags-30.png', 'bags-60.png', 'cans-lm.png', 'cans-inf.png', 'kit-tools.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }
+
+// ── v3: section 2's background, from the gold Mate Latte scene with its liquid turned dark chocolate
+// (src-gold-dark-hf.png: Higgsfield GPT Image 2.6 edit of src-gold-110.jpg, 2026-11-11), at 1200x1607:
+//   ml-bg.jpg      rows 0-720 (the pouch top right, the dark liquid), its top 160 rows easing into the
+//                  flat F the hero strip ends on, then row 720 repeated down to 3600 rows, so the cell can
+//                  be as tall as the copy and cards need (shown 100% auto, top)
+//   ml-bottom.jpg  rows 720-1607: the pouch and the latte, closing the section; its top row is row 720,
+//                  so it continues the background seamlessly
+//   cta-bg.jpg     (rebuilt) the strip under the hero now runs from the poster's bottom row into F
+{
+  const F = [190, 140, 85], J = 720, TALL = 3600;
+  const src = await sharp('exports/klaviyo/bf-2026/src-gold-dark-hf.png').resize(1200, 1607).removeAlpha().raw().toBuffer();
+  // R: row J softened sideways (no bubble or edge detail to smear into a vertical streak). The
+  // extension eases from the real row J into R over 120 rows; ml-bottom eases from R back into the
+  // real image over its first 120 rows, so the two meet on R exactly.
+  const R = await sharp(src, { raw: { width: 1200, height: 1607, channels: 3 } }).extract({ left: 0, top: J - 10, width: 1200, height: 20 })
+    .resize(24, 1).resize(1200, 1, { kernel: 'cubic' }).raw().toBuffer();
+  // the bubble on the right edge near row J: carry the colour at x 1060 out to the edge, darkening
+  // slightly like the scene's vignette
+  for (let x = 1060; x < 1200; x++) for (let c = 0; c < 3; c++) R[x * 3 + c] = Math.round(R[1060 * 3 + c] * (1 - 0.12 * (x - 1060) / 140));
+  const E = 120;
+  const bg = Buffer.alloc(1200 * TALL * 3);
+  for (let y = 0; y < TALL; y++) {
+    const sy = Math.min(y, J), t = y < 160 ? Math.pow(1 - y / 160, 1.4) : 0, u = y <= J ? 0 : Math.min(1, (y - J) / E);
+    for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) {
+      const v = src[(sy * 1200 + x) * 3 + c] * (1 - u) + R[x * 3 + c] * u;
+      bg[(y * 1200 + x) * 3 + c] = Math.round(v * (1 - t) + F[c] * t);
+    }
+  }
+  await sharp(bg, { raw: { width: 1200, height: TALL, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/ml-bg.jpg`);
+  const lowH = 1607 - J, low = Buffer.alloc(1200 * lowH * 3);
+  for (let y = 0; y < lowH; y++) {
+    const u = y < E ? Math.pow(1 - y / E, 1.2) : 0;
+    for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) low[(y * 1200 + x) * 3 + c] = Math.round(src[((J + y) * 1200 + x) * 3 + c] * (1 - u) + R[x * 3 + c] * u);
+  }
+  await sharp(low, { raw: { width: 1200, height: lowH, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/ml-bottom.jpg`);
+  const bottom = await sharp(`${OUT}/hero.jpg`).extract({ left: 0, top: 1797, width: 1200, height: 3 }).resize(40, 1).resize(1200, 1, { kernel: 'cubic' }).removeAlpha().raw().toBuffer();
+  const SHH = 240, strip = Buffer.alloc(1200 * SHH * 3);
+  for (let y = 0; y < SHH; y++) { const t = Math.pow(y / (SHH - 1), 0.9); for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) strip[(y * 1200 + x) * 3 + c] = Math.round(bottom[x * 3 + c] * (1 - t) + F[c] * t); }
+  await sharp(strip, { raw: { width: 1200, height: SHH, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/cta-bg.jpg`);
+}
+for (const f of ['ml-bg.jpg', 'ml-bottom.jpg', 'cta-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }

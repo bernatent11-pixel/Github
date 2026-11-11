@@ -8,18 +8,19 @@ SUBJECT + PREVIEW (placeholder, to pick)
   Black Friday is here 🖤 — Up to 40% off site-wide. The biggest savings of the year start with your first box.
 
 SECTIONS
-  1 On a bronze band: green logo, "Black Friday", Up to 40% off / site-wide., "Our biggest sale of the year.",
-    "Shop the sale" -> /collections/all. Then Bernat's scene cropped to email width (pouch, Lion's Mane
-    cans, gourd, latte, frother, scoop), fading up into the band. The scene's infused cans are cropped out.
+  1 Bernat's Black Friday poster (src-hero-115.webp): Black Friday / Up to 40% off site-wide. / Our biggest
+    sale of the year., the pouch, Lion's Mane and infused cans (labels show THC/CBD), gourd, latte. The copy
+    is in the image; the alt text repeats it. Then "Shop the sale" (gold) -> /collections/all on a strip
+    that carries the poster's bottom edge into the offers' background.
   2 + 3 One cell on the scene's darkened ribbons, like the website's Black Friday block:
-    2 Mate Latte: "Black Friday" pill · Up to 40% off your Monthly Starter Kit · "Biggest savings of the year
+    2 Mate Latte: "Mate Latte" pill · Up to 40% off your Monthly Starter Kit · "Biggest savings of the year
       on your first box of Mate Latte. Free frother + scooper with 30 & 60 servings." · the pouch and a latte
       (bottom of Bernat's gold scene) · three cards, each a link to that size with the Starter Kit plan:
         15  $26.24 / $34.99 · Save 25% · $1.75 / serving · then $29.74/mo
         30  BEST VALUE  $37.79 / $62.98 · Save 40% · $1.26 / serving · then $44.09/mo
         60  BEST SELLER $83.98 / $139.96 · Save 40% · $1.40 / serving · then $97.97/mo
       "First box price on the Monthly Starter Kit · Skip, pause or cancel anytime" · "Shop the Mate Latte" (30)
-    3 Cans: 30% off your Monthly Starter Kit · "Our Lion's Mane and infused cans: 30% off your first box,
+    3 Cans: "The cans" pill · 30% off your Monthly Starter Kit · "Our Lion's Mane and infused cans: 30% off your first box,
       then 20% off every month." · three Lion's Mane + three infused 10mg cans (their labels show THC/CBD) ·
         Lion's Mane · 6 cans  $17.64 / $25.20 · Save 30% · $2.94 / can · then $20.16/mo
         Infused · 6 cans      $28.56 / $40.80 · Save 30% · $4.76 / can · then $32.64/mo

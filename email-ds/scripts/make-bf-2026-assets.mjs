@@ -204,3 +204,16 @@ for (const f of ['bags-30.png', 'bags-60.png', 'cans-lm.png', 'cans-inf.png', 'k
   await sharp(strip, { raw: { width: 1200, height: SHH, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/cta-bg.jpg`);
 }
 for (const f of ['ml-bg.jpg', 'ml-bottom.jpg', 'cta-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }
+
+// ── v5 (2026-11-11) ──
+//   ml-scene.jpg  section 2's background: Bernat's gold scene as it is (src-gold-110.jpg), 1200 wide,
+//                 shown as cover, never stretched
+//   card-bg.jpg   the price cards: bronze with the plum ribbon, like the poster and the website's Starter
+//                 Kit box (the scene's left side, src-scene-113.jpg x 0-700, y 300-858, a little darker)
+await sharp('exports/klaviyo/bf-2026/src-gold-110.jpg').resize({ width: 1200 }).jpeg(JPG).toFile(`${OUT}/ml-scene.jpg`);
+{
+  const { data, info } = await sharp(SRC).extract({ left: 0, top: 260, width: 640, height: 598 }).resize(560, 840, { fit: 'cover' }).raw().toBuffer({ resolveWithObject: true });
+  for (let i = 0; i < data.length; i += 3) { data[i] = Math.round(data[i] * 0.74); data[i + 1] = Math.round(data[i + 1] * 0.64); data[i + 2] = Math.round(data[i + 2] * 0.62); }
+  await sharp(data, { raw: info }).jpeg(JPG).toFile(`${OUT}/card-bg.jpg`);
+}
+for (const f of ['ml-scene.jpg', 'card-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }

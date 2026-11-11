@@ -8,37 +8,36 @@ SUBJECT + PREVIEW (placeholder, to pick)
   Black Friday is here 🖤 — Up to 40% off site-wide. The biggest savings of the year start with your first box.
 
 SECTIONS
-  1 Bernat's Black Friday poster (src-hero-115.webp): Black Friday / Up to 40% off site-wide. / Our biggest
-    sale of the year., the pouch, Lion's Mane and infused cans (labels show THC/CBD), gourd, latte. The copy
-    is in the image; the alt text repeats it. Then "Shop the sale" (gold) -> /collections/all on a strip
-    that carries the poster's bottom edge into the offers' background.
-  2 + 3 One cell on the scene's darkened ribbons, like the website's Black Friday block:
-    2 Mate Latte: "Mate Latte" pill · Up to 40% off your Monthly Starter Kit · "Biggest savings of the year
-      on your first box of Mate Latte. Free frother + scooper with 30 & 60 servings." · the pouch and a latte
-      (bottom of Bernat's gold scene) · three cards, each a link to that size with the Starter Kit plan:
-        15  $26.24 / $34.99 · Save 25% · $1.75 / serving · then $29.74/mo
-        30  BEST VALUE  $37.79 / $62.98 · Save 40% · $1.26 / serving · then $44.09/mo
-        60  BEST SELLER $83.98 / $139.96 · Save 40% · $1.40 / serving · then $97.97/mo
-      "First box price on the Monthly Starter Kit · Skip, pause or cancel anytime" · "Shop the Mate Latte" (30)
-    3 Cans: "The cans" pill · 30% off your Monthly Starter Kit · "Our Lion's Mane and infused cans: 30% off your first box,
-      then 20% off every month." · three Lion's Mane + three infused 10mg cans (their labels show THC/CBD) ·
-        Lion's Mane · 6 cans  $17.64 / $25.20 · Save 30% · $2.94 / can · then $20.16/mo
-        Infused · 6 cans      $28.56 / $40.80 · Save 30% · $4.76 / can · then $32.64/mo
-      same footnote · "Shop the cans" -> /collections/drinks
+  1 Bernat's Black Friday poster (src-hero-115.webp; copy in the image, alt text repeats it), then "Shop the
+    sale" (gold) -> /collections/all on a strip easing into section 2's gold.
+  2 Mate Latte, on the gold scene with its liquid turned dark chocolate (src-gold-dark-hf.png, Higgsfield
+    edit of src-gold-110.jpg): shiny "Mate Latte" tag · Up to 40% off your Monthly Starter Kit · "Biggest
+    savings of the year on your first box. Free frother + scooper with 30 & 60 servings." · two cards:
+      30 BEST SELLER  $39.89 / $66.48 · 2 pouches · Save 40% · $1.33 / serving · then $46.54/mo
+      60 BEST VALUE   $75.59 / $125.98 · 4 pouches · Save 40% · $1.26 / serving · then $88.19/mo
+    (shiny gold badges and Save tags, white type, like the website) · "First box price on the Monthly Starter
+    Kit · Adjust shipments or cancel anytime" · "Shop the Mate Latte" (30) · the scene's pouch and latte.
+  3 Starter Kit, on cream: Everything in your Starter Kit. "With 30 & 60 servings of Mate Latte on the Monthly
+    Starter Kit only." · the frother and scooper photo · Save 40% off your first order · FREE Frother + FREE
+    Scooper · Delivered to your door every month · Adjust shipments or cancel anytime · 30-day money back
+    guarantee (gold icons) · "Get my Starter Kit" (30).
+  4 The cans, on the darkened ribbons: 30% off your Monthly Starter Kit · "Our Lion's Mane and infused cans:
+    30% off your first box, then 20% off every month." · two 24-pack cards (three cans each):
+      Lion's Mane  $52.92 / $75.60 · Save 30% · $2.21 / can · then $60.48/mo
+      Infused      $104.30 / $149.00 · Save 30% · $4.35 / can · then $119.20/mo
+    same note · "Shop the cans" -> /collections/drinks.
   Footer on cream.
 
-FACTS (milonga.life/products/*.js, 2026-11-11)
-  Mate Latte Starter Kit: 15 servings first box 25% off then 15% (plan 9479323958); 30 and 60 first box 40%
-  off then 30% (plan 8837562678). Prices 15 $34.99 · 30 $62.98 · 60 $139.96.
-  Cans Starter Kit (plan 6832750902, every can product): first box 30% off, then 20%.
-  Lion's Mane 6 $25.20, infused 10mg 6 $40.80.
-  "Up to 40% off site-wide", "Our biggest sale of the year", "Free frother + scooper with 30 & 60 servings":
-  Bernat's lines. No sale dates (not set).
+FACTS (milonga.life/products/*.js, 2026-11-11, after the website update)
+  Mate Latte Starter Kit (plan 8837562678, 30 and 60): first order 40% off, then 30% off monthly.
+    30 servings $66.48, 60 servings $125.98. 60 is the better value per serving.
+  Cans Starter Kit (plan 6832750902): first box 30% off, then 20%. 24 cans: Lion's Mane $75.60, infused $149.
+  15 servings left out (Bernat, 2026-11-11).
 
 LINKS (utm_campaign=black_friday_2026)
   Shop the sale / scene  https://milonga.life/collections/all
-  Mate Latte cards       /products/the-original-mate-latte?selling_plan=9479323958&variant=54302750212406 (15)
-                         ?selling_plan=8837562678&variant=54302750245174 (30) · &variant=54302750277942 (60)
-  Lion's Mane card       /products/lion-s-mane?selling_plan=6832750902&variant=53053588504886 (6, Acai Mint)
-  Infused card           /products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759097999670 (6, Acai Mint)
+  Mate Latte cards       /products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174 (30)
+                         ?selling_plan=8837562678&variant=54302750277942 (60)
+  Lion's Mane card       /products/lion-s-mane?selling_plan=6832750902&variant=53053588701494 (24, Acai Mint)
+  Infused card           /products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759098196278 (24, Acai Mint)
   Shop the cans          /collections/drinks

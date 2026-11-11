@@ -75,9 +75,8 @@ const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=black_fr
 const L = {
   home: `${SITE}/?${utm('logo')}`,
   sale: (slot) => `${SITE}/collections/all?${utm(slot)}`,
-  ml: (n) => `${SITE}${PDP}?selling_plan=${n === 15 ? '9479323958' : '8837562678'}&variant=${{ 15: '54302750212406', 30: '54302750245174', 60: '54302750277942' }[n]}&${utm(`bf_ml_${n}`)}`,
+  ml: (n, slot = `bf_ml_${n}`) => `${SITE}${PDP}?selling_plan=${n === 15 ? '9479323958' : '8837562678'}&variant=${{ 15: '54302750212406', 30: '54302750245174', 60: '54302750277942' }[n]}&${utm(slot)}`,
   can: (handle, variant, slot) => `${SITE}/products/${handle}?selling_plan=6832750902&variant=${variant}&${utm(slot)}`,
-  cans: `${SITE}/collections/drinks?${utm('bf_cans_button')}`,
 };
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -110,6 +109,8 @@ const STYLE = `<style>
     .hero-t2 { font-size:25px !important; line-height:30px !important; padding-top:4px !important; }
     .hero-rule { margin-top:12px !important; }
     .hero-t3 { font-size:14px !important; line-height:20px !important; padding-top:10px !important; }
+    .cta-col { display:block !important; width:100% !important; padding:0 0 14px !important; }
+    .cta-col .btn { padding:16px 26px !important; }
     .h-offer2 { font-size:24px !important; line-height:30px !important; }
     .ml-head { padding:0 58px !important; }
     .card-col { padding-left:4px !important; padding-right:4px !important; }
@@ -179,7 +180,7 @@ function body(img) {
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 <tr><td align="center" background="${img('cta-bg.jpg')}" bgcolor="${GOLDBG}" style="background-color:${GOLDBG};background-image:url('${img('cta-bg.jpg')}');background-size:100% 100%;background-repeat:no-repeat;padding:26px 40px 44px;font-family:${FONT};">
-${button(L.sale('bf_hero_button'), 'Shop the sale', 280, PILL, '#2A1A14', '#B58E3A')}
+${button(`${SITE}/?${utm('bf_hero_button')}`, 'Shop the sale', 280, PILL, '#2A1A14', '#B58E3A')}
 </td></tr>
 
 <!-- ── 2 · MATE LATTE · the gold scene with its liquid turned dark chocolate is the background; the scene's
@@ -196,7 +197,7 @@ ${button(L.sale('bf_hero_button'), 'Shop the sale', 280, PILL, '#2A1A14', '#B58E
   { badge: 'Best seller', size: '30 Servings', price: '$39.89', was: '$66.48', img: 'bags-30.png', alt: 'Two Mate Latte pouches', save: '40%', unit: '$1.33 / serving', then: 'then $46.54/mo', href: L.ml(30) },
   { badge: 'Best value', size: '60 Servings', price: '$75.59', was: '$125.98', img: 'bags-60.png', alt: 'Four Mate Latte pouches', save: '40%', unit: '$1.26 / serving', then: 'then $88.19/mo', href: L.ml(60) },
 ], img)}</div>
-<div style="padding-top:26px;">${button(L.ml(30), 'Shop the Mate Latte', 320)}</div>
+<div style="padding-top:26px;">${button(L.ml(30, 'bf_ml_button'), 'Shop the Mate Latte', 320)}</div>
 </td></tr>
 
 <!-- ── 3 · THE STARTER KIT (30 and 60 servings only), on cream ── -->
@@ -212,7 +213,7 @@ ${kitRow(img, 'kit-truck.png', 'Delivered to your door every month')}
 ${kitRow(img, 'kit-pause.png', 'Adjust shipments or cancel anytime')}
 ${kitRow(img, 'kit-card.png', '30-day money back guarantee')}
 </table>
-<div style="padding-top:30px;">${button(L.ml(30), 'Get my Starter Kit', 320)}</div>
+<div style="padding-top:30px;">${button(L.ml(30, 'bf_kit_button'), 'Get my Starter Kit', 320)}</div>
 </td></tr>
 
 <!-- ── 4 · THE CANS, on the darkened ribbons ── -->
@@ -225,7 +226,10 @@ ${tag('The cans', 12)}
   { badge: 'Lion’s Mane', size: '24 cans', price: '$52.92', was: '$75.60', img: 'cans-lm.png', alt: 'Lion’s Mane cans', save: '30%', unit: '$2.21 / can', then: 'then $60.48/mo', href: L.can('lion-s-mane', '53053588701494', 'bf_cans_lm') },
   { badge: 'Infused', size: '24 cans', price: '$104.30', was: '$149.00', img: 'cans-inf.png', alt: 'Infused yerba mate cans', save: '30%', unit: '$4.35 / can', then: 'then $119.20/mo', href: L.can('cannabis-regular-10mg', '52759098196278', 'bf_cans_infused') },
 ], img)}</div>
-<div style="padding-top:28px;">${button(L.cans, 'Shop the cans', 300, PILL, COCOA, '#B58E3A')}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:28px;table-layout:fixed;"><tr>
+<td class="cta-col" align="center" width="50%" style="width:50%;padding:0 6px;">${button(L.can('lion-s-mane', '53053588701494', 'bf_lm_button'), 'Shop Lion’s Mane', 250, PILL, COCOA, '#B58E3A')}</td>
+<td class="cta-col" align="center" width="50%" style="width:50%;padding:0 6px;">${button(L.can('cannabis-regular-10mg', '52759098196278', 'bf_infused_button'), 'Shop Infused', 250, PILL, COCOA, '#B58E3A')}</td>
+</tr></table>
 </td></tr>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->

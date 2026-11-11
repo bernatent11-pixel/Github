@@ -11,7 +11,7 @@ SECTIONS
   1 Bernat's Black Friday poster with its words taken out (src-hero-clean-hf.png, Higgsfield edit of
     src-hero-115.webp) as the section's background, 600x900 (phones 585 tall, cover), the headline set live:
     Black Friday (serif, white) / Our biggest sale of the year. (serif italic, white) / gold rule /
-    Up to 40% off site-wide. (small, "40% off" in gold). Then "Shop the sale" (gold) -> /collections/all on a
+    Up to 40% off site-wide. (small, "40% off" in gold). Then "Shop the sale" (gold) -> the home page, on a
     strip easing into section 2's gold.
   2 Mate Latte, on Bernat's gold scene as it is (src-gold-110.jpg, cover at its natural size; the same file
     as the review thank-you's background): centred in a narrow column clear of the top-right pouch, shiny "Mate Latte"
@@ -28,7 +28,7 @@ SECTIONS
     30% off your first box, then 20% off every month." · two 24-pack cards (three cans each):
       Lion's Mane  $52.92 / $75.60 · Save 30% · $2.21 / can · then $60.48/mo
       Infused      $104.30 / $149.00 · Save 30% · $4.35 / can · then $119.20/mo
-    "Shop the cans" -> /collections/drinks.
+    two buttons: "Shop Lion's Mane" and "Shop Infused", each to its product page (side by side; stacked on phones).
   Footer on cream.
 
 FACTS (milonga.life/products/*.js, 2026-11-11, after the website update)
@@ -37,10 +37,11 @@ FACTS (milonga.life/products/*.js, 2026-11-11, after the website update)
   Cans Starter Kit (plan 6832750902): first box 30% off, then 20%. 24 cans: Lion's Mane $75.60, infused $149.
   15 servings left out (Bernat, 2026-11-11).
 
-LINKS (utm_campaign=black_friday_2026)
-  Shop the sale / scene  https://milonga.life/collections/all
-  Mate Latte cards       /products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174 (30)
-                         ?selling_plan=8837562678&variant=54302750277942 (60)
-  Lion's Mane card       /products/lion-s-mane?selling_plan=6832750902&variant=53053588701494 (24, Acai Mint)
-  Infused card           /products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759098196278 (24, Acai Mint)
-  Shop the cans          /collections/drinks
+LINKS (utm_campaign=black_friday_2026; all checked 200 on 2026-11-11)
+  "Shop the sale" (hero)          https://milonga.life/  (home)
+  "Shop the Mate Latte"           /products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174 (30, Starter Kit)
+  "Get my Starter Kit"            same: 30 servings, Starter Kit
+  Mate Latte cards                30 as above · 60: ?selling_plan=8837562678&variant=54302750277942
+  "Shop Lion's Mane" + its card   /products/lion-s-mane?selling_plan=6832750902&variant=53053588701494 (24, Starter Kit)
+  "Shop Infused" + its card       /products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759098196278 (24, Starter Kit)
+  Logo, footer                    https://milonga.life/

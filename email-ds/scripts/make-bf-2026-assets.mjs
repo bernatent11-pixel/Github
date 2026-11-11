@@ -217,3 +217,20 @@ await sharp('exports/klaviyo/bf-2026/src-gold-110.jpg').resize({ width: 1200 }).
   await sharp(data, { raw: info }).jpeg(JPG).toFile(`${OUT}/card-bg.jpg`);
 }
 for (const f of ['ml-scene.jpg', 'card-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }
+
+// ── v6 (2026-11-11): the poster without its baked-in words (src-hero-clean-hf.png, Higgsfield edit), so the
+// email sets the headline live: Black Friday / Our biggest sale of the year. / Up to 40% off site-wide.
+//   hero-clean.jpg  1200x1800, section 1's background; its last 50 rows ease into a softened bottom row
+//   cta-bg.jpg      (rebuilt) from that softened bottom row into F (section 2's top)
+{
+  const F = [190, 140, 85];
+  const raw = await sharp('exports/klaviyo/bf-2026/src-hero-clean-hf.png').resize(1200, 1800, { fit: 'cover' }).removeAlpha().raw().toBuffer();
+  const bottom = await sharp(raw, { raw: { width: 1200, height: 1800, channels: 3 } }).extract({ left: 0, top: 1797, width: 1200, height: 3 })
+    .resize(40, 1).resize(1200, 1, { kernel: 'cubic' }).raw().toBuffer();
+  for (let y = 1750; y < 1800; y++) { const t = Math.pow((y - 1750) / 49, 1.5); for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) { const i = (y * 1200 + x) * 3 + c; raw[i] = Math.round(raw[i] * (1 - t) + bottom[x * 3 + c] * t); } }
+  await sharp(raw, { raw: { width: 1200, height: 1800, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/hero-clean.jpg`);
+  const SHH = 240, strip = Buffer.alloc(1200 * SHH * 3);
+  for (let y = 0; y < SHH; y++) { const t = Math.pow(y / (SHH - 1), 0.9); for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) strip[(y * 1200 + x) * 3 + c] = Math.round(bottom[x * 3 + c] * (1 - t) + F[c] * t); }
+  await sharp(strip, { raw: { width: 1200, height: SHH, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/cta-bg.jpg`);
+}
+for (const f of ['hero-clean.jpg', 'cta-bg.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }

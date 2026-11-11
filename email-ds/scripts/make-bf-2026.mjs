@@ -36,11 +36,10 @@ const hosted = fs.existsSync(`${OUT}/hosted.json`) ? JSON.parse(fs.readFileSync(
 const IMG = {
   'logo-green.png': [`${K}b6a03046-605a-4e87-b22f-a530be1633e3.png`, '../exports/klaviyo/welcome-e1/img/logo-green.png'],
   'mark-green.png': [`${K}0e781634-6907-42f6-b101-3c2c15371a99.png`, '../public/logo/mark-green.png'],
-  'hero.jpg': ['', `../${OUT}/img/hero.jpg`],
+  'hero-clean.jpg': ['', `../${OUT}/img/hero-clean.jpg`],
   'cta-bg.jpg': ['', `../${OUT}/img/cta-bg.jpg`],
   'offers-bg.jpg': ['', `../${OUT}/img/offers-bg.jpg`],
   'ml-scene.jpg': ['', `../${OUT}/img/ml-scene.jpg`],
-  'card-bg.jpg': ['', `../${OUT}/img/card-bg.jpg`],
   'bags-30.png': ['', `../${OUT}/img/bags-30.png`],
   'bags-60.png': ['', `../${OUT}/img/bags-60.png`],
   'cans-lm.png': ['', `../${OUT}/img/cans-lm.png`],
@@ -105,8 +104,14 @@ const STYLE = `<style>
     .offer { padding-left:18px !important; padding-right:18px !important; }
     .photo { width:100% !important; height:auto !important; }
     .h-offer { font-size:34px !important; line-height:38px !important; }
+    .hero { height:585px !important; background-size:cover !important; }
+    .hero-copy { padding:116px 18px 0 !important; }
+    .hero-t1 { font-size:50px !important; line-height:52px !important; }
+    .hero-t2 { font-size:25px !important; line-height:30px !important; padding-top:4px !important; }
+    .hero-rule { margin-top:12px !important; }
+    .hero-t3 { font-size:14px !important; line-height:20px !important; padding-top:10px !important; }
     .h-offer2 { font-size:24px !important; line-height:30px !important; }
-    .ml-head { padding:0 96px 0 8px !important; }
+    .ml-head { padding:0 58px !important; }
     .card-col { padding-left:4px !important; padding-right:4px !important; }
     .card { padding:16px 6px 16px !important; }
     .c-price { font-size:26px !important; line-height:30px !important; }
@@ -139,15 +144,15 @@ const CARD_DARK = '#8E5242';
 const card = (c, img) => `<td class="card-col" align="center" valign="top" width="50%" style="width:50%;padding:0 8px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}border-radius:9px 9px 0 0;padding:5px 14px;font-family:${FONT};font-size:10px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;${SHINE_INK}white-space:nowrap;">${c.badge || '&nbsp;'}</td></tr></table>
 <a href="${amp(c.href)}" target="_blank" style="text-decoration:none;display:block;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" background="${img('card-bg.jpg')}" bgcolor="${CARD_DARK}" style="background-color:${CARD_DARK};background-image:url('${img('card-bg.jpg')}');background-size:cover;background-position:center;border:1px solid #C99A62;border-radius:18px;padding:20px 10px 18px;font-family:${FONT};box-shadow:0 8px 20px rgba(40,15,5,.30);">
-<div style="font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">${ent(c.size)}</div>
-<div class="c-price" style="padding-top:6px;font-size:34px;line-height:38px;font-weight:700;color:#FFFFFF;">${c.price}</div>
-<div style="padding-top:2px;font-size:14px;line-height:18px;font-weight:700;color:#E3C5B6;text-decoration:line-through;">${c.was}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:1px solid #EAD9C6;border-radius:18px;padding:20px 10px 18px;font-family:${FONT};box-shadow:0 8px 20px rgba(40,15,5,.22);">
+<div style="font-size:14px;line-height:18px;font-weight:700;color:#141414;">${ent(c.size)}</div>
+<div class="c-price" style="padding-top:6px;font-size:34px;line-height:38px;font-weight:700;color:${COCOA};">${c.price}</div>
+<div style="padding-top:2px;font-size:14px;line-height:18px;font-weight:700;color:#8A7A70;text-decoration:line-through;">${c.was}</div>
 <img class="c-img" src="${img(c.img)}" width="210" height="140" alt="${c.alt}" style="display:block;margin:8px auto 4px;width:210px;height:140px;border:0;">
-<div style="padding:2px 0 8px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#FFFFFF;">Monthly Starter Kit</div>
+<div style="padding:2px 0 8px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${COCOA};">Monthly Starter Kit</div>
 ${tag(`Save ${c.save}`)}
-<div class="c-unit" style="padding-top:12px;font-size:14px;line-height:18px;font-weight:700;color:#FFFFFF;">${c.unit}</div>
-<div style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;color:#F1DCCF;">${c.then}</div>
+<div class="c-unit" style="padding-top:12px;font-size:14px;line-height:18px;font-weight:700;color:#141414;">${c.unit}</div>
+<div style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;color:#5A4A42;">${c.then}</div>
 </td></tr></table>
 </a>
 </td>`;
@@ -163,7 +168,16 @@ function body(img) {
 
 <!-- ── 1 · BLACK FRIDAY · Bernat's poster (the copy is in the image; the alt text repeats it), then the
      button on a strip that carries the poster's bottom edge down into the offers' chocolate ── -->
-<tr><td style="padding:0;font-size:0;line-height:0;"><a href="${amp(L.sale('bf_hero_image'))}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="900" alt="Black Friday. Up to 40% off site-wide. Our biggest sale of the year." style="display:block;width:600px;height:900px;border:0;font-family:${FONT};font-size:24px;line-height:32px;font-weight:700;color:#FFFFFF;text-align:center;background-color:${CHOC};"></a></td></tr>
+<tr><td class="hero" align="center" valign="top" height="900" background="${img('hero-clean.jpg')}" bgcolor="${CHOC}" style="height:900px;background-color:${CHOC};background-image:url('${img('hero-clean.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;font-family:${FONT};">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:900px;"><v:fill type="frame" src="${img('hero-clean.jpg')}" color="${CHOC}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="hero-copy" style="padding:182px 30px 0;text-align:center;">
+<div class="hero-t1" style="font-family:${SERIF};font-size:76px;line-height:78px;font-weight:700;color:#FFFFFF;text-shadow:0 3px 18px rgba(40,10,5,.45);">Black Friday</div>
+<div class="hero-t2" style="padding-top:8px;font-family:${SERIF};font-size:38px;line-height:44px;font-weight:700;font-style:italic;color:#FFFFFF;text-shadow:0 2px 14px rgba(40,10,5,.45);">${ent('Our biggest sale')} ${nw('of the year.')}</div>
+<div class="hero-rule" style="margin:20px auto 0;width:64px;height:3px;line-height:3px;font-size:0;background-color:${GOLD};">&nbsp;</div>
+<div class="hero-t3" style="padding-top:18px;font-size:19px;line-height:26px;font-weight:700;letter-spacing:.5px;color:#FFFFFF;text-shadow:0 1px 8px rgba(40,10,5,.5);">Up to <span style="color:${GOLD};">40% off</span> site-wide.</div>
+</div>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+</td></tr>
 <tr><td align="center" background="${img('cta-bg.jpg')}" bgcolor="${GOLDBG}" style="background-color:${GOLDBG};background-image:url('${img('cta-bg.jpg')}');background-size:100% 100%;background-repeat:no-repeat;padding:26px 40px 44px;font-family:${FONT};">
 ${button(L.sale('bf_hero_button'), 'Shop the sale', 280, PILL, '#2A1A14', '#B58E3A')}
 </td></tr>
@@ -171,19 +185,18 @@ ${button(L.sale('bf_hero_button'), 'Shop the sale', 280, PILL, '#2A1A14', '#B58E
 <!-- ── 2 · MATE LATTE · the gold scene with its liquid turned dark chocolate is the background; the scene's
      pouch and latte close the section ── -->
 <tr><td class="ml-sec" align="center" valign="top" background="${img('ml-scene.jpg')}" bgcolor="${GOLDLOW}" style="background-color:${GOLDLOW};background-image:url('${img('ml-scene.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:30px 22px 34px;font-family:${FONT};">
-<div class="ml-head" style="padding:4px 190px 0 14px;text-align:left;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}border-radius:999px;padding:7px 18px;font-family:${FONT};font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;${SHINE_INK}white-space:nowrap;">Mate Latte</td></tr></table>
+<div class="ml-head" style="padding:0 128px;text-align:center;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}border-radius:999px;padding:7px 18px;font-family:${FONT};font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;${SHINE_INK}white-space:nowrap;">Mate Latte</td></tr></table>
 <div style="clear:both;font-size:0;line-height:0;">&nbsp;</div>
-<div class="h-offer" style="padding-top:14px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;color:${COCOA};">Monthly Starter Kit</div>
-<div class="h-offer2" style="font-family:${SERIF};font-size:31px;line-height:38px;font-weight:700;font-style:italic;color:${FOREST};">${ent('40% off your first order')}</div>
+<div class="h-offer" style="padding-top:14px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;color:${COCOA};">Monthly<br>Starter Kit</div>
+<div class="h-offer2" style="padding-top:4px;font-family:${SERIF};font-size:31px;line-height:38px;font-weight:700;font-style:italic;color:${FOREST};">${ent('40% off your')}<br>first order</div>
 <div class="lead" style="padding-top:10px;font-size:15px;line-height:22px;font-weight:500;color:#3A2A22;">${ent('Biggest savings of the year on your first box.')} ${nw('Free frother + scooper')} ${nw('with 30 & 60 servings.')}</div>
 </div>
 <div style="padding-top:28px;">${cards([
   { badge: 'Best seller', size: '30 Servings', price: '$39.89', was: '$66.48', img: 'bags-30.png', alt: 'Two Mate Latte pouches', save: '40%', unit: '$1.33 / serving', then: 'then $46.54/mo', href: L.ml(30) },
   { badge: 'Best value', size: '60 Servings', price: '$75.59', was: '$125.98', img: 'bags-60.png', alt: 'Four Mate Latte pouches', save: '40%', unit: '$1.26 / serving', then: 'then $88.19/mo', href: L.ml(60) },
 ], img)}</div>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:16px auto 0;border-collapse:separate;"><tr><td bgcolor="#FBF1E6" style="background-color:#FBF1E6;border-radius:999px;padding:7px 16px;font-family:${FONT};font-size:12px;line-height:16px;font-weight:600;color:#3A2A22;">First box price on the Monthly Starter Kit &middot; ${nw('Adjust shipments or cancel anytime')}</td></tr></table>
-<div style="padding-top:20px;">${button(L.ml(30), 'Shop the Mate Latte', 320)}</div>
+<div style="padding-top:26px;">${button(L.ml(30), 'Shop the Mate Latte', 320)}</div>
 </td></tr>
 
 <!-- ── 3 · THE STARTER KIT (30 and 60 servings only), on cream ── -->
@@ -212,8 +225,7 @@ ${tag('The cans', 12)}
   { badge: 'Lion’s Mane', size: '24 cans', price: '$52.92', was: '$75.60', img: 'cans-lm.png', alt: 'Lion’s Mane cans', save: '30%', unit: '$2.21 / can', then: 'then $60.48/mo', href: L.can('lion-s-mane', '53053588701494', 'bf_cans_lm') },
   { badge: 'Infused', size: '24 cans', price: '$104.30', was: '$149.00', img: 'cans-inf.png', alt: 'Infused yerba mate cans', save: '30%', unit: '$4.35 / can', then: 'then $119.20/mo', href: L.can('cannabis-regular-10mg', '52759098196278', 'bf_cans_infused') },
 ], img)}</div>
-<div style="padding-top:16px;font-size:12px;line-height:18px;font-weight:500;color:#F6E7DA;">First box price on the Monthly Starter Kit &middot; ${nw('Adjust shipments or cancel anytime')}</div>
-<div style="padding-top:24px;">${button(L.cans, 'Shop the cans', 300, PILL, COCOA, '#B58E3A')}</div>
+<div style="padding-top:28px;">${button(L.cans, 'Shop the cans', 300, PILL, COCOA, '#B58E3A')}</div>
 </td></tr>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->

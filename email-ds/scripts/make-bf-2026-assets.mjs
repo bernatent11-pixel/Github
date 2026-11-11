@@ -183,7 +183,9 @@ for (const f of ['bags-30.png', 'bags-60.png', 'cans-lm.png', 'cans-inf.png', 'k
   const E = 120;
   const bg = Buffer.alloc(1200 * TALL * 3);
   for (let y = 0; y < TALL; y++) {
-    const sy = Math.min(y, J), t = y < 160 ? Math.pow(1 - y / 160, 1.4) : 0, u = y <= J ? 0 : Math.min(1, (y - J) / E);
+    // v4 (Bernat): no scene at the top any more (the pouch and the liquid pushed the title down): the
+    // background is the softened row R from the start, its top 160 rows easing out of F
+    const sy = J, t = y < 160 ? Math.pow(1 - y / 160, 1.4) : 0, u = 1;
     for (let x = 0; x < 1200; x++) for (let c = 0; c < 3; c++) {
       const v = src[(sy * 1200 + x) * 3 + c] * (1 - u) + R[x * 3 + c] * u;
       bg[(y * 1200 + x) * 3 + c] = Math.round(v * (1 - t) + F[c] * t);

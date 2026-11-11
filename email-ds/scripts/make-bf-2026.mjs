@@ -45,7 +45,6 @@ const IMG = {
   'bags-60.png': ['', `../${OUT}/img/bags-60.png`],
   'cans-lm.png': ['', `../${OUT}/img/cans-lm.png`],
   'cans-inf.png': ['', `../${OUT}/img/cans-inf.png`],
-  'kit-tools.jpg': ['', `../${OUT}/img/kit-tools.jpg`],
   'kit-percent.png': ['', `../${OUT}/img/kit-percent.png`],
   'kit-gift.png': ['', `../${OUT}/img/kit-gift.png`],
   'kit-truck.png': ['', `../${OUT}/img/kit-truck.png`],
@@ -61,7 +60,9 @@ const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF',
 const PLUM = '#3A1830'; // the scene's ribbons
 const BAND = '#DDA27A'; // the band's middle, behind it while it loads
 const CHOC = '#723A2D'; // the offers' darkened bronze, behind the ribbons while they load
-const CARD = '#FFFBF5', PILL = '#E9C46A';
+const CARD = '#F6E6DC', PILL = '#E9C46A';
+// the website's card: a soft blush-cream, lighter at the top
+const CARD_BG = 'background-color:#F6E6DC;background-image:linear-gradient(180deg,#FCF4EE 0%,#F4E1D5 100%);';
 const GOLDBG = '#BE8C55'; // section 2's flat top (the strip under the hero ends on it)
 const GOLDLOW = '#E5C08F'; // section 2's background below the scene's row 720, behind it while it loads
 const KITBG = '#FBF4EA', COCOA = '#2A1A14';
@@ -109,7 +110,7 @@ const STYLE = `<style>
     .c-price { font-size:26px !important; line-height:30px !important; }
     .c-img { width:150px !important; height:100px !important; }
     .c-unit { font-size:12px !important; }
-    .ml-sec { padding:140px 14px 30px !important; background-size:100% auto !important; }
+    .ml-sec { padding:44px 14px 30px !important; background-size:100% auto !important; }
     .kit { padding-left:22px !important; padding-right:22px !important; }
     .kit-list { width:100% !important; }
     .btn { padding:17px 30px !important; font-size:14px !important; letter-spacing:1.5px !important; }
@@ -135,13 +136,14 @@ const tag = (t, size = 13, pad = '7px 18px') => `<table role="presentation" cell
 const card = (c, img) => `<td class="card-col" align="center" valign="top" width="50%" style="width:50%;padding:0 8px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}border-radius:9px 9px 0 0;padding:5px 14px;font-family:${FONT};font-size:10px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;${SHINE_INK}white-space:nowrap;">${c.badge || '&nbsp;'}</td></tr></table>
 <a href="${amp(c.href)}" target="_blank" style="text-decoration:none;display:block;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="${CARD}" style="background-color:${CARD};border:1px solid #EAD6B4;border-radius:18px;padding:20px 10px 18px;font-family:${FONT};box-shadow:0 6px 18px rgba(60,30,10,.18);">
-<div style="font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${ent(c.size)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="${CARD}" style="${CARD_BG}border:1px solid #EBD3C4;border-radius:18px;padding:20px 10px 18px;font-family:${FONT};box-shadow:0 6px 18px rgba(60,30,10,.18);">
+<div style="font-size:14px;line-height:18px;font-weight:700;color:#141414;">${ent(c.size)}</div>
 <div class="c-price" style="padding-top:6px;font-size:34px;line-height:38px;font-weight:700;color:${COCOA};">${c.price}</div>
 <div style="padding-top:2px;font-size:14px;line-height:18px;font-weight:700;color:#8A7A70;text-decoration:line-through;">${c.was}</div>
 <img class="c-img" src="${img(c.img)}" width="210" height="140" alt="${c.alt}" style="display:block;margin:8px auto 4px;width:210px;height:140px;border:0;">
+<div style="padding:2px 0 8px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${COCOA};">Monthly Starter Kit</div>
 ${tag(`Save ${c.save}`)}
-<div class="c-unit" style="padding-top:12px;font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${c.unit}</div>
+<div class="c-unit" style="padding-top:12px;font-size:14px;line-height:18px;font-weight:700;color:#141414;">${c.unit}</div>
 <div style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;color:#5A4A42;">${c.then}</div>
 </td></tr></table>
 </a>
@@ -165,9 +167,9 @@ ${button(L.sale('bf_hero_button'), 'Shop the sale', 280, PILL, '#2A1A14', '#B58E
 
 <!-- ── 2 · MATE LATTE · the gold scene with its liquid turned dark chocolate is the background; the scene's
      pouch and latte close the section ── -->
-<tr><td class="ml-sec" align="center" valign="top" background="${img('ml-bg.jpg')}" bgcolor="${GOLDLOW}" style="background-color:${GOLDLOW};background-image:url('${img('ml-bg.jpg')}');background-size:100% auto;background-position:center top;background-repeat:no-repeat;padding:212px 22px 34px;font-family:${FONT};">
+<tr><td class="ml-sec" align="center" valign="top" background="${img('ml-bg.jpg')}" bgcolor="${GOLDLOW}" style="background-color:${GOLDLOW};background-image:url('${img('ml-bg.jpg')}');background-size:100% auto;background-position:center top;background-repeat:no-repeat;padding:56px 22px 34px;font-family:${FONT};">
 ${tag('Mate Latte', 12, '7px 18px')}
-<div class="h-offer" style="padding-top:16px;font-family:${SERIF};font-size:42px;line-height:46px;font-weight:700;color:${COCOA};">Up to <span style="color:#7A2E1F;font-style:italic;">40% off</span> ${nw('your Monthly')} ${nw('Starter Kit')}</div>
+<div class="h-offer" style="padding-top:16px;font-family:${SERIF};font-size:42px;line-height:46px;font-weight:700;color:${COCOA};">Up to <span style="color:${FOREST};font-style:italic;">40% off</span> ${nw('your Monthly')} ${nw('Starter Kit')}</div>
 <div class="lead" style="padding-top:12px;font-size:15px;line-height:22px;font-weight:500;color:#3A2A22;">${ent('Biggest savings of the year on your first box.')} ${nw('Free frother + scooper')} ${nw('with 30 & 60 servings.')}</div>
 <div style="padding-top:28px;">${cards([
   { badge: 'Best seller', size: '30 Servings', price: '$39.89', was: '$66.48', img: 'bags-30.png', alt: 'Two Mate Latte pouches', save: '40%', unit: '$1.33 / serving', then: 'then $46.54/mo', href: L.ml(30) },
@@ -184,8 +186,7 @@ ${tag('Starter Kit', 12)}
 <div class="h-offer" style="padding-top:16px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Everything in your</div>
 <div class="h-offer" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">Starter Kit.</div>
 <div style="padding-top:12px;font-size:15px;line-height:22px;font-weight:500;color:#5A4A42;">With <b style="color:${COCOA};">30 &amp; 60 servings</b> of Mate Latte ${nw('on the Monthly Starter Kit only.')}</div>
-<div style="padding-top:24px;"><img class="photo" src="${img('kit-tools.jpg')}" width="500" height="217" alt="The frother and the scooper" style="display:block;margin:0 auto;width:500px;height:217px;border:0;border-radius:18px;"></div>
-<table role="presentation" class="kit-list" width="380" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:22px auto 0;width:380px;text-align:left;">
+<table role="presentation" class="kit-list" width="380" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:26px auto 0;width:380px;text-align:left;">
 ${kitRow(img, 'kit-percent.png', 'Save 40% off your first order')}
 ${kitRow(img, 'kit-gift.png', 'FREE Frother + FREE Scooper')}
 ${kitRow(img, 'kit-truck.png', 'Delivered to your door every month')}

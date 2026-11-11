@@ -1,19 +1,27 @@
 // Campaign · Black Friday 2026 · the announcement
 //
-// Job: announce the Black Friday sale and push the Mate Mornings Club: the sale ends, the club's
-// savings don't.
+// Job: announce the Black Friday sale, led by the Monthly Starter Kits (subscriptions).
 //   1 the announcement on a bronze band (Bernat's scene's colours): logo, "Black Friday",
-//     Up to 30% off / site-wide., "Our biggest sale of the year.", "Shop the sale";
+//     Up to 40% off / site-wide., "Our biggest sale of the year.", "Shop the sale";
 //     then the scene (pouch, Lion's Mane cans, gourd, latte), the band's gradient fading into it
-//   2 the club on forest: Black Friday ends. / Your savings don't. The club price, the three perks,
-//     "Join the club", the guarantee
+//   2 Mate Latte, like the website's Black Friday block, on the scene's darkened ribbons:
+//     Up to 40% off / your Monthly Starter Kit, the pouch and a latte, three price cards (15 / 30 / 60),
+//     "Shop the Mate Latte"
+//   3 the cans, same style: 30% off / your Monthly Starter Kit, Lion's Mane and infused cans, two cards,
+//     "Shop the cans"
 //   footer on cream
 //
-// Facts: "Up to 30% off site-wide" and "Our biggest sale of the year" are Bernat's Black Friday line
-// (the website hero, 2026-11-09). No dates and no per-product discounts: not set in Shopify yet
-// (2026-11-11: only expired test discounts "blackfridayy5..30"). Club (Shopify / Appstle, 2026-11-10):
-// 30% off 30 and 60 servings ($48.99 / $97.97), 15% off 15 ($29.74), monthly, skip, pause or cancel
-// anytime. One-time 30 servings $69.98.
+// Facts (milonga.life/products/*.js, 2026-11-11): the "Starter Kit" plans.
+//   Mate Latte: 15 servings $34.99, first box 25% off $26.24 ($1.75 a serving), then 15% off $29.74/mo
+//     (plan 9479323958). 30 servings $62.98, first box 40% off $37.79 ($1.26), then 30% off $44.09/mo;
+//     60 servings $139.96, first box 40% off $83.98 ($1.40), then 30% off $97.97/mo (plan 8837562678).
+//     Free frother + scooper with 30 and 60 servings (Bernat's website block).
+//   Cans, plan 6832750902 for all can products: first box 30% off, then 20% off. Lion's Mane 6 cans
+//     $25.20 -> $17.64 ($2.94 a can), then $20.16/mo. Infused 10mg 6 cans $40.80 -> $28.56 ($4.76), then
+//     $32.64/mo.
+//   "Up to 40% off site-wide" and "Our biggest sale of the year": Bernat's line. No sale dates (not set).
+// The infused cans are named "infused" in the copy, never cannabis/THC/CBD; their labels show in the photo
+// (Bernat asked for them in this campaign, 2026-11-11).
 //
 // Writes exports/klaviyo/bf-2026/bf-2026.html (ONE complete HTML email, Klaviyo code template) +
 // refine/bf-2026.html. Usage: node scripts/make-bf-2026-assets.mjs && node scripts/make-bf-2026.mjs
@@ -28,16 +36,20 @@ const IMG = {
   'mark-green.png': [`${K}0e781634-6907-42f6-b101-3c2c15371a99.png`, '../public/logo/mark-green.png'],
   'band.jpg': ['', `../${OUT}/img/band.jpg`],
   'scene.jpg': ['', `../${OUT}/img/scene.jpg`],
+  'offers-bg.jpg': ['', `../${OUT}/img/offers-bg.jpg`],
+  'ml-photo.jpg': ['', `../${OUT}/img/ml-photo.jpg`],
+  'cans-photo.jpg': ['', `../${OUT}/img/cans-photo.jpg`],
 };
 for (const [f, v] of Object.entries(IMG)) if (!v[0] && hosted[f]) v[0] = hosted[f];
 
 export const SUBJECT = 'Black Friday is here 🖤';
-export const PREHEADER = 'Up to 30% off site-wide, and the deal that lasts all year.';
+export const PREHEADER = 'Up to 40% off site-wide. The biggest savings of the year start with your first box.';
 
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', CREAM = '#F7F4EA';
 const PLUM = '#3A1830'; // the scene's ribbons
 const BAND = '#DDA27A'; // the band's middle, behind it while it loads
-const MINT = '#CFE0D4';
+const CHOC = '#5E2F28'; // the offers' darkened bronze, behind the ribbons while they load
+const CARD = '#FBF3EA', PILL = '#E9C46A';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
 const SITE = 'https://milonga.life', PDP = '/products/the-original-mate-latte';
@@ -45,7 +57,9 @@ const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=black_fr
 const L = {
   home: `${SITE}/?${utm('logo')}`,
   sale: (slot) => `${SITE}/collections/all?${utm(slot)}`,
-  club: `${SITE}${PDP}?selling_plan=8837562678&variant=54302750245174&${utm('bf_club_button')}`,
+  ml: (n) => `${SITE}${PDP}?selling_plan=${n === 15 ? '9479323958' : '8837562678'}&variant=${{ 15: '54302750212406', 30: '54302750245174', 60: '54302750277942' }[n]}&${utm(`bf_ml_${n}`)}`,
+  can: (handle, variant, slot) => `${SITE}/products/${handle}?selling_plan=6832750902&variant=${variant}&${utm(slot)}`,
+  cans: `${SITE}/collections/drinks?${utm('bf_cans_button')}`,
 };
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -69,13 +83,18 @@ const STYLE = `<style>
     .h-sec { font-size:34px !important; line-height:37px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
     .price { font-size:40px !important; line-height:42px !important; }
-    .perk { display:block !important; width:100% !important; padding:6px 0 !important; }
+    .offer { padding-left:18px !important; padding-right:18px !important; }
+    .photo { width:100% !important; height:auto !important; }
+    .h-offer { font-size:34px !important; line-height:38px !important; }
+    .card-col { display:block !important; width:100% !important; padding:0 0 22px !important; }
+    .card { padding:22px 16px 20px !important; }
     .btn { padding:17px 30px !important; font-size:14px !important; letter-spacing:1.5px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-forest { background-color:${FOREST} !important; }
+    .bg-choc { background-color:${CHOC} !important; }
   }
 </style>`;
 
@@ -85,7 +104,32 @@ const button = (href, label, width, bg = FOREST, ink = BEIGE, shadow = DEEP) => 
 const row = (bg, cls, style, inner) => `<tr><td class="${cls}" align="center" bgcolor="${bg}" style="background-color:${bg};${style}font-family:${FONT};">
 ${inner}
 </td></tr>`;
-const perk = (t) => `<td class="perk" align="center" valign="top" width="33%" style="width:33%;padding:0 6px;font-family:${FONT};font-size:13px;line-height:18px;font-weight:700;color:${BEIGE};"><span style="color:${GOLD};">&#10003;</span>&nbsp;${t}</td>`;
+// a price card, like the website's: badge, size, first-box price, struck price, "Save X%", per unit, then
+const card = (c) => `<td class="card-col" align="center" valign="top" width="${c.w}%" style="width:${c.w}%;padding:${c.badge ? 0 : 22}px 6px 0;">
+${c.badge ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:8px 8px 0 0;padding:4px 12px;font-family:${FONT};font-size:10px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#FFFFFF;white-space:nowrap;">${c.badge}</td></tr></table>` : ''}
+<a href="${amp(c.href)}" target="_blank" style="text-decoration:none;display:block;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="${CARD}" style="background-color:${CARD};border-radius:18px;padding:20px 8px 18px;font-family:${FONT};">
+<div style="font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${ent(c.size)}</div>
+<div style="padding-top:6px;font-size:32px;line-height:36px;font-weight:700;color:#2A1A14;">${c.price}</div>
+<div style="padding-top:2px;font-size:14px;line-height:18px;font-weight:700;color:#8A7A70;text-decoration:line-through;">${c.was}</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:12px auto 0;border-collapse:separate;"><tr><td bgcolor="${PILL}" style="background-color:${PILL};border-radius:999px;padding:7px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;color:#2A1A14;white-space:nowrap;">Save ${c.save}</td></tr></table>
+<div style="padding-top:12px;font-size:14px;line-height:18px;font-weight:700;color:${FOREST};">${c.unit}</div>
+<div style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;color:#5A4A42;">${c.then}</div>
+</td></tr></table>
+</a>
+</td>`;
+// an offer block (sections 2 and 3 share one cell, so the ribbons run behind both without a seam)
+const offer = (o) => `<div style="padding-top:${o.padTop}px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="${PILL}" style="background-color:${PILL};border-radius:999px;padding:7px 16px;font-family:${FONT};font-size:12px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFFFFF;white-space:nowrap;">${o.pill}</td></tr></table>
+<div class="h-offer" style="padding-top:16px;font-family:${SERIF};font-size:42px;line-height:46px;font-weight:700;color:#FFFFFF;">${o.title}</div>
+<div class="lead" style="padding-top:12px;font-size:15px;line-height:22px;font-weight:500;color:#F6E7DA;">${o.lead}</div>
+<div style="padding-top:24px;"><a href="${amp(o.photoHref)}" target="_blank"><img class="photo" src="${o.photo}" width="520" height="310" alt="${o.alt}" style="display:block;margin:0 auto;width:520px;height:310px;border:0;border-radius:18px;"></a></div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:24px;table-layout:fixed;"><tr>
+${o.cards.map(card).join('\n')}
+</tr></table>
+<div style="padding-top:14px;font-size:12px;line-height:18px;font-weight:500;color:#F6E7DA;">${o.note}</div>
+<div style="padding-top:24px;">${button(o.cta, o.ctaLabel, 300, PILL, '#2A1A14', '#B58E3A')}</div>
+</div>`;
 
 function body(img) {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
@@ -97,7 +141,7 @@ function body(img) {
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:420px;"><v:fill type="frame" src="${img('band.jpg')}" color="${BAND}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:22px;font-size:13px;line-height:16px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:${PLUM};">Black Friday</div>
-<div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:60px;line-height:60px;font-weight:400;color:${FOREST};">${ent('Up to 30% off')}</div>
+<div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:60px;line-height:60px;font-weight:400;color:${FOREST};">${ent('Up to 40% off')}</div>
 <div class="h-hero" style="font-family:${SERIF};font-size:60px;line-height:62px;font-weight:700;font-style:italic;color:${FOREST};">site-wide.</div>
 <div class="lead" style="padding-top:14px;font-size:17px;line-height:25px;font-weight:500;color:${INK};">Our biggest sale of the year.</div>
 <div style="padding-top:24px;">${button(L.sale('bf_hero_button'), 'Shop the sale', 280)}</div>
@@ -105,27 +149,41 @@ function body(img) {
 </td></tr>
 <tr><td style="padding:0;font-size:0;line-height:0;"><a href="${amp(L.sale('bf_scene'))}" target="_blank"><img class="full" src="${img('scene.jpg')}" width="600" height="545" alt="The Mate Latte pouch, Lion’s Mane cans, a mate gourd and a Mate Latte" style="display:block;width:600px;height:545px;border:0;"></a></td></tr>
 
-<!-- ── 2 · THE CLUB (on forest): the sale ends, the club's savings don't ── -->
-${row(FOREST, 'pad bg-forest', 'padding:60px 40px 0;', `<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">The best deal lasts all year</div>
-<div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:44px;line-height:48px;font-weight:400;color:#FFFFFF;">Black Friday ends.</div>
-<div class="h-sec" style="font-family:${SERIF};font-size:44px;line-height:48px;font-weight:700;font-style:italic;color:${GOLD};">${ent('Your savings don’t.')}</div>
-<div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${MINT};">${ent('Join the Mate Mornings Club and save up to 30% on every Mate Latte order, every month.')} ${nw('Not just this weekend.')}</div>`)}
-<tr><td class="pad bg-forest" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};padding:28px 60px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td align="center" bgcolor="${BEIGE}" style="background-color:${BEIGE};border-radius:20px;padding:24px 20px 22px;font-family:${FONT};">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${SOFT};">${ent('Mate Latte · 30 servings')}</div>
-<div style="padding-top:8px;"><span class="price" style="font-family:${SERIF};font-size:48px;line-height:50px;font-weight:700;color:${FOREST};">$48.99</span>&nbsp;&nbsp;<span style="font-size:17px;line-height:20px;font-weight:500;color:${SOFT};text-decoration:line-through;">$69.98</span></div>
-<div style="padding-top:6px;font-size:13px;line-height:18px;font-weight:700;color:${INK};">${ent('Every month in the club · 30% off')}</div>
-</td></tr></table>
+<!-- ── 2 + 3 · THE STARTER KITS (the website's Black Friday block, on the darkened ribbons) ── -->
+<tr><td class="offer bg-choc" align="center" valign="top" background="${img('offers-bg.jpg')}" bgcolor="${CHOC}" style="background-color:${CHOC};background-image:url('${img('offers-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0 30px 60px;font-family:${FONT};">
+
+<!-- 2 · Mate Latte -->
+${offer({
+  padTop: 56,
+  pill: 'Black Friday',
+  title: `Up to <span style="color:${GOLD};font-style:italic;">40% off</span> ${nw('your Monthly')} ${nw('Starter Kit')}`,
+  lead: `${ent('Biggest savings of the year on your first box of Mate Latte.')} ${nw('Free frother + scooper')} ${nw('with 30 & 60 servings.')}`,
+  photo: img('ml-photo.jpg'), photoHref: L.ml(30), alt: 'The Mate Latte pouch and a frothy Mate Latte',
+  cards: [
+    { w: 33, size: '15 Servings', price: '$26.24', was: '$34.99', save: '25%', unit: '$1.75 / serving', then: 'then $29.74/mo', href: L.ml(15) },
+    { w: 34, badge: 'Best value', size: '30 Servings', price: '$37.79', was: '$62.98', save: '40%', unit: '$1.26 / serving', then: 'then $44.09/mo', href: L.ml(30) },
+    { w: 33, badge: 'Best seller', size: '60 Servings', price: '$83.98', was: '$139.96', save: '40%', unit: '$1.40 / serving', then: 'then $97.97/mo', href: L.ml(60) },
+  ],
+  note: `First box price on the Monthly Starter Kit &middot; ${nw('Skip, pause or cancel anytime')}`,
+  cta: L.ml(30), ctaLabel: 'Shop the Mate Latte',
+})}
+
+<!-- 3 · the cans -->
+<div style="padding-top:56px;font-size:0;line-height:0;"><div style="height:1px;line-height:1px;background-color:#B98A6A;font-size:0;">&nbsp;</div></div>
+${offer({
+  padTop: 50,
+  pill: 'Black Friday',
+  title: `<span style="color:${GOLD};font-style:italic;">30% off</span> ${nw('your Monthly')} ${nw('Starter Kit')}`,
+  lead: `${ent('Our Lion’s Mane and infused cans: 30% off your first box,')} ${nw('then 20% off every month.')}`,
+  photo: img('cans-photo.jpg'), photoHref: L.cans, alt: 'Milonga Lion’s Mane and infused yerba mate cans',
+  cards: [
+    { w: 50, size: 'Lion’s Mane · 6 cans', price: '$17.64', was: '$25.20', save: '30%', unit: '$2.94 / can', then: 'then $20.16/mo', href: L.can('lion-s-mane', '53053588504886', 'bf_cans_lm') },
+    { w: 50, size: 'Infused · 6 cans', price: '$28.56', was: '$40.80', save: '30%', unit: '$4.76 / can', then: 'then $32.64/mo', href: L.can('cannabis-regular-10mg', '52759097999670', 'bf_cans_infused') },
+  ],
+  note: `First box price on the Monthly Starter Kit &middot; ${nw('Skip, pause or cancel anytime')}`,
+  cta: L.cans, ctaLabel: 'Shop the cans',
+})}
 </td></tr>
-<tr><td class="pad bg-forest" align="center" bgcolor="${FOREST}" style="background-color:${FOREST};padding:24px 34px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-${perk(`${nw('Save every order')}`)}
-${perk(`${nw('Delivered monthly')}`)}
-${perk(`${nw('Skip or pause anytime')}`)}
-</tr></table>
-</td></tr>
-${row(FOREST, 'pad bg-forest', 'padding:34px 40px 60px;', `${button(L.club, 'Join the club', 280, GOLD, FOREST, '#B8913A')}
-<div style="padding-top:18px;font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${GOLD};">${nw('30-day money-back guarantee')}</div>`)}
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
 <tr><td class="bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:56px 30px 40px;font-family:${FONT};color:${FOREST};">

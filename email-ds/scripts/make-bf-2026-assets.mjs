@@ -42,3 +42,47 @@ for (let y = 0; y < F; y++) {
 }
 await sharp(cropped, { raw: { width: W, height: SH, channels: 3 } }).jpeg(JPG).toFile(`${OUT}/scene.jpg`);
 for (const f of ['band.jpg', 'scene.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }
+
+// ── the offers (sections 2 and 3) ──
+//   offers-bg.jpg  the scene's left side (plum ribbons on bronze), darkened so white and gold type
+//                  read on it, like the website's Black Friday block. 1200 wide, CSS background (cover)
+//   ml-photo.jpg   the Mate Latte pouch and a latte: the bottom of Bernat's gold scene (src-gold-110.jpg)
+//   cans-photo.jpg the cans: three Lion's Mane (tilted, as shot) and three infused 10mg cans, on a warm
+//                  gold glow, with soft shadows. Same size as ml-photo
+{
+  const left = await sharp(SRC).extract({ left: 0, top: 0, width: 760, height: H }).resize({ width: W }).raw().toBuffer({ resolveWithObject: true });
+  const d = left.data;
+  for (let i = 0; i < d.length; i += 3) { d[i] = Math.round(d[i] * 0.52 + 10); d[i + 1] = Math.round(d[i + 1] * 0.42 + 4); d[i + 2] = Math.round(d[i + 2] * 0.40 + 6); }
+  await sharp(d, { raw: left.info }).jpeg(JPG).toFile(`${OUT}/offers-bg.jpg`);
+}
+const PW = 1040, PH = 620;
+await sharp('exports/klaviyo/bf-2026/src-gold-110.jpg').extract({ left: 0, top: 1607 - 700, width: 1200, height: 700 })
+  .resize(PW, PH, { fit: 'cover', position: 'bottom' }).jpeg(JPG).toFile(`${OUT}/ml-photo.jpg`);
+{
+  // warm glow
+  const g = Buffer.alloc(PW * PH * 3);
+  for (let y = 0; y < PH; y++) for (let x = 0; x < PW; x++) {
+    const dx = (x - PW / 2) / (PW * 0.62), dy = (y - PH * 0.42) / (PH * 0.9), t = Math.min(1, Math.sqrt(dx * dx + dy * dy));
+    const a = [250, 224, 182], b = [214, 152, 92]; g.set(a.map((v, c) => Math.round(v + (b[c] - v) * t)), (y * PW + x) * 3);
+  }
+  const CANS = [
+    ['can-acai-mint-energy-packshot.png', 390, 40, 120, -4], ['can-citrus-mango-energy-packshot.png', 410, 160, 92, 0], ['can-peach-ginger-energy-packshot.png', 390, 282, 124, 5],
+    ['can-acai-mint-10mg-packshot.png', 380, 590, 118, -6], ['can-citrus-mango-10mg-packshot.png', 400, 715, 90, 0], ['can-peach-ginger-10mg-packshot.png', 380, 845, 120, 6],
+  ];
+  const comp = [], top = [];
+  for (const [file, ch, left, tp, rot] of CANS) {
+    const can = await sharp(`public/product/${file}`).resize({ height: ch }).rotate(rot, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+    const m = await sharp(can).metadata();
+    const a = await sharp(can).extractChannel('alpha').raw().toBuffer();
+    const sh = Buffer.alloc(m.width * m.height * 4);
+    for (let i = 0; i < m.width * m.height; i++) { sh[i * 4] = 110; sh[i * 4 + 1] = 62; sh[i * 4 + 2] = 20; sh[i * 4 + 3] = Math.round(a[i] * 0.38); }
+    const shadow = await sharp(sh, { raw: { width: m.width, height: m.height, channels: 4 } }).blur(14).png().toBuffer();
+    const clip = async (buf, x, y) => {
+      const l = Math.max(0, -x), t = Math.max(0, -y), ww = Math.min(m.width - l, PW - Math.max(0, x)), hh = Math.min(m.height - t, PH - Math.max(0, y));
+      return { input: await sharp(buf).extract({ left: l, top: t, width: ww, height: hh }).toBuffer(), left: Math.max(0, x), top: Math.max(0, y) };
+    };
+    comp.push(await clip(shadow, left + 18, tp + 22)); top.push(await clip(can, left, tp));
+  }
+  await sharp(g, { raw: { width: PW, height: PH, channels: 3 } }).composite([...comp, ...top]).jpeg(JPG).toFile(`${OUT}/cans-photo.jpg`);
+}
+for (const f of ['offers-bg.jpg', 'ml-photo.jpg', 'cans-photo.jpg']) { const m = await sharp(`${OUT}/${f}`).metadata(); console.log(f, m.width + 'x' + m.height); }

@@ -10,18 +10,19 @@ SUBJECT + PREVIEW (placeholder, to pick)
 SECTIONS
   1 Bernat's Black Friday poster (src-hero-115.webp; copy in the image, alt text repeats it), then "Shop the
     sale" (gold) -> /collections/all on a strip easing into section 2's gold.
-  2 Mate Latte, on the gold scene with its liquid turned dark chocolate (src-gold-dark-hf.png, Higgsfield
-    edit of src-gold-110.jpg): shiny "Mate Latte" tag · Up to 40% off your Monthly Starter Kit · "Biggest
+  2 Mate Latte, on the gold of the scene with its liquid turned dark chocolate (src-gold-dark-hf.png,
+    Higgsfield edit of src-gold-110.jpg; the scene's top was dropped so the title sits high): shiny "Mate Latte" tag · Up to 40% off your Monthly Starter Kit · "Biggest
     savings of the year on your first box. Free frother + scooper with 30 & 60 servings." · two cards:
       30 BEST SELLER  $39.89 / $66.48 · 2 pouches · Save 40% · $1.33 / serving · then $46.54/mo
       60 BEST VALUE   $75.59 / $125.98 · 4 pouches · Save 40% · $1.26 / serving · then $88.19/mo
-    (shiny gold badges and Save tags, white type, like the website) · "First box price on the Monthly Starter
+    (blush-cream cards like the website; sizes and per-serving in black; "MONTHLY STARTER KIT" above the shiny
+    gold Save tags; shiny gold badges, white type; "40% off" in the title in forest green) · "First box price on the Monthly Starter
     Kit · Adjust shipments or cancel anytime" · "Shop the Mate Latte" (30) · the scene's pouch and latte.
   3 Starter Kit, on cream: Everything in your Starter Kit. "With 30 & 60 servings of Mate Latte on the Monthly
-    Starter Kit only." · the frother and scooper photo · Save 40% off your first order · FREE Frother + FREE
+    Starter Kit only." · Save 40% off your first order · FREE Frother + FREE
     Scooper · Delivered to your door every month · Adjust shipments or cancel anytime · 30-day money back
     guarantee (gold icons) · "Get my Starter Kit" (30).
-  4 The cans, on the darkened ribbons: 30% off your Monthly Starter Kit · "Our Lion's Mane and infused cans:
+  4 The cans (same cards, with "MONTHLY STARTER KIT" above Save), on the darkened ribbons: 30% off your Monthly Starter Kit · "Our Lion's Mane and infused cans:
     30% off your first box, then 20% off every month." · two 24-pack cards (three cans each):
       Lion's Mane  $52.92 / $75.60 · Save 30% · $2.21 / can · then $60.48/mo
       Infused      $104.30 / $149.00 · Save 30% · $4.35 / can · then $119.20/mo

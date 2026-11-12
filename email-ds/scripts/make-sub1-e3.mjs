@@ -33,9 +33,14 @@ const SHARED = {
   'bags-60.png': [`${K}cb792bc0-a51c-4dee-8953-5c1e406d2ee3.png`, '../exports/klaviyo/bf-2026/img/bags-60.png'],
   'drink-hot.png': [`${K}eb720e35-e441-496a-a96c-5f30dc637591.png`, '../exports/klaviyo/pp1-e1/img/drink-hot.png'],
   'drink-iced.png': [`${K}93430b07-73ca-42d5-947b-2da6b2c4fdd7.png`, '../exports/klaviyo/pp1-e1/img/drink-iced.png'],
+  'kit-percent.png': [`${K}298dca91-c865-4fbd-a20a-7eef59dfd2a5.png`, '../exports/klaviyo/bf-2026/img/kit-percent.png'],
+  'kit-gift.png': [`${K}6ea66d49-d17e-4842-b7ef-51cfed05a0a5.png`, '../exports/klaviyo/bf-2026/img/kit-gift.png'],
+  'kit-truck.png': [`${K}abfab9c8-eb93-4d4a-8f54-6b63d7238e4b.png`, '../exports/klaviyo/bf-2026/img/kit-truck.png'],
+  'kit-pause.png': [`${K}a3e19542-83f1-4b00-952a-896da5e3ea72.png`, '../exports/klaviyo/bf-2026/img/kit-pause.png'],
 };
 for (const [f, [url]] of Object.entries(SHARED)) hosted[f] ??= url;
 
+const PLANS_TOP = '#C99253', PLANS_LOW = '#BE8546', COCOA = '#5A3A1E';
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
@@ -46,7 +51,7 @@ const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=post_pur
 const PORTAL = "{{ event.manageSubscriptionLink|default:'https://milonga.life/apps/subscriptions' }}";
 const HELP = 'orders@milongamate.com';
 const HOME = `${SITE}/?${utm('sub1_e3_logo')}`;
-const mailto = (from, to) => `mailto:${HELP}?subject=${encodeURIComponent(`Switch my subscription to ${to} servings`)}&body=${encodeURIComponent(`Hi! Please switch my Mate Latte subscription from ${from} to ${to} servings, starting with my next order. Thank you!`)}`;
+const mailto = (from, to, extra = '') => `mailto:${HELP}?subject=${encodeURIComponent(`Switch my subscription to ${to} servings`)}&body=${encodeURIComponent(`Hi! Please switch my Mate Latte subscription from ${from} to ${to} servings, starting with my next order${extra}. Thank you!`)}`;
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
 const amp = (s) => s.replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
@@ -62,12 +67,23 @@ const VERSIONS = [
   {
     v: 15, to: 30,
     subject: '15 servings, 30 mornings 🤔',
-    preheader: 'Here’s how to cover the whole month, for less per cup.',
+    preheader: 'Every morning covered, less per cup, and a free frother on us.',
     eyebrow: 'Your Mate Mornings Club',
     t: ['Running out', 'before the month does?'],
-    lead: `Your plan brings 15 servings a month. If you have a Mate Latte most mornings, that’s about two weeks of lattes in a ${nw('30-day month.')} With 30 servings, every morning is covered, and every cup ${nw('costs less.')}`,
+    lead: `Your plan brings 15 servings a month. If you have a Mate Latte most mornings, that’s about two weeks of lattes in a ${nw('30-day month.')} With 30 servings, every morning is covered, every cup costs less, and we’ll gift you ${nw('a frother.')}`,
     badge: 'Every morning covered',
-    note: `Tap the button and send the email, and we’ll switch your plan before your next order ships. Or simply reply ${nw('to this email.')}`,
+    gift: '+ Free frother, on us',
+    mailExtra: ', and add the free frother',
+    perks: {
+      t: ['More mornings,', 'more perks.'],
+      list: [
+        ['kit-percent.png', '30% off every order, up from 15%'],
+        ['kit-gift.png', 'A free frother in your first 30-servings box'],
+        ['kit-truck.png', 'A fresh supply at your door every month'],
+        ['kit-pause.png', 'Skip, pause or cancel anytime'],
+      ],
+    },
+    note: `Tap the button and send the email. We’ll switch your plan before your next order ships and add your free frother. Or simply reply ${nw('to this email.')}`,
     stay: ['Happy with 15?', 'You don’t need to do a thing. Your next order ships as usual.'],
   },
   {
@@ -108,8 +124,12 @@ const STYLE = `<style>
     .card-col { width:50% !important; max-width:50% !important; }
     .card-col > div { padding:0 4px 14px !important; }
     .card { padding:16px 6px 16px !important; }
-    .c-price { font-size:28px !important; line-height:32px !important; }
-    .c-img { max-width:150px !important; }
+    .c-price { font-size:30px !important; line-height:34px !important; }
+    .c-img { max-width:140px !important; }
+    .c-size { font-size:10px !important; letter-spacing:1.2px !important; }
+    .c-gift { font-size:10.5px !important; }
+    .plans { padding:34px 12px 250px !important; }
+    .perks { width:100% !important; }
     .c-tab { font-size:9px !important; letter-spacing:.8px !important; padding:5px 10px !important; }
     .c-unit { font-size:12px !important; }
     .c-off { font-size:10px !important; letter-spacing:.6px !important; }
@@ -120,8 +140,11 @@ const STYLE = `<style>
   }
   @media only screen and (max-width:360px) {
     .card { padding:14px 4px 14px !important; }
-    .c-price { font-size:24px !important; line-height:28px !important; }
-    .c-img { max-width:118px !important; }
+    .c-price { font-size:25px !important; line-height:29px !important; }
+    .c-img { max-width:112px !important; }
+    .c-unit { font-size:11px !important; padding:5px 9px !important; }
+    .c-off { font-size:9px !important; }
+    .plans { padding-bottom:220px !important; }
     .c-tab { font-size:8px !important; padding:5px 7px !important; }
     .h-hero { font-size:36px !important; line-height:39px !important; }
     .btn { padding:15px 20px !important; font-size:13px !important; letter-spacing:1px !important; }
@@ -130,6 +153,7 @@ const STYLE = `<style>
     .bg-white { background-color:#FFFFFF !important; }
     .bg-cream { background-color:${CREAM} !important; }
     .bg-gold { background-color:${GOLD} !important; }
+    .plans { background-color:${PLANS_TOP} !important; }
   }
 </style>`;
 
@@ -145,18 +169,22 @@ ${inner}
 const lead = (t, color = INK, extra = '') => `<div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${color};${extra}">${ent(t)}</div>`;
 const pill = (t, style) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td class="c-tab" ${style} border-radius:9px 9px 0 0;padding:5px 14px;font-family:${FONT};font-size:10px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;">${t}</td></tr></table>`;
 
-// a plan card: a tab on top (where they are now, or the upgrade in shiny gold), the size, the monthly price,
-// the pouches, per serving and the club discount. Hybrid columns: side by side when there is room,
-// stacked in inboxes without media queries and less than 556px; phones with media queries keep two columns.
-const card = (p, img, now, badge) => `<div class="card-col" style="display:inline-block;vertical-align:top;width:100%;max-width:262px;">
-<div style="padding:0 8px 18px;font-size:14px;">
-${now ? pill('Your plan now', `bgcolor="${BEIGE}" style="background-color:${BEIGE};color:${SOFT};`) : pill(badge, `bgcolor="#D2A346" style="${SHINE}${SHINE_INK}`)}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:${now ? `1px solid ${LINE}` : `2px solid ${FOREST}`};border-radius:18px;padding:20px 10px 18px;font-family:${FONT};box-shadow:0 8px 20px rgba(60,40,5,${now ? '.12' : '.24'});">
-<div style="font-size:14px;line-height:18px;font-weight:700;color:${INK};">${p.size}</div>
-<div class="c-price" style="padding-top:6px;font-size:34px;line-height:38px;font-weight:700;color:${now ? SOFT : FOREST};">${p.price}<span style="font-size:15px;font-weight:700;">/mo</span></div>
-<img class="c-img" src="${img(p.img)}" width="210" height="140" alt="${p.alt}" style="display:block;margin:8px auto 6px;width:100%;max-width:210px;height:auto;border:0;${now ? 'opacity:.85;' : ''}">
-<div class="c-unit" style="font-size:14px;line-height:18px;font-weight:700;color:${INK};">${p.unit}</div>
-<div class="c-off" style="padding-top:6px;font-size:11px;line-height:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${now ? SOFT : FOREST};">${p.off}</div>
+// a plan card: a tab on top ("Your plan now" in soft cream, the upgrade in shiny gold), the size, the
+// monthly price in the serif, a thin gold rule, the pouches, per serving in a pill, the club discount and
+// (15 -> 30) the free frother. The current plan is frosted and quieter, the upgrade is solid white with a
+// forest border. Hybrid columns: side by side when there is room, stacked in inboxes without media queries
+// under 556px; phones with media queries keep two columns.
+const card = (p, img, now, V) => `<div class="card-col" style="display:inline-block;vertical-align:top;width:100%;max-width:262px;">
+<div style="padding:0 9px 18px;font-size:14px;">
+${now ? pill('Your plan now', `bgcolor="${CREAM}" style="background-color:${CREAM};color:${SOFT};`) : pill(V.badge, `bgcolor="#D2A346" style="${SHINE}${SHINE_INK}`)}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:${now ? 'rgba(255,253,248,.82)' : '#FFFFFF'};border:${now ? '1px solid rgba(255,255,255,.9)' : `2px solid ${FOREST}`};border-radius:20px;padding:20px 12px 18px;font-family:${FONT};box-shadow:0 14px 30px rgba(70,40,10,${now ? '.18' : '.32'});">
+<div class="c-size" style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${now ? SOFT : FOREST};">${p.size}</div>
+<div class="c-price" style="padding-top:8px;font-family:${SERIF};font-size:42px;line-height:44px;font-weight:700;color:${now ? SOFT : FOREST};">${p.price}<span style="font-family:${FONT};font-size:13px;font-weight:700;">/mo</span></div>
+<div style="margin:12px auto 0;width:44px;height:2px;line-height:2px;font-size:0;background-color:${GOLD};">&nbsp;</div>
+<img class="c-img" src="${img(p.img)}" width="200" height="133" alt="${p.alt}" style="display:block;margin:6px auto 4px;width:100%;max-width:200px;height:auto;border:0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td class="c-unit" bgcolor="${now ? BEIGE : FOREST}" style="background-color:${now ? BEIGE : FOREST};border-radius:999px;padding:6px 14px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;color:${now ? INK : BEIGE};white-space:nowrap;">${p.unit}</td></tr></table>
+<div class="c-off" style="padding-top:10px;font-size:11px;line-height:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${now ? SOFT : FOREST};">${p.off}</div>
+${V.gift ? `<div class="c-gift" style="padding-top:6px;font-size:12px;line-height:16px;font-weight:700;color:${now ? 'transparent' : '#A8741E'};">${now ? '&nbsp;' : ent(V.gift)}</div>` : ''}
 </td></tr></table>
 </div>
 </div>`;
@@ -165,6 +193,7 @@ const cards = (list) => `<div style="font-size:0;line-height:0;text-align:center
 ${list.join('\n<!--[if mso]></td><td width="262" valign="top"><![endif]-->\n')}
 <!--[if mso]></td></tr></table><![endif]-->
 </div>`;
+const perkRow = (img, icon, text) => `<tr><td width="40" valign="middle" style="width:40px;padding:11px 0;"><img src="${img(icon)}" width="26" height="26" alt="" role="presentation" style="display:block;width:26px;height:26px;border:0;"></td><td valign="middle" align="left" style="padding:11px 0;font-family:${FONT};font-size:15px;line-height:21px;font-weight:700;color:${INK};border-bottom:1px solid ${LINE};">${ent(text)}</td></tr>`;
 
 const header = (V, img) => `<!-- ── 1 · THE QUESTION ── -->
 ${row(CREAM, 'pad bg-cream', 'padding:34px 40px 44px;', `<a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
@@ -190,15 +219,27 @@ function upsell(V, img) {
   const from = PLAN[V.v], to = PLAN[V.to];
   return `${header(V, img)}
 
-<!-- ── 2 · YOUR PLAN NOW vs THE SWITCH, then the switch button (a pre-written email to the team) ── -->
-<tr><td class="pad-cards bg-gold" align="center" bgcolor="${GOLD}" style="background-color:${GOLD};padding:44px 26px 8px;font-family:${FONT};">
-${cards([card(from, img, true), card(to, img, false, V.badge)])}
+<!-- ── 2 · YOUR PLAN NOW vs THE UPGRADE, on Bernat's gold Mate Latte scene (top-right pouch removed);
+     the pouch and the latte close the section ── -->
+<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:44px 28px 330px;font-family:${FONT};">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:803px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 6px rgba(90,50,10,.45);">Your plan, upgraded</div>
+<div style="padding-top:26px;">${cards([card(from, img, true, V), card(to, img, false, V)])}</div>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
-${row(GOLD, 'pad bg-gold', 'padding:14px 40px 50px;', `${button(mailto(V.v, V.to), `Switch me to ${V.to} servings`, 380)}
-<div style="max-width:420px;margin:0 auto;padding-top:20px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${ent(V.note)}</div>`)}
+${V.perks ? `
+<!-- ── 3 · WHAT YOU GET WITH 30 ── -->
+${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow(`With ${V.to} servings`)}
+${title(V.perks.t, 'h-sec', 38)}
+<table role="presentation" class="perks" width="400" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:22px auto 0;width:400px;max-width:100%;">
+${V.perks.list.map(([i, t]) => perkRow(img, i, t)).join('\n')}
+</table>`)}` : ''}
+${row(CREAM, 'pad bg-cream', `padding:${V.perks ? 36 : 50}px 40px 0;`, `${button(mailto(V.v, V.to, V.mailExtra || ''), `Switch me to ${V.to} servings`, 380)}
+<div style="max-width:420px;margin:0 auto;padding-top:20px;font-size:14px;line-height:21px;font-weight:500;color:${SOFT};">${ent(V.note)}</div>`)}
 
-<!-- ── 3 · HAPPY AS YOU ARE? (no pressure) + where to manage it ── -->
-${row(CREAM, 'pad bg-cream', 'padding:48px 40px 0;', `<div class="h-sec" style="font-family:${SERIF};font-size:34px;line-height:38px;font-weight:700;font-style:italic;color:${FOREST};">${ent(V.stay[0])}</div>
+<!-- ── 4 · HAPPY AS YOU ARE? (no pressure) + where to manage it ── -->
+${row(CREAM, 'pad bg-cream', 'padding:48px 40px 0;', `<div style="margin:0 auto 40px;width:60px;border-top:2px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
+<div class="h-sec" style="font-family:${SERIF};font-size:34px;line-height:38px;font-weight:700;font-style:italic;color:${FOREST};">${ent(V.stay[0])}</div>
 <div style="max-width:420px;margin:0 auto;padding-top:10px;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent(V.stay[1])} Need to skip or pause? <a href="${PORTAL}" target="_blank" style="color:${FOREST};font-weight:700;text-decoration:underline;">Manage your subscription</a>.</div>
 <div style="padding-top:44px;">${help}</div>`)}
 

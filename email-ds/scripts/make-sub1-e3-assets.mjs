@@ -20,3 +20,14 @@ for (let y = 0; y < CH; y++) for (let x = 0; x < CW; x++) {
 const shadow = await sharp(sh, { raw: { width: CW, height: CH, channels: 4 } }).blur(9).png().toBuffer();
 await sharp(await sharp(shadow).composite([{ input: prod }]).png().toBuffer()).png({ palette: true, quality: 90, effort: 10 }).toFile(`${OUT}/bags-15.png`);
 const m = await sharp(`${OUT}/bags-15.png`).metadata(); console.log('bags-15.png', m.width + 'x' + m.height);
+
+// v2 (Bernat, 2026-11-12): the plan cards sit on his gold Mate Latte scene (src-gold-123.jpg), with the
+// top-right pouch removed so the cards have room (src-gold-clean-hf.png: Higgsfield GPT Image 2.6 edit).
+// The pouch and the latte close the section at the bottom.
+await sharp('exports/klaviyo/sub1-e3/src-gold-clean-hf.png').resize(1200, 1607).jpeg({ quality: 80, mozjpeg: true }).toFile(`${OUT}/plans-bg.jpg`);
+{
+  const { data } = await sharp(`${OUT}/plans-bg.jpg`).extract({ left: 0, top: 0, width: 1200, height: 40 }).resize(1, 1).raw().toBuffer({ resolveWithObject: true });
+  const { data: d2 } = await sharp(`${OUT}/plans-bg.jpg`).extract({ left: 0, top: 1560, width: 1200, height: 47 }).resize(1, 1).raw().toBuffer({ resolveWithObject: true });
+  const hex = (d) => '#' + [...d].slice(0, 3).map((v) => v.toString(16).padStart(2, '0')).join('').toUpperCase();
+  console.log('plans-bg.jpg top', hex(data), 'bottom', hex(d2));
+}

@@ -1,0 +1,20 @@
+SUBJECT: you already know it’s good ☕
+PREVIEW: So here’s 40% off your first Mate Mornings Club box, on me.
+FROM: Shadi from Milonga
+
+Hey {{ person.first_name|default:'there' }}!
+
+Shadi here. You’ve already tried the Mate Latte, so first of all, thank you. It really means a lot. 💛
+
+Quick question: did your last bag run out faster than you expected? 😄 Then you know the feeling of reaching for it on a busy morning and finding it empty.
+
+So for Black Friday, I have a little gift for you: 40% off your first box when you join the Mate Mornings Club. With 30 or 60 servings, the frother and scooper are on me.
+
+Claim my 40% off: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_buyers_kit_link
+
+It’s our biggest discount of the year. After that, you still save 30% on every box, it shows up at your door every month, and you can skip, pause or cancel anytime.
+
+Any questions? Just hit reply. I read every one.
+
+Un abrazo,
+Shadi

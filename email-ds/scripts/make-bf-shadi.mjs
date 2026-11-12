@@ -5,6 +5,8 @@
 // the afternoon crash), and the alternatives aren't a cup you look forward to (they taste bitter or
 // earthy and don't do much). That's why Shadi made the Mate Latte; now the Starter Kit is 40% off the
 // first box with a free frother and scooper (30 and 60 servings). Short, one link.
+// Framed as Shadi's personal gift to them (Bernat, 2026-11-12): the subject, the opening, the offer
+// line and the link ("Open my gift").
 //
 // Facts used
 //   Shadi's story as he tells it (welcome-story, Bernat 2026-11-06): moved from South Florida to
@@ -23,21 +25,21 @@ import { validate } from './validate-klaviyo-email.mjs';
 
 const OUT = 'exports/klaviyo/bf-shadi';
 fs.mkdirSync(OUT, { recursive: true });
-export const SUBJECT = 'tired of coffee?';
-export const PREHEADER = 'Why I made the Mate Latte, and 40% off your first box.';
+export const SUBJECT = 'a little gift from me 🎁';
+export const PREHEADER = '40% off your first Mate Latte box, and the frother and scooper on me.';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=${slot}`;
 const KIT = `https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&${utm('shadi_kit_link')}`;
 
 // [kind, ...]. 'p' text · 'l' [before, link text, after, href] · 'sign' · 'ps' [before, link text, after, href]
 const LETTER = [
   ['p', 'Hey {{ first_name|default:\'there\' }},'],
-  ['p', 'Quick one before the Black Friday noise.'],
-  ['p', 'So many people tell me the same thing: they’re tired of coffee. The jitters, the acidity, the afternoon crash.'],
-  ['p', 'But most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.'],
-  ['p', 'That’s why I made the Mate Latte. Yerba mate for smooth, steady energy, in a creamy vanilla latte you actually want to drink every morning. Ready in 30 seconds, hot or iced.'],
-  ['p', 'For Black Friday, your Mate Latte Starter Kit is 40% off your first box, and with 30 or 60 servings, the frother and scooper are free.'],
-  ['l', '', 'Get my Starter Kit, 40% off', '', KIT],
+  ['p', 'I have a little gift for you. 🎁'],
+  ['p', 'So many people tell me they’re tired of coffee. The jitters, the acidity, the afternoon crash. And most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.'],
+  ['p', 'That’s why I made the Mate Latte: yerba mate for smooth, steady energy, in a creamy vanilla latte you’ll actually look forward to every morning. Ready in 30 seconds, hot or iced.'],
+  ['p', 'So this Black Friday, here’s my gift to you: 40% off your first Mate Latte Starter Kit. And with 30 or 60 servings, the frother and the scooper are on me.'],
+  ['l', '', 'Open my gift', '', KIT],
   ['p', 'It’s monthly after that (30% off), and you can cancel anytime.'],
+  ['p', 'Enjoy it, and tell me what you think. Just hit reply.'],
   ['sign', 'Un abrazo,', 'Shadi'],
 ];
 

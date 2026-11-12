@@ -37,6 +37,7 @@ const SHARED = {
   'kit-gift.png': [`${K}6ea66d49-d17e-4842-b7ef-51cfed05a0a5.png`, '../exports/klaviyo/bf-2026/img/kit-gift.png'],
   'kit-truck.png': [`${K}abfab9c8-eb93-4d4a-8f54-6b63d7238e4b.png`, '../exports/klaviyo/bf-2026/img/kit-truck.png'],
   'kit-pause.png': [`${K}a3e19542-83f1-4b00-952a-896da5e3ea72.png`, '../exports/klaviyo/bf-2026/img/kit-pause.png'],
+  'kit-card.png': [`${K}7355a182-9dee-4eac-bff7-61d1b47c5bd6.png`, '../exports/klaviyo/bf-2026/img/kit-card.png'],
 };
 for (const [f, [url]] of Object.entries(SHARED)) hosted[f] ??= url;
 
@@ -95,6 +96,15 @@ const VERSIONS = [
     t: ['One a day', 'not enough?'],
     lead: `We get it. If you’ve been having two Mate Lattes a day, 30 servings lasts about two weeks. The 60 servings keeps both cups covered all month, and every cup costs ${nw('a little less.')}`,
     badge: 'Two a day, all month',
+    perks: {
+      t: ['Two cups a day,', 'all month long.'],
+      list: [
+        ['kit-truck.png', '60 servings at your door every month'],
+        ['kit-percent.png', '$1.39 a cup, our lowest price'],
+        ['kit-card.png', 'Still 30% off every order'],
+        ['kit-pause.png', 'Skip, pause or cancel anytime'],
+      ],
+    },
     note: `Tap the button and send the email, and we’ll switch your plan before your next order ships. Or simply reply ${nw('to this email.')}`,
     stay: ['One a day?', 'You’re all set. Nothing to change, your next order ships as usual.'],
   },

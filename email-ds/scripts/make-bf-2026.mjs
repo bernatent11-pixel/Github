@@ -15,8 +15,8 @@
 //
 // Facts (milonga.life/products/*.js, 2026-11-11, after Bernat's website update):
 //   Mate Latte Starter Kit, plan 8837562678 (30 and 60): first order 40% off, then 30% off monthly.
-//     30 servings $66.48 -> $39.89 ($1.33 a serving), then $46.54/mo.
-//     60 servings $125.98 -> $75.59 ($1.26 a serving), then $88.19/mo. 60 is the better value per serving.
+//     30 servings $62.98 -> $37.79 ($1.26 a serving), then $44.09/mo. (prices from Shopify, 2026-11-12)
+//     60 servings $118.96 -> $71.38 ($1.19 a serving), then $83.27/mo. 60 is the better value per serving.
 //   Starter Kit list (website): Save 40% off your first order · FREE Frother + FREE Scooper · Delivered to
 //     your door every month · Adjust shipments or cancel anytime · 30-day money back guarantee.
 //   Cans Starter Kit, plan 6832750902: first box 30% off, then 20% off. 24 cans: Lion's Mane $75.60 ->
@@ -213,8 +213,8 @@ ${button(`${SITE}/?${utm('bf_hero_button')}`, 'Shop the sale', 280, PILL, '#2A1A
 <div class="lead" style="padding-top:10px;font-size:15px;line-height:22px;font-weight:500;color:#3A2A22;">${ent('Biggest savings of the year on your first box.')} ${nw('Free frother + scooper')} ${nw('with 30 & 60 servings.')}</div>
 </div>
 <div style="padding-top:28px;">${cards([
-  { badge: 'Best seller', size: '30 Servings', price: '$39.89', was: '$66.48', img: 'bags-30.png', alt: 'Two Mate Latte pouches', save: '40%', unit: '$1.33 / serving', then: 'then $46.54/mo', href: L.ml(30) },
-  { badge: 'Best value', size: '60 Servings', price: '$75.59', was: '$125.98', img: 'bags-60.png', alt: 'Four Mate Latte pouches', save: '40%', unit: '$1.26 / serving', then: 'then $88.19/mo', href: L.ml(60) },
+  { badge: 'Best seller', size: '30 Servings', price: '$37.79', was: '$62.98', img: 'bags-30.png', alt: 'Two Mate Latte pouches', save: '40%', unit: '$1.26 / serving', then: 'then $44.09/mo', href: L.ml(30) },
+  { badge: 'Best value', size: '60 Servings', price: '$71.38', was: '$118.96', img: 'bags-60.png', alt: 'Four Mate Latte pouches', save: '40%', unit: '$1.19 / serving', then: 'then $83.27/mo', href: L.ml(60) },
 ], img)}</div>
 <div style="padding-top:26px;">${button(L.ml(30, 'bf_ml_button'), 'Shop the Mate Latte', 320)}</div>
 </td></tr>

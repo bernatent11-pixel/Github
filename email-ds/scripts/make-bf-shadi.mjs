@@ -13,8 +13,8 @@
 //     Argentina at 19 to chase pro soccer; found mate there; the gourd passed around a circle, no phones.
 //   Product: creamy vanilla latte made with yerba mate, ready in 30 seconds, hot or iced; steady energy
 //     without the jitters or the crash, no bitterness, no acidity (milonga.life product page, approved).
-//   Offer (milonga.life, 2026-11-11): Monthly Starter Kit, 30 servings $66.48 -> $39.89 first box
-//     (40% off, $1.33 a serving), then 30% off monthly ($46.54); frother + scooper free with 30 and 60
+//   Offer (milonga.life, 2026-11-12): Monthly Starter Kit, 30 servings $62.98 -> $37.79 first box
+//     (40% off, $1.26 a serving), then 30% off monthly ($44.09); frother + scooper free with 30 and 60
 //     servings; adjust shipments or cancel anytime; 30-day money back guarantee. Site: up to 40% off.
 //   No sale dates (not set), so no deadline.
 //

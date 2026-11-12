@@ -1,0 +1,20 @@
+SUBJECT: your cans, 30% off 🥤
+PREVIEW: Join the club this Black Friday and save on every box after.
+FROM: Shadi from Milonga
+
+Hey {{ person.first_name|default:'there' }}!
+
+Shadi here. You’ve already tried our cans, so first of all, thank you. It really means a lot. 💛
+
+If you keep reordering them (or running out right when you need one 😄), this is the best time to join the club. For Black Friday, your first box is 30% off. That’s $52.92 for 24 Lion’s Mane cans, instead of $75.60.
+
+Get 30% off Lion’s Mane: https://milonga.life/products/lion-s-mane?selling_plan=6832750902&variant=53053588701494&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_cans_buyers_lm
+
+Get 30% off Infused (21+): https://milonga.life/products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759098196278&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_cans_buyers_infused
+
+After that, you still save 20% on every box. They show up at your door every month, and you can skip, pause or cancel anytime.
+
+Any questions? Just hit reply. I read every one.
+
+Un abrazo,
+Shadi

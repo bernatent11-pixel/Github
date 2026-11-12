@@ -1,0 +1,24 @@
+SUBJECT: have you tried our cans yet? 🥤
+PREVIEW: Your first box is 30% off this Black Friday, on me.
+FROM: Shadi from Milonga
+
+Hey {{ person.first_name|default:'there' }}!
+
+Shadi here. Have you tried our cans yet? If not, Black Friday is the perfect time. 🥤
+
+They’re real yerba mate, ready to grab on the go: steady energy without the jitters or the crash. And they come in three flavors: Açaí Mint, Peach Ginger and Citrus Mango.
+
+So here’s my gift: 30% off your first box when you join our monthly club. That’s $52.92 for your first 24 Lion’s Mane cans, instead of $75.60.
+
+Try the Lion’s Mane cans: https://milonga.life/products/lion-s-mane?selling_plan=6832750902&variant=53053588701494&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_cans_new_lm
+
+If you’re 21 or older, our Infused cans are 30% off your first box too.
+
+Try the Infused cans: https://milonga.life/products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759098196278&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_cans_new_infused
+
+After that, you still save 20% on every box, and you can skip, pause or cancel anytime.
+
+Tell me which flavor you like best. Just hit reply.
+
+Un abrazo,
+Shadi

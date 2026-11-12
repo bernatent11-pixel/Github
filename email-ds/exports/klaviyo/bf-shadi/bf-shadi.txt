@@ -2,21 +2,25 @@ SUBJECT: a gift for your first mate latte 🎁
 PREVIEW: You haven’t tried it yet, so your first Starter Kit is 40% off, on me.
 FROM: Shadi from Milonga
 
-Hey {{ first_name|default:'there' }},
+Hey {{ person.first_name|default:'there' }}!
 
-You haven’t tried the Mate Latte yet, so I have a little gift for you. 🎁
+Still haven’t tried the Mate Latte? Honestly, I don’t know what you’re waiting for. 😄 So I have a little gift for you. 🎁
 
-So many people tell me they’re tired of coffee. The jitters, the acidity, the afternoon crash. And most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.
+People tell me all the time they’re tired of coffee: the jitters, the acidity, the afternoon crash. And most of the alternatives taste grassy or earthy, and they barely feel them.
 
-That’s why I made the Mate Latte: yerba mate for smooth, steady energy, in a creamy vanilla latte you’ll actually look forward to every morning. Ready in 30 seconds, hot or iced.
+That’s why I made the Mate Latte. Everything you want in your morning cup:
 
-So here’s my gift for your very first box: 40% off the Mate Latte Starter Kit. And with 30 or 60 servings, the frother and the scooper are on me. It’s the best way to try it.
+• Smooth, steady energy
+• No jitters, no crash
+• A creamy vanilla flavor you’ll actually look forward to
+
+So here’s my gift for your first box: 40% off the Mate Latte Starter Kit. With 30 or 60 servings, the frother and scooper are on me.
 
 Open my gift: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_kit_link
 
-It’s monthly after that (30% off), and you can cancel anytime.
+After that, it’s monthly at 30% off, and you can cancel anytime.
 
-I hope it becomes your favorite part of the morning. Tell me what you think. Just hit reply.
+Tell me what you think. Just hit reply.
 
 Un abrazo,
 Shadi

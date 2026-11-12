@@ -6,7 +6,8 @@
 // earthy and don't do much). That's why Shadi made the Mate Latte; now the Starter Kit is 40% off the
 // first box with a free frother and scooper (30 and 60 servings). Short, one link.
 // Framed as Shadi's personal gift to them (Bernat, 2026-11-12): the subject, the opening, the offer
-// line and the link ("Open my gift").
+// line and the link ("Open my gift"). v3: Bernat's rewrite (playful opening, a short list of what the cup
+// gives you), made shorter and friendlier; "focus" and "calm" left out of the list (no function claims).
 //
 // Facts used
 //   Shadi's story as he tells it (welcome-story, Bernat 2026-11-06): moved from South Florida to
@@ -32,14 +33,15 @@ const KIT = `https://milonga.life/products/the-original-mate-latte?selling_plan=
 
 // [kind, ...]. 'p' text · 'l' [before, link text, after, href] · 'sign' · 'ps' [before, link text, after, href]
 const LETTER = [
-  ['p', 'Hey {{ first_name|default:\'there\' }},'],
-  ['p', 'You haven’t tried the Mate Latte yet, so I have a little gift for you. 🎁'],
-  ['p', 'So many people tell me they’re tired of coffee. The jitters, the acidity, the afternoon crash. And most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.'],
-  ['p', 'That’s why I made the Mate Latte: yerba mate for smooth, steady energy, in a creamy vanilla latte you’ll actually look forward to every morning. Ready in 30 seconds, hot or iced.'],
-  ['p', 'So here’s my gift for your very first box: 40% off the Mate Latte Starter Kit. And with 30 or 60 servings, the frother and the scooper are on me. It’s the best way to try it.'],
+  ['p', 'Hey {{ person.first_name|default:\'there\' }}!'],
+  ['p', 'Still haven’t tried the Mate Latte? Honestly, I don’t know what you’re waiting for. 😄 So I have a little gift for you. 🎁'],
+  ['p', 'People tell me all the time they’re tired of coffee: the jitters, the acidity, the afternoon crash. And most of the alternatives taste grassy or earthy, and they barely feel them.'],
+  ['p', 'That’s why I made the Mate Latte. Everything you want in your morning cup:'],
+  ['ul', ['Smooth, steady energy', 'No jitters, no crash', 'A creamy vanilla flavor you’ll actually look forward to']],
+  ['p', 'So here’s my gift for your first box: 40% off the Mate Latte Starter Kit. With 30 or 60 servings, the frother and scooper are on me.'],
   ['l', '', 'Open my gift', '', KIT],
-  ['p', 'It’s monthly after that (30% off), and you can cancel anytime.'],
-  ['p', 'I hope it becomes your favorite part of the morning. Tell me what you think. Just hit reply.'],
+  ['p', 'After that, it’s monthly at 30% off, and you can cancel anytime.'],
+  ['p', 'Tell me what you think. Just hit reply.'],
   ['sign', 'Un abrazo,', 'Shadi'],
 ];
 
@@ -50,6 +52,7 @@ const A = (href, text) => `<a href="${href.replace(/&/g, '&amp;')}" target="_bla
 function html() {
   const rows = LETTER.map(([k, a, b, c, d], i) => {
     if (k === 'l') return P(`${ent(a)}👉 ${A(d, b)}${ent(c)}`);
+    if (k === 'ul') return `<ul style="margin:0 0 18px;padding-left:22px;">${a.map((t) => `<li style="margin:0 0 4px;">${ent(t)}</li>`).join('')}</ul>`;
     if (k === 'sign') return P(`${ent(a)}<br>${ent(b)}`, LETTER[i + 1]?.[0] !== 'ps');
     if (k === 'ps') return `<p style="margin:6px 0 0;">${ent(a)}${A(d, b)}${ent(c)}</p>`;
     return P(ent(a));
@@ -99,6 +102,7 @@ function text() {
   const out = [`SUBJECT: ${SUBJECT}`, `PREVIEW: ${PREHEADER}`, 'FROM: Shadi from Milonga', ''];
   for (const [k, a, b, c, d] of LETTER) {
     if (k === 'l') out.push(`${b}: ${d}`, '');
+    else if (k === 'ul') out.push(...a.map((t) => `• ${t}`), '');
     else if (k === 'sign') out.push(a, b, '');
     else if (k === 'ps') out.push(`${a}${b}${c} (${d})`);
     else out.push(a, '');

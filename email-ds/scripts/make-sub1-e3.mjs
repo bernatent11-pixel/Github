@@ -96,6 +96,7 @@ const VERSIONS = [
     t: ['One a day', 'not enough?'],
     lead: `We get it. If you’ve been having two Mate Lattes a day, 30 servings lasts about two weeks. The 60 servings keeps both cups covered all month, and every cup costs ${nw('a little less.')}`,
     badge: 'Two a day, all month',
+    photos: { 30: ['plan-30.jpg', 'Two Mate Latte pouches and a frother frothing a latte: best seller, 30 servings'], 60: ['plan-60.jpg', 'Mate Latte pouches and a frother frothing a latte: best value, 60 servings'] },
     perks: {
       t: ['Two cups a day,', 'all month long.'],
       list: [

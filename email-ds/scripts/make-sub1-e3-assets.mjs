@@ -31,3 +31,12 @@ await sharp('exports/klaviyo/sub1-e3/src-gold-clean-hf.png').resize(1200, 1607).
   const hex = (d) => '#' + [...d].slice(0, 3).map((v) => v.toString(16).padStart(2, '0')).join('').toUpperCase();
   console.log('plans-bg.jpg top', hex(data), 'bottom', hex(d2));
 }
+
+// v3 (Bernat, 2026-11-12): the 15 -> 30 email's cards show his photos instead of the pouch cutouts:
+//   plan-15.jpg  one pouch and milk poured into an iced latte (src-plan-15-124.jpg)
+//   plan-30.jpg  the 30 servings shot: "Best seller", "30 servings, free frother + scoop" (src-plan-30-125.jpg)
+// 440x440, shown at up to 210px.
+for (const [src, out] of [['src-plan-15-124.jpg', 'plan-15.jpg'], ['src-plan-30-125.jpg', 'plan-30.jpg']]) {
+  await sharp(`exports/klaviyo/sub1-e3/${src}`).resize(440, 440).jpeg({ quality: 84, mozjpeg: true }).toFile(`${OUT}/${out}`);
+  console.log(out, (await sharp(`${OUT}/${out}`).metadata()).size ?? '');
+}

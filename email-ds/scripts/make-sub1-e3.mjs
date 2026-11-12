@@ -73,6 +73,7 @@ const VERSIONS = [
     lead: `Your plan brings 15 servings a month. If you have a Mate Latte most mornings, that’s about two weeks of lattes in a ${nw('30-day month.')} With 30 servings, every morning is covered, every cup costs less, and we’ll gift you ${nw('a frother.')}`,
     badge: 'Every morning covered',
     gift: '+ Free frother, on us',
+    photos: { 15: ['plan-15.jpg', 'A Mate Latte pouch and milk poured into an iced latte'], 30: ['plan-30.jpg', 'Two Mate Latte pouches and a frother frothing a latte: best seller, 30 servings, free frother and scoop'] },
     mailExtra: ', and add the free frother',
     perks: {
       t: ['More mornings,', 'more perks.'],
@@ -128,7 +129,10 @@ const STYLE = `<style>
     .c-img { max-width:140px !important; }
     .c-size { font-size:10px !important; letter-spacing:1.2px !important; }
     .c-gift { font-size:10.5px !important; }
-    .plans { padding:34px 12px 250px !important; }
+    .plans { padding:30px 12px 130px !important; }
+    .c-photo { max-width:150px !important; }
+    .c-btn { font-size:10px !important; letter-spacing:.6px !important; }
+    .c-btn a { padding:9px 12px !important; }
     .perks { width:100% !important; }
     .c-tab { font-size:9px !important; letter-spacing:.8px !important; padding:5px 10px !important; }
     .c-unit { font-size:12px !important; }
@@ -144,7 +148,9 @@ const STYLE = `<style>
     .c-img { max-width:112px !important; }
     .c-unit { font-size:11px !important; padding:5px 9px !important; }
     .c-off { font-size:9px !important; }
-    .plans { padding-bottom:220px !important; }
+    .plans { padding-bottom:110px !important; }
+    .c-photo { max-width:124px !important; }
+    .c-btn a { padding:8px 9px !important; }
     .c-tab { font-size:8px !important; padding:5px 7px !important; }
     .h-hero { font-size:36px !important; line-height:39px !important; }
     .btn { padding:15px 20px !important; font-size:13px !important; letter-spacing:1px !important; }
@@ -171,20 +177,24 @@ const pill = (t, style) => `<table role="presentation" cellpadding="0" cellspaci
 
 // a plan card: a tab on top ("Your plan now" in soft cream, the upgrade in shiny gold), the size, the
 // monthly price in the serif, a thin gold rule, the pouches, per serving in a pill, the club discount and
-// (15 -> 30) the free frother. The current plan is frosted and quieter, the upgrade is solid white with a
+// (15 -> 30) the free frother. The current plan is warm white and quieter, the upgrade is solid white with a
 // forest border. Hybrid columns: side by side when there is room, stacked in inboxes without media queries
 // under 556px; phones with media queries keep two columns.
-const card = (p, img, now, V) => `<div class="card-col" style="display:inline-block;vertical-align:top;width:100%;max-width:262px;">
+// each card carries its own CTA: the current plan -> their portal ("Keep my plan"), the upgrade -> the
+// pre-written switch email
+const cardBtn = (href, label, now) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:16px auto 0;border-collapse:separate;"><tr><td class="c-btn" bgcolor="${now ? '#FFFFFF' : FOREST}" style="background-color:${now ? '#FFFFFF' : FOREST};border:1.5px solid ${FOREST};border-radius:999px;font-family:${FONT};font-size:12px;line-height:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;"><a href="${amp(href)}" target="_blank" style="display:inline-block;padding:11px 20px;color:${now ? FOREST : BEIGE};text-decoration:none;">${label}</a></td></tr></table>`;
+const card = (p, img, now, V, photo = V.photos?.[now ? V.v : V.to]) => `<div class="card-col" style="display:inline-block;vertical-align:top;width:100%;max-width:262px;">
 <div style="padding:0 9px 18px;font-size:14px;">
 ${now ? pill('Your plan now', `bgcolor="${CREAM}" style="background-color:${CREAM};color:${SOFT};`) : pill(V.badge, `bgcolor="#D2A346" style="${SHINE}${SHINE_INK}`)}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:${now ? 'rgba(255,253,248,.82)' : '#FFFFFF'};border:${now ? '1px solid rgba(255,255,255,.9)' : `2px solid ${FOREST}`};border-radius:20px;padding:20px 12px 18px;font-family:${FONT};box-shadow:0 14px 30px rgba(70,40,10,${now ? '.18' : '.32'});">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:${now ? '#FFFCF5' : '#FFFFFF'};border:${now ? '1px solid #FFFFFF' : `2px solid ${FOREST}`};border-radius:20px;padding:20px 12px 18px;font-family:${FONT};box-shadow:0 14px 30px rgba(70,40,10,${now ? '.18' : '.32'});">
 <div class="c-size" style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${now ? SOFT : FOREST};">${p.size}</div>
 <div class="c-price" style="padding-top:8px;font-family:${SERIF};font-size:42px;line-height:44px;font-weight:700;color:${now ? SOFT : FOREST};">${p.price}<span style="font-family:${FONT};font-size:13px;font-weight:700;">/mo</span></div>
 <div style="margin:12px auto 0;width:44px;height:2px;line-height:2px;font-size:0;background-color:${GOLD};">&nbsp;</div>
-<img class="c-img" src="${img(p.img)}" width="200" height="133" alt="${p.alt}" style="display:block;margin:6px auto 4px;width:100%;max-width:200px;height:auto;border:0;">
+${photo ? `<img class="c-photo" src="${img(photo[0])}" width="210" height="210" alt="${photo[1]}" style="display:block;margin:14px auto 12px;width:100%;max-width:210px;height:auto;border:0;border-radius:14px;">` : `<img class="c-img" src="${img(p.img)}" width="200" height="133" alt="${p.alt}" style="display:block;margin:6px auto 4px;width:100%;max-width:200px;height:auto;border:0;">`}
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td class="c-unit" bgcolor="${now ? BEIGE : FOREST}" style="background-color:${now ? BEIGE : FOREST};border-radius:999px;padding:6px 14px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;color:${now ? INK : BEIGE};white-space:nowrap;">${p.unit}</td></tr></table>
 <div class="c-off" style="padding-top:10px;font-size:11px;line-height:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${now ? SOFT : FOREST};">${p.off}</div>
 ${V.gift ? `<div class="c-gift" style="padding-top:6px;font-size:12px;line-height:16px;font-weight:700;color:${now ? 'transparent' : '#A8741E'};">${now ? '&nbsp;' : ent(V.gift)}</div>` : ''}
+${now ? cardBtn(PORTAL, 'Keep my plan', true) : cardBtn(mailto(V.v, V.to, V.mailExtra || ''), `Switch to ${V.to}`, false)}
 </td></tr></table>
 </div>
 </div>`;
@@ -221,8 +231,8 @@ function upsell(V, img) {
 
 <!-- ── 2 · YOUR PLAN NOW vs THE UPGRADE, on Bernat's gold Mate Latte scene (top-right pouch removed);
      the pouch and the latte close the section ── -->
-<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:44px 28px 330px;font-family:${FONT};">
-<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:803px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:36px 28px 170px;font-family:${FONT};">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:780px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 6px rgba(90,50,10,.45);">Your plan, upgraded</div>
 <div style="padding-top:26px;">${cards([card(from, img, true, V), card(to, img, false, V)])}</div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->

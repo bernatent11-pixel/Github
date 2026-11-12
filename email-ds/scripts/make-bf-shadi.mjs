@@ -25,21 +25,21 @@ import { validate } from './validate-klaviyo-email.mjs';
 
 const OUT = 'exports/klaviyo/bf-shadi';
 fs.mkdirSync(OUT, { recursive: true });
-export const SUBJECT = 'a little gift from me 🎁';
-export const PREHEADER = '40% off your first Mate Latte box, and the frother and scooper on me.';
+export const SUBJECT = 'a gift for your first mate latte 🎁';
+export const PREHEADER = 'You haven’t tried it yet, so your first Starter Kit is 40% off, on me.';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=${slot}`;
 const KIT = `https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&${utm('shadi_kit_link')}`;
 
 // [kind, ...]. 'p' text · 'l' [before, link text, after, href] · 'sign' · 'ps' [before, link text, after, href]
 const LETTER = [
   ['p', 'Hey {{ first_name|default:\'there\' }},'],
-  ['p', 'I have a little gift for you. 🎁'],
+  ['p', 'You haven’t tried the Mate Latte yet, so I have a little gift for you. 🎁'],
   ['p', 'So many people tell me they’re tired of coffee. The jitters, the acidity, the afternoon crash. And most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.'],
   ['p', 'That’s why I made the Mate Latte: yerba mate for smooth, steady energy, in a creamy vanilla latte you’ll actually look forward to every morning. Ready in 30 seconds, hot or iced.'],
-  ['p', 'So this Black Friday, here’s my gift to you: 40% off your first Mate Latte Starter Kit. And with 30 or 60 servings, the frother and the scooper are on me.'],
+  ['p', 'So here’s my gift for your very first box: 40% off the Mate Latte Starter Kit. And with 30 or 60 servings, the frother and the scooper are on me. It’s the best way to try it.'],
   ['l', '', 'Open my gift', '', KIT],
   ['p', 'It’s monthly after that (30% off), and you can cancel anytime.'],
-  ['p', 'Enjoy it, and tell me what you think. Just hit reply.'],
+  ['p', 'I hope it becomes your favorite part of the morning. Tell me what you think. Just hit reply.'],
   ['sign', 'Un abrazo,', 'Shadi'],
 ];
 

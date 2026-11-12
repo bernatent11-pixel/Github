@@ -116,7 +116,7 @@ const VERSIONS = [
     preheader: 'Your next box ships soon. Two recipes to try with it.',
     eyebrow: 'Your Mate Mornings Club',
     t: ['Thank you for', 'every morning.'],
-    lead: `Your next box ships soon, and we just wanted to say thanks for making the Mate Latte part of your day. Here are two recipes to try ${nw('at home.')}`,
+    lead: `Your next box ships soon. Thanks for making the Mate Latte part of ${nw('your day.')}`,
   },
 ];
 
@@ -147,7 +147,7 @@ const STYLE = `<style>
     .c-btn a { padding:9px 12px !important; }
     .perks { width:100% !important; }
     .rec-col { max-width:330px !important; }
-    .sky-in { padding:30px 22px 370px !important; }
+    .sky-in { padding:30px 22px 450px !important; }
     .c-tab { font-size:9px !important; letter-spacing:.8px !important; padding:5px 10px !important; }
     .c-unit { font-size:12px !important; }
     .c-off { font-size:10px !important; letter-spacing:.6px !important; }
@@ -307,23 +307,22 @@ ${r.items.map((t) => `<tr><td valign="top" style="padding:3px 8px 3px 0;font-fam
 
 function thanks(V, img) {
   return `<!-- ── 1 · THANK YOU, on Bernat's photo (two hands raising Mate Latte pouches into a blue sky, the sky carried
-     higher for the headline); the cream waves up out of it into the recipes ── -->
+     higher for the headline); the thank-you line under the headline; the recipes follow on cream ── -->
 <tr><td class="sky" align="center" valign="top" background="${img('hero-sky.jpg')}" bgcolor="${SKY}" style="background-color:${SKY};background-image:url('${img('hero-sky.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;font-family:${FONT};">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1053px;"><v:fill type="frame" src="${img('hero-sky.jpg')}" color="${SKY}" /><v:textbox inset="0,0,0,0"><![endif]-->
-<div class="sky-in" style="padding:40px 40px 675px;">
+<div class="sky-in" style="padding:40px 40px 640px;">
 <a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:28px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 8px rgba(0,40,90,.35);">${ent(V.eyebrow)}</div>
 <div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:52px;line-height:56px;font-weight:400;color:#FFFFFF;text-shadow:0 2px 16px rgba(0,40,90,.35);">${ent(V.t[0])}</div>
 <div class="h-hero" style="font-family:${SERIF};font-size:52px;line-height:56px;font-weight:700;font-style:italic;color:#FFFFFF;text-shadow:0 2px 16px rgba(0,40,90,.35);">${ent(V.t[1])}</div>
+<div class="lead" style="max-width:440px;margin:0 auto;padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:#FFFFFF;text-shadow:0 1px 10px rgba(0,40,90,.45);">${ent(V.lead)}</div>
 </div>
-<img class="edge" src="${img('edge-bottom.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
 <!-- ── 3 · TWO RECIPES TO MAKE AT HOME (Bernat's photos, background removed): a hot mocha and an iced brown
      sugar oat. Hybrid columns: side by side on desktop, stacked on phones and in inboxes under 556px ── -->
-${row(CREAM, 'pad bg-cream', 'padding:18px 40px 0;', `<div style="max-width:470px;margin:0 auto 40px;">${lead(V.lead, INK, 'padding-top:0;')}</div>
-${eyebrow('Make it at home')}
+${row(CREAM, 'pad bg-cream', 'padding:50px 40px 0;', `${eyebrow('Make it at home')}
 ${title(['Two recipes,', 'one for each cup.'], 'h-sec', 38)}`)}
 <tr><td class="pad-cards bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 26px 6px;font-family:${FONT};">
 <div style="font-size:0;line-height:0;text-align:center;">

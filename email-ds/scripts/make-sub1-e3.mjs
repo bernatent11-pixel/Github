@@ -8,8 +8,8 @@
 //
 // Facts used (milonga.life / Shopify, 2026-11-11)
 //   Mate Latte, monthly only. 15 servings $34.99, plan 9479323958: 15% off every order after the first ->
-//   $29.74/mo ($1.98 a serving). 30 servings $66.48 and 60 servings $125.98, plan 8837562678: 30% off every
-//   order after the first -> $46.54/mo ($1.55) and $88.19/mo ($1.47). 1 / 2 / 4 pouches (the bags art).
+//   $29.74/mo ($1.98 a serving). 30 servings $62.98 and 60 servings $118.96 (Shopify, 2026-11-12), plan 8837562678: 30% off every
+//   order after the first -> $44.09/mo ($1.47) and $83.27/mo ($1.39). 1 / 2 / 4 pouches (the bags art).
 //   How to switch: the 15 and the 30 & 60 servings sit in different selling plan groups, and we have not
 //   verified that Appstle's portal can swap sizes, so the switch is a pre-written email to the team
 //   (mailto, orders@milongamate.com) or a reply. The personal portal link is Appstle's
@@ -59,8 +59,8 @@ const nw = (s) => `<span style="white-space:nowrap;">${s}</span>`;
 
 const PLAN = {
   15: { size: '15 Servings', img: 'bags-15.png', alt: 'One Mate Latte pouch', price: '$29.74', unit: '$1.98 / serving', off: '15% off every order' },
-  30: { size: '30 Servings', img: 'bags-30.png', alt: 'Two Mate Latte pouches', price: '$46.54', unit: '$1.55 / serving', off: '30% off every order' },
-  60: { size: '60 Servings', img: 'bags-60.png', alt: 'Four Mate Latte pouches', price: '$88.19', unit: '$1.47 / serving', off: '30% off every order' },
+  30: { size: '30 Servings', img: 'bags-30.png', alt: 'Two Mate Latte pouches', price: '$44.09', unit: '$1.47 / serving', off: '30% off every order' },
+  60: { size: '60 Servings', img: 'bags-60.png', alt: 'Four Mate Latte pouches', price: '$83.27', unit: '$1.39 / serving', off: '30% off every order' },
 };
 
 const VERSIONS = [
@@ -258,7 +258,7 @@ function thanks(V, img) {
 
 <!-- ── 2 · ALREADY OUR BEST VALUE ── -->
 ${row(GOLD, 'pad bg-gold', 'padding:46px 40px 50px;', `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:7px 18px;font-family:${FONT};font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;white-space:nowrap;">${ent('You’re on our best value')}</td></tr></table>
-<div class="big" style="padding-top:16px;font-family:${SERIF};font-size:64px;line-height:66px;font-weight:700;color:${FOREST};">$1.47</div>
+<div class="big" style="padding-top:16px;font-family:${SERIF};font-size:64px;line-height:66px;font-weight:700;color:${FOREST};">$1.39</div>
 <div style="padding-top:2px;font-family:${SERIF};font-size:24px;line-height:30px;font-weight:700;font-style:italic;color:${FOREST};">a cup</div>
 <img class="c-img" src="${img(p.img)}" width="240" height="160" alt="${p.alt}" style="display:block;margin:14px auto 4px;width:240px;max-width:100%;height:auto;border:0;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">60 servings &middot; 30% off every order</div>`)}

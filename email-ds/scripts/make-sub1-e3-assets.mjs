@@ -75,3 +75,17 @@ for (const [src, out] of [['src-plan-15-124.jpg', 'plan-15.jpg'], ['src-plan-30-
   await sharp(Buffer.from(svg(wave(96, 2.4), H, -1))).png({ compressionLevel: 9 }).toFile(`${OUT}/edge-bottom.png`);
   for (const f of ['edge-top.png', 'edge-bottom.png']) console.log(f, (await import('node:fs')).statSync(`${OUT}/${f}`).size);
 }
+
+// v6 (Bernat, 2026-11-12): the 60 servings email's two home recipes. His photos (src-recipe-*-12x.jpg) with
+// the marble removed (Higgsfield background remover -> src-recipe-*-cut.png), trimmed, centred on a 440x440
+// transparent canvas with a soft shadow under the glass: recipe-mocha.png (hot) and recipe-iced.png (iced).
+for (const [src, out] of [['src-recipe-mocha-cut.png', 'recipe-mocha.png'], ['src-recipe-iced-cut.png', 'recipe-iced.png']]) {
+  const C = 440, trimmed = await sharp(`exports/klaviyo/sub1-e3/${src}`).trim().png().toBuffer();
+  const t = await sharp(trimmed).resize({ width: 380, height: 380, fit: 'inside' }).png().toBuffer();
+  const tm = await sharp(t).metadata();
+  const left = Math.round((C - tm.width) / 2), top = Math.round((C - 24 - tm.height) / 2);
+  const shadow = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${C}" height="${C}"><defs><filter id="b"><feGaussianBlur stdDeviation="10"/></filter></defs><ellipse cx="${C / 2}" cy="${top + tm.height - 6}" rx="${Math.round(tm.width * 0.42)}" ry="16" fill="#4A2A0C" fill-opacity=".28" filter="url(#b)"/></svg>`);
+  const blank = { create: { width: C, height: C, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } };
+  await sharp(await sharp(blank).composite([{ input: shadow }, { input: t, left, top }]).png().toBuffer()).png({ palette: true, quality: 92, effort: 10 }).toFile(`${OUT}/${out}`);
+  console.log(out, (await import('node:fs')).statSync(`${OUT}/${out}`).size);
+}

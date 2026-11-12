@@ -112,10 +112,10 @@ const VERSIONS = [
   {
     v: 60,
     subject: 'Thank you for every morning 💛',
-    preheader: 'Your next box ships soon. A few ways to enjoy it.',
+    preheader: 'Your next box ships soon. Two recipes to try with it.',
     eyebrow: 'Your Mate Mornings Club',
     t: ['Thank you for', 'every morning.'],
-    lead: `Your next box ships soon, and we just wanted to say thanks for making the Mate Latte part of your day. Here are a few ways to keep it ${nw('feeling new.')}`,
+    lead: `Your next box ships soon, and we just wanted to say thanks for making the Mate Latte part of your day. Here are two recipes to try ${nw('at home.')}`,
   },
 ];
 
@@ -145,6 +145,7 @@ const STYLE = `<style>
     .c-btn { font-size:10px !important; letter-spacing:.6px !important; }
     .c-btn a { padding:9px 12px !important; }
     .perks { width:100% !important; }
+    .rec-col { max-width:330px !important; }
     .c-tab { font-size:9px !important; letter-spacing:.8px !important; padding:5px 10px !important; }
     .c-unit { font-size:12px !important; }
     .c-off { font-size:10px !important; letter-spacing:.6px !important; }
@@ -277,6 +278,30 @@ const drink = (pad, image, alt, name, text, img) => `<td width="50%" align="cent
 <div class="drink-text" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:${INK};">${text}</div>
 </td>`;
 
+// the two home recipes (Bernat, 2026-11-12). 2.5 tbsp in 8oz of milk is the product page's serving.
+const RECIPES = [
+  { img: 'recipe-mocha.png', alt: 'A hot mocha Mate Latte in a glass mug with chocolate shavings', tag: 'Hot', name: 'Mocha Mate Latte',
+    items: ['2.5 tbsp Mate Latte', '8oz milk', '1 tsp cocoa powder'],
+    how: 'Heat the milk, whisk in the cocoa and the Mate Latte, and froth. Top with a little shaved chocolate.' },
+  { img: 'recipe-iced.png', alt: 'An iced brown sugar oat Mate Latte with syrup streaks down the glass', tag: 'Iced', name: 'Iced Brown Sugar Oat Mate Latte',
+    items: ['2.5 tbsp Mate Latte', '8oz cold oat milk', '1 tsp brown sugar syrup', 'Ice'],
+    how: 'Drizzle the syrup inside the glass, add ice, and pour in the Mate Latte mixed with the oat milk.' },
+];
+const recipe = (r, img) => `<div class="rec-col" style="display:inline-block;vertical-align:top;width:100%;max-width:270px;">
+<div style="padding:0 8px 18px;font-size:14px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border-radius:20px;padding:18px 20px 24px;font-family:${FONT};box-shadow:0 10px 24px rgba(70,40,10,.12);">
+<img src="${img(r.img)}" width="200" height="200" alt="${r.alt}" style="display:block;margin:0 auto;width:100%;max-width:200px;height:auto;border:0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:8px auto 0;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:5px 14px;font-family:${FONT};font-size:10px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;">${r.tag}</td></tr></table>
+<div style="padding-top:10px;font-family:${SERIF};font-size:24px;line-height:28px;font-weight:700;font-style:italic;color:${FOREST};">${r.name}</div>
+<div style="margin:14px auto 0;width:44px;height:2px;line-height:2px;font-size:0;background-color:${GOLD};">&nbsp;</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:12px auto 0;">
+${r.items.map((t) => `<tr><td valign="top" style="padding:3px 8px 3px 0;font-family:${FONT};font-size:14px;line-height:20px;font-weight:700;color:${GOLD};">&bull;</td><td align="left" style="padding:3px 0;font-family:${FONT};font-size:14px;line-height:20px;font-weight:700;color:${INK};">${t}</td></tr>`).join('\n')}
+</table>
+<div style="padding-top:12px;font-size:13px;line-height:20px;font-weight:500;color:${SOFT};">${ent(r.how)}</div>
+</td></tr></table>
+</div>
+</div>`;
+
 function thanks(V, img) {
   const p = PLAN[60];
   return `${header(V, img)}
@@ -304,16 +329,18 @@ ${pill(ent('You’re on our best value'), `bgcolor="#D2A346" style="${SHINE}${SH
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
-<!-- ── 3 · WAYS TO ENJOY IT (the hot and iced cutouts from pp1-e1) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:26px 40px 0;', `${eyebrow('Mix it up')}
-${title(['Two cups a day,', 'two ways.'], 'h-sec', 38)}`)}
-<tr><td class="pad bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 30px 10px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-${drink('0 10px 0 0', 'drink-hot.png', 'A hot Mate Latte in a glass mug', 'Hot', `Heat ${nw('8oz of milk')} or water, add ${nw('2.5 tablespoons')} and froth until smooth.`, img)}
-${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'Iced', `Mix ${nw('2.5 tablespoons')} into ${nw('8oz of cold')} milk or water and pour it over ice.`, img)}
-</tr></table>
+<!-- ── 3 · TWO RECIPES TO MAKE AT HOME (Bernat's photos, background removed): a hot mocha and an iced brown
+     sugar oat. Hybrid columns: side by side on desktop, stacked on phones and in inboxes under 556px ── -->
+${row(CREAM, 'pad bg-cream', 'padding:26px 40px 0;', `${eyebrow('Make it at home')}
+${title(['Two recipes,', 'one for each cup.'], 'h-sec', 38)}`)}
+<tr><td class="pad-cards bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 26px 6px;font-family:${FONT};">
+<div style="font-size:0;line-height:0;text-align:center;">
+<!--[if mso]><table role="presentation" width="540" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="270" valign="top"><![endif]-->
+${RECIPES.map((r) => recipe(r, img)).join('\n<!--[if mso]></td><td width="270" valign="top"><![endif]-->\n')}
+<!--[if mso]></td></tr></table><![endif]-->
+</div>
 </td></tr>
-${row(CREAM, 'pad bg-cream', 'padding:14px 40px 52px;', `<div style="max-width:430px;margin:0 auto;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Tip: try it with oat or almond milk, or a pinch of cinnamon on top. What’s your go-to? Hit reply and tell us. We read every one.')}</div>`)}
+${row(CREAM, 'pad bg-cream', 'padding:10px 40px 52px;', `<div style="max-width:430px;margin:0 auto;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('What’s your go-to? Hit reply and tell us. We read every one.')}</div>`)}
 
 <!-- ── 4 · YOUR PLAN, YOUR PACE ── -->
 ${row('#FFFFFF', 'pad bg-white', 'padding:50px 40px 52px;', `${eyebrow('Your plan, your pace')}

@@ -1,0 +1,23 @@
+SUBJECT: can I ask you something?
+PREVIEW: One tap, and it really helps us.
+FROM: Shadi from Milonga
+
+Hey {{ first_name|default:'there' }},
+
+Shadi here. I saw you cancelled your subscription. No hard feelings at all, and thank you for giving us a try. It really means a lot.
+
+Can I ask why? It helps us more than you’d think. Just tap the one that fits best:
+
+- I had too much at home: https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=sub_cancel_survey&utm_content=reason_too_much
+- It’s a bit too expensive for me: https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=sub_cancel_survey&utm_content=reason_price
+- The taste wasn’t for me: https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=sub_cancel_survey&utm_content=reason_taste
+- I’d rather order when I need it: https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=sub_cancel_survey&utm_content=reason_one_time
+- Something went wrong with my order: https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=sub_cancel_survey&utm_content=reason_order_issue
+- Something else: https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=sub_cancel_survey&utm_content=reason_other
+
+Or just hit reply and tell me in your own words. I read every one myself.
+
+And if you ever miss your mornings with us, we’ll be right here.
+
+Un abrazo,
+Shadi

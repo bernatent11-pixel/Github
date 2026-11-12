@@ -36,8 +36,9 @@ await sharp('exports/klaviyo/sub1-e3/src-gold-clean-hf.png').resize(1200, 1607).
 //   plan-15.jpg  one pouch and milk poured into an iced latte (src-plan-15-124.jpg)
 //   plan-30.jpg  the 30 servings shot: "Best seller", "30 servings, free frother + scoop" (src-plan-30-125.jpg)
 // 440x440, shown at up to 210px.
+// plan-30.jpg  v2: Bernat's two-pouch 30 servings shot (src-plan-30-2pouch.png, uploaded to the branch as "BEST VALUE.png")
 // plan-60.jpg  the 60 servings shot: "Best value", "60 servings, free frother + scoop" (src-plan-60-126.jpg), for 30 -> 60
-for (const [src, out] of [['src-plan-15-124.jpg', 'plan-15.jpg'], ['src-plan-30-125.jpg', 'plan-30.jpg'], ['src-plan-60-126.jpg', 'plan-60.jpg']]) {
+for (const [src, out] of [['src-plan-15-124.jpg', 'plan-15.jpg'], ['src-plan-30-2pouch.png', 'plan-30.jpg'], ['src-plan-60-126.jpg', 'plan-60.jpg']]) {
   await sharp(`exports/klaviyo/sub1-e3/${src}`).resize(440, 440).jpeg({ quality: 84, mozjpeg: true }).toFile(`${OUT}/${out}`);
   console.log(out, (await sharp(`${OUT}/${out}`).metadata()).size ?? '');
 }

@@ -45,3 +45,14 @@ LINKS (utm_campaign=black_friday_2026; all checked 200 on 2026-11-11)
   "Shop Lion's Mane" + its card   /products/lion-s-mane?selling_plan=6832750902&variant=53053588701494 (24, Starter Kit)
   "Shop Infused" + its card       /products/cannabis-regular-10mg?selling_plan=6832750902&variant=52759098196278 (24, Starter Kit)
   Logo, footer                    https://milonga.life/
+
+MOBILE (checked 2026-11-12 in a browser at 320, 360, 375 and 414 px, with and without the media queries)
+  No sideways scrolling and nothing past the screen edge at any of them.
+  The layout is fluid by default (100% wide up to 600, an Outlook-only 600px table around it), so inboxes
+  that drop media queries (Gmail app with non-Gmail accounts, some Android apps) still fit the screen:
+  the price cards and the can buttons are inline blocks that sit side by side when there is room and
+  stack when there is not; the section 2 header is a centred 300px column; the Starter Kit list is 100%
+  up to 380px; buttons may wrap rather than overflow.
+  With media queries: two price cards side by side on phones; tighter type, images and buttons at 360px
+  and below; the hero is 585px tall with smaller headline type.
+  Renders: bf-2026-phone.jpg (390), bf-2026-phone-320.jpg, bf-2026-phone-no-media-375.jpg.

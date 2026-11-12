@@ -109,19 +109,31 @@ const STYLE = `<style>
     .hero-t2 { font-size:25px !important; line-height:30px !important; padding-top:4px !important; }
     .hero-rule { margin-top:12px !important; }
     .hero-t3 { font-size:14px !important; line-height:20px !important; padding-top:10px !important; }
-    .cta-col { display:block !important; width:100% !important; padding:0 0 14px !important; }
     .cta-col .btn { padding:16px 26px !important; }
     .h-offer2 { font-size:24px !important; line-height:30px !important; }
-    .ml-head { padding:0 58px !important; }
-    .card-col { padding-left:4px !important; padding-right:4px !important; }
+    .ml-head { max-width:250px !important; }
+    .card-col { width:50% !important; max-width:50% !important; }
+    .card-col > div { padding:0 4px 14px !important; }
     .card { padding:16px 6px 16px !important; }
     .c-price { font-size:26px !important; line-height:30px !important; }
-    .c-img { width:150px !important; height:100px !important; }
+    .c-img { max-width:150px !important; }
     .c-unit { font-size:12px !important; }
     .ml-sec { padding:28px 14px 30px !important; background-size:cover !important; }
     .kit { padding-left:22px !important; padding-right:22px !important; }
     .kit-list { width:100% !important; }
     .btn { padding:17px 30px !important; font-size:14px !important; letter-spacing:1.5px !important; }
+  }
+  @media only screen and (max-width:360px) {
+    .card { padding:14px 4px 14px !important; }
+    .c-price { font-size:23px !important; line-height:27px !important; }
+    .c-img { max-width:118px !important; }
+    .c-label { font-size:9px !important; letter-spacing:.8px !important; }
+    .c-unit { font-size:11px !important; }
+    .hero-t1 { font-size:44px !important; line-height:46px !important; }
+    .hero-t2 { font-size:22px !important; line-height:27px !important; }
+    .h-offer { font-size:30px !important; line-height:34px !important; }
+    .ml-head { max-width:230px !important; }
+    .btn { padding:15px 22px !important; font-size:13px !important; letter-spacing:1px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
@@ -134,7 +146,7 @@ const STYLE = `<style>
 
 const button = (href, label, width, bg = FOREST, ink = BEIGE, shadow = DEEP) => `<!--[if mso]>
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${amp(href)}" style="height:56px;v-text-anchor:middle;width:${width}px;" arcsize="50%" stroke="f" fillcolor="${bg}"><w:anchorlock/><center style="color:${ink};font-family:Arial,sans-serif;font-size:16px;font-weight:bold;letter-spacing:2px;">${label}</center></v:roundrect>
-<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${shadow};">${label}</a><!--<![endif]-->`;
+<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 36px;font-family:${FONT};font-size:16px;line-height:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${shadow};">${label}</a><!--<![endif]-->`;
 const row = (bg, cls, style, inner) => `<tr><td class="${cls}" align="center" bgcolor="${bg}" style="background-color:${bg};${style}font-family:${FONT};">
 ${inner}
 </td></tr>`;
@@ -142,30 +154,37 @@ const tag = (t, size = 13, pad = '7px 18px') => `<table role="presentation" cell
 // a price card, like the website's: shiny badge, size, first-box price, struck price, the product,
 // the shiny "Save X%", per unit, then
 const CARD_DARK = '#8E5242';
-const card = (c, img) => `<td class="card-col" align="center" valign="top" width="50%" style="width:50%;padding:0 8px;">
+// hybrid: inline-block columns that sit side by side when there is room and stack when there is not
+// (inboxes without media queries); phones with media queries keep two narrower columns
+const card = (c, img) => `<div class="card-col" style="display:inline-block;vertical-align:top;width:100%;max-width:278px;">
+<div style="padding:0 8px 18px;font-size:14px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}border-radius:9px 9px 0 0;padding:5px 14px;font-family:${FONT};font-size:10px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;${SHINE_INK}white-space:nowrap;">${c.badge || '&nbsp;'}</td></tr></table>
 <a href="${amp(c.href)}" target="_blank" style="text-decoration:none;display:block;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:1px solid #EAD9C6;border-radius:18px;padding:20px 10px 18px;font-family:${FONT};box-shadow:0 8px 20px rgba(40,15,5,.22);">
 <div style="font-size:14px;line-height:18px;font-weight:700;color:#141414;">${ent(c.size)}</div>
 <div class="c-price" style="padding-top:6px;font-size:34px;line-height:38px;font-weight:700;color:${COCOA};">${c.price}</div>
 <div style="padding-top:2px;font-size:14px;line-height:18px;font-weight:700;color:#8A7A70;text-decoration:line-through;">${c.was}</div>
-<img class="c-img" src="${img(c.img)}" width="210" height="140" alt="${c.alt}" style="display:block;margin:8px auto 4px;width:210px;height:140px;border:0;">
-<div style="padding:2px 0 8px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${COCOA};">Monthly Starter Kit</div>
+<img class="c-img" src="${img(c.img)}" width="210" height="140" alt="${c.alt}" style="display:block;margin:8px auto 4px;width:100%;max-width:210px;height:auto;border:0;">
+<div class="c-label" style="padding:2px 0 8px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${COCOA};">Monthly Starter Kit</div>
 ${tag(`Save ${c.save}`)}
 <div class="c-unit" style="padding-top:12px;font-size:14px;line-height:18px;font-weight:700;color:#141414;">${c.unit}</div>
 <div style="padding-top:4px;font-size:12px;line-height:16px;font-weight:700;color:#5A4A42;">${c.then}</div>
 </td></tr></table>
 </a>
-</td>`;
-const cards = (list, img) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
-${list.map((c) => card(c, img)).join('\n')}
-</tr></table>`;
+</div>
+</div>`;
+const cards = (list, img) => `<div class="cards" style="font-size:0;line-height:0;text-align:center;">
+<!--[if mso]><table role="presentation" width="556" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="278" valign="top"><![endif]-->
+${list.map((c) => card(c, img)).join('\n<!--[if mso]></td><td width="278" valign="top"><![endif]-->\n')}
+<!--[if mso]></td></tr></table><![endif]-->
+</div>`;
 const kitRow = (img, icon, text) => `<tr><td width="36" valign="middle" style="width:36px;padding:9px 0;"><img src="${img(icon)}" width="24" height="24" alt="" role="presentation" style="display:block;width:24px;height:24px;border:0;"></td><td valign="middle" style="padding:9px 0;font-family:${FONT};font-size:15px;line-height:21px;font-weight:700;color:${COCOA};border-bottom:1px solid #EFDFC6;">${text}</td></tr>`;
 
 function body(img) {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;table-layout:fixed;">
+<!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
+<table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;table-layout:fixed;">
 
 <!-- ── 1 · BLACK FRIDAY · Bernat's poster (the copy is in the image; the alt text repeats it), then the
      button on a strip that carries the poster's bottom edge down into the offers' chocolate ── -->
@@ -186,7 +205,7 @@ ${button(`${SITE}/?${utm('bf_hero_button')}`, 'Shop the sale', 280, PILL, '#2A1A
 <!-- ── 2 · MATE LATTE · the gold scene with its liquid turned dark chocolate is the background; the scene's
      pouch and latte close the section ── -->
 <tr><td class="ml-sec" align="center" valign="top" background="${img('ml-scene.jpg')}" bgcolor="${GOLDLOW}" style="background-color:${GOLDLOW};background-image:url('${img('ml-scene.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:30px 22px 34px;font-family:${FONT};">
-<div class="ml-head" style="padding:0 128px;text-align:center;">
+<div class="ml-head" style="max-width:300px;margin:0 auto;text-align:center;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}border-radius:999px;padding:7px 18px;font-family:${FONT};font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;${SHINE_INK}white-space:nowrap;">Mate Latte</td></tr></table>
 <div style="clear:both;font-size:0;line-height:0;">&nbsp;</div>
 <div class="h-offer" style="padding-top:14px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;color:${COCOA};">Monthly<br>Starter Kit</div>
@@ -206,7 +225,7 @@ ${tag('Starter Kit', 12)}
 <div class="h-offer" style="padding-top:16px;font-family:${SERIF};font-size:40px;line-height:44px;font-weight:400;color:${FOREST};">Everything in your</div>
 <div class="h-offer" style="font-family:${SERIF};font-size:40px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">Starter Kit.</div>
 <div style="padding-top:12px;font-size:15px;line-height:22px;font-weight:500;color:#5A4A42;">With <b style="color:${COCOA};">30 &amp; 60 servings</b> of Mate Latte ${nw('on the Monthly Starter Kit only.')}</div>
-<table role="presentation" class="kit-list" width="380" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:26px auto 0;width:380px;text-align:left;">
+<table role="presentation" class="kit-list" width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:26px auto 0;width:100%;max-width:380px;text-align:left;">
 ${kitRow(img, 'kit-percent.png', 'Save 40% off your first order')}
 ${kitRow(img, 'kit-gift.png', 'FREE Frother + FREE Scooper')}
 ${kitRow(img, 'kit-truck.png', 'Delivered to your door every month')}
@@ -226,10 +245,13 @@ ${tag('The cans', 12)}
   { badge: 'Lion’s Mane', size: '24 cans', price: '$52.92', was: '$75.60', img: 'cans-lm.png', alt: 'Lion’s Mane cans', save: '30%', unit: '$2.21 / can', then: 'then $60.48/mo', href: L.can('lion-s-mane', '53053588701494', 'bf_cans_lm') },
   { badge: 'Infused', size: '24 cans', price: '$104.30', was: '$149.00', img: 'cans-inf.png', alt: 'Infused yerba mate cans', save: '30%', unit: '$4.35 / can', then: 'then $119.20/mo', href: L.can('cannabis-regular-10mg', '52759098196278', 'bf_cans_infused') },
 ], img)}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:28px;table-layout:fixed;"><tr>
-<td class="cta-col" align="center" width="50%" style="width:50%;padding:0 6px;">${button(L.can('lion-s-mane', '53053588701494', 'bf_lm_button'), 'Shop Lion’s Mane', 250, PILL, COCOA, '#B58E3A')}</td>
-<td class="cta-col" align="center" width="50%" style="width:50%;padding:0 6px;">${button(L.can('cannabis-regular-10mg', '52759098196278', 'bf_infused_button'), 'Shop Infused', 250, PILL, COCOA, '#B58E3A')}</td>
-</tr></table>
+<div style="padding-top:28px;font-size:0;line-height:0;text-align:center;">
+<!--[if mso]><table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td style="padding:0 6px;"><![endif]-->
+<div class="cta-col" style="display:inline-block;vertical-align:top;margin:0 6px 14px;">${button(L.can('lion-s-mane', '53053588701494', 'bf_lm_button'), 'Shop Lion’s Mane', 250, PILL, COCOA, '#B58E3A')}</div>
+<!--[if mso]></td><td style="padding:0 6px;"><![endif]-->
+<div class="cta-col" style="display:inline-block;vertical-align:top;margin:0 6px 14px;">${button(L.can('cannabis-regular-10mg', '52759098196278', 'bf_infused_button'), 'Shop Infused', 250, PILL, COCOA, '#B58E3A')}</div>
+<!--[if mso]></td></tr></table><![endif]-->
+</div>
 </td></tr>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
@@ -243,6 +265,7 @@ ${tag('The cans', 12)}
 </td></tr>
 
 </table>
+<!--[if mso]></td></tr></table><![endif]-->
 </td></tr>
 </table>`;
 }

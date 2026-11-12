@@ -42,27 +42,34 @@ for (const [src, out] of [['src-plan-15-124.jpg', 'plan-15.jpg'], ['src-plan-30-
 }
 
 // v4 (Bernat, 2026-11-12): a 3D transition in and out of the plans section. Two transparent overlays that
-// sit inside the section, over its background: the cream above curves down into the gold (edge-top.png)
-// and the cream below curves up out of it (edge-bottom.png). Each has a shaded lip, a thin gold rim and a
-// soft brown shadow cast on the gold, so the cream reads as a raised panel. 1200x150, shown at 600x75.
+// sit inside the section, over its background: the cream above flows down into the gold (edge-top.png) and
+// the cream below rises out of it (edge-bottom.png). v5: wavy ("more like a wavy one"). Each wave has a
+// rolled lip (shading that follows the wave, with a light highlight just inside it), a thin gold rim and a
+// soft brown shadow cast on the gold, so the cream reads as a raised panel. 1200x180, shown at 600x90.
 {
-  const W = 1200, H = 150, CREAM = '#F7F4EA', SHADE = '#E9E0C8', RIM = '#E3BC62';
-  const svg = (shape, edge, shadowDy, grad) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">${grad}</linearGradient>
+  const W = 1200, H = 180, CREAM = '#F7F4EA', RIM = '#E3BC62';
+  const wave = (base, phase) => { const pts = []; for (let x = 0; x <= W; x += 6) { const t = x / W; pts.push([x, base + 36 * Math.sin(t * Math.PI * 2 * 1.5 + phase) + 9 * Math.sin(t * Math.PI * 2 * 3.2 + phase * 1.7)]); } return pts; };
+  const line = (pts) => pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x},${y.toFixed(1)}`).join(' ');
+  const shapeOf = (pts, fromY) => `M0,${fromY} L${W},${fromY} L${line([...pts].reverse()).slice(1)} Z`;
+  const svg = (pts, fromY, dir) => {
+    const shape = shapeOf(pts, fromY), edge = line(pts);
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+<defs><clipPath id="c"><path d="${shape}"/></clipPath>
 <filter id="b" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="13"/></filter>
-<filter id="b2" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="3"/></filter></defs>
-<path d="${shape}" transform="translate(0 ${shadowDy})" fill="#4A2A0C" fill-opacity=".62" filter="url(#b)"/>
-<path d="${shape}" transform="translate(0 ${shadowDy / 3})" fill="#4A2A0C" fill-opacity=".35" filter="url(#b2)"/>
-<path d="${shape}" fill="url(#g)"/>
+<filter id="b2" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+<filter id="lip" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+<filter id="hi" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="2.5"/></filter></defs>
+<path d="${shape}" transform="translate(0 ${dir * 24})" fill="#4A2A0C" fill-opacity=".6" filter="url(#b)"/>
+<path d="${shape}" transform="translate(0 ${dir * 7})" fill="#4A2A0C" fill-opacity=".32" filter="url(#b2)"/>
+<path d="${shape}" fill="${CREAM}"/>
+<g clip-path="url(#c)">
+<path d="${edge}" fill="none" stroke="#CDBB8E" stroke-opacity=".85" stroke-width="34" filter="url(#lip)"/>
+<path d="${edge}" transform="translate(0 ${-dir * 15})" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="5" filter="url(#hi)"/>
+</g>
 <path d="${edge}" fill="none" stroke="${RIM}" stroke-width="4"/>
 </svg>`;
-  // top: cream from the top, its bottom edge bowing down (sides 36px, middle ~100px)
-  await sharp(Buffer.from(svg('M0,0 H1200 V36 Q600,166 0,36 Z', 'M0,36 Q600,166 1200,36', 24,
-    `<stop offset="0" stop-color="${CREAM}"/><stop offset=".45" stop-color="${CREAM}"/><stop offset=".72" stop-color="${SHADE}"/><stop offset="1" stop-color="#DCCFAE"/>`)))
-    .png({ compressionLevel: 9 }).toFile(`${OUT}/edge-top.png`);
-  // bottom: cream from the bottom, its top edge bowing up (sides 114px, middle ~50px)
-  await sharp(Buffer.from(svg('M0,150 H1200 V114 Q600,-16 0,114 Z', 'M0,114 Q600,-16 1200,114', -24,
-    `<stop offset="0" stop-color="#DCCFAE"/><stop offset=".3" stop-color="${SHADE}"/><stop offset=".6" stop-color="${CREAM}"/><stop offset="1" stop-color="${CREAM}"/>`)))
-    .png({ compressionLevel: 9 }).toFile(`${OUT}/edge-bottom.png`);
+  };
+  await sharp(Buffer.from(svg(wave(84, 0.3), 0, 1))).png({ compressionLevel: 9 }).toFile(`${OUT}/edge-top.png`);
+  await sharp(Buffer.from(svg(wave(96, 2.4), H, -1))).png({ compressionLevel: 9 }).toFile(`${OUT}/edge-bottom.png`);
   for (const f of ['edge-top.png', 'edge-bottom.png']) console.log(f, (await import('node:fs')).statSync(`${OUT}/${f}`).size);
 }

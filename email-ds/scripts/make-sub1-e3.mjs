@@ -233,12 +233,12 @@ function upsell(V, img) {
      the pouch and the latte close the section ── -->
 <tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;font-family:${FONT};">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:780px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
-<img class="edge" src="${img('edge-top.png')}" width="600" height="75" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
+<img class="edge" src="${img('edge-top.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
 <div class="plans-in" style="padding:6px 28px 70px;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 6px rgba(90,50,10,.45);">Your plan, upgraded</div>
 <div style="padding-top:26px;">${cards([card(from, img, true, V), card(to, img, false, V)])}</div>
 </div>
-<img class="edge" src="${img('edge-bottom.png')}" width="600" height="75" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
+<img class="edge" src="${img('edge-bottom.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 ${V.perks ? `

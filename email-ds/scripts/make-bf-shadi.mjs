@@ -1,9 +1,10 @@
 // Campaign · Black Friday 2026 · a plain letter from Shadi
 //
 // For people who have not tried the Mate Latte yet (send to everyone who has never ordered it).
-// Job: put a person and a feeling behind the sale. Black Friday is loud; this is the quiet note:
-// the ritual Shadi found in Argentina, why he made the Mate Latte, and the one thing he would want
-// them to try, at the lowest price of the year. Asks for a reply.
+// Job (Bernat, 2026-11-12): the problem, then the answer. People are tired of coffee (jitters, acidity,
+// the afternoon crash), and the alternatives aren't a cup you look forward to (they taste bitter or
+// earthy and don't do much). That's why Shadi made the Mate Latte; now the Starter Kit is 40% off the
+// first box with a free frother and scooper (30 and 60 servings). Short, one link.
 //
 // Facts used
 //   Shadi's story as he tells it (welcome-story, Bernat 2026-11-06): moved from South Florida to
@@ -22,19 +23,20 @@ import { validate } from './validate-klaviyo-email.mjs';
 
 const OUT = 'exports/klaviyo/bf-shadi';
 fs.mkdirSync(OUT, { recursive: true });
-export const SUBJECT = 'the one thing i’d want you to try';
-export const PREHEADER = 'A quick note from me, and 40% off your first Mate Latte.';
+export const SUBJECT = 'tired of coffee?';
+export const PREHEADER = 'Why I made the Mate Latte, and 40% off your first box.';
 const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=${slot}`;
 const KIT = `https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&${utm('shadi_kit_link')}`;
 
 // [kind, ...]. 'p' text · 'l' [before, link text, after, href] · 'sign' · 'ps' [before, link text, after, href]
 const LETTER = [
   ['p', 'Hey {{ first_name|default:\'there\' }},'],
-  ['p', 'Before the Black Friday noise, a quick one from me.'],
-  ['p', 'At 19, I moved to Argentina to chase pro soccer. What stayed with me was a gourd of mate passed around a circle of friends. No phones, just people, slowing down.'],
-  ['p', 'That’s why I made the Mate Latte: a creamy vanilla latte made with yerba mate, ready in 30 seconds. Steady energy, no jitters, no crash.'],
-  ['p', 'If you haven’t tried it, now’s the time. Your first Monthly Starter Kit is 40% off ($39.89 for 30 servings), and the frother and scooper are on me.'],
-  ['l', '', 'Try your first Mate Latte', '', KIT],
+  ['p', 'Quick one before the Black Friday noise.'],
+  ['p', 'So many people tell me the same thing: they’re tired of coffee. The jitters, the acidity, the afternoon crash.'],
+  ['p', 'But most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.'],
+  ['p', 'That’s why I made the Mate Latte. Yerba mate for smooth, steady energy, in a creamy vanilla latte you actually want to drink every morning. Ready in 30 seconds, hot or iced.'],
+  ['p', 'For Black Friday, your Mate Latte Starter Kit is 40% off your first box, and with 30 or 60 servings, the frother and scooper are free.'],
+  ['l', '', 'Get my Starter Kit, 40% off', '', KIT],
   ['p', 'It’s monthly after that (30% off), and you can cancel anytime.'],
   ['sign', 'Un abrazo,', 'Shadi'],
 ];

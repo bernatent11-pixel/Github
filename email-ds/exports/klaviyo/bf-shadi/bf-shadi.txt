@@ -1,18 +1,20 @@
-SUBJECT: the one thing i’d want you to try
-PREVIEW: A quick note from me, and 40% off your first Mate Latte.
+SUBJECT: tired of coffee?
+PREVIEW: Why I made the Mate Latte, and 40% off your first box.
 FROM: Shadi from Milonga
 
 Hey {{ first_name|default:'there' }},
 
-Before the Black Friday noise, a quick one from me.
+Quick one before the Black Friday noise.
 
-At 19, I moved to Argentina to chase pro soccer. What stayed with me was a gourd of mate passed around a circle of friends. No phones, just people, slowing down.
+So many people tell me the same thing: they’re tired of coffee. The jitters, the acidity, the afternoon crash.
 
-That’s why I made the Mate Latte: a creamy vanilla latte made with yerba mate, ready in 30 seconds. Steady energy, no jitters, no crash.
+But most of the alternatives I tried weren’t a cup I looked forward to. They tasted bitter or earthy, and honestly, they didn’t do much.
 
-If you haven’t tried it, now’s the time. Your first Monthly Starter Kit is 40% off ($39.89 for 30 servings), and the frother and scooper are on me.
+That’s why I made the Mate Latte. Yerba mate for smooth, steady energy, in a creamy vanilla latte you actually want to drink every morning. Ready in 30 seconds, hot or iced.
 
-Try your first Mate Latte: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_kit_link
+For Black Friday, your Mate Latte Starter Kit is 40% off your first box, and with 30 or 60 servings, the frother and scooper are free.
+
+Get my Starter Kit, 40% off: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_kit_link
 
 It’s monthly after that (30% off), and you can cancel anytime.
 

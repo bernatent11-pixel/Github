@@ -89,3 +89,28 @@ for (const [src, out] of [['src-recipe-mocha-cut.png', 'recipe-mocha.png'], ['sr
   await sharp(await sharp(blank).composite([{ input: shadow }, { input: t, left, top }]).png().toBuffer()).png({ palette: true, quality: 92, effort: 10 }).toFile(`${OUT}/${out}`);
   console.log(out, (await import('node:fs')).statSync(`${OUT}/${out}`).size);
 }
+
+// v7 (Bernat, 2026-11-12): the 60 servings email opens on his photo (two hands raising Mate Latte pouches
+// into a blue sky, src-hero-sky-130.webp). The live headline sits in the sky, so the sky is carried 300px
+// higher: each column continues its own top-of-sky gradient upward (a little deeper blue), with a soft
+// crossfade into the photo and a touch of grain so the join does not show. hero-sky.jpg 1200x2107.
+{
+  const W = 1200, SRC_H = 1807, EXT = 300, H = SRC_H + EXT;
+  const src = await sharp('exports/klaviyo/sub1-e3/src-hero-sky-130.webp').resize(W, SRC_H).removeAlpha().raw().toBuffer();
+  const out = Buffer.alloc(W * H * 3);
+  src.copy(out, W * EXT * 3);
+  const avg = (y0, y1, x, c) => { let s = 0, n = 0; for (let y = y0; y < y1; y++) for (let dx = -6; dx <= 6; dx++) { const xx = Math.min(W - 1, Math.max(0, x + dx)); s += src[(y * W + xx) * 3 + c]; n++; } return s / n; };
+  let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647 - 0.5);
+  for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) {
+    const top = avg(0, 24, x, c), low = avg(200, 224, x, c), slope = (top - low) / 200; // per row, going up
+    for (let y = 0; y < EXT + 40; y++) {
+      const up = EXT - y; // rows above the photo's first row (negative: inside the photo)
+      const v = Math.max(0, Math.min(255, top + slope * up * 0.6 + rnd() * 2));
+      const i = (y * W + x) * 3 + c;
+      if (y < EXT) out[i] = v; else { const t = (y - EXT) / 40; out[i] = Math.round(v * (1 - t) + out[i] * t); }
+    }
+  }
+  await sharp(out, { raw: { width: W, height: H, channels: 3 } }).jpeg({ quality: 80, mozjpeg: true }).toFile(`${OUT}/hero-sky.jpg`);
+  const { data } = await sharp(`${OUT}/hero-sky.jpg`).extract({ left: 0, top: 0, width: W, height: 30 }).resize(1, 1).raw().toBuffer({ resolveWithObject: true });
+  console.log('hero-sky.jpg', W + 'x' + H, (await import('node:fs')).statSync(`${OUT}/hero-sky.jpg`).size, 'top', '#' + [...data].map((v) => v.toString(16).padStart(2, '0')).join(''));
+}

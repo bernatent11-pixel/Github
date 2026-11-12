@@ -37,11 +37,12 @@ const SHARED = {
   'kit-gift.png': [`${K}6ea66d49-d17e-4842-b7ef-51cfed05a0a5.png`, '../exports/klaviyo/bf-2026/img/kit-gift.png'],
   'kit-truck.png': [`${K}abfab9c8-eb93-4d4a-8f54-6b63d7238e4b.png`, '../exports/klaviyo/bf-2026/img/kit-truck.png'],
   'kit-pause.png': [`${K}a3e19542-83f1-4b00-952a-896da5e3ea72.png`, '../exports/klaviyo/bf-2026/img/kit-pause.png'],
+  'logo-beige.png': [`${K}c267d1bd-4e34-4ee1-b901-eac7bc60b87d.png`, '../exports/klaviyo/pp1-e3/img/logo-beige.png'],
   'kit-card.png': [`${K}7355a182-9dee-4eac-bff7-61d1b47c5bd6.png`, '../exports/klaviyo/bf-2026/img/kit-card.png'],
 };
 for (const [f, [url]] of Object.entries(SHARED)) hosted[f] ??= url;
 
-const PLANS_TOP = '#C99253', PLANS_LOW = '#BE8546', COCOA = '#5A3A1E';
+const SKY = '#1A74C7', PLANS_TOP = '#C99253', PLANS_LOW = '#BE8546', COCOA = '#5A3A1E';
 const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', BEIGE = '#F0EFDF', INK = '#12331F', SOFT = '#3B5344', LINE = '#D9D6BE', CREAM = '#F7F4EA';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
 const SERIF = "'Times New Roman',Times,Georgia,serif";
@@ -146,6 +147,7 @@ const STYLE = `<style>
     .c-btn a { padding:9px 12px !important; }
     .perks { width:100% !important; }
     .rec-col { max-width:330px !important; }
+    .sky-in { padding:30px 22px 370px !important; }
     .c-tab { font-size:9px !important; letter-spacing:.8px !important; padding:5px 10px !important; }
     .c-unit { font-size:12px !important; }
     .c-off { font-size:10px !important; letter-spacing:.6px !important; }
@@ -172,6 +174,7 @@ const STYLE = `<style>
     .bg-cream { background-color:${CREAM} !important; }
     .bg-gold { background-color:${GOLD} !important; }
     .plans { background-color:${PLANS_TOP} !important; }
+    .sky { background-color:${SKY} !important; }
   }
 </style>`;
 
@@ -303,27 +306,15 @@ ${r.items.map((t) => `<tr><td valign="top" style="padding:3px 8px 3px 0;font-fam
 </div>`;
 
 function thanks(V, img) {
-  const p = PLAN[60];
-  return `${header(V, img)}
-
-<!-- ── 2 · ALREADY OUR BEST VALUE · the same gold scene and wavy edges as the upsell versions, one card ── -->
-<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;font-family:${FONT};">
-<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:760px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
-<img class="edge" src="${img('edge-top.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
-<div class="plans-in" style="padding:6px 28px 70px;">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 6px rgba(90,50,10,.45);">Your plan</div>
-<div style="max-width:300px;margin:0 auto;padding-top:26px;">
-${pill(ent('You’re on our best value'), `bgcolor="#D2A346" style="${SHINE}${SHINE_INK}`)}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${FOREST};border-radius:20px;padding:24px 16px 24px;font-family:${FONT};box-shadow:0 14px 30px rgba(70,40,10,.32);">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">60 Servings</div>
-<div class="big" style="padding-top:8px;font-family:${SERIF};font-size:60px;line-height:62px;font-weight:700;color:${FOREST};">$1.39</div>
-<div style="font-family:${SERIF};font-size:22px;line-height:28px;font-weight:700;font-style:italic;color:${FOREST};">a cup</div>
-<div style="margin:14px auto 0;width:44px;height:2px;line-height:2px;font-size:0;background-color:${GOLD};">&nbsp;</div>
-<img src="${img(p.img)}" width="230" height="153" alt="${p.alt}" style="display:block;margin:8px auto 6px;width:100%;max-width:230px;height:auto;border:0;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:999px;padding:7px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;color:${BEIGE};white-space:nowrap;">${p.price}/mo</td></tr></table>
-<div style="padding-top:10px;font-size:11px;line-height:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${FOREST};">${p.off}</div>
-</td></tr></table>
-</div>
+  return `<!-- ── 1 · THANK YOU, on Bernat's photo (two hands raising Mate Latte pouches into a blue sky, the sky carried
+     higher for the headline); the cream waves up out of it into the recipes ── -->
+<tr><td class="sky" align="center" valign="top" background="${img('hero-sky.jpg')}" bgcolor="${SKY}" style="background-color:${SKY};background-image:url('${img('hero-sky.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;font-family:${FONT};">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1053px;"><v:fill type="frame" src="${img('hero-sky.jpg')}" color="${SKY}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="sky-in" style="padding:40px 40px 675px;">
+<a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-beige.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div style="padding-top:28px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 8px rgba(0,40,90,.35);">${ent(V.eyebrow)}</div>
+<div class="h-hero" style="padding-top:10px;font-family:${SERIF};font-size:52px;line-height:56px;font-weight:400;color:#FFFFFF;text-shadow:0 2px 16px rgba(0,40,90,.35);">${ent(V.t[0])}</div>
+<div class="h-hero" style="font-family:${SERIF};font-size:52px;line-height:56px;font-weight:700;font-style:italic;color:#FFFFFF;text-shadow:0 2px 16px rgba(0,40,90,.35);">${ent(V.t[1])}</div>
 </div>
 <img class="edge" src="${img('edge-bottom.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
@@ -331,7 +322,8 @@ ${pill(ent('You’re on our best value'), `bgcolor="#D2A346" style="${SHINE}${SH
 
 <!-- ── 3 · TWO RECIPES TO MAKE AT HOME (Bernat's photos, background removed): a hot mocha and an iced brown
      sugar oat. Hybrid columns: side by side on desktop, stacked on phones and in inboxes under 556px ── -->
-${row(CREAM, 'pad bg-cream', 'padding:26px 40px 0;', `${eyebrow('Make it at home')}
+${row(CREAM, 'pad bg-cream', 'padding:18px 40px 0;', `<div style="max-width:470px;margin:0 auto 40px;">${lead(V.lead, INK, 'padding-top:0;')}</div>
+${eyebrow('Make it at home')}
 ${title(['Two recipes,', 'one for each cup.'], 'h-sec', 38)}`)}
 <tr><td class="pad-cards bg-cream" align="center" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 26px 6px;font-family:${FONT};">
 <div style="font-size:0;line-height:0;text-align:center;">

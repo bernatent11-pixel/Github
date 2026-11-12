@@ -40,3 +40,29 @@ for (const [src, out] of [['src-plan-15-124.jpg', 'plan-15.jpg'], ['src-plan-30-
   await sharp(`exports/klaviyo/sub1-e3/${src}`).resize(440, 440).jpeg({ quality: 84, mozjpeg: true }).toFile(`${OUT}/${out}`);
   console.log(out, (await sharp(`${OUT}/${out}`).metadata()).size ?? '');
 }
+
+// v4 (Bernat, 2026-11-12): a 3D transition in and out of the plans section. Two transparent overlays that
+// sit inside the section, over its background: the cream above curves down into the gold (edge-top.png)
+// and the cream below curves up out of it (edge-bottom.png). Each has a shaded lip, a thin gold rim and a
+// soft brown shadow cast on the gold, so the cream reads as a raised panel. 1200x150, shown at 600x75.
+{
+  const W = 1200, H = 150, CREAM = '#F7F4EA', SHADE = '#E9E0C8', RIM = '#E3BC62';
+  const svg = (shape, edge, shadowDy, grad) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">${grad}</linearGradient>
+<filter id="b" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="13"/></filter>
+<filter id="b2" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+<path d="${shape}" transform="translate(0 ${shadowDy})" fill="#4A2A0C" fill-opacity=".62" filter="url(#b)"/>
+<path d="${shape}" transform="translate(0 ${shadowDy / 3})" fill="#4A2A0C" fill-opacity=".35" filter="url(#b2)"/>
+<path d="${shape}" fill="url(#g)"/>
+<path d="${edge}" fill="none" stroke="${RIM}" stroke-width="4"/>
+</svg>`;
+  // top: cream from the top, its bottom edge bowing down (sides 36px, middle ~100px)
+  await sharp(Buffer.from(svg('M0,0 H1200 V36 Q600,166 0,36 Z', 'M0,36 Q600,166 1200,36', 24,
+    `<stop offset="0" stop-color="${CREAM}"/><stop offset=".45" stop-color="${CREAM}"/><stop offset=".72" stop-color="${SHADE}"/><stop offset="1" stop-color="#DCCFAE"/>`)))
+    .png({ compressionLevel: 9 }).toFile(`${OUT}/edge-top.png`);
+  // bottom: cream from the bottom, its top edge bowing up (sides 114px, middle ~50px)
+  await sharp(Buffer.from(svg('M0,150 H1200 V114 Q600,-16 0,114 Z', 'M0,114 Q600,-16 1200,114', -24,
+    `<stop offset="0" stop-color="#DCCFAE"/><stop offset=".3" stop-color="${SHADE}"/><stop offset=".6" stop-color="${CREAM}"/><stop offset="1" stop-color="${CREAM}"/>`)))
+    .png({ compressionLevel: 9 }).toFile(`${OUT}/edge-bottom.png`);
+  for (const f of ['edge-top.png', 'edge-bottom.png']) console.log(f, (await import('node:fs')).statSync(`${OUT}/${f}`).size);
+}

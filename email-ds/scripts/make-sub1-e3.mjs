@@ -129,7 +129,7 @@ const STYLE = `<style>
     .c-img { max-width:140px !important; }
     .c-size { font-size:10px !important; letter-spacing:1.2px !important; }
     .c-gift { font-size:10.5px !important; }
-    .plans { padding:30px 12px 130px !important; }
+    .plans-in { padding:4px 12px 64px !important; }
     .c-photo { max-width:150px !important; }
     .c-btn { font-size:10px !important; letter-spacing:.6px !important; }
     .c-btn a { padding:9px 12px !important; }
@@ -148,7 +148,7 @@ const STYLE = `<style>
     .c-img { max-width:112px !important; }
     .c-unit { font-size:11px !important; padding:5px 9px !important; }
     .c-off { font-size:9px !important; }
-    .plans { padding-bottom:110px !important; }
+    .plans-in { padding-bottom:54px !important; }
     .c-photo { max-width:124px !important; }
     .c-btn a { padding:8px 9px !important; }
     .c-tab { font-size:8px !important; padding:5px 7px !important; }
@@ -206,7 +206,7 @@ ${list.join('\n<!--[if mso]></td><td width="262" valign="top"><![endif]-->\n')}
 const perkRow = (img, icon, text) => `<tr><td width="40" valign="middle" style="width:40px;padding:11px 0;"><img src="${img(icon)}" width="26" height="26" alt="" role="presentation" style="display:block;width:26px;height:26px;border:0;"></td><td valign="middle" align="left" style="padding:11px 0;font-family:${FONT};font-size:15px;line-height:21px;font-weight:700;color:${INK};border-bottom:1px solid ${LINE};">${ent(text)}</td></tr>`;
 
 const header = (V, img) => `<!-- ── 1 · THE QUESTION ── -->
-${row(CREAM, 'pad bg-cream', 'padding:34px 40px 44px;', `<a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+${row(CREAM, 'pad bg-cream', `padding:34px 40px ${V.to ? 22 : 44}px;`, `<a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:28px;">${eyebrow(V.eyebrow)}</div>
 ${title(V.t, 'h-hero', 48, FOREST, 10)}
 <div style="max-width:470px;margin:0 auto;">${lead(V.lead)}</div>`)}`;
@@ -231,20 +231,24 @@ function upsell(V, img) {
 
 <!-- ── 2 · YOUR PLAN NOW vs THE UPGRADE, on Bernat's gold Mate Latte scene (top-right pouch removed);
      the pouch and the latte close the section ── -->
-<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:36px 28px 170px;font-family:${FONT};">
+<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;font-family:${FONT};">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:780px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<img class="edge" src="${img('edge-top.png')}" width="600" height="75" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
+<div class="plans-in" style="padding:6px 28px 70px;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 6px rgba(90,50,10,.45);">Your plan, upgraded</div>
 <div style="padding-top:26px;">${cards([card(from, img, true, V), card(to, img, false, V)])}</div>
+</div>
+<img class="edge" src="${img('edge-bottom.png')}" width="600" height="75" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 ${V.perks ? `
 <!-- ── 3 · WHAT YOU GET WITH 30 ── -->
-${row(CREAM, 'pad bg-cream', 'padding:52px 40px 0;', `${eyebrow(`With ${V.to} servings`)}
+${row(CREAM, 'pad bg-cream', 'padding:26px 40px 0;', `${eyebrow(`With ${V.to} servings`)}
 ${title(V.perks.t, 'h-sec', 38)}
 <table role="presentation" class="perks" width="400" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:22px auto 0;width:400px;max-width:100%;">
 ${V.perks.list.map(([i, t]) => perkRow(img, i, t)).join('\n')}
 </table>`)}` : ''}
-${row(CREAM, 'pad bg-cream', `padding:${V.perks ? 36 : 50}px 40px 0;`, `${button(mailto(V.v, V.to, V.mailExtra || ''), `Switch me to ${V.to} servings`, 380)}
+${row(CREAM, 'pad bg-cream', `padding:${V.perks ? 36 : 26}px 40px 0;`, `${button(mailto(V.v, V.to, V.mailExtra || ''), `Switch me to ${V.to} servings`, 380)}
 <div style="max-width:420px;margin:0 auto;padding-top:20px;font-size:14px;line-height:21px;font-weight:500;color:${SOFT};">${ent(V.note)}</div>`)}
 
 <!-- ── 4 · HAPPY AS YOU ARE? (no pressure) + where to manage it ── -->

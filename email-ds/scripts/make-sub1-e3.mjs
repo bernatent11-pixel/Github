@@ -217,7 +217,7 @@ ${list.join('\n<!--[if mso]></td><td width="262" valign="top"><![endif]-->\n')}
 const perkRow = (img, icon, text) => `<tr><td width="40" valign="middle" style="width:40px;padding:11px 0;"><img src="${img(icon)}" width="26" height="26" alt="" role="presentation" style="display:block;width:26px;height:26px;border:0;"></td><td valign="middle" align="left" style="padding:11px 0;font-family:${FONT};font-size:15px;line-height:21px;font-weight:700;color:${INK};border-bottom:1px solid ${LINE};">${ent(text)}</td></tr>`;
 
 const header = (V, img) => `<!-- ── 1 · THE QUESTION ── -->
-${row(CREAM, 'pad bg-cream', `padding:34px 40px ${V.to ? 22 : 44}px;`, `<a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+${row(CREAM, 'pad bg-cream', 'padding:34px 40px 22px;', `<a href="${amp(HOME)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:28px;">${eyebrow(V.eyebrow)}</div>
 ${title(V.t, 'h-hero', 48, FOREST, 10)}
 <div style="max-width:470px;margin:0 auto;">${lead(V.lead)}</div>`)}`;
@@ -281,30 +281,46 @@ function thanks(V, img) {
   const p = PLAN[60];
   return `${header(V, img)}
 
-<!-- ── 2 · ALREADY OUR BEST VALUE ── -->
-${row(GOLD, 'pad bg-gold', 'padding:46px 40px 50px;', `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:7px 18px;font-family:${FONT};font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;white-space:nowrap;">${ent('You’re on our best value')}</td></tr></table>
-<div class="big" style="padding-top:16px;font-family:${SERIF};font-size:64px;line-height:66px;font-weight:700;color:${FOREST};">$1.39</div>
-<div style="padding-top:2px;font-family:${SERIF};font-size:24px;line-height:30px;font-weight:700;font-style:italic;color:${FOREST};">a cup</div>
-<img class="c-img" src="${img(p.img)}" width="240" height="160" alt="${p.alt}" style="display:block;margin:14px auto 4px;width:240px;max-width:100%;height:auto;border:0;">
-<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};">60 servings &middot; 30% off every order</div>`)}
+<!-- ── 2 · ALREADY OUR BEST VALUE · the same gold scene and wavy edges as the upsell versions, one card ── -->
+<tr><td class="plans" align="center" valign="top" background="${img('plans-bg.jpg')}" bgcolor="${PLANS_TOP}" style="background-color:${PLANS_TOP};background-image:url('${img('plans-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;font-family:${FONT};">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:760px;"><v:fill type="frame" src="${img('plans-bg.jpg')}" color="${PLANS_TOP}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<img class="edge" src="${img('edge-top.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
+<div class="plans-in" style="padding:6px 28px 70px;">
+<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FFFFFF;text-shadow:0 1px 6px rgba(90,50,10,.45);">Your plan</div>
+<div style="max-width:300px;margin:0 auto;padding-top:26px;">
+${pill(ent('You’re on our best value'), `bgcolor="#D2A346" style="${SHINE}${SHINE_INK}`)}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr><td class="card" align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;border:2px solid ${FOREST};border-radius:20px;padding:24px 16px 24px;font-family:${FONT};box-shadow:0 14px 30px rgba(70,40,10,.32);">
+<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">60 Servings</div>
+<div class="big" style="padding-top:8px;font-family:${SERIF};font-size:60px;line-height:62px;font-weight:700;color:${FOREST};">$1.39</div>
+<div style="font-family:${SERIF};font-size:22px;line-height:28px;font-weight:700;font-style:italic;color:${FOREST};">a cup</div>
+<div style="margin:14px auto 0;width:44px;height:2px;line-height:2px;font-size:0;background-color:${GOLD};">&nbsp;</div>
+<img src="${img(p.img)}" width="230" height="153" alt="${p.alt}" style="display:block;margin:8px auto 6px;width:100%;max-width:230px;height:auto;border:0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td bgcolor="${FOREST}" style="background-color:${FOREST};border-radius:999px;padding:7px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;color:${BEIGE};white-space:nowrap;">${p.price}/mo</td></tr></table>
+<div style="padding-top:10px;font-size:11px;line-height:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${FOREST};">${p.off}</div>
+</td></tr></table>
+</div>
+</div>
+<img class="edge" src="${img('edge-bottom.png')}" width="600" height="90" alt="" role="presentation" style="display:block;width:100%;max-width:600px;height:auto;border:0;">
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+</td></tr>
 
 <!-- ── 3 · WAYS TO ENJOY IT (the hot and iced cutouts from pp1-e1) ── -->
-${row('#FFFFFF', 'pad bg-white', 'padding:50px 40px 0;', `${eyebrow('Mix it up')}
+${row(CREAM, 'pad bg-cream', 'padding:26px 40px 0;', `${eyebrow('Mix it up')}
 ${title(['Two cups a day,', 'two ways.'], 'h-sec', 38)}`)}
-<tr><td class="pad bg-white" bgcolor="#FFFFFF" style="background-color:#FFFFFF;padding:30px 30px 10px;">
+<tr><td class="pad bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:30px 30px 10px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
 ${drink('0 10px 0 0', 'drink-hot.png', 'A hot Mate Latte in a glass mug', 'Hot', `Heat ${nw('8oz of milk')} or water, add ${nw('2.5 tablespoons')} and froth until smooth.`, img)}
 ${drink('0 0 0 10px', 'drink-iced.png', 'An iced Mate Latte in a tall glass', 'Iced', `Mix ${nw('2.5 tablespoons')} into ${nw('8oz of cold')} milk or water and pour it over ice.`, img)}
 </tr></table>
 </td></tr>
-${row('#FFFFFF', 'pad bg-white', 'padding:14px 40px 52px;', `<div style="max-width:430px;margin:0 auto;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Tip: try it with oat or almond milk, or a pinch of cinnamon on top. What’s your go-to? Hit reply and tell us. We read every one.')}</div>`)}
+${row(CREAM, 'pad bg-cream', 'padding:14px 40px 52px;', `<div style="max-width:430px;margin:0 auto;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Tip: try it with oat or almond milk, or a pinch of cinnamon on top. What’s your go-to? Hit reply and tell us. We read every one.')}</div>`)}
 
 <!-- ── 4 · YOUR PLAN, YOUR PACE ── -->
-${row(CREAM, 'pad bg-cream', 'padding:50px 40px 0;', `${eyebrow('Your plan, your pace')}
+${row('#FFFFFF', 'pad bg-white', 'padding:50px 40px 52px;', `${eyebrow('Your plan, your pace')}
 ${title(['Running low?', 'Got extra?'], 'h-sec', 38)}
 <div style="max-width:440px;margin:0 auto;">${lead(`Running low before your next box? Just reply and we’ll send it sooner. Got plenty left? Skip a month ${nw('in your account.')}`)}</div>
-<div style="padding-top:28px;">${button(PORTAL, 'Manage my subscription', 340)}</div>
-<div style="padding-top:48px;">${help}</div>`)}
+<div style="padding-top:28px;">${button(PORTAL, 'Manage my subscription', 340)}</div>`)}
+${row(CREAM, 'pad bg-cream', 'padding:48px 40px 0;', help)}
 
 ${footer(img)}`;
 }

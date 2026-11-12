@@ -1,26 +1,20 @@
 SUBJECT: the one thing i’d want you to try
-PREVIEW: Before the Black Friday noise, a quick note from me.
+PREVIEW: A quick note from me, and 40% off your first Mate Latte.
 FROM: Shadi from Milonga
 
 Hey {{ first_name|default:'there' }},
 
-It’s Shadi, the founder of Milonga.
+Before the Black Friday noise, a quick one from me.
 
-Black Friday is usually loud. Countdown timers, “last chance” emails, a hundred deals on things nobody really needs. So before all of that, I wanted to tell you about something small.
+At 19, I moved to Argentina to chase pro soccer. What stayed with me was a gourd of mate passed around a circle of friends. No phones, just people, slowing down.
 
-When I was 19, I moved from South Florida to Argentina to chase pro soccer. What stayed with me most wasn’t a game. It was a gourd of mate passed around a circle of friends, and the way everyone slowed down for it. No phones. Just people, talking, actually there.
+That’s why I made the Mate Latte: a creamy vanilla latte made with yerba mate, ready in 30 seconds. Steady energy, no jitters, no crash.
 
-That’s the feeling I built the Mate Latte around. It tastes like a creamy vanilla latte, made with yerba mate, ready in 30 seconds, hot or iced. Smooth, steady energy without the jitters or the crash. A few quiet minutes that are just yours.
+If you haven’t tried it, now’s the time. Your first Monthly Starter Kit is 40% off ($39.89 for 30 servings), and the frother and scooper are on me.
 
-If you haven’t tried it yet, this is the moment I’ve been waiting for. For Black Friday, your first Monthly Starter Kit is 40% off: 30 servings for $39.89 instead of $66.48, about $1.33 a cup. And the frother and the scooper are on me.
+Try your first Mate Latte: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_kit_link
 
-Try your first Mate Latte, 40% off: https://milonga.life/products/the-original-mate-latte?selling_plan=8837562678&variant=54302750245174&utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_kit_link
-
-It’s a monthly subscription (after the first box, it’s 30% off every month), and you can adjust shipments or cancel anytime. There’s a 30-day money back guarantee too, so the only risk is looking forward to your mornings again.
-
-And if you try it and it’s not for you, hit reply and tell me. I read every one myself.
+It’s monthly after that (30% off), and you can cancel anytime.
 
 Un abrazo,
 Shadi
-
-P.S. The whole site is up to 40% off right now, cans included. But if you only try one thing, make it the Mate Latte. (https://milonga.life/?utm_source=klaviyo&utm_medium=email&utm_campaign=black_friday_2026&utm_content=shadi_ps_link)

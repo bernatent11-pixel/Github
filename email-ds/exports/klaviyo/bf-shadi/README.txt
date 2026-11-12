@@ -11,16 +11,19 @@ SEND
   Pairs with the designed Black Friday email (bf-2026): send this one a day or so apart from it.
 
 SUBJECT + PREVIEW (lowercase, the way he writes)
-  the one thing i'd want you to try — Before the Black Friday noise, a quick note from me.
+  the one thing i'd want you to try — A quick note from me, and 40% off your first Mate Latte.
 
 JOB
   Put a person and a feeling behind the sale, for people who haven't tried the Mate Latte: the quiet note
   against the loud Black Friday inbox. The ritual Shadi found in Argentina, why he made the Mate Latte,
   the one offer (the Starter Kit), honest about it being a subscription, and a reply.
 
-LINKS (two; both checked 200)
-  "Try your first Mate Latte, 40% off"  Mate Latte page, 30 servings, Monthly Starter Kit selected
-  P.S. "The whole site"                 home page
+LENGTH
+  Short on purpose (about 120 words, Bernat 2026-11-12): the story in two lines, the offer, the honest
+  subscription line, sign-off. No P.S.
+
+LINK (one; checked 200)
+  "Try your first Mate Latte"  Mate Latte page, 30 servings, Monthly Starter Kit selected
 
 FACTS USED
   Shadi's story (welcome-story, Bernat 2026-11-06). Product lines from the approved product page copy.

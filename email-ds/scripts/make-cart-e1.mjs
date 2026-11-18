@@ -30,9 +30,13 @@ hosted['logo-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/
 hosted['mark-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/0e781634-6907-42f6-b101-3c2c15371a99.png';
 hosted['disc-gold-yerba-mate.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/3f6c2de8-85cb-4fe0-9a93-38b08cff2575.png';
 hosted['disc-gold-l-theanine.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/6f3cd229-74f8-4c52-b6fb-93d10911e05f.png';
+hosted['disc-beige-yerba-mate.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/8946052a-344d-4b12-a683-baa644589a0b.png';
+hosted['disc-beige-l-theanine.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/d01f925e-e7a9-4ca8-bbbc-3e8061a0a209.png';
+hosted['disc-beige-lions-mane.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/a6756a94-47d0-43a0-9715-5dcb5df67198.png';
 hosted['disc-gold-lions-mane.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/58b029ea-6b1e-4537-95d9-10aa3155bbde.png';
 const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.png', 'mark-green.png': '../public/logo/mark-green.png' };
 for (const k of ['disc-gold-yerba-mate.png', 'disc-gold-l-theanine.png', 'disc-gold-lions-mane.png']) LOCAL[k] = `../exports/klaviyo/welcome-e1/img/${k}`;
+for (const k of ['disc-beige-yerba-mate.png', 'disc-beige-l-theanine.png', 'disc-beige-lions-mane.png']) LOCAL[k] = `../exports/klaviyo/ml101/img/${k}`;
 
 export const SUBJECT = 'You left something good behind ☕';
 export const PREHEADER = 'We saved your cart. Your creamy vanilla mornings are one click away.';
@@ -61,16 +65,16 @@ const L = {
 // Side by side, both 30 servings: one-time $62.98 ($2.10 a cup) vs subscribed $44.09 ($1.47 a cup).
 const C = JSON.parse(fs.readFileSync(`${OUT}/colors.json`, 'utf8'));
 const EDGE = [
-  { disc: 'disc-gold-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
-  { disc: 'disc-gold-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
-  { disc: 'disc-gold-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
+  { disc: 'disc-beige-yerba-mate.png', dose: '100mg', name: 'natural caffeine', line: 'Coffee-level energy from yerba mate, <span style="white-space:nowrap;">no jitters.</span>' },
+  { disc: 'disc-beige-l-theanine.png', dose: '200mg', name: 'L-theanine', line: 'Keeps the energy smooth, calm and focused.' },
+  { disc: 'disc-beige-lions-mane.png', dose: '500mg', name: 'Lion’s Mane', line: 'The functional mushroom, for <span style="white-space:nowrap;">clear-headed</span> mornings.' },
 ];
 // The Mate Mornings Club's benefits, as the product page words them.
 const CLUB = [
   { icon: 'icon-save.png', text: 'Save 30% on every order <span style="white-space:nowrap;">(30 or 60 servings)</span>' },
+  { icon: 'icon-gift.png', text: 'Free frother + scoop' }, // Bernat, 2026-11-18: right below the 30% (Starter Kit, 30 and 60 servings)
   { icon: 'icon-delivery.png', text: 'Delivered to your door <span style="white-space:nowrap;">every month</span>' },
   { icon: 'icon-pause.png', text: 'Skip, pause or cancel anytime' },
-  { icon: 'icon-gift.png', text: 'Free frother + scoop' }, // Bernat, 2026-11-18 (Starter Kit, 30 and 60 servings)
 ];
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/…/g, '&hellip;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -236,15 +240,16 @@ ${subscribe}
 </td></tr>
 
 <!-- ── 3 · ONE CUP, EVERYTHING YOU NEED · v2 (Bernat, 2026-11-18): the title and the benefits ABOVE the hand
-     pouring the milk and the bag; the pour photo follows and fades into the same cream ── -->
-${row(C.finalBottom, 'pad bg-table', 'padding:52px 40px 30px;', `${eyebrow('Why it’s worth coming back for')}
+     pouring the milk and the bag, on the photo's own gold wall so text and photo read as one section
+     (beige ingredient discs, which show on gold); the photo's table fades into the cream below ── -->
+${row(C.finalTop, 'pad bg-wall', 'padding:52px 40px 30px;', `${eyebrow('Why it’s worth coming back for')}
 ${title('One cup,', 'everything you need.', 'h-sec', 40)}`)}
-<tr><td class="pad-photo bg-table" bgcolor="${C.finalBottom}" style="background-color:${C.finalBottom};padding:0 30px 0;">
+<tr><td class="pad-photo bg-wall" bgcolor="${C.finalTop}" style="background-color:${C.finalTop};padding:0 30px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 ${edge}
 </tr></table>
 </td></tr>
-${row(C.finalBottom, 'pad bg-table', 'padding:26px 40px 36px;', `<div style="font-size:14px;line-height:21px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')} <strong style="font-weight:700;color:${FOREST};">${nw('Ready in 30 seconds,')} ${nw('hot or iced.')}</strong></div>`)}
+${row(C.finalTop, 'pad bg-wall', 'padding:26px 40px 36px;', `<div style="font-size:14px;line-height:21px;font-weight:500;color:${INK};">${ent('Plus yerba mate’s antioxidants and vitamins, which support a healthy gut, your immune system and your metabolism.')} <strong style="font-weight:700;color:${FOREST};">${nw('Ready in 30 seconds,')} ${nw('hot or iced.')}</strong></div>`)}
 <tr><td class="bg-wall" bgcolor="${C.finalTop}" style="background-color:${C.finalTop};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('final.jpg')}" width="600" height="${C.finalH}" alt="Milk pouring into an iced Mate Latte beside the pouch" style="display:block;width:600px;height:${C.finalH}px;border:0;"></td></tr>
 ${row(C.finalBottom, 'pad bg-table', 'padding:12px 40px 12px;', `${title('Your cart’s all set.', 'Ready when you are.', 'h-sec', 34, FOREST, 0)}`)}
 ${cartRow(img, C.finalBottom, 'bg-table', '6px 30px 4px', sample)}

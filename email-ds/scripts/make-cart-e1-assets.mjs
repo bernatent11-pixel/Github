@@ -48,7 +48,9 @@ void logo;
 const hero = await fadeCrop(`${DIR}/src-hero-90.jpg`, { left: 0, top: 522, width: 1116, height: 1196 }, 1200, 0.07, 0.16, 'hero.jpg');
 // final: the whole 2000x2000 pour shot at 1200 wide; its top is a clean edge,
 // its bottom (the table) fades into flat cream for the title and benefits
-const final = await fadeCrop(`${DIR}/src-final-92.webp`, { left: 0, top: 0, width: 2000, height: 2000 }, 1200, 0, 0.05, 'final.jpg');
+// v2 (Bernat, 2026-11-18): the title and benefits now sit on the wall's gold ABOVE the photo, so its top
+// also fades into that flat gold and the text and the photo read as one section
+const final = await fadeCrop(`${DIR}/src-final-92.webp`, { left: 0, top: 0, width: 2000, height: 2000 }, 1200, 0.12, 0.05, 'final.jpg');
 fs.writeFileSync(`${DIR}/colors.json`, JSON.stringify({ heroTop: hero.top, heroBottom: hero.bottom, heroH: hero.h, finalTop: final.top, finalBottom: final.bottom, finalH: final.h }, null, 2));
 
 // Mate Mornings Club icons (the product page's three), gold line on forest

@@ -60,7 +60,7 @@ const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').repla
 // A pill button with an Outlook (VML) fallback.
 const button = (href, label, bg, ink, width) => `<!--[if mso]>
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${amp(href)}" style="height:56px;v-text-anchor:middle;width:${width}px;" arcsize="50%" stroke="f" fillcolor="${bg}"><w:anchorlock/><center style="color:${ink};font-family:Arial,sans-serif;font-size:16px;font-weight:bold;letter-spacing:2px;">${label}</center></v:roundrect>
-<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${bg === FOREST ? DEEP : '#C9A24E'};">${label}</a><!--<![endif]-->`;
+<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 40px;font-family:${FONT};font-size:16px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${bg === FOREST ? DEEP : bg === BEIGE ? '#B9B596' : '#C9A24E'};">${label}</a><!--<![endif]-->`;
 
 // The code, as a dashed coupon tag. Live text: long-press or select to copy.
 const codeTag = (border, fill, ink, capInk) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr>
@@ -178,7 +178,7 @@ ${cols}
 <tr><td class="pad bg-s2b" align="center" bgcolor="${G2B}" style="background-color:${G2B};padding:4px 20px 56px;font-family:${FONT};">
 <div style="padding-bottom:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">${ent('Plus, from the yerba mate')}</div>
 <div style="font-size:0;line-height:0;">${benefits}</div>
-<div style="padding-top:26px;">${button(L.s2, 'Claim my 15% off', GOLD, FOREST, 300)}</div>
+<div style="padding-top:26px;">${button(L.s2, 'Claim my 15% off', BEIGE, FOREST, 300)}</div>
 </td></tr>
 
 <!-- ── 3 · THE OFFER, AGAIN (forest card on beige) ──────────────────── -->

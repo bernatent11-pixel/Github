@@ -41,15 +41,17 @@ const VARIANTS = {
   story: {
     out: 'exports/klaviyo/welcome-story', file: 'welcome-story', label: 'SHADI · THE STORY BEHIND MILONGA · plain-text note for new subscribers',
     subject: 'the story behind milonga', preheader: 'a soccer dream, a gourd in argentina, and your new morning', slot: 'story_text_link',
+    // Bernat, 2026-11-18: his edit (greeting, "Big hug"), then made about half as long ("too much for
+    // customers to read"); "focused and calm" left out (no function claims)
+    greeting: 'Hey {{ person.first_name|default:\'friend\' }}!', // Bernat wrote |title too: not on the tag allowlist, flagged
+    signoff: ['Big hug,', 'Shadi'],
     body: [
-      'I’m Shadi, the founder of Milonga, and I wanted to share how all of this started.',
-      'At 19, I moved from South Florida to Argentina to chase pro soccer, and that’s where I found mate: a naturally caffeinated tea that’s a tradition in parts of South America, the way coffee is here.',
-      'What got me was the ritual. One gourd full of mate, passed around a circle. Just friends and family slowing down, talking and living in the moment. The mate is the heart of it, the thing everyone shares, with **no phones, no distractions, no outside noise.**',
-      'Then I dug a little deeper and found out mate also gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
-      'Back in the US, I saw people stuck on coffee: the jitters, the acidity, the afternoon crash, and no ritual at all.',
-      'So I made the Mate Latte, to bring that ritual into your morning. It **tastes like a creamy vanilla latte**, with no bitterness and no acidity, and it gives you **everything your mornings need** to feel awake, focused and calm. Ready in 30 seconds, hot or iced: a ritual you’ll actually look forward to every day.',
+      'I’m Shadi, the founder of Milonga. Here’s how it all started.',
+      'At 19, I moved from South Florida to Argentina to chase pro soccer, and that’s where I found mate: a naturally caffeinated tea that’s to South America what coffee is here.',
+      'What got me was the ritual: one gourd passed around a circle of friends. **No phones, no distractions**, just slowing down and being together. And mate gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
+      'Back home, I saw people stuck on coffee: the jitters, the acidity, the afternoon crash. So I made the Mate Latte, to bring that ritual into your morning. It **tastes like a creamy vanilla latte**, with no bitterness, and it’s ready in 30 seconds, hot or iced.',
       'Your 15% is still waiting (code WELCOME15), and [[this link applies it for you]].',
-      'Hit reply anytime. I read every one.',
+      'Questions, or just want to tell me how your mornings go? Hit reply. I read every one.',
     ],
   },
 };
@@ -67,9 +69,9 @@ const LINK = 'https://milonga.life/discount/WELCOME15?redirect=%2Fproducts%2Fthe
 
 // Each body entry is a paragraph; [[text]] is the one link; **text** is set
 // bold in the HTML version (plain in the text-only one).
-const GREETING = 'Hey {{ first_name|default:\'there\' }}!';
+const GREETING = V.greeting ?? 'Hey {{ first_name|default:\'there\' }}!';
 const BODY = V.body;
-const SIGNOFF = ['Un abrazo,', 'Shadi'];
+const SIGNOFF = V.signoff ?? ['Un abrazo,', 'Shadi'];
 
 const ent = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/’/g, '&rsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;');
 const linkHtml = (p) => ent(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/L-theanine/g, '<span style="white-space:nowrap;">L-theanine</span>').replace(/\[\[(.+?)\]\]/, (_, t) => `<a href="${LINK.replace(/&/g, '&amp;')}" target="_blank" style="color:#004D27;font-weight:bold;text-decoration:underline;">${t}</a>`);

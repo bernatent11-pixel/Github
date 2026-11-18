@@ -41,6 +41,12 @@ const IMG = {
   'hero-poster.jpg': ['', `${X}coffee-vs/img/hero-poster.jpg`],
   'kit-photo.jpg': ['', `${X}coffee-vs/img/kit-photo.jpg`],
   'cmp-coffee-beige.png': ['', `${X}coffee-vs/img/cmp-coffee-beige.png`],
+  'offers-bg.jpg': [`${K}0b349587-2a40-457f-9f88-993b8e68bbc0.jpeg`, `${X}bf-2026/img/offers-bg.jpg`],
+  'kit-percent-white.png': ['', `${X}coffee-vs/img/kit-percent-white.png`],
+  'kit-gift-white.png': ['', `${X}coffee-vs/img/kit-gift-white.png`],
+  'kit-truck-white.png': ['', `${X}coffee-vs/img/kit-truck-white.png`],
+  'kit-pause-white.png': ['', `${X}coffee-vs/img/kit-pause-white.png`],
+  'kit-card-white.png': ['', `${X}coffee-vs/img/kit-card-white.png`],
 };
 const hostedPath = `${OUT}/hosted.json`;
 if (fs.existsSync(hostedPath)) for (const [f, u] of Object.entries(JSON.parse(fs.readFileSync(hostedPath, 'utf8')))) if (IMG[f]) IMG[f][0] = u;
@@ -65,13 +71,14 @@ const COMPARE = [
   ['Taste', 'Creamy vanilla latte', 'Bitter & acidic'],
   ['Also in the cup', '200mg L-theanine + 500mg Lion’s Mane', '—'],
 ];
-// the Starter Kit as the website lists it (milonga.life, 2026-11-18)
+// the Starter Kit as the website lists it (milonga.life, 2026-11-18), on the Black Friday background
+// (bf-2026's offers-bg: plum ribbons on bronze, darkened for white type) with white icons, like the site
 const KIT_LIST = [
-  ['kit-percent.png', 'Save 40% on your first order'],
-  ['kit-gift.png', 'Free frother + free scooper'],
-  ['kit-truck.png', 'Delivered to your door every month'],
-  ['kit-pause.png', 'Adjust shipments or cancel anytime'],
-  ['kit-card.png', '30-day money-back guarantee'],
+  ['kit-percent-white.png', 'Save 40% on your first order'],
+  ['kit-gift-white.png', 'Free frother + free scooper'],
+  ['kit-truck-white.png', 'Delivered to your door every month'],
+  ['kit-pause-white.png', 'Adjust shipments or cancel anytime'],
+  ['kit-card-white.png', '30-day money-back guarantee'],
 ];
 const SHINE = 'background-color:#D2A346;background-image:linear-gradient(135deg,#F8E79A 0%,#E6BE5A 28%,#C48F2C 55%,#EFD27C 80%,#D5A84A 100%);';
 const SHINE_INK = 'color:#FFFFFF;text-shadow:0 1px 1px rgba(90,55,10,.55);';
@@ -137,40 +144,41 @@ const lead = (t, color = INK, extra = '') => `<div class="lead" style="padding-t
 // the comparison: a header row (the pouch / the coffee cup), then one row per attribute. Our column is one
 // gold-filled rounded column; coffee's is a hairline outline.
 function compare(img) {
-  const last = COMPARE.length - 1;
-  const ours = (i) => `background-color:${GOLD};${i === last ? 'border-radius:0 0 18px 18px;' : ''}`;
-  const HAIR = 'rgba(240,239,223,.35)';
-  const theirs = (i) => `border-left:1px solid ${HAIR};border-right:1px solid ${HAIR};${i === last ? `border-bottom:1px solid ${HAIR};border-radius:0 0 18px 18px;` : ''}`;
-  const head = `<tr>
-<td width="50%" align="center" valign="bottom" bgcolor="${GOLD}" style="width:50%;background-color:${GOLD};border-radius:18px 18px 0 0;padding:20px 8px 12px;font-family:${FONT};">
-<img src="${img('cmp-pouch.png')}" width="38" height="61" alt="" role="presentation" style="display:block;margin:0 auto;width:38px;height:61px;border:0;">
-<div class="cmp-head-name" style="padding-top:10px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">Mate Latte</div>
-</td>
-<td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>
-<td width="50%" align="center" valign="bottom" style="width:50%;border:1px solid ${HAIR};border-bottom:0;border-radius:18px 18px 0 0;padding:20px 8px 12px;font-family:${FONT};">
-<img src="${img('cmp-coffee-beige.png')}" width="48" height="48" alt="" role="presentation" style="display:block;margin:0 auto;width:48px;height:48px;border:0;">
-<div class="cmp-head-name" style="padding-top:23px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">Coffee</div>
-</td>
-</tr>`;
-  const rows = COMPARE.map(([label, a, b], i) => `<tr>
-<td align="center" valign="top" bgcolor="${GOLD}" style="${ours(i)}padding:0 12px;font-family:${FONT};">
-<div style="border-top:1px solid rgba(0,77,39,.18);padding:14px 0 ${i === last ? 20 : 14}px;">
-<div class="cmp-label" style="font-size:10px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};opacity:.75;">${ent(label)}</div>
-<div class="cmp-ours" style="padding-top:4px;font-size:15px;line-height:20px;font-weight:700;color:${FOREST};">${ent(a).replace(/(\d+mg [A-Z][\w-]*(?:&rsquo;s Mane)?)/g, (m) => nw(m))}</div>
-</div>
-</td>
-<td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>
-<td align="center" valign="top" style="${theirs(i)}padding:0 12px;font-family:${FONT};">
-<div style="border-top:1px solid ${HAIR};padding:14px 0 ${i === last ? 20 : 14}px;">
-<div class="cmp-label" style="font-size:10px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};opacity:.7;">${ent(label)}</div>
-<div class="cmp-theirs" style="padding-top:4px;font-size:15px;line-height:20px;font-weight:500;color:${BEIGE};">${ent(b)}</div>
-</div>
-</td>
-</tr>`).join('\n');
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;table-layout:fixed;">
+  // two raised columns (Bernat, 2026-11-18: "more volume"): each is its own rounded table with a top-lit
+  // gradient, a highlight along its top edge, a darker lip at its base and a drop shadow onto the green.
+  // Rows have fixed heights so the two columns line up row for row.
+  const HAIR = 'rgba(240,239,223,.28)';
+  const H = [74, 74, 74, 74, 96]; // per row; the last row holds two doses
+  const OURS_BOX = `background-color:${GOLD};background-image:linear-gradient(180deg,#F7DE97 0%,#EAC66E 38%,#DDB257 100%);border-radius:20px;box-shadow:0 18px 32px rgba(0,20,8,.45),inset 0 2px 0 rgba(255,255,255,.6),inset 0 -4px 0 rgba(130,90,20,.28);`;
+  const THEIRS_BOX = `background-color:#08593A;background-image:linear-gradient(180deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.03) 100%);border:1px solid ${HAIR};border-radius:20px;box-shadow:0 18px 32px rgba(0,20,8,.45),inset 0 1px 0 rgba(255,255,255,.22);`;
+  const col = (ours) => {
+    const ink = ours ? FOREST : BEIGE, rule = ours ? 'rgba(0,77,39,.2)' : HAIR;
+    const head = ours
+      ? `<img src="${img('cmp-pouch.png')}" width="38" height="61" alt="" role="presentation" style="display:block;margin:0 auto;width:38px;height:61px;border:0;">
+<div class="cmp-head-name" style="padding-top:10px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">Mate Latte</div>`
+      : `<img src="${img('cmp-coffee-beige.png')}" width="48" height="48" alt="" role="presentation" style="display:block;margin:0 auto;width:48px;height:48px;border:0;">
+<div class="cmp-head-name" style="padding-top:23px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">Coffee</div>`;
+    const rows = COMPARE.map(([label, a, b], i) => `<tr><td height="${H[i]}" align="center" valign="middle" style="height:${H[i]}px;padding:0 12px;border-top:1px solid ${rule};font-family:${FONT};">
+<div class="cmp-label" style="font-size:10px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${ink};opacity:.72;">${ent(label)}</div>
+<div class="${ours ? 'cmp-ours' : 'cmp-theirs'}" style="padding-top:4px;font-size:15px;line-height:20px;font-weight:${ours ? 700 : 500};color:${ink};">${ours ? ent(a).replace(/(\d+mg [A-Z][\w-]*(?:&rsquo;s Mane)?)/g, (m) => nw(m)) : ent(b)}</div>
+</td></tr>`).join('\n');
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${ours ? GOLD : '#08593A'}" style="${ours ? OURS_BOX : THEIRS_BOX}border-collapse:separate;">
+<tr><td height="110" align="center" valign="bottom" style="height:110px;padding:0 8px 12px;font-family:${FONT};">
 ${head}
+</td></tr>
 ${rows}
+<tr><td height="8" style="height:8px;font-size:0;line-height:0;">&nbsp;</td></tr>
 </table>`;
+  };
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;table-layout:fixed;"><tr>
+<td width="50%" valign="top" style="width:50%;">
+${col(true)}
+</td>
+<td width="14" style="width:14px;font-size:0;line-height:0;">&nbsp;</td>
+<td width="50%" valign="top" style="width:50%;">
+${col(false)}
+</td>
+</tr></table>`;
 }
 
 function body(img) {
@@ -207,22 +215,22 @@ ${inside}
 </tr></table>
 </td></tr>
 <tr><td class="kit-wrap bg-gold" align="center" bgcolor="${GOLD}" style="background-color:${GOLD};padding:30px 50px 60px;font-family:${FONT};">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:500px;border-collapse:separate;"><tr><td bgcolor="#FFFFFF" style="background-color:#FFFFFF;border-radius:22px;overflow:hidden;box-shadow:0 14px 34px rgba(90,60,10,.25);font-family:${FONT};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:500px;border-collapse:separate;border-radius:22px;box-shadow:0 16px 36px rgba(60,30,5,.35);"><tr><td bgcolor="#FFFFFF" style="background-color:#FFFFFF;border-radius:22px 22px 0 0;padding:0;font-size:0;line-height:0;font-family:${FONT};">
 <a href="${amp(KIT('kit_image'))}" target="_blank" style="display:block;"><img src="${img('kit-photo.jpg')}" width="500" height="500" alt="Two Mate Latte pouches with Lion’s Mane, vanilla and a frother frothing a latte" style="display:block;width:100%;max-width:500px;height:auto;border:0;border-radius:22px 22px 0 0;"></a>
-<div class="kit-in" style="padding:26px 30px 30px;">
+</td></tr>
+<tr><td class="kit-in" align="center" background="${img('offers-bg.jpg')}" bgcolor="#6E3A26" style="background-color:#6E3A26;background-image:url('${img('offers-bg.jpg')}');background-size:cover;background-position:center center;border-radius:0 0 22px 22px;padding:26px 30px 30px;font-family:${FONT};">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr>
-<td class="kit-name" valign="middle" style="padding-right:12px;font-family:${FONT};font-size:19px;line-height:24px;font-weight:700;color:${FOREST};white-space:nowrap;">Monthly Starter Kit</td>
+<td class="kit-name" valign="middle" style="padding-right:12px;font-family:${FONT};font-size:19px;line-height:24px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.5);white-space:nowrap;">Monthly Starter Kit</td>
 <td class="kit-pill" valign="middle" bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:6px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;white-space:nowrap;">Save 40%</td>
 </tr></table>
-<div style="padding-top:14px;text-align:center;"><span class="price" style="font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;color:${FOREST};">$37.79</span> <span style="font-family:${FONT};font-size:18px;line-height:24px;font-weight:700;color:#8A8F86;text-decoration:line-through;">$62.98</span></div>
-<div style="padding-top:4px;text-align:center;font-size:14px;line-height:20px;font-weight:700;color:${SOFT};">30 servings &middot; $1.26 per serving</div>
-<div style="margin:22px 0 6px;border-top:1px solid ${LINE};font-size:0;line-height:0;">&nbsp;</div>
-<div style="padding-top:10px;font-size:13px;line-height:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">Starter Kit:</div>
+<div style="padding-top:14px;text-align:center;"><span class="price" style="font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;color:#FFFFFF;text-shadow:0 2px 8px rgba(30,10,5,.45);">$37.79</span> <span style="font-family:${FONT};font-size:18px;line-height:24px;font-weight:700;color:#E8D9C8;text-decoration:line-through;">$62.98</span></div>
+<div style="padding-top:4px;text-align:center;font-size:14px;line-height:20px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.5);">30 servings &middot; $1.26 per serving</div>
+<div style="margin:22px 0 6px;border-top:1px solid rgba(255,255,255,.3);font-size:0;line-height:0;">&nbsp;</div>
+<div style="padding-top:10px;text-align:left;font-size:16px;line-height:22px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.5);">Starter Kit:</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;">
-${KIT_LIST.map(([icon, t]) => `<tr><td width="36" valign="middle" style="width:36px;padding:8px 0;"><img src="${img(icon)}" width="24" height="24" alt="" role="presentation" style="display:block;width:24px;height:24px;border:0;"></td><td valign="middle" style="padding:8px 0;font-family:${FONT};font-size:16px;line-height:22px;font-weight:700;color:${INK};">${ent(t)}</td></tr>`).join('\n')}
+${KIT_LIST.map(([icon, t]) => `<tr><td width="36" valign="middle" style="width:36px;padding:7px 0;"><img src="${img(icon)}" width="24" height="24" alt="" role="presentation" style="display:block;width:24px;height:24px;border:0;"></td><td align="left" valign="middle" style="padding:7px 0;font-family:${FONT};font-size:16px;line-height:22px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.55);">${ent(t)}</td></tr>`).join('\n')}
 </table>
-<div style="padding-top:24px;text-align:center;">${button(KIT('kit_button'), 'Get my Starter Kit', 330)}</div>
-</div>
+<div style="padding-top:26px;text-align:center;">${button(KIT('kit_button'), 'Get my Starter Kit', 330, GOLD, FOREST, '#B58E3A')}</div>
 </td></tr></table>
 </td></tr>
 

@@ -19,3 +19,12 @@ for (const f of ['hero-poster.jpg', 'kit-photo.jpg']) { const m = await sharp(`$
   await sharp(data, { raw: info }).png().toFile(`${OUT}/cmp-coffee-beige.png`);
   console.log('cmp-coffee-beige.png');
 }
+
+// v2 (Bernat, 2026-11-18): the Starter Kit details sit on the Black Friday background, like the website,
+// so the list icons are white (bf-2026's kit-*.png recoloured)
+for (const k of ['percent', 'gift', 'truck', 'pause', 'card']) {
+  const { data, info } = await sharp(`exports/klaviyo/bf-2026/img/kit-${k}.png`).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  for (let i = 0; i < data.length; i += 4) { data[i] = 255; data[i + 1] = 255; data[i + 2] = 255; }
+  await sharp(data, { raw: info }).png().toFile(`${OUT}/kit-${k}-white.png`);
+}
+console.log('kit-*-white.png');

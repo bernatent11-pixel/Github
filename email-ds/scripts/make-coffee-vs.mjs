@@ -112,6 +112,8 @@ const STYLE = `<style>
     .cmp-head-name { font-size:10px !important; letter-spacing:1px !important; }
     .in-col { display:block !important; width:100% !important; padding:0 0 26px !important; }
     .kit-wrap { padding:24px 16px 48px !important; }
+    .poster { height:667px !important; }
+    .poster-in { padding-top:578px !important; }
     .kit-in { padding:22px 20px 26px !important; }
     .price { font-size:44px !important; line-height:46px !important; }
     .btn { padding:17px 28px !important; font-size:14px !important; letter-spacing:1.4px !important; }
@@ -127,7 +129,7 @@ const STYLE = `<style>
     .bg-forest { background-color:${FOREST} !important; }
     .bg-scene { background-color:${SCENE} !important; }
     .bg-gold { background-color:${GOLD} !important; }
-    .bg-poster { background-color:#EFEBE0 !important; }
+    .poster { background-color:#EFEBE0 !important; }
   }
 </style>`;
 
@@ -196,11 +198,13 @@ function body(img) {
 <table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;table-layout:fixed;">
 
 <!-- ── 1 · CLEAN ENERGY · Bernat's poster (its words are in the image; the alt text repeats them) with the
-     Milonga logo set into its cream top; the whole picture opens the Starter Kit, and a button below it
-     on the poster's own bottom-edge cream ── -->
-<tr><td class="bg-cream" align="center" bgcolor="#F6F2E8" style="background-color:#F6F2E8;padding:0;font-size:0;line-height:0;"><a href="${amp(KIT('hero_image'))}" target="_blank" style="display:block;"><img src="${img('hero-poster.jpg')}" width="600" height="1067" alt="Milonga. Clean energy, sharp focus (and skip the coffee jitters). The Mate Latte: 100mg caffeine from yerba mate, L-theanine for no jitters, Lion’s Mane, naturally sweetened with honey, vanilla and monk fruit." style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a></td></tr>
-<tr><td class="bg-poster" align="center" bgcolor="#EFEBE0" style="background-color:#EFEBE0;padding:8px 40px 48px;font-family:${FONT};">
-${button(KIT('hero_button'), 'Try the Mate Latte', 320)}
+     Milonga logo set into its cream top. The poster is the section's background (fixed to its own ratio:
+     1067px tall on desktop, 667px on phones) and the live button sits on it, over the forearm near the bottom ── -->
+<tr><td class="poster" align="center" valign="top" height="1067" background="${img('hero-poster.jpg')}" bgcolor="#EFEBE0" style="height:1067px;background-color:#EFEBE0;background-image:url('${img('hero-poster.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;font-family:${FONT};">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1067px;"><v:fill type="frame" src="${img('hero-poster.jpg')}" color="#EFEBE0" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="poster-in" style="padding:962px 30px 0;">${button(KIT('hero_button'), 'Try the Mate Latte', 320)}</div>
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#EFEBE0;">Clean energy, sharp focus, and skip the coffee jitters. The Mate Latte: 100mg caffeine from yerba mate, L-theanine, Lion’s Mane, naturally sweetened with honey, vanilla and monk fruit.</div>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
 
 <!-- ── 2 · SIDE BY SIDE · dark green: our column gold, coffee a beige hairline outline ── -->

@@ -130,9 +130,9 @@ const STYLE = `<style>
   }
 </style>`;
 
-const button = (href, label, width, bg = FOREST, ink = BEIGE, shadow = DEEP) => `<!--[if mso]>
+const button = (href, label, width, bg = FOREST, ink = BEIGE, shadow = DEEP, fit = 'padding:20px 38px;font-size:16px;letter-spacing:2px;') => `<!--[if mso]>
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${amp(href)}" style="height:56px;v-text-anchor:middle;width:${width}px;" arcsize="50%" stroke="f" fillcolor="${bg}"><w:anchorlock/><center style="color:${ink};font-family:Arial,sans-serif;font-size:16px;font-weight:bold;letter-spacing:2px;">${label}</center></v:roundrect>
-<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;padding:20px 38px;font-family:${FONT};font-size:16px;line-height:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${shadow};">${label}</a><!--<![endif]-->`;
+<![endif]--><!--[if !mso]><!-- --><a href="${amp(href)}" target="_blank" class="btn" style="display:inline-block;background-color:${bg};border-radius:999px;${fit}font-family:${FONT};line-height:18px;font-weight:700;text-transform:uppercase;color:${ink};text-decoration:none;box-shadow:0 4px 0 ${shadow};">${label}</a><!--<![endif]-->`;
 const eyebrow = (t, color = FOREST) => `<div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${color};">${ent(t)}</div>`;
 const title = ([a, b], cls, size, color = FOREST, pad = 12, shadow = '') => `<div class="${cls}" style="padding-top:${pad}px;font-family:${SERIF};font-size:${size}px;line-height:${size + 4}px;font-weight:400;color:${color};${shadow}">${ent(a)}</div>
 <div class="${cls}" style="font-family:${SERIF};font-size:${size}px;line-height:${size + 4}px;font-weight:700;font-style:italic;color:${color};${shadow}">${ent(b)}</div>`;
@@ -214,13 +214,13 @@ ${title(['Real yerba mate,', 'and a little more.'], 'h-sec', 40)}`)}
 ${inside}
 </tr></table>
 </td></tr>
-<tr><td class="kit-wrap bg-gold" align="center" bgcolor="${GOLD}" style="background-color:${GOLD};padding:30px 50px 60px;font-family:${FONT};">
+<tr><td class="kit-wrap bg-gold" align="center" bgcolor="${GOLD}" style="background-color:${GOLD};padding:30px 16px 60px;font-family:${FONT};">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:500px;border-collapse:separate;border-radius:22px;box-shadow:0 16px 36px rgba(60,30,5,.35);"><tr><td bgcolor="#FFFFFF" style="background-color:#FFFFFF;border-radius:22px 22px 0 0;padding:0;font-size:0;line-height:0;font-family:${FONT};">
 <a href="${amp(KIT('kit_image'))}" target="_blank" style="display:block;"><img src="${img('kit-photo.jpg')}" width="500" height="500" alt="Two Mate Latte pouches with Lion’s Mane, vanilla and a frother frothing a latte" style="display:block;width:100%;max-width:500px;height:auto;border:0;border-radius:22px 22px 0 0;"></a>
 </td></tr>
-<tr><td class="kit-in" align="center" background="${img('offers-bg.jpg')}" bgcolor="#6E3A26" style="background-color:#6E3A26;background-image:url('${img('offers-bg.jpg')}');background-size:cover;background-position:center center;border-radius:0 0 22px 22px;padding:26px 30px 30px;font-family:${FONT};">
+<tr><td class="kit-in" align="center" background="${img('offers-bg.jpg')}" bgcolor="#6E3A26" style="background-color:#6E3A26;background-image:url('${img('offers-bg.jpg')}');background-size:cover;background-position:center center;border-radius:0 0 22px 22px;padding:26px 18px 30px;font-family:${FONT};">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr>
-<td class="kit-name" valign="middle" style="padding-right:12px;font-family:${FONT};font-size:19px;line-height:24px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.5);white-space:nowrap;">Monthly Starter Kit</td>
+<td class="kit-name" valign="middle" style="padding-right:12px;font-family:${FONT};font-size:19px;line-height:24px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.5);">Monthly Starter Kit</td>
 <td class="kit-pill" valign="middle" bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:6px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;white-space:nowrap;">Save 40%</td>
 </tr></table>
 <div style="padding-top:14px;text-align:center;"><span class="price" style="font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;color:#FFFFFF;text-shadow:0 2px 8px rgba(30,10,5,.45);">$37.79</span> <span style="font-family:${FONT};font-size:18px;line-height:24px;font-weight:700;color:#E8D9C8;text-decoration:line-through;">$62.98</span></div>
@@ -230,7 +230,7 @@ ${inside}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;">
 ${KIT_LIST.map(([icon, t]) => `<tr><td width="36" valign="middle" style="width:36px;padding:7px 0;"><img src="${img(icon)}" width="24" height="24" alt="" role="presentation" style="display:block;width:24px;height:24px;border:0;"></td><td align="left" valign="middle" style="padding:7px 0;font-family:${FONT};font-size:16px;line-height:22px;font-weight:700;color:#FFFFFF;text-shadow:0 1px 4px rgba(30,10,5,.55);">${ent(t)}</td></tr>`).join('\n')}
 </table>
-<div style="padding-top:26px;text-align:center;">${button(KIT('kit_button'), 'Get my Starter Kit', 330, GOLD, FOREST, '#B58E3A')}</div>
+<div style="padding-top:26px;text-align:center;">${button(KIT('kit_button'), 'Get my Starter Kit', 300, GOLD, FOREST, '#B58E3A', 'padding:19px 24px;font-size:15px;letter-spacing:1px;')}</div>
 </td></tr></table>
 </td></tr>
 

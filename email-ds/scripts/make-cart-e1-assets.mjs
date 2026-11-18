@@ -52,7 +52,11 @@ const hero = await fadeCrop(`${DIR}/src-hero-90.jpg`, { left: 0, top: 522, width
 // its bottom (the table) fades into flat cream for the title and benefits
 // v2 (Bernat, 2026-11-18): the title and benefits now sit on the wall's gold ABOVE the photo, so its top
 // also fades into that flat gold and the text and the photo read as one section
-const final = await fadeCrop(`${DIR}/src-final-92.webp`, { left: 0, top: 0, width: 2000, height: 2000 }, 1200, 0.16, 0.05, 'final.jpg', null, [100, 180, 0.5]);
+// v4 (Bernat, 2026-11-18): the whole hand must show. src-final-full.png = the shot outpainted upward
+// (Higgsfield, 4:5) so the fingers and the top of the hand are in frame, with the ORIGINAL photo pasted
+// back over everything but the hand and jug (the outpaint redrew the pouch's small print wrongly).
+// Cropped just below the original's bottom edge; the top fades into the wall's own gold.
+const final = await fadeCrop(`${DIR}/src-final-full.png`, { left: 0, top: 0, width: 1856, height: 2140 }, 1200, 0.12, 0.05, 'final.jpg', null, [20, 120, 0.5]);
 // v3: the very top row is darker than the wall below it, so the fade (and the section gold) now use
 // the wall's own colour, sampled left of the hand, and the fade runs a little longer
 fs.writeFileSync(`${DIR}/colors.json`, JSON.stringify({ heroTop: hero.top, heroBottom: hero.bottom, heroH: hero.h, finalTop: final.top, finalBottom: final.bottom, finalH: final.h }, null, 2));

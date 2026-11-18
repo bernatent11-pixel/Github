@@ -41,7 +41,11 @@ async function fadeCrop(src, { left, top, width, height }, W, topFade, botFade, 
 // at 1200 wide, with the Milonga lockup set into the empty gold at the top
 // (85x90 at 1x, like our other heroes), so the photo starts the email cleanly.
 const logo = async (w) => { const L = await sharp('exports/klaviyo/welcome-e1/img/logo-green.png').resize({ height: 180 }).png().toBuffer(); const m = await sharp(L).metadata(); return [{ input: L, left: Math.round((w - m.width) / 2), top: 68 }]; };
-const hero = await fadeCrop(`${DIR}/src-hero-90.jpg`, { left: 0, top: 280, width: 1116, height: 1438 }, 1200, 0, 0.16, 'hero.jpg', logo);
+// v2 (Bernat, 2026-11-18): the title and text now sit ABOVE the photo as live rows (with the live logo),
+// so the photo loses its baked-in logo and starts just above the cup (source row 522), its top fading
+// into the flat gold the rows above use
+void logo;
+const hero = await fadeCrop(`${DIR}/src-hero-90.jpg`, { left: 0, top: 522, width: 1116, height: 1196 }, 1200, 0.07, 0.16, 'hero.jpg');
 // final: the whole 2000x2000 pour shot at 1200 wide; its top is a clean edge,
 // its bottom (the table) fades into flat cream for the title and benefits
 const final = await fadeCrop(`${DIR}/src-final-92.webp`, { left: 0, top: 0, width: 2000, height: 2000 }, 1200, 0, 0.05, 'final.jpg');
@@ -53,11 +57,13 @@ const ICONS = {
   save: `<circle cx="7" cy="7" r="2.6" ${stroke}/><circle cx="17" cy="17" r="2.6" ${stroke}/><path d="M18.5 5.5L5.5 18.5" ${stroke}/>`,
   delivery: `<path d="M2.5 6.5h11v9h-11z" ${stroke}/><path d="M13.5 9.5h4l3.5 3.5v2.5h-7.5" ${stroke}/><circle cx="6.5" cy="17.5" r="1.8" ${stroke}/><circle cx="16.5" cy="17.5" r="1.8" ${stroke}/>`,
   pause: `<circle cx="12" cy="12" r="9" ${stroke}/><path d="M10 8.5v7M14 8.5v7" ${stroke}/>`,
+  // v2: the free frother + scoop, a gift box in the same gold line
+  gift: `<rect x="3.5" y="8.5" width="17" height="4" rx="1" ${stroke}/><path d="M5 12.5v8h14v-8M12 8.5v12" ${stroke}/><path d="M12 8.5c-1.5-3.5-5.5-4-5.5-1.5S10 8.5 12 8.5zM12 8.5c1.5-3.5 5.5-4 5.5-1.5S14 8.5 12 8.5z" ${stroke}/>`,
 };
 for (const [k, d] of Object.entries(ICONS)) {
   await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">${d}</svg>`)).png().toFile(`${OUT}/icon-${k}.png`);
 }
-console.log('icons: icon-save, icon-delivery, icon-pause');
+console.log('icons: icon-save, icon-delivery, icon-pause, icon-gift');
 
 await sharp('public/product/pouch-mate-latte-vanilla-packshot-corrected.png').resize({ height: 192 }).png().toFile(`${OUT}/cart-pouch.png`);
 console.log('cart-pouch.png (preview only)');

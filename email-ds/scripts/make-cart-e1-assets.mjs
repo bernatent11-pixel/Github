@@ -22,11 +22,13 @@ fs.mkdirSync(OUT, { recursive: true });
 const hex = (c) => '#' + c.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase();
 
 // crop -> resize to W -> fade top/bottom into the average colour of their edge rows
-async function fadeCrop(src, { left, top, width, height }, W, topFade, botFade, file, overlay) {
+async function fadeCrop(src, { left, top, width, height }, W, topFade, botFade, file, overlay, topSample) {
   const { data, info } = await sharp(src).extract({ left, top, width, height }).resize({ width: W }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, h = info.height;
   const avg = (a, b) => { const c = [0, 0, 0]; for (let y = a; y < b; y++) for (let x = 0; x < w; x++) for (let k = 0; k < 3; k++) c[k] += data[(y * w + x) * 3 + k]; return c.map((v) => v / ((b - a) * w)); };
-  const topC = avg(0, 8), botC = avg(h - 8, h);
+  // topSample [y0, y1, xFrac]: take the top colour from that band (left xFrac of the width) instead of row 0
+  const band = (a, b, f) => { const c = [0, 0, 0], xw = Math.round(w * f); for (let y = a; y < b; y++) for (let x = 0; x < xw; x++) for (let k = 0; k < 3; k++) c[k] += data[(y * w + x) * 3 + k]; return c.map((v) => v / ((b - a) * xw)); };
+  const topC = topSample ? band(...topSample) : avg(0, 8), botC = avg(h - 8, h);
   const fade = (a, b, flat, up) => { for (let y = a; y < b; y++) { const t = (y - a) / (b - a); const k = up ? 1 - t * t * (3 - 2 * t) : t * t * (3 - 2 * t); for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + flat[c] * k); } } };
   if (topFade) fade(0, Math.round(h * topFade), topC, true);
   if (botFade) fade(h - Math.round(h * botFade), h, botC, false);
@@ -50,7 +52,9 @@ const hero = await fadeCrop(`${DIR}/src-hero-90.jpg`, { left: 0, top: 522, width
 // its bottom (the table) fades into flat cream for the title and benefits
 // v2 (Bernat, 2026-11-18): the title and benefits now sit on the wall's gold ABOVE the photo, so its top
 // also fades into that flat gold and the text and the photo read as one section
-const final = await fadeCrop(`${DIR}/src-final-92.webp`, { left: 0, top: 0, width: 2000, height: 2000 }, 1200, 0.12, 0.05, 'final.jpg');
+const final = await fadeCrop(`${DIR}/src-final-92.webp`, { left: 0, top: 0, width: 2000, height: 2000 }, 1200, 0.16, 0.05, 'final.jpg', null, [100, 180, 0.5]);
+// v3: the very top row is darker than the wall below it, so the fade (and the section gold) now use
+// the wall's own colour, sampled left of the hand, and the fade runs a little longer
 fs.writeFileSync(`${DIR}/colors.json`, JSON.stringify({ heroTop: hero.top, heroBottom: hero.bottom, heroH: hero.h, finalTop: final.top, finalBottom: final.bottom, finalH: final.h }, null, 2));
 
 // Mate Mornings Club icons (the product page's three), gold line on forest

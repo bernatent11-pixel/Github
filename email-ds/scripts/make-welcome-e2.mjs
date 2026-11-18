@@ -40,15 +40,17 @@ const VARIANTS = {
   },
   story: {
     out: 'exports/klaviyo/welcome-story', file: 'welcome-story', label: 'SHADI · THE STORY BEHIND MILONGA · plain-text note for new subscribers',
-    subject: 'the story behind milonga', preheader: 'a soccer dream, a gourd in argentina, and your new morning', slot: 'story_text_link',
+    subject: 'why i made the mate latte', preheader: 'coffee wasn’t working for me. here’s what does.', slot: 'story_text_link',
     // Bernat, 2026-11-18: his edit (greeting, "Big hug"), then made about half as long ("too much for
     // customers to read"); "focused and calm" left out (no function claims)
     greeting: 'Hey {{ person.first_name|default:\'friend\' }}!', // Bernat wrote |title too: not on the tag allowlist, flagged
     signoff: ['Big hug,', 'Shadi'],
-    body: [ // v3: "more brief" (Bernat, 2026-11-18)
-      'I’m Shadi, the founder of Milonga.',
-      'At 19, I moved to Argentina to chase pro soccer and found mate: a naturally caffeinated tea, shared from one gourd passed around a circle of friends. **No phones, just slowing down together.**',
-      'Back home, everyone was stuck on coffee: the jitters, the crash, no ritual. So I made the Mate Latte: a **creamy vanilla latte** made with yerba mate, for clean, steady energy without the jitters or the crash. Ready in 30 seconds.',
+    body: [ // v4 (Bernat, 2026-11-18): for the welcome flow, brief, built on the problem (coffee and the
+      // alternatives) and the answer (why yerba mate, why a latte)
+      'I’m Shadi, the founder of Milonga. Here’s why we exist.',
+      'So many of us are stuck on coffee: **the jitters, the acidity, the afternoon crash.** And the alternatives? They taste grassy or earthy, and you barely feel them.',
+      'I found my answer in Argentina, where I moved at 19 to chase pro soccer: **yerba mate.** A naturally caffeinated tea that gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
+      'So I made the Mate Latte: real yerba mate in a **creamy vanilla latte**, with no bitterness. Ready in 30 seconds, hot or iced.',
       'Your 15% is still waiting (code WELCOME15), and [[this link applies it for you]].',
       'Hit reply anytime. I read every one.',
     ],

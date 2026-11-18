@@ -6,7 +6,7 @@
 //   howto.jpg     Bernat's shot of milk poured into an iced Mate Latte beside the pouch, gold wall and
 //                 white table (src-howto-107.webp): the "three steps" section's background. Its top
 //                 fades into the gold wall the title and steps sit on, its bottom into the table colour
-//                 the hot/iced section continues on. 1200x1140 (600x570).
+//                 the hot/iced section continues on. 1200x1384 (600x692), the whole hand in frame.
 //   step-*.png    forest discs with a gold line icon: scoop, pour, froth (112px = 56 in the email)
 //   bags.jpg      Bernat's three pouches, their white turned into the section's cream. 760 wide (380).
 //   colors.json   the flat colours the photos fade into
@@ -31,9 +31,11 @@ function fade(data, w, y0, y1, col, toward) {
     for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) { const i = (y * w + x) * 3 + c; data[i] = Math.round(data[i] * (1 - k) + col[c] * k); }
   }
 }
-async function faded(src, crop, W, H, topK, botK, file) {
+// topSample [y0, y1, xFrac]: take the top colour from that band (left xFrac of the width) instead of the first rows
+async function faded(src, crop, W, H, topK, botK, file, topSample) {
   const { data, info } = await sharp(src).extract(crop).resize({ width: W, height: H }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  const top = rowMean(data, W, 0, 10), bot = rowMean(data, W, H - 10, H);
+  const band = (y0, y1, f) => { const s = [0, 0, 0], xw = Math.round(W * f); let n = 0; for (let y = y0; y < y1; y++) for (let x = 0; x < xw; x++) { for (let c = 0; c < 3; c++) s[c] += data[(y * W + x) * 3 + c]; n++; } return s.map((v) => v / n); };
+  const top = topSample ? band(...topSample) : rowMean(data, W, 0, 10), bot = rowMean(data, W, H - 10, H);
   fade(data, W, 0, Math.round(H * topK), top, false);
   fade(data, W, H - Math.round(H * botK), H, bot, true);
   await sharp(data, { raw: info }).jpeg(jpg).toFile(`${OUT}/${file}`);
@@ -47,7 +49,11 @@ const colors = {};
   colors.heroTop = r.top; colors.heroBottom = r.bot; colors.heroH = r.h;
 }
 {
-  const r = await faded('exports/klaviyo/sub1-e1/src-howto-107.webp', { left: 0, top: 0, width: 2000, height: 1900 }, 1200, 1140, 0.1, 0.12, 'howto.jpg');
+  // v2 (Bernat, 2026-11-18): the whole hand must show. Same shot as cart-e1's pour photo, so it uses cart-e1's
+  // src-final-full.png: outpainted upward so the full hand is in frame, with the original pasted back over
+  // everything but the hand and jug (exact pouch print). Its top fades into the wall's own gold (sampled
+  // left of the hand), which the title and steps sit on, so they read as one golden section.
+  const r = await faded('exports/klaviyo/cart-e1/src-final-full.png', { left: 0, top: 0, width: 1856, height: 2140 }, 1200, 1384, 0.12, 0.12, 'howto.jpg', [20, 120, 0.5]);
   colors.wall = r.top; colors.table = r.bot; colors.howtoH = r.h;
 }
 // Bernat's three-pouch shot on white (src-bags-108.jpg): trimmed, then multiplied by the section's

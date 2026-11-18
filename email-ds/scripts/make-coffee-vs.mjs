@@ -109,6 +109,11 @@ const STYLE = `<style>
     .price { font-size:44px !important; line-height:46px !important; }
     .btn { padding:17px 28px !important; font-size:14px !important; letter-spacing:1.4px !important; }
   }
+  @media only screen and (max-width:360px) {
+    .kit-name { font-size:15px !important; padding-right:8px !important; }
+    .kit-pill { font-size:11px !important; padding:5px 10px !important; }
+    .kit-in { padding:20px 14px 24px !important; }
+  }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
     .bg-cream { background-color:${CREAM} !important; }
@@ -206,8 +211,8 @@ ${inside}
 <a href="${amp(KIT('kit_image'))}" target="_blank" style="display:block;"><img src="${img('kit-photo.jpg')}" width="500" height="500" alt="Two Mate Latte pouches with Lion’s Mane, vanilla and a frother frothing a latte" style="display:block;width:100%;max-width:500px;height:auto;border:0;border-radius:22px 22px 0 0;"></a>
 <div class="kit-in" style="padding:26px 30px 30px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr>
-<td valign="middle" style="padding-right:12px;font-family:${FONT};font-size:19px;line-height:24px;font-weight:700;color:${FOREST};white-space:nowrap;">Monthly Starter Kit</td>
-<td valign="middle" bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:6px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;white-space:nowrap;">Save 40%</td>
+<td class="kit-name" valign="middle" style="padding-right:12px;font-family:${FONT};font-size:19px;line-height:24px;font-weight:700;color:${FOREST};white-space:nowrap;">Monthly Starter Kit</td>
+<td class="kit-pill" valign="middle" bgcolor="#D2A346" style="${SHINE}${SHINE_INK}border-radius:999px;padding:6px 16px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;white-space:nowrap;">Save 40%</td>
 </tr></table>
 <div style="padding-top:14px;text-align:center;"><span class="price" style="font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;color:${FOREST};">$37.79</span> <span style="font-family:${FONT};font-size:18px;line-height:24px;font-weight:700;color:#8A8F86;text-decoration:line-through;">$62.98</span></div>
 <div style="padding-top:4px;text-align:center;font-size:14px;line-height:20px;font-weight:700;color:${SOFT};">30 servings &middot; $1.26 per serving</div>

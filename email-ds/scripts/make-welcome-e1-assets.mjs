@@ -16,7 +16,7 @@ fs.mkdirSync(OUT, { recursive: true });
 // one plain band of the gradient (rows 530–650, no product, no bubble) is
 // stretched by ADD rows. The products and the silk around them are untouched.
 const SRC = 'exports/klaviyo/welcome-e1/src-hero-82.jpg';
-const A = 530, B = 650, ADD = 491; // 2098 tall: an even 1049 at 600px
+const A = 530, B = 650, ADD = 213; // 1820 tall: 910 at 600px (was 1049; Bernat, 2026-11-18: too long)
 const W = 1200, H0 = 1607;
 const top = await sharp(SRC).extract({ left: 0, top: 0, width: W, height: A }).toBuffer();
 const band = await sharp(SRC).extract({ left: 0, top: A, width: W, height: B - A }).resize({ width: W, height: B - A + ADD, fit: 'fill', kernel: 'cubic' }).toBuffer();
@@ -33,7 +33,7 @@ console.log('hero-bg.jpg', W + 'x' + H, '(shows at 600x' + H / 2 + ')');
 // further, so at 390px the reveal still fits between the top pouch and the
 // pouch and mug at the bottom, with nothing cropped off the sides.
 {
-  const ADDM = 775; // 2382 tall: 774px at 390
+  const ADDM = 616; // 2223 tall: 722px at 390 (was 774)
   const band = await sharp(SRC).extract({ left: 0, top: A, width: W, height: B - A }).resize({ width: W, height: B - A + ADDM, fit: 'fill', kernel: 'cubic' }).toBuffer();
   const HM = H0 + ADDM;
   const full = await sharp({ create: { width: W, height: HM, channels: 3, background: '#F6DFAE' } })

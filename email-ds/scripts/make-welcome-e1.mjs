@@ -42,6 +42,7 @@ const L = {
   subscribe: `${SITE}${PDP}?${utm('e1_subscribe_link')}`,
   home: `${SITE}/?${utm('e1_logo')}`,
   product: `${SITE}/discount/WELCOME15?redirect=${encodeURIComponent(PDP)}&${utm('e1_product_image')}`,
+  s2: `${SITE}/discount/WELCOME15?redirect=${encodeURIComponent(PDP)}&${utm('e1_s2_button')}`,
 };
 
 const ALT = {
@@ -118,14 +119,19 @@ function email(img) {
     .btn { padding:18px 24px !important; font-size:15px !important; letter-spacing:1.2px !important; }
     .card { padding:36px 18px !important; }
     .pad-card { padding-left:16px !important; padding-right:16px !important; }
-    .hero { height:774px !important; background-image:url('${img('hero-bg-mobile.jpg')}') !important; background-size:cover !important; background-position:center top !important; }
+    .hero { height:722px !important; background-image:url('${img('hero-bg-mobile.jpg')}') !important; background-size:cover !important; background-position:center top !important; }
     .hero-in { padding-top:24px !important; }
     .hero-logo { width:68px !important; height:72px !important; }
-    .hero-gap { height:62px !important; line-height:62px !important; }
+    .hero-gap { height:58px !important; line-height:58px !important; }
     .eyebrow-hero { font-size:11px !important; letter-spacing:2px !important; }
     .desk { display:none !important; }
     .mob { display:block !important; max-height:none !important; overflow:visible !important; }
     .col { display:block !important; width:100% !important; padding:0 0 28px !important; }
+  }
+  @media only screen and (max-width:360px) {
+    .btn { padding:16px 18px !important; font-size:13px !important; letter-spacing:.8px !important; }
+    .card { padding:32px 12px !important; }
+    .code { font-size:21px !important; letter-spacing:3px !important; }
   }
   @media (prefers-color-scheme: dark) {
     .bg-hero { background-color:${HERO} !important; }
@@ -140,18 +146,17 @@ function email(img) {
 <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
 
 <!-- ── 1 · THE REVEAL (gold silk, forest type) ───────────────────────── -->
-<tr><td class="bg-hero hero" align="center" valign="top" height="1049" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:1049px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
-<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1049px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO}" /><v:textbox inset="0,0,0,0"><![endif]-->
+<tr><td class="bg-hero hero" align="center" valign="top" height="910" background="${img('hero-bg.jpg')}" bgcolor="${HERO}" style="height:910px;background-color:${HERO};background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center top;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:910px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="${HERO}" /><v:textbox inset="0,0,0,0"><![endif]-->
 <div class="hero-in" style="padding:32px 40px 0;font-family:${FONT};color:${FOREST};text-align:center;">
 <a href="${amp(L.home)}" target="_blank"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="${ALT.logo}" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div class="hero-gap" style="height:122px;line-height:122px;font-size:0;">&nbsp;</div>
-<div class="eyebrow-hero" style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('¡Listo! Your mystery offer is…')}</div>
+<div class="hero-gap" style="height:104px;line-height:104px;font-size:0;">&nbsp;</div>
+<div class="eyebrow-hero" style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">${ent('You’re in! Your mystery offer is…')}</div>
 <div class="h-hero" style="padding-top:8px;font-family:${SERIF};font-size:84px;line-height:78px;font-weight:700;letter-spacing:-1px;color:${FOREST};">15% off</div>
 <div class="h-turn" style="font-family:${SERIF};font-size:38px;line-height:44px;font-weight:700;font-style:italic;color:${FOREST};">your first order.</div>
 <div style="padding:12px 0 18px;font-size:16px;line-height:22px;font-weight:500;color:${INK};">${ent('We promised a surprise.')} <span style="white-space:nowrap;">${ent('Here’s your code:')}</span></div>
 ${codeTag(FOREST, TAG, FOREST, SOFT)}
 <div style="padding-top:18px;">${button(L.claim, 'Claim my 15% off', FOREST, BEIGE, 300)}</div>
-<div style="padding-top:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">&#10003;&nbsp; 30-day money-back guarantee</div>
 </div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>
@@ -161,7 +166,7 @@ ${codeTag(FOREST, TAG, FOREST, SOFT)}
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">Meet the Mate Latte</div>
 <div class="h-sec" style="padding-top:12px;font-family:${SERIF};font-size:44px;line-height:46px;font-weight:400;color:#FFFFFF;">Everything your</div>
 <div class="h-sec" style="font-family:${SERIF};font-size:44px;line-height:48px;font-weight:700;font-style:italic;color:#FFFFFF;">mornings need.</div>
-<div style="padding-top:18px;font-size:16px;line-height:25px;font-weight:500;color:#FFFFFF;">${ent('Energy, focus, calm and something delicious, all in one cup. A creamy vanilla latte made with yerba mate, one of the healthiest caffeine sources in the world, for clean, sustained energy, while Lion’s Mane and L-theanine keep you focused, clear and calm. Ready in 30 seconds,')} <span style="white-space:nowrap;">hot or iced.</span></div>
+<div style="padding-top:18px;font-size:16px;line-height:25px;font-weight:500;color:#FFFFFF;">${ent('Smooth energy and something delicious, all in one cup: a creamy vanilla latte made with yerba mate, Lion’s Mane and L-theanine. Ready in 30 seconds,')} <span style="white-space:nowrap;">hot or iced.</span></div>
 </td></tr>
 <tr><td class="pad bg-s2a" bgcolor="${G2A}" style="background-color:${G2A};padding:40px 24px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
@@ -173,6 +178,7 @@ ${cols}
 <tr><td class="pad bg-s2b" align="center" bgcolor="${G2B}" style="background-color:${G2B};padding:4px 20px 56px;font-family:${FONT};">
 <div style="padding-bottom:16px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">${ent('Plus, from the yerba mate')}</div>
 <div style="font-size:0;line-height:0;">${benefits}</div>
+<div style="padding-top:26px;">${button(L.s2, 'Claim my 15% off', GOLD, FOREST, 300)}</div>
 </td></tr>
 
 <!-- ── 3 · THE OFFER, AGAIN (forest card on beige) ──────────────────── -->

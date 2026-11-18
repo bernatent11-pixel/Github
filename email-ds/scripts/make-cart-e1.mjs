@@ -112,6 +112,14 @@ const STYLE = `<style>
     .pill a { padding:10px 14px !important; font-size:11px !important; letter-spacing:1px !important; }
     .btn { padding:18px 26px !important; font-size:15px !important; letter-spacing:1.2px !important; }
   }
+  @media only screen and (max-width:360px) {
+    .pad-photo { padding-left:10px !important; padding-right:10px !important; }
+    .cmp-card { padding:16px 6px 16px !important; }
+    .cmp-price { font-size:28px !important; line-height:30px !important; }
+    .cmp-text { font-size:11.5px !important; line-height:16px !important; }
+    .club-ico { width:14px !important; padding-right:4px !important; }
+    .pill a { padding:9px 10px !important; font-size:10px !important; letter-spacing:.6px !important; }
+  }
   @media (prefers-color-scheme: dark) {
     .bg-white { background-color:#FFFFFF !important; }
     .bg-page { background-color:${BEIGE} !important; }

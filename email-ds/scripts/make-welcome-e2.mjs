@@ -45,13 +45,12 @@ const VARIANTS = {
     // customers to read"); "focused and calm" left out (no function claims)
     greeting: 'Hey {{ person.first_name|default:\'friend\' }}!', // Bernat wrote |title too: not on the tag allowlist, flagged
     signoff: ['Big hug,', 'Shadi'],
-    body: [
-      'I’m Shadi, the founder of Milonga. Here’s how it all started.',
-      'At 19, I moved from South Florida to Argentina to chase pro soccer, and that’s where I found mate: a naturally caffeinated tea that’s to South America what coffee is here.',
-      'What got me was the ritual: one gourd passed around a circle of friends. **No phones, no distractions**, just slowing down and being together. And mate gives you clean, steady energy without the jitters or the crash, plus antioxidants and vitamins that support your gut and immune system.',
-      'Back home, I saw people stuck on coffee: the jitters, the acidity, the afternoon crash. So I made the Mate Latte, to bring that ritual into your morning. It **tastes like a creamy vanilla latte**, with no bitterness, and it’s ready in 30 seconds, hot or iced.',
+    body: [ // v3: "more brief" (Bernat, 2026-11-18)
+      'I’m Shadi, the founder of Milonga.',
+      'At 19, I moved to Argentina to chase pro soccer and found mate: a naturally caffeinated tea, shared from one gourd passed around a circle of friends. **No phones, just slowing down together.**',
+      'Back home, everyone was stuck on coffee: the jitters, the crash, no ritual. So I made the Mate Latte: a **creamy vanilla latte** made with yerba mate, for clean, steady energy without the jitters or the crash. Ready in 30 seconds.',
       'Your 15% is still waiting (code WELCOME15), and [[this link applies it for you]].',
-      'Questions, or just want to tell me how your mornings go? Hit reply. I read every one.',
+      'Hit reply anytime. I read every one.',
     ],
   },
 };

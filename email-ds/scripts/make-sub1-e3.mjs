@@ -10,10 +10,8 @@
 //   Mate Latte, monthly only. 15 servings $34.99, plan 9479323958: 15% off every order after the first ->
 //   $29.74/mo ($1.98 a serving). 30 servings $62.98 and 60 servings $118.96 (Shopify, 2026-11-12), plan 8837562678: 30% off every
 //   order after the first -> $44.09/mo ($1.47) and $83.27/mo ($1.39). 1 / 2 / 4 pouches (the bags art).
-//   How to switch (15 -> 30, v3): the Mate Latte page with 30 Servings + the subscription preselected (see upgradeLink).
-//   30 -> 60: the 15 and the 30 & 60 servings sit in different selling plan groups, and we have not
-//   verified that Appstle's portal can swap sizes, so the switch is a pre-written email to the team
-//   (mailto, orders@milongamate.com) or a reply. The personal portal link is Appstle's
+//   How to switch (15 -> 30 and 30 -> 60, v3): the Mate Latte page with the bigger size + the subscription
+//   preselected (see upgradeLink); it starts a new subscription, so the note asks them to cancel the old one. The personal portal link is Appstle's
 //   {{ event.manageSubscriptionLink }} (render-tested in sub1-e2).
 //
 // Writes, per version (15, 30, 60):
@@ -106,6 +104,7 @@ const VERSIONS = [
     t: ['One a day', 'not enough?'],
     lead: `We get it. If you’ve been having two Mate Lattes a day, 30 servings lasts about two weeks. The 60 servings keeps both cups covered all month, and every cup costs ${nw('a little less.')}`,
     badge: 'Two a day, all month',
+    upgrade: { card: upgradeLink('54302750277942', 'sub1_e3_switch60_card'), button: upgradeLink('54302750277942', 'sub1_e3_switch60_button') },
     photos: { 30: ['plan-30.jpg', 'Two Mate Latte pouches and a frother frothing a latte: best seller, 30 servings'], 60: ['plan-60.jpg', 'Mate Latte pouches and a frother frothing a latte: best value, 60 servings'] },
     perks: {
       t: ['Two cups a day,', 'all month long.'],
@@ -116,7 +115,7 @@ const VERSIONS = [
         ['kit-pause.png', 'Skip, pause or cancel anytime'],
       ],
     },
-    note: `Tap the button and send the email, and we’ll switch your plan before your next order ships. Or simply reply ${nw('to this email.')}`,
+    note: `Your ${nw('60-servings')} plan is $83.27 a month, 30% off the one-time price. Then cancel your ${nw('30-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
     stay: ['One a day?', 'You’re all set. Nothing to change, your next order ships as usual.'],
   },
   {

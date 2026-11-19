@@ -93,7 +93,7 @@ const VERSIONS = [
         ['kit-pause.png', 'Skip, pause or cancel anytime'],
       ],
     },
-    note: `Your ${nw('30-servings')} plan is $44.09 a month, 30% off the one-time price, with the free frother + scooper. Then cancel your ${nw('15-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
+    note: `Your ${nw('30-servings')} plan is $44.09 a month, 30% off the ${nw('one-time price')}, with the free frother + scooper. Then cancel your ${nw('15-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
     stay: ['Happy with 15?', 'You don’t need to do a thing. Your next order ships as usual.'],
   },
   {
@@ -115,7 +115,7 @@ const VERSIONS = [
         ['kit-pause.png', 'Skip, pause or cancel anytime'],
       ],
     },
-    note: `Your ${nw('60-servings')} plan is $83.27 a month, 30% off the one-time price. Then cancel your ${nw('30-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
+    note: `Your ${nw('60-servings')} plan is $83.27 a month, 30% off the ${nw('one-time price')}. Then cancel your ${nw('30-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
     stay: ['One a day?', 'You’re all set. Nothing to change, your next order ships as usual.'],
   },
   {

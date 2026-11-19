@@ -55,7 +55,8 @@ const PORTAL = "{{ event.manageSubscriptionLink|default:'https://milonga.life/ap
 const HELP = 'orders@milongamate.com';
 const HOME = `${SITE}/?${utm('sub1_e3_logo')}`;
 // v3 (Bernat, 2026-11-19): the 15 -> 30 upgrade CTAs open the Mate Latte page with 30 Servings and the Monthly
-// Starter Kit (plan 8837562678) preselected (browser-checked: $37.79 first box, then $44.09/mo). A cart permalink
+// Starter Kit (plan 8837562678) preselected (browser-checked). The note quotes $44.09/mo (30% off $62.98), never the
+// $37.79 first box: that's the Black Friday first-box offer (Bernat, 2026-11-19). A cart permalink
 // straight to checkout was tested too, but it drops the selling plan (checkout showed $62.98 one-time), so the
 // product page is the closest working step to checkout. It starts a NEW 30-servings subscription, so the note
 // under the button tells them to cancel the 15 in their portal.
@@ -94,7 +95,7 @@ const VERSIONS = [
         ['kit-pause.png', 'Skip, pause or cancel anytime'],
       ],
     },
-    note: `Your ${nw('30-servings')} plan starts with your first box at $37.79 and the free frother + scooper. Then cancel your ${nw('15-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
+    note: `Your ${nw('30-servings')} plan is $44.09 a month, 30% off the one-time price, with the free frother + scooper. Then cancel your ${nw('15-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
     stay: ['Happy with 15?', 'You don’t need to do a thing. Your next order ships as usual.'],
   },
   {

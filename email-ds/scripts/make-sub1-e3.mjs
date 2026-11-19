@@ -10,7 +10,8 @@
 //   Mate Latte, monthly only. 15 servings $34.99, plan 9479323958: 15% off every order after the first ->
 //   $29.74/mo ($1.98 a serving). 30 servings $62.98 and 60 servings $118.96 (Shopify, 2026-11-12), plan 8837562678: 30% off every
 //   order after the first -> $44.09/mo ($1.47) and $83.27/mo ($1.39). 1 / 2 / 4 pouches (the bags art).
-//   How to switch: the 15 and the 30 & 60 servings sit in different selling plan groups, and we have not
+//   How to switch (15 -> 30, v3): the Mate Latte page with 30 Servings + the subscription preselected (see upgradeLink).
+//   30 -> 60: the 15 and the 30 & 60 servings sit in different selling plan groups, and we have not
 //   verified that Appstle's portal can swap sizes, so the switch is a pre-written email to the team
 //   (mailto, orders@milongamate.com) or a reply. The personal portal link is Appstle's
 //   {{ event.manageSubscriptionLink }} (render-tested in sub1-e2).
@@ -53,6 +54,12 @@ const utm = (slot) => `utm_source=klaviyo&utm_medium=email&utm_campaign=post_pur
 const PORTAL = "{{ event.manageSubscriptionLink|default:'https://milonga.life/apps/subscriptions' }}";
 const HELP = 'orders@milongamate.com';
 const HOME = `${SITE}/?${utm('sub1_e3_logo')}`;
+// v3 (Bernat, 2026-11-19): the 15 -> 30 upgrade CTAs open the Mate Latte page with 30 Servings and the Monthly
+// Starter Kit (plan 8837562678) preselected (browser-checked: $37.79 first box, then $44.09/mo). A cart permalink
+// straight to checkout was tested too, but it drops the selling plan (checkout showed $62.98 one-time), so the
+// product page is the closest working step to checkout. It starts a NEW 30-servings subscription, so the note
+// under the button tells them to cancel the 15 in their portal.
+const upgradeLink = (variant, slot) => `${SITE}/products/the-original-mate-latte?variant=${variant}&selling_plan=8837562678&${utm(slot)}`;
 const mailto = (from, to, extra = '') => `mailto:${HELP}?subject=${encodeURIComponent(`Switch my subscription to ${to} servings`)}&body=${encodeURIComponent(`Hi! Please switch my Mate Latte subscription from ${from} to ${to} servings, starting with my next order${extra}. Thank you!`)}`;
 
 const ent = (s) => s.replace(/’/g, '&rsquo;').replace(/‘/g, '&lsquo;').replace(/“/g, '&ldquo;').replace(/”/g, '&rdquo;').replace(/—/g, '&mdash;').replace(/–/g, '&ndash;');
@@ -77,6 +84,7 @@ const VERSIONS = [
     gift: '+ Free frother, on us',
     photos: { 15: ['plan-15.jpg', 'A Mate Latte pouch and milk poured into an iced latte'], 30: ['plan-30.jpg', 'Two Mate Latte pouches and a frother frothing a latte: best seller, 30 servings, free frother and scoop'] },
     mailExtra: ', and add the free frother',
+    upgrade: { card: upgradeLink('54302750245174', 'sub1_e3_switch30_card'), button: upgradeLink('54302750245174', 'sub1_e3_switch30_button') },
     perks: {
       t: ['More mornings,', 'more perks.'],
       list: [
@@ -86,7 +94,7 @@ const VERSIONS = [
         ['kit-pause.png', 'Skip, pause or cancel anytime'],
       ],
     },
-    note: `Tap the button and send the email. We’ll switch your plan before your next order ships and add your free frother. Or simply reply ${nw('to this email.')}`,
+    note: `Your ${nw('30-servings')} plan starts with your first box at $37.79 and the free frother + scooper. Then cancel your ${nw('15-servings plan')} in <a href="${PORTAL}" target="_blank" style="color:#004D27;font-weight:700;text-decoration:underline;">your account</a> so you’re not charged ${nw('for both.')}`,
     stay: ['Happy with 15?', 'You don’t need to do a thing. Your next order ships as usual.'],
   },
   {
@@ -209,7 +217,7 @@ ${photo ? `<img class="c-photo" src="${img(photo[0])}" width="210" height="210" 
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td class="c-unit" bgcolor="${now ? BEIGE : FOREST}" style="background-color:${now ? BEIGE : FOREST};border-radius:999px;padding:6px 14px;font-family:${FONT};font-size:13px;line-height:16px;font-weight:700;color:${now ? INK : BEIGE};white-space:nowrap;">${p.unit}</td></tr></table>
 <div class="c-off" style="padding-top:10px;font-size:11px;line-height:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${now ? SOFT : FOREST};">${p.off}</div>
 ${V.gift ? `<div class="c-gift" style="padding-top:6px;font-size:12px;line-height:16px;font-weight:700;color:${now ? 'transparent' : '#A8741E'};">${now ? '&nbsp;' : ent(V.gift)}</div>` : ''}
-${now ? cardBtn(PORTAL, 'Keep my plan', true) : cardBtn(mailto(V.v, V.to, V.mailExtra || ''), `Switch to ${V.to}`, false)}
+${now ? cardBtn(PORTAL, 'Keep my plan', true) : cardBtn(V.upgrade ? V.upgrade.card : mailto(V.v, V.to, V.mailExtra || ''), `Switch to ${V.to}`, false)}
 </td></tr></table>
 </div>
 </div>`;
@@ -263,7 +271,7 @@ ${title(V.perks.t, 'h-sec', 38)}
 <table role="presentation" class="perks" width="400" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:22px auto 0;width:400px;max-width:100%;">
 ${V.perks.list.map(([i, t]) => perkRow(img, i, t)).join('\n')}
 </table>`)}` : ''}
-${row(CREAM, 'pad bg-cream', `padding:${V.perks ? 36 : 26}px 40px 0;`, `${button(mailto(V.v, V.to, V.mailExtra || ''), `Switch me to ${V.to} servings`, 380)}
+${row(CREAM, 'pad bg-cream', `padding:${V.perks ? 36 : 26}px 40px 0;`, `${button(V.upgrade ? V.upgrade.button : mailto(V.v, V.to, V.mailExtra || ''), `Switch me to ${V.to} servings`, 380)}
 <div style="max-width:420px;margin:0 auto;padding-top:20px;font-size:14px;line-height:21px;font-weight:500;color:${SOFT};">${ent(V.note)}</div>`)}
 
 <!-- ── 4 · HAPPY AS YOU ARE? (no pressure) + where to manage it ── -->

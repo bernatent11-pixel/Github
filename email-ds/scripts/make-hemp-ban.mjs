@@ -102,11 +102,11 @@ ${inner}
 // one can card: the can on the left, its name, strength and a button on the right (nothing else, per Bernat)
 const canCard = (c, img) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin:0 0 16px;"><tr><td style="background-color:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.24);border-radius:22px;padding:0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td class="can-td" width="140" align="center" valign="middle" style="width:140px;padding:20px 0 20px 26px;"><a href="${amp(c.href)}" target="_blank"><img class="can-img" src="${img(c.img)}" width="88" height="230" alt="${c.alt}" style="display:block;margin:0 auto;width:88px;height:230px;border:0;"></a></td>
-<td class="can-text" valign="middle" align="left" style="padding:20px 26px 20px 18px;font-family:${FONT};text-align:left;">
+<td class="can-td" width="120" align="center" valign="middle" style="width:120px;padding:20px 0 20px 22px;"><a href="${amp(c.href)}" target="_blank"><img class="can-img" src="${img(c.img)}" width="88" height="230" alt="${c.alt}" style="display:block;margin:0 auto;width:88px;height:230px;border:0;"></a></td>
+<td class="can-text" valign="middle" align="left" style="padding:20px 16px 20px 14px;font-family:${FONT};text-align:left;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${GOLD};">${c.name}</div>
 <div class="can-dose" style="padding-top:4px;font-family:${SERIF};font-size:52px;line-height:54px;font-weight:700;font-style:italic;color:#FFFFFF;">${c.dose}</div>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:18px 0 0;border-collapse:separate;"><tr><td bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:999px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;"><a href="${amp(c.href)}" target="_blank" style="display:inline-block;padding:12px 22px;color:${FOREST};text-decoration:none;">Shop now &rarr;</a></td></tr></table>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:18px 0 0;border-collapse:separate;"><tr><td bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:999px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;"><a href="${amp(c.href)}" target="_blank" style="display:inline-block;padding:12px 18px;color:${FOREST};text-decoration:none;">Shop now &rarr;</a></td></tr></table>
 </td></tr></table>
 </td></tr></table>`;
 
@@ -134,22 +134,22 @@ function body(img) {
 ${row(FOREST, 'pad bg-forest', `padding:${TIMER ? '16px 24px 18px' : '14px 20px'};`, banner)}
 
 <!-- ── 1 · STOCK UP NOW (logo, title, the offer on a gold card, the announcement, the van photo) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:34px 40px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+${row(CREAM, 'pad bg-cream', 'padding:34px 24px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:28px;">${eyebrow('Last call before the ban')}</div>
 ${title(['Stock up now,', 'before the ban.'], 'h-hero', 52, FOREST, 10)}
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:26px auto 0;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:22px;padding:18px 40px 20px;font-family:${FONT};box-shadow:0 10px 24px rgba(90,60,10,.18);">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:26px auto 0;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:22px;padding:18px 26px 20px;font-family:${FONT};box-shadow:0 10px 24px rgba(90,60,10,.18);">
 <div style="font-size:13px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Up to</div>
-<div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:72px;line-height:74px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
+<div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:66px;line-height:68px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
 <div style="padding-top:2px;font-size:13px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">Our Infused cans</div>
 </td></tr></table>
 <div style="max-width:470px;margin:0 auto;"><div class="lead" style="padding-top:26px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('The federal hemp ban takes effect on December 11, and our Infused cans may not be available after that. So we’re taking up to 30% off to help you stock up on your favorites while you')} ${nw('still can.')}</div></div>
 <div style="padding:28px 0 36px;">${button(L.shop, 'Stock up now', 300)}</div>`)}
-<tr><td class="bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:0;font-size:0;line-height:0;"><a href="${amp(L.shop)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="689" alt="Friends in a van opening cans of Milonga Infused, a cooler full of cans at their feet" style="display:block;width:600px;height:689px;border:0;"></a></td></tr>
+<tr><td class="bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:0;font-size:0;line-height:0;"><a href="${amp(L.shop)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="689" alt="Friends in a van opening cans of Milonga Infused, a cooler full of cans at their feet" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a></td></tr>
 
 <!-- ── 2 · THE CANS (forest gradient; flat forest in Outlook) ── -->
 ${row(FOREST, 'pad bg-forest', 'padding:54px 40px 0;', `${eyebrow('Pick your can', GOLD)}
 ${title(['Two strengths,', 'one last call.'], 'h-sec', 40, '#FFFFFF')}`, `background-image:linear-gradient(180deg,${FOREST} 0%,${FOREST} 20%,#035F35 100%);`)}
-<tr><td class="pad-cards bg-forest" bgcolor="#035F35" style="background-color:#035F35;background-image:linear-gradient(180deg,#035F35 0%,${LEAF} 100%);padding:30px 40px 40px;">
+<tr><td class="pad-cards bg-forest" bgcolor="#035F35" style="background-color:#035F35;background-image:linear-gradient(180deg,#035F35 0%,${LEAF} 100%);padding:30px 20px 40px;">
 ${CANS.map((c) => canCard(c, img)).join('\n')}
 </td></tr>
 

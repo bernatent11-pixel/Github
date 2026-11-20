@@ -91,7 +91,7 @@ const STYLE = `<style>
     .t-in { padding:0 0 18px !important; text-align:center !important; }
     .t-in div { text-align:center !important; }
     .o-col { max-width:100% !important; }
-    .hero-gap { height:300px !important; line-height:300px !important; }
+    .hero-gap { height:364px !important; line-height:364px !important; }
     .hero { height:940px !important; background-size:cover !important; background-position:center bottom !important; }
     .can-td { width:92px !important; padding:18px 0 0 14px !important; }
     .can-img { width:76px !important; height:199px !important; }
@@ -209,9 +209,9 @@ ${eyebrow('Last call before the ban', GOLD).replace('text-transform:uppercase;',
 </div>
 </div>
 <!-- the photo shows through here -->
-<div class="hero-gap" style="height:470px;line-height:470px;font-size:0;">&nbsp;</div>
+<div class="hero-gap" style="height:604px;line-height:604px;font-size:0;">&nbsp;</div>
 <!-- bottom: the announcement and the button, on the photo's darkened bottom -->
-<div class="pad" style="padding:0 30px 40px;font-family:${FONT};text-align:center;">
+<div class="pad" style="padding:0 30px 28px;font-family:${FONT};text-align:center;">
 <div style="max-width:460px;margin:0 auto;"><div class="lead" style="font-size:16px;line-height:24px;font-weight:500;color:#FFFFFF;text-shadow:0 1px 8px rgba(0,0,0,.55);">${ent('The federal THC ban takes effect on December 11, and our Infused cans may not be available after that. So we’re taking up to 30% off to help you stock up while you')} ${nw('still can.')}</div></div>
 <div style="padding:22px 0 0;">${button(L.shop, 'Stock up now', 300, GOLD, FOREST, '#A8822F')}</div>
 </div>

@@ -34,7 +34,7 @@ for (const [src, file] of [['can-infused-10mg-studio.png', 'can-10.png'], ['can-
     const t = y / H; // 1 at the top -> 0 by 66%, eased
     // v3: the title and offer sit at the top, the text and button at the bottom, the people and cans in between
     const top = t >= 0.42 ? 0 : 0.92 * Math.pow(1 - t / 0.42, 1.1);
-    const bot = t <= 0.6 ? 0 : 0.9 * Math.pow((t - 0.6) / 0.4, 1.15);
+    const bot = t <= 0.7 ? 0 : 0.88 * Math.pow((t - 0.7) / 0.3, 1.1); // v4: text lower, so the fade starts lower
     const k = Math.max(top, bot);
     if (!k) continue;
     for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) { const i = (y * W + x) * 3 + c; base[i] = Math.round(base[i] * (1 - k) + N[c] * k); }

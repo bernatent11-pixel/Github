@@ -198,11 +198,13 @@ ${eyebrow('Last call before the ban', GOLD).replace('text-transform:uppercase;',
 <div class="h-hero t-al" style="font-family:${SERIF};font-size:50px;line-height:52px;font-weight:700;font-style:italic;color:#FFFFFF;text-align:left;text-shadow:0 2px 12px rgba(0,0,0,.35);">before the ban.</div>
 </div></div>
 <!--[if mso]></td><td width="190" valign="middle"><![endif]-->
-<div class="o-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:190px;font-family:${FONT};">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:18px;padding:12px 18px 14px;font-family:${FONT};box-shadow:0 10px 24px rgba(0,0,0,.35);">
-<div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${FOREST};">Up to</div>
-<div class="offer-big" style="font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
-<div style="font-size:10px;line-height:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};white-space:nowrap;">Our Infused cans</div>
+<div class="o-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:190px;padding-top:6px;font-family:${FONT};">
+<!-- the offer card (v5): a gold gradient with a light rim and a hairline, so it reads as a coupon -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};background-image:linear-gradient(140deg,#F6DE97 0%,#E8C46C 38%,#D9AE52 72%,#EBCB7A 100%);border:1.5px solid rgba(255,248,225,.75);border-radius:20px;padding:15px 26px 16px;font-family:${FONT};box-shadow:0 12px 28px rgba(0,0,0,.38);">
+<div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Up to</div>
+<div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:50px;line-height:50px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
+<div style="margin:9px auto 0;width:36px;height:1px;line-height:1px;font-size:0;background-color:${FOREST};opacity:.35;">&nbsp;</div>
+<div style="padding-top:8px;font-size:10.5px;line-height:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};white-space:nowrap;">Our Infused cans</div>
 </td></tr></table>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->

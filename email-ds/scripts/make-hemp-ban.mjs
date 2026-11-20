@@ -82,11 +82,16 @@ const STYLE = `<style>
     .h-hero { font-size:40px !important; line-height:43px !important; }
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
-    .offer-big { font-size:58px !important; line-height:60px !important; }
+    .offer-big { font-size:42px !important; line-height:44px !important; }
     .ban-col { width:100% !important; max-width:100% !important; }
     .ban-t { font-size:28px !important; line-height:31px !important; text-align:center !important; }
     .ban-in { padding:0 0 12px !important; text-align:center !important; }
     .timer { width:100% !important; max-width:300px !important; height:auto !important; }
+    .t-col { max-width:100% !important; }
+    .t-in { padding:0 0 18px !important; text-align:center !important; }
+    .t-in div { text-align:center !important; }
+    .o-col { max-width:100% !important; }
+    .hero-gap { height:300px !important; line-height:300px !important; }
     .hero { height:940px !important; background-size:cover !important; background-position:center bottom !important; }
     .can-td { width:92px !important; padding:18px 0 0 14px !important; }
     .can-img { width:76px !important; height:199px !important; }
@@ -181,17 +186,34 @@ ${row(FOREST, 'pad bg-forest', 'padding:22px 30px 22px;', banner)}
 <!-- ── 1 · STOCK UP NOW, on the van photo (its top darkened into forest night for the white type) ── -->
 <tr><td class="hero" align="center" valign="top" height="1060" background="${img('hero-bg.jpg')}" bgcolor="#1E2A22" style="height:1060px;background-color:#1E2A22;background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;">
 <!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1060px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="#1E2A22" /><v:textbox inset="0,0,0,0"><![endif]-->
-<div class="pad" style="padding:34px 24px 0;font-family:${FONT};text-align:center;">
+<!-- top: logo, then the title with a small offer card on its right (stacked and centred on phones) -->
+<div class="pad" style="padding:30px 30px 0;font-family:${FONT};text-align:center;">
 <a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:26px;">${eyebrow('Last call before the ban', GOLD)}</div>
-${title(['Stock up now,', 'before the ban.'], 'h-hero', 52, '#FFFFFF', 10)}
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:24px auto 0;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:22px;padding:16px 26px 18px;font-family:${FONT};box-shadow:0 10px 26px rgba(0,0,0,.35);">
-<div style="font-size:13px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Up to</div>
-<div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:66px;line-height:68px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
-<div style="padding-top:2px;font-size:13px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">Our Infused cans</div>
+<div style="padding-top:26px;font-size:0;line-height:0;text-align:center;">
+<!--[if mso]><table role="presentation" width="540" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="350" valign="middle"><![endif]-->
+<div class="t-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:350px;text-align:left;font-family:${FONT};">
+<div class="t-in" style="padding:0 16px 0 0;text-align:left;">
+${eyebrow('Last call before the ban', GOLD).replace('text-transform:uppercase;', 'text-transform:uppercase;text-align:inherit;')}
+<div class="h-hero t-al" style="padding-top:10px;font-family:${SERIF};font-size:50px;line-height:52px;font-weight:400;color:#FFFFFF;text-align:left;text-shadow:0 2px 12px rgba(0,0,0,.35);">Stock up now,</div>
+<div class="h-hero t-al" style="font-family:${SERIF};font-size:50px;line-height:52px;font-weight:700;font-style:italic;color:#FFFFFF;text-align:left;text-shadow:0 2px 12px rgba(0,0,0,.35);">before the ban.</div>
+</div></div>
+<!--[if mso]></td><td width="190" valign="middle"><![endif]-->
+<div class="o-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:190px;font-family:${FONT};">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:18px;padding:12px 18px 14px;font-family:${FONT};box-shadow:0 10px 24px rgba(0,0,0,.35);">
+<div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${FOREST};">Up to</div>
+<div class="offer-big" style="font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
+<div style="font-size:10px;line-height:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${FOREST};white-space:nowrap;">Our Infused cans</div>
 </td></tr></table>
-<div style="max-width:460px;margin:0 auto;"><div class="lead" style="padding-top:22px;font-size:16px;line-height:24px;font-weight:500;color:#FFFFFF;text-shadow:0 1px 8px rgba(0,0,0,.45);">${ent('The federal THC ban takes effect on December 11, and our Infused cans may not be available after that. So we’re taking up to 30% off to help you stock up while you')} ${nw('still can.')}</div></div>
-<div style="padding:24px 0 0;">${button(L.shop, 'Stock up now', 300, GOLD, FOREST, '#A8822F')}</div>
+</div>
+<!--[if mso]></td></tr></table><![endif]-->
+</div>
+</div>
+<!-- the photo shows through here -->
+<div class="hero-gap" style="height:470px;line-height:470px;font-size:0;">&nbsp;</div>
+<!-- bottom: the announcement and the button, on the photo's darkened bottom -->
+<div class="pad" style="padding:0 30px 40px;font-family:${FONT};text-align:center;">
+<div style="max-width:460px;margin:0 auto;"><div class="lead" style="font-size:16px;line-height:24px;font-weight:500;color:#FFFFFF;text-shadow:0 1px 8px rgba(0,0,0,.55);">${ent('The federal THC ban takes effect on December 11, and our Infused cans may not be available after that. So we’re taking up to 30% off to help you stock up while you')} ${nw('still can.')}</div></div>
+<div style="padding:22px 0 0;">${button(L.shop, 'Stock up now', 300, GOLD, FOREST, '#A8822F')}</div>
 </div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
 </td></tr>

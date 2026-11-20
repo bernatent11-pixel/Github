@@ -1,7 +1,7 @@
 // Campaign · Infused cans (21+) · "Stock up before the hemp ban"
 //
 // Bernat, 2026-11-20: announce the federal hemp ban (Dec 11) and the stock-up sale.
-//   0  countdown banner (a third-party timer image: Klaviyo has no native countdown, see TIMER below)
+//   0  banner: "The THC ban is coming soon." and its date (v7: no countdown)
 //   1  logo, "Stock up now, before the ban.", UP TO 30% OFF, the announcement, the van photo
 //   2  the two cans, Regular 10mg and Light 5mg, nothing but the can, its name and a button (Bernat:
 //      "don't put anything on products"), on a forest gradient, after BREZ's stacked product cards
@@ -9,7 +9,7 @@
 // Wording: v2, Bernat asked for "the THC ban" and "10mg THC / 10mg CBD" in THIS email, an exception to his
 // standing rule (no THC / CBD / cannabis / weed). Every other email keeps the rule. Never "cannabis" / "weed".
 // v2 (Bernat, 2026-11-20): the van photo is the background of the whole first section; a live countdown (days,
-// hours, minutes, seconds) next to "The THC ban is coming soon."; each can card lists what's in it with
+// hours, minutes, seconds) next to "The THC ban is coming soon." (v7: dropped, Bernat chose a dated banner); each can card lists what's in it with
 // icons, what it's for, its strength and what it feels like next to a drink (Bernat's comparison:
 // Regular 10mg ~ a hard seltzer, Light 5mg ~ a light beer).
 // Facts (milonga.life, 2026-11-20): bundle builder tiers $45+ free shipping, $120+ $15 off, $200+ $30 off,
@@ -34,11 +34,7 @@ const LOCAL = { 'logo-white.png': '../exports/klaviyo/pp1-e1/img/logo-white.png'
 export const SUBJECT = 'The THC ban is coming ⏳';
 export const PREHEADER = 'Dec 11 is almost here. Up to 30% off our Infused cans until then.';
 
-// the countdown: a LIVE timer image from a third-party generator (Sendtric / MailTimers; Klaviyo has none),
-// drawn fresh at every open, counting down to Dec 11, 2026. Until its URL is in hosted.json as "timer", the
-// email shows "Dec 11" in its place; the preview shows timer-mock.png so the layout can be judged.
-const TIMER = hosted.timer || null;
-const TIMER_W = 300;
+
 
 const FOREST = '#004D27', DEEP = '#00351B', LEAF = '#057441', GOLD = '#E3BC62', BEIGE = '#F0EFDF', CREAM = '#F7F4EA', PAPER = '#FBF8EF', INK = '#12331F', SOFT = '#3B5344';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
@@ -83,10 +79,7 @@ const STYLE = `<style>
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
     .offer-big { font-size:42px !important; line-height:44px !important; }
-    .ban-col { width:100% !important; max-width:100% !important; }
-    .ban-t { font-size:28px !important; line-height:31px !important; text-align:center !important; }
-    .ban-in { padding:0 0 12px !important; text-align:center !important; }
-    .timer { width:100% !important; max-width:300px !important; height:auto !important; }
+    .ban-t { font-size:26px !important; line-height:31px !important; }
     .t-col { display:block !important; width:100% !important; }
     .t-in { padding:0 0 18px !important; text-align:center !important; }
     .t-in div { text-align:center !important; }
@@ -154,34 +147,18 @@ const tier = ([spend, reward]) => `<div class="tier-col" style="display:inline-b
 </div></div>`;
 
 function body(img) {
-  // the countdown sits next to "The THC ban is coming soon." (hybrid columns: side by side on desktop,
-  // stacked and centred on phones and in inboxes under ~560px)
-  const clock = img.preview
-    ? `<img class="timer" src="${img('timer-mock.png')}" width="${TIMER_W}" height="69" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;max-width:100%;height:auto;border:0;">`
-    : TIMER
-      ? `<img class="timer" src="${TIMER}" width="${TIMER_W}" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;max-width:100%;height:auto;border:0;">`
-      : `<div style="font-family:${SERIF};font-size:48px;line-height:50px;font-weight:700;font-style:italic;color:${GOLD};">Dec 11</div><div style="padding-top:4px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">Up to 30% off until then</div>`;
-  const banner = `<div style="font-size:0;line-height:0;text-align:center;">
-<!--[if mso]><table role="presentation" width="540" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="230" valign="middle"><![endif]-->
-<div class="ban-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:230px;">
-<div class="ban-in" style="padding:0 10px 0 0;text-align:left;font-family:${FONT};">
-<div class="ban-t" style="font-family:${SERIF};font-size:30px;line-height:33px;font-weight:400;color:#FFFFFF;text-align:left;">The THC ban</div>
-<div class="ban-t" style="font-family:${SERIF};font-size:30px;line-height:33px;font-weight:700;font-style:italic;color:${GOLD};text-align:left;">is coming soon.</div>
-</div></div>
-<!--[if mso]></td><td width="310" valign="middle"><![endif]-->
-<div class="ban-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:310px;text-align:center;font-family:${FONT};">
-${clock}
-</div>
-<!--[if mso]></td></tr></table><![endif]-->
-</div>`;
+  // v7 (Bernat, 2026-11-20): no countdown (an email can't run a live clock without a timer service); the banner
+  // says the ban is coming and names the date
+  const banner = `<div class="ban-t" style="font-family:${SERIF};font-size:30px;line-height:34px;font-weight:400;color:#FFFFFF;">The THC ban <span style="font-weight:700;font-style:italic;color:${GOLD};white-space:nowrap;">is coming soon.</span></div>
+<div style="padding-top:6px;font-size:15px;line-height:21px;font-weight:500;color:${BEIGE};">It takes effect on ${nw('December 11.')}</div>`;
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
 <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
 <table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;table-layout:fixed;">
 
-<!-- ── 0 · THE THC BAN IS COMING SOON + LIVE COUNTDOWN ── -->
-${row(FOREST, 'pad bg-forest', 'padding:22px 30px 22px;', banner)}
+<!-- ── 0 · THE THC BAN IS COMING SOON (and its date) ── -->
+${row(FOREST, 'pad bg-forest', 'padding:22px 24px 22px;', banner)}
 
 <!-- ── 1 · STOCK UP NOW, on the van photo (its top darkened into forest night for the white type) ── -->
 <tr><td class="hero" align="center" valign="top" height="1060" background="${img('hero-bg.jpg')}" bgcolor="#1E2A22" style="height:1060px;background-color:#1E2A22;background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;">
@@ -291,7 +268,7 @@ else {
   console.log('wrote', `${OUT}/hemp-ban.html`, '(validator: pass)');
 }
 const font = fs.readFileSync('public/fonts/Montserrat.woff2').toString('base64');
-const loc = Object.assign((f) => LOCAL[f] || `../${OUT}/img/${f}`, { preview: true });
+const loc = (f) => LOCAL[f] || `../${OUT}/img/${f}`;
 fs.writeFileSync('refine/hemp-ban.html', `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hemp ban stock-up · preview</title><style>
 @font-face{font-family:Montserrat;src:url(data:font/woff2;base64,${font}) format('woff2');font-weight:100 900;font-style:normal}

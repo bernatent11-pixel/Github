@@ -6,7 +6,12 @@
 //   2  the two cans, Regular 10mg and Light 5mg, nothing but the can, its name and a button (Bernat:
 //      "don't put anything on products"), on a forest gradient, after BREZ's stacked product cards
 //   3  Buy more, save more: the bundle builder's progress-bar tiers, after BREZ's tier boxes
-// Wording: Bernat's standing rule, no THC / CBD / cannabis / weed in our copy; "the hemp ban", "Infused".
+// Wording: v2, Bernat asked for "the THC ban" and "10mg THC / 10mg CBD" in THIS email, an exception to his
+// standing rule (no THC / CBD / cannabis / weed). Every other email keeps the rule. Never "cannabis" / "weed".
+// v2 (Bernat, 2026-11-20): the van photo is the background of the whole first section; a live countdown (days,
+// hours, minutes, seconds) next to "The THC ban is coming soon."; each can card lists what's in it with
+// icons, what it's for, its strength and what it feels like next to a drink (Bernat's comparison:
+// Regular 10mg ~ a hard seltzer, Light 5mg ~ a light beer).
 // Facts (milonga.life, 2026-11-20): bundle builder tiers $45+ free shipping, $120+ $15 off, $200+ $30 off,
 // $500+ $100 off. Products: Infused Regular 10mg (cannabis-regular-10mg), Infused Light 5mg (acai-mint-thc-cbd-5mg).
 // "Up to 30% off" is Bernat's offer for this campaign (its mechanics live in Shopify, not here).
@@ -22,15 +27,18 @@ const OUT = 'exports/klaviyo/hemp-ban';
 const hostedPath = `${OUT}/hosted.json`;
 const hosted = fs.existsSync(hostedPath) ? JSON.parse(fs.readFileSync(hostedPath, 'utf8')) : {};
 hosted['logo-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/b6a03046-605a-4e87-b22f-a530be1633e3.png';
+hosted['logo-white.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/49619f06-6898-4fee-a4f2-8e0b6387ea5b.png';
 hosted['mark-green.png'] ??= 'https://cdn.klaviyomail.com/company/TwvSnK/images/0e781634-6907-42f6-b101-3c2c15371a99.png';
-const LOCAL = { 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.png', 'mark-green.png': '../public/logo/mark-green.png' };
+const LOCAL = { 'logo-white.png': '../exports/klaviyo/pp1-e1/img/logo-white.png', 'logo-green.png': '../exports/klaviyo/welcome-e1/img/logo-green.png', 'mark-green.png': '../public/logo/mark-green.png' };
 
-export const SUBJECT = 'Stock up before the ban ⏳';
-export const PREHEADER = 'The hemp ban hits Dec 11. Up to 30% off our Infused cans until then.';
+export const SUBJECT = 'The THC ban is coming ⏳';
+export const PREHEADER = 'Dec 11 is almost here. Up to 30% off our Infused cans until then.';
 
-// the countdown: a timer image from a third-party generator (Sendtric / MailTimers), counting down to
-// Dec 11, 2026. Until its URL is in hosted.json as "timer", the banner shows the deadline as text.
+// the countdown: a LIVE timer image from a third-party generator (Sendtric / MailTimers; Klaviyo has none),
+// drawn fresh at every open, counting down to Dec 11, 2026. Until its URL is in hosted.json as "timer", the
+// email shows "Dec 11" in its place; the preview shows timer-mock.png so the layout can be judged.
 const TIMER = hosted.timer || null;
+const TIMER_W = 300;
 
 const FOREST = '#004D27', DEEP = '#00351B', LEAF = '#057441', GOLD = '#E3BC62', BEIGE = '#F0EFDF', CREAM = '#F7F4EA', PAPER = '#FBF8EF', INK = '#12331F', SOFT = '#3B5344';
 const FONT = "'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif";
@@ -50,8 +58,12 @@ const amp = (s) => s.replace(/&(?!amp;|#|[a-z]+;)/g, '&amp;');
 const nw = (s) => `<span style="white-space:nowrap;">${s}</span>`;
 
 const CANS = [
-  { img: 'can-10.png', name: 'Infused Regular', dose: '10mg', href: L.regular, alt: 'Milonga Infused Regular 10mg can' },
-  { img: 'can-5.png', name: 'Infused Light', dose: '5mg', href: L.light, alt: 'Milonga Infused Light 5mg can' },
+  { img: 'can-10.png', name: 'Infused Regular', dose: '10mg', href: L.regular, alt: 'Milonga Infused Regular 10mg can',
+    line: 'Our full-strength can, for when you know your tolerance. Swap it in for your usual drink.', feels: 'a hard seltzer', note: 'New to it? Start with half a can.',
+    has: [['thc', '10mg THC'], ['cbd', '10mg CBD'], ['theanine', 'L-theanine'], ['caffeine', 'Natural caffeine'], ['organic', 'Organic']] },
+  { img: 'can-5.png', name: 'Infused Light', dose: '5mg', href: L.light, alt: 'Milonga Infused Light 5mg can',
+    line: 'Easygoing and social, for a sunny afternoon, dinner with friends or your first can.', feels: 'a light beer',
+    has: [['thc', '5mg THC'], ['cbd', '5mg CBD'], ['theanine', 'L-theanine'], ['caffeine', 'Natural caffeine'], ['organic', 'Organic']] },
 ];
 const TIERS = [['$45+', 'Free shipping'], ['$120+', '$15 off'], ['$200+', '$30 off'], ['$500+', '$100 off']];
 
@@ -71,12 +83,19 @@ const STYLE = `<style>
     .h-sec { font-size:32px !important; line-height:36px !important; }
     .lead { font-size:15px !important; line-height:23px !important; }
     .offer-big { font-size:58px !important; line-height:60px !important; }
-    .banner-t { font-size:11px !important; letter-spacing:1.6px !important; }
-    .timer { width:100% !important; height:auto !important; }
-    .can-td { width:92px !important; padding:16px 0 16px 14px !important; }
-    .can-img { width:70px !important; height:183px !important; }
-    .can-text { padding:16px 14px 16px 12px !important; }
+    .ban-col { width:100% !important; max-width:100% !important; }
+    .ban-t { font-size:28px !important; line-height:31px !important; text-align:center !important; }
+    .ban-in { padding:0 0 12px !important; text-align:center !important; }
+    .timer { width:100% !important; max-width:300px !important; height:auto !important; }
+    .hero { height:940px !important; background-size:cover !important; background-position:center bottom !important; }
+    .can-td { width:92px !important; padding:18px 0 0 14px !important; }
+    .can-img { width:76px !important; height:199px !important; }
+    .can-text { padding:18px 14px 0 12px !important; }
     .can-dose { font-size:40px !important; line-height:42px !important; }
+    .can-line { font-size:13px !important; line-height:19px !important; }
+    .has { padding:16px 8px 18px !important; }
+    .has-t { font-size:9.5px !important; line-height:12px !important; }
+    .has-i { width:30px !important; height:30px !important; }
     .tier-col { width:50% !important; max-width:50% !important; }
     .tier-in { padding:0 5px 10px !important; }
     .btn { padding:17px 28px !important; font-size:14px !important; letter-spacing:1.6px !important; }
@@ -99,15 +118,25 @@ const row = (bg, cls, style, inner, extra = '') => `<tr><td class="${cls}" align
 ${inner}
 </td></tr>`;
 
-// one can card: the can on the left, its name, strength and a button on the right (nothing else, per Bernat)
-const canCard = (c, img) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin:0 0 16px;"><tr><td style="background-color:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.24);border-radius:22px;padding:0;">
+// one can card: the can, its name and strength, what it's for, what it feels like next to a drink and a button;
+// below, what's in it (gold line icons)
+const has = ([k, t], img) => `<td class="has-c" width="20%" align="center" valign="top" style="width:20%;padding:0 2px;font-family:${FONT};">
+<img class="has-i" src="${img(`ico-${k}.png`)}" width="36" height="36" alt="" role="presentation" style="display:block;margin:0 auto;width:36px;height:36px;border:0;">
+<div class="has-t" style="padding-top:7px;font-size:10.5px;line-height:13px;font-weight:700;color:${BEIGE};">${t}</div></td>`;
+const canCard = (c, img) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin:0 0 18px;"><tr><td style="background-color:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.24);border-radius:22px;padding:0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td class="can-td" width="120" align="center" valign="middle" style="width:120px;padding:20px 0 20px 22px;"><a href="${amp(c.href)}" target="_blank"><img class="can-img" src="${img(c.img)}" width="88" height="230" alt="${c.alt}" style="display:block;margin:0 auto;width:88px;height:230px;border:0;"></a></td>
-<td class="can-text" valign="middle" align="left" style="padding:20px 16px 20px 14px;font-family:${FONT};text-align:left;">
+<td class="can-td" width="128" align="center" valign="top" style="width:128px;padding:24px 0 0 20px;"><a href="${amp(c.href)}" target="_blank"><img class="can-img" src="${img(c.img)}" width="111" height="290" alt="${c.alt}" style="display:block;margin:0 auto;width:111px;height:290px;border:0;"></a></td>
+<td class="can-text" valign="top" align="left" style="padding:26px 20px 0 16px;font-family:${FONT};text-align:left;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${GOLD};">${c.name}</div>
 <div class="can-dose" style="padding-top:4px;font-family:${SERIF};font-size:52px;line-height:54px;font-weight:700;font-style:italic;color:#FFFFFF;">${c.dose}</div>
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:18px 0 0;border-collapse:separate;"><tr><td bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:999px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;"><a href="${amp(c.href)}" target="_blank" style="display:inline-block;padding:12px 18px;color:${FOREST};text-decoration:none;">Shop now &rarr;</a></td></tr></table>
+<div class="can-line" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:#DCE8DD;">${ent(c.line)}</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:12px 0 0;border-collapse:separate;"><tr><td style="border:1px solid ${GOLD};border-radius:999px;padding:6px 12px;font-family:${FONT};font-size:12px;line-height:15px;font-weight:700;color:${GOLD};">Feels like ${c.feels}</td></tr></table>
+${c.note ? `<div style="padding-top:8px;font-size:12px;line-height:17px;font-weight:500;font-style:italic;color:#BFD3C3;">${ent(c.note)}</div>` : ''}
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0 0;border-collapse:separate;"><tr><td bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:999px;font-family:${FONT};font-size:13px;line-height:15px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;"><a href="${amp(c.href)}" target="_blank" style="display:inline-block;padding:12px 18px;color:${FOREST};text-decoration:none;">Shop now &rarr;</a></td></tr></table>
 </td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="has" style="padding:20px 8px 22px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid rgba(255,255,255,.18);"><tr><td style="padding-top:18px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;"><tr>
+${c.has.map((x) => has(x, img)).join('\n')}
+</tr></table></td></tr></table></td></tr></table>
 </td></tr></table>`;
 
 // one bundle tier: hybrid column, 4 across on desktop, 2 x 2 on phones (and in inboxes without media queries)
@@ -120,35 +149,56 @@ const tier = ([spend, reward]) => `<div class="tier-col" style="display:inline-b
 </div></div>`;
 
 function body(img) {
-  const banner = TIMER
-    ? `<div class="banner-t" style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${GOLD};">The hemp ban hits December 11</div>
-<img class="timer" src="${TIMER}" width="400" alt="Countdown to December 11" style="display:block;margin:12px auto 0;width:400px;max-width:100%;height:auto;border:0;">`
-    : `<div class="banner-t" style="font-size:12px;line-height:18px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${GOLD};">The hemp ban hits December 11 <span style="color:${BEIGE};">&middot; ${nw('Up to 30% off')}</span></div>`;
+  // the countdown sits next to "The THC ban is coming soon." (hybrid columns: side by side on desktop,
+  // stacked and centred on phones and in inboxes under ~560px)
+  const clock = img.preview
+    ? `<img class="timer" src="${img('timer-mock.png')}" width="${TIMER_W}" height="69" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;height:auto;border:0;">`
+    : TIMER
+      ? `<img class="timer" src="${TIMER}" width="${TIMER_W}" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;max-width:100%;height:auto;border:0;">`
+      : `<div style="font-family:${SERIF};font-size:48px;line-height:50px;font-weight:700;font-style:italic;color:${GOLD};">Dec 11</div><div style="padding-top:4px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">Up to 30% off until then</div>`;
+  const banner = `<div style="font-size:0;line-height:0;text-align:center;">
+<!--[if mso]><table role="presentation" width="540" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="230" valign="middle"><![endif]-->
+<div class="ban-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:230px;">
+<div class="ban-in" style="padding:0 10px 0 0;text-align:left;font-family:${FONT};">
+<div class="ban-t" style="font-family:${SERIF};font-size:30px;line-height:33px;font-weight:400;color:#FFFFFF;text-align:left;">The THC ban</div>
+<div class="ban-t" style="font-family:${SERIF};font-size:30px;line-height:33px;font-weight:700;font-style:italic;color:${GOLD};text-align:left;">is coming soon.</div>
+</div></div>
+<!--[if mso]></td><td width="310" valign="middle"><![endif]-->
+<div class="ban-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:310px;text-align:center;font-family:${FONT};">
+${clock}
+</div>
+<!--[if mso]></td></tr></table><![endif]-->
+</div>`;
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" class="bg-white" style="background-color:#FFFFFF;">
 <tr><td align="center">
 <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
 <table role="presentation" class="wrap" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;table-layout:fixed;">
 
-<!-- ── 0 · COUNTDOWN BANNER ── -->
-${row(FOREST, 'pad bg-forest', `padding:${TIMER ? '16px 24px 18px' : '14px 20px'};`, banner)}
+<!-- ── 0 · THE THC BAN IS COMING SOON + LIVE COUNTDOWN ── -->
+${row(FOREST, 'pad bg-forest', 'padding:22px 30px 22px;', banner)}
 
-<!-- ── 1 · STOCK UP NOW (logo, title, the offer on a gold card, the announcement, the van photo) ── -->
-${row(CREAM, 'pad bg-cream', 'padding:34px 24px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
-<div style="padding-top:28px;">${eyebrow('Last call before the ban')}</div>
-${title(['Stock up now,', 'before the ban.'], 'h-hero', 52, FOREST, 10)}
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:26px auto 0;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:22px;padding:18px 26px 20px;font-family:${FONT};box-shadow:0 10px 24px rgba(90,60,10,.18);">
+<!-- ── 1 · STOCK UP NOW, on the van photo (its top darkened into forest night for the white type) ── -->
+<tr><td class="hero" align="center" valign="top" height="1060" background="${img('hero-bg.jpg')}" bgcolor="#1E2A22" style="height:1060px;background-color:#1E2A22;background-image:url('${img('hero-bg.jpg')}');background-size:cover;background-position:center bottom;background-repeat:no-repeat;padding:0;">
+<!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:1060px;"><v:fill type="frame" src="${img('hero-bg.jpg')}" color="#1E2A22" /><v:textbox inset="0,0,0,0"><![endif]-->
+<div class="pad" style="padding:34px 24px 0;font-family:${FONT};text-align:center;">
+<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
+<div style="padding-top:26px;">${eyebrow('Last call before the ban', GOLD)}</div>
+${title(['Stock up now,', 'before the ban.'], 'h-hero', 52, '#FFFFFF', 10)}
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:24px auto 0;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};border-radius:22px;padding:16px 26px 18px;font-family:${FONT};box-shadow:0 10px 26px rgba(0,0,0,.35);">
 <div style="font-size:13px;line-height:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Up to</div>
 <div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:66px;line-height:68px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
 <div style="padding-top:2px;font-size:13px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};">Our Infused cans</div>
 </td></tr></table>
-<div style="max-width:470px;margin:0 auto;"><div class="lead" style="padding-top:26px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('The federal hemp ban takes effect on December 11, and our Infused cans may not be available after that. So we’re taking up to 30% off to help you stock up on your favorites while you')} ${nw('still can.')}</div></div>
-<div style="padding:28px 0 36px;">${button(L.shop, 'Stock up now', 300)}</div>`)}
-<tr><td class="bg-cream" bgcolor="${CREAM}" style="background-color:${CREAM};padding:0;font-size:0;line-height:0;"><a href="${amp(L.shop)}" target="_blank"><img class="full" src="${img('hero.jpg')}" width="600" height="689" alt="Friends in a van opening cans of Milonga Infused, a cooler full of cans at their feet" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></a></td></tr>
+<div style="max-width:460px;margin:0 auto;"><div class="lead" style="padding-top:22px;font-size:16px;line-height:24px;font-weight:500;color:#FFFFFF;text-shadow:0 1px 8px rgba(0,0,0,.45);">${ent('The federal THC ban takes effect on December 11, and our Infused cans may not be available after that. So we’re taking up to 30% off to help you stock up while you')} ${nw('still can.')}</div></div>
+<div style="padding:24px 0 0;">${button(L.shop, 'Stock up now', 300, GOLD, FOREST, '#A8822F')}</div>
+</div>
+<!--[if gte mso 9]></v:textbox></v:rect><![endif]-->
+</td></tr>
 
 <!-- ── 2 · THE CANS (forest gradient; flat forest in Outlook) ── -->
 ${row(FOREST, 'pad bg-forest', 'padding:54px 40px 0;', `${eyebrow('Pick your can', GOLD)}
-${title(['Two strengths,', 'one last call.'], 'h-sec', 40, '#FFFFFF')}`, `background-image:linear-gradient(180deg,${FOREST} 0%,${FOREST} 20%,#035F35 100%);`)}
+${title(['Swap the drink,', 'keep the good times.'], 'h-sec', 40, '#FFFFFF')}`, `background-image:linear-gradient(180deg,${FOREST} 0%,${FOREST} 20%,#035F35 100%);`)}
 <tr><td class="pad-cards bg-forest" bgcolor="#035F35" style="background-color:#035F35;background-image:linear-gradient(180deg,#035F35 0%,${LEAF} 100%);padding:30px 20px 40px;">
 ${CANS.map((c) => canCard(c, img)).join('\n')}
 </td></tr>
@@ -215,7 +265,7 @@ else {
   console.log('wrote', `${OUT}/hemp-ban.html`, '(validator: pass)');
 }
 const font = fs.readFileSync('public/fonts/Montserrat.woff2').toString('base64');
-const loc = (f) => LOCAL[f] || `../${OUT}/img/${f}`;
+const loc = Object.assign((f) => LOCAL[f] || `../${OUT}/img/${f}`, { preview: true });
 fs.writeFileSync('refine/hemp-ban.html', `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hemp ban stock-up · preview</title><style>
 @font-face{font-family:Montserrat;src:url(data:font/woff2;base64,${font}) format('woff2');font-weight:100 900;font-style:normal}

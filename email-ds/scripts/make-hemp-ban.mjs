@@ -87,10 +87,10 @@ const STYLE = `<style>
     .ban-t { font-size:28px !important; line-height:31px !important; text-align:center !important; }
     .ban-in { padding:0 0 12px !important; text-align:center !important; }
     .timer { width:100% !important; max-width:300px !important; height:auto !important; }
-    .t-col { max-width:100% !important; }
+    .t-col { display:block !important; width:100% !important; }
     .t-in { padding:0 0 18px !important; text-align:center !important; }
     .t-in div { text-align:center !important; }
-    .o-col { max-width:100% !important; }
+    .o-col { display:inline-block !important; }
     .hero-gap { height:364px !important; line-height:364px !important; }
     .hero { height:940px !important; background-size:cover !important; background-position:center bottom !important; }
     .can-td { width:92px !important; padding:18px 0 0 14px !important; }
@@ -190,19 +190,21 @@ ${row(FOREST, 'pad bg-forest', 'padding:22px 30px 22px;', banner)}
 <div class="pad" style="padding:30px 30px 0;font-family:${FONT};text-align:center;">
 <a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-white.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:26px;font-size:0;line-height:0;text-align:center;">
-<!--[if mso]><table role="presentation" width="540" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="350" valign="middle"><![endif]-->
-<div class="t-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:350px;text-align:left;font-family:${FONT};">
-<div class="t-in" style="padding:0 16px 0 0;text-align:left;">
+<!--[if mso]><table role="presentation" width="520" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="330" valign="middle"><![endif]-->
+<!-- v6: both columns shrink to their content and centre as one group, so the card sits beside the title
+     with the same margin on the left and the right -->
+<div class="t-col" style="display:inline-block;vertical-align:middle;text-align:left;font-family:${FONT};">
+<div class="t-in" style="padding:0 20px 0 0;text-align:left;">
 ${eyebrow('Last call before the ban', GOLD).replace('text-transform:uppercase;', 'text-transform:uppercase;text-align:inherit;')}
 <div class="h-hero t-al" style="padding-top:10px;font-family:${SERIF};font-size:50px;line-height:52px;font-weight:400;color:#FFFFFF;text-align:left;text-shadow:0 2px 12px rgba(0,0,0,.35);">Stock up now,</div>
 <div class="h-hero t-al" style="font-family:${SERIF};font-size:50px;line-height:52px;font-weight:700;font-style:italic;color:#FFFFFF;text-align:left;text-shadow:0 2px 12px rgba(0,0,0,.35);">before the ban.</div>
 </div></div>
 <!--[if mso]></td><td width="190" valign="middle"><![endif]-->
-<div class="o-col" style="display:inline-block;vertical-align:middle;width:100%;max-width:190px;padding-top:6px;font-family:${FONT};">
+<div class="o-col" style="display:inline-block;vertical-align:middle;padding-top:6px;font-family:${FONT};">
 <!-- the offer card (v5): a gold gradient with a light rim and a hairline, so it reads as a coupon -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};background-image:linear-gradient(140deg,#F6DE97 0%,#E8C46C 38%,#D9AE52 72%,#EBCB7A 100%);border:1.5px solid rgba(255,248,225,.75);border-radius:20px;padding:15px 26px 16px;font-family:${FONT};box-shadow:0 12px 28px rgba(0,0,0,.38);">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;border-collapse:separate;"><tr><td align="center" bgcolor="${GOLD}" style="background-color:${GOLD};background-image:linear-gradient(140deg,#F6DE97 0%,#E8C46C 38%,#D9AE52 72%,#EBCB7A 100%);border:1.5px solid rgba(255,248,225,.75);border-radius:20px;padding:14px 22px 15px;font-family:${FONT};box-shadow:0 12px 28px rgba(0,0,0,.38);">
 <div style="font-size:11px;line-height:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${FOREST};">Up to</div>
-<div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:50px;line-height:50px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
+<div class="offer-big" style="padding-top:2px;font-family:${SERIF};font-size:46px;line-height:48px;font-weight:700;font-style:italic;color:${FOREST};white-space:nowrap;">30% off</div>
 <div style="margin:9px auto 0;width:36px;height:1px;line-height:1px;font-size:0;background-color:${FOREST};opacity:.35;">&nbsp;</div>
 <div style="padding-top:8px;font-size:10.5px;line-height:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${FOREST};white-space:nowrap;">Our Infused cans</div>
 </td></tr></table>

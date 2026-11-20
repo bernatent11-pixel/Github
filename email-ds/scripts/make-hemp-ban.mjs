@@ -125,8 +125,8 @@ const has = ([k, t], img) => `<td class="has-c" width="20%" align="center" valig
 <div class="has-t" style="padding-top:7px;font-size:10.5px;line-height:13px;font-weight:700;color:${BEIGE};">${t}</div></td>`;
 const canCard = (c, img) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin:0 0 18px;"><tr><td style="background-color:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.24);border-radius:22px;padding:0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td class="can-td" width="128" align="center" valign="top" style="width:128px;padding:24px 0 0 20px;"><a href="${amp(c.href)}" target="_blank"><img class="can-img" src="${img(c.img)}" width="111" height="290" alt="${c.alt}" style="display:block;margin:0 auto;width:111px;height:290px;border:0;"></a></td>
-<td class="can-text" valign="top" align="left" style="padding:26px 20px 0 16px;font-family:${FONT};text-align:left;">
+<td class="can-td" width="116" align="center" valign="top" style="width:116px;padding:24px 0 0 16px;"><a href="${amp(c.href)}" target="_blank"><img class="can-img" src="${img(c.img)}" width="100" height="261" alt="${c.alt}" style="display:block;margin:0 auto;width:100px;height:261px;border:0;"></a></td>
+<td class="can-text" valign="top" align="left" style="padding:26px 16px 0 14px;font-family:${FONT};text-align:left;">
 <div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:${GOLD};">${c.name}</div>
 <div class="can-dose" style="padding-top:4px;font-family:${SERIF};font-size:52px;line-height:54px;font-weight:700;font-style:italic;color:#FFFFFF;">${c.dose}</div>
 <div class="can-line" style="padding-top:8px;font-size:14px;line-height:21px;font-weight:500;color:#DCE8DD;">${ent(c.line)}</div>
@@ -152,7 +152,7 @@ function body(img) {
   // the countdown sits next to "The THC ban is coming soon." (hybrid columns: side by side on desktop,
   // stacked and centred on phones and in inboxes under ~560px)
   const clock = img.preview
-    ? `<img class="timer" src="${img('timer-mock.png')}" width="${TIMER_W}" height="69" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;height:auto;border:0;">`
+    ? `<img class="timer" src="${img('timer-mock.png')}" width="${TIMER_W}" height="69" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;max-width:100%;height:auto;border:0;">`
     : TIMER
       ? `<img class="timer" src="${TIMER}" width="${TIMER_W}" alt="Countdown to December 11" style="display:block;margin:0 auto;width:${TIMER_W}px;max-width:100%;height:auto;border:0;">`
       : `<div style="font-family:${SERIF};font-size:48px;line-height:50px;font-weight:700;font-style:italic;color:${GOLD};">Dec 11</div><div style="padding-top:4px;font-size:11px;line-height:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BEIGE};">Up to 30% off until then</div>`;

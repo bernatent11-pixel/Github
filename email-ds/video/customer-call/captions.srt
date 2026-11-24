@@ -1,0 +1,211 @@
+1
+00:00:00,160 --> 00:00:00,720
+JAMES: Hello?
+
+2
+00:00:00,720 --> 00:00:01,740
+SHADI: Hey, James?
+
+3
+00:00:02,240 --> 00:00:02,800
+JAMES: Yes.
+
+4
+00:00:02,800 --> 00:00:04,240
+SHADI: Hey, James, how are you? This is Shadi.
+
+5
+00:00:04,240 --> 00:00:06,980
+I'm the founder of Milonga Yerba Mate.
+
+6
+00:00:07,200 --> 00:00:07,840
+JAMES: How are you doing?
+
+7
+00:00:07,840 --> 00:00:09,740
+SHADI: How's everything, man? How you been?
+
+8
+00:00:09,760 --> 00:00:11,200
+JAMES: Pretty good. Pretty good.
+
+9
+00:00:11,200 --> 00:00:12,960
+SHADI: I know you're a big fan of the products
+
+10
+00:00:12,960 --> 00:00:14,720
+and everything we offer,
+
+11
+00:00:14,720 --> 00:00:16,240
+so I wanted to get you on a call
+
+12
+00:00:16,240 --> 00:00:18,220
+and understand a little bit more from your perspective.
+
+13
+00:00:18,730 --> 00:00:20,630
+So how do you typically feel
+
+14
+00:00:20,890 --> 00:00:22,330
+when you drink a Mate Latte?
+
+15
+00:00:22,330 --> 00:00:23,370
+Like, what is it that you would say
+
+16
+00:00:23,370 --> 00:00:24,890
+is different about it from coffee
+
+17
+00:00:24,890 --> 00:00:27,590
+or any other caffeinated products?
+
+18
+00:00:28,650 --> 00:00:30,650
+JAMES: Well, the taste, for one thing.
+
+19
+00:00:30,650 --> 00:00:32,230
+I like the taste better.
+
+20
+00:00:33,610 --> 00:00:35,450
+The doctor told me not to drink coffee,
+
+21
+00:00:35,450 --> 00:00:37,690
+so I had to come up with something else.
+
+22
+00:00:37,690 --> 00:00:40,900
+So, yeah, your Mate Latte hits the spot.
+
+23
+00:00:40,900 --> 00:00:44,020
+I usually make a cup in the morning
+
+24
+00:00:44,020 --> 00:00:46,320
+and drink it, and it gives me a little lift.
+
+25
+00:00:46,420 --> 00:00:48,240
+SHADI: How would you say that caffeine compares?
+
+26
+00:00:49,380 --> 00:00:51,060
+Do you drink energy drinks or anything like that,
+
+27
+00:00:51,060 --> 00:00:52,580
+or do you prefer to just have it be
+
+28
+00:00:52,580 --> 00:00:54,640
+something more earthy, more authentic?
+
+29
+00:00:55,620 --> 00:00:57,700
+JAMES: Well, I used to drink energy drinks
+
+30
+00:00:57,700 --> 00:01:01,160
+back in my other life, back in my younger days,
+
+31
+00:01:01,160 --> 00:01:05,060
+but no, basically, I've been drinking your Milonga.
+
+32
+00:01:07,720 --> 00:01:09,240
+SHADI: How do you sweeten the latte?
+
+33
+00:01:09,240 --> 00:01:12,100
+Do you sweeten it at all, or you just drink it as is?
+
+34
+00:01:12,200 --> 00:01:13,940
+JAMES: I just drink it as is.
+
+35
+00:01:14,040 --> 00:01:15,240
+I got a cup right here.
+
+36
+00:01:15,240 --> 00:01:18,040
+SHADI: Nice, nice. I'm glad.
+
+37
+00:01:18,040 --> 00:01:20,020
+Well, James, thank you so much.
+
+38
+00:01:20,760 --> 00:01:22,200
+I really appreciate the support
+
+39
+00:01:22,200 --> 00:01:23,640
+and the feedback that you've given us.
+
+40
+00:01:23,640 --> 00:01:26,420
+I know you're one of our most loyal customers.
+
+41
+00:01:27,160 --> 00:01:29,880
+We'll throw in a free frother in your next order as well,
+
+42
+00:01:29,880 --> 00:01:32,180
+so you can have it for anything,
+
+43
+00:01:32,200 --> 00:01:34,280
+if you want to prepare it a little more foamy,
+
+44
+00:01:34,280 --> 00:01:36,100
+like a lot of our other customers do.
+
+45
+00:01:36,120 --> 00:01:38,760
+I know you've been purchasing from us for a while,
+
+46
+00:01:38,760 --> 00:01:41,880
+so, from the heart, we really appreciate it.
+
+47
+00:01:41,880 --> 00:01:43,700
+JAMES: Yeah, you guys are my go-to
+
+48
+00:01:44,570 --> 00:01:45,990
+for now, for recently.
+
+49
+00:01:46,890 --> 00:01:49,530
+SHADI: Awesome. Well, James, thanks so much, man.
+
+50
+00:01:49,530 --> 00:01:50,890
+We'll chat soon. Thanks again.
+
+51
+00:01:50,890 --> 00:01:51,910
+Thank you, James.
+
+52
+00:01:52,250 --> 00:01:52,970
+JAMES: Bye, buddy.
+
+53
+00:01:52,970 --> 00:01:54,530
+SHADI: All right. Bye-bye.

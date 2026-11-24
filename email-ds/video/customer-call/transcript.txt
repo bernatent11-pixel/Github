@@ -1,0 +1,60 @@
+# The call, one caption per line. S = Shadi (in the room), J = James (the customer, on speakerphone).
+# Edit the words or the line breaks here, then run build-captions.py to re-time them.
+# Clean verbatim: fillers (um, uh) and repeated words are left out; nothing is reworded except
+# "everything that we have offering" -> "everything we offer".
+# Left out on purpose because three speech models could not agree on the words:
+#   6.8 s   James's first word before "how are you doing?" (heard as Yes / Cheers / Jess)
+#   66.8 s  James, after "your Milonga": something like "I like 'em all" (heard as maul / mal / mall / malt)
+J: Hello?
+S: Hey, James?
+J: Yes.
+S: Hey, James, how are you? This is Shadi.
+S: I'm the founder of Milonga Yerba Mate.
+J: How are you doing?
+S: How's everything, man? How you been?
+J: Pretty good. Pretty good.
+S: I know you're a big fan of the products
+S: and everything we offer,
+S: so I wanted to get you on a call
+S: and understand a little bit more from your perspective.
+S: So how do you typically feel
+S: when you drink a Mate Latte?
+S: Like, what is it that you would say
+S: is different about it from coffee
+S: or any other caffeinated products?
+J: Well, the taste, for one thing.
+J: I like the taste better.
+J: The doctor told me not to drink coffee,
+J: so I had to come up with something else.
+J: So, yeah, your Mate Latte hits the spot.
+J: I usually make a cup in the morning
+J: and drink it, and it gives me a little lift.
+S: How would you say that caffeine compares?
+S: Do you drink energy drinks or anything like that,
+S: or do you prefer to just have it be
+S: something more earthy, more authentic?
+J: Well, I used to drink energy drinks
+J: back in my other life, back in my younger days,
+J: but no, basically, I've been drinking your Milonga.
+S: How do you sweeten the latte?
+S: Do you sweeten it at all, or you just drink it as is?
+J: I just drink it as is.
+J: I got a cup right here.
+S: Nice, nice. I'm glad.
+S: Well, James, thank you so much.
+S: I really appreciate the support
+S: and the feedback that you've given us.
+S: I know you're one of our most loyal customers.
+S: We'll throw in a free frother in your next order as well,
+S: so you can have it for anything,
+S: if you want to prepare it a little more foamy,
+S: like a lot of our other customers do.
+S: I know you've been purchasing from us for a while,
+S: so, from the heart, we really appreciate it.
+J: Yeah, you guys are my go-to
+J: for now, for recently.
+S: Awesome. Well, James, thanks so much, man.
+S: We'll chat soon. Thanks again.
+S: Thank you, James.
+J: Bye, buddy.
+S: All right. Bye-bye.

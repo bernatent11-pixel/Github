@@ -1,35 +1,42 @@
 BLACK FRIDAY AD · BRANDED CAPTIONS
 ==================================
 
-The presenter-to-camera Black Friday ad (1080 x 1920, 30 fps, 29.5 s) with Milonga captions and
-the logo burned in. Picture and sound are otherwise the original; the audio track is copied, not
-re-encoded.
+The presenter-to-camera Black Friday ad (1080 x 1920, 30 fps, 29.5 s) with Milonga captions
+burned in. Picture and sound are otherwise the original; the audio track is copied, not
+re-encoded. There is no logo on it (Bernat, 2026-11-24: removed).
 
 FILES
   black-friday-ad-captioned.mp4   THE VIDEO. H.264 + AAC, 1080 x 1920, ready for Reels / TikTok / Shorts.
   captions.srt                    the same captions as a text track, for platforms that take one
   preview.jpg                     one still per caption, over the real frames
-  captions.json                   every caption: its words, per-word timing, style and position
+  captions.json                   every caption: its words, per-word timing, sizes and position
   make.mjs                        draws the captions and builds the video
   The source video is not in the repo (27 MB). To rebuild, from email-ds/:
     node video/black-friday-ad/make.mjs /path/to/source.mov            the video, the .srt, the preview
     node video/black-friday-ad/make.mjs /path/to/source.mov --preview  the preview and the .srt only
 
-THE CAPTION SYSTEM (built from the brand's own parts)
-  say     the presenter. A forest-green chip (the brand's button) with cream Gotham Black caps;
-          the word being spoken turns gold. Words wait at half strength and come up as said.
-  offer   the deal: 40% OFF, BLACK FRIDAY, LIMITED TIME ONLY, BUNDLE AND SAVE, FREE FROTHER
-          INCLUDED. A gold chip with dark green type, larger, tilted a touch. Gold with dark green
-          on it is the loudest pairing the brand has, so it is kept for the offer and nothing else.
-  other   the second voice (the cut to the sofa). A cream chip with dark green type, so the change
-          of speaker reads without a name tag.
-  Logo    the beige lockup, top centre, with a soft shadow so it holds over the ceiling lights.
+THE CAPTION SYSTEM (the brand's own headline, set in motion)
+  The two typefaces the emails pair, used the way the emails use them:
+  caps    the lead-in words. Small Gotham Black capitals, widely tracked, in cream: the eyebrow.
+  ital    the words that matter. Large serif bold italic, in gold: the turn of the headline.
+  A caption is a lead-in line and its key words ("DO YOU WANT / 40% off", "BUT WITHOUT THE /
+  jitters and crash"); some are the key words alone ("Clean energy", "Focus", "Mmm").
+  Lead-in words wait at half strength and come up as they are said. The italic line is held
+  back and pops in on its own cue, so the eye lands on the word that matters as it is spoken.
+  The offer lines (40% off, Black Friday, Limited time, save, Free frother) are the same
+  pairing, larger.
+  No boxes: the type sits on the picture with a soft dark-green shadow pooled under it.
+  On the light wall of the sofa shot the ink turns forest green instead, with a light glow:
+  type on a photograph takes its ink from the photograph.
+  The first version (2026-11-24, replaced the same day) set every line in Gotham capitals inside
+  green and gold chips, with the logo top centre. It is in git history if it is wanted back.
 
 WHERE THEY SIT
-  One short line at a time, centred on the table top at y 1450: the glass and pouches stand down
-  to about y 1400, and Reels / TikTok start covering the frame with their own UI at about y 1540.
-  Three shots move theirs: left of the pouch while he holds it to camera (4.5-6.5 s), and above
-  the second speaker's head on the sofa (6.5-7.9 s). The logo sits below the platforms' header.
+  Centred on the table top at about y 1460: the glass and pouches stand down to about y 1400,
+  and Reels / TikTok start covering the frame with their own UI at about y 1540.
+  Two shots move theirs: left of the pouch while he holds it to camera (4.5-6.5 s), and high on
+  the wall, well above the second speaker, in the sofa shot (6.5-7.97 s; Bernat asked for it
+  higher). That one starts on the first frame of its shot and is gone on the last.
 
 THE WORDS
   Do you want 40% off the coffee alternative that's breaking the internet? Now's your time to get

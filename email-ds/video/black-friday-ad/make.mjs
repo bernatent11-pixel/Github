@@ -1,28 +1,31 @@
 // Black Friday ad · branded captions
 //
-// Burns Milonga-styled captions and the logo into the presenter-to-camera ad. The captions are
-// drawn in the browser, one transparent frame per video frame, then laid over the footage with
-// ffmpeg; the picture underneath and the sound are otherwise untouched.
+// Burns Milonga-styled captions into the presenter-to-camera ad. The captions are drawn in the
+// browser, one transparent frame per video frame, then laid over the footage with ffmpeg; the
+// picture underneath and the sound are otherwise untouched. No logo is added (Bernat, 2026-11-24).
 //
-// The caption system, from the brand's own parts:
-//   say    the presenter. A forest chip per line (the brand's button), cream Gotham Black caps,
-//          and the word being spoken turns gold: the dark-green row of the contrast map.
-//   offer  the deal ("40% off", "Black Friday", ...). A gold chip with forest type, larger and
-//          tilted a touch: gold with dark green on it is the loudest pairing the brand has, so it
-//          is kept for the offer and nothing else.
-//   other  the second voice (the cut to the sofa). A cream chip with forest type, so a change of
-//          speaker reads as one without a name tag.
-// Words wait at half strength and come up as they are said. Captions are one short line at a
-// time and sit on the table top, just under the glass and the pouches and above the area Reels
-// and TikTok cover with their own UI; three shots move theirs so they stay off the product (the
-// pouch held to camera) or the person (the sofa).
+// The caption system is the brand's own headline, set in motion: the two typefaces the emails
+// pair, used the way the emails use them.
+//   caps   the lead-in words: small Gotham Black capitals, widely tracked, in cream. The eyebrow.
+//   ital   the words that matter: large serif bold italic, in gold. The turn of the headline.
+// A caption is a lead-in line and its key words ("DO YOU WANT / 40% off"); some are the key words
+// alone ("Clean energy", "Focus"). Lead-in words wait at half strength and come up as they are
+// said; the italic line is held back and pops in on its own cue, so the eye lands on the word that
+// matters at the moment it is spoken. The offer lines are the same pairing, larger.
+// There are no boxes: the type sits on the picture with a soft dark-green shadow under it. On a
+// light background (the sofa shot) the ink turns forest, because type on a photograph takes its
+// ink from the photograph.
+//
+// Captions sit on the table top, just under the glass and the pouches and above the area Reels
+// and TikTok cover with their own UI. Two shots move theirs: left of the pouch while he holds it
+// to camera, and well above the second speaker on the sofa.
 //
 // Words and timings live in captions.json (transcribed twice, by two unrelated speech models that
-// agreed, and timed per word). Edit that file to change wording, line breaks or timing.
+// agreed, and timed per word). Edit that file to change wording, line breaks, timing or position.
 //
 // Usage, from email-ds/:
 //   node video/black-friday-ad/make.mjs <source video> [--preview]
-//     --preview   only write preview.jpg (captions over stills), no video
+//     --preview   only write preview.jpg (captions over stills) and captions.srt, no video
 // Writes, next to this script: black-friday-ad-captioned.mp4, captions.srt, preview.jpg
 // Needs ffmpeg on the PATH. CHROME=/path/to/chrome if Playwright has no browser of its own.
 import fs from 'node:fs';
@@ -42,65 +45,72 @@ if (!SRC || !fs.existsSync(SRC)) { console.error('usage: node video/black-friday
 
 const { captions } = JSON.parse(fs.readFileSync(`${HERE}/captions.json`, 'utf8'));
 const W = 1080, H = 1920, FPS = 30;
-// the strip of the frame the captions can occupy; only this is rendered per frame
-const STRIP = { top: 1000, height: 600 };
-const CENTER_Y = 1450; // on the table top: the glass and pouches stand down to about y 1400, the platforms' UI starts about y 1540
-const MAX_LINE = 850;  // widest a line may be: clear of the right-hand button column
+// the band of the frame the captions can occupy; only this is rendered per frame
+const STRIP = { top: 600, height: 1040 };
+const CENTER_Y = 1462; // on the table top: the glass and pouches stand down to about y 1400, the platforms' UI starts about y 1540
+const MAX_LINE = 860;  // widest a line may be: clear of the right-hand button column
 
-const FOREST = '#004D27', DEEP = '#00351B', GOLD = '#E3BC62', GOLD_SOFT = '#EFD9A0', GOLD_DEEP = '#C9A24E', BEIGE = '#F0EFDF', CREAM = '#FBF8EF';
+const FOREST = '#004D27', GOLD = '#E3BC62', BEIGE = '#F0EFDF';
 const font = (f) => `file://${DS}/public/fonts/${f}`;
+// Times New Roman where it is installed (a Mac), Liberation Serif otherwise: same metrics
+const SERIF = "'Times New Roman','Liberation Serif',Times,Georgia,serif";
 
 const PAGE = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face { font-family: Gotham; src: url(${font('Gotham-Black.otf')}) format('opentype'); font-weight: 900; }
-@font-face { font-family: Gotham; src: url(${font('Gotham-Bold.otf')}) format('opentype'); font-weight: 700; }
 html, body { margin: 0; background: transparent; }
-#stage { position: relative; width: ${W}px; height: ${H}px; overflow: hidden; font-family: Gotham, sans-serif; }
-.cap { position: absolute; left: 0; top: ${CENTER_Y}px; width: max-content; display: flex; flex-direction: column; align-items: center; gap: 9px; opacity: 0; transform-origin: 50% 50%; will-change: transform, opacity; }
-.line { display: flex; gap: .26em; white-space: nowrap; font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: .012em; }
-.w { display: inline-block; transform-origin: 50% 60%; }
+#stage { position: relative; width: ${W}px; height: ${H}px; overflow: hidden; }
+.cap { position: absolute; width: max-content; display: flex; flex-direction: column; align-items: center; opacity: 0; transform-origin: 50% 50%; will-change: transform, opacity; }
+/* a pool of soft dark green under the type, with no edge to read as a box */
+.cap::before { content: ''; position: absolute; z-index: -1; inset: -34% -16%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 26, 13, .50) 0%, rgba(0, 26, 13, .34) 46%, rgba(0, 26, 13, .12) 76%, rgba(0, 26, 13, 0) 100%); }
+.line { display: flex; white-space: nowrap; transform-origin: 50% 55%; will-change: transform, opacity; }
+.w { display: inline-block; transform-origin: 50% 70%; }
 
-/* say: the forest button, cream caps, the spoken word in gold */
-.say .line { font-size: 62px; padding: 17px 30px 13px; border-radius: 23px; color: ${BEIGE};
-  background: linear-gradient(180deg, #0B5E33 0%, ${FOREST} 52%, #00401F 100%);
-  box-shadow: 0 10px 26px rgba(0, 24, 12, .42), 0 2px 0 rgba(0, 24, 12, .5), inset 0 1.5px 0 rgba(255, 255, 255, .12); }
-.say .w.now { color: ${GOLD}; }
+/* caps: the eyebrow. Small, heavy, widely tracked, cream */
+.caps { gap: .42em; font-family: Gotham, sans-serif; font-weight: 900; font-size: 45px; line-height: 1.16; letter-spacing: .13em; text-transform: uppercase; color: ${BEIGE};
+  text-shadow: 0 2px 0 rgba(0, 26, 13, .6), 0 5px 16px rgba(0, 20, 10, .7), 0 0 2px rgba(0, 20, 10, .6); }
+/* ital: the turn. Large serif bold italic, gold */
+.ital { gap: .2em; font-family: ${SERIF}; font-weight: 700; font-style: italic; font-size: 128px; line-height: .98; letter-spacing: -.012em; color: ${GOLD};
+  text-shadow: 0 3px 0 rgba(0, 26, 13, .62), 0 9px 26px rgba(0, 20, 10, .72), 0 0 3px rgba(0, 20, 10, .6); }
+.caps + .ital { margin-top: 2px; }
+.ital + .caps { margin-top: 12px; }
 
-/* offer: gold with dark green on it, the loudest pairing, kept for the deal */
-.offer .line { font-size: 88px; padding: 20px 36px 14px; border-radius: 28px; color: ${FOREST};
-  background: linear-gradient(180deg, ${GOLD_SOFT} 0%, ${GOLD} 48%, ${GOLD_DEEP} 100%);
-  box-shadow: 0 14px 34px rgba(0, 24, 12, .46), 0 3px 0 rgba(120, 90, 30, .55), inset 0 2px 0 rgba(255, 255, 255, .5); }
-.offer.big .line { font-size: 168px; padding: 24px 44px 12px; border-radius: 38px; letter-spacing: -.005em; }
+/* the offer: the same pairing, larger */
+.offer .caps { font-size: 56px; }
+.offer .ital { font-size: 164px; }
+.big .ital { font-size: 218px; letter-spacing: -.02em; line-height: .92; }
+.big .caps { font-size: 50px; }
 
-/* other: the second voice */
-.other .line { font-size: 62px; padding: 17px 30px 13px; border-radius: 23px; color: ${FOREST};
-  background: linear-gradient(180deg, ${CREAM} 0%, ${BEIGE} 100%);
-  box-shadow: 0 10px 26px rgba(0, 24, 12, .42), 0 2px 0 rgba(0, 24, 12, .28), inset 0 1.5px 0 rgba(255, 255, 255, .8); }
+/* on a light background the ink turns forest and the shadow turns to light */
+.dark::before { background: radial-gradient(closest-side, rgba(251, 248, 239, .62) 0%, rgba(251, 248, 239, .4) 50%, rgba(251, 248, 239, 0) 100%); }
+.dark .caps, .dark .ital { color: ${FOREST}; text-shadow: 0 2px 0 rgba(255, 255, 255, .45), 0 0 22px rgba(251, 248, 239, .9); }
 </style></head><body><div id="stage"></div>
 <script>
 const CAPS = ${JSON.stringify(captions)};
 const LEAD = 0.04;          // captions land a frame ahead of the voice, which reads as in sync
 const stage = document.getElementById('stage');
-const els = CAPS.map((c, i) => {
+const els = CAPS.map((c) => {
   const el = document.createElement('div');
-  el.className = 'cap ' + c.style + (c.big ? ' big' : '');
-  c.words = [];
-  for (const line of c.lines) {
-    const l = document.createElement('div'); l.className = 'line';
-    for (const [text, t] of line) { const w = document.createElement('span'); w.className = 'w'; w.textContent = text; l.appendChild(w); c.words.push({ el: w, t }); }
+  el.className = 'cap' + (c.size ? ' ' + c.size : '') + (c.ink === 'dark' ? ' dark' : '');
+  c.rows = c.lines.map(([kind, words]) => {
+    const l = document.createElement('div'); l.className = 'line ' + kind;
+    const ws = words.map(([text, t]) => { const w = document.createElement('span'); w.className = 'w'; w.textContent = text; l.appendChild(w); return { el: w, t }; });
     el.appendChild(l);
-  }
+    return { el: l, kind, words: ws, start: ws[0].t - LEAD };
+  });
   el.style.left = (c.x ?? ${W / 2}) + 'px';
   el.style.top = (c.y ?? ${CENTER_Y}) + 'px';
   stage.appendChild(el);
-  c.start = c.words[0].t - LEAD;
+  c.start = c.rows[0].start;
   return el;
 });
 CAPS.forEach((c, i) => {
   const next = CAPS[i + 1];
   // hold a caption until the next one lands if the gap is short, so the screen never blinks empty mid-sentence
   c.bridged = !!next && next.start - c.end < 0.32;
-  c.out = c.bridged ? next.start : c.end + 0.14;
-  c.tilt = c.style === 'offer' ? (i % 2 ? 2 : -2.4) : c.style === 'other' ? 1.6 : 0;
+  c.out = c.bridged ? next.start : c.end + 0.16;
+  // a caption that belongs to one shot leaves with it, on the cut, with no fade into the next shot
+  if (c.cut) { c.out = c.cut; c.bridged = true; }
 });
 // fit: no line wider than the safe width
 window.fit = () => els.forEach((el, i) => {
@@ -109,47 +119,34 @@ window.fit = () => els.forEach((el, i) => {
 });
 const ease = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
 // a quick overshoot and settle: up to 1.06, back to 1
-const pop = (p, from, dur) => { const x = Math.min(1, Math.max(0, p / dur)); return x < 0.62 ? from + (1.06 - from) * ease(x / 0.62) : 1.06 - 0.06 * ease((x - 0.62) / 0.38); };
+const pop = (p, from, dur) => { const x = Math.min(1, Math.max(0, p / dur)); return x < 0.6 ? from + (1.06 - from) * ease(x / 0.6) : 1.06 - 0.06 * ease((x - 0.6) / 0.4); };
 window.setTime = (t) => {
   CAPS.forEach((c, i) => {
     const el = els[i];
     if (t < c.start || t >= c.out) { el.style.opacity = 0; return; }
     const p = t - c.start;
-    const hero = c.style === 'offer';
-    const s = c.fit * pop(p, hero ? 0.72 : 0.84, hero ? 0.22 : 0.16);
-    const fadeOut = c.bridged ? 1 : Math.min(1, (c.out - t) / 0.1);
+    const fadeOut = c.bridged ? 1 : Math.min(1, (c.out - t) / 0.12);
     // already most of the way in on its first frame: the caption before it leaves on that same
     // frame, and a blank frame between two captions reads as a flicker
     el.style.opacity = Math.min(1, 0.6 + p / 0.05) * fadeOut;
-    el.style.transform = 'translate(-50%, -50%) rotate(' + c.tilt + 'deg) scale(' + s + ')';
-    c.words.forEach((w, k) => {
-      const said = t >= w.t - LEAD, last = k === c.words.length - 1;
-      const now = said && (last || t < c.words[k + 1].t - LEAD);
-      w.el.className = 'w' + (now ? ' now' : '');
-      w.el.style.opacity = said ? 1 : 0.46;
-      const b = said ? Math.max(0, 1 - (t - (w.t - LEAD)) / 0.16) : 0;   // a small lift as each word is said
-      w.el.style.transform = 'scale(' + (1 + 0.07 * b * b) + ')';
+    el.style.transform = 'translate(-50%, -50%) scale(' + (c.fit * (0.93 + 0.07 * ease(p / 0.14))) + ')';
+    c.rows.forEach((row) => {
+      const q = t - row.start;
+      if (row.kind === 'ital') {
+        // held back until its cue, then it pops: the eye lands on the word as it is said
+        row.el.style.opacity = q < 0 ? 0 : Math.min(1, 0.55 + q / 0.05);
+        row.el.style.transform = 'scale(' + (q < 0 ? 0.8 : pop(q, 0.8, 0.22)) + ')';
+      }
+      row.words.forEach((w) => {
+        const said = t >= w.t - LEAD;
+        w.el.style.opacity = said ? 1 : (row.kind === 'ital' ? 0.34 : 0.42);
+        const b = said ? Math.max(0, 1 - (t - (w.t - LEAD)) / 0.16) : 0;   // a small lift as each word is said
+        w.el.style.transform = 'translateY(' + (-5 * b * b) + 'px) scale(' + (1 + 0.05 * b * b) + ')';
+      });
     });
   });
 };
 </script></body></html>`;
-
-// the logo, drawn once: the beige lockup, top centre, with a soft shadow so it holds on a bright ceiling
-async function logoOverlay() {
-  const h = 172;
-  const mark = await sharp(`${DS}/public/logo/lockup-milonga-beige.png`).resize({ height: h }).png().toBuffer();
-  const { width: w } = await sharp(mark).metadata();
-  // shadow: the lockup's own shape in dark forest, blurred
-  const alpha = await sharp(mark).extractChannel(3).toBuffer();
-  const pad = 40;
-  const shadow = await sharp({ create: { width: w, height: h, channels: 3, background: '#00180C' } }).joinChannel(alpha).png().toBuffer();
-  const shadowBlur = await sharp({ create: { width: w + 2 * pad, height: h + 2 * pad, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite([{ input: shadow, left: pad, top: pad + 5 }]).png().toBuffer().then((b) => sharp(b).blur(9).linear([1, 1, 1, 0.9], [0, 0, 0, 0]).png().toBuffer());
-  const top = 196; // below where Reels and TikTok put their own header
-  return sharp({ create: { width: W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite([{ input: shadowBlur, left: Math.round((W - w) / 2) - pad, top: top - pad }, { input: mark, left: Math.round((W - w) / 2), top }])
-    .png().toBuffer();
-}
 
 const CHROME = process.env.CHROME || (fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
 const browser = await chromium.launch(CHROME ? { executablePath: CHROME } : {});
@@ -161,21 +158,21 @@ await page.evaluate(() => document.fonts.ready);
 await page.evaluate(() => window.fit());
 const clip = { x: 0, y: STRIP.top, width: W, height: STRIP.height };
 const shot = async (t) => { await page.evaluate((x) => window.setTime(x), t); return page.screenshot({ type: 'png', omitBackground: true, clip }); };
-const logo = await logoOverlay();
-fs.writeFileSync(`${tmp}/logo.png`, logo);
+const words = (c) => c.lines.flatMap(([, ws]) => ws);
 
-// ── preview: one still per caption, captions and logo laid over the real frame ──
+// ── preview: one still per caption, taken once every word of it has been said ──
 {
-  const times = captions.map((c) => { const ws = c.lines.flat(); return ws[Math.min(ws.length - 1, Math.ceil(ws.length / 2))][1] + 0.12; });
   const tiles = [];
-  for (const t of times) {
+  for (const [i, c] of captions.entries()) {
+    // once its last word is said, and before the next caption takes its place
+    const ws = words(c), next = captions[i + 1];
+    const t = Math.min(ws[ws.length - 1][1] + 0.3, (next ? words(next)[0][1] : c.end) - 0.1);
     const frame = execFileSync('ffmpeg', ['-v', 'error', '-ss', String(t), '-i', SRC, '-frames:v', '1', '-f', 'image2pipe', '-vcodec', 'png', '-'], { maxBuffer: 64e6 });
-    const cap = await shot(t);
     // composite first, resize after: sharp resizes before it composites within one pipeline
-    const full = await sharp(frame).composite([{ input: logo, left: 0, top: 0 }, { input: cap, left: 0, top: STRIP.top }]).png().toBuffer();
+    const full = await sharp(frame).composite([{ input: await shot(t), left: 0, top: STRIP.top }]).png().toBuffer();
     tiles.push(await sharp(full).resize(360).jpeg({ quality: 88 }).toBuffer());
   }
-  const cols = 8, rows = Math.ceil(tiles.length / cols), tw = 360, th = 640, gap = 10;
+  const cols = 6, rows = Math.ceil(tiles.length / cols), tw = 360, th = 640, gap = 10;
   await sharp({ create: { width: cols * (tw + gap) + gap, height: rows * (th + gap) + gap, channels: 3, background: '#1b1b1b' } })
     .composite(tiles.map((input, i) => ({ input, left: gap + (i % cols) * (tw + gap), top: gap + Math.floor(i / cols) * (th + gap) })))
     .jpeg({ quality: 88 }).toFile(`${HERE}/preview.jpg`);
@@ -185,7 +182,7 @@ fs.writeFileSync(`${tmp}/logo.png`, logo);
 // ── captions.srt, for uploading as a caption track where a platform takes one ──
 {
   const ts = (t) => { const ms = Math.round(t * 1000); const p = (n, l = 2) => String(n).padStart(l, '0'); return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
-  const srt = captions.map((c, i) => `${i + 1}\n${ts(c.lines[0][0][1])} --> ${ts(c.end)}\n${c.lines.map((l) => l.map((w) => w[0]).join(' ')).join('\n')}\n`).join('\n');
+  const srt = captions.map((c, i) => `${i + 1}\n${ts(words(c)[0][1])} --> ${ts(c.end)}\n${c.lines.map(([, ws]) => ws.map((w) => w[0]).join(' ')).join('\n')}\n`).join('\n');
   fs.writeFileSync(`${HERE}/captions.srt`, srt);
   console.log('wrote', `${HERE}/captions.srt`);
 }
@@ -199,12 +196,11 @@ if (!PREVIEW) {
     if (i % 150 === 0) console.log(`  caption frames ${i}/${frames}`);
   }
   const out = `${HERE}/black-friday-ad-captioned.mp4`;
-  // The overlays are RGB; they are converted to the footage's own BT.709 so the brand colours land
+  // The overlay is RGB; it is converted to the footage's own BT.709 so the brand colours land
   // where they should. Sound is copied, not re-encoded.
-  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', SRC, '-framerate', String(FPS), '-i', `${tmp}/f/%05d.png`, '-loop', '1', '-i', `${tmp}/logo.png`,
+  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', SRC, '-framerate', String(FPS), '-i', `${tmp}/f/%05d.png`,
     '-filter_complex',
-    `[1:v]scale=out_color_matrix=bt709:out_range=tv,format=yuva444p[cap];[2:v]scale=out_color_matrix=bt709:out_range=tv,format=yuva444p[logo];` +
-    `[0:v][logo]overlay=0:0:shortest=1[a];[a][cap]overlay=0:${STRIP.top}:eof_action=pass,format=yuv420p[v]`,
+    `[1:v]scale=out_color_matrix=bt709:out_range=tv,format=yuva444p[cap];[0:v][cap]overlay=0:${STRIP.top}:eof_action=pass,format=yuv420p[v]`,
     '-map', '[v]', '-map', '0:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-r', String(FPS),
     '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709', '-c:a', 'copy', '-movflags', '+faststart', out], { stdio: 'inherit' });
   console.log('wrote', out);

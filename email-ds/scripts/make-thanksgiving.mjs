@@ -8,6 +8,8 @@
 //   3  a festive recipe on gold: Pumpkin Spice Mate Latte (base recipe from the product page: 2.5 tbsp in 8oz
 //      of milk; the spice, maple and cinnamon are our additions)
 //   4  Black Friday on cream: the two Starter Kits (from bf-2026, same prices and links) and "Shop the sale"
+//   v2 (Bernat, 2026-11-24): a sales button in every section (Shop Mate Latte, Stock up now,
+//   Get the Mate Latte, Shop the sale)
 //   footer on cream
 // Claims: only approved ones ("steady energy without the jitters or the crash"). No infused cans here: this
 // goes to the whole list. Black Friday facts are bf-2026's (Shopify, 2026-11-12); no sale end date is set.
@@ -153,14 +155,17 @@ ${row(FOREST, 'pad bg-forest', 'padding:12px 20px;', `<a href="${amp(L.sale('tg_
 ${row(WALL, 'pad bg-wall', 'padding:34px 40px 0;', `<a href="${amp(L.home)}" target="_blank" style="display:block;"><img class="hero-logo" src="${img('logo-green.png')}" width="85" height="90" alt="Milonga" style="display:block;margin:0 auto;width:85px;height:90px;border:0;"></a>
 <div style="padding-top:26px;">${eyebrow('Happy Thanksgiving')}</div>
 ${title(['Grateful for you,', 'and every cup.'], 'h-hero', 52, FOREST, 10)}
-<div style="max-width:460px;margin:0 auto;"><div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Thank you for making Milonga part of your mornings this year. Here are a few ways to share a cup with the people you love')} ${nw('this week.')}</div></div>`)}
+<div style="max-width:460px;margin:0 auto;"><div class="lead" style="padding-top:16px;font-size:16px;line-height:24px;font-weight:500;color:${INK};">${ent('Thank you for making Milonga part of your mornings this year. Here are a few ways to share a cup with the people you love')} ${nw('this week.')}</div></div>
+<div style="padding-top:26px;">${button(L.ml('tg_hero_button'), 'Shop Mate Latte', 300)}</div>
+<div style="padding-top:12px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;color:${FOREST};">40% off your first Starter Kit box for Black Friday</div>`)}
 <tr><td class="bg-wall" bgcolor="${WALL}" style="background-color:${WALL};padding:0;font-size:0;line-height:0;"><img class="full" src="${img('hero.jpg')}" width="600" height="640" alt="A Thanksgiving table with cups of Mate Latte, pumpkin pie and autumn leaves" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></td></tr>
 
 <!-- ── 2 · THREE WAYS TO SHARE A CUP ── -->
 ${row(FOREST, 'pad bg-forest', 'padding:56px 40px 0;', `${eyebrow('Ways to share', GOLD)}
 ${title(['A cup for everyone,', 'all week long.'], 'h-sec', 40, '#FFFFFF')}`)}
 ${MOMENTS.map((m, i) => moment(m, i % 2 === 1, img)).join('\n')}
-<tr><td class="bg-forest" bgcolor="${FOREST}" height="56" style="height:56px;line-height:56px;font-size:0;background-color:${FOREST};">&nbsp;</td></tr>
+${row(FOREST, 'pad bg-forest', 'padding:40px 40px 56px;', `${button(L.sale('tg_ways_button'), 'Stock up now', 300, GOLD, FOREST, '#A8822F')}
+<div style="padding-top:12px;font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;color:${BEIGE};">Up to 40% off site-wide for Black Friday</div>`)}
 
 <!-- ── 3 · MAKE IT FESTIVE: PUMPKIN SPICE MATE LATTE ── -->
 ${row(GOLD, 'pad bg-gold', 'padding:52px 40px 0;', `${eyebrow('Make it festive')}
@@ -176,7 +181,8 @@ ${RECIPE.map((r) => `<div style="padding:7px 0;border-bottom:1px solid rgba(0,77
 <!--[if mso]></td></tr></table><![endif]-->
 </div>
 </td></tr>
-${row(GOLD, 'pad bg-gold', 'padding:20px 40px 54px;', `<div style="max-width:440px;margin:0 auto;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Warm the milk with the spice and maple, stir in the Mate Latte, froth it and dust with cinnamon.')} ${nw('Pie optional.')}</div>`)}
+${row(GOLD, 'pad bg-gold', 'padding:20px 16px 54px;', `<div style="max-width:440px;margin:0 auto;font-size:15px;line-height:23px;font-weight:500;color:${INK};">${ent('Warm the milk with the spice and maple, stir in the Mate Latte, froth it and dust with cinnamon.')} ${nw('Pie optional.')}</div>
+<div style="padding-top:26px;">${button(L.ml('tg_recipe_button'), 'Get the Mate Latte', 320)}</div>`)}
 
 <!-- ── 4 · BLACK FRIDAY ── -->
 ${row(CREAM, 'pad bg-cream', 'padding:54px 40px 0;', `${eyebrow('Black Friday is here')}

@@ -1,0 +1,46 @@
+# Clip 1 · "Why do we drink caffeine in the first place?" (51.6 s)
+# One caption per line. " / " starts a new line inside the caption; the *starred* line is the key
+# words (large gold italic), the rest is the lead-in (small capitals). Options in {braces}.
+# After editing: python3 video/founder-clips/build-captions.py video/founder-clips/1-why-we-drink-caffeine
+# Written as spoken, with numbers as figures (1 in 4, 400 mg) and "&" for one "and".
+# Jump cuts in the footage, as the first frame of each new shot (found by comparing each frame with the one before):
+@cuts 80 211 294 469 667 832 928 1099 1404
+SO WHY DO YOU THINK / *we drink caffeine*
+IN THE / *first place?*
+*1 in 4* / AMERICANS TODAY {big}
+FALL INTO A / *vicious cycle*
+OF ENDLESS / *caffeine use*
+THEY CONSUME OVER / *400 mg* {big}
+OF CAFFEINE / *a day*
+WHICH IS ANYWHERE BETWEEN / *4 and 5*
+*cups of coffee* / THROUGHOUT THE DAY
+JUST TO BE ABLE TO / *get through*
+THEIR / *daily tasks*
+I SAW THAT PROBLEM / *in today’s world*
+ALL THROUGHOUT MY / *friends & family*
+AND THAT’S ONE OF / *the reasons*
+WHY I CREATED THE / *Mate Latte* {offer}
+IN THE / *first place*
+SO WHAT WE DID IS / *we grabbed*
+ONE OF THE WORLD’S / *healthiest*
+*caffeine sources* / ON EARTH
+WHICH IS / *yerba mate* {offer}
+IT HAS MORE / *antioxidants*
+THAN / *green tea*
+*amino acids*
+IT HELPS YOU / *lock in* {offer}
+BECAUSE IT DOESN’T / GIVE YOU THE / *jitters*
+OR THE / *anxiety*
+THAT OTHER CAFFEINATED / *sources do*
+AND WE CREATED IT INTO / *a latte* {offer}
+AND MIXED IN / *L-theanine* {offer}
+WHICH HELPS LOWER / *levels of stress*
+AND / *Lion’s Mane* {offer}
+WHICH HELPS WITH / *mental focus*
+AND / *clarity*
+TO GIVE YOU / *a recipe*
+AND A FORMULA / *like none other*
+IT’S EVERYTHING YOUR / *mornings need*
+*Clean energy* {offer}
+*Clear mind* {offer}
+AND ALL IN A / *calm state* {offer}

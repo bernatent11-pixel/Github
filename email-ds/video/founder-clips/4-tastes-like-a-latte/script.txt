@@ -1,0 +1,24 @@
+# Clip 4 · "Mushroom coffee probably tastes like dirt" (23.4 s)
+# One caption per line. " / " starts a new line inside the caption; the *starred* line is the key
+# words (large gold italic), the rest is the lead-in (small capitals). Options in {braces}.
+# After editing: python3 video/founder-clips/build-captions.py video/founder-clips/4-tastes-like-a-latte
+# The last word, as he raises the glass, is "Salud".
+# Jump cuts in the footage, as the first frame of each new shot (found by comparing each frame with the one before):
+@cuts 215 417 518 600
+AND / *mushroom coffee*
+PROBABLY TASTES LIKE / *dirt* {big}
+THIS TASTES / *exactly*
+LIKE / *a latte* {offer}
+YOU WOULD ORDER / *at a café*
+*Vanilla* / FLAVORED {offer}
+BECAUSE / *let’s be honest*
+*mushroom coffee*
+TASTES LIKE / *mushrooms* {offer}
+WHEREAS / *this tastes*
+LIKE A / *delicious*
+*creamy latte* {offer}
+SO IT’S ACTUALLY A / *morning cup*
+*you look forward* / TO HAVING
+AND NO / *chalky*
+OR / *earthy taste*
+*Salud* {big end=21.5}

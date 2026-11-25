@@ -1,0 +1,28 @@
+# Clip 3 · "Be honest, why did you move away from your morning coffee?" (32.3 s)
+# One caption per line. " / " starts a new line inside the caption; the *starred* line is the key
+# words (large gold italic), the rest is the lead-in (small capitals). Options in {braces}.
+# After editing: python3 video/founder-clips/build-captions.py video/founder-clips/3-why-you-left-your-coffee
+# The last word, after he drinks, is "Delicioso" (the "Ahh" before it is not captioned).
+# Jump cuts in the footage, as the first frame of each new shot (found by comparing each frame with the one before):
+@cuts 98 238 500 702 803 885
+*Be honest* {offer}
+WHY DID YOU MOVE AWAY / FROM YOUR / *morning coffee?*
+PROBABLY BECAUSE OF / *the jitters*
+*the crash*
+*the acidity*
+*the stains* / ON YOUR TEETH
+SO WHAT WE CREATED / IS A COFFEE / *alternative*
+VERY SIMILAR TO / *the benefits*
+THAT YOU WOULD GET WITH / *mushroom coffee*
+BUT WITHOUT COMPROMISING / *the taste* {offer}
+BECAUSE / *let’s be honest*
+*mushroom coffee*
+TASTES LIKE / *mushrooms* {offer}
+WHEREAS / *this tastes*
+LIKE A / *delicious*
+*creamy latte* {offer}
+SO IT’S ACTUALLY A / *morning cup*
+*you look forward* / TO HAVING
+AND NO / *chalky*
+OR / *earthy taste*
+*Delicioso* {offer}

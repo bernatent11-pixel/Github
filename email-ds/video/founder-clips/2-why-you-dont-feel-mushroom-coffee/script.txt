@@ -1,0 +1,35 @@
+# Clip 2 · "Why do you think you don't feel your mushroom coffee?" (35.8 s)
+# One caption per line. " / " starts a new line inside the caption; the *starred* line is the key
+# words (large gold italic), the rest is the lead-in (small capitals). Options in {braces}.
+# After editing: python3 video/founder-clips/build-captions.py video/founder-clips/2-why-you-dont-feel-mushroom-coffee
+# Written as spoken, with "100 mg" for "100 milligrams". The clip itself is cut in the middle of
+# its last sentence ("...a recipe and a formula like"), so the last caption trails off with it.
+# Jump cuts in the footage, as the first frame of each new shot (found by comparing each frame with the one before):
+@cuts 269 445 780
+WHY DO YOU THINK / YOU DON’T FEEL YOUR / *mushroom coffee?*
+WELL, TYPICALLY, BECAUSE / *mushroom coffee*
+BRANDS WILL ADD ABOUT / *half* {big}
+THE AMOUNT OF / *caffeine*
+AS A REGULAR / *cup of coffee*
+THE / *Mate Latte* {offer}
+HAS / *100 mg* {big}
+OF / *natural caffeine*
+AND IT’S ALL FROM / *yerba mate* {offer}
+AND / *not coffee*
+AND WHAT IS THE / *difference* / BETWEEN CAFFEINE
+FROM / *yerba mate*
+AND CAFFEINE FROM / *coffee?*
+WELL, YOU DON’T GET / *the jitters*
+*the anxiety*
+AND / *the crash*
+THAT A LOT OF TIMES / YOU GET WITH / *coffee*
+YERBA MATE IS A / *clean, sustained*
+*energy source*
+AND WE CREATED IT INTO / *a latte* {offer}
+AND MIXED IN / *L-theanine* {offer}
+WHICH HELPS LOWER / *levels of stress*
+AND / *Lion’s Mane* {offer}
+WHICH HELPS WITH / *mental focus*
+AND / *clarity*
+TO GIVE YOU / *a recipe*
+AND / *a formula like…*

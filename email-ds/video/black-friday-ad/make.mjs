@@ -2,7 +2,9 @@
 //
 // Burns Milonga-styled captions into the presenter-to-camera ad. The captions are drawn in the
 // browser, one transparent frame per video frame, then laid over the footage with ffmpeg; the
-// picture underneath and the sound are otherwise untouched. No logo is added (Bernat, 2026-11-24).
+// picture underneath is otherwise untouched. No logo is added (Bernat, 2026-11-24).
+// The swear word in the sofa line is bleeped (Bernat, 2026-11-28): captions.json lists the span,
+// and a 1 kHz tone takes the place of the voice for it. The rest of the sound is the original.
 //
 // The caption system is the brand's own headline, set in motion: the two typefaces the emails
 // pair, used the way the emails use them.
@@ -26,6 +28,10 @@
 // Usage, from email-ds/:
 //   node video/black-friday-ad/make.mjs <source video> [--preview]
 //     --preview   only write preview.jpg (captions over stills) and captions.srt, no video
+//     --paid      the cut for paid ads: a word that has a "paid" spelling in captions.json is drawn
+//                 that way (the masked swear word becomes a solid bar, because Meta's ad rules allow
+//                 bleeped sound but not profanity spelled with symbols). Writes only
+//                 black-friday-ad-captioned-paid.mp4; the preview and the .srt are left alone.
 // Writes, next to this script: black-friday-ad-captioned.mp4, captions.srt, preview.jpg
 // Needs ffmpeg on the PATH. CHROME=/path/to/chrome if Playwright has no browser of its own.
 import fs from 'node:fs';
@@ -40,10 +46,13 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DS = path.resolve(HERE, '../..'); // email-ds/
 const args = process.argv.slice(2);
 const PREVIEW = args.includes('--preview');
+const PAID = args.includes('--paid');
 const SRC = args.find((a) => !a.startsWith('--'));
 if (!SRC || !fs.existsSync(SRC)) { console.error('usage: node video/black-friday-ad/make.mjs <source video> [--preview]'); process.exit(1); }
 
-const { captions } = JSON.parse(fs.readFileSync(`${HERE}/captions.json`, 'utf8'));
+const { captions: written, bleeps = [] } = JSON.parse(fs.readFileSync(`${HERE}/captions.json`, 'utf8'));
+// a word is [text, start] or [text, start, { paid: text for the paid cut }]
+const captions = written.map((c) => ({ ...c, lines: c.lines.map(([kind, ws]) => [kind, ws.map(([text, t, alt]) => [PAID && alt?.paid ? alt.paid : text, t])]) }));
 const W = 1080, H = 1920, FPS = 30;
 // the band of the frame the captions can occupy; only this is rendered per frame
 const STRIP = { top: 600, height: 1040 };
@@ -65,6 +74,9 @@ html, body { margin: 0; background: transparent; }
   background: radial-gradient(closest-side, rgba(0, 26, 13, .50) 0%, rgba(0, 26, 13, .34) 46%, rgba(0, 26, 13, .12) 76%, rgba(0, 26, 13, 0) 100%); }
 .line { display: flex; white-space: nowrap; transform-origin: 50% 55%; will-change: transform, opacity; }
 .w { display: inline-block; transform-origin: 50% 70%; }
+/* a censor bar: a run of full blocks in a word is drawn as one solid bar, cap-high, in the line's own ink */
+.bar { display: inline-block; height: .73em; margin-right: .13em; border-radius: .07em; background: currentColor; vertical-align: baseline;
+  box-shadow: 0 2px 0 rgba(0, 26, 13, .6), 0 5px 16px rgba(0, 20, 10, .7); }
 
 /* caps: the eyebrow. Small, heavy, widely tracked, cream */
 .caps { gap: .42em; font-family: Gotham, sans-serif; font-weight: 900; font-size: 45px; line-height: 1.16; letter-spacing: .13em; text-transform: uppercase; color: ${BEIGE};
@@ -84,6 +96,7 @@ html, body { margin: 0; background: transparent; }
 /* on a light background the ink turns forest and the shadow turns to light */
 .dark::before { background: radial-gradient(closest-side, rgba(251, 248, 239, .62) 0%, rgba(251, 248, 239, .4) 50%, rgba(251, 248, 239, 0) 100%); }
 .dark .caps, .dark .ital { color: ${FOREST}; text-shadow: 0 2px 0 rgba(255, 255, 255, .45), 0 0 22px rgba(251, 248, 239, .9); }
+.dark .bar { box-shadow: 0 2px 0 rgba(255, 255, 255, .45), 0 0 22px rgba(251, 248, 239, .9); }
 </style></head><body><div id="stage"></div>
 <script>
 const CAPS = ${JSON.stringify(captions)};
@@ -94,7 +107,12 @@ const els = CAPS.map((c) => {
   el.className = 'cap' + (c.size ? ' ' + c.size : '') + (c.ink === 'dark' ? ' dark' : '');
   c.rows = c.lines.map(([kind, words]) => {
     const l = document.createElement('div'); l.className = 'line ' + kind;
-    const ws = words.map(([text, t]) => { const w = document.createElement('span'); w.className = 'w'; w.textContent = text; l.appendChild(w); return { el: w, t }; });
+    const ws = words.map(([text, t]) => { const w = document.createElement('span'); w.className = 'w';
+      text.split(/(\u2588+)/).forEach((part) => {
+        if (part[0] === '\u2588') { const b = document.createElement('i'); b.className = 'bar'; b.style.width = part.length * 0.8 + 'em'; w.appendChild(b); }
+        else if (part) w.appendChild(document.createTextNode(part));
+      });
+      l.appendChild(w); return { el: w, t }; });
     el.appendChild(l);
     return { el: l, kind, words: ws, start: ws[0].t - LEAD };
   });
@@ -161,6 +179,9 @@ const shot = async (t) => { await page.evaluate((x) => window.setTime(x), t); re
 const words = (c) => c.lines.flatMap(([, ws]) => ws);
 
 // ── preview: one still per caption, taken once every word of it has been said ──
+// (The paid cut takes the same stills and throws them away: the browser draws type a hair
+// differently depending on what it drew before, and this keeps the two cuts identical everywhere
+// but the one word that differs.)
 {
   const tiles = [];
   for (const [i, c] of captions.entries()) {
@@ -175,17 +196,33 @@ const words = (c) => c.lines.flatMap(([, ws]) => ws);
   const cols = 6, rows = Math.ceil(tiles.length / cols), tw = 360, th = 640, gap = 10;
   await sharp({ create: { width: cols * (tw + gap) + gap, height: rows * (th + gap) + gap, channels: 3, background: '#1b1b1b' } })
     .composite(tiles.map((input, i) => ({ input, left: gap + (i % cols) * (tw + gap), top: gap + Math.floor(i / cols) * (th + gap) })))
-    .jpeg({ quality: 88 }).toFile(`${HERE}/preview.jpg`);
-  console.log('wrote', `${HERE}/preview.jpg`, `(${tiles.length} stills)`);
+    .jpeg({ quality: 88 }).toFile(PAID ? `${tmp}/preview.jpg` : `${HERE}/preview.jpg`);
+  if (!PAID) console.log('wrote', `${HERE}/preview.jpg`, `(${tiles.length} stills)`);
 }
 
 // ── captions.srt, for uploading as a caption track where a platform takes one ──
-{
+if (!PAID) {
   const ts = (t) => { const ms = Math.round(t * 1000); const p = (n, l = 2) => String(n).padStart(l, '0'); return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
   const srt = captions.map((c, i) => `${i + 1}\n${ts(words(c)[0][1])} --> ${ts(c.end)}\n${c.lines.map(([, ws]) => ws.map((w) => w[0]).join(' ')).join('\n')}\n`).join('\n');
   fs.writeFileSync(`${HERE}/captions.srt`, srt);
   console.log('wrote', `${HERE}/captions.srt`);
 }
+
+// ── sound ──
+// With no bleeps the track is copied as it is. With bleeps ([{ from, to, level }], in seconds) the
+// voice is swapped for a 1 kHz tone over each span: the voice fades out and the tone in over 8 ms
+// at each end, so there is no click and nothing of the word is left under the tone. Every sample
+// outside the spans is the original; the track is then encoded again (AAC, 192 kb/s).
+const sound = () => {
+  if (!bleeps.length) return { graph: '', args: ['-map', '0:a', '-c:a', 'copy'] };
+  const channels = Number(execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'a:0', '-show_entries', 'stream=channels', '-of', 'default=nw=1:nk=1', SRC]).toString());
+  const D = 0.008;
+  // 0 outside a bleep, 1 inside it, ramping over D seconds at each end; eased below so the ramp has no corners
+  const env = bleeps.map(({ from, to }) => `clip((t-${from})/${D},0,1)*clip((${to}-t)/${D},0,1)`).join('+');
+  const tone = bleeps.map(({ from, to, level = 0.2 }) => `${level}*sin(2*PI*1000*(t-${from}))*between(t,${from},${to})`).join('+');
+  const expr = (ch) => `st(0,${env});st(1,ld(0)*ld(0)*(3-2*ld(0)));val(${ch})*(1-ld(1))+(${tone})*ld(1)`;
+  return { graph: `;[0:a]aeval=exprs='${Array.from({ length: channels }, (_, ch) => expr(ch)).join('|')}':c=same[a]`, args: ['-map', '[a]', '-c:a', 'aac', '-b:a', '192k'] };
+};
 
 if (!PREVIEW) {
   const dur = Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', SRC]).toString());
@@ -195,14 +232,15 @@ if (!PREVIEW) {
     fs.writeFileSync(`${tmp}/f/${String(i).padStart(5, '0')}.png`, await shot(i / FPS));
     if (i % 150 === 0) console.log(`  caption frames ${i}/${frames}`);
   }
-  const out = `${HERE}/black-friday-ad-captioned.mp4`;
+  const out = `${HERE}/black-friday-ad-captioned${PAID ? '-paid' : ''}.mp4`;
   // The overlay is RGB; it is converted to the footage's own BT.709 so the brand colours land
-  // where they should. Sound is copied, not re-encoded.
+  // where they should.
+  const snd = sound();
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', SRC, '-framerate', String(FPS), '-i', `${tmp}/f/%05d.png`,
     '-filter_complex',
-    `[1:v]scale=out_color_matrix=bt709:out_range=tv,format=yuva444p[cap];[0:v][cap]overlay=0:${STRIP.top}:eof_action=pass,format=yuv420p[v]`,
-    '-map', '[v]', '-map', '0:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-r', String(FPS),
-    '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709', '-c:a', 'copy', '-movflags', '+faststart', out], { stdio: 'inherit' });
+    `[1:v]scale=out_color_matrix=bt709:out_range=tv,format=yuva444p[cap];[0:v][cap]overlay=0:${STRIP.top}:eof_action=pass,format=yuv420p[v]${snd.graph}`,
+    '-map', '[v]', ...snd.args, '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-r', String(FPS),
+    '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709', '-movflags', '+faststart', out], { stdio: 'inherit' });
   console.log('wrote', out);
 }
 await browser.close();
